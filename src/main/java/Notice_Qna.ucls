@@ -6,8 +6,8 @@
     <position height="440" width="692" x="350" y="327"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <class id="2" language="java" name="com.donzzul.spring.noticeqna.service.logic.NoticeQnaServiceImpl" project="donzzul" 
-    file="/donzzul/src/main/java/com/donzzul/spring/noticeqna/service/logic/NoticeQnaServiceImpl.java" binary="false" 
+  <class id="2" language="java" name="com.donzzul.spring.noticeqna.service.logic.NoticeQaServiceImpl" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/noticeqna/service/logic/NoticeQaServiceImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="689" y="640"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
