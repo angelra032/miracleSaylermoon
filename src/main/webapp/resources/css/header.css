@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*  */
+header {
+    width: 1920px;
+    margin: 0 auto;
+    
+}
+
+/* 스크롤 전 헤더 */
+.fixed-header-navi {
+    width: 1920px;
+    height: 100px;
+    border-bottom: #ffffff 1px solid;
+}
+/* 스크롤 후 헤더 */
+
+
+/* 로고 */
+.header-logo-area {
+    width: 113px;
+    height: 46px;
+    margin: 30px 0 30px 162px;
+    float: left;
+    cursor: pointer;
+}
+    .header-logo-area > img {
+        width: 113px;
+        height: 46px;
+    }
+
+/* 메인 탑메뉴(돈쭐소개, 지도조회, 가게검색, 커뮤니티) */
+.header-menu-area {
+    width: 550px;
+    height: 20px;
+    margin: 45px 0 45px 411px;
+    float: left;
+    font-size: 18px;
+    font-family: 'Jal_Onuel';
+}
+    .header-menu-area > ul {
+        margin: 0;
+        float: left;
+    }
+    .header-menu-area > ul > li {
+        list-style: none;
+        float: left;
+        margin : 0 30px;
+    }
+    .header-menu-area > ul > li:not(:nth-last-child(1)) {
+        /* margin-right: 20px; */
+    }
+    .header-menu-area a {
+        color: #ffffff;
+        text-decoration-line: none;
+    }
+
+
+    /* 회원가입, 로그인 */
+    .header-submenu-area {
+        width: 169px;
+        height: 20px;
+        margin: 38px 0 0 382px; /* 메뉴창이랑 로그인 회원가입이 일자가 아니라면 여길수정  */
+        float: left;
+        font-size: 18px;
+        font-family: 'Noto Sans KR';
+        font-weight: bold;
+    }
+        .header-submenu-area a {
+            color: #ffffff;
+            text-decoration-line: none;
+            margin : 0 0 0 20px;
+        }
+
+    /* 백그라운드 이미지 */
+    .header-background-area {
+        width: 1920px;
+        height: 278px;
+        margin: 0 auto;
+    }
+        .header-background-area > img {
+            position: absolute;
+            z-index: -5;
+            display: block;
+            top: 0;
+        }
+
+
+/* 헤더 끝, 메인 타이틀설정! */
+#main-title {
+    width: 1920px;
+    height: 278px;
+    font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+	top: 101px;
+    line-height: 4.7;
+}
+
+/* 각자 css에서 **main height** 지정하고 사용하기 */
+main {
+    width: 1920px;
+    margin: 0 auto;
+}
