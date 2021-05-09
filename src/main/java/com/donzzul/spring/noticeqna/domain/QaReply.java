@@ -5,5 +5,5 @@ public class QaReply {
 	private String qaReplySubtitle;
 	private String qaReplyContent;
 	private String userType; // char
-	private int notiQaNo;
+	private int notiQaNo; // 공지문의글번호
 }

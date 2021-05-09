@@ -1,24 +1,28 @@
 package com.donzzul.spring.noticeqna.domain;
 
+import java.sql.Date;
+
 public class NoticeQa {
 	private int noticeQaNo;
 	private String noticeQaTitle;
 	private String noticeQaContent;
-	private String boardType; // char
-	private String boardPrivate; // char
-	private int partnerNo;
+	private Date notiQaDate;
+	private String boardTypeNq; // char
+	private String boardPublicYn; // char
+	private int partnerNo; // 회원번호
 	private String userType; // char
 	
 	public NoticeQa() {}
 
-	public NoticeQa(int noticeQaNo, String noticeQaTitle, String noticeQaContent, String boardType, String boardPrivate,
-			int partnerNo, String userType) {
+	public NoticeQa(int noticeQaNo, String noticeQaTitle, String noticeQaContent, Date notiQaDate, String boardTypeNq,
+			String boardPublicYn, int partnerNo, String userType) {
 		super();
 		this.noticeQaNo = noticeQaNo;
 		this.noticeQaTitle = noticeQaTitle;
 		this.noticeQaContent = noticeQaContent;
-		this.boardType = boardType;
-		this.boardPrivate = boardPrivate;
+		this.notiQaDate = notiQaDate;
+		this.boardTypeNq = boardTypeNq;
+		this.boardPublicYn = boardPublicYn;
 		this.partnerNo = partnerNo;
 		this.userType = userType;
 	}
@@ -47,20 +51,28 @@ public class NoticeQa {
 		this.noticeQaContent = noticeQaContent;
 	}
 
-	public String getBoardType() {
-		return boardType;
+	public Date getNotiQaDate() {
+		return notiQaDate;
 	}
 
-	public void setBoardType(String boardType) {
-		this.boardType = boardType;
+	public void setNotiQaDate(Date notiQaDate) {
+		this.notiQaDate = notiQaDate;
 	}
 
-	public String getBoardPrivate() {
-		return boardPrivate;
+	public String getBoardTypeNq() {
+		return boardTypeNq;
 	}
 
-	public void setBoardPrivate(String boardPrivate) {
-		this.boardPrivate = boardPrivate;
+	public void setBoardTypeNq(String boardTypeNq) {
+		this.boardTypeNq = boardTypeNq;
+	}
+
+	public String getBoardPublicYn() {
+		return boardPublicYn;
+	}
+
+	public void setBoardPublicYn(String boardPublicYn) {
+		this.boardPublicYn = boardPublicYn;
 	}
 
 	public int getPartnerNo() {
@@ -82,9 +94,10 @@ public class NoticeQa {
 	@Override
 	public String toString() {
 		return "NoticeQa [noticeQaNo=" + noticeQaNo + ", noticeQaTitle=" + noticeQaTitle + ", noticeQaContent="
-				+ noticeQaContent + ", boardType=" + boardType + ", boardPrivate=" + boardPrivate + ", partnerNo="
-				+ partnerNo + ", userType=" + userType + "]";
+				+ noticeQaContent + ", notiQaDate=" + notiQaDate + ", boardTypeNq=" + boardTypeNq + ", boardPublicYn="
+				+ boardPublicYn + ", partnerNo=" + partnerNo + ", userType=" + userType + "]";
 	}
+
 	
 	
 	
