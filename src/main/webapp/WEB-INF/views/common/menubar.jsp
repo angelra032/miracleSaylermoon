@@ -35,10 +35,6 @@
     <div class="header-background-area">
         <img src="resources/images/mapListMain.png" alt="뒷배경이미지">
     </div>
-    <main>
-        <div id="main-title">지도조회</div>
-
-    </main>
 </body>
 <script>
     $(document).ready(function(){
