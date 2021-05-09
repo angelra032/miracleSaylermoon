@@ -2,19 +2,18 @@ package com.donzzul.spring.reservation.domain;
 
 public class Reservation {
 
-	private int reserveNo;
-	private int shopNo;
-	private char usertype;
-	private int userNo;
-	private String reserveDate;
-	private int reserveTime;
-	private int reserveCount;
-	private String pointYn;
-	private int point;
-	private int userNo2;
+	private int reserveNo; // 예약번호
+	private int shopNo; //가게고유번호
+	private char usertype; //회원타입
+	private int userNo; // 회원고유번호
+	private String reserveDate; //예약날짜
+	private int reserveTime; //예약시간
+	private int reserveCount; //예약인원수
+	private String pointYn; // 포인트사용여부
+	private int point; //포인트
 	
 	public Reservation(int reserveNo, int shopNo, char usertype, int userNo, String reserveDate, int reserveTime,
-			int reserveCount, String pointYn, int point, int userNo2) {
+			int reserveCount, String pointYn, int point) {
 		super();
 		this.reserveNo = reserveNo;
 		this.shopNo = shopNo;
@@ -25,7 +24,6 @@ public class Reservation {
 		this.reserveCount = reserveCount;
 		this.pointYn = pointYn;
 		this.point = point;
-		this.userNo2 = userNo2;
 	}
 
 	public int getReserveNo() {
@@ -100,19 +98,12 @@ public class Reservation {
 		this.point = point;
 	}
 
-	public int getUserNo2() {
-		return userNo2;
-	}
-
-	public void setUserNo2(int userNo2) {
-		this.userNo2 = userNo2;
-	}
 
 	@Override
 	public String toString() {
 		return "Reservation [reserveNo=" + reserveNo + ", shopNo=" + shopNo + ", usertype=" + usertype + ", userNo="
 				+ userNo + ", reserveDate=" + reserveDate + ", reserveTime=" + reserveTime + ", reserveCount="
-				+ reserveCount + ", pointYn=" + pointYn + ", point=" + point + ", userNo2=" + userNo2 + "]";
+				+ reserveCount + ", pointYn=" + pointYn + ", point=" + point + "]";
 	}
 	
 	
