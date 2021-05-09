@@ -2,25 +2,32 @@ package com.donzzul.spring.shop.store.logic;
 
 import java.util.ArrayList;
 
+import com.donzzul.spring.review.domain.ReviewDreamMzAll;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.store.ShopStore;
 
 public class ShopStoreLogic implements ShopStore {
 
 	@Override
-	public ArrayList<Shop> selectShopAll() {
+	public ArrayList<Shop> searchShop(String searchKeyWord) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Shop> selectShopTheme(int themeNo) {
+	public ArrayList<Shop> searchShopTheme(int themeNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Shop selectShopOne(String userId, String userType) {
+	public Shop selectShopOne(int shopNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<ReviewDreamMzAll> selectReviewAll(int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -30,5 +37,5 @@ public class ShopStoreLogic implements ShopStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

@@ -11,9 +11,7 @@ public class Shop {
 	private String shopAddr;
 	private String shopTarget;
 	private String shopProduct;
-	private String shopMainMenu;
-	private String shopMenu;
-	private String shopPrice;
+	private String shopType;
 	private String shopFileName;
 	private String shopFilePath;
 	private long shopFileSize;
@@ -30,13 +28,40 @@ public class Shop {
 	private String startTime;
 	private String endTime;
 	private String dayOff;
-	private int menuFileNo;
-	private String menuFileName;
-	private String menuFilePath;
-	private long menuFileSize;
-	private Timestamp menuUploadTime;
 	
 	public Shop() {}
+
+	public Shop(int shopNo, int reserveNo, String shopName, String shopShortAddr, String shopAddr, String shopTarget,
+			String shopProduct, String shopType, String shopFileName, String shopFilePath, long shopFileSize,
+			Timestamp shopUploadTime, int shopPhone, String shopParkingYn, int shopMaxReservation, String shopContent,
+			String shopLat, String shopLng, int shopPoint, int partnerNo, int donNo, String startTime, String endTime,
+			String dayOff) {
+		super();
+		this.shopNo = shopNo;
+		this.reserveNo = reserveNo;
+		this.shopName = shopName;
+		this.shopShortAddr = shopShortAddr;
+		this.shopAddr = shopAddr;
+		this.shopTarget = shopTarget;
+		this.shopProduct = shopProduct;
+		this.shopType = shopType;
+		this.shopFileName = shopFileName;
+		this.shopFilePath = shopFilePath;
+		this.shopFileSize = shopFileSize;
+		this.shopUploadTime = shopUploadTime;
+		this.shopPhone = shopPhone;
+		this.shopParkingYn = shopParkingYn;
+		this.shopMaxReservation = shopMaxReservation;
+		this.shopContent = shopContent;
+		this.shopLat = shopLat;
+		this.shopLng = shopLng;
+		this.shopPoint = shopPoint;
+		this.partnerNo = partnerNo;
+		this.donNo = donNo;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.dayOff = dayOff;
+	}
 
 	public int getShopNo() {
 		return shopNo;
@@ -94,28 +119,12 @@ public class Shop {
 		this.shopProduct = shopProduct;
 	}
 
-	public String getShopMainMenu() {
-		return shopMainMenu;
+	public String getShopType() {
+		return shopType;
 	}
 
-	public void setShopMainMenu(String shopMainMenu) {
-		this.shopMainMenu = shopMainMenu;
-	}
-
-	public String getShopMenu() {
-		return shopMenu;
-	}
-
-	public void setShopMenu(String shopMenu) {
-		this.shopMenu = shopMenu;
-	}
-
-	public String getShopPrice() {
-		return shopPrice;
-	}
-
-	public void setShopPrice(String shopPrice) {
-		this.shopPrice = shopPrice;
+	public void setShopType(String shopType) {
+		this.shopType = shopType;
 	}
 
 	public String getShopFileName() {
@@ -246,46 +255,16 @@ public class Shop {
 		this.dayOff = dayOff;
 	}
 
-	public int getMenuFileNo() {
-		return menuFileNo;
+	@Override
+	public String toString() {
+		return "Shop [shopNo=" + shopNo + ", reserveNo=" + reserveNo + ", shopName=" + shopName + ", shopShortAddr="
+				+ shopShortAddr + ", shopAddr=" + shopAddr + ", shopTarget=" + shopTarget + ", shopProduct="
+				+ shopProduct + ", shopType=" + shopType + ", shopFileName=" + shopFileName + ", shopFilePath="
+				+ shopFilePath + ", shopFileSize=" + shopFileSize + ", shopUploadTime=" + shopUploadTime
+				+ ", shopPhone=" + shopPhone + ", shopParkingYn=" + shopParkingYn + ", shopMaxReservation="
+				+ shopMaxReservation + ", shopContent=" + shopContent + ", shopLat=" + shopLat + ", shopLng=" + shopLng
+				+ ", shopPoint=" + shopPoint + ", partnerNo=" + partnerNo + ", donNo=" + donNo + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", dayOff=" + dayOff + "]";
 	}
-
-	public void setMenuFileNo(int menuFileNo) {
-		this.menuFileNo = menuFileNo;
-	}
-
-	public String getMenuFileName() {
-		return menuFileName;
-	}
-
-	public void setMenuFileName(String menuFileName) {
-		this.menuFileName = menuFileName;
-	}
-
-	public String getMenuFilePath() {
-		return menuFilePath;
-	}
-
-	public void setMenuFilePath(String menuFilePath) {
-		this.menuFilePath = menuFilePath;
-	}
-
-	public long getMenuFileSize() {
-		return menuFileSize;
-	}
-
-	public void setMenuFileSize(long menuFileSize) {
-		this.menuFileSize = menuFileSize;
-	}
-
-	public Timestamp getMenuUploadTime() {
-		return menuUploadTime;
-	}
-
-	public void setMenuUploadTime(Timestamp menuUploadTime) {
-		this.menuUploadTime = menuUploadTime;
-	}
-	
-	
 	
 }
