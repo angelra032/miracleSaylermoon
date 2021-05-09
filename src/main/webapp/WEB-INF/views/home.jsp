@@ -2,9 +2,10 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>index</title>
 </head>
 <body>
+	<jsp:include page="./common/menubar.jsp"></jsp:include>
 <h1>
 	Hello world!  
 </h1>

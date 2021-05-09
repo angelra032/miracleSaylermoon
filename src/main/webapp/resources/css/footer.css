@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    width: 1920px;
+    height: 382px;
+    background-color: #333333;
+    margin: 0 auto;
+}
+
+.fixed-header-navi {
+    height: 100px;
+    border-bottom: red solid 1px;
+}
+
+/* 푸터 탑(로고, 텍스트) */
+.header-top-area {
+    height: 229px;
+    border-bottom: #f0f1f3 1px solid;
+}
+
+/* 푸터로고 */
+.footer-logo-area {
+
+}
+    .footer-logo-area > img {
+        width: 113px;
+        height: 46px;       
+        margin: 60px 0 0 172px;
+    }
+
+/* 푸터 텍스트 */
+.footer-text-box {
+    width: 510px;
+    height: 50px;
+    margin : 20px 0 20px 172px;
+    font-size: 14px;
+    font-family: 'Noto Sans KR';
+    color: #888888;
+}
+    .footer-text-box > ul {
+        margin: 0;
+        padding: 0;
+    }
+    .footer-text-box > ul > li {
+        list-style: none;
+        float: left;
+        margin-top: 8px;
+        padding: 0 6px 0 6px;
+        position: relative;
+    }
+
+    li::before{
+        content: '';
+        display: block;
+        clear: both;
+        position: absolute;
+        left: 0;
+        top: 46%;
+        width: 1px;
+        height: 14px;
+        margin-top: -7px;
+        background-color: #969696;
+    }
+    li:first-child{
+        padding-left: 0;
+    }
+    li:first-child::before{
+        display: none;
+    }
+
+.header-bottom-area {
+    height: 152px;
+}
+    .header-bottom-area > p {
+        margin: 35px 0 0 173px;
+        color: #cacaca;
+        font-size: 16px;
+        font-family: 'Noto Sans KR';
+    }
+
+
