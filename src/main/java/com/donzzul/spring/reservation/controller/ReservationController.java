@@ -22,7 +22,7 @@ public class ReservationController {
 	
 	// 예약할때 받아와야할 값
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
-	@RequestMapping(value="reservationInsert.do", method=RequestMethod.POST)
+	@RequestMapping(value="reservationInsert.kh", method=RequestMethod.POST)
 	public String reservationInsert(@ModelAttribute Reservation reservation) {
 		int result = service.insertReservation(reservation);
 		if(result > 0) {
@@ -33,18 +33,28 @@ public class ReservationController {
 		return "";
 	}
 	
-	//회원별 예약목록 불러오기
+	//꿈나무회원별 예약목록 불러오기
 	// int reserveNo, int userNo로 예약목록 불러오기
-	@RequestMapping(value="ListByUser.do", method = RequestMethod.GET)
-	public String reservationListByUser(@RequestParam("reservationNo") int reservationNo,
+	@RequestMapping(value="ListByDream.kh", method = RequestMethod.GET)
+	public String reservationListByDream(@RequestParam("reservationNo") int reservationNo,
 										@RequestParam("userNo") int userNo){
 		HashMap<String, String> result = service.reservaionListByUser(reservationNo, userNo);
 		return "";
 	}
 	
+	// ma회원별 예약목록 불러오기
+	@RequestMapping(value="ListByMZ.kh", method = RequestMethod.GET)
+	public String reservationListByMZ(@RequestParam("reservationNo") int reservationNo,
+									@RequestParam("userNo") int userNo) {
+//		HashMap<String, String> result = service.reser
+// 
+		return "";	
+	}
+	
+	
 	// 가게별 예약목록 불러오기
 	// int reserveNo, int ShopNo
-	@RequestMapping(value="ListByShop.do", method = RequestMethod.GET)
+	@RequestMapping(value="ListByShop.kh", method = RequestMethod.GET)
 	public String reservationListByShop(@RequestParam("reservationNo") int reservationNo,
 										@RequestParam("shopNo") int shopNo) {
 		HashMap<String, String>result = service.reservaionListByShop(reservationNo, shopNo);
@@ -52,7 +62,7 @@ public class ReservationController {
 	}
 	
 	// 예약취소 int reserveNo
-	@RequestMapping(value="deleteReservation.do", method = RequestMethod.GET)
+	@RequestMapping(value="deleteReservation.kh", method = RequestMethod.GET)
 	public String deleteReservation(@RequestParam("reservationNo") int reservationNo) {
 		int result = service.deleteReservation(reservationNo);
 		if(result > 0) {
