@@ -5,18 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <!-- css -->
-    <link rel="stylesheet" href="resources/css/header.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="/resources/css/header.css"> 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>헤더</title>
+    <title>헤더 </title>
 </head>
 <body>
     <header>
         <div class="fixed-header-navi">
             <div class="header-logo-area" onclick="location.href='#'">
                 <!-- visual에서 작업함 경로수정필요!! -->
-                <img src="resources/images/logo.png" alt="로고">
+                <img src="/resources/images/logo.png" alt="로고">
             </div>
             <div class="header-menu-area">
                 <ul>
@@ -33,7 +32,7 @@
         </div>
     </header>
     <div class="header-background-area">
-        <img src="resources/images/mapListMain.png" alt="뒷배경이미지">
+        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
     </div>
 </body>
 <script>
@@ -55,14 +54,14 @@
             $('.fixed-header-navi').css("position" , "fixed");
             $('.header-menu-area a').css('color', '#333333');
             $('.header-submenu-area a').css('color', '#333333');
-            $(".header-logo-area img").attr("src", 'resources/images/logo-color.png');
+            $(".header-logo-area img").attr("src", '/resources/images/logo-color.png');
         }
         // 스크롤 위로
         function scrollUpEvent() {
             $(".fixed-header-navi").css("background" , "");
             $('.header-menu-area a').css('color', '#ffffff');
             $('.header-submenu-area a').css('color', '#ffffff');
-            $(".header-logo-area img").attr("src", 'resources/images/logo.png');
+            $(".header-logo-area img").attr("src", '/resources/images/logo.png');
         }
 
     });

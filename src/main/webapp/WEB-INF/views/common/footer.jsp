@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
     <!-- css -->
-    <link rel="stylesheet" href="resources/css/footer.css">
-<title>Insert title here</title>
+    <link rel="stylesheet" href="/resources/css/footer.css">
+<title>푸터</title>
 </head>
 <body>
 	<footer>
         <div class="header-top-area">
             <div class="footer-logo-area">
-                <img src="resources/images/logoG.png" alt="돈쭐로고">
+                <img src="/resources/images/logoG.png" alt="돈쭐로고">
             </div>
             <div class="footer-text-box">
                 <ul>
