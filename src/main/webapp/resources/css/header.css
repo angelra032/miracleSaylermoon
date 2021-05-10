@@ -16,6 +16,7 @@
 /*  */
 header {
     width: 1920px;
+    height: 378px;
     margin: 0 auto;
     
 }
@@ -88,7 +89,6 @@ header {
     /* 백그라운드 이미지 */
     .header-background-area {
         width: 1920px;
-        height: 278px;
         margin: 0 auto;
     }
         .header-background-area > img {
@@ -110,6 +110,7 @@ header {
     position: absolute;
 	top: 101px;
     line-height: 4.7;
+    z-index: -2;
 }
 
 /* 각자 css에서 **main height** 지정하고 사용하기 */
