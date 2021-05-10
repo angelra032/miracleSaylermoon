@@ -17,25 +17,25 @@ public class Shop {
 	private long shopFileSize;
 	private Timestamp shopUploadTime;
 	private int shopPhone;
-	private String shopParkingYn;
-	private int shopMaxReservation;
+	private String shopParking;
+	private int shopMaxReserv;
 	private String shopContent;
 	private String shopLat;
 	private String shopLng;
 	private int shopPoint;
-	private int partnerNo;
+	private int userNo;
 	private int donNo;
 	private String startTime;
 	private String endTime;
-	private String dayOff;
+	private int businessDay;
 	
 	public Shop() {}
 
 	public Shop(int shopNo, int reserveNo, String shopName, String shopShortAddr, String shopAddr, String shopTarget,
 			String shopProduct, String shopType, String shopFileName, String shopFilePath, long shopFileSize,
-			Timestamp shopUploadTime, int shopPhone, String shopParkingYn, int shopMaxReservation, String shopContent,
-			String shopLat, String shopLng, int shopPoint, int partnerNo, int donNo, String startTime, String endTime,
-			String dayOff) {
+			Timestamp shopUploadTime, int shopPhone, String shopParking, int shopMaxReserv, String shopContent,
+			String shopLat, String shopLng, int shopPoint, int userNo, int donNo, String startTime, String endTime,
+			int businessDay) {
 		super();
 		this.shopNo = shopNo;
 		this.reserveNo = reserveNo;
@@ -50,17 +50,17 @@ public class Shop {
 		this.shopFileSize = shopFileSize;
 		this.shopUploadTime = shopUploadTime;
 		this.shopPhone = shopPhone;
-		this.shopParkingYn = shopParkingYn;
-		this.shopMaxReservation = shopMaxReservation;
+		this.shopParking = shopParking;
+		this.shopMaxReserv = shopMaxReserv;
 		this.shopContent = shopContent;
 		this.shopLat = shopLat;
 		this.shopLng = shopLng;
 		this.shopPoint = shopPoint;
-		this.partnerNo = partnerNo;
+		this.userNo = userNo;
 		this.donNo = donNo;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.dayOff = dayOff;
+		this.businessDay = businessDay;
 	}
 
 	public int getShopNo() {
@@ -167,20 +167,20 @@ public class Shop {
 		this.shopPhone = shopPhone;
 	}
 
-	public String getShopParkingYn() {
-		return shopParkingYn;
+	public String getShopParking() {
+		return shopParking;
 	}
 
-	public void setShopParkingYn(String shopParkingYn) {
-		this.shopParkingYn = shopParkingYn;
+	public void setShopParking(String shopParking) {
+		this.shopParking = shopParking;
 	}
 
-	public int getShopMaxReservation() {
-		return shopMaxReservation;
+	public int getShopMaxReserv() {
+		return shopMaxReserv;
 	}
 
-	public void setShopMaxReservation(int shopMaxReservation) {
-		this.shopMaxReservation = shopMaxReservation;
+	public void setShopMaxReserv(int shopMaxReserv) {
+		this.shopMaxReserv = shopMaxReserv;
 	}
 
 	public String getShopContent() {
@@ -215,12 +215,12 @@ public class Shop {
 		this.shopPoint = shopPoint;
 	}
 
-	public int getPartnerNo() {
-		return partnerNo;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setPartnerNo(int partnerNo) {
-		this.partnerNo = partnerNo;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	public int getDonNo() {
@@ -247,12 +247,12 @@ public class Shop {
 		this.endTime = endTime;
 	}
 
-	public String getDayOff() {
-		return dayOff;
+	public int getBusinessDay() {
+		return businessDay;
 	}
 
-	public void setDayOff(String dayOff) {
-		this.dayOff = dayOff;
+	public void setBusinessDay(int businessDay) {
+		this.businessDay = businessDay;
 	}
 
 	@Override
@@ -261,10 +261,10 @@ public class Shop {
 				+ shopShortAddr + ", shopAddr=" + shopAddr + ", shopTarget=" + shopTarget + ", shopProduct="
 				+ shopProduct + ", shopType=" + shopType + ", shopFileName=" + shopFileName + ", shopFilePath="
 				+ shopFilePath + ", shopFileSize=" + shopFileSize + ", shopUploadTime=" + shopUploadTime
-				+ ", shopPhone=" + shopPhone + ", shopParkingYn=" + shopParkingYn + ", shopMaxReservation="
-				+ shopMaxReservation + ", shopContent=" + shopContent + ", shopLat=" + shopLat + ", shopLng=" + shopLng
-				+ ", shopPoint=" + shopPoint + ", partnerNo=" + partnerNo + ", donNo=" + donNo + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", dayOff=" + dayOff + "]";
+				+ ", shopPhone=" + shopPhone + ", shopParking=" + shopParking + ", shopMaxReserv=" + shopMaxReserv
+				+ ", shopContent=" + shopContent + ", shopLat=" + shopLat + ", shopLng=" + shopLng + ", shopPoint="
+				+ shopPoint + ", userNo=" + userNo + ", donNo=" + donNo + ", startTime=" + startTime + ", endTime="
+				+ endTime + ", businessDay=" + businessDay + "]";
 	}
 	
 }
