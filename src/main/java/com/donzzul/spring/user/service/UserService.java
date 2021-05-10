@@ -4,9 +4,12 @@ import com.donzzul.spring.user.domain.User;
 
 public interface UserService {
  
-	public User loginMember(User user);
+	public User loginUser(User user);
 	public int checkIdDup(String userId);
-	public int registerMember(User user);
-	public int modifyMember(User user);
-	public int deleteMember(String userId);
+	public int insertUser(User user);
+	public int updateUser(User user);
+	public int deleteUser(String userId);
+	public String findIdView(String userName, String userEmail);
+	public String sendEmail(String userEmail, String userId, String pwCode);
+	public String resetPw(String userId, String userEmail);
 }
