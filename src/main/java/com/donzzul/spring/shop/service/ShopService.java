@@ -21,7 +21,6 @@ public interface ShopService {
 //	public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo); // 가게 전체 후기 가져오기 (MZ 패키지)
 	
 	
-	
 	// 후기 관리
 //	public ArrayList<DreamReview> selectAllDreamReview(int shopNo); // dreamReview 오버로딩
 //	public ArrayList<MzReview> selectAllReview(int shopNo); // selectAllReview 오버로딩 (사진 포함)
