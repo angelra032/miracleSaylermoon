@@ -38,16 +38,15 @@ public class ReservationController {
 	@RequestMapping(value="ListByDream.kh", method = RequestMethod.GET)
 	public String reservationListByDream(@RequestParam("reservationNo") int reservationNo,
 										@RequestParam("userNo") int userNo){
-		HashMap<String, String> result = service.reservaionListByUser(reservationNo, userNo);
+		HashMap<String, String> result = service.reservaionListByDream(reservationNo, userNo);
 		return "";
 	}
 	
-	// ma회원별 예약목록 불러오기
+	// mz회원별 예약목록 불러오기
 	@RequestMapping(value="ListByMZ.kh", method = RequestMethod.GET)
 	public String reservationListByMZ(@RequestParam("reservationNo") int reservationNo,
 									@RequestParam("userNo") int userNo) {
-//		HashMap<String, String> result = service.reser
-// 
+		HashMap<String, String> result = service.reservationListByMZ(reservationNo, userNo);
 		return "";	
 	}
 	

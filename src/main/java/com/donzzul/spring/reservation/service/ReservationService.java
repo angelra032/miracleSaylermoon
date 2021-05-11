@@ -8,7 +8,8 @@ public interface ReservationService {
 
 	// insert / select(by~~) / delete / update 
 	public int insertReservation(Reservation reservation); //예약하기
-	public HashMap<String, String> reservaionListByUser(int reservationNo, int userNo); // 회원별 예약목록 불러오기
+	public HashMap<String, String> reservaionListByDream(int reservationNo, int userNo); // 꿈나무회원별 예약목록 불러오기
+	public HashMap<String, String> reservationListByMZ(int reservationNo, int userNo); // MZ회원별 예약목록 불러오기
 	public HashMap<String, String> reservaionListByShop(int reservationNo, int shopNo); // 가게별 예약목록 불러오기
 	public int deleteReservation(int reservationNo); // 예약취소
 	public int updateReservation(Reservation reservation);// 예약수정하기
