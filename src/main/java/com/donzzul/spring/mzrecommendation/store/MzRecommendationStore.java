@@ -9,5 +9,5 @@ public interface MzRecommendationStore {
 	public MzRecommendation selectOneRecommendation(int recommendationNo);
 	public int insertRecommendation(MzRecommendation recommend);
 	public int updateRecommendation(MzRecommendation recommend);
-	public int deleteRecommendation(MzRecommendation recommend);
+	public int deleteRecommendation(int recommendationNo);
 }

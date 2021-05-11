@@ -2,11 +2,19 @@ package com.donzzul.spring.dreamreview.service.logic;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 
+@Service
 public class DreamReviewServiceImpl implements DreamReviewService {
 
+	@Autowired
+	private DreamReviewStore dreamStore;
+	
 	@Override
 	public ArrayList<DreamReview> selectAllDreamReview() {
 		// TODO Auto-generated method stub
@@ -14,7 +22,7 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	}
 
 	@Override
-	public DreamReview selectOneDreamReview() {
+	public DreamReview selectOneDreamReview(int dreamReviewNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -36,5 +44,10 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+    // dreamReview 오버로딩
+    public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
+        return null;
+    } 
 
 }
