@@ -17,7 +17,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	}
 
 	@Override
-	public DreamReview selectOneDreamReview(int dreamReviewNo) {
+	public DreamReview selectOneDreamReview(int dReviewNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,7 +35,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	}
 
 	@Override
-	public int deleteDreamReview(int dreamReviewNo) {
+	public int deleteDreamReview(int dReviewNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

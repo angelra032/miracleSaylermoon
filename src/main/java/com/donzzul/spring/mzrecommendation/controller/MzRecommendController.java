@@ -12,13 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.mzrecommendation.domain.MzRecommendation;
-import com.donzzul.spring.mzrecommendation.service.MzRecommendationService;
+import com.donzzul.spring.mzrecommendation.service.MzRecommendService;
 
 @Controller
-public class MzRecommendationController {
+public class MzRecommendController {
 	
 	@Autowired
-	private MzRecommendationService mzService;
+	private MzRecommendService mzService;
 	
 	// 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="recommendMain.kh", method=RequestMethod.GET)

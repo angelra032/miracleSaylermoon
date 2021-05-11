@@ -22,7 +22,7 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	}
 
 	@Override
-	public DreamReview selectOneDreamReview(int dreamReviewNo) {
+	public DreamReview selectOneDreamReview(int dReviewNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,7 +40,7 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	}
 
 	@Override
-	public int deleteDreamReview(int dreamReviewNo) {
+	public int deleteDreamReview(int dReviewNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

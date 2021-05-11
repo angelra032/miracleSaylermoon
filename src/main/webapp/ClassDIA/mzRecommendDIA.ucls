@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="com.donzzul.spring.mzrecommendation.controller" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="354" width="634" x="1766" y="412"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="com.donzzul.spring.mzrecommendation.controller.MzRecommendController" 
+    project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/controller/MzRecommendController.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2082" y="620"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="3" language="java" name="com.donzzul.spring.mzrecommendation.domain" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="604" width="449" x="66" y="280"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="4" language="java" name="com.donzzul.spring.mzrecommendation.domain.MzRecommendation" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/domain/MzRecommendation.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="290" y="493"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.donzzul.spring.mzrecommendation.domain.RecommendationPhoto" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/domain/RecommendationPhoto.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="290" y="743"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="6" language="java" name="com.donzzul.spring.mzrecommendation.service" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="297" width="487" x="1218" y="270"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="7" language="java" name="com.donzzul.spring.mzrecommendation.service.MzRecommendService" 
+    project="donzzul" file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/service/MzRecommendService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1462" y="449"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="8" language="java" name="com.donzzul.spring.mzrecommendation.service.logic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/service/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="331" width="526" x="1191" y="601"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="9" language="java" name="com.donzzul.spring.mzrecommendation.service.logic.MzRecommendImpl" 
+    project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/service/logic/MzRecommendImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1452" y="795"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="10" language="java" name="com.donzzul.spring.mzrecommendation.store" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/store" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="310" width="547" x="550" y="242"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="11" language="java" name="com.donzzul.spring.mzrecommendation.store.MzRecommendStore" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/store/MzRecommendStore.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="829" y="419"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="12" language="java" name="com.donzzul.spring.mzrecommendation.store.logic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/store/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="326" width="544" x="559" y="592"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="13" language="java" name="com.donzzul.spring.mzrecommendation.store.logic.MzRecommendStoreLogic" 
+    project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/mzrecommendation/store/logic/MzRecommendStoreLogic.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="831" y="790"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="14">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <association id="15">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="16" name="mzStore"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="19" name="mzService"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="21">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

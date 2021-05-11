@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="com.donzzul.spring.dreamreview.controller" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="427" width="567" x="1492" y="321"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="com.donzzul.spring.dreamreview.controller.DreamReviewController" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/controller/DreamReviewController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1775" y="558"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="3" language="java" name="com.donzzul.spring.dreamreview.domain" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="341" width="394" x="38" y="341"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="4" language="java" name="com.donzzul.spring.dreamreview.domain.DreamReview" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/domain/DreamReview.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="232" y="538"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="5" language="java" name="com.donzzul.spring.dreamreview.service" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="291" width="483" x="947" y="141"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="6" language="java" name="com.donzzul.spring.dreamreview.service.DreamReviewService" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/service/DreamReviewService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1189" y="314"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="7" language="java" name="com.donzzul.spring.dreamreview.service.logic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/service/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="340" width="489" x="944" y="528"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="8" language="java" name="com.donzzul.spring.dreamreview.service.logic.DreamReviewServiceImpl" 
+    project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/service/logic/DreamReviewServiceImpl.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1188" y="724"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="9" language="java" name="com.donzzul.spring.dreamreview.store" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/store" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="309" width="460" x="459" y="141"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="10" language="java" name="com.donzzul.spring.dreamreview.store.DreamReviewStore" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/store/DreamReviewStore.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="685" y="320"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="11" language="java" name="com.donzzul.spring.dreamreview.store.logic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/store/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="336" width="444" x="466" y="527"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="12" language="java" name="com.donzzul.spring.dreamreview.store.logic.DreamReviewStoreLogic" 
+    project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/dreamreview/store/logic/DreamReviewStoreLogic.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="687" y="720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="13">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <realization id="14">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="15">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="16" name="drService"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="19" name="dreamStore"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
