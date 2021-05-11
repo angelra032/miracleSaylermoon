@@ -2,12 +2,20 @@ package com.donzzul.spring.shop.store.logic;
 
 import java.util.ArrayList;
 
+import org.mybatis.spring.SqlSessionTemplate;
+//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
 import com.donzzul.spring.shop.store.ShopStore;
 
+@Repository
 public class ShopStoreLogic implements ShopStore {
 
+//	@Autowired
+//	private SqlSessionTemplate sqlSession;
+	
 	@Override
 	public ArrayList<Shop> selectShopMap(String mapVal) {
 		// TODO Auto-generated method stub
