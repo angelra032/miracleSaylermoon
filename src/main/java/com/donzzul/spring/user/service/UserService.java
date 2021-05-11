@@ -9,7 +9,7 @@ public interface UserService {
 	public int insertUser(User user);
 	public int updateUser(User user);
 	public int deleteUser(String userId);
-	public String findIdView(String userName, String userEmail);
 	public String sendEmail(String userEmail, String userId, String pwCode);
 	public String resetPw(String userId, String userEmail);
+	public String findId(String userName, String userEmail);
 }

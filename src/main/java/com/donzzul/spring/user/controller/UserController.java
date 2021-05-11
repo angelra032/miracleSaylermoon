@@ -136,7 +136,7 @@ public class UserController {
 	@RequestMapping(value = "findId.dz", method = RequestMethod.POST)
 	public String findId(@RequestParam("userName") String userName,
 						@RequestParam("userEmail") String userEmail) {
-		return service.findIdView(userName, userEmail);
+		return service.findId(userName, userEmail);
 	}
 	
 	//비밀번호 찾기 폼

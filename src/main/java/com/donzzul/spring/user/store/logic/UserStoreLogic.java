@@ -1,10 +1,18 @@
 package com.donzzul.spring.user.store.logic;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.store.UserStore;
 
+@Repository
 public class UserStoreLogic implements UserStore {
 
+//	@Autowired
+//	private SqlSessionTemplate sqlSession;
+	
 	@Override
 	public User selectOneUser(User user) {
 		// TODO Auto-generated method stub

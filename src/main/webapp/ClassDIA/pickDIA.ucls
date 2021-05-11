@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="com.donzzul.spring.pick.controller" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/controller" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="247" width="224" x="820" y="68"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="com.donzzul.spring.pick.controller.PickController" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/controller/PickController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="931" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="3" language="java" name="com.donzzul.spring.pick.domain" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/domain" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="249" width="206" x="2" y="68"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="4" language="java" name="com.donzzul.spring.pick.domain.Pick" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/domain/Pick.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="105" y="213"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="5" language="java" name="com.donzzul.spring.pick.service" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/service" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="194" width="237" x="517" y="68"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="6" language="java" name="com.donzzul.spring.pick.service.PickService" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/service/PickService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="636" y="183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="7" language="java" name="com.donzzul.spring.pick.service.logic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/service/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="215" width="236" x="518" y="291"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="8" language="java" name="com.donzzul.spring.pick.service.logic.PickServiceImpl" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/service/logic/PickServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="636" y="418"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="9" language="java" name="com.donzzul.spring.pick.store" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/store" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="202" width="221" x="248" y="64"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <interface id="10" language="java" name="com.donzzul.spring.pick.store.PickStore" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/store/PickStore.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="358" y="187"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <package id="11" language="java" name="com.donzzul.spring.pick.store.logic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/store/logic" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="229" x="244" y="286"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="12" language="java" name="com.donzzul.spring.pick.store.logic.PickStoreLogic" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/pick/store/logic/PickStoreLogic.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="359" y="411"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="13">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="14" name="pService"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="16">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <realization id="17">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
