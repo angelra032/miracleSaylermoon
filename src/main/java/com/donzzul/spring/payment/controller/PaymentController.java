@@ -78,11 +78,17 @@ public class PaymentController {
 		return "";
 	}
 	
-	// 리뷰 포인트 정립
+	// 리뷰 포인트 정립(MZ 마이페이지에서)
 	@RequestMapping(value="saveReviewPoint.dz", method=RequestMethod.POST)
 	public String saveReviewPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
 		String winningPoint = request.getParameter("winningPoint"); // 리뷰작성 포인트
 		
+		return "";
+	}
+	
+	// 포인트 조회(MZ 마이페이지에서)
+	@RequestMapping(value="printMyPoint.dz", method=RequestMethod.POST)
+	public String printMyPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
 		return "";
 	}
 	
