@@ -1,5 +1,7 @@
 package com.donzzul.spring.payment.domain;
 
+import java.sql.Date;
+
 public class Don {
 	// 돈쭐내역 erd + 주문내역(메뉴, 가격) + 가게?
 	
@@ -9,7 +11,9 @@ public class Don {
 	
 	private String menuName; // 메뉴이름
 	private int amount; // 수량
-	// private int shopNo; // 가게번호
+//	private int shopNo; // 가게번호
+	private String shopName; // 가게이름
+	private Date paymentDate; // 결제날짜
 	
 	public Don() {}
 
@@ -52,5 +56,14 @@ public class Don {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
 	
 }
