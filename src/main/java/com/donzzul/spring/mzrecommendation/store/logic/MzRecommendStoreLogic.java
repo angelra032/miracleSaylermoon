@@ -5,39 +5,40 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.mzrecommendation.domain.MzRecommendation;
-import com.donzzul.spring.mzrecommendation.store.MzRecommendationStore;
+import com.donzzul.spring.mzrecommendation.store.MzRecommendStore;
 
 @Repository
-public class MzRecommendationStoreLogic implements MzRecommendationStore {
+public class MzRecommendStoreLogic implements MzRecommendStore {
 
 	@Override
-	public ArrayList<MzRecommendation> selectAllRecommendation() {
+	public ArrayList<MzRecommendation> selectAllRecommend() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public MzRecommendation selectOneRecommendation(int recommendationNo) {
+	public MzRecommendation selectOneRecommend(int recommendationNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int insertRecommendation(MzRecommendation recommend) {
+	public int insertRecommend(MzRecommendation recommend) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateRecommendation(MzRecommendation recommend) {
+	public int updateRecommend(MzRecommendation recommend) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteRecommendation(int recommendationNo) {
+	public int deleteRecommend(int recommendationNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

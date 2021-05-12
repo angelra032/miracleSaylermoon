@@ -38,7 +38,7 @@ public class DreamReviewController {
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="dReviewWriteView.dz", method=RequestMethod.GET)
 	public String dReviewWriteView() {
-		return "";
+		return "board/dReview/dReviewInsertForm";
 	}
 	
 	

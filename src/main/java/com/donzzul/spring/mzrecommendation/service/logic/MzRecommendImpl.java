@@ -6,43 +6,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.mzrecommendation.domain.MzRecommendation;
-import com.donzzul.spring.mzrecommendation.service.MzRecommendationService;
-import com.donzzul.spring.mzrecommendation.store.MzRecommendationStore;
+import com.donzzul.spring.mzrecommendation.service.MzRecommendService;
+import com.donzzul.spring.mzrecommendation.store.MzRecommendStore;
 
 @Service
-public class MzRecommendationImpl implements MzRecommendationService {
+public class MzRecommendImpl implements MzRecommendService {
 
 	@Autowired
-	private MzRecommendationStore mzStore;
+	private MzRecommendStore mzStore;
+
+	@Override
+	public ArrayList<MzRecommendation> selectAllRecommend() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MzRecommendation selectOneRecommend(int recommendationNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertRecommend(MzRecommendation recommend) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateRecommend(MzRecommendation recommend) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteRecommend(int recommendationNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
-	@Override
-	public ArrayList<MzRecommendation> selectAllRecommendation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MzRecommendation selectOneRecommendation(int recommendationNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int insertRecommendation(MzRecommendation recommend) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateRecommendation(MzRecommendation recommend) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteRecommendation(int recommendationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

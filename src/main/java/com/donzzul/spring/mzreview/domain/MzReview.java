@@ -4,115 +4,133 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class MzReview {
-	private int mzReviewNo;
-	private String mzReviewTitle;
-	private String mzReviewContent;
-	private Date mzReviewDate;
-	private String mzFileName;
-	private long mzReviewFileSize;
-	private String mzReviewFilePath;
-	private Timestamp mzReviewFileTime;
+	private int mReviewNo;
+	private String mReviewTitle;
+	private String mReviewContent;
+	private Date mReviewDate;
+	private String mFileName;
+	private long mReviewFileSize;
+	private String mReviewFilePath;
+	private Timestamp mReviewFileTime;
 	private String userType; // char
 	private int userNo;
 	private int shopNo;
 	
 	public MzReview() {}
-	
-	
-	public MzReview(int mzReviewNo, String mzReviewTitle, String mzReviewContent, Date mzReviewDate, String mzFileName,
-			long mzReviewFileSize, String mzReviewFilePath, Timestamp mzReviewFileTime, String userType, int userNo,
+
+	public MzReview(int mReviewNo, String mReviewTitle, String mReviewContent, Date mReviewDate, String mFileName,
+			long mReviewFileSize, String mReviewFilePath, Timestamp mReviewFileTime, String userType, int userNo,
 			int shopNo) {
 		super();
-		this.mzReviewNo = mzReviewNo;
-		this.mzReviewTitle = mzReviewTitle;
-		this.mzReviewContent = mzReviewContent;
-		this.mzReviewDate = mzReviewDate;
-		this.mzFileName = mzFileName;
-		this.mzReviewFileSize = mzReviewFileSize;
-		this.mzReviewFilePath = mzReviewFilePath;
-		this.mzReviewFileTime = mzReviewFileTime;
+		this.mReviewNo = mReviewNo;
+		this.mReviewTitle = mReviewTitle;
+		this.mReviewContent = mReviewContent;
+		this.mReviewDate = mReviewDate;
+		this.mFileName = mFileName;
+		this.mReviewFileSize = mReviewFileSize;
+		this.mReviewFilePath = mReviewFilePath;
+		this.mReviewFileTime = mReviewFileTime;
 		this.userType = userType;
 		this.userNo = userNo;
 		this.shopNo = shopNo;
 	}
 
+	public int getmReviewNo() {
+		return mReviewNo;
+	}
 
+	public void setmReviewNo(int mReviewNo) {
+		this.mReviewNo = mReviewNo;
+	}
 
+	public String getmReviewTitle() {
+		return mReviewTitle;
+	}
 
-	public int getMzReviewNo() {
-		return mzReviewNo;
+	public void setmReviewTitle(String mReviewTitle) {
+		this.mReviewTitle = mReviewTitle;
 	}
-	public void setMzReviewNo(int mzReviewNo) {
-		this.mzReviewNo = mzReviewNo;
+
+	public String getmReviewContent() {
+		return mReviewContent;
 	}
-	public String getMzReviewTitle() {
-		return mzReviewTitle;
+
+	public void setmReviewContent(String mReviewContent) {
+		this.mReviewContent = mReviewContent;
 	}
-	public void setMzReviewTitle(String mzReviewTitle) {
-		this.mzReviewTitle = mzReviewTitle;
+
+	public Date getmReviewDate() {
+		return mReviewDate;
 	}
-	public String getMzReviewContent() {
-		return mzReviewContent;
+
+	public void setmReviewDate(Date mReviewDate) {
+		this.mReviewDate = mReviewDate;
 	}
-	public void setMzReviewContent(String mzReviewContent) {
-		this.mzReviewContent = mzReviewContent;
+
+	public String getmFileName() {
+		return mFileName;
 	}
-	public Date getMzReviewDate() {
-		return mzReviewDate;
+
+	public void setmFileName(String mFileName) {
+		this.mFileName = mFileName;
 	}
-	public void setMzReviewDate(Date mzReviewDate) {
-		this.mzReviewDate = mzReviewDate;
+
+	public long getmReviewFileSize() {
+		return mReviewFileSize;
 	}
-	public String getMzFileName() {
-		return mzFileName;
+
+	public void setmReviewFileSize(long mReviewFileSize) {
+		this.mReviewFileSize = mReviewFileSize;
 	}
-	public void setMzFileName(String mzFileName) {
-		this.mzFileName = mzFileName;
+
+	public String getmReviewFilePath() {
+		return mReviewFilePath;
 	}
-	public long getMzReviewFileSize() {
-		return mzReviewFileSize;
+
+	public void setmReviewFilePath(String mReviewFilePath) {
+		this.mReviewFilePath = mReviewFilePath;
 	}
-	public void setMzReviewFileSize(long mzReviewFileSize) {
-		this.mzReviewFileSize = mzReviewFileSize;
+
+	public Timestamp getmReviewFileTime() {
+		return mReviewFileTime;
 	}
-	public String getMzReviewFilePath() {
-		return mzReviewFilePath;
+
+	public void setmReviewFileTime(Timestamp mReviewFileTime) {
+		this.mReviewFileTime = mReviewFileTime;
 	}
-	public void setMzReviewFilePath(String mzReviewFilePath) {
-		this.mzReviewFilePath = mzReviewFilePath;
-	}
-	public Timestamp getMzReviewFileTime() {
-		return mzReviewFileTime;
-	}
-	public void setMzReviewFileTime(Timestamp mzReviewFileTime) {
-		this.mzReviewFileTime = mzReviewFileTime;
-	}
+
 	public String getUserType() {
 		return userType;
 	}
+
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
+
 	public int getUserNo() {
 		return userNo;
 	}
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
 	public int getShopNo() {
 		return shopNo;
 	}
+
 	public void setShopNo(int shopNo) {
 		this.shopNo = shopNo;
 	}
+
 	@Override
 	public String toString() {
-		return "MzReview [mzReviewNo=" + mzReviewNo + ", mzReviewTitle=" + mzReviewTitle + ", mzReviewContent="
-				+ mzReviewContent + ", mzReviewDate=" + mzReviewDate + ", mzFileName=" + mzFileName
-				+ ", mzReviewFileSize=" + mzReviewFileSize + ", mzReviewFilePath=" + mzReviewFilePath
-				+ ", mzReviewFileTime=" + mzReviewFileTime + ", userType=" + userType + ", userNo=" + userNo
-				+ ", shopNo=" + shopNo + "]";
+		return "MzReview [mReviewNo=" + mReviewNo + ", mReviewTitle=" + mReviewTitle + ", mReviewContent="
+				+ mReviewContent + ", mReviewDate=" + mReviewDate + ", mFileName=" + mFileName + ", mReviewFileSize="
+				+ mReviewFileSize + ", mReviewFilePath=" + mReviewFilePath + ", mReviewFileTime=" + mReviewFileTime
+				+ ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + "]";
 	}
+	
 	
 	
 }
