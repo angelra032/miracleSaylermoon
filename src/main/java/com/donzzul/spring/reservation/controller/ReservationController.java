@@ -34,12 +34,13 @@ public class ReservationController {
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.kh", method=RequestMethod.POST)
 	public String reservationInsert(@ModelAttribute Reservation reservation) {
-		int result = service.insertReservation(reservation);
-		if(result > 0) {
-			
-		}else {
-			
-		}
+		System.out.println(reservation.toString());
+//		int result = service.insertReservation(reservation);
+//		if(result > 0) {
+//			
+//		}else {
+//			
+//		}
 		return "";
 	}
 	
