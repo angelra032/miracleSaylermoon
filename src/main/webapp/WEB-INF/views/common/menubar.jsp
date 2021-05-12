@@ -26,7 +26,7 @@
                 </ul>
             </div>
             <div class="header-submenu-area">
-                <a href="#">로그인</a>
+                <a href="loginView.dz">로그인</a>
                 <a href="#">회원가입</a>
             </div>
         </div>
@@ -51,6 +51,7 @@
         // 스크롤아래로
         function scrollDownEvent() {
             $('.fixed-header-navi').css("background" , "#ffffff");
+            $('.fixed-header-navi').css("box-shadow" , "0 0 20px rgba(0,0,0,.5)");
             $('.fixed-header-navi').css("position" , "fixed");
             $('.header-menu-area a').css('color', '#333333');
             $('.header-submenu-area a').css('color', '#333333');
@@ -59,6 +60,7 @@
         // 스크롤 위로
         function scrollUpEvent() {
             $(".fixed-header-navi").css("background" , "");
+            $('.fixed-header-navi').css("box-shadow" , "");
             $('.header-menu-area a').css('color', '#ffffff');
             $('.header-submenu-area a').css('color', '#ffffff');
             $(".header-logo-area img").attr("src", '/resources/images/logo.png');

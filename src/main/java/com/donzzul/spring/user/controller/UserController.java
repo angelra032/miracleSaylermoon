@@ -21,6 +21,12 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	//로그인 뷰
+	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
+	public String loginView() {
+		return "user/userLogin";
+	}
+	
 	//로그인
 	@RequestMapping(value = "login.dz", method = RequestMethod.POST)
 	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model) {
