@@ -20,7 +20,17 @@ public class ReservationController {
 	//@RequestParam -> 화면에서 가져오는 하나의 값
 	//@ModelAttribute
 	
-	// 예약할때 받아와야할 값
+	@RequestMapping(value="reservationView.kh")
+	public String reservationView() {
+		return "reservation/viewReservation";
+	}
+	
+	
+	
+	
+	
+	
+	// 예약할때 받아와야할 
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.kh", method=RequestMethod.POST)
 	public String reservationInsert(@ModelAttribute Reservation reservation) {
