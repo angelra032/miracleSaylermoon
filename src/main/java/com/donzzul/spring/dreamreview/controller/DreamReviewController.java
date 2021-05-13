@@ -52,7 +52,7 @@ public class DreamReviewController {
 		
 		dreamReview.setDrmReviewPublicYn(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
 		System.out.println(dreamReview.toString());
-		String	path = "/index.jsp";
+//		String	path = "/index.jsp";
 		
 		//db
 //		int result = 0;
@@ -64,7 +64,7 @@ public class DreamReviewController {
 //			mv.addObject("msg", "감사후기 게시글 등록 실패");
 //			path = "common/errorPage";
 //		}
-		mv.setViewName(path);
+//		mv.setViewName(path);
 		
 		return mv;
 	}

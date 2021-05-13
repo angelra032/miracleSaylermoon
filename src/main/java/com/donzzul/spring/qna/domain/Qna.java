@@ -10,8 +10,8 @@ public class Qna {
 	private Date qanCreateDate;
 	private Date qanUploadDate;
 	private String boardPublicYN; // char
-	private int userNo; // char
 	private String userType;
+	private int userNo; // char
 	private int originNo;
 	private int groupOrder;
 	private int groupLayer;
@@ -27,9 +27,8 @@ public class Qna {
 
 
 
-
 	public Qna(int qnaNo, String qnaTitle, String qnaContent, String qnaWriter, Date qanCreateDate, Date qanUploadDate,
-			String boardPublicYN, int userNo, String userType, int originNo, int groupOrder, int groupLayer) {
+			String boardPublicYN, String userType, int userNo, int originNo, int groupOrder, int groupLayer) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaTitle = qnaTitle;
@@ -38,8 +37,8 @@ public class Qna {
 		this.qanCreateDate = qanCreateDate;
 		this.qanUploadDate = qanUploadDate;
 		this.boardPublicYN = boardPublicYN;
-		this.userNo = userNo;
 		this.userType = userType;
+		this.userNo = userNo;
 		this.originNo = originNo;
 		this.groupOrder = groupOrder;
 		this.groupLayer = groupLayer;

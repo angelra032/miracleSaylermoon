@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
@@ -18,31 +19,44 @@ import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 public class RecommendBoardController {
 	
 	@Autowired
-	private RecommendBoardService mzService;
+	private RecommendBoardService reService;
 	
 	// 주소로 들어옴 (리스트출력할곳) selectAll
-	@RequestMapping(value="recommendMain.kh", method=RequestMethod.GET)
+	@RequestMapping(value="recommendMain.dz", method=RequestMethod.GET)
 	public String recommendMainView() {
 		return "";
 	}
 	
 	
 	// 디테일 selectOne
-	@RequestMapping(value="recommendDetail.kh", method=RequestMethod.GET)
+	@RequestMapping(value="recommendDetail.dz", method=RequestMethod.GET)
 	public String recommendDetailView(@RequestParam("recommendNo") int recommendationNo) {
 		return "";
 	}
 	
 	// 감사후기 글쓰기버튼으로 들어옴 
-	@RequestMapping(value="recommendWriteView.kh", method=RequestMethod.GET)
+	@RequestMapping(value="recommendWriteView.dz", method=RequestMethod.GET)
 	public String recommendWriteView() {
-		return "";
+		return "board/recommend/recommendInsertForm";
 	}
 	
 	// 글쓰기 올림 (사진파일추가) insert
-	@RequestMapping(value="recommendInsertForm.kh", method=RequestMethod.POST)
-	public String recommendRegister(@ModelAttribute RecommendBoard recommendBoard, @RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, HttpServletRequest request) {
-		return "";
+	@RequestMapping(value="recommendInsertForm.dz", method=RequestMethod.POST)
+	public ModelAndView recommendRegister(ModelAndView mv, @ModelAttribute RecommendBoard recommendBoard, HttpServletRequest request) {
+//		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
+		
+		System.out.println(recommendBoard.toString());
+		int result = 0;
+		String path = "";
+		result = reService.insertRecommend(recommendBoard);
+		if(result > 0) {
+			path="home";
+		} else {
+			mv.addObject("msg", "가게추천 글쓰기 실패");
+			path="common/errorPage";
+		}
+		mv.setViewName(path);
+		return mv;
 	}
 	
 	// 파일
@@ -73,20 +87,20 @@ public class RecommendBoardController {
 
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
-	@RequestMapping(value="recommendDelete.kh", method=RequestMethod.GET)
+	@RequestMapping(value="recommendDelete.dz", method=RequestMethod.GET)
 	public String recommendDelete(@RequestParam int recommendationNo) {
 		return "";
 	}
 	
 	
 	// 수정버튼누름
-	@RequestMapping(value="recommendUpdateForm.kh", method=RequestMethod.GET)
+	@RequestMapping(value="recommendUpdateForm.dz", method=RequestMethod.GET)
 	public String recommendUpdateView() {
 		return "";
 	}
 	
 	// 수정함 update
-	@RequestMapping(value="recommendModify.kh", method=RequestMethod.GET)
+	@RequestMapping(value="recommendModify.dz", method=RequestMethod.GET)
 	public String recommendUpdate(@ModelAttribute RecommendBoard recommendBoard) {
 		return "";
 	}

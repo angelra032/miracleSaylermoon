@@ -2,6 +2,7 @@ package com.donzzul.spring.dreamreview.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +29,8 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 
 	@Override
 	public int insertDreamReview(DreamReview dreamReview) {
-		// TODO Auto-generated method stub
+		
+//		return sqlSession.insert("drmReviewMapper.insertDrmReview", dreamReview);
 		return 0;
 	}
 

@@ -2,6 +2,8 @@ package com.donzzul.spring.mzreview.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.mzreview.domain.MzReview;
@@ -12,6 +14,8 @@ import com.donzzul.spring.mzreview.store.MzReviewStore;
 public class MzReviewStoreLogic implements MzReviewStore {
 
 //	SqlSession
+	@Autowired
+	private SqlSession sqlSession;
 	
 	@Override
 	public ArrayList<MzReview> selectAllReview() {
@@ -27,8 +31,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
 
 	@Override
 	public int insertMzReview(MzReview mzReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("mzReviewMapper.insertMzReview", mzReview);
 	}
 
 	@Override
