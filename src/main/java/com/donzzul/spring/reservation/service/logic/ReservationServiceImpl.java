@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.reservation.store.ReservationStore;
+import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.user.domain.User;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{
@@ -18,10 +20,16 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public int insertReservation(Reservation reservation) {
+		return store.insertReservation(reservation);
+	}
+
+
+	@Override
+	public int updateUserPoint(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
 	public HashMap<String, String> reservaionListByDream(int reservationNo, int userNo) {
 		// TODO Auto-generated method stub
@@ -69,4 +77,6 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }
