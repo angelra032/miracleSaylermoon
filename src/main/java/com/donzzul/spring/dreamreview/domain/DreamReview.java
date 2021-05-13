@@ -3,68 +3,79 @@ package com.donzzul.spring.dreamreview.domain;
 import java.sql.Date;
 
 public class DreamReview {
-	private int dviewNo;
-	private String dReviewTitle;
-	private String dReviewContent;
-	private Date dReviewDate;
-	private String dReviewPublicYN;
+	private int drmRviewNo;
+	private String drmReviewTitle;
+	private String drmReviewContent;
+	private String drmReviewWriter;
+	private Date drmReviewCreateDate;
+	private Date drmReviewUploadDate;
+	private String drmReviewPublicYN;
 	private String userType;
 	private int userNo;
 	private int shopNo;
 	
 	public DreamReview() {}
 
-	public DreamReview(int dviewNo, String dReviewTitle, String dReviewContent, Date dReviewDate,
-			String dReviewPublicYN, String userType, int userNo, int shopNo) {
+	public DreamReview(String drmReviewTitle, String drmReviewContent) {
 		super();
-		this.dviewNo = dviewNo;
-		this.dReviewTitle = dReviewTitle;
-		this.dReviewContent = dReviewContent;
-		this.dReviewDate = dReviewDate;
-		this.dReviewPublicYN = dReviewPublicYN;
-		this.userType = userType;
-		this.userNo = userNo;
-		this.shopNo = shopNo;
+		this.drmReviewTitle = drmReviewTitle;
+		this.drmReviewContent = drmReviewContent;
 	}
 
-	public int getDviewNo() {
-		return dviewNo;
+	public int getDrmRviewNo() {
+		return drmRviewNo;
 	}
 
-	public void setDviewNo(int dviewNo) {
-		this.dviewNo = dviewNo;
+	public void setDrmRviewNo(int drmRviewNo) {
+		this.drmRviewNo = drmRviewNo;
 	}
 
-	public String getdReviewTitle() {
-		return dReviewTitle;
+	public String getDrmReviewTitle() {
+		return drmReviewTitle;
 	}
 
-	public void setdReviewTitle(String dReviewTitle) {
-		this.dReviewTitle = dReviewTitle;
+	public void setDrmReviewTitle(String drmReviewTitle) {
+		this.drmReviewTitle = drmReviewTitle;
 	}
 
-	public String getdReviewContent() {
-		return dReviewContent;
+	public String getDrmReviewContent() {
+		return drmReviewContent;
 	}
 
-	public void setdReviewContent(String dReviewContent) {
-		this.dReviewContent = dReviewContent;
+	public void setDrmReviewContent(String drmReviewContent) {
+		this.drmReviewContent = drmReviewContent;
 	}
 
-	public Date getdReviewDate() {
-		return dReviewDate;
+	public String getDrmReviewWriter() {
+		return drmReviewWriter;
 	}
 
-	public void setdReviewDate(Date dReviewDate) {
-		this.dReviewDate = dReviewDate;
+	public void setDrmReviewWriter(String drmReviewWriter) {
+		this.drmReviewWriter = drmReviewWriter;
 	}
 
-	public String getdReviewPublicYN() {
-		return dReviewPublicYN;
+	public Date getDrmReviewCreateDate() {
+		return drmReviewCreateDate;
 	}
 
-	public void setdReviewPublicYN(String dReviewPublicYN) {
-		this.dReviewPublicYN = dReviewPublicYN;
+	public void setDrmReviewCreateDate(Date drmReviewCreateDate) {
+		this.drmReviewCreateDate = drmReviewCreateDate;
+	}
+
+	public Date getDrmReviewUploadDate() {
+		return drmReviewUploadDate;
+	}
+
+	public void setDrmReviewUploadDate(Date drmReviewUploadDate) {
+		this.drmReviewUploadDate = drmReviewUploadDate;
+	}
+
+	public String getDrmReviewPublicYn() {
+		return drmReviewPublicYN;
+	}
+
+	public void setDrmReviewPublicYn(String drmReviewPublicYN) {
+		this.drmReviewPublicYN = drmReviewPublicYN;
 	}
 
 	public String getUserType() {
@@ -93,10 +104,14 @@ public class DreamReview {
 
 	@Override
 	public String toString() {
-		return "DreamReview [dviewNo=" + dviewNo + ", dReviewTitle=" + dReviewTitle + ", dReviewContent="
-				+ dReviewContent + ", dReviewDate=" + dReviewDate + ", dReviewPublicYN=" + dReviewPublicYN
-				+ ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + "]";
+		return "DreamReview [drmRviewNo=" + drmRviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent="
+				+ drmReviewContent + ", drmReviewWriter=" + drmReviewWriter + ", drmReviewCreateDate="
+				+ drmReviewCreateDate + ", drmReviewUploadDate=" + drmReviewUploadDate + ", drmReviewPublicYn="
+				+ drmReviewPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + "]";
 	}
+	
+	
+
 
 	
 }
