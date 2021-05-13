@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
@@ -32,26 +33,46 @@ public class DreamReviewController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public String dReviewDetailView(@RequestParam("dreamReviewNo") int dreamReviewNo) {
+	public String dReviewDetailView(@RequestParam("dreamReviewNo") int drmRviewNo) {
 		return "";
 	}
+	
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="dReviewWriteView.dz", method=RequestMethod.GET)
 	public String dReviewWriteView() {
-		return "board/dReview/dReviewInsertForm";
+		return "board/drmReview/dReviewInsertForm";
 	}
 	
 	
 	// 글쓰기 올림 (사진파일추가) insert
-	@RequestMapping(value="dReviewInsertForm.dz", method=RequestMethod.POST)
-	public String dReviewRegister(@ModelAttribute DreamReview dreamReview, @RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, HttpServletRequest request) {
-		return "";
+	@RequestMapping(value="dReviewWriterForm.dz", method=RequestMethod.POST)
+	public ModelAndView dReviewRegister(ModelAndView mv, @ModelAttribute DreamReview dreamReview, @RequestParam("drmReviewPublicYN") String drmReviewPublicYN, HttpServletRequest request) {
+//		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
+		
+		
+		dreamReview.setDrmReviewPublicYn(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
+		System.out.println(dreamReview.toString());
+		String	path = "/index.jsp";
+		
+		//db
+//		int result = 0;
+//		String path = "";
+//		result = drService.insertDreamReview(dreamReview);
+//		if(result > 0) {
+//			path = "index.jsp";
+//		} else {
+//			mv.addObject("msg", "감사후기 게시글 등록 실패");
+//			path = "common/errorPage";
+//		}
+		mv.setViewName(path);
+		
+		return mv;
 	}
 	
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="dReviewDelete.dz", method=RequestMethod.GET)
-	public String dReviewDelete(@RequestParam int dreamReviewNo) {
+	public String dReviewDelete(@RequestParam int drmRviewNo) {
 		return "";
 	}
 	

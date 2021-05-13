@@ -1,4 +1,4 @@
-package com.donzzul.spring.mzrecommendation.controller;
+package com.donzzul.spring.recommendboard.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
-import com.donzzul.spring.mzrecommendation.domain.MzRecommendation;
-import com.donzzul.spring.mzrecommendation.service.MzRecommendService;
+import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 
 @Controller
-public class MzRecommendController {
+public class RecommendBoardController {
 	
 	@Autowired
-	private MzRecommendService mzService;
+	private RecommendBoardService mzService;
 	
 	// 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="recommendMain.kh", method=RequestMethod.GET)
@@ -29,7 +29,7 @@ public class MzRecommendController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="recommendDetail.kh", method=RequestMethod.GET)
-	public String recommendDetailView(@RequestParam("recommendationNo") int recommendationNo) {
+	public String recommendDetailView(@RequestParam("recommendNo") int recommendationNo) {
 		return "";
 	}
 	
@@ -41,7 +41,7 @@ public class MzRecommendController {
 	
 	// 글쓰기 올림 (사진파일추가) insert
 	@RequestMapping(value="recommendInsertForm.kh", method=RequestMethod.POST)
-	public String recommendRegister(@ModelAttribute MzRecommendation mzRecommendation, @RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, HttpServletRequest request) {
+	public String recommendRegister(@ModelAttribute RecommendBoard recommendBoard, @RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, HttpServletRequest request) {
 		return "";
 	}
 	
@@ -87,7 +87,7 @@ public class MzRecommendController {
 	
 	// 수정함 update
 	@RequestMapping(value="recommendModify.kh", method=RequestMethod.GET)
-	public String recommendUpdate(@ModelAttribute MzRecommendation mzRecommendation) {
+	public String recommendUpdate(@ModelAttribute RecommendBoard recommendBoard) {
 		return "";
 	}
 }

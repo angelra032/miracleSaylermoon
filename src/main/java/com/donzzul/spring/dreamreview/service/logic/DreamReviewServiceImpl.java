@@ -13,7 +13,7 @@ import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 public class DreamReviewServiceImpl implements DreamReviewService {
 
 	@Autowired
-	private DreamReviewStore dreamStore;
+	private DreamReviewStore drStore;
 	
 	@Override
 	public ArrayList<DreamReview> selectAllDreamReview() {
@@ -22,15 +22,15 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	}
 
 	@Override
-	public DreamReview selectOneDreamReview(int dReviewNo) {
+	public DreamReview selectOneDreamReview(int drmRviewNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int insertDreamReview(DreamReview dreamReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = drStore.insertDreamReview(dreamReview);
+		return result;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	}
 
 	@Override
-	public int deleteDreamReview(int dReviewNo) {
+	public int deleteDreamReview(int drmRviewNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

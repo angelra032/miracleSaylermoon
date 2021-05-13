@@ -30,7 +30,7 @@ public class QnaController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="qaDetail.dz", method=RequestMethod.GET)
-	public String qaDetailView(@RequestParam("qaNo") int qaNo) {
+	public String qaDetailView(@RequestParam("qnaNo") int qaNo) {
 		return "";
 	}
 	// 감사후기 글쓰기버튼으로 들어옴 
