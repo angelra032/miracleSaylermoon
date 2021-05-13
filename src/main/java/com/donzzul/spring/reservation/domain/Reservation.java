@@ -4,7 +4,6 @@ public class Reservation {
 
 	private int reserveNo; // 예약번호
 	private int shopNo; //가게고유번호
-	private String usertype; //회원타입
 	private int userNo; // 회원고유번호
 	private String reserveDate; //예약날짜
 	private int reserveTime; //예약시간
@@ -13,13 +12,12 @@ public class Reservation {
 	private int point; //포인트
 
 	public Reservation() {}
-	
-	public Reservation(int reserveNo, int shopNo, String usertype, int userNo, String reserveDate, int reserveTime,
-			int reserveCount, String pointYn, int point) {
+
+	public Reservation(int reserveNo, int shopNo, int userNo, String reserveDate, int reserveTime, int reserveCount,
+			String pointYn, int point) {
 		super();
 		this.reserveNo = reserveNo;
 		this.shopNo = shopNo;
-		this.usertype = usertype;
 		this.userNo = userNo;
 		this.reserveDate = reserveDate;
 		this.reserveTime = reserveTime;
@@ -42,14 +40,6 @@ public class Reservation {
 
 	public void setShopNo(int shopNo) {
 		this.shopNo = shopNo;
-	}
-
-	public String getUsertype() {
-		return usertype;
-	}
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
 	}
 
 	public int getUserNo() {
@@ -102,11 +92,10 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [reserveNo=" + reserveNo + ", shopNo=" + shopNo + ", usertype=" + usertype + ", userNo="
-				+ userNo + ", reserveDate=" + reserveDate + ", reserveTime=" + reserveTime + ", reserveCount="
-				+ reserveCount + ", pointYn=" + pointYn + ", point=" + point + "]";
+		return "Reservation [reserveNo=" + reserveNo + ", shopNo=" + shopNo + ", userNo=" + userNo + ", reserveDate="
+				+ reserveDate + ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn="
+				+ pointYn + ", point=" + point + "]";
 	}
-	
 	
 	
 }

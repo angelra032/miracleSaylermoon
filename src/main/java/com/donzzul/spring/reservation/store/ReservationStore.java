@@ -3,11 +3,14 @@ package com.donzzul.spring.reservation.store;
 import java.util.HashMap;
 
 import com.donzzul.spring.reservation.domain.Reservation;
+import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.user.domain.User;
 
 public interface ReservationStore {
 
 	
-	public int insertReservation(Reservation reserveReservation); //예약하기
+	public int insertReservation(Reservation reservation); //예약하기
+	public int updateUserPoint(User User);
 	public HashMap<String, String> reservationListByDream(int reservationNo, int userNo); // 꿈나무회원별 예약목록 불러오기
 	public HashMap<String, String> reservationListByMZ(int reservationNo, int userNo); // MZ회원별 예약목록 불러오기
 	public HashMap<String, String> reservationListByShop(int reservationNo, int ShopNo); // 가게별 예약목록 불러오기

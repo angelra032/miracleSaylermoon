@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="reservationMapper"></mapper>
+<mapper namespace="reservationMapper">
+	<resultMap type="" id="">
+		<id property="reserveNo"  column="RESERVATION_NO"></id>
+		<result property="shopNo" column="SHOP_NO"></result>
+		<result property="reserveDate" column="RESERVE_DATE"></result>
+		<result property="reserveTime" column="RESERVE_TIME"></result>
+		<result property="reserveCount" column="RESERVE_COUNT"></result>
+		<result property="pointYn" column="POINT_YN"></result>
+		<result property="point" column="POINT"></result>
+		<result property="userNo" column="USER_NO"></result>
+	</resultMap>
 
-<!-- <reserultMap type="Reservation" id="reservationResultMap">
-	<id property="reserveNo" column="RESERVATION_NO"></id>
-	<result property="shopNo" column="SHOP_NO"></result>
-	<result property="usertype" column="USERTYPE"></result>
-	<result property="userNo" column="RESERVE_DATE"></result>
-	<result property="reserveDate" column="RESERVE_TIME"></result>
-	<result property="reserveTime" column="RESERVE_COUNT"></result>
-	<result property="reserveCount" column="POINT_YN"></result>
-	<result property="pointYn" column="POINT"></result>
-	<result property="point" column="USER_NO"></result>
-</reserultMap> -->
+
+</mapper>

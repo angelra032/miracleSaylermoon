@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
+import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.user.domain.User;
 
 @Controller
 public class ReservationController {
@@ -21,21 +24,47 @@ public class ReservationController {
 	//@ModelAttribute
 	
 	@RequestMapping(value="reservationView.kh")
-	public String reservationView() {
-		return "reservation/viewReservation";
+	public String reservationView(Model model) {
+		Shop shop = new Shop();
+		shop.setShopNo(1);
+		shop.setUserNo(2);
+		shop.setStartTime("9");
+		shop.setEndTime("18");
+		shop.setBusinessDay(12345);
+		
+		User user = new User();
+		user.setUserPoint(100);
+		
+		Reservation reservation = new Reservation();
+		reservation.setReserveDate("2021-05-13");
+		reservation.setReserveTime(17);
+		reservation.setReserveCount(4);
+		reservation.setPointYn("Y");
+		
+		if(shop != null && user != null && reservation != null) {
+			model.addAttribute("shop", shop);
+			model.addAttribute("user", user);
+			model.addAttribute("reservation", reservation);
+			return "reservation/viewReservation";
+		}else {
+			model.addAttribute("msg","응 아니야 돌아가!!!");
+			return "reservation/viewReservation";
+		}
 	}
-	
-	
-	
+		
 	
 	
 	
 	// 예약할때 받아와야할 
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.kh", method=RequestMethod.POST)
-	public String reservationInsert(@ModelAttribute Reservation reservation) {
-		System.out.println(reservation.toString());
-//		int result = service.insertReservation(reservation);
+	public String reservationInsert(@ModelAttribute Reservation reservation,
+									@ModelAttribute Shop shop,
+									@ModelAttribute User user
+									) {
+		
+		int rResult = service.insertReservation(reservation);
+		int uResult= service.updateUserPoint(user);
 //		if(result > 0) {
 //			
 //		}else {
@@ -43,6 +72,9 @@ public class ReservationController {
 //		}
 		return "";
 	}
+	
+	
+	
 	
 	//꿈나무회원별 예약목록 불러오기
 	// int reserveNo, int userNo로 예약목록 불러오기
