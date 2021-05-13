@@ -21,6 +21,24 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
+	// 회원가입폼
+	@RequestMapping(value = "enrollView.dz", method = RequestMethod.GET) 
+	public String enrollView() {
+		return "user/userJoin";
+	}
+	
+	// 회원등록
+	@RequestMapping(value = "userRegister.dz", method = RequestMethod.POST) 
+	public String userRegister(@ModelAttribute User user, 
+			Model model) {
+		int result = service.insertUser(user);
+		if (result>0) {
+			return "";
+		}else {
+			return "";
+		}
+	}
+	
 	//로그인 뷰
 	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
 	public String loginView() {
@@ -71,23 +89,6 @@ public class UserController {
 		return "";
 	}
 	
-	// 회원가입폼
-	@RequestMapping(value = "enrollView.dz", method = RequestMethod.GET) 
-	public String enrollView() {
-		return "";
-	}
-	
-	// 회원등록
-	@RequestMapping(value = "userRegister.dz", method = RequestMethod.POST) 
-	public String userRegister(@ModelAttribute User user, 
-							Model model) {
-		int result = service.insertUser(user);
-		if (result>0) {
-			return "";
-		}else {
-			return "";
-		}
-	}
 	
 	//회원정보조회
 	@RequestMapping(value = "myINfo.dz", method = RequestMethod.GET)
