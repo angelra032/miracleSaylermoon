@@ -27,13 +27,11 @@
             </div>
             <div class="header-submenu-area">
                 <a href="loginView.dz">로그인</a>
-                <a href="#">회원가입</a>
+                <a href="enrollView.dz">회원가입</a>
             </div>
         </div>
     </header>
-    <div class="header-background-area">
-        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
-    </div>
+    
 </body>
 <script>
     $(document).ready(function(){
