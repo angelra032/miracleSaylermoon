@@ -18,8 +18,8 @@ public class ShopStoreLogic implements ShopStore {
 //	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(String mapVal) {
-		// TODO Auto-generated method stub
+	public ArrayList<Shop> selectShopMap(int mapNo) {
+//		return (ArrayList)sqlSession.;
 		return null;
 	}
 

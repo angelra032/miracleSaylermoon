@@ -5,49 +5,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/resources/css/shop/MapList.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/map/MapList.css">
 <title>지도조회</title>
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp">
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	
 	<main>
+	    <div class="header-background-area">
+        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+    	</div>
 		<div id="main-title">지도조회</div>
-		<div>
-			<h2>찾을 지역을 선택하세요</h2>
-		</div>
-		<div>
-			<table border="1">
-				<tr>
-					<td><a href="">전체</a></td>
-					<td>서울</td>
-					<td>부산</td>
-					<td>광주</td>
-					<td>대구</td>
-					<td>대전</td>
-				</tr>
-				<tr>
-					<td>세종</td>
-					<td>울산</td>
-					<td>인천</td>
-					<td>제주</td>
-					<td>강원</td>
-					<td>경기</td>
-				</tr>
-				<tr>
-					<td>경남</td>
-					<td>경북</td>
-					<td>전남</td>
-					<td>전북</td>
-					<td>충남</td>
-					<td>충북</td>
-				</tr>
-			</table>
+		<div class="frame">
+			<div class="sub-title">
+				<p>찾을 지역을 선택하세요</p>
+			</div>
+			<div class="map-menuAll">
+				<ul>
+					<li><a href="mapSearchShop.dz?mapNo=1">전체</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=2">서울</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=3">부산</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=4">광주</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=5">대구</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=6">대전</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=7">세종</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=8">울산</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=9">인천</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=10">제주</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=11">강원</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=12">경기</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=13">경남</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=14">경북</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=15">전남</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=16">전북</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=17">충남</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=18">충북</a></li>
+				</ul>
+			</div>
 		</div>
 	</main>
 	
-	<jsp:include page="/WEB-INF/views/common/footer.jsp">
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
 </body>
 </html>

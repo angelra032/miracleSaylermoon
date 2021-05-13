@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
@@ -28,18 +29,26 @@ public class ShopController {
 	private MzReviewService mzService;
 	private DreamReviewService drService;
 	
-	//D 지도 - 지역별 가게 검색
+	//D 지도 - 지역별 화면단 출력
+	@RequestMapping(value="mapSearchList.dz", method=RequestMethod.GET)
+	public String mapSearchList() {
+		return "map/MapList";
+	}
+	
+	//D 지도 - 지역별 가게 검색, 리턴 타입 및 Model 객체 ModelAndView 로 수정?
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
-	public String searchShopMap(@RequestParam("mapNo") int mapNo, Model model) {
-		// 파라미터 - 메뉴 클릭시 넘버
-		// 넘버별로 스트링값 설정해서 서비스로 넘기기
-		String mapVal = null;
-		if(mapNo == 1) {
-			mapVal = "전체";
-		}
+//	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo) {
+		public String searchShopMap() {
+		// 파라미터 - 메뉴 클릭시 각각 넘버값
+		// mapper.xml 에서 넘버별로 스트링값 설정하기
+//		ArrayList<Shop> mapList = sService.selectShopMap(mapNo);
+//		if( !mapList.isEmpty() ) {
+//			mv.addObject("mapList", mapList);
+//			mv.setViewName("map/MapDetail");
+//		}
+//		return mv;
+		return "map/MapDetail";
 		
-		ArrayList<Shop> mapList = sService.selectShopMap(mapVal);
-		return "";
 	}
 	
 	//D 가게 키워드 검색
