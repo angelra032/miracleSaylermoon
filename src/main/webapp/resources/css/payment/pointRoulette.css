@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/* 백그라운드 이미지 */
+ .header-background-area {
+     width: 1903px;
+     margin: 0 auto;
+ }
+     .header-background-area > img {
+         position: absolute;
+         z-index: -5;
+         display: block;
+         top: 0;
+         width: 1903px;
+         align: center;
+         object-fit:cover; 
+         
+     }
+     
+h1{
+	font-size:38px;
+	margin-top:100px;
+	margin-left:50px;
+	
+}     
+h2 {
+	font-size:38px;
+	margin-top:100px;
+	text-align:center;
+}
+h4 {
+	font-size:20px;
+	text-align:center;
+	margin-top:30px;
+	font-weight:400;
+	margin-bottom:50px;
+}
+
+.frame {
+	width:1440px;
+	height:1300px;
+	margin:0 auto;
+}
+.roulette {
+	width: 50%;
+	height: 720px;
+	--text-align: center;
+	margin: 0 auto;
+}
+#point-roulette {
+	background-color: beige;
+	height: 720px;
+	margin-bottom: 50px;
+	/* width: 50%;
+	--text-align: center;
+	margin: 0 auto; */
+}
+
+
+#point-save-btn {
+	width: 80%;
+	height: 40px;
+	margin: 0 auto;
+	display: block;
+	text-algin: center;
+	background-color:#fdb504;
+	color: #fff;
+	border:0;
+	font-size: 18px;
+	font-weight: 600;
+	cursor:pointer;
+}
+
+

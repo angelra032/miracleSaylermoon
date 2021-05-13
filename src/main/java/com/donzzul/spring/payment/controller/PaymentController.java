@@ -22,7 +22,7 @@ public class PaymentController {
 	
 	
 	// 돈쭐 결제 폼
-	@RequestMapping(value="paymentFormView.dz", method=RequestMethod.POST)
+	@RequestMapping(value="paymentFormView.dz", method= {RequestMethod.GET, RequestMethod.POST})
 	public String paymentFormView() {
 		return "payment/paymentForm";
 	}
@@ -60,7 +60,7 @@ public class PaymentController {
 	// 룰렛 페이지
 	@RequestMapping(value="rouletteView.dz", method=RequestMethod.GET)
 	public String rouletteView() {
-		return "";
+		return "payment/pointRoulette";
 	}
 	
 	// 룰렛 포인트 정립
@@ -75,7 +75,7 @@ public class PaymentController {
 	// 인증샷 페이지
 	@RequestMapping(value="snsPhotoView.dz", method=RequestMethod.GET)
 	public String snsPhotoView() {
-		return "";
+		return "payment/snsPhoto";
 	}
 	
 	// 리뷰 포인트 정립(MZ 마이페이지에서)
