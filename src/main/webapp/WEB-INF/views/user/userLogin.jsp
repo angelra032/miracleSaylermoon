@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/login.css"> 
+<link rel="stylesheet" href="/resources/css/user/login.css"> 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
 <title>돈쭐 로그인</title>
 </head>
