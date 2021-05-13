@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="drmReviewMapper">
+
+ 	<resultMap type="DreamReview" id="drmReviewResultMap">
+		<id property="drmRviewNo" column="DRMREVIEW_NO"/>
+		<result property="drmReviewTitle" column="DRMREVIEW_TITLE"/>
+		<result property="drmReviewContent" column="DRMREVIEW_CONTENT"/>
+		<result property="drmReviewWriter" column="DRMREVIEW_WRITER"/>
+		<result property="drmReviewCreateDate" column="DRMREVIEW_CREATE_DATE"/>
+		<result property="drmReviewUploadDate" column="DRMREVIEW_UPLOAD_DATE"/>
+		<result property="drmReviewPublicYN" column="DRMREVIEW_PUBLIC_YN"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="shopNo" column="SHOP_NO"/>
+	</resultMap>
+
+
+	<insert id="insertDrmReview">
+		INSERT INTO DREAM_REVIEW
+		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo});
+
+	</insert>
+
+
+</mapper>

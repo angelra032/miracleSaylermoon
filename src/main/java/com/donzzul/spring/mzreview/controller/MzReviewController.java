@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.mzreview.domain.MzReview;
@@ -21,7 +22,7 @@ import com.donzzul.spring.mzreview.service.MzReviewService;
 public class MzReviewController {
 
 	@Autowired
-	private MzReviewService mzService;
+	private MzReviewService mService;
 	
 	// 맛집후기 주소 selectAll
 	@RequestMapping(value="mReviewMain.dz", method=RequestMethod.GET)
@@ -34,16 +35,30 @@ public class MzReviewController {
 	public String mReviewDetailView(@RequestParam("mzReviewNo") int mzReviewNo) {
 		return "";
 	}
+	
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="mReviewWriteView.dz", method=RequestMethod.GET)
 	public String mReviewWriteView() {
-		return "";
+		return "board/mzReview/mReviewInsertForm";
 	}
 	
 	// 글쓰기 올림 (사진파일추가) insert
 	@RequestMapping(value="mReviewInsertForm.dz", method=RequestMethod.POST)
-	public String mReviewRegister(@ModelAttribute MzReview mzReview, @RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, HttpServletRequest request) {
-		return "";
+	public ModelAndView mReviewRegister(ModelAndView mv, @ModelAttribute MzReview mzReview, HttpServletRequest request) {
+//		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
+		System.out.println(mzReview.toString());
+		int result = 0;
+		String path = "";
+		result = mService.insertMzReview(mzReview);
+		if(result > 0) {
+			path = "home";
+		} else {
+			mv.addObject("msg", "맛집후기 글쓰기 실패");
+			path = "common/errorPage";
+		}
+		
+		mv.setViewName(path);
+		return mv;
 	}
 	
 	// 파일
@@ -92,7 +107,7 @@ public class MzReviewController {
 	//D 맛집후기 가져오기
 	@RequestMapping(value="mzReviewShop.dz", method=RequestMethod.GET)
 	public String selectMzReview(@RequestParam("shopNo") int shopNo, Model model) {
-		ArrayList<MzReview> mReview = mzService.selectAllReview(shopNo);
+		ArrayList<MzReview> mReview = mService.selectAllReview(shopNo);
 		return "";
 	}
 }

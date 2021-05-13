@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.notice.service.NoticeService;
 import com.donzzul.spring.notice.domain.Notice;
@@ -30,17 +31,31 @@ public class NoticeController {
 	public String noticeDetailView(@RequestParam("noticeNo") int noticeNo) {
 		return "";
 	}
+	
+	
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="noticeWriteView.dz", method=RequestMethod.GET)
 	public String noticeWriteView() {
-		return "";
+		return "board/noticeQna/noticeInsertForm";
 	}
 	
 	
 	// 글쓰기 올림 (사진파일추가) insert
 	@RequestMapping(value="noticeInsertForm.dz", method=RequestMethod.POST)
-	public String noticeRegister(@ModelAttribute Notice notice, @RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, HttpServletRequest request) {
-		return "";
+	public ModelAndView noticeRegister(ModelAndView mv, @ModelAttribute Notice notice, HttpServletRequest request) {
+		System.out.println(notice.toString());
+		int result = 0;
+		String	path = "";
+		result = nService.insertNotice(notice);
+		
+		if(result > 0) {
+			path = "home";
+		} else {
+			mv.addObject("msg", "게시글 등록 실패");
+			path = "common/errorPage";
+		}
+		mv.setViewName(path);
+		return mv;
 	}
 	
 	// 삭제 delete

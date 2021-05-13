@@ -28,13 +28,13 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	}
 
 	@Override
-	public int insertRecommend(RecommendBoard recommend) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertRecommend(RecommendBoard recommendBoard) {
+		int result = reStore.insertRecommend(recommendBoard);
+		return result;
 	}
 
 	@Override
-	public int updateRecommend(RecommendBoard recommend) {
+	public int updateRecommend(RecommendBoard recommendBoard) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

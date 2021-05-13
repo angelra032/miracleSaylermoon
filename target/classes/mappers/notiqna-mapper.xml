@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notiQnaMapper">
+
+ 	<resultMap type="Notice" id="noticeResultMap">
+		<id property="noticeNo" column="NOTICE_NO"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="noticeCreateDate" column="NOTICE_CREATE_DATE"/>
+		<result property="noticeUploadDate" column="NOTICE_UPLOAD_DATE"/>
+		<result property="userType" column="USER_TYPE"/>
+	</resultMap>
+	
+ 	<resultMap type="Qna" id="qnaResultMap">
+		<id property="qnaNo" column="QNA_NO"/>
+		<result property="qnaTitle" column="QNA_TITLE"/>
+		<result property="qnaContent" column="QNA_CONTENT"/>
+		<result property="qnaWriter" column="QNA_WRITER"/>
+		<result property="qanCreateDate" column="QNA_CREATE_DATE"/>
+		<result property="qanUploadDate" column="QNA_UPLOAD_DATE"/>
+		<result property="boardPublicYN" column="BOARD_PUBLIC_YN"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="originNo" column="ORIGIN_NO"/>
+		<result property="groupOrder" column="GROUP_ORDER"/>
+		<result property="groupLayer" column="GROUP_LAYER"/>
+	</resultMap>
+
+	<!-- 공지사항 -->
+	<insert id="insertNotice" parameterType="Notice">
+		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4')
+	</insert>
+	
+	
+	
+	<!-- qna -->
+	<insert id="inserQna" parameterType="Qna">
+		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, '문의사항', '내용', '닉네임', DEFAULT, DEFAULT, 'Y', '1', '1', '1', '1', '1')
+	</insert>
+
+
+</mapper>

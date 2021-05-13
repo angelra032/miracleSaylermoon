@@ -13,7 +13,7 @@ import com.donzzul.spring.mzreview.store.MzReviewStore;
 @Service
 public class MzReviewServiceLogic implements MzReviewService {
 	@Autowired
-	private MzReviewStore mzReviewStore;
+	private MzReviewStore mStore;
 
 	@Override
 	public ArrayList<MzReview> selectAllReview() {
@@ -29,8 +29,7 @@ public class MzReviewServiceLogic implements MzReviewService {
 
 	@Override
 	public int insertMzReview(MzReview mzReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mStore.insertMzReview(mzReview);
 	}
 
 	@Override

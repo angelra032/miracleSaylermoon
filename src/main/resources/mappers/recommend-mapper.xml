@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recommendMapper">
+
+ 	<resultMap type="RecommendBoard" id="recommendResultMap">
+		<id property="recommendNo" column="RECOMMEND_NO"/>
+		<result property="recommendTitle" column="RECOMMEND_TITLE"/>
+		<result property="recommendContent" column="RECOMMEND_CONTENT"/>
+		<result property="recommendWriter" column="RECOMMEND_WRITER"/>
+		<result property="recommendCreateDate" column="RECOMMEND_CREATE_DATE"/>
+		<result property="recommendUploadDate" column="RECOMMEND_UPLOAD_DATE"/>
+		<result property="recommendImg" column="RECOMMEND_IMG"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+
+ 	<insert id="insertRecommend" parameterType="RecommendBoard">
+		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, '닉네임', DEFAULT, DEFAULT, NULL, '2', '3')
+	</insert>
+
+
+
+</mapper>

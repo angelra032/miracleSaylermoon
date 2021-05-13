@@ -7,9 +7,18 @@
 
 	<typeAliases>
 		<typeAlias type="com.donzzul.spring.reservation.domain.Reservation" alias="Reservation"/>
+		<typeAlias type="com.donzzul.spring.dreamreview.domain.DreamReview" alias="DreamReview"/>
+		<typeAlias type="com.donzzul.spring.mzreview.domain.MzReview" alias="MzReview"/>
+		<typeAlias type="com.donzzul.spring.notice.domain.Notice" alias="Notice"/>
+		<typeAlias type="com.donzzul.spring.qna.domain.Qna" alias="Qna"/>
+		<typeAlias type="com.donzzul.spring.recommendboard.domain.RecommendBoard" alias="RecommendBoard"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/reservation-mapper.xml"></mapper>
+		<mapper resource="mappers/mzReview-mapper.xml"></mapper>
+		<mapper resource="mappers/drmReview-mapper.xml"></mapper>
+		<mapper resource="mappers/recommend-mapper.xml"></mapper>
+		<mapper resource="mappers/notiqna-mapper.xml"></mapper>
 	</mappers>
 </configuration>
