@@ -18,9 +18,8 @@ public class ShopServiceImpl implements ShopService {
 	private ShopStore sStore;
 
 	@Override
-	public ArrayList<Shop> selectShopMap(String mapVal) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Shop> selectShopMap(int mapNo) {
+		return sStore.selectShopMap(mapNo);
 	}
 
 	@Override

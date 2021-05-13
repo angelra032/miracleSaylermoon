@@ -23,6 +23,7 @@ public class Shop {
 	private String shopLat;
 	private String shopLng;
 	private int shopPoint;
+	private String shopPointYn;
 	private int userNo;
 	private int donNo;
 	private String startTime;
@@ -34,8 +35,8 @@ public class Shop {
 	public Shop(int shopNo, int reserveNo, String shopName, String shopShortAddr, String shopAddr, String shopTarget,
 			String shopProduct, String shopType, String shopFileName, String shopFilePath, long shopFileSize,
 			Timestamp shopUploadTime, int shopPhone, String shopParking, int shopMaxReserv, String shopContent,
-			String shopLat, String shopLng, int shopPoint, int userNo, int donNo, String startTime, String endTime,
-			int businessDay) {
+			String shopLat, String shopLng, int shopPoint, String shopPointYn, int userNo, int donNo, String startTime,
+			String endTime, int businessDay) {
 		super();
 		this.shopNo = shopNo;
 		this.reserveNo = reserveNo;
@@ -56,6 +57,7 @@ public class Shop {
 		this.shopLat = shopLat;
 		this.shopLng = shopLng;
 		this.shopPoint = shopPoint;
+		this.shopPointYn = shopPointYn;
 		this.userNo = userNo;
 		this.donNo = donNo;
 		this.startTime = startTime;
@@ -215,6 +217,14 @@ public class Shop {
 		this.shopPoint = shopPoint;
 	}
 
+	public String getShopPointYn() {
+		return shopPointYn;
+	}
+
+	public void setShopPointYn(String shopPointYn) {
+		this.shopPointYn = shopPointYn;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}
@@ -263,8 +273,8 @@ public class Shop {
 				+ shopFilePath + ", shopFileSize=" + shopFileSize + ", shopUploadTime=" + shopUploadTime
 				+ ", shopPhone=" + shopPhone + ", shopParking=" + shopParking + ", shopMaxReserv=" + shopMaxReserv
 				+ ", shopContent=" + shopContent + ", shopLat=" + shopLat + ", shopLng=" + shopLng + ", shopPoint="
-				+ shopPoint + ", userNo=" + userNo + ", donNo=" + donNo + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", businessDay=" + businessDay + "]";
+				+ shopPoint + ", shopPointYn=" + shopPointYn + ", userNo=" + userNo + ", donNo=" + donNo
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay + "]";
 	}
 	
 }

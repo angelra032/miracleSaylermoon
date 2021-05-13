@@ -9,12 +9,12 @@ public class ReviewDreamMzAll {
 	private String userNo;
 	private String shopNo;
 	// 감사후기
-	private int drReviewNo;
-	private String drReviewTitle;
-	private String drReviewCon;
-	private String drReviewWriter;
-	private String drReviewDate;
-	private String drReviewPub;
+	private int drmReviewNo;
+	private String drmReviewTitle;
+	private String drmReviewContent;
+	private String drmReviewWriter;
+	private String drmReviewDate;
+	private String drmReviewPubicYn;
 	// 맛집후기
 	private int mzReviewNo;
 	private String mzReviewTitle;
@@ -30,26 +30,27 @@ public class ReviewDreamMzAll {
 	
 	public ReviewDreamMzAll() {}
 
-	public ReviewDreamMzAll(String userType, String userNo, String shopNo, int drReviewNo, String drReviewTitle,
-			String drReviewCon, String drReviewWriter, String drReviewDate, String drReviewPub, int mzReviewNo,
-			String mzReviewTitle, String mzReviewCon, String mzReviewWriter, String mzReviewDate, int mzReviewFileNo,
-			String mzReviewFileName, long mzReviewFileSize, String mzReviewFilePath, Timestamp mzReviewFileTime) {
+	public ReviewDreamMzAll(String userType, String userNo, String shopNo, int drmReviewNo, String drmReviewTitle,
+			String drmReviewContent, String drmReviewWriter, String drmReviewDate, String drmReviewPubicYn,
+			int mzReviewNo, String mzReviewTitle, String mzReviewCon, String mzReviewWriter, String mzReviewDate,
+			int mzReviewFileNo, String mzReviewFileName, long mzReviewFileSize, String mzReviewFilePath,
+			Timestamp mzReviewFileTime) {
 		super();
 		this.userType = userType;
 		this.userNo = userNo;
 		this.shopNo = shopNo;
-		this.drReviewNo = drReviewNo;
-		this.drReviewTitle = drReviewTitle;
-		this.drReviewCon = drReviewCon;
-		this.drReviewWriter = drReviewWriter;
-		this.drReviewDate = drReviewDate;
-		this.drReviewPub = drReviewPub;
+		this.drmReviewNo = drmReviewNo;
+		this.drmReviewTitle = drmReviewTitle;
+		this.drmReviewContent = drmReviewContent;
+		this.drmReviewWriter = drmReviewWriter;
+		this.drmReviewDate = drmReviewDate;
+		this.drmReviewPubicYn = drmReviewPubicYn;
 		this.mzReviewNo = mzReviewNo;
 		this.mzReviewTitle = mzReviewTitle;
 		this.mzReviewCon = mzReviewCon;
 		this.mzReviewWriter = mzReviewWriter;
 		this.mzReviewDate = mzReviewDate;
-        this.mzReviewFileNo = mzReviewFileNo;
+		this.mzReviewFileNo = mzReviewFileNo;
 		this.mzReviewFileName = mzReviewFileName;
 		this.mzReviewFileSize = mzReviewFileSize;
 		this.mzReviewFilePath = mzReviewFilePath;
@@ -80,52 +81,52 @@ public class ReviewDreamMzAll {
 		this.shopNo = shopNo;
 	}
 
-	public int getDrReviewNo() {
-		return drReviewNo;
+	public int getDrmReviewNo() {
+		return drmReviewNo;
 	}
 
-	public void setDrReviewNo(int drReviewNo) {
-		this.drReviewNo = drReviewNo;
+	public void setDrmReviewNo(int drmReviewNo) {
+		this.drmReviewNo = drmReviewNo;
 	}
 
-	public String getDrReviewTitle() {
-		return drReviewTitle;
+	public String getDrmReviewTitle() {
+		return drmReviewTitle;
 	}
 
-	public void setDrReviewTitle(String drReviewTitle) {
-		this.drReviewTitle = drReviewTitle;
+	public void setDrmReviewTitle(String drmReviewTitle) {
+		this.drmReviewTitle = drmReviewTitle;
 	}
 
-	public String getDrReviewCon() {
-		return drReviewCon;
+	public String getDrmReviewContent() {
+		return drmReviewContent;
 	}
 
-	public void setDrReviewCon(String drReviewCon) {
-		this.drReviewCon = drReviewCon;
+	public void setDrmReviewContent(String drmReviewContent) {
+		this.drmReviewContent = drmReviewContent;
 	}
 
-	public String getDrReviewWriter() {
-		return drReviewWriter;
+	public String getDrmReviewWriter() {
+		return drmReviewWriter;
 	}
 
-	public void setDrReviewWriter(String drReviewWriter) {
-		this.drReviewWriter = drReviewWriter;
+	public void setDrmReviewWriter(String drmReviewWriter) {
+		this.drmReviewWriter = drmReviewWriter;
 	}
 
-	public String getDrReviewDate() {
-		return drReviewDate;
+	public String getDrmReviewDate() {
+		return drmReviewDate;
 	}
 
-	public void setDrReviewDate(String drReviewDate) {
-		this.drReviewDate = drReviewDate;
+	public void setDrmReviewDate(String drmReviewDate) {
+		this.drmReviewDate = drmReviewDate;
 	}
 
-	public String getDrReviewPub() {
-		return drReviewPub;
+	public String getDrmReviewPubicYn() {
+		return drmReviewPubicYn;
 	}
 
-	public void setDrReviewPub(String drReviewPub) {
-		this.drReviewPub = drReviewPub;
+	public void setDrmReviewPubicYn(String drmReviewPubicYn) {
+		this.drmReviewPubicYn = drmReviewPubicYn;
 	}
 
 	public int getMzReviewNo() {
@@ -167,8 +168,8 @@ public class ReviewDreamMzAll {
 	public void setMzReviewDate(String mzReviewDate) {
 		this.mzReviewDate = mzReviewDate;
 	}
-    
-    public int getMzReviewFileNo() {
+
+	public int getMzReviewFileNo() {
 		return mzReviewFileNo;
 	}
 
@@ -210,11 +211,14 @@ public class ReviewDreamMzAll {
 
 	@Override
 	public String toString() {
-		return "ReviewDreamMzAll [userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + ", drReviewNo="
-				+ drReviewNo + ", drReviewTitle=" + drReviewTitle + ", drReviewCon=" + drReviewCon + ", drReviewWriter="
-				+ drReviewWriter + ", drReviewDate=" + drReviewDate + ", drReviewPub=" + drReviewPub + ", mzReviewNo="
-				+ mzReviewNo + ", mzReviewTitle=" + mzReviewTitle + ", mzReviewCon=" + mzReviewCon + ", mzReviewWriter="
-				+ mzReviewWriter + ", mzReviewDate=" + mzReviewDate + ", mzReviewFileNo=" + mzReviewFileNo + ", mzReviewFileName=" + mzReviewFileName + ", mzReviewFileSize=" + mzReviewFileSize + ", mzReviewFilePath=" + mzReviewFilePath + ", mzReviewFileTime=" + mzReviewFileTime + "]";
+		return "ReviewDreamMzAll [userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + ", drmReviewNo="
+				+ drmReviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent=" + drmReviewContent
+				+ ", drmReviewWriter=" + drmReviewWriter + ", drmReviewDate=" + drmReviewDate + ", drmReviewPubicYn="
+				+ drmReviewPubicYn + ", mzReviewNo=" + mzReviewNo + ", mzReviewTitle=" + mzReviewTitle
+				+ ", mzReviewCon=" + mzReviewCon + ", mzReviewWriter=" + mzReviewWriter + ", mzReviewDate="
+				+ mzReviewDate + ", mzReviewFileNo=" + mzReviewFileNo + ", mzReviewFileName=" + mzReviewFileName
+				+ ", mzReviewFileSize=" + mzReviewFileSize + ", mzReviewFilePath=" + mzReviewFilePath
+				+ ", mzReviewFileTime=" + mzReviewFileTime + "]";
 	}
 
 }

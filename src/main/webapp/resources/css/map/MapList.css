@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333333;
+    max-height: 100%;
+    height: 100%;
+}
+a {
+    text-decoration: none;
+}
+
+ /* 백그라운드 이미지 */
+.header-background-area {
+    width: 1903px;
+    margin: 0 auto;
+}
+    .header-background-area > img {
+        position: absolute;
+        z-index: -5;
+        display: block;
+        top: 0;
+        width: 1903px;
+        align: center;
+        object-fit:cover; 
+        
+    } 
+    
+.frame {
+	width: 1440px;
+	height: 600px;
+	margin: 0 auto;
+	/* background-color: yellow; */
+}
+
+	.sub-title > p {
+		text-align: center;
+		font-size: 19px;
+		margin-top: 140px;
+		margin-bottom: 158px;
+	}
+	
+	/* ul 태그 감싸고 있는 div 에 가로세로 값 지정해줘야 정렬 가능 */
+	.map-menuAll {
+		width: 1260px;
+		height: 300px;
+		/* background: pink; */
+		margin: 0 auto;
+	}
+	
+	.map-menuAll > ul {
+		list-style-type: none;
+		text-align: center;
+	}
+	
+		.map-menuAll > ul > li {
+			width: 250px;
+			height: 60px;
+			margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
+			border: solid 1px #e3e4e5;
+			float: left;
+			font-size: 17px;
+			line-height: 59px;
+			text-align: center;
+			display: inline-block;
+		}
+		
+		.map-menuAll > ul > li:hover {
+			background: #fdb504;
+			cursor: pointer;
+		}
+		
+			.map-menuAll > ul > li > a {
+				display: block;
+			    color: #333333;
+			}
+			
+			.map-menuAll > ul > li > a:hover {
+			    color: #e3e4e5;
+			}
+
