@@ -3,6 +3,7 @@ package com.donzzul.spring.reservation.store.logic;
 import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,16 +14,16 @@ import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
 
 @Repository
-public class ReservationStoreLogic implements ReservationStore{
+public class ReservationStoreLogic implements ReservationStore {
 
 	@Autowired
-	private SqlSessionTemplate sqlSession;
-	
+	private SqlSession sqlSession;
+
 	@Override
 	public int insertReservation(Reservation reservation) {
-		return sqlSession.insert("", reservation);
+		return sqlSession.insert("reservationMapper", reservation);
 	}
-	
+
 	@Override
 	public int updateUserPoint(User User) {
 		// TODO Auto-generated method stub
@@ -76,7 +77,5 @@ public class ReservationStoreLogic implements ReservationStore{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 
 }
