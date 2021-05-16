@@ -54,7 +54,7 @@ h1{
 	height: 26px;
 }
 
-#button{
+.button{
 	background-color: #fdb504;
 	border-radius: 5px;
 	font-size: 20px;
