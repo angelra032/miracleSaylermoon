@@ -13,6 +13,7 @@ public class User {
 	private String dreamCardno;
 	private int userPoint;
 	private char userType;
+	private String partnerName;
 	
 	public User() {
 		super();
@@ -21,7 +22,7 @@ public class User {
 
 	public User(int userNo, String userId, String userPw, String userName, String userNick, String userPhone,
 			String userEmail, String partnerVerify, String partnerWithdraw, String dreamCardno, int userPoint,
-			char userType) {
+			char userType, String partnerName) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -35,6 +36,13 @@ public class User {
 		this.dreamCardno = dreamCardno;
 		this.userPoint = userPoint;
 		this.userType = userType;
+		this.partnerName = partnerName;
+	}
+
+	public User(String userId, String userPw) {
+		super();
+		this.userId = userId;
+		this.userPw = userPw;
 	}
 
 	public int getUserNo() {
@@ -133,13 +141,23 @@ public class User {
 		this.userType = userType;
 	}
 
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userName=" + userName
 				+ ", userNick=" + userNick + ", userPhone=" + userPhone + ", userEmail=" + userEmail
 				+ ", partnerVerify=" + partnerVerify + ", partnerWithdraw=" + partnerWithdraw + ", dreamCardno="
-				+ dreamCardno + ", userPoint=" + userPoint + ", userType=" + userType + "]";
+				+ dreamCardno + ", userPoint=" + userPoint + ", userType=" + userType + ", partnerName=" + partnerName
+				+ "]";
 	}
+
 	
 	
 	

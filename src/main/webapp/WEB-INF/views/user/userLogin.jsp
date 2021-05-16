@@ -22,14 +22,14 @@
 				<h2>회원로그인</h2>
 				<h4>꿈나무, 일반, 사업자 회원</h4>
 				<div class="left-inner-box">
-					<form action="" method="POST"> 
+					<form action="login.dz" method="POST"> 
 						<div class="input-box"> 
-							<input id="username" type="text" name="username" placeholder="아이디"> 
-							<label for="username">아이디</label> 
+							<input id="userid" type="text" name="userId" placeholder="아이디"> 
+							<label for="userid">아이디</label> 
 						</div> 
 						<div class="input-box"> 
-							<input id="password" type="password" name="password" placeholder="비밀번호"> 
-							<label for="password">비밀번호</label> 
+							<input id="userpw" type="password" name="userPw" placeholder="비밀번호"> 
+							<label for="userpw">비밀번호</label> 
 						</div> 
 						<input type="submit" id="left-login-bt" value="로그인"> 
 						<div id="findpw">비밀번호 찾기</div> 

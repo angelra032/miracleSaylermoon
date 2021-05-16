@@ -27,16 +27,47 @@ public class UserController {
 		return "user/userJoin";
 	}
 	
-	// 회원등록
-	@RequestMapping(value = "userRegister.dz", method = RequestMethod.POST) 
-	public String userRegister(@ModelAttribute User user, 
-			Model model) {
-		int result = service.insertUser(user);
+	// 꿈나무회원등록
+	@RequestMapping(value = "dreamRegister.dz", method = RequestMethod.POST) 
+	public String dreamUserRegister(@ModelAttribute User user, Model model) {
+		int result = service.insertDreamUser(user);
 		if (result>0) {
-			return "";
+			return "redirect:index.jsp";
 		}else {
-			return "";
+			model.addAttribute("msg", "회원가입실패!");
+			return "common/errorPage";
 		}
+	}
+	
+	// 일반회원등록
+	@RequestMapping(value = "mzRegister.dz", method = RequestMethod.POST) 
+	public String mzUserRegister(@ModelAttribute User user, Model model) {
+		int result = service.insertMzUser(user);
+		if (result>0) {
+			return "redirect:index.jsp";
+		}else {
+			model.addAttribute("msg", "회원가입실패!");
+			return "common/errorPage";
+		}
+	}
+	
+	// 사업자회원등록
+	@RequestMapping(value = "partnerRegister.dz", method = RequestMethod.POST) 
+	public String partnerUserRegister(@ModelAttribute User user, Model model) {
+		int result = service.insertPartnerUser(user);
+		if (result>0) {
+			return "redirect:index.jsp";
+		}else {
+			model.addAttribute("msg", "회원가입실패!");
+			return "common/errorPage";
+		}
+	}
+	
+	//아이디 중복 검사
+	@ResponseBody //반드시 적어줘야함 jsp에서 매개변수로 받아서쓰게 하려면 필요
+	@RequestMapping(value = "dupId.dz", method = RequestMethod.GET)
+	public String idDuplicateCheck(@RequestParam("userId") String userId) {
+		return service.checkIdDup(userId)+""; //@ResponseBody를 적으면 /WEB-INF/views어쩌구 안붙여주고 바로 보낼수 있다. printWriter를 안써도 됨
 	}
 	
 	//로그인 뷰
@@ -48,15 +79,15 @@ public class UserController {
 	//로그인
 	@RequestMapping(value = "login.dz", method = RequestMethod.POST)
 	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		User uOne = new User();
+		User uOne = new User(user.getUserId(), user.getUserPw());
 		User loginUser = service.loginUser(uOne);
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			return "";
+			return "redirect:index.jsp";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
-			return "";
+			return "common/errorPage";
 		}
 	}
 	
@@ -124,13 +155,6 @@ public class UserController {
 		}else {
 			return "";
 		}
-	}
-	
-	//아이디 중복 검사
-	@ResponseBody //반드시 적어줘야함 jsp에서 매개변수로 받아서쓰게 하려면 필요
-	@RequestMapping(value = "dupId.kh", method = RequestMethod.GET)
-	public String idDuplicateCheck(@RequestParam("userId") String userId) {
-		return service.checkIdDup(userId)+""; //@ResponseBody를 적으면 /WEB-INF/views어쩌구 안붙여주고 바로 보낼수 있다. printWriter를 안써도 됨
 	}
 	
 	//아이디 찾기 폼
