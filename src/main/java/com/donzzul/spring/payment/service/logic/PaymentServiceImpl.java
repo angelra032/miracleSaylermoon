@@ -12,15 +12,34 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Autowired
 	private PaymentStore store;
+
 	
 	@Override
-	public int updatePoint(User user) {
+	public int usePoint(User user) { // 포인트 사용
+		int result = store.updatePoint(user);
+		return result;
+	}
+
+	@Override
+	public String selectMyPoint(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int saveRoulettePoint(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateDonList(User user) {
+	public int saveReviewPoint(User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertDonList(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -30,5 +49,6 @@ public class PaymentServiceImpl implements PaymentService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
