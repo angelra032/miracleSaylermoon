@@ -15,125 +15,116 @@
          object-fit:cover; 
          
      }
-     
+
+/* 공통 태그 */ 
 h1{
 	font-size:38px;
-	margin-top:100px;
-	margin-left:50px;
+	padding: 50px;
 	
 }          
 h2 {
-	font-size:38px;
-	margin-top:100px;
-	text-align:center;
-}
-h3{
 	font-size:28px;
-	margin-top:150px;
-	font-weight:700;
 	text-align:center;
-	margin-bottom: 50px;
-}
-h4 {
-	font-size:20px;
-	text-align:center;
-	margin-top:30px;
-	font-weight:400;
-	margin-bottom:50px;
-}
-input{
-	--width: 250px;
-	height: 40px;
-	font-size: 18px;
 }
 
+/* 메인 */
 .frame {
+	background-color: beige;
 	width:1440px;
-	height:1080px;
+	height:1000px;
 	margin:0 auto;
 }
-#payment-form {
-	margin:0 auto;
-	width: 80%;
-	height: inherit;
-}
-.choice{
-	width: 50%;
-	float:left;
-	--margin:0 auto;
-	--margin-top: 50px;
-}
-.menu{
-	margin:0 auto;
-	text-align: center;
-}
-.amount{
-	text-align: center;
-}
-#select-box{
-	height: 40px;
-	width: 300px;
-	text-align: center;
-	font-size: 18px;
-}
-option{
-	height: 30px;
-	width: 300px;
-	text-align: center;
-	font-size: 17px;
-}
-.amount-btn{
-	width: 100px;
-	margin: 0 auto;
-	text-align: center;
-	font-size: 18px;
-}
-
-
-#payment-point {
-	margin-top: 400px;
-	margin-bottom: 50px;
-}
-#point-div {
-	--background-color: beige;
-	width: 50%;
-	margin: 0 auto;
-	--text-align: center;
+	.payment {
+		border: 1px solid black; 
+		width: 33%;
+		height: 600px;
+		float: left;
+	}
+	.menu-choice input[type=radio] + span{
+		display: inline-block;
+		border: 1px solid black;
+		width: 100%;
+		height: 50px;
+		--border-radius: 5px;
+		line-height: 50px;
+		font-size: 20px;
+		text-align: center;
+	}
 	
-}
-.point {
-	font-size: 20px;
-	margin-bottom: 10px;
-	--display: inline-block;
-}
+		.lay2{
+			border: 1px solid black; 
+			height: 50%;
+		}
+			.amount{
+				text-align: center;
+			}
+				input[type=radio]{
+					display: none;
+					margin: 0px;
+				}
+				.amount-btn input[type=radio] + span{
+					display: inline-block;
+					border: 1px solid black;
+					width: 130px;
+					height: 50px;
+					border-radius: 5px;
+					line-height: 50px;
+					font-size: 20px;
+				}
 
+			.point {
+				font-size: 20px;
+				--margin-bottom: 10px;
+				--display: inline-block;
+			}
+				#lay2-point-div {
+					margin-left: 55px;
+					line-height: 35px;
+					font-weight: bold;
+				}
+					#userPoint {
+						width: 140px;
+						height: 25px;
+						font-size: 16px;
+						--display: none;
+					}
+					#usePoint {
+						width: 140px;
+						height: 25px;
+						font-size: 16px;
+					}
 
-button{
-	width: 100px;
-	height: 40px;
-	align: left;
-	--margin-left: 50px;
-	--margin: 0 auto;
-	--display: block;
-	background-color:#fdb504;
-	color: #fff;
-	border:0;
-	font-size: 18px;
-	font-weight: 600;
-	cursor:pointer;
-}
+				#pSubmit {
+					width: 100px;
+					height: 40px;
+					--margin-left: 125px;
+					--margin-top: 25px;
+					margin: 0 auto;
+					display: block;
+					background-color:#fdb504;
+					color: #fff;
+					border:0;
+					font-size: 18px;
+					font-weight: 600;
+					cursor:pointer;
+				}
 
-#payment-btn {
-	width: 50%;
-	--height: 40px;
-	margin: 0 auto;
-	display: block;
-	background-color:#fdb504;
-	color: #fff;
-	border:0;
-	font-size: 20px;
-	font-weight: 600;
-	cursor:pointer;
-}
+		.lay3 {
+			font-size: 20px;
+		}
+
+		/* 폼 전송버튼 */
+		#payment-btn {
+			width: 150px;
+			height: 40px;
+			margin: 0 auto;
+			display: block;
+			background-color:#fdb504;
+			color: #fff;
+			border:0;
+			font-size: 18px;
+			font-weight: 600;
+			cursor:pointer;
+		}
 
 
