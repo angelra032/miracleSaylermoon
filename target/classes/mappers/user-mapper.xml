@@ -40,4 +40,24 @@
 	<select id="checkIdDup" resultType="_int">
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId}
 	</select>
+
+	<select id="checkPhoneDup" resultType="_int">
+		SELECT COUNT(*) FROM "USER" WHERE USER_PHONE = #{userPhone}
+	</select>
+
+	<select id="checkCardAvail" resultType="_int" parameterType="HashMap">
+		SELECT COUNT(*) FROM DREAMCARD WHERE DREAM_NAME = #{1} AND DREAM_CARDNUM = #{2}
+	</select>
+	
+	<select id="checkCardDup" resultType="_int" parameterType="HashMap">
+		SELECT COUNT(*) FROM "USER" WHERE DREAM_CARDNO = #{2}
+	</select>
+
+	<select id="checkPVerifyDup" resultType="_int">
+		SELECT COUNT(*) FROM "USER" WHERE PARTNER_VERIFY = #{partnerVerify}
+	</select>
+
+	<select id="checkEmailDup" resultType="_int">
+		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail}
+	</select>
 </mapper>

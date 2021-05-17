@@ -1,5 +1,7 @@
 package com.donzzul.spring.user.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.service.UserService;
 
@@ -69,6 +72,47 @@ public class UserController {
 	public String idDuplicateCheck(@RequestParam("userId") String userId) {
 		return service.checkIdDup(userId)+""; //@ResponseBody를 적으면 /WEB-INF/views어쩌구 안붙여주고 바로 보낼수 있다. printWriter를 안써도 됨
 	}
+
+	//연락처 중복 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupPhone.dz", method = RequestMethod.GET)
+	public String phoneDuplicateCheck(@RequestParam("userPhone") String userPhone) {
+		return service.checkPhoneDup(userPhone)+"";
+	}
+	
+	//카드번호 유효성 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupCard.dz", method = RequestMethod.GET)
+	public String cardDuplicateCheck(@RequestParam("userName") String userName, @RequestParam("dreamCardno") String dreamCardno) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("1", userName);
+		map.put("2", dreamCardno);
+		int availableCheck = service.checkCardAvail(map);
+		int duplicateCheck = service.checkCardDup(map);
+		if(duplicateCheck != 0){
+			return 1+"";
+		}else if (availableCheck == 0) {
+			return 0+"";
+		}else if(availableCheck != 0 && duplicateCheck == 0){
+			return 2+"";
+		}else {
+			return 3+"";
+		}
+	}
+	
+	//사업자번호 중복 검사
+		@ResponseBody 
+		@RequestMapping(value = "dupPveri.dz", method = RequestMethod.GET)
+		public String pVerifyDuplicateCheck(@RequestParam("partnerVerify") String partnerVerify) {
+			return service.checkPVerifyDup(partnerVerify)+"";
+		}
+		
+		//이메일 중복 검사
+		@ResponseBody 
+		@RequestMapping(value = "dupEmail.dz", method = RequestMethod.GET)
+		public String emailDuplicateCheck(@RequestParam("userEmail") String userEmail) {
+			return service.checkEmailDup(userEmail)+"";
+		}
 	
 	//로그인 뷰
 	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
@@ -117,7 +161,7 @@ public class UserController {
 	public String userLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "";
+		return "redirect:index.jsp";
 	}
 	
 	

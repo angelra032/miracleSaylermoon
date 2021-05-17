@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,13 +23,29 @@
                     <li><a href="#">돈쭐소개</a></li>
                     <li><a href="/mapSearchList.dz">지도조회</a></li>
                     <li><a href="/searchShopView.dz">가게검색</a></li>
-                    <li><a href="#">커뮤니티</a></li>
+                    <li><a href="mReviewMain.dz">커뮤니티</a></li>
                 </ul>
             </div>
-            <div class="header-submenu-area">
-                <a href="loginView.dz">로그인</a>
-                <a href="enrollView.dz">회원가입</a>
-            </div>
+	            <c:if test="${ empty sessionScope.loginUser }">
+            		<div class="header-submenu-area">
+		                <a href="loginView.dz">로그인</a>
+		                <a href="enrollView.dz">회원가입</a>
+            		</div>
+	            </c:if>
+	            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId =='admin'}">
+	            
+	            	<div class="header-submenu-area admin-area">
+		                <a href="logout.dz">로그아웃</a>
+		                <a href="#">관리자페이지</a>
+            		</div>
+	            </c:if>
+	            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId !='admin'}">
+	            
+	            	<div class="header-submenu-area login-area">
+		                <a href="logout.dz">로그아웃</a>
+		                <a href="#">마이페이지</a>
+            		</div>
+	            </c:if>
         </div>
     </header>
     

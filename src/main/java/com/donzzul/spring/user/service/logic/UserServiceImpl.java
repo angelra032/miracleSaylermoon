@@ -1,5 +1,7 @@
 package com.donzzul.spring.user.service.logic;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserStore store;
-
-
 
 	//꿈나무 회원등록
 	@Override
@@ -40,6 +40,36 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int checkIdDup(String userId) {
 		return store.checkIdDup(userId);
+	}
+	
+	// 휴대폰번호 중복검사
+	@Override
+	public int checkPhoneDup(String userPhone) {
+		return store.checkPhoneDup(userPhone);
+	}
+
+	// 카드번호 유효성 검사
+	@Override
+	public int checkCardAvail(HashMap<String, String> map) {
+		return store.checkCardAvail(map);
+	}
+	
+	// 카드번호 중복검사
+	@Override
+	public int checkCardDup(HashMap<String, String> map) {
+		return store.checkCardDup(map);
+	}
+
+	// 사업자번호 중복검사
+	@Override
+	public int checkPVerifyDup(String partnerVerify) {
+		return store.checkPVerifyDup(partnerVerify);
+	}
+	
+	// 이메일 중복검사
+	@Override
+	public int checkEmailDup(String userEmail) {
+		return store.checkEmailDup(userEmail);
 	}
 
 	//로그인
@@ -78,6 +108,9 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+	
 
 
 }

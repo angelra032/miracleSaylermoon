@@ -1,5 +1,7 @@
 package com.donzzul.spring.user.store.logic;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +39,36 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.checkIdDup", userId);
 	}
 	
+	// 휴대폰번호 중복검사
+	@Override
+	public int checkPhoneDup(String userPhone) {
+		return sqlSession.selectOne("userMapper.checkPhoneDup", userPhone);
+	}
+
+	// 카드번호 유효성 검사
+	@Override
+	public int checkCardAvail(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.checkCardAvail", map);
+	}
+	
+	// 카드번호 중복검사
+	@Override
+	public int checkCardDup(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.checkCardDup", map);
+	}
+	
+	// 사업자번호 중복검사
+	@Override
+	public int checkPVerifyDup(String partnerVerify) {
+		return sqlSession.selectOne("userMapper.checkPVerifyDup", partnerVerify);
+	}
+	
+	// 이메일
+	@Override
+	public int checkEmailDup(String userEmail) {
+		return sqlSession.selectOne("userMapper.checkEmailDup", userEmail);
+	}
+	
 	//로그인
 	@Override
 	public User selectOneUser(User user) {
@@ -54,5 +86,9 @@ public class UserStoreLogic implements UserStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
+	
+
 
 }
