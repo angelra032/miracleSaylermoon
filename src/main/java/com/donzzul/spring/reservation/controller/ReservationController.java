@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
@@ -26,14 +27,14 @@ public class ReservationController {
 	@RequestMapping(value="reservationView.kh")
 	public String reservationView(Model model) {
 		Shop shop = new Shop();
-		shop.setShopNo(1);
-		shop.setUserNo(2);
+		shop.setShopNo(3);
+		shop.setUserNo(1);
 		shop.setStartTime("9");
 		shop.setEndTime("18");
 		shop.setBusinessDay(12345);
 		
 		User user = new User();
-		user.setUserPoint(100);
+		user.setUserPoint(1000);
 		
 		Reservation reservation = new Reservation();
 		reservation.setReserveDate("2021-05-13");
@@ -59,19 +60,34 @@ public class ReservationController {
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.kh", method=RequestMethod.POST)
 	public String reservationInsert(@ModelAttribute Reservation reservation,
-									@ModelAttribute Shop shop,
-									@ModelAttribute User user
+									 Model model
 									) {
-		
 		int rResult = service.insertReservation(reservation);
-		int uResult= service.updateUserPoint(user);
-//		if(result > 0) {
-//			
-//		}else {
-//			
-//		}
-		return "";
+		if( rResult > 0) {
+			return "redirect:reservationView.kh";
+		}else {
+			model.addAttribute("msg","어림도 없지!!!!!!");
+			return "redirect:reservationView.kh";
+		}
 	}
+	
+	
+	
+// 고객이 포인트 확인 눌렀을때 자신이 가진 포인트를 넘지 않았나 체크하기
+//	@ResponseBody
+//	@RequestMapping(value="rValidityChk.kh", method = RequestMethod.POST)
+//	public String limitPoint(@ModelAttribute User user) {
+//		
+//		//retun Stirng = "ok" "false : 사유"
+////	    1. pornt 
+////	    Stirng = "";
+////	    return str; 
+////	    if( ok )
+////	    	2. check
+////	    	
+////	    return str;
+//		return null;
+//	}
 	
 	
 	

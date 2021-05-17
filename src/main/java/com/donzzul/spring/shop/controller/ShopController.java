@@ -29,7 +29,7 @@ public class ShopController {
 	private MzReviewService mzService;
 	private DreamReviewService drService;
 	
-	//D 지도 - 지역별 화면단 출력
+	//D 지도 - 지역별 화면단 출력 +++
 	@RequestMapping(value="mapSearchList.dz", method=RequestMethod.GET)
 	public String mapSearchList() {
 		return "map/MapList";
@@ -51,7 +51,13 @@ public class ShopController {
 		
 	}
 	
-	//D 가게 키워드 검색
+	//D 가게검색 - 화면 출력 +++
+	@RequestMapping(value="searchShopView.dz", method=RequestMethod.GET)
+	public String searchShopView() {
+		return "redirect:shop/ShopSearchList";
+	}
+	
+	//D 가게검색 - 키워드 
 	@RequestMapping(value="searchShop.dz", method=RequestMethod.GET)
 	public String searchShop(@RequestParam("searchKeyword") String searchKeyword, Model model) {
 		// 파라미터 - 유저 입력값
@@ -59,7 +65,7 @@ public class ShopController {
 		return "";
 	}
 	
-	//D 가게 테마 검색
+	//D 가게검색 - 테마
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
 	public String searchTheme(@RequestParam("themeNo") int themeNo, Model model) {
 		// 파라미터 - 메뉴 클릭시 넘버
@@ -94,7 +100,7 @@ public class ShopController {
 		return "";
 	}
 	
-//	// 각각 후기 패키지에 포함
+//	// 각각 후기 패키지에 포함 xxxxxx
 //	//D 감사후기 가져오기
 //	@RequestMapping(value="drReviewShop.dz", method=RequestMethod.GET)
 //	public String selectDrReview(@RequestParam("shopNo") String shopNo, Model model) {

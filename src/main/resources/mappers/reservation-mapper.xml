@@ -8,9 +8,16 @@
       <result property="reserveTime" column="RESERVE_TIME"></result>
       <result property="reserveCount" column="RESERVE_COUNT"></result>
       <result property="pointYn" column="POINT_YN"></result>
-      <result property="point" column="POINT"></result>
+      <result property="paymentPoint" column="PAYMENT_POINT"></result>
       <result property="userNo" column="USER_NO"></result>
    </resultMap>
 
+	<insert id="insertRservation">
+		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo})
+	</insert>
+	
+	<update id="updatePoint">
+		
+	</update>
 
 </mapper>

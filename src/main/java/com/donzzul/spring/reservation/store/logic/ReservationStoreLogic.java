@@ -21,13 +21,12 @@ public class ReservationStoreLogic implements ReservationStore {
 
 	@Override
 	public int insertReservation(Reservation reservation) {
-		return sqlSession.insert("reservationMapper", reservation);
+		return sqlSession.insert("reservationMapper.insertRservation", reservation);
 	}
 
 	@Override
-	public int updateUserPoint(User User) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateUserPoint(User user) {
+		return sqlSession.update("reservationMapper.",user);
 	}
 
 	@Override
