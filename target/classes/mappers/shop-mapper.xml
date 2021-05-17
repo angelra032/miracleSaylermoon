@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="shopMapper">
 
-	<resultMap type="Shop" id="">
+	<!-- 사업자 가게 테이블 -->
+	<resultMap type="Shop" id="shopResultMap">
 		<id property="shopNo" column="SHOP_NO"/>
 		<result property="reserveNo" column="RESERVE_NO"/>
 		<result property="shopName" column="SHOP_NAME"/>
@@ -28,5 +29,25 @@
 		<result property="startTime" column="START_TIME"/>
 		<result property="endTime" column="END_TIME"/>
 		<result property="businessDay" column="BUSINESS_DAY"/>
+	</resultMap>
+	
+	
+	<!-- 메인 메뉴 테이블 -->
+	<resultMap type="MainMenu" id="mainMenuResultMap">
+		<id property="mainMenuNo" column="MAIN_MENU_NO"/>
+		<result property="mainMenuName" column="MAIN_MENU_NAME"/>
+		<result property="mainMenuPrice" column="MAIN_MENU_PRICE"/>
+		<result property="shopNo" column="SHOP_NO"/>
+	</resultMap>
+	
+	
+	<!-- 메뉴 사진 테이블 -->
+	<resultMap type="MenuPhoto" id="menuPhotoResultMap">
+		<id property="menuFileNo" column="MENU_FILENO"/>
+		<result property="menuFileName" column="MENU_FILENAME"/>
+		<result property="menuFilePath" column="MENU_FILEPATH"/>
+		<result property="menuFileSize" column="MENU_FILESIZE"/>
+		<result property="menuUploadTime" column="MENU_UPLOADTIME"/>
+		<result property="shopNo" column="SHOP_NO"/>
 	</resultMap>
 </mapper>

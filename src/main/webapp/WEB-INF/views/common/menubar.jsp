@@ -20,8 +20,8 @@
             <div class="header-menu-area">
                 <ul>
                     <li><a href="#">돈쭐소개</a></li>
-                    <li><a href="#">지도조회</a></li>
-                    <li><a href="#">가게검색</a></li>
+                    <li><a href="/mapSearchList.dz">지도조회</a></li>
+                    <li><a href="/searchShopView.dz">가게검색</a></li>
                     <li><a href="#">커뮤니티</a></li>
                 </ul>
             </div>
