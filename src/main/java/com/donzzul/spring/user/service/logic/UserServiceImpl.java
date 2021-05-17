@@ -13,22 +13,40 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserStore store;
 
+
+
+	//꿈나무 회원등록
 	@Override
-	public User loginUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public int insertDreamUser(User user) {
+		int result = store.insertDreamUser(user);
+		return result;
+	}
+	
+	//일반회원등록
+	@Override
+	public int insertMzUser(User user) {
+		int result = store.insertMzUser(user);
+		return result;
+	}
+	
+	//사업자회원등록
+	@Override
+	public int insertPartnerUser(User user) {
+		int result = store.insertPartnerUser(user);
+		return result;
 	}
 
+	// 아이디 중복검사
 	@Override
 	public int checkIdDup(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return store.checkIdDup(userId);
 	}
 
+	//로그인
 	@Override
-	public int insertUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public User loginUser(User user) {
+		User uOne = store.selectOneUser(user);
+		return uOne;
 	}
 
 	@Override
@@ -60,5 +78,6 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

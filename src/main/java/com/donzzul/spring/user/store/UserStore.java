@@ -6,7 +6,9 @@ public interface UserStore {
  
 	public User selectOneUser(User user);
 	public int checkIdDup(String userId);
-	public int insertUser(User user);
+	public int insertDreamUser(User user);
+	public int insertMzUser(User user);
+	public int insertPartnerUser(User user);
 	public int updateUser(User user);
 	public int deleteUser(String userId);
 }

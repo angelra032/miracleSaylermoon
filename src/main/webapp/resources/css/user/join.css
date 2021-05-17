@@ -59,8 +59,8 @@ h4 {
 	cursor:pointer;
 }
 
-.tabcontent.current {
-	margin : 40px auto;
+.tabcontent {
+	margin : 40px auto 140px;
 	width:624px;
 	height : auto;
 	padding-top: 40px;
@@ -72,7 +72,13 @@ h4 {
 	margin:48px auto;
 	width: 416px;
 	height : auto;
-	
+}
+
+.tab-content {
+	display: none;
+}
+.tab-content.current{
+	display: inherit;
 }
 
 .form-head {
@@ -102,16 +108,7 @@ h4 {
 	text-indent: 1.25rem;
 	font-size: .875rem;
 }
-.form-pwdelem {
-	color:#333;
-	border: 0;
-	border-radius: 3px;
-	height: 46px;
-	width: 370px;
-	padding-right: 44px;
-	text-indent: 1.25rem;
-	font-size: .875rem;
-}
+
 .re_pwd {
 	margin-top:.75rem;
 }
@@ -123,27 +120,18 @@ h4 {
 	float:left;
 }
 
-.form-pwdnoti {
-	color: #333;
-	font-size: .75rem;
-	letter-spacing: -.025em;
-	display: none; 
-	float:left;
-}
-.form-namenoti {
-	color: #333;
-	font-size: .75rem;
-	letter-spacing: -.025em;
-	display: none; 
-	float:left;
-}
-.form-nameelem {
-	color:#333;
+.submit-btn {
+	margin-top: 50px;
+	color:#fff;
+	width: 100%;
+	height: 46px;
 	border: 0;
 	border-radius: 3px;
-	height: 46px;
-	width: 370px;
-	padding-right: 44px;
-	text-indent: 1.25rem;
-	font-size: .875rem;
+	background-color: #0160ff;
+	font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.5;
+}
+.submit-btn:hover {
+	background-color: #0149c0;
 }
