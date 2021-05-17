@@ -10,7 +10,7 @@ public interface ReservationStore {
 
 	
 	public int insertReservation(Reservation reservation); //예약하기
-	public int updateUserPoint(User User);
+	public int updateUserPoint(User user);
 	public HashMap<String, String> reservationListByDream(int reservationNo, int userNo); // 꿈나무회원별 예약목록 불러오기
 	public HashMap<String, String> reservationListByMZ(int reservationNo, int userNo); // MZ회원별 예약목록 불러오기
 	public HashMap<String, String> reservationListByShop(int reservationNo, int ShopNo); // 가게별 예약목록 불러오기

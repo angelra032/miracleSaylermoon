@@ -2,36 +2,36 @@ package com.donzzul.spring.reservation.domain;
 
 public class Reservation {
 
-	private int reserveNo; // 예약번호
-	private int shopNo; //가게고유번호
-	private int userNo; // 회원고유번호
-	private String reserveDate; //예약날짜
-	private int reserveTime; //예약시간
-	private int reserveCount; //예약인원수
-	private String pointYn; // 포인트사용여부
-	private int point; //포인트
-
+	public int reservationNo;
+	public int shopNo;
+	public String reserveDate;
+	public int reserveTime;
+	public int reserveCount;
+	public String pointYn;
+	public int paymentPoint;
+	public int userNo;
+	
 	public Reservation() {}
 
-	public Reservation(int reserveNo, int shopNo, int userNo, String reserveDate, int reserveTime, int reserveCount,
-			String pointYn, int point) {
+	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
+			String pointYn, int paymentPoint, int userNo) {
 		super();
-		this.reserveNo = reserveNo;
+		this.reservationNo = reservationNo;
 		this.shopNo = shopNo;
-		this.userNo = userNo;
 		this.reserveDate = reserveDate;
 		this.reserveTime = reserveTime;
 		this.reserveCount = reserveCount;
 		this.pointYn = pointYn;
-		this.point = point;
+		this.paymentPoint = paymentPoint;
+		this.userNo = userNo;
 	}
 
-	public int getReserveNo() {
-		return reserveNo;
+	public int getReservationNo() {
+		return reservationNo;
 	}
 
-	public void setReserveNo(int reserveNo) {
-		this.reserveNo = reserveNo;
+	public void setReservationNo(int reservationNo) {
+		this.reservationNo = reservationNo;
 	}
 
 	public int getShopNo() {
@@ -40,14 +40,6 @@ public class Reservation {
 
 	public void setShopNo(int shopNo) {
 		this.shopNo = shopNo;
-	}
-
-	public int getUserNo() {
-		return userNo;
-	}
-
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
 	}
 
 	public String getReserveDate() {
@@ -82,20 +74,27 @@ public class Reservation {
 		this.pointYn = pointYn;
 	}
 
-	public int getPoint() {
-		return point;
+	public int getPaymentPoint() {
+		return paymentPoint;
 	}
 
-	public void setPoint(int point) {
-		this.point = point;
+	public void setPaymentPoint(int paymentPoint) {
+		this.paymentPoint = paymentPoint;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Reservation [reserveNo=" + reserveNo + ", shopNo=" + shopNo + ", userNo=" + userNo + ", reserveDate="
-				+ reserveDate + ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn="
-				+ pointYn + ", point=" + point + "]";
+		return "Reservation [reservationNo=" + reservationNo + ", shopNo=" + shopNo + ", reserveDate=" + reserveDate
+				+ ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn=" + pointYn
+				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + "]";
 	}
-	
 	
 }
