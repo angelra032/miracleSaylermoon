@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="paymentMapper">
+
+	<resultMap type="Don" id="paymentResultMap">
+		<id property="donNo" column="DON_NO"/>
+		<result property="donPrice" column="DON_PRICE"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="menuName" column="MENU_NAME"/>
+		<result property="amount" column="AMOUNT"/>
+		<result property="paymentDate" column="PAYMENT_DATE"/>
+		<result property="shopNo" column="SHOP_NAME"/>
+		<result property="shopName" column="SHOP_NO"/>
+	</resultMap>
+	
+	<!-- select - insert - update - delete -->
+	
+	<select id=""></select>
+	
+	<update id="updateUserPoint">
+		UPDATE USER SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo }
+				<!-- 아 근데 #{userPoint } 이거 쓰려면 돈쭐 테이블에 포인트가 있어야함..? 아님 조인..? 
+								아니면 payment가 아니라 user에서 처리? service 바꿔서..(User service 선언해주고) -->
+	</update>
+	
+	
+</mapper>

@@ -10,17 +10,35 @@ import com.donzzul.spring.user.domain.User;
 @Repository
 public class PaymentStoreLogic implements PaymentStore{
 
-//	@Autowired
-//	private SqlSessionTemplate session;
+	@Autowired
+	private SqlSessionTemplate session;
+
 	
 	@Override
-	public int updatePoint(User user) {
+	public int updatePoint(User user) { // 포인트 사용
+		return session.update("paymentMapper.updateUserPoint", user);
+	}
+
+	@Override
+	public String selectMyPoint(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateRoulettePoint(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateDonList(User user) {
+	public int updateReviewPoint(User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertDonList(User user) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

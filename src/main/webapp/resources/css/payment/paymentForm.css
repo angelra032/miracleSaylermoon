@@ -108,6 +108,21 @@ option{
 }
 
 
+button{
+	width: 100px;
+	height: 40px;
+	align: left;
+	--margin-left: 50px;
+	--margin: 0 auto;
+	--display: block;
+	background-color:#fdb504;
+	color: #fff;
+	border:0;
+	font-size: 18px;
+	font-weight: 600;
+	cursor:pointer;
+}
+
 #payment-btn {
 	width: 50%;
 	--height: 40px;
@@ -116,7 +131,7 @@ option{
 	background-color:#fdb504;
 	color: #fff;
 	border:0;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 600;
 	cursor:pointer;
 }

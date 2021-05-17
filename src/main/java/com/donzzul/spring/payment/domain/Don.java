@@ -11,11 +11,11 @@ public class Don {
 	
 	private String menuName; // 메뉴이름
 	private int amount; // 수량
-//	private int shopNo; // 가게번호
-	private String shopName; // 가게이름
 	private Date paymentDate; // 결제날짜
+	private int shopNo; // 가게번호
+	private String shopName; // 가게이름
 	
-	public Don() {}
+	public Don() {} // 기본 생성자
 
 	public int getDonNo() {
 		return donNo;
@@ -65,5 +65,27 @@ public class Don {
 		this.paymentDate = paymentDate;
 	}
 
-	
+	public int getShopNo() {
+		return shopNo;
+	}
+
+	public void setShopNo(int shopNo) {
+		this.shopNo = shopNo;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	@Override
+	public String toString() {
+		return "Don [donNo=" + donNo + ", donPrice=" + donPrice + ", userNo=" + userNo + ", menuName=" + menuName
+				+ ", amount=" + amount + ", paymentDate=" + paymentDate + ", shopNo=" + shopNo + ", shopName="
+				+ shopName + "]";
+	}
+
 }
