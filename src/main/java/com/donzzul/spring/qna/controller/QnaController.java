@@ -23,9 +23,9 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	// qna 보기(리스트) selectAll
-	@RequestMapping(value="qaMain.dz", method=RequestMethod.GET)
+	@RequestMapping(value="notiQnaMain.dz", method=RequestMethod.GET)
 	public String qnaMainView() {
-		return "";
+		return "board/noticeQna/notiQnaListView";
 	}
 	
 	// 디테일 selectOne

@@ -27,7 +27,7 @@ public class MzReviewController {
 	// 맛집후기 주소 selectAll
 	@RequestMapping(value="mReviewMain.dz", method=RequestMethod.GET)
 	public String mReviewMainView() {
-		return "";
+		return "board/mzReview/mReviewListView";
 	}
 	
 	// 디테일 selectOne

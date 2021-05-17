@@ -32,7 +32,7 @@ public class RecommendBoardController {
 	// 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="recommendMain.dz", method=RequestMethod.GET)
 	public String recommendMainView() {
-		return "";
+		return "board/recommend/recommendListView";
 	}
 	
 	

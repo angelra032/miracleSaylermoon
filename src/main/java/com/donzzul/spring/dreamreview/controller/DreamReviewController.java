@@ -28,7 +28,7 @@ public class DreamReviewController {
 	// 감사후기 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="dReviewMain.dz", method=RequestMethod.GET)
 	public String dReviewMainView() {
-		return "";
+		return "board/drmReview/dReviewListView";
 	}
 	
 	// 디테일 selectOne
