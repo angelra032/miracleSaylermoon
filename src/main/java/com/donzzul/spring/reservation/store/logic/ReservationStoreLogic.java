@@ -21,28 +21,32 @@ public class ReservationStoreLogic implements ReservationStore {
 
 	@Override
 	public int insertReservation(Reservation reservation) {
+		System.out.println("스토어로직에는 들어왔니!?");
+		System.out.println(reservation);
 		return sqlSession.insert("reservationMapper.insertRservation", reservation);
 	}
 
+	// 다시 생각하기
 	@Override
 	public int updateUserPoint(User user) {
-		return sqlSession.update("reservationMapper.",user);
+		System.out.println("포인트 스토어 로직이얌!");
+		return sqlSession.update("userMapper.updateUserPoint",user);
 	}
 
 	@Override
-	public HashMap<String, String> reservationListByDream(int reservationNo, int userNo) {
+	public String reservationListByDream(int reservationNo, int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HashMap<String, String> reservationListByMZ(int reservationNo, int userNo) {
+	public String reservationListByMZ(int reservationNo, int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HashMap<String, String> reservationListByShop(int reservationNo, int ShopNo) {
+	public String reservationListByShop(int reservationNo, int ShopNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

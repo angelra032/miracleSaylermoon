@@ -20,29 +20,31 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public int insertReservation(Reservation reservation) {
+		System.out.println("서비스임플에는 들어왔니!?");
+		System.out.println("서비스임플" + reservation);
 		return store.insertReservation(reservation);
 	}
 
-
 	@Override
 	public int updateUserPoint(User user) {
+		System.out.println("포인트 서비스 임플이야!");
 		return store.updateUserPoint(user);
 	}
 	
 	@Override
-	public HashMap<String, String> reservaionListByDream(int reservationNo, int userNo) {
+	public String reservaionListByDream(int reservationNo, int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HashMap<String, String> reservationListByMZ(int reservationNo, int userNo) {
+	public String reservationListByMZ(int reservationNo, int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public HashMap<String, String> reservaionListByShop(int reservationNo, int shopNo) {
+	public String reservaionListByShop(int reservationNo, int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

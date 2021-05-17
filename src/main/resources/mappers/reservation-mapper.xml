@@ -15,9 +15,7 @@
 	<insert id="insertRservation">
 		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo})
 	</insert>
-	
-	<update id="updatePoint">
-		
-	</update>
+
 
 </mapper>
+
