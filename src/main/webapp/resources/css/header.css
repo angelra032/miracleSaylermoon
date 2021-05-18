@@ -101,6 +101,12 @@ li {
         font-family: 'Noto Sans KR';
         font-weight: bold;
     }
+    .header-submenu-area.login-area {
+    	width: 195px;
+    }
+    .header-submenu-area.admin-area {
+    	width: 211px;
+    }
         .header-submenu-area a {
             color: #ffffff;
             text-decoration-line: none;

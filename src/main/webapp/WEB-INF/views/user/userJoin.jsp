@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/user/join.css"> 
-<link href="/static/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>돈쭐 회원가입</title>
 </head>
@@ -73,7 +73,7 @@
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti cardnoti card_noti_0">카드번호를 입력해주세요.</div>
 								<div class="form-noti cardnoti card_noti_1">유효하지 않는 카드번호입니다.</div>
-								<div class="form-noti cardnoti card_noti_2">이미 존재하는 회원입니다.</div>
+								<div class="form-noti cardnoti card_noti_2">이미 등록된 카드번호입니다.</div>
 								<div class="form-noti cardnoti card_suc">본인인증성공</div>
 							</div>
 							<div class="form-body">
@@ -225,11 +225,11 @@
 							<div class="form-head form-head2">
 								간이사업자명&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
-								<div class="form-noti namenoti name_noti_0">간이사업자명을 입력해 주세요.</div>
-								<div class="form-noti namenoti name_noti_1">한글 2자 이상 입력</div>
+								<div class="form-noti simplenamenoti simplename_noti_0">간이사업자명을 입력해 주세요.</div>
+								<div class="form-noti simplenamenoti simplename_noti_1">한글 2자 이상 입력</div>
 							</div>
 							<div class="form-body">
-								<input name="partnerName" class="form-elem nameelem" type="text" maxlength="20" placeholder="한글 2자 이상 입력">
+								<input name="partnerName" class="form-elem simplenameelem" type="text" maxlength="20" placeholder="한글 2자 이상 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -308,12 +308,12 @@
 								$('.current .userid-noti-1').css('color', '#ff5442');
 								$('.current .userid-noti-1').css('display', 'block');
 								$('.current .idelem').css('border', '1px solid #ff5442');
-							}else{
-								$('.current .idnoti').css('display', 'none');
-								$('.current .userid_suc').css('display', 'block');
-								$('.current .userid_suc').css('color', '#0160ff');
-								$('.current .idelem').css('border', '0');
-							}
+						}else{
+							$('.current .idnoti').css('display', 'none');
+							$('.current .userid_suc').css('display', 'block');
+							$('.current .userid_suc').css('color', '#0160ff');
+							$('.current .idelem').css('border', '0');
+						}
 					},
 					error : function() {
 						console.log("전송실패");
@@ -321,39 +321,13 @@
 				});
 			});
 			$(".current .idelem").on("blur", function() {
-				$('.current .idnoti').css('display', 'none');
-				
-				/* $.ajax({
-					url : "dupId.dz",
-					data : { "userId" : userId.val() },
-					success : function(result) {
-						if(result != 0){
-							$('.current .idnoti').css('display', 'none');
-							$('.current .userid-noti-2').css('color', '#ff5442');
-							$('.current .userid-noti-2').css('display', 'block');
-							$('.current .idelem').css('border', '1px solid #ff5442');
-						}else  */if(userId.val() ==""){
-							$('.current .userid-noti-0').css('color', '#ff5442');
-							$('.current .userid-noti-0').css('display', 'block');
-							$('.current .idelem').css('border', '1px solid #ff5442');
-						}else if(!regExp.test(userId.val())){
-							$('.current .idnoti').css('display', 'none');
-							$('.current .userid-noti-1').css('color', '#ff5442');
-							$('.current .userid-noti-1').css('display', 'block');
-							$('.current .idelem').css('border', '1px solid #ff5442');
-						}else{
-							$('.current .idnoti').css('display', 'none');
-							$('.current .idelem').css('border', '0');
-							/* $('.current .userid_suc').css('display', 'block');
-							$('.current .userid_suc').css('color', '#0160ff'); */
-						}
-					/*},
-					error : function() {
-						console.log("전송실패");
-					} */
-			}); 
-			
-			
+				if(userId.val() ==""){ 
+					$('.current .idnoti').css('display', 'none'); 
+					$('.current .userid-noti-0').css('color', '#ff5442');
+					$('.current .userid-noti-0').css('display', 'block');
+					$('.current .idelem').css('border', '1px solid #ff5442');
+				}
+		 });  
 			
 			///비밀번호 찾기 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			userPwd = $(".current .pwdelem");
@@ -437,9 +411,40 @@
 				}
 			});
 			
-			//사업자명-()들어가도 됨 유효성 검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			//간이사업자명 영어허용@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			userSimpleName = $(".simplenameelem");
+			var regExpSimpleName = /^[가-힣,a-z,A-Z]{2,11}$/;
+			userSimpleName.keyup(function() {
+				$('.simplenamenoti').css('display', 'none');
+				if (!regExpSimpleName.test(userSimpleName.val())) {
+					$('.simplename_noti_1').css('color', '#ff5442');
+					$('.simplename_noti_1').css('display', 'block');
+					$('.simplenameelem').css('border', '1px solid #ff5442');
+				}else{
+					$('.simplenamenoti').css('display', 'none');
+					$('.simplenameelem').css('border', '0');
+				}
+			});
+			$(".simplenameelem").on("blur", function() {
+				$('.simplenamenoti').css('display', 'none');
+				if (userSimpleName.val() =="") {
+					$('.simplename_noti_0').css('color', '#ff5442');
+					$('.simplename_noti_0').css('display', 'block');
+					$('.simplenameelem').css('border', '1px solid #ff5442');
+				}else if(!regExpSimpleName.test(userSimpleName.val())){
+					$('.simplenamenoti').css('display', 'none');
+					$('.simplename_noti_1').css('color', '#ff5442');
+					$('.simplename_noti_1').css('display', 'block');
+					$('.simplenameelem').css('border', '1px solid #ff5442');
+				}else{
+					$('.siplenamenoti').css('display', 'none');
+					$('.simplenameelem').css('border', '0');
+				}
+			});
+			
+			//사업자명-(주)괄호 들어가도 됨, 영어허용 유효성 검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			userPName = $(".pnameelem");
-			var regExpPName = /^[가-힣()]{2,11}$/;
+			var regExpPName = /^[가-힣,a-z,A-Z()]{2,11}$/;
 			userPName.keyup(function() {
 				$('.pnamenoti').css('display', 'none');
 				if (!regExpPName.test(userPName.val())) {
@@ -469,7 +474,8 @@
 			});
 			
 			///카드번호@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			userCard = $(".current .cardelem");
+			var userCard = $(".current .cardelem");
+			var dreamCardno = $(".current .cardelem");
 			//자동 - 생성
 			var autoHypenCard = function(str){
 			      str = str.replace(/[^0-9]/g, '');
@@ -509,14 +515,21 @@
 			$('.current .cardelem').keyup(function() {
 				$('.current .cardnoti').css('display', 'none');
 				$.ajax({
-					url : "dupCard.kh",
-					data : { "dreamCardno" : dreamCardno },
+					url : "dupCard.dz",
+					type : "get",
+					data : { "userName" : userName.val(), "dreamCardno" : dreamCardno.val() },
 					success : function(result) {
-						if(result != 0){
+						if(result == 0){
+							$('.current .cardnoti').css('display', 'none');
+							$('.current .card_noti_1').css('color', '#ff5442');
+							$('.current .card_noti_1').css('display', 'block');
+							$('.current .cardelem').css('border', '1px solid #ff5442');
+						}else if(result == 1){
+							$('.current .cardnoti').css('display', 'none');
 							$('.current .card_noti_2').css('color', '#ff5442');
 							$('.current .card_noti_2').css('display', 'block');
 							$('.current .cardelem').css('border', '1px solid #ff5442');
-						}else{
+						}else if(result == 2){
 							$('.current .cardnoti').css('display', 'none');
 							$('.current .card_suc').css('display', 'block');
 							$('.current .card_suc').css('color', '#0160ff');
@@ -530,14 +543,14 @@
 			});
 			// 안적었을때 - 카드번호를입력해주세요
 			$(".current .cardelem").on("blur", function() {
-				$('.current .cardnoti').css('display', 'none');
+				//$('.current .cardnoti').css('display', 'none');
 				if (userCard.val() =="") {
 					$('.current .card_noti_0').css('color', '#ff5442');
 					$('.current .card_noti_0').css('display', 'block');
 					$('.current .cardelem').css('border', '1px solid #ff5442');
 				}else{
-					$('.current .cardnoti').css('display', 'none');
-					$('.current .cardelem').css('border', '0');
+					/* $('.current .cardnoti').css('display', 'none');
+					$('.current .cardelem').css('border', '0'); */
 				}
 			});
 			
@@ -599,7 +612,6 @@
 			          tmp += str.substr(7);
 			          return tmp;
 			      }
-			  
 			      return str;
 			}
 	
@@ -619,18 +631,40 @@
 			}
 			////////////////mz휴대폰번호끝
 			
-			// 안적었을때 - 휴대폰번호를입력해주세요
-			userPhone = $(".current .phoneelem");
-			$(".current .phoneelem").on("blur", function() {
+			// 중복(2) - 이미 등록된 번호입니다
+			var userPhone = $(".current .phoneelem");
+			$(".current .phoneelem").keyup(function() {
 				$('.current .phonenoti').css('display', 'none');
+				$.ajax({
+					url : "dupPhone.dz",
+					data : { "userPhone" : userPhone.val() },
+					success : function(result) {
+						if(result != 0){
+							$('.current .phonenoti').css('display', 'none');
+							$('.current .phone_noti_2').css('color', '#ff5442');
+							$('.current .phone_noti_2').css('display', 'block');
+							$('.current .phoneelem').css('border', '1px solid #ff5442');
+						}else {
+							$('.current .phonenoti').css('display', 'none');
+							$('.current .phoneelem').css('border', '0');
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
+			});
+			// 안적었을때(0) - 휴대폰번호를입력해주세요
+			$(".current .phoneelem").on("blur", function() {
 				if (userPhone.val() =="") {
+					$('.current .phonenoti').css('display', 'none');
 					$('.current .phone_noti_0').css('color', '#ff5442');
 					$('.current .phone_noti_0').css('display', 'block');
 					$('.current .phoneelem').css('border', '1px solid #ff5442');
-				}else{
+				}/* else{
 					$('.current .phonenoti').css('display', 'none');
 					$('.current .phoneelem').css('border', '0');
-				}
+				} */
 			});
 			
 			///사업자 연락처 -위치 수정@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -716,8 +750,8 @@
 			$('.pverielem').keyup(function() {
 				$('.pverinoti').css('display', 'none');
 				$.ajax({
-					url : "dupPveri.kh",
-					data : { "partnerVerify" : partnerVerify },
+					url : "dupPveri.dz",
+					data : { "partnerVerify" : userPVeri.val() },
 					success : function(result) {
 						if(result != 0){
 							$('.pveri_noti_2').css('color', '#ff5442');
@@ -735,35 +769,52 @@
 			});
 			// 안적었을때 - 카드번호를입력해주세요
 			$(".pverielem").on("blur", function() {
-				$('.pverinoti').css('display', 'none');
+				/* $('.pverinoti').css('display', 'none'); */
 				if (userPVeri.val() =="") {
 					$('.pveri_noti_0').css('color', '#ff5442');
 					$('.pveri_noti_0').css('display', 'block');
 					$('.pverielem').css('border', '1px solid #ff5442');
 				}else{
-					$('.pverinoti').css('display', 'none');
-					$('.pverielem').css('border', '0');
+					/* $('.pverinoti').css('display', 'none');
+					$('.pverielem').css('border', '0'); */
 				}
 			});
 			
 			// 이메일 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			// 안적었을때
 			userEmail = $(".current .emailelem");
 			var emailReg = /[a-zA-Z0-9]{4,12}\@/;
-			$(".current .emailelem").on("blur", function() {
+			$(".current .emailelem").keyup(function() {
 				$('.current .emailnoti').css('display', 'none');
+				$.ajax({
+					url : "dupEmail.dz",
+					data : { "userEmail" : userEmail.val() },
+					success : function(result) {
+						if(result != 0){
+							$('.current .email_noti_2').css('color', '#ff5442');
+							$('.current .email_noti_2').css('display', 'block');
+							$('.current .emailelem').css('border', '1px solid #ff5442');
+						}else if(!emailReg.test(userEmail.val())) {
+							$('.current .emailnoti').css('display', 'none');
+							$('.current .email_noti_1').css('color', '#ff5442');
+							$('.current .email_noti_1').css('display', 'block');
+							$('.current .emailelem').css('border', '1px solid #ff5442');
+						}else {
+							$('.current .emailnoti').css('display', 'none');
+							$('.current .emailelem').css('border', '0');
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
+			});
+			// 안적었을때
+			$(".current .emailelem").on("blur", function() {
 				if (userEmail.val() =="") {
+					$('.current .emailnoti').css('display', 'none');
 					$('.current .email_noti_0').css('color', '#ff5442');
 					$('.current .email_noti_0').css('display', 'block');
 					$('.current .emailelem').css('border', '1px solid #ff5442');
-				}else if(!emailReg.test(userEmail.val())) {
-					$('.current .emailnoti').css('display', 'none');
-					$('.current .email_noti_1').css('color', '#ff5442');
-					$('.current .email_noti_1').css('display', 'block');
-					$('.current .emailelem').css('border', '1px solid #ff5442');
-				}else {
-					$('.current .emailnoti').css('display', 'none');
-					$('.current .emailelem').css('border', '0');
 				}
 			});
 		});
