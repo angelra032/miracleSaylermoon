@@ -9,7 +9,7 @@
 <!-- JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 지도 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1683794343a4e97ff3195b44b6488d0c"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1683794343a4e97ff3195b44b6488d0c&libraries=services"></script>
 <script type="text/javascript" src="/resources/js/map/Map.js"></script>
 <title>지도 상세 페이지</title>
 </head>
@@ -36,27 +36,26 @@
     </header>
 
 	<main>
-		<div id="frame">
-			<div id="map"></div> 
+		<div class=frame>
+			<div class=map-left>
+				<div class="searchBar">
+					<form>
+						<input type="text" id="searchBox" name="mapKeyword" placeholder="지역별 가게 검색">
+						<button type="submit" id="btn-search"><img src="/resources/images/undo.png" onclick=""></button>
+					</form>
+				</div>
+				<hr>
+				<div class="content-list">
+					
+				</div>
+				<div class="pagination">
+				
+				</div>
+			</div>
+			<div class=map-right>
+				<div id="map"></div> 
+			</div>
 		</div>
-	<!-- 리스트 출력 -->
-		<!-- 	<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
-                </form>
-            </div>
-        </div>
-	        <hr>
-	        <ul id="placesList"></ul>
-	        <div id="pagination"></div>
-	    </div>
-	</div> -->
 	
 	</main>
 	

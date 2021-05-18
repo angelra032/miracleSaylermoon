@@ -38,7 +38,6 @@ public class ShopController {
 	//D 지도 - 지역별 가게 검색, 리턴 타입 및 Model 객체 ModelAndView 로 수정?
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
 //	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo) {
-		public String searchShopMap() {
 		// 파라미터 - 메뉴 클릭시 각각 넘버값
 		// mapper.xml 에서 넘버별로 스트링값 설정하기
 //		ArrayList<Shop> mapList = sService.selectShopMap(mapNo);
@@ -47,8 +46,8 @@ public class ShopController {
 //			mv.setViewName("map/MapDetail");
 //		}
 //		return mv;
+	public String searchShopMap() {
 		return "map/MapDetail";
-		
 	}
 	
 	//D 가게검색 - 화면 출력 +++
