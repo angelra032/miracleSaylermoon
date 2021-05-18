@@ -17,7 +17,6 @@
 		var calendarEl = document.getElementById('calendar');
 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
-			initialDate : '2020-09-12',
 			editable : true,
 			selectable : true,
 			businessHours : true,
@@ -92,23 +91,8 @@
 		} 
 	}
 	
-/* 	$(function){
-		$("#rButton").on("click", function(){
-			$.ajax({
-				url : "rValidityChk.kh",
-				type : "post",
-				data : {},
-				success : function(data){
-					if(data == 'success'){
-						$("#rButton").submit();
-					}else{
-						alert(data);
-					}
-				}
-			});
-		});
-	} */
-	
+
+ 
 /* 	function ajax(){
 		$.ajax{
 			체크할때 쿼리는 무조건 select로 받아야한다!
@@ -139,17 +123,20 @@
 	$(document).ready(function() {
 		$("#pButton").on("click",function(){
 			var paymentPoint = $("#pointText").val();
+			var userPoint = ${loginUser.userPoint}
+			if(paymentPoint > userPoint){
+				alert("욕심을 냈군요");
+				return false;
+			}
 			$("#paymentPoint").html(paymentPoint);
 			$("input[name='paymentPoint']").val(paymentPoint);
 		});
-		
-		
 	});
 	</script>
 
 	<!-- 본문 시작 -->
 	<main align="center">
-		<form action="reservationInsert.kh" method="post">
+		<form action="reservationInsert.dz" method="post">
 			<div class="header-background-area">
 				<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 			</div>
@@ -206,18 +193,18 @@
 				<div id="selectAreaThird" style="display:none">
 					<div class="allInformation">
 						선택한 모든 정보 출력 <br> 
-						날짜 : <input type="text" name="reserveDate" value="${reservation.reserveDate}"><br>
-						시간: <input type="text" name="reserveTime" value="${reservation.reserveTime}"> <br> 
-						인원수: <input type="text" name="reserveCount" value="${reservation.reserveCount }"><br> 
-						포인트사용여부: <input type="text" name="pointYn" value="${reservation.pointYn }"><br>
+						날짜 : <input type="text" name="reserveDate" value=""><br>
+						시간: <input type="text" name="reserveTime" value=""> <br> 
+						인원수: <input type="text" name="reserveCount" value=""><br> 
+						포인트사용여부: <input type="text" name="pointYn" value=""><br>
 
 						가게번호: <input type="text" name="shopNo" value="${shop.shopNo }"><br> 
 						
-						회원번호: <input type="text" name="userNo" value="${shop.userNo }"><br>
+						회원번호: <input type="text" name="userNo" value="${loginUser.userNo }"><br>
 						시작시간: <input type="text" name="startTime" value="${shop.startTime }"><br> 
 						마감시간: <input type="text" name="endTime" value="${shop.endTime }"><br>
 						영업날짜: <input type="text" name="businessDay" value="${shop.businessDay }"><br> 
-						포인트: <input type="text" name="userPoint" value="${user.userPoint }"><br>
+						고객보유포인트: <input type="text"  name="userPoint" value="${loginUser.userPoint }"><br>
 						
 						
 						사용할 포인트 : <span id="paymentPoint"></span>

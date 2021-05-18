@@ -42,7 +42,7 @@ public class PaymentController {
 		// session이냐(session이면 바로 로드되는 건가? 리로드 필요없음?)
 		int useP = Integer.parseInt(request.getParameter("usePoint")); // 사용할 포인트
 		System.out.println(useP); // modelandview로 안하고 request로 가져와도 되나? 됨요
-		User loginUser = new User(400);
+		User loginUser = new User();
 		System.out.println(loginUser.toString());
 		loginUser.setUserPoint(loginUser.getUserPoint() - useP);
 		System.out.println(loginUser.toString());
