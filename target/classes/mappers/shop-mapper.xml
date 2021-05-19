@@ -31,6 +31,138 @@
 		<result property="businessDay" column="BUSINESS_DAY"/>
 	</resultMap>
 	
+	<select id="selectListCount" resultMap="shopResultMap">
+		SELECT COUNT(*) FROM SHOP
+		<choose>
+			<when test="mapNo == 1">
+			</when>	
+			<when test="mapNo == 2">
+				WHERE SHOP_ADDR LIKE '%' || '서울' || '%'
+			</when>	
+			<when test="mapNo == 3">
+				WHERE SHOP_ADDR LIKE '%' || '부산' || '%'
+			</when>	
+			<when test="mapNo == 4">
+				WHERE SHOP_ADDR LIKE '%' || '광주' || '%'
+			</when>	
+			<when test="mapNo == 5">
+				WHERE SHOP_ADDR LIKE '%' || '대구' || '%'
+			</when>	
+			<when test="mapNo == 6">
+				WHERE SHOP_ADDR LIKE '%' || '대전' || '%'
+			</when>	
+			<when test="mapNo == 7">
+				WHERE SHOP_ADDR LIKE '%' || '세종' || '%'
+			</when>	
+			<when test="mapNo == 8">
+				WHERE SHOP_ADDR LIKE '%' || '울산' || '%'
+			</when>	
+			<when test="mapNo == 9">
+				WHERE SHOP_ADDR LIKE '%' || '인천' || '%'
+			</when>	
+			<when test="mapNo == 10">
+				WHERE SHOP_ADDR LIKE '%' || '제주' || '%'
+			</when>	
+			<when test="mapNo == 11">
+				WHERE SHOP_ADDR LIKE '%' || '강원' || '%'
+			</when>	
+			<when test="mapNo == 12">
+				WHERE SHOP_ADDR LIKE '%' || '경기' || '%'
+			</when>	
+			<when test="mapNo == 13">
+				WHERE SHOP_ADDR LIKE '%' || '경남' || '%'
+				OR SHOP_ADDR LIKE '%' || '경상남도' || '%'
+			</when>	
+			<when test="mapNo == 14">
+				WHERE SHOP_ADDR LIKE '%' || '경북' || '%'
+				OR SHOP_ADDR LIKE '%' || '경상북도' || '%'
+			</when>	
+			<when test="mapNo == 15">
+				WHERE SHOP_ADDR LIKE '%' || '전남' || '%'
+				OR SHOP_ADDR LIKE '%' || '전라남도' || '%'
+			</when>	
+			<when test="mapNo == 16">
+				WHERE SHOP_ADDR LIKE '%' || '전북' || '%'
+				OR SHOP_ADDR LIKE '%' || '전라북도' || '%'
+			</when>	
+			<when test="mapNo == 17">
+				WHERE SHOP_ADDR LIKE '%' || '충남' || '%'
+				OR SHOP_ADDR LIKE '%' || '충청남도' || '%'
+			</when>	
+			<when test="mapNo == 18">
+				WHERE SHOP_ADDR LIKE '%' || '충북' || '%'
+				OR SHOP_ADDR LIKE '%' || '충청북도' || '%'
+			</when>	
+		</choose>
+	</select>
+	
+	<select id="selectAllList" resultMap="shopResultMap">
+		SELECT * FROM SHOP
+		<choose>
+			<when test="mapNo == 1">
+				ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 2">
+				WHERE SHOP_ADDR LIKE '%' || '서울' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 3">
+				WHERE SHOP_ADDR LIKE '%' || '부산' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 4">
+				WHERE SHOP_ADDR LIKE '%' || '광주' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 5">
+				WHERE SHOP_ADDR LIKE '%' || '대구' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 6">
+				WHERE SHOP_ADDR LIKE '%' || '대전' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 7">
+				WHERE SHOP_ADDR LIKE '%' || '세종' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 8">
+				WHERE SHOP_ADDR LIKE '%' || '울산' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 9">
+				WHERE SHOP_ADDR LIKE '%' || '인천' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 10">
+				WHERE SHOP_ADDR LIKE '%' || '제주' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 11">
+				WHERE SHOP_ADDR LIKE '%' || '강원' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 12">
+				WHERE SHOP_ADDR LIKE '%' || '경기' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 13">
+				WHERE SHOP_ADDR LIKE '%' || '경남' || '%'
+				OR SHOP_ADDR LIKE '%' || '경상남도' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 14">
+				WHERE SHOP_ADDR LIKE '%' || '경북' || '%'
+				OR SHOP_ADDR LIKE '%' || '경상북도' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 15">
+				WHERE SHOP_ADDR LIKE '%' || '전남' || '%'
+				OR SHOP_ADDR LIKE '%' || '전라남도' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 16">
+				WHERE SHOP_ADDR LIKE '%' || '전북' || '%'
+				OR SHOP_ADDR LIKE '%' || '전라북도' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 17">
+				WHERE SHOP_ADDR LIKE '%' || '충남' || '%'
+				OR SHOP_ADDR LIKE '%' || '충청남도' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+			<when test="mapNo == 18">
+				WHERE SHOP_ADDR LIKE '%' || '충북' || '%'
+				OR SHOP_ADDR LIKE '%' || '충청북도' || '%' ORDER BY SHOP_NO DESC
+			</when>	
+		</choose>
+	</select>
+	
+	
 	
 	<!-- 메인 메뉴 테이블 -->
 	<resultMap type="MainMenu" id="mainMenuResultMap">

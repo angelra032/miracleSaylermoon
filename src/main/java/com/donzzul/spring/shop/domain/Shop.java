@@ -276,5 +276,5 @@ public class Shop {
 				+ shopPoint + ", shopPointYn=" + shopPointYn + ", userNo=" + userNo + ", donNo=" + donNo
 				+ ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay + "]";
 	}
-	
+
 }
