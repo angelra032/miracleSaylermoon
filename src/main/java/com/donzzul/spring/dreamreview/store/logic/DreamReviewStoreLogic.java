@@ -41,9 +41,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 
 	@Override
 	public int insertDreamReview(DreamReview dreamReview) {
-		
-//		return sqlSession.insert("drmReviewMapper.insertDrmReview", dreamReview);
-		return 0;
+		return sqlSession.insert("drmReviewMapper.insertDrmReview", dreamReview);
 	}
 
 	@Override

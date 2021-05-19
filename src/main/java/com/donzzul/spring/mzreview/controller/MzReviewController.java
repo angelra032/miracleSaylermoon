@@ -91,16 +91,13 @@ public class MzReviewController {
 //		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
 		System.out.println(mzReview.toString());
 		int result = 0;
-		String path = "";
 		result = mService.insertMzReview(mzReview);
 		if(result > 0) {
-			path = "home";
+			mv.setViewName("home");
 		} else {
-			mv.addObject("msg", "맛집후기 글쓰기 실패");
-			path = "common/errorPage";
+			mv.addObject("msg", "맛집후기 글쓰기 실패").setViewName("common/errorPage");
 		}
 		
-		mv.setViewName(path);
 		return mv;
 	}
 	

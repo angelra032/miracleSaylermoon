@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -99,25 +100,20 @@ public class DreamReviewController {
 	
 	// 글쓰기 올림 (사진파일추가) insert
 	@RequestMapping(value="dReviewWriterForm.dz", method=RequestMethod.POST)
-	public ModelAndView dReviewRegister(ModelAndView mv, @ModelAttribute DreamReview dreamReview, @RequestParam("drmReviewPublicYN") String drmReviewPublicYN, HttpServletRequest request) {
+	public ModelAndView dReviewRegister(ModelAndView mv, @ModelAttribute DreamReview dreamReview, @RequestParam("drmReviewPublicYN") String drmReviewPublicYN) {
 //		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
-		
-		
+		dreamReview.setShopNo('3'); // 임시 데이터(shopNo = 3)
 		dreamReview.setDrmReviewPublicYn(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
 		System.out.println(dreamReview.toString());
-//		String	path = "/index.jsp";
 		
 		//db
-//		int result = 0;
-//		String path = "";
-//		result = drService.insertDreamReview(dreamReview);
-//		if(result > 0) {
-//			path = "index.jsp";
-//		} else {
-//			mv.addObject("msg", "감사후기 게시글 등록 실패");
-//			path = "common/errorPage";
-//		}
-//		mv.setViewName(path);
+		int result = 0;
+		result = drService.insertDreamReview(dreamReview);
+		if(result > 0) {
+			mv.setViewName("redirect:dReviewMain.dz");
+		} else {
+			mv.addObject("msg", "감사후기 게시글 등록 실패").setViewName("common/errorPage");;
+		}
 		
 		return mv;
 	}
