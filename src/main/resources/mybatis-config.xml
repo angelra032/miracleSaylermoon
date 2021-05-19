@@ -12,7 +12,9 @@
 		<typeAlias type="com.donzzul.spring.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.donzzul.spring.qna.domain.Qna" alias="Qna"/>
 		<typeAlias type="com.donzzul.spring.recommendboard.domain.RecommendBoard" alias="RecommendBoard"/>
-
+		
+		<typeAlias type="com.donzzul.spring.payment.domain.Don" alias="Don"/>
+		
 		<typeAlias type="com.donzzul.spring.user.domain.User" alias="User"/>
 		<typeAlias type="com.donzzul.spring.shop.domain.Shop" alias="Shop"/>
 		<typeAlias type="com.donzzul.spring.shop.domain.Shop" alias="MainMenu"/>
@@ -28,6 +30,8 @@
 
 		<mapper resource="mappers/user-mapper.xml"></mapper>
 		<mapper resource="mappers/shop-mapper.xml"></mapper>
+		
+		<mapper resource="mappers/payment-mapper.xml"></mapper>
 
 	</mappers>
 </configuration>

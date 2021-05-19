@@ -15,7 +15,11 @@ public class Don {
 	private int shopNo; // 가게번호
 	private String shopName; // 가게이름
 	
-	public Don() {} // 기본 생성자
+	public Don() { // 기본 생성자
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Don(String string, String string2, int i, int j) {}
 
 	public int getDonNo() {
 		return donNo;
