@@ -25,7 +25,7 @@
 				<div class="my-title">
 					<span>예약 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="mzReservationList.dz">더보기</a>
 					</div>
 				</div>
 				<table>
