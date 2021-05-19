@@ -1,5 +1,6 @@
 package com.donzzul.spring.reservation.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.donzzul.spring.reservation.domain.Reservation;
@@ -12,8 +13,8 @@ public interface ReservationService {
 	public int insertReservation(Reservation reservation); //예약하기
 	
 	public int updateUserPoint(User user); // 다시하기
-	public String reservaionListByDream(int reservationNo, int userNo); // 꿈나무회원별 예약목록 불러오기
-	public String reservationListByMZ(int reservationNo, int userNo); // MZ회원별 예약목록 불러오기
+	public ArrayList<Reservation> reservaionListByDream(int userNo); // 꿈나무회원별 예약목록 불러오기
+	public ArrayList<Reservation> reservationListByMZ(int userNo); // MZ회원별 예약목록 불러오기
 	public String reservaionListByShop(int reservationNo, int shopNo); // 가게별 예약목록 불러오기
 	public int deleteReservation(int reservationNo); // 예약취소
 	public int updateReservation(Reservation reservation);// 예약수정하기

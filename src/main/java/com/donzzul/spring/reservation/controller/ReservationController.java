@@ -1,5 +1,6 @@
 package com.donzzul.spring.reservation.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +62,6 @@ public class ReservationController {
 									@RequestParam("userNo") int userNo,
 									 Model model
 									) {
-		System.out.println("컨트롤러에 들어왔니!?");
 		int rResult = service.insertReservation(reservation);
 		int pResult = 0;
 		
@@ -73,7 +73,6 @@ public class ReservationController {
 			User user = new User();
 			user.setUserNo(userNo);
 			user.setUserPoint(point);
-			System.out.println(user.toString());
 			pResult = service.updateUserPoint(user);
 		}
 		
@@ -85,25 +84,20 @@ public class ReservationController {
 		}
 	}
 	
+	// ============================여기까지 완성=============
+	
+
 	
 	
-	//꿈나무회원별 예약목록 불러오기
-	// int reserveNo, int userNo로 예약목록 불러오기
-	@RequestMapping(value="ListByDream.dz", method = RequestMethod.GET)
-	public String reservationListByDream(@RequestParam("reservationNo") int reservationNo,
-										@RequestParam("userNo") int userNo){
-		String result = service.reservaionListByDream(reservationNo, userNo);
-		return "";
-	}
+	
 	
 	// mz회원별 예약목록 불러오기
 	@RequestMapping(value="ListByMZ.dz", method = RequestMethod.GET)
 	public String reservationListByMZ(@RequestParam("reservationNo") int reservationNo,
 									@RequestParam("userNo") int userNo) {
-		String result = service.reservationListByMZ(reservationNo, userNo);
+		ArrayList<Reservation> result = service.reservationListByMZ(userNo);
 		return "";	
 	}
-	
 	
 	// 가게별 예약목록 불러오기
 	// int reserveNo, int ShopNo

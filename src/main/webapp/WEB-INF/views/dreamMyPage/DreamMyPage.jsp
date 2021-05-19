@@ -38,26 +38,27 @@
 						<h1>예약목록</h1>
 					</div>
 					<div class="secondButton">
-						<button class="btn btn-light float-right" id="rListButton">더보기</button>
+						<button class="btn btn-outline-light" id="rListButton">더보기</button>
 					</div>
 				</div>
 				<div class="sSectionBottom">
-					<table align="center" width="800" border="1" cellspacing="0" style="clear:right">
+					<table class="table table-hover" align="center" width="800" border="1" cellspacing="0" style="margin-left: auto; margin-right: auto;">
 						<tr>
-							<th>No</th>
-							<th>가게이름</th>
-							<th>예약날짜</th>
-							<th>예약취소</th>
-							<th>후기작성</th>
+							<th class="table-warning">No</th>
+							<th class="table-warning">가게이름</th>
+							<th class="table-warning">예약날짜</th>
+							<th class="table-warning">예약취소</th>
+							<th class="table-warning">후기작성</th>
 						</tr>
-
+						<c:forEach items="${rList }" var="Reservation">
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>${reservation.reservationNo }</td>
+							<td>${reservation.shopNo }</td>
+							<td>${reservation.reserveDate }</td>
+							<td><input type="button"></td>
+							<td><input type="button"></td>
 						</tr>
-
+						</c:forEach>
 					</table>
 				</div>
 			</div>

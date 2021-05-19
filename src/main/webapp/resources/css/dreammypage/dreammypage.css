@@ -38,6 +38,7 @@ h1{
 	margin-bottom: 140px;
 }
 
+
 .firstSection{
 	width:90%;
 	height:200px;
@@ -50,7 +51,6 @@ h1{
 .sSectionTop{
 	width:100%;
 	height:20%;
-	background-color: #e3e4e5;
 }
 
 .secondTitle{
@@ -59,22 +59,29 @@ h1{
 	float: left;
 	position:relative;
 	top:20px;
-	left:30px;	
+	left: 70px;	
 }
 
 .secondButton{
-	width: 80%;
+	width: 90%;
 	height: 100%;
-	background-color: #f72585;
 	position:relative;
 	margin-left: 20%;
 }
 
+#rListButton{
+	position: relative;
+	top:30px;
+	left:900px;
+	font-size: 17px;
+}
 
 .sSectionBottom{
-	width:100%;
+	width:90%;
 	height:80%;
-	background-color: #a2d2ff;
+	position:relative;
+	left:5%;
+	align:center;
 }
 
 .secondSection{
@@ -83,16 +90,7 @@ h1{
 	position:relative;
 	margin-top:100px;
 	margin-left:80px;
-	background-color: blue;
-}
-
-.secondSection{
-	width: 90%;
-	height: 500px;
-	position:relative;
-	margin-top:100px;
-	margin-left:80px;
-	background-color: blue;
+	background-color: #fdb504;
 }
 
 /* 두번째 섹션 끝 */
