@@ -264,7 +264,7 @@
 							<div class="form-body">
 								<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력">
 							</div>
-							<button class="submit-btn" type="submit">가입하기</button>
+							<button class="submit-btn" type="submit" onsubmit="return">가입하기</button>
 						</form>
 					</div>
 				</div>
@@ -818,8 +818,45 @@
 				}
 			});
 		});
-		$('#default').click();   
+		// 기본으로 꿈나무회원이 클릭되어있게 설정
+		$('#default').click(); 
 	});
-	
+	$('.current .submit-btn').click(function() {
+		var rtn = true;
+		var userId = $(".current .idelem");
+		var regExp = /^[a-z][a-z0-9]{5,11}$/;
+		
+		$.ajax({
+			url : "dupId.dz",
+			data : { "userId" : userId.val() },
+			async: false,
+			success : function(result) {
+				if(result != 0){
+					alert("사용중인 아이디입니다. 아이디를 다시 입력해주세요.");
+					userId.focus();
+					rtn = false;
+				}else if(userId.val() =="") {
+					alert("아이디를 입력해주세요.");
+					userId.focus();
+					rtn = false;
+				}else if (!regExp.test(userId.val())) {
+					alert("아이디가 올바르지 않습니다. 다시 입력해주세요.");
+					userId.focus();
+					rtn = false;
+				}else {
+					rtn = true;
+				}
+			},
+			error : function() {
+				console.log("전송실패");
+			}
+		}); 
+		return rtn;
+			
+			
+			
+			
+			
+		});
 </script>
 </html>

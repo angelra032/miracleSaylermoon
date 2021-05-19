@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- css -->
-    <link rel="stylesheet" href="/resources/css/header.css"> 
+    <link rel="stylesheet" href="/resources/css/mypageheader.css"> 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>헤더 </title>
@@ -16,7 +16,7 @@
         <div class="fixed-header-navi">
             <div class="header-logo-area" onclick="location.href='#'">
                 <!-- visual에서 작업함 경로수정필요!! -->
-                <img src="/resources/images/logo.png" alt="로고">
+                <img src="/resources/images/logo-color.png" alt="로고">
             </div>
             <div class="header-menu-area">
                 <ul>
@@ -33,6 +33,7 @@
             		</div>
 	            </c:if>
 	            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId =='admin'}">
+	            
 	            	<div class="header-submenu-area admin-area">
 		                <a href="logout.dz">로그아웃</a>
 		                <a href="#">관리자페이지</a>
@@ -56,38 +57,6 @@
     </header>
     
 </body>
-<script>
-    $(document).ready(function(){
-        $(window).scroll(function(){
-            var scroll = $(window).scrollTop();
-            if (scroll > 1) {
-                scrollDownEvent();
-                
-            }
-            else{
-                scrollUpEvent();
-            }
-        });
-        
-        // 스크롤아래로
-        function scrollDownEvent() {
-            $('.fixed-header-navi').css("background" , "#ffffff");
-            $('.fixed-header-navi').css("box-shadow" , "0 0 20px rgba(0,0,0,.5)");
-            $('.fixed-header-navi').css("position" , "fixed");
-            $('.header-menu-area a').css('color', '#333333');
-            $('.header-submenu-area a').css('color', '#333333');
-            $(".header-logo-area img").attr("src", '/resources/images/logo-color.png');
-        }
-        // 스크롤 위로
-        function scrollUpEvent() {
-            $(".fixed-header-navi").css("background" , "");
-            $('.fixed-header-navi').css("box-shadow" , "");
-            $('.header-menu-area a').css('color', '#ffffff');
-            $('.header-submenu-area a').css('color', '#ffffff');
-            $(".header-logo-area img").attr("src", '/resources/images/logo.png');
-        }
 
-    });
-</script>
 </body>
 </html>
