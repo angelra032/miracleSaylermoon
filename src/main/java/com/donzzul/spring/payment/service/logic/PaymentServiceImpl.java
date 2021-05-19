@@ -3,8 +3,11 @@ package com.donzzul.spring.payment.service.logic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.payment.store.PaymentStore;
+import com.donzzul.spring.shop.domain.MainMenu;
+import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
 
 @Service
@@ -37,17 +40,36 @@ public class PaymentServiceImpl implements PaymentService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int insertDonList(User user) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	/*
+	 * @Override public int insertDonList(User user) { // TODO Auto-generated method
+	 * stub return 0; }
+	 */
 
 	@Override
 	public String selectDonList(User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	///////////////////////////////////
+	
+
+	@Override
+	public int insertDonList(Don don) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public MainMenu selectShopMenu(int shop) {
+		MainMenu mainmenu = store.selectShopMenu(shop);
+		System.out.println("서비스임플"+mainmenu);
+		return mainmenu;
+	}
+
+	@Override
+	public Shop selectShop(Shop shop) {
+		return store.selectShop(shop);
 	}
 
 

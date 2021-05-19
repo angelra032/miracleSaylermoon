@@ -24,4 +24,55 @@
 	</update>
 	
 	
+	
+	
+	
+	<!-- 사업자 가게 테이블 -->
+	<resultMap type="Shop" id="shopResultMap">
+		<id property="shopNo" column="SHOP_NO"/>
+		<result property="shopName" column="SHOP_NAME"/>
+		<result property="shopShortAddr" column="SHOP_SHORT_ADDR"/>
+		<result property="shopAddr" column="SHOP_ADDR"/>
+		<result property="shopTarget" column="SHOP_TARGET"/>
+		<result property="shopProduct" column="SHOP_PRODUCT"/>
+		<result property="shopType" column="SHOP_TYPE"/>
+		<result property="shopFileName" column="SHOP_FILENAME"/>
+		<result property="shopFilePath" column="SHOP_FILEPATH"/>
+		<result property="shopFileSize" column="SHOP_FILESIZE"/>
+		<result property="shopUploadTime" column="SHOP_UPLOADTIME"/>
+		<result property="shopPhone" column="SHOP_PHONE"/>
+		<result property="shopParking" column="SHOP_PARKING_YN"/>
+		<result property="shopMaxReserv" column="SHOP_MAX_RESERVATION"/>
+		<result property="shopContent" column="SHOP_CONTENT"/>
+		<result property="shopLat" column="SHOP_LAT"/>
+		<result property="shopLng" column="SHOP_LNG"/>
+		<result property="shopPoint" column="SHOP_POINT"/>
+		<result property="shopPointYn" column="SHOP_POINT_YN"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="startTime" column="START_TIME"/>
+		<result property="endTime" column="END_TIME"/>
+		<result property="businessDay" column="BUSINESS_DAY"/>
+	</resultMap>
+	
+	
+	<!-- 메인 메뉴 테이블 -->
+	<resultMap type="MainMenu" id="mainMenuResultMap">
+		<id property="mainMenuNo" column="MAIN_MENU_NO"/>
+		<result property="mainMenuName" column="MAIN_MENU_NAME"/>
+		<result property="mainMenuPrice" column="MAIN_MENU_PRICE"/>
+		<result property="shopNo" column="SHOP_NO"/>
+	</resultMap>
+	
+	
+	
+	<!-- 가게메뉴 출력 -->
+	<select id="selectShopMenu" resultMap="mainMenuResultMap">
+		SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo } 
+	</select>		
+
+	<select id="selectShop" resultMap="shopResultMap">
+		SELECT * FROM SHOP WHERE SHOP_NO = #{shopNo } 
+	</select>
+
+	
 </mapper>

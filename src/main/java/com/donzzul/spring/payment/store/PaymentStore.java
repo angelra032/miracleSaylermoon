@@ -1,5 +1,8 @@
 package com.donzzul.spring.payment.store;
 
+import com.donzzul.spring.payment.domain.Don;
+import com.donzzul.spring.shop.domain.MainMenu;
+import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
 
 public interface PaymentStore {
@@ -12,8 +15,12 @@ public interface PaymentStore {
 	public int updateRoulettePoint(User user); // 룰렛포인트 적립
 	public int updateReviewPoint(User user);// 리뷰포인트 적립
 	// 결제
-	public int insertDonList(User user); // 돈쭐내역 업데이트
+	public int insertDonList(Don don); // 돈쭐내역 업데이트
 	public String selectDonList(User user); // 돈쭐내역 출력
+	
+	//////// +
+	public MainMenu selectShopMenu(int shop); // 가게 메뉴 가져오기
+	public Shop selectShop(Shop shop); // 가게 출력
 	
 	
 }

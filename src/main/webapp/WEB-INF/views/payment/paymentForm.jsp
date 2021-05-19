@@ -7,12 +7,99 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/payment/paymentForm.css"> 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript">
-	function menuChoice(menu){
-		$("input[name='menu-name']").val(menu);
-		console.log(menu);
-	}
+<script>
+//   $("#pSubmit").on("click", function(e){
+   $("#payment-btn").on("click", function(){
+       var IMP = window.IMP; // 생략가능
+       IMP.init('imp57766104'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+       var msg;
+       
+       IMP.request_pay({
+           pg : 'kakaopay',
+           pay_method : 'card',
+           merchant_uid : 'merchant_' + new Date().getTime(),
+           name : 'KH Books 도서 결제',
+           amount : '1',
+           buyer_email : '1231@iei.or.kr',
+           buyer_name : '이갈갈',
+           buyer_tel : '010-8904-5741',
+           buyer_addr : '서울시성북구',
+           buyer_postcode : '123-456',
+           //m_redirect_url : 'http://www.naver.com'
+       }, function(rsp) {
+           if ( rsp.success ) {
+               //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+               jQuery.ajax({
+                   url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+                   type: 'POST',
+                   dataType: 'json',
+                   data: {
+                       imp_uid : rsp.imp_uid
+                       //기타 필요한 데이터가 있으면 추가 전달
+                   }
+               }).done(function(data) {
+                   //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+                   if ( everythings_fine ) {
+                       msg = '결제가 완료되었습니다.';
+                       msg += '\n고유ID : ' + rsp.imp_uid;
+                       msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                       msg += '\결제 금액 : ' + rsp.paid_amount;
+                       msg += '카드 승인번호 : ' + rsp.apply_num;
+                       
+                       alert(msg);
+                   } else {
+                       //[3] 아직 제대로 결제가 되지 않았습니다.
+                       //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+                   }
+               });
+               //성공시 이동할 페이지
+               location.href='<%=request.getContextPath()%>/order/paySuccess?msg='+msg;
+           } else {
+               msg = '결제에 실패하였습니다.';
+               msg += '에러내용 : ' + rsp.error_msg;
+               //실패시 이동할 페이지
+               location.href="<%=request.getContextPath()%>/order/payFail";
+               alert(msg);
+           }
+       });
+       
+   });
 </script>
+<script type="text/javascript">
+
+	// 메뉴 선택하면
+	function menuChoice(menu){
+		$("input[name='menuName']").val(menu);
+		console.log(menu);
+		if(menu != null){
+			$("#lay2").show();
+			$("#lay2-1").show(1000);
+		}
+	}
+
+	// 수량 선택하면
+	function amountChoice(amount){
+		$("input[name='amount']").val(amount);
+		console.log(amount);
+		if(amount != null){
+			$("#lay2-2").show(1000);
+		}
+	}
+
+	// 포인트 입력시 자동으로(onkeyup)
+	function pointUse(){
+		var usePoint = $("#usePoint").val();
+		$("input[name='use-point']").val(usePoint);
+		
+		
+	}
+	
+	/* function amountChoice(amount){
+		$("input[name='menu-amount']").val(amount);
+		
+	} */
+</script>
+
 <title>돈쭐내기</title>
 </head>
 <body>
@@ -24,8 +111,8 @@
 	    </div>
 		<div id="main-title">돈쭐내기</div>
 		<div class="frame">
-			<h1>진짜파스타</h1> <%-- ${shop. } --%>
-			<form action="" method="">
+			<h1>진짜파스타${shop.shopName }</h1> <%-- ${shop.shopName } --%>
+			<form action="kakaoPay.dz" method="post">
 			
 				<div id="lay1" class="payment lay1">
 					<br>
@@ -33,26 +120,27 @@
 						<h2>메뉴 선택</h2>
 					</div>
 					<br>
-					<div class="lay1-content" onchange="menuChoice(this.value);">
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value=""><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<%-- 
+					<div class="lay1-content">
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드 치킨" onclick="menuChoice(this.value)" ><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="양념 치킨" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="소이갈릭 치킨" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
+						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
+						
 						<!-- for each문(가게shop/메뉴mainMenu) -->
-						<c:forEach items="" var="shop">
+						<c:forEach items="${menuList }" var="menu">
 							<label><input type="radio" name="menu" value="">메뉴이름</label>
+							<label class="menu-choice"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this.value)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
 						</c:forEach>
-						 --%>
+						
 					</div>
 				</div>
-				<div class="payment">
-					<div class="lay2 amount">
+				<div id="lay2" class="payment" style="display:none">
+					<div id="lay2-1" class="lay2 amount" style="display:none">
 					<br>
 						<div>
 							<h2>수량 선택</h2>
@@ -60,12 +148,12 @@
 						<br>
 						<div>
 							<!-- 스타일 다시 주기 -->
-							<label class="amount-btn"><input type="radio" name="amount" value="1"><span>X 1</span></label>&nbsp;&nbsp;
-							<label class="amount-btn"><input type="radio" name="amount" value="2"><span>X 2</span></label>&nbsp;&nbsp;
-							<label class="amount-btn"><input type="radio" name="amount" value="3"><span>X 3</span></label>
+							<label class="amount-btn"><input type="radio" name="amountC" value="1" onclick="amountChoice(this.value)"><span>X 1</span></label>&nbsp;&nbsp;
+							<label class="amount-btn"><input type="radio" name="amountC" value="2" onclick="amountChoice(this.value)"><span>X 2</span></label>&nbsp;&nbsp;
+							<label class="amount-btn"><input type="radio" name="amountC" value="3" onclick="amountChoice(this.value)"><span>X 3</span></label>
 						</div>		
 					</div>
-					<div class="lay2 point">
+					<div id="lay2-2" class="lay2 point" style="display:none">
 					<br>
 						<div>
 							<h2>포인트 사용</h2>
@@ -74,26 +162,32 @@
 						<div>
 							<div id="lay2-point-div">
 								&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${loginUser.userPoint }" readonly/> 포인트 <br>
-								&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" value="${loginUser.userPoint }" placeholder="사용할 포인트 입력"/> 포인트 <br>
+								&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="${loginUser.userPoint }" placeholder="사용할 포인트 입력"/> 포인트 <br>
 								<!-- <input type="text" id="pCount" placeholder="사용할 포인트 입력"/>원 --> 
 							</div>
 								&nbsp;&nbsp;<button id="pSubmit">사용하기</button>
 						</div>
 					</div>
 				</div>
-				<div class="payment lay3">
+				<div id="lay3" class="payment lay3" style="display:none">
 					<br>
 					<div>
 						<h2>결제 정보</h2>
 					</div>
 					<br>
 					<div>
-						<div id="lay2-point-div">
-							메뉴명 : <input type="text" name="menu-name" value="${loginUser.userPoint }" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
-							수량 : <input type="text" name="menu-amount" value="${loginUser.userPoint }" readonly/> <br>
+						<div id="lay3-payment-result">
+							메뉴명 : <input type="text" name="menuName" value="${loginUser.userPoint }" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
+							수량 : <input type="text" name="amount" value="${loginUser.userPoint }" readonly/> <br>
 							총 상품 가격 : <input type="text" name="menu-price" value="${loginUser.userPoint }" readonly/> <br>
 							사용 포인트 : <input type="text" name="use-point" value="${loginUser.userPoint }" readonly/> <br>
-							총 결제 금액 : <input type="text" name="final-price" value="${loginUser.userPoint }" readonly/>
+							총 결제 금액 : <input type="text" name="donPrice" value="${loginUser.userPoint }" readonly/>
+							<!-- 위에 폼 넘기려면 vo이름으로 맞춰야함 맞춰주기 | 가격 어쩔 겨-포인트제외or총(donPrice)-->
+							
+							<!-- userNo/shopNo/shopName/dat? - hidden -->
+							<input type="hidden" name="userNo" value="${loginUser.userNo }"/>
+							<input type="hidden" name="shopNo" value="${shop.shopNo }" />
+							<input type="hidden" name="shopName" value="${shop.shopName }" />
 						</div>	
 						 <br>
 						<input type="submit" id="payment-btn" value="돈쭐내러 가기">
@@ -138,62 +232,25 @@
 			</div> --%>
 		</div>
 	</main>
+
+<script type="text/javascript">
 	
-	<!-- 포인트 ajax -->
-	<script>
-		// 버튼 클릭 시 input에 적힌 값이 컨트롤로 전해져서
-		// 컨트롤에서 값을 받아서 로그인유저(세션)의 포인트 값에서 차감(디비)
-					// 유저(userNo?)도 넘겨야 하나?,,,
-		// 가용포인트 값 바뀜 - 이것도 컨트롤 처리,,
-		$(function(){
-			$("#pSubmit").on("click", function(e){
-				e.preventDefault();
-				//alert("나오냐");
-				var pCount = $("#pCount").val(); // input의 포인트값
-				console.log(pCount); // 폼안에 있음 리로드 됨 버튼..
-				//location.href="/usePoint.dz?usePoint="+pCount;
-				// 에이젝스
-				$.ajax({
-					url : "usePoint.dz",
-					type: "get",
-					data : {"usePoint" : pCount}, // 넘길 데이터(사용할 포인터) - 유저의 포인트(유저vo)
-					success : function(data){ // 성공했을 때 - 가용포인트 변경(성공한 값) | 사용가능한 선 안 넘었으면 실패(alert)
-						if(data != null){
-							// 가용포인트 변경 함수 작성
-							//printMyPoint();
-							$("#useablePoint").text(data.userPoint);
-							$("#pCount").val(""); // 입력값 비우기
-						}else{
-							// 포인트 사용 불가(얼마 이상)
-							alert("포인트는 100원 단위로 500원 이상일 때 사용 가능합니다. 이런식");
-						}
-					},
-					error : function(){ // 실패했을 때
-						//return "fail"; // ?? 무슨 의미야?
-					}
-				});
-			});
+	$(function() {
+		$("#pSubmit").on("click", function(e){
+			e.preventDefault(); // submit 버튼으로 작동하는 것을 중단.
+			// 포인트 사용 클릭 시 
+			// lay3 이 보여야하며
+			// lay3의 내용 - 총가격(가격*수량), 포인트, 결제 금액 나타내야하고
+			// 
+			$("#lay3").show(500);
+			//var price = '${menu.mainMenuPrice }'
+			//var finPrice = price * 
+			$("input[name='menu-price']").val(); // 총가격 = 메뉴가격 * 수량
+			$("input[name='donPrice']").val(); // 결제 가격 = 총가격 - 사용포인트
 		});
-		
-		// 가용포인트 출력
-		function printMyPoint(){
-			//var userPoint = '${loginUser.userPoint }'
-			var userPointSpan = $("#useablePoint"); // 유저(가용)포인트 span
-			userPointSpan.val(loginUser.userPoint); // user 포인트 출력해보기,,
-			$.ajax({
-				url : "printMyPoint.dz",
-				type : "get",
-				data : {"userPoint" : userPoint }, // 뭘 갖고 가야하나? userNo? user의 포인트? | 아무것도 가져갈 필요 없을 듯? - 세션의 포인트니까,,
-				//dataType : 
-				success : function(data){
-					var useablePoint = $("#useablePoint").text(userPoint);
-				},
-				error: function(){
-					
-				}
-			});
-		}
-	</script>
+	});
+
+</script>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
