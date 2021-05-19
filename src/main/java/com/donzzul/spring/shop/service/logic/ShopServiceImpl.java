@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.domain.ShopSearch;
 import com.donzzul.spring.shop.domain.PageInfo;
 import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.shop.store.ShopStore;
@@ -19,7 +20,7 @@ public class ShopServiceImpl implements ShopService {
 	private ShopStore sStore;
 
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, int mapNo) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, ShopSearch mapNo) {
 		return sStore.selectShopMap(pi, mapNo);
 	}
 
@@ -54,8 +55,13 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int selectListCount(int mapNo) {
+	public int selectListCount(ShopSearch mapNo) {
 		return sStore.selectListCount(mapNo);
+	}
+
+	@Override
+	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
+		return sStore.searchMapKeyword(searchKeyword);
 	}
 
 }
