@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- <link rel="stylesheet" href="resources/css/board/mzReview/mReviewListView.css"> -->
-<link rel="stylesheet" href="resources/css/board/mainList.css">
+<link rel="stylesheet" href="resources/css/board/common/mainList.css">
 <title>맛집후기</title>
 </head>
 <body>
@@ -18,15 +18,8 @@
 		<div id="main-title">맛집후기</div>
 		<div class="frame">
 			<jsp:include page="/WEB-INF/views/board/boardNavi.jsp"></jsp:include>
-            <!-- <div class="top-board-menu-area">
-                <ul id="top-board-menu">
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(1)">맛집후기</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(2)">감사후기</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(3)">가게추천</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(4)">문의 및 공지</a></li>
-                </ul>
-            </div> -->
     
+    	<c:if test="${ mList.size() > 0 }">
             <table class="board-list-table">
                 <thead>
                     <tr>
@@ -37,61 +30,68 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>8</td>
-                        <td>너무 감사합니다 사장님</td>
-                        <td>순둥순둥순둥순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>감사합니다 감사합니다 감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
+                	<c:forEach items="${ mList }" var="mReview" varStatus="status">
+                		<c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
+	                    <tr onclick="location.href='mReviewDetail.dz?mzReviewNo=${mReview.mReviewNo}'" style="cursor: pointer;">
+	                        <td>${ num }</td>
+	                        <td>${ mReview.mReviewTitle }</td>
+	                        <td>${ mReview.mReviewWriter }</td>
+	                        <td>${ mReview.mReviewCreateDate }</td>
+	                    </tr>
+                	</c:forEach>
                 </tbody>
             </table>
-    
+    	
             <!-- 페이징 -->
             <table class="board-page-table">
                 <tbody>
                     <tr>
-                        <td><a href="#">&ne;</a></td>
-                        <td><a href="#">1</a></td>
-                        <td><a href="#">2</a></td>
-                        <td><a href="#">3</a></td>
-                        <td><a href="#">4</a></td>
-                        <td><a href="#">5</a></td>
-                        <td><a href="#">&ne;</a></td>
+                    <!-- 이전 -->
+                    	<c:url var="before" value="mReviewMain.dz">
+                    		<c:param name="page" value="${ pi.currentPage -1 }"></c:param>
+                    	</c:url>
+                    	<c:if test="${ pi.currentPage <= 1 }">
+		                        
+                    	</c:if>
+                    	<c:if test="${ pi.currentPage >1 }">
+	                        <td class="page-td" width=35px><a href="${ before }">&lt;</a></td>
+                    	</c:if>
+                   	<!-- 이전끝 -->
+                   	<!-- 페이징 -->
+                   		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                   			<c:url var="pagination" value="mReviewMain.dz">
+                   				<c:param name="page" value="${ p }"></c:param>
+                   			</c:url>
+                   			<c:if test="${ p eq pi.currentPage }">
+		                        <td class="page-td page-selected" width=35px>${ p }</td>
+                    		</c:if>
+							<c:if test="${ p ne pi.currentPage }">
+		                        <td class="page-td" width=35px><a href="${ pagination }">${ p }</a></td>
+							</c:if>	   
+                   		</c:forEach>
+                   	<!-- 페이징 끝 -->
+                   	<!-- 다음 -->
+                   		<c:url var="after" value="mReviewMain.dz">
+                    		<c:param name="page" value="${ pi.currentPage +1 }"></c:param>
+                    	</c:url>
+                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
+                    	</c:if>
+                    	<c:if test="${ pi.currentPage < pi.maxPage }">
+                    		<td class="page-td" width=35px><a href="${ after }">&gt;</a></td>
+                    	</c:if>
+                   	<!-- 다음 끝 -->
                     </tr>
                 </tbody>
         	</table>
+    	</c:if>
+    	
+    	<c:if test="${ empty mList.size() }"> <!-- 게시물이 없을 경우 -->
+    		<h1>${ msg }</h1>
+    	</c:if>
+    
         </div>
 	</main>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 	$('.menu-btn').eq(0).css('background','#0160ff').css('color','white');

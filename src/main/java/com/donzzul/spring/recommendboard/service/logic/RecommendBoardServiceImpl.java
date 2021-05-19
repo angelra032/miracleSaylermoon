@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.domain.RecommendBoardPage;
 import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 import com.donzzul.spring.recommendboard.store.RecommendBoardStore;
 
@@ -17,14 +18,23 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 
 	@Override
 	public ArrayList<RecommendBoard> selectAllRecommend() {
-		// TODO Auto-generated method stub
-		return null;
+		return reStore.selectAllRecommend();
+	}
+	
+
+	@Override
+	public ArrayList<RecommendBoard> selectAllRecommend(RecommendBoardPage pi) {
+		return reStore.selectAllRecommend(pi);
+	}
+	
+	@Override
+	public int getListCount() {
+		return reStore.getListCount();
 	}
 
 	@Override
-	public RecommendBoard selectOneRecommend(int recommendationNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public RecommendBoard selectOneRecommend(int recommendNo) {
+		return reStore.selectOneRecommend(recommendNo);
 	}
 
 	@Override
@@ -44,6 +54,9 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
 
 	
 

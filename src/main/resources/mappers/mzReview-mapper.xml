@@ -17,6 +17,18 @@
 		<result property="userNo" column="USER_NO"/>
 		<result property="shopNo" column="SHOP_NO"/>
 	</resultMap>
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM MZ_REVIEW
+	</select>
+	
+	<select id="selectAllList" resultMap="mzReviewResultMap">
+		SELECT * FROM MZ_REVIEW ORDER BY MZREVIEW_NO DESC
+	</select>
+	
+	<select id="selectOneDetail" resultMap="mzReviewResultMap">
+		SELECT * FROM MZ_REVIEW WHERE MZREVIEW_NO = #{mReviewNo}
+	</select>
 	
 	<insert id="insertMzReview" parameterType="MzReview">
 		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, '닉네임', DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, '2', '3', '1')

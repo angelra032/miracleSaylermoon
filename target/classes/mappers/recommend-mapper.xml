@@ -13,10 +13,23 @@
 		<result property="userType" column="USER_TYPE"/>
 		<result property="userNo" column="USER_NO"/>
 	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM RECOMMEND_BOARD
+	</select>
+	
+	<select id="selectAllList" resultMap="recommendResultMap">
+		SELECT * FROM RECOMMEND_BOARD ORDER BY RECOMMEND_NO DESC
+	</select>
+	
+	<select id="selectOneDetail" resultMap="recommendResultMap">
+		SELECT * FROM RECOMMEND_BOARD WHERE RECOMMEND_NO = #{recommendNo}
+	</select>
 
  	<insert id="insertRecommend" parameterType="RecommendBoard">
 		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, '닉네임', DEFAULT, DEFAULT, NULL, '2', '3')
 	</insert>
+	
 
 
 

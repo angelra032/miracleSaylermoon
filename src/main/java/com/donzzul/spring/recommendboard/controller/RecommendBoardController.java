@@ -3,6 +3,7 @@ package com.donzzul.spring.recommendboard.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.domain.RecommendBoardPage;
 import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 
 @Controller
@@ -31,15 +32,58 @@ public class RecommendBoardController {
 	
 	// 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="recommendMain.dz", method=RequestMethod.GET)
-	public String recommendMainView() {
-		return "board/recommend/recommendListView";
+	public ModelAndView recommendMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = (page != null) ? page : 1;
+		int listCount = reService.getListCount();
+		RecommendBoardPage pi = getPageInfo(currentPage, listCount);
+		ArrayList<RecommendBoard> reList = reService.selectAllRecommend(pi);
+		if(!reList.isEmpty()) {
+			mv.addObject("rList", reList).addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "가게추천 게시글이 없습니다");
+		}
+		mv.setViewName("board/recommend/recommendListView");
+		return mv;
+	}
+	
+	// 페이지 객체 리턴
+	public RecommendBoardPage getPageInfo(int currentPage, int listCount) {
+		RecommendBoardPage pi = null;
+		int pageLimit = 5; // 한페이지당 보여줄 네비게이션 갯수
+		int boardLimit = 10;	// 한 페이지에서 보여줄 게시글의 갯수
+		
+		int maxPage;		// 전체페이지 중 가장 마지막 페이지
+		int startPage;		// 현재페이지에서 시작하는 첫번째 페이지
+		int endPage;		// 현재 페이지에서 끝나는 마지막 페이지
+		
+		// 일반적인 페이지 계산법 // 0.9의 이유 : 0.1로 나왔을 때 int변환하면 0이 되어버리기 때문에 이를 방지하기 위해서다.
+		maxPage = (int)((double) listCount/boardLimit + 0.9);
+		startPage = (((int)((double)currentPage/pageLimit + 0.9)) - 1) * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+		
+		// 오류방지용
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		pi = new RecommendBoardPage(currentPage, boardLimit, pageLimit, startPage, endPage, listCount, maxPage);
+		return pi;
 	}
 	
 	
+	// 페이지 끝
+	
 	// 디테일 selectOne
 	@RequestMapping(value="recommendDetail.dz", method=RequestMethod.GET)
-	public String recommendDetailView(@RequestParam("recommendNo") int recommendationNo) {
-		return "";
+	public ModelAndView recommendDetailView(ModelAndView mv, @RequestParam("recommendNo") int recommendNo) {
+		
+		RecommendBoard recommendBoard = reService.selectOneRecommend(recommendNo);
+		if(recommendBoard != null) {
+			mv.addObject("recommendBoard", recommendBoard).setViewName("board/recommend/recommendDetailView");
+		} else {
+			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	// 감사후기 글쓰기버튼으로 들어옴 

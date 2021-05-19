@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
+import com.donzzul.spring.dreamreview.domain.DreamReviewPage;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 
@@ -16,15 +17,24 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	private DreamReviewStore drStore;
 	
 	@Override
-	public ArrayList<DreamReview> selectAllDreamReview() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getListCount() {
+		return drStore.selectListCount();
 	}
 
 	@Override
+	public ArrayList<DreamReview> selectAllDreamReview() {
+		return drStore.selectAllDreamReview();
+	}
+	
+	@Override
+	public ArrayList<DreamReview> selectAllDreamReview(DreamReviewPage pi) {
+		ArrayList<DreamReview> drList = drStore.selectAllDreamReview(pi);
+		return drList;
+	} 
+	
+	@Override
 	public DreamReview selectOneDreamReview(int drmRviewNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return drStore.selectOneDreamReview(drmRviewNo);
 	}
 
 	@Override
@@ -48,6 +58,8 @@ public class DreamReviewServiceImpl implements DreamReviewService {
     // dreamReview 오버로딩
     public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
         return null;
-    } 
+    }
+
+
 
 }

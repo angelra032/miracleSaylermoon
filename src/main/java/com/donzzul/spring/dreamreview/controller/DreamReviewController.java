@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.dreamreview.domain.DreamReview;
+import com.donzzul.spring.dreamreview.domain.DreamReviewPage;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.user.domain.User;
 
 @Controller
 public class DreamReviewController {
@@ -27,14 +30,64 @@ public class DreamReviewController {
 	
 	// 감사후기 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="dReviewMain.dz", method=RequestMethod.GET)
-	public String dReviewMainView() {
-		return "board/drmReview/dReviewListView";
+	public ModelAndView dReviewMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = (page != null) ? page : 1;
+		int listCount = drService.getListCount();
+		DreamReviewPage pi = getPageInfo(currentPage,listCount);
+		ArrayList<DreamReview> drList = drService.selectAllDreamReview(pi);
+		System.out.println(drList.toString());
+		if(!drList.isEmpty()) {
+			mv.addObject("drList", drList);
+			mv.addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "게시글이 없습니다");
+		}
+		mv.setViewName("board/drmReview/dReviewListView");
+		return mv;
+		
 	}
+	
+		// 페이지 객체를 리턴해주는 메소드
+		// 한번만 생성하여 정보를 저장해서 가지고 있을수 있도록 하기위해 static 메소드로 만듬
+		public static DreamReviewPage getPageInfo(int currentPage, int listCount) {
+			DreamReviewPage pi = null;
+			int pageLimit = 5; // 한페이지당 보여줄 네비게이션 갯수
+			int boardLimit = 10;	// 한 페이지에서 보여줄 게시글의 갯수
+			
+			int maxPage;		// 전체페이지 중 가장 마지막 페이지
+			int startPage;		// 현재페이지에서 시작하는 첫번째 페이지
+			int endPage;		// 현재 페이지에서 끝나는 마지막 페이지
+			
+			// 일반적인 페이지 계산법 // 0.9의 이유 : 0.1로 나왔을 때 int변환하면 0이 되어버리기 때문에 이를 방지하기 위해서다.
+			maxPage = (int)((double) listCount/boardLimit + 0.9);
+			startPage = (((int)((double)currentPage/pageLimit + 0.9)) - 1) * pageLimit + 1;
+			endPage = startPage + pageLimit - 1;
+			
+			// 오류방지용
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}
+			
+			pi = new DreamReviewPage(currentPage, boardLimit, pageLimit, startPage, endPage, listCount, maxPage);
+			return pi;
+		}
+	
+	/// 리스트 끝
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public String dReviewDetailView(@RequestParam("dreamReviewNo") int drmRviewNo) {
-		return "";
+	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmRviewNo") int drmRviewNo) {
+//		HttpSession session
+//		User loginUser = (User)session.getAttribute("loginUser");
+//		System.out.println(loginUser.toString());
+		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
+		if(drmReview != null) {
+			mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
+		} else {
+			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
+		}
+		
+		return mv;
 	}
 	
 	// 감사후기 글쓰기버튼으로 들어옴 

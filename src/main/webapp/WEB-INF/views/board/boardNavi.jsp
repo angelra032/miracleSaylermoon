@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- css -->
-<link rel="stylesheet" href="resources/css/board/mainList.css">
+<link rel="stylesheet" href="resources/css/board/common/mainList.css">
 <!-- JS -->
 <script src="resources/js/board/menu-select.js"></script>
 
