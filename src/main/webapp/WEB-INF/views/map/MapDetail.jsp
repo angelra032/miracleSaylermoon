@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/resources/css/map/MapDetail.css">
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 지도 -->
@@ -40,13 +43,44 @@
 			<div class=map-left>
 				<div class="searchBar">
 					<form>
-						<input type="text" id="searchBox" name="mapKeyword" placeholder="지역별 가게 검색">
+						<input type="text" id="searchBox" name="mapKeyword" placeholder="지역별 검색">
 						<button type="submit" id="btn-search"><img src="/resources/images/undo.png" onclick=""></button>
 					</form>
 				</div>
 				<hr>
 				<div class="content-list">
-					
+					<c:forEach items="${ mList }" var="shop">
+						<div class="content-shop">
+							<div class="content-shop left">
+								<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/>
+							</div>
+							<div class="content-shop right">
+								<div class="content-shop right top">
+									<input type="hidden" name="shopNo" value="${ shop.shopNo }">
+									<span id=shop-title><b>${ mList.shopName }</b>&nbsp;&nbsp;</span>
+									<span>${ shop.shopType }</span><br>
+									<span>${ shop.shopAddr }</span><br>
+									<span class="label label-info">영업시간</span>
+									<span>${ shop.startTime } - ${ shop.endTime }</span><br>
+									<span>예약 가능 인원(최대)&nbsp;&nbsp;</span>
+									<span>${ shop.shopMaxReserv }</span><br>
+									<span>${ shop.shopPhone }&nbsp;&nbsp;${ shop.shopParking }</span>
+									<%-- <c:if test="${ mList.shopParking }"> --%>
+									<br>
+	<!-- 								<span id=shop-title><b>진짜 파스타</b>&nbsp;&nbsp;</span>
+									<span>양식</span><br>
+									<span>서울특별시 마포구 와우산로 64 전원빌딩 2층 진짜파스타</span><br>
+									<span class="label label-info">영업시간</span>
+									<span>12:00 - 22:00</span><br>
+									<span>예약 가능 인원(최대)</span><br>
+									<span>02-322-1518&nbsp;&nbsp;주차가능</span><br> -->
+								</div>
+								<div class="content-shop right bottom">
+									<button type="button" class="btn btn-primary btn-sm">예약하기</button>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
 				</div>
 				<div class="pagination">
 				
@@ -54,6 +88,7 @@
 			</div>
 			<div class=map-right>
 				<div id="map"></div> 
+				<div class="mapZoom"></div>
 			</div>
 		</div>
 	

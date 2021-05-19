@@ -18,6 +18,8 @@ import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
+import com.donzzul.spring.shop.domain.PageInfo;
+import com.donzzul.spring.shop.domain.Pagination;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
 
@@ -35,19 +37,29 @@ public class ShopController {
 		return "map/MapList";
 	}
 	
-	//D 지도 - 지역별 가게 검색, 리턴 타입 및 Model 객체 ModelAndView 로 수정?
+	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
-//	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo) {
-		// 파라미터 - 메뉴 클릭시 각각 넘버값
-		// mapper.xml 에서 넘버별로 스트링값 설정하기
-//		ArrayList<Shop> mapList = sService.selectShopMap(mapNo);
-//		if( !mapList.isEmpty() ) {
-//			mv.addObject("mapList", mapList);
-//			mv.setViewName("map/MapDetail");
-//		}
-//		return mv;
-	public String searchShopMap() {
-		return "map/MapDetail";
+	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
+//		 파라미터 - 메뉴 클릭시 각각 넘버값
+//		 mapper.xml 에서 넘버별로 스트링값 설정하기
+		
+		// sPageInfo 만들기 위해 필요한 데이터
+		int currentPage = (page != null) ? page : 1; // 삼항연산자
+		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
+		
+		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
+		if( !mapList.isEmpty() ) {
+			mv.addObject("mList", mapList);
+			mv.addObject("pi",	pi);
+			mv.setViewName("map/MapDetail");
+		}else {
+			mv.addObject("msg", "지도 조회에 실패하였습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+//	public String searchShopMap() {
+//		return "map/MapDetail";
 	}
 	
 	//D 가게검색 - 화면 출력 +++
