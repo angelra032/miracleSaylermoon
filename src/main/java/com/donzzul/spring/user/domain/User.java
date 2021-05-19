@@ -12,7 +12,7 @@ public class User {
 	private String partnerWithdraw;
 	private String dreamCardno;
 	private int userPoint;
-	private char userType;
+	private String userType;
 	private String partnerName;
 	
 	public User() {
@@ -22,7 +22,7 @@ public class User {
 
 	public User(int userNo, String userId, String userPw, String userName, String userNick, String userPhone,
 			String userEmail, String partnerVerify, String partnerWithdraw, String dreamCardno, int userPoint,
-			char userType, String partnerName) {
+			String userType, String partnerName) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -133,11 +133,11 @@ public class User {
 		this.userPoint = userPoint;
 	}
 
-	public char getUserType() {
+	public String getUserType() {
 		return userType;
 	}
 
-	public void setUserType(char userType) {
+	public void setUserType(String userType) {
 		this.userType = userType;
 	}
 
