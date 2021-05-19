@@ -20,16 +20,15 @@ public class DreamMyPageController {
 	
 	@RequestMapping(value="dreamMyPage.dz")
 	public String DreamMyPageView() {
-		
 		return "dreamMyPage/DreamMyPage";
 	}
 	
-	//꿈나무회원 마이페지이 예약목록 불러오기
-	@RequestMapping(value="ListByDream.dz", method = RequestMethod.GET)
-	public String reservaionListByDream(@RequestParam("userNo") int userNo,
+	// 꿈나무회원 마이페이지 상위 3개 목록 불러오기
+	@RequestMapping(value="rListByDreamUpToThree")
+	public String rListByDreamUpToThree(@RequestParam("userNo") int userNo,
 										Model model) {
 		System.out.println(userNo);
-		ArrayList<Reservation> rList = rService.reservaionListByDream(userNo);
+		ArrayList<Reservation> rList = rService.reservationListByDream(userNo);
 		if(!rList.isEmpty()) {
 			model.addAttribute("rList",rList);
 			return "dreamMyPage/DreamMyPage";
@@ -38,5 +37,13 @@ public class DreamMyPageController {
 			return "common/errorPage";
 		}
 	}
+	
+	//꿈나무회원 마이페이지 예약전체목록 불러오기
+	@RequestMapping(value="ListByDream.dz", method = RequestMethod.GET)
+	public String reservaionListByDream(@RequestParam("userNo") int userNo,
+										Model model) {
+		return null;
+	}
+	
 }
 

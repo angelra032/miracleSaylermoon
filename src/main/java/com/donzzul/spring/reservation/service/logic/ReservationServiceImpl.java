@@ -28,22 +28,47 @@ public class ReservationServiceImpl implements ReservationService{
 	public int updateUserPoint(User user) {
 		return rStore.updateUserPoint(user);
 	}
+	//-----------------------여기까지가 예약하기
 	
+	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservaionListByDream(int userNo) {
+	public ArrayList<Reservation> rListByDreamUpToThree(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	// 꿈나무회원별 "전체" 예약목록 불러오기
+	@Override
+	public ArrayList<Reservation> reservationListByDream(int userNo) {
 		ArrayList<Reservation> rList = rStore.reservationListByDream(userNo);
 		System.out.println(rList);
 		return rList;
 	}
+	
+	// MZ회원별 상위 3개 예약목록 불러오기
+	@Override
+	public ArrayList<Reservation> rListByMZUpToThree(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	// MZ회원별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservationListByMZ(int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	// 가게별 상위 3개 예약목록 불러오기
 	@Override
-	public String reservaionListByShop(int reservationNo, int shopNo) {
+	public ArrayList<Reservation> rListByShopUpToThree(int shopNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	// 가게별 "전체" 예약목록 불러오기
+	@Override
+	public ArrayList<Reservation> reservaionListByShop(int shopNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -77,6 +102,5 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 }

@@ -42,7 +42,7 @@
 	            	<div class="header-submenu-area login-area">
 		                <a href="logout.dz">로그아웃</a>
 		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '1'}">
-	                	<a href="#">마이페이지</a>
+	                	<a href="dreamMyPage.dz">마이페이지</a>
 	            	</c:if>
 		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
 	                	<a href="mzMyPage.dz">마이페이지</a>

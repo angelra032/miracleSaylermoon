@@ -40,8 +40,15 @@ public class ReservationController {
 		shop.setStartTime("9");
 		shop.setEndTime("18");
 		shop.setBusinessDay(12345);
+		shop.setShopName("라공방");
+		shop.setShopMaxReserv(9);
+		
+		int startTime = Integer.parseInt(shop.getStartTime());
+		int endTime = Integer.parseInt(shop.getEndTime());
 		
 		if(shop != null) {
+			model.addAttribute("startTime",startTime);
+			model.addAttribute("endTime",endTime);
 			model.addAttribute("shop", shop);
 			return "reservation/viewReservation";
 		}else {
@@ -91,6 +98,7 @@ public class ReservationController {
 	
 	
 	
+	
 	// mz회원별 예약목록 불러오기
 	@RequestMapping(value="ListByMZ.dz", method = RequestMethod.GET)
 	public String reservationListByMZ(@RequestParam("reservationNo") int reservationNo,
@@ -104,7 +112,7 @@ public class ReservationController {
 	@RequestMapping(value="ListByShop.dz", method = RequestMethod.GET)
 	public String reservationListByShop(@RequestParam("reservationNo") int reservationNo,
 										@RequestParam("shopNo") int shopNo) {
-		String result = service.reservaionListByShop(reservationNo, shopNo);
+		ArrayList<Reservation> result = service.reservaionListByShop(shopNo);
 		return "";
 	}
 	
