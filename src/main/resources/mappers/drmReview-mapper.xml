@@ -15,12 +15,23 @@
 		<result property="shopNo" column="SHOP_NO"/>
 	</resultMap>
 
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM DREAM_REVIEW
+	</select>
+	
+	<select id="selectAllList" resultMap="drmReviewResultMap">
+		SELECT * FROM DREAM_REVIEW ORDER BY DRMREVIEW_NO DESC
+	</select>
+	
+	<select id="selectOneDetail" resultMap="drmReviewResultMap">
+		SELECT * FROM DREAM_REVIEW WHERE DRMREVIEW_NO = #{drmRviewNo}
+	</select>
 
 	<insert id="insertDrmReview">
 		INSERT INTO DREAM_REVIEW
 		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo});
 
 	</insert>
-
+	
 
 </mapper>
