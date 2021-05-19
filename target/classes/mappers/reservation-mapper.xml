@@ -16,6 +16,9 @@
 		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo})
 	</insert>
 
+	<select id="selectByDream" resultMap="reservationResultMap">
+		SELECT * FROM RESERVATION WHERE USER_NO = #{userNo} ORDER BY RESERVE_DATE DESC
+	</select>
 
 </mapper>
 

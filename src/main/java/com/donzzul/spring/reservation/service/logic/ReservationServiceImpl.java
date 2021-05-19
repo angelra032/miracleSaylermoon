@@ -1,5 +1,6 @@
 package com.donzzul.spring.reservation.service.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +17,27 @@ public class ReservationServiceImpl implements ReservationService{
 
 	
 	@Autowired
-	private ReservationStore store;
+	private ReservationStore rStore;
 
 	@Override
 	public int insertReservation(Reservation reservation) {
-		System.out.println("서비스임플에는 들어왔니!?");
-		System.out.println("서비스임플" + reservation);
-		return store.insertReservation(reservation);
+		return rStore.insertReservation(reservation);
 	}
 
 	@Override
 	public int updateUserPoint(User user) {
-		System.out.println("포인트 서비스 임플이야!");
-		return store.updateUserPoint(user);
+		return rStore.updateUserPoint(user);
 	}
 	
 	@Override
-	public String reservaionListByDream(int reservationNo, int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Reservation> reservaionListByDream(int userNo) {
+		ArrayList<Reservation> rList = rStore.reservationListByDream(userNo);
+		System.out.println(rList);
+		return rList;
 	}
 
 	@Override
-	public String reservationListByMZ(int reservationNo, int userNo) {
+	public ArrayList<Reservation> reservationListByMZ(int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
