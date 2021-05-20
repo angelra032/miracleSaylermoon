@@ -20,7 +20,7 @@ public interface PaymentService {
 	public String selectDonList(User user); // 돈쭐내역 출력
 	
 	///////// +
-	public MainMenu selectShopMenu(int i); // 가게 메뉴 출력
+	public MainMenu selectShopMenu(int shopNo); // 가게 메뉴 출력
 	public Shop selectShop(Shop shop); // 가게 출력
 	
 }

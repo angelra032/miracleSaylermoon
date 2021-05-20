@@ -58,8 +58,8 @@ public class PaymentStoreLogic implements PaymentStore{
 	// 가게 메뉴 가져오기
 
 	@Override
-	public MainMenu selectShopMenu(int shop) {
-		MainMenu mainmenu = sqlSession.selectOne("paymentMapper.selectShopMenu", shop);
+	public MainMenu selectShopMenu(int shopNo) {
+		MainMenu mainmenu = sqlSession.selectOne("paymentMapper.selectShopMenu", shopNo);
 		System.out.println("스토어"+mainmenu);
 		return mainmenu;
 	}
