@@ -35,22 +35,22 @@ public class ReservationStoreLogic implements ReservationStore {
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByDreamUpToThree(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.rListByDreamUpToThree", userNo);
+		return reserve;
 	}
 	
 	// 꿈나무회원별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservationListByDream(int userNo) {
-		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.selectByDream", userNo);
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.selectAllByDream",userNo);
 		return reserve;
 	}
 
 	//// MZ회원별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByMZUpToThree(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.rListByMZToThree", userNo);
+		return reserve;
 	}
 	
 	// MZ회원별 "전체" 예약목록 불러오기
@@ -62,8 +62,8 @@ public class ReservationStoreLogic implements ReservationStore {
 	// 가게별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByShopUpToThree(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.rListByShopToThree", shopNo);
+		return reserve;
 	}
 
 	// 가게별 "전체" 예약목록 불러오기
@@ -72,7 +72,25 @@ public class ReservationStoreLogic implements ReservationStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//=======================여기까지가 예약 목록
 
+	
+	// 예약번호로 예약 하나 불러오기
+	@Override
+	public Reservation selectOne(int reservationNo) {
+		Reservation reservation = sqlSession.selectOne("reservationMapper.selectOneByRno",reservationNo);
+		System.out.println("스토어"+reservation);
+		return reservation;
+	}
+	
+	// 예약상태 취소로 변경하기
+	@Override
+	public int cancleReservation(int reservationNo) {
+		int result = sqlSession.update("reservationMapper.cancleReservation", reservationNo);
+		return result;
+	}
+	
 	@Override
 	public int deleteReservation(int reservationNo) {
 		// TODO Auto-generated method stub
@@ -91,16 +109,14 @@ public class ReservationStoreLogic implements ReservationStore {
 		return 0;
 	}
 
-	@Override
-	public int cancleReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public int complteReservation(int reservationNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }
