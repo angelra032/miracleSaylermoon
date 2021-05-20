@@ -106,7 +106,7 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-<script type="text/javascript" src="resources/js/board/drmListSecretReview.js"></script>
+<script type="text/javascript" src="resources/js/board/drmList.js"></script>
 <script type="text/javascript">
 	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
 </script>

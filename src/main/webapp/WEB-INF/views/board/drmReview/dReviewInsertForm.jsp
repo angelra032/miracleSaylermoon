@@ -12,15 +12,20 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
-	
 	<main align="center" style="height:700px;"> <!-- 인라인스타일 나중에 지워주기 -->
-		<!-- <div id="main-title">타이틀!</div> -->
-		<h1>감사후기</h1>
+		<div class="header-background-area">
+        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+	   	</div>
+		<div id="main-title">감사후기</div>
 		
 		<form action="dReviewWriterForm.dz" method="post">
-		
+			<input type="hidden" name="drmReviewWriter" value="${ loginUser.userNick }">
+			<input type="hidden" name="userNo" value="${ loginUser.userNo }">
+			<input type="hidden" name="userType" value="${ loginUser.userType }">
+			
+			
 			<input type="text" name="drmReviewTitle" placeholder="제목">
-			<p>닉네임위치</p>
+			<p>${ loginUser.userNick }</p>
 			<textarea name="drmReviewContent" placeholder="내용"></textarea>
 			<br>
 			<input type="radio" name="drmReviewPublicYN" value="y" selected> 공개
