@@ -140,7 +140,7 @@
 			<div class="header-background-area">
 				<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 			</div>
-			<div id="main-title">예약할 가게 이름 출력</div>
+			<div id="main-title">${shop.shopName }</div>
 			<div class="frame">
 
 				<div id='calendar'></div>
@@ -148,15 +148,9 @@
 				<div id="selectAreaFirst" style="display:none">
 					<h1>예약시간 선택</h1>
 					<select name="selectTime" class="select" onchange="timeChange(this.value);">
-						<option value="9">9-10</option>
-						<option value="10">10-11</option>
-						<option value="11">11-12</option>
-						<option value="12">12-13</option>
-						<option value="13">브레이크타임(13-14)</option>
-						<option value="14">14-15</option>
-						<option value="15">15-16</option>
-						<option value="16">16-17</option>
-						<option value="17">17-18</option>
+						<c:forEach var="i" begin="${startTime }" end="${endTime }">
+							<option value="${i }">${i }시</option>
+						</c:forEach>
 					</select>
 				</div>
 
@@ -164,11 +158,9 @@
 					<div id="countDiv" style="display:none">
 					<h1>인원수 선택</h1>
 					<select name="selectCount" class="select" onchange="countChange(this.value);">
-						<option value="1">1명</option>
-						<option value="2">2명</option>
-						<option value="3">3명</option>
-						<option value="4">4명</option>
-						<option value="5">5명</option>
+						<c:forEach var="i" begin="1" end="${shop.shopMaxReserv }">
+							<option value="${i }">${i }명</option>
+						</c:forEach>
 					</select>
 					</div>
 

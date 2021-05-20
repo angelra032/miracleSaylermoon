@@ -1,123 +1,230 @@
 @charset "UTF-8";
+/* 테이블 초기화 */
+table { border-collapse: collapse; border-spacing: 0; }
+a {text-decoration: none; outline: none;}
+a:hover, a:active {text-decoration: none;}
 
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
+/* *********************** */
+main {
+    width: 100%;
+    height: auto;
+    margin: 0 auto 100px;
 }
-
-/* 백그라운드 이미지 */
-.header-background-area {
-	width: 1903px;
+.frame {
+	width: 1400px;
+	height: auto;
 	margin: 0 auto;
 }
-
-.header-background-area>img {
-	position: absolute;
-	z-index: -5;
-	display: block;
-	top: 0;
-	width: 1903px;
-	align: center;
-	object-fit: cover;
+#main-title {
+    width: 100%;
+    font-size: 54px;
+    font-family: 'Jal_Onuel';
+    color: #333;
+    text-align: center;
+	margin-top: 100px;
+	margin-bottom: 50px;
+    z-index: -2;
+    letter-spacing: 0.1px;
 }
-
-/* 여기까지가 기본 설정 */
-
-h1{
-	font: #333;
-}
-
-.frame{
-	width: 1440px;
-	margin: 0 auto;
-	position:relative;
-	height:2700px;
-	margin-top:140px;
-	margin-bottom: 140px;
-}
-
-
-.firstSection{
-	width:90%;
-	height:200px;
-	position:relative;
-	margin-left:80px;
-	background-color: #e3e4e5;
-}
-
-/* 두번째 섹션 시작 */
-.sSectionTop{
+/* 포인트, 정보수정, 탈퇴버튼 구역 ***************************************/
+.my-info {
+	display:block;
 	width:100%;
-	height:20%;
+	height: 80px;
+	border-radius: 3px;
+	margin-bottom: 20px;
 }
-
-.secondTitle{
-	width: 20%;
-	height: 100%;
-	float: left;
-	position:relative;
-	top:20px;
-	left: 70px;	
+.my-info span {
+	font-family: 'Jal_Onuel';
+	font-size: 24px;
+	line-height: 100px;
+	margin-left: 200px;
 }
-
-.secondButton{
-	width: 90%;
-	height: 100%;
-	position:relative;
-	margin-left: 20%;
+.info-btn-frame {
+	width: auto;
+	height: auto;
+	float:right;
+	margin-right: 200px;
 }
-
-#rListButton{
-	position: relative;
-	top:30px;
-	left:900px;
-	font-size: 17px;
-}
-
-.sSectionBottom{
-	width:90%;
-	height:80%;
-	position:relative;
-	left:5%;
-	align:center;
-}
-
-.secondSection{
-	width: 90%;
-	height: 500px;
-	position:relative;
-	margin-top:100px;
-	margin-left:80px;
+.info-btn {
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+	font-size: 16px;
+	color: #fff;
 	background-color: #fdb504;
+	margin:20px auto;
+	line-height: 40px;
+	text-align: center;
+	border-radius: 3px;
+	cursor: pointer;
+	
+}
+.info-btn:first-child {
+	margin-right: 5px;
 }
 
-/* 두번째 섹션 끝 */
-
-.thirdSection{
-	width: 90%;
-	height: 500px;
-	position:relative;
-	margin-top:100px;
-	margin-left:80px;
+/* 목록 공통 -회색************************************** */
+.my-list {
+	width:100%;
+	height: auto;
 	background-color: #e3e4e5;
+	padding-bottom: 60px;
+}
+/* *****************배경색 흰색으로 */
+.w-list {
+	background-color: #fff;
+}
+.my-title {
+	width: 100%;
+	height: 80px;
+	padding-top: 30px;
+}
+.my-title span {
+	font-size: 24px;
+    font-family: 'Jal_Onuel';
+    color: #333;
+    line-height: 84px;
+    margin-left: 200px;
+}
+.more-btn-frame {
+	width: auto;
+	height: auto;
+	float:right;
+	margin-right: 215px;
+}
+.more-btn {
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+	font-size: 16px;
+	color: #fff;
+	background-color: #fdb504;
+	margin:20px auto;
+	line-height: 40px;
+	text-align: center;
+	border-radius: 3px;
+	cursor: pointer;
+	float:right;
+}
+.b-btn {
+	background-color: #0160ff;
 }
 
-.fourthSection{
-	width: 90%;
-	height: 500px;
+ 
+.my-list table {
+	width: 1000px;
+	height: auto;
+	border-top: 2px solid #0160ff;
+	margin: 0 auto;
+	text-align: center;
+	color:#333;
+	background-color: #fff;
+}
+.my-list table thead{
 	position:relative;
-	margin-top:100px;
-	margin-left:80px;
-	background-color: #e3e4e5;
+	border-bottom: 1px solid #0160ff;
+	font-size: 18px;
+}
+.my-list table thead tr{
+	border-bottom: 1px solid #0160ff;
+	line-height: 60px;
+}
+.my-list table tbody tr{
+	width:100%;
+	height: 60px;
+	border-bottom: 1px solid #e3e4e5;
+	text-align: center;
+}
+.my-list table tbody tr:hover {
+	background-color: rgba(1,96,255,0.2)
+}
+.table-link-title {
+	width: 100%;
+	height:100%;
+	line-height: 60px;
+	color:#333;
+}
+/***예약테이블*************************************************/
+.reserv-list table thead th:first-child {
+	width: 60px;
+}
+.reserv-list table thead th:nth-child(3) {
+	width: 200px;
+}
+.reserv-list table thead th:nth-child(4) {
+	width: 150px;
+}
+.reserv-list table thead th:nth-child(5) {
+	width: 150px;
+}
+.reserv-btn {
+	display: block;
+	width: 120px;
+	height: 40px;
+	background-color: #0160ff;
+	margin: 0 auto;
+	line-height: 40px;
+	color:#fff;
+	border-radius: 3px;
+	font-size: 16px;
 }
 
-.fifthSection{
-	width: 90%;
-	height: 500px;
-	position:relative;
-	margin-top:100px;
-	margin-left:80px;
-	background-color:#e3e4e5;
+/* **********가고싶다********** */
+.wish-list table thead th:nth-child(4) {
+	width: 150px;
 }
+
+
+.delete-btn {
+	display: block;
+	width: 120px;
+	height: 40px;
+	background-color: #0160ff;
+	margin: 0 auto;
+	line-height: 40px;
+	color:#fff;
+	border-radius: 3px;
+	font-size: 16px;
+}
+/* ***************돈쭐******************* */
+.review-list table thead th:nth-child(5) {
+	width: 150px;
+}
+.review-list table thead th:nth-child(6) {
+	width: 150px;
+}
+
+.modify-btn {
+	display: block;
+	width: 120px;
+	height: 40px;
+	background-color: #0160ff;
+	margin: 0 auto;
+	line-height: 40px;
+	color:#fff;
+	border-radius: 3px;
+	font-size: 16px;
+}
+
+/* **********추천목록************* */
+.recommend-list table thead th:nth-child(4) {
+	width: 150px;
+}
+.recommend-list table thead th:nth-child(5) {
+	width: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
