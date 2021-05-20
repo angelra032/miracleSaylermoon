@@ -19,7 +19,7 @@ public interface PaymentStore {
 	public String selectDonList(User user); // 돈쭐내역 출력
 	
 	//////// +
-	public MainMenu selectShopMenu(int shop); // 가게 메뉴 가져오기
+	public MainMenu selectShopMenu(int shopNo); // 가게 메뉴 가져오기
 	public Shop selectShop(Shop shop); // 가게 출력
 	
 	

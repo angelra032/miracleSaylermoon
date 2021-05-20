@@ -61,8 +61,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public MainMenu selectShopMenu(int shop) {
-		MainMenu mainmenu = store.selectShopMenu(shop);
+	public MainMenu selectShopMenu(int shopNo) {
+		MainMenu mainmenu = store.selectShopMenu(shopNo);
 		System.out.println("서비스임플"+mainmenu);
 		return mainmenu;
 	}

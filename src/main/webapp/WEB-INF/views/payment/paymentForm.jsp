@@ -12,30 +12,35 @@
    $("#payment-btn").on("click", function(){
        var IMP = window.IMP; // 생략가능
        IMP.init('imp57766104'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+       var donPrice = $("input[name='donPrice']").val();
+       console.log(donPrice);
        var msg;
        
        IMP.request_pay({
            pg : 'kakaopay',
            pay_method : 'card',
            merchant_uid : 'merchant_' + new Date().getTime(),
-           name : 'KH Books 도서 결제',
-           amount : '1',
-           buyer_email : '1231@iei.or.kr',
-           buyer_name : '이갈갈',
-           buyer_tel : '010-8904-5741',
-           buyer_addr : '서울시성북구',
-           buyer_postcode : '123-456',
+           name : '돈쭐내기 결제 : ${shop.shopName}',
+           amount : donPrice, // 최종 결제 금액 
+           buyer_email : '${loginUser.userEmail }',
+           buyer_name : '${loginUser.userName }',
+           buyer_tel : '${loginUser.userPhone }',
+           buyer_addr : '주소컬럼 없음',
+           buyer_postcode : '123-456', // ??
            //m_redirect_url : 'http://www.naver.com'
        }, function(rsp) {
-           if ( rsp.success ) {
+           console.log(rsp);
+    	   if ( rsp.success ) {
                //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
                jQuery.ajax({
                    url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+                   			// data 보낼 url
                    type: 'POST',
                    dataType: 'json',
                    data: {
                        imp_uid : rsp.imp_uid
                        //기타 필요한 데이터가 있으면 추가 전달
+                       // 가게 이름, 날짜, 내역(얼마)
                    }
                }).done(function(data) {
                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
@@ -52,14 +57,16 @@
                        //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
                    }
                });
-               //성공시 이동할 페이지
+               //성공시 이동할 페이지 (룰렛페이지인지 중간에 결제 완료창 있는지)
                location.href='<%=request.getContextPath()%>/order/paySuccess?msg='+msg;
+               location.href='rouletteView.dz'; // 룰렛 페이지
            } else {
                msg = '결제에 실패하였습니다.';
                msg += '에러내용 : ' + rsp.error_msg;
                //실패시 이동할 페이지
                location.href="<%=request.getContextPath()%>/order/payFail";
                alert(msg);
+               location.href='paymentFormView.dz'; 
            }
        });
        
@@ -75,6 +82,8 @@
 			$("#lay2").show();
 			$("#lay2-1").show(1000);
 		}
+		
+		
 	}
 
 	// 수량 선택하면
@@ -89,8 +98,11 @@
 	// 포인트 입력시 자동으로(onkeyup)
 	function pointUse(){
 		var usePoint = $("#usePoint").val();
+		var userPoint = $("#userPoint").val();
+		if(usePoint > userPoint) {
+			alert("포인트 사용 가능 범위를 넘었습니다!")
+		}
 		$("input[name='use-point']").val(usePoint);
-		
 		
 	}
 	

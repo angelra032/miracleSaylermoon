@@ -52,6 +52,8 @@
 		<result property="startTime" column="START_TIME"/>
 		<result property="endTime" column="END_TIME"/>
 		<result property="businessDay" column="BUSINESS_DAY"/>
+		
+		<!-- <result property="mainMenuNo" column="MAIN_MENU_NO"/> -->
 	</resultMap>
 	
 	
