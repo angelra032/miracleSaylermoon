@@ -42,9 +42,9 @@
 		<div class=frame>
 			<div class=map-left>
 				<div class="searchBar">
-					<form>
-						<input type="text" id="searchBox" name="mapKeyword" placeholder="지역별 검색">
-						<button type="submit" id="btn-search"><img src="/resources/images/undo.png" onclick=""></button>
+					<form action="" method="get">
+						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별 검색">
+						<button id="btn-search"><img src="/resources/images/undo.png"></button>
 					</form>
 				</div>
 				<hr>
@@ -96,5 +96,28 @@
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
+	<script>
+		$(function() {
+			$("#btn-search").on("click", function() {
+				var searchKeyword = $("searchKeyword").val();
+				if(searchKeyword == "") {
+					alert("검색하실 지역을 입력해주세요.");
+				}else {
+					$.ajax({
+						url: "mapSearchKey.dz",
+						type: "get",
+						data: { "searchKeyword": searchKeyword },
+						dataType: "json",
+						success: function(data) {
+								console.log(data);
+						},
+						error: function() {
+							alert("서버에 연결할 수 없습니다.");
+						}
+					});
+				}
+			});
+		});
+	</script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.domain.ShopSearch;
 import com.donzzul.spring.shop.domain.PageInfo;
 import com.donzzul.spring.shop.store.ShopStore;
 
@@ -20,7 +21,7 @@ public class ShopStoreLogic implements ShopStore {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, int mapNo) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, ShopSearch mapNo) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", mapNo, rowBounds);
@@ -57,8 +58,13 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
-	public int selectListCount(int mapNo) {
+	public int selectListCount(ShopSearch mapNo) {
 		return sqlSession.selectOne("shopMapper.selectListCount", mapNo);
+	}
+
+	@Override
+	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectMapKeyword", searchKeyword);
 	}
 
 }
