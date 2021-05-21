@@ -88,15 +88,20 @@
 	
 	
 	
+	<!-- 가게 출력 -->
+	<select id="selectShopShopNo" resultMap="shopResultMap">
+		SELECT * FROM SHOP WHERE SHOP_NO = #{shopNo } 
+	</select>
+	
+	<select id="selectShopUserNo" resultMap="shopResultMap">
+		SELECT * FROM SHOP WHERE USER_NO = #{userNo }
+	</select>
 	
 	<!-- 가게메뉴 출력 -->
 	<select id="selectShopMenu" resultMap="mainMenuResultMap">
 		SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo } 
 	</select>		
 
-	<select id="selectShop" resultMap="shopResultMap">
-		SELECT * FROM SHOP WHERE SHOP_NO = #{shopNo } 
-	</select>
 
 	
 </mapper>

@@ -35,14 +35,14 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>가게이름</th>
+							<th>회원닉네임</th>
+							<th>예약인원</th>
 							<th>예약날짜</th>
-							<th>예약취소</th>
-							<th>후기작성</th>
+							<th>예약상태</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<%-- <tr>
 							<td>1${reservation.reservationNo }</td>
 							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
 							<td>2021-01-01</td>
@@ -55,18 +55,21 @@
 							<td>2021-01-01</td>
 							<td><a class="reserv-btn" href="#">예약취소</a></td>
 							<td><a class="reserv-btn" href="#">후기작성</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="reserv-btn" href="#">예약취소</a></td>
-							<td><a class="reserv-btn" href="#">후기작성</a></td>
-						</tr>
-						
-						<c:forEach items="${rList }" var="reservation">
-						
+						</tr> --%>
+						<c:forEach items="${rList }" var="reservation"  varStatus="status">
+							<tr>
+								<td>${status.count }</td>
+								<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+								<td>${reservation.reserveCount }</td>
+								<td>${reservation.reserveDate }</td>
+								<td>${reservation.rState }</td>
+								<td><a class="reserv-btn" href="#">예약취소</a></td>
+								<td><a class="reserv-btn" href="#">후기작성</a></td>
+							</tr>
 						</c:forEach>
+						<%-- <c:forEach items="${rList }" var="reservation">
+						
+						</c:forEach> --%>
 						
 					</tbody>
 				</table>
