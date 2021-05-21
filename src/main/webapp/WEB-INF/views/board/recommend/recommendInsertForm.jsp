@@ -14,26 +14,37 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	
-	<main align="center">
+	<main>
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">타이틀!</div>
-		<h1>가게추천</h1>
+		<div id="main-title">가게추천</div>
 		
-		<form action="" method="post">
+		<div class="form-group">
 			<!-- <input type="hidden"> -->
-			<input type="text" name="recommendTitle" id="recommendTitle" placeholder="제목">
-			<p>닉네임위치</p>
+			<div class="title-area"">
+				<label for="recommendTitle">제목</label>
+				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목">
+			</div>
+			<!-- <p>닉네임위치</p> -->
 			<!-- <textarea name="recommendContent" placeholder="내용"></textarea> -->
 			<br>
-		 	<textarea id="summernote" name="eventContent"></textarea>  
-			
-		</form>
-		
-			<div class="col-md-3">
-				<button class="btn" id="saveBtn">작성</button>
+			<div class="editor-area">
+				<label>내용</label>
+				<div class="summernote-edit-area">
+				 	<textarea id="summernote" name="eventContent"></textarea>  
+				</div>
 			</div>
+			<div class="btn-area col-md-12">
+				<div class="col-md-2">
+					<button class="btn" id="saveBtn">등록하기</button>
+				</div>
+				<div class="col-md-2">
+					<button class="btn" id="saveBtn">목록보기</button>
+				</div>
+			</div>
+		</div>
+		
 	  
 	</main>
 	
@@ -50,7 +61,7 @@
 			$(document).ready(function() { 
 				   $('#summernote').summernote({
 				         width: 1000,
-				          height: 500,                // 에디터 높이
+				          height: 600,                // 에디터 높이
 				          minHeight: null,            // 최소 높이
 				          maxHeight: null,            // 최대 높이
 				          focus: true,                // 에디터 로딩후 포커스를 맞출지 여부
@@ -81,7 +92,7 @@
 				               ['para', ['ul', 'ol', 'paragraph']],
 				               ['height', ['height']],
 				               ['insert', ['picture', 'link', 'hr']],
-				               ['view', ['fullscreen', 'codeview']]
+				               ['view', ['codeview']]
 				             ]
 				         });
 				   

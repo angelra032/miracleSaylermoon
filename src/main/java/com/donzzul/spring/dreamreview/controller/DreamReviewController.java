@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.domain.DreamReviewPage;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.service.logic.ShopServiceImpl;
 import com.donzzul.spring.user.domain.User;
 
 @Controller
@@ -78,10 +80,12 @@ public class DreamReviewController {
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
 	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmRviewNo") int drmRviewNo) {
-//		HttpSession session
-//		User loginUser = (User)session.getAttribute("loginUser");
-//		System.out.println(loginUser.toString());
+		
 		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
+		int shopNo = drmReview.getShopNo();
+		System.out.println(shopNo);
+//		String shopName = new ShopServiceImpl().selectShopOne(shopNo).getShopName();
+//		System.out.println(shopName);
 		if(drmReview != null) {
 			mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 		} else {

@@ -9,6 +9,7 @@
 		<result property="noticeCreateDate" column="NOTICE_CREATE_DATE"/>
 		<result property="noticeUploadDate" column="NOTICE_UPLOAD_DATE"/>
 		<result property="userType" column="USER_TYPE"/>
+		<result property="noticePublicYN" column="NOTICE_PUBLIC_YN"/>
 	</resultMap>
 	
  	<resultMap type="Qna" id="qnaResultMap">
@@ -27,13 +28,34 @@
 	</resultMap>
 
 	<!-- 공지사항 -->
+	<select id="selectNoticePublicAllList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE WHERE NOTICE_PUBLIC_YN = 'Y' ORDER BY NOTICE_NO ASC
+	</select>
+	
+	<select id="selectNoticeOneDetail" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
 	<insert id="insertNotice" parameterType="Notice">
-		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4')
+		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4', "Y")
 	</insert>
 	
 	
 	
 	<!-- qna -->
+	
+	<select id="selectQnaListCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA_BOARD
+	</select>
+	
+	<select id="selectQnaAllList" resultMap="qnaResultMap">
+		SELECT * FROM QNA_BOARD ORDER BY QNA_NO DESC
+	</select>
+	
+	<select id="selectQnaOneDetail" resultMap="qnaResultMap">
+		SELECT * FROM QNA_BOARD WHERE QNA_NO = #{qnaNo}
+	</select>
+	
 	<insert id="inserQna" parameterType="Qna">
 		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, '문의사항', '내용', '닉네임', DEFAULT, DEFAULT, 'Y', '1', '1', '1', '1', '1')
 	</insert>

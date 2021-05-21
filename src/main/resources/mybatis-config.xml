@@ -9,17 +9,19 @@
 		<typeAlias type="com.donzzul.spring.reservation.domain.Reservation" alias="Reservation"/>
 		<typeAlias type="com.donzzul.spring.dreamreview.domain.DreamReview" alias="DreamReview"/>
 		<typeAlias type="com.donzzul.spring.mzreview.domain.MzReview" alias="MzReview"/>
-		<typeAlias type="com.donzzul.spring.notice.domain.Notice" alias="Notice"/>
-		<typeAlias type="com.donzzul.spring.qna.domain.Qna" alias="Qna"/>
+		<typeAlias type="com.donzzul.spring.notiqna.domain.Notice" alias="Notice"/>
+		<typeAlias type="com.donzzul.spring.notiqna.domain.Qna" alias="Qna"/>
 		<typeAlias type="com.donzzul.spring.recommendboard.domain.RecommendBoard" alias="RecommendBoard"/>
 		
 		<typeAlias type="com.donzzul.spring.payment.domain.Don" alias="Don"/>
 		
 		<typeAlias type="com.donzzul.spring.user.domain.User" alias="User"/>
 		<typeAlias type="com.donzzul.spring.shop.domain.Shop" alias="Shop"/>
-		<typeAlias type="com.donzzul.spring.shop.domain.Shop" alias="MainMenu"/>
-		<typeAlias type="com.donzzul.spring.shop.domain.Shop" alias="MenuPhoto"/>
+	    <typeAlias type="com.donzzul.spring.shop.domain.MainMenu" alias="MainMenu"/>
+	    <typeAlias type="com.donzzul.spring.shop.domain.MenuPhoto" alias="MenuPhoto"/>
 	</typeAliases>
+	
+	
 
 	<mappers>
 		<mapper resource="mappers/reservation-mapper.xml"></mapper>
