@@ -13,112 +13,16 @@
     box-sizing: border-box;
 }   */ 
 
-* {
-    margin: 0;
-    padding: 0;
+main {
+	width: 1920px;
+	height: 940px;
 }
-
-/*  */
-header {
-    width: 100%;
-    height: 100px;
-    margin: 0 auto;
-}
-
-/*기본값*/
-body {
-    margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    max-height: 100%;
-    height: 100%;
-}
-a {
-    text-decoration: none;
-}
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-li {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-
-/* 스크롤 전 헤더 */
- .fixed-header-navi {
-    width: 1903px;
-    height: 100px;
-    border-bottom: #ffffff 1px solid;
-    background: #ffffff;
-    /* box-shadow: 0 0 20px rgba(0,0,0,.5); */
-    /* position: fixed; */
-}
-/* 스크롤 후 헤더 */
-
-
-/* 로고 */
- .header-logo-area {
-    width: 113px;
-    height: 46px;
-    margin: 30px 0 30px 240px;
-    float: left;
-    cursor: pointer;
-}
-    .header-logo-area > img {
-        width: 113px;
-        height: 46px;
-    } 
-
-/* 메인 탑메뉴(돈쭐소개, 지도조회, 가게검색, 커뮤니티) */
-.header-menu-area {
-    width: 550px;
-    height: 20px;
-    margin: 45px 0 45px 350px;
-    float: left;
-    font-size: 18px;
-    font-family: 'Jal_Onuel';
-}
-    .header-menu-area > ul {
-        margin: 0;
-        float: left;
-    }
-    .header-menu-area > ul > li {
-        list-style: none;
-        float: left;
-        margin : 0 30px;
-    }
-    .header-menu-area > ul > li:not(:nth-last-child(1)) {
-        /* margin-right: 20px; */
-    }
-    .header-menu-area a {
-        color: #333333;
-        text-decoration-line: none;
-    }
-
-
-    /* 회원가입, 로그인 */
-    .header-submenu-area {
-        width: 169px;
-        height: 20px;
-        margin: 38px 240px 0 0px; /* 메뉴창이랑 로그인 회원가입이 일자가 아니라면 여길수정  */
-        float: right;
-        font-size: 18px;
-        font-family: 'Noto Sans KR';
-        font-weight: bold;
-    }
-        .header-submenu-area a {
-            color: #333333;
-            text-decoration-line: none;
-            margin : 0 0 0 20px;
-        }
 
 .frame {
 	width: 1920px;
 	height: 940px;
-	overflow: hidden;
+	overflow: hidden; /* float: left 속성 때문에 넣음 */
+	position: absolute;
 }
 
 	.map-left {
@@ -130,6 +34,7 @@ li {
 		background-color: #ffffff;
 		text-align: center;
 		float: left;
+		overflow-y: auto; /* 넘치는 부분 내용 숨김. 필요시 스크롤바 나타남 */
 	}
 		
 			.map-left > hr {
@@ -148,8 +53,8 @@ li {
 				float: left;
 			}
 			
-			#searchBox:focus {
-				outline: none; /* 입력창 클릭시 테두리 파랗게 변하는 것 방지 */
+			#searchBox:focus, #btn-search {
+				outline: none; /* 클릭시 테두리 파랗게 변하는 것 방지 */
 			}
 		
 			#btn-search {
@@ -161,62 +66,100 @@ li {
 				float:left;
 			}
 			
-	/* 가게 리스트 */
-	.content-shop {
-		width: 365px;
-		height: 200px;
-		border: solid 1px #e3e4e5;
-		padding: 5px;
-		margin-left: 10px;
-	}
-	
-	
-		.content-shop > .left {
-			width: 90px;
-			height: inherit;
-			border-style: none;
-			padding: 11px 0;
-			margin: 0;
-			float: left;
-		}
-		
-			.content-shop > img {
-				width: 90px;
-				height: 90px;
-				object-fit: cover;
-			}
-		
-		.content-shop > .right {
-			width: 260px;
-			height: inherit;
-			padding: 0;
-			margin: 0;
-			border-style: none;
-			text-align: left;
-			float: left;
-		}
-		
-			.content-shop > .right > .top {
-				width: inherit;
-				height: 145px;	
-				padding: 5px 7px;
+			/* 가게 리스트 */
+			.content-shop {
+				width: 365px;
+				height: 200px;
+				border: solid 1px #e3e4e5;
+				padding: 5px;
+				margin: 0 0 10px 10px;
 			}
 			
-				.content-shop > .right > span {
-					font-size: 14px;
+			
+				.content-shop > .left {
+					width: 90px;
+					height: inherit;
+					border-style: none;
+					padding: 11px 0;
+					margin: 0;
+					float: left;
 				}
+				
+					.content-shop > .left > img {
+						width: 90px;
+						height: 90px;
+						object-fit: cover;
+					}
+				
+				.content-shop > .right {
+					width: 260px;
+					height: inherit;
+					padding: 0;
+					margin: 0;
+					border-style: none;
+					text-align: left;
+					float: left;
+				}
+				
+					.content-shop > .right > .top {
+						width: inherit;
+						height: 145px;	
+						padding: 5px 7px;
+					}
 					
-				.content-shop > #shop-title {
-					font-size: 18px;
-				}
+				 		.content-shop > .right > span {
+							font-size: 14px;
+							margin:0;
+						} 
+							
+						.content-shop > #shop-title {
+							font-size: 18px;
+						}
+					
+					.content-shop > .right > .bottom {
+						width: inherit;
+						height: 40px;
+						text-align: right;	
+						padding-top: 5px;
+					}
 			
-			.content-shop > .right > .bottom {
-				width: inherit;
-				height: 40px;
-				text-align: right;	
-				padding-top: 5px;
-			}
-	
+			.content-list > .navi {
+					width: 260px;
+					height: 40px;
+					border-style: none;
+					text-align: center;
+				}
+				
+				.content-list > hr {
+					margin: 20px 10px 20px;
+					display: block;
+					color: #333333;
+					align: center;
+				}
+				
+				.content-list > a {
+					display: inline-block;
+					color: #333333; 
+				}
+				
+					.content-list > a:hover {
+						text-decoration: none; 
+						color: #0160ff;
+					}
+				
+				.content-list img {
+					width: 10px;
+					height: 10px;
+				}
+				
+				#currentPage {
+					display: inline-block;
+					width: 30px;
+					height: 30px;
+					background-color: #0160ff;
+					color: #ffffff;
+
+				}
 
 		
 	/* 지도 영역 시작 */	

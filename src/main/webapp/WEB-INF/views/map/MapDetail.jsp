@@ -17,32 +17,13 @@
 <title>지도 상세 페이지</title>
 </head>
 <body>
-    <header>
-        <div class="fixed-header-navi">
-            <div class="header-logo-area" onclick="location.href='#'">
-                <!-- visual에서 작업함 경로수정필요!! -->
-                <img src="/resources/images/logo-color.png" alt="로고">
-            </div>
-            <div class="header-menu-area">
-                <ul>
-                    <li><a href="#">돈쭐소개</a></li>
-                    <li><a href="mapSearchList.dz">지도조회</a></li>
-                    <li><a href="searchShopView.dz">가게검색</a></li>
-                    <li><a href="#">커뮤니티</a></li>
-                </ul>
-            </div>
-            <div class="header-submenu-area">
-                <a href="loginView.dz">로그인</a>
-                <a href="enrollView.dz">회원가입</a>
-            </div>
-        </div>
-    </header>
+    <jsp:include page="/WEB-INF/views/map/MapDetailmenubar.jsp"></jsp:include> 
 
 	<main>
 		<div class=frame>
 			<div class=map-left>
 				<div class="searchBar">
-					<form action="" method="get">
+					<form action="mapSearchKey.dz" method="get">
 						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별 검색">
 						<button id="btn-search"><img src="/resources/images/undo.png"></button>
 					</form>
@@ -52,28 +33,27 @@
 					<c:forEach items="${ mList }" var="shop">
 						<div class="content-shop">
 							<div class="content-shop left">
-								<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/>
+								<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
+								<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/> -->
 							</div>
 							<div class="content-shop right">
 								<div class="content-shop right top">
 									<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-									<span id=shop-title><b>${ mList.shopName }</b>&nbsp;&nbsp;</span>
+									<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
 									<span>${ shop.shopType }</span><br>
 									<span>${ shop.shopAddr }</span><br>
-									<span class="label label-info">영업시간</span>
-									<span>${ shop.startTime } - ${ shop.endTime }</span><br>
-									<span>예약 가능 인원(최대)&nbsp;&nbsp;</span>
-									<span>${ shop.shopMaxReserv }</span><br>
-									<span>${ shop.shopPhone }&nbsp;&nbsp;${ shop.shopParking }</span>
-									<%-- <c:if test="${ mList.shopParking }"> --%>
+									<span>영업시간</span>
+									<span>${ shop.startTime }:00 - ${ shop.endTime }:00</span><br>
+									<span>휴무</span><br>
+									<span>${ shop.shopMaxReserv }인</span><br>
+									<span>${ shop.shopPhone }&nbsp;&nbsp;</span>
+									<c:if test="${ shop.shopParking eq 'Y' }">
+										<span>주차가능</span>
+									</c:if>
+									<c:if test="${ shop.shopParking eq 'N' }">
+										<span>주차불가</span>
+									</c:if>
 									<br>
-	<!-- 								<span id=shop-title><b>진짜 파스타</b>&nbsp;&nbsp;</span>
-									<span>양식</span><br>
-									<span>서울특별시 마포구 와우산로 64 전원빌딩 2층 진짜파스타</span><br>
-									<span class="label label-info">영업시간</span>
-									<span>12:00 - 22:00</span><br>
-									<span>예약 가능 인원(최대)</span><br>
-									<span>02-322-1518&nbsp;&nbsp;주차가능</span><br> -->
 								</div>
 								<div class="content-shop right bottom">
 									<button type="button" class="btn btn-primary btn-sm">예약하기</button>
@@ -82,8 +62,42 @@
 						</div>
 					</c:forEach>
 				</div>
-				<div class="pagination">
-				
+				<div class="content-list navi">
+					<hr>
+					<c:url var="before" value="mapSearchShop.dz">
+						<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+						<c:if test="${ mapNo != null }">
+							<c:param name="mapNo" value="${ mapNo }"></c:param>
+						</c:if>
+					</c:url>
+					<c:if test="${ pi.currentPage > 1 }">
+						<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+					</c:if>
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:url var="pagination" value="mapSearchShop.dz">
+							<c:param name="page" value="${ p }"></c:param>
+							<c:if test="${ mapNo != null }">
+								<c:param name="mapNo" value="${ mapNo }"></c:param>
+							</c:if>
+						</c:url>
+						<c:if test="${ p eq pi.currentPage }">
+							<span id="currentPage">${ p }</span>
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<a href="${ pagination }"><span>${ p }</span>&nbsp;&nbsp;</a>
+						</c:if>
+					</c:forEach>
+					<c:url var="after" value="mapSearchShop.dz">
+						<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+						<c:if test="${ mapNo != null }">
+							<c:param name="mapNo" value="${ mapNo }"></c:param>
+						</c:if>
+					</c:url>
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+					</c:if>
 				</div>
 			</div>
 			<div class=map-right>
@@ -99,9 +113,10 @@
 	<script>
 		$(function() {
 			$("#btn-search").on("click", function() {
-				var searchKeyword = $("searchKeyword").val();
+				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
 					alert("검색하실 지역을 입력해주세요.");
+					return false;
 				}else {
 					$.ajax({
 						url: "mapSearchKey.dz",
@@ -113,11 +128,30 @@
 						},
 						error: function() {
 							alert("서버에 연결할 수 없습니다.");
+							return false;
 						}
 					});
 				}
 			});
 		});
+/* 		function pageMove() {
+			$(".content-list").empty();
+			$(".content-list navi").empty();
+			$.ajax({
+				url : ,
+				type : ,
+				data : ,
+				success : function(data) {
+					for( int i in data.mapList) {
+						$(".content-list").append(mapList[i].showNo)	
+												
+					}
+				},
+				error : function() {
+					
+				}
+			});
+		} */
 	</script>
 </body>
 </html>

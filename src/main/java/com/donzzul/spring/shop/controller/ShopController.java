@@ -2,6 +2,7 @@ package com.donzzul.spring.shop.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.mzreview.domain.MzReview;
@@ -21,10 +23,8 @@ import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
-import com.donzzul.spring.shop.domain.PageInfo;
-import com.donzzul.spring.shop.domain.Pagination;
+import com.donzzul.spring.shop.domain.MapPagination;
 import com.donzzul.spring.shop.domain.Shop;
-import com.donzzul.spring.shop.domain.ShopSearch;
 import com.donzzul.spring.shop.service.ShopService;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -45,28 +45,46 @@ public class ShopController {
 	
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
-//	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") ShopSearch mapNo, @RequestParam(value="page", required=false) Integer page) {
-//		 파라미터 - 메뉴 클릭시 각각 넘버값
-//		 mapper.xml 에서 넘버별로 스트링값 설정하기
+	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
 		
-		// sPageInfo 만들기 위해 필요한 데이터
+		// PageInfo 만들기 위해 필요한 데이터
+		int currentPage = (page != null) ? page : 1; // 삼항연산자
+		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
+		System.out.println(currentPage);
+		System.out.println(listCount);
+		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
+		System.out.println(pi.getMaxPage());
+		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
+		if( !mapList.isEmpty() ) {
+			mv.addObject("mList", mapList);
+			mv.addObject("pi",	pi);
+			mv.addObject("mapNo", mapNo);
+			mv.setViewName("map/MapDetail");
+		}else {
+			mv.addObject("msg", "지도 조회에 실패하였습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+//	public String searchShopMap() {
+//		ArrayList<Shop> mapList = sService.selectShopMap(mapNo);
+//		System.out.println(mapList);
+//		return "map/MapDetail";
+	
+	// Json
+//	public void searchShopMapJson(@RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
 //		int currentPage = (page != null) ? page : 1; // 삼항연산자
 //		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
+//		System.out.println(page);
 //		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
-//		
 //		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
-//		if( !mapList.isEmpty() ) {
-//			mv.addObject("mList", mapList);
-//			mv.addObject("pi",	pi);
-//			mv.setViewName("map/MapDetail");
-//		}else {
-//			mv.addObject("msg", "지도 조회에 실패하였습니다.");
-//			mv.setViewName("common/errorPage");
-//		}
-//		return mv;
-	public String searchShopMap() {
-		return "map/MapDetail";
-	}
+//		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+//		hashMap.put("pi", pi);
+//		hashMap.put("mList", mapList);
+//		Gson gson = new Gson();
+//		gson.toJson(hashMap, response.getWriter());
+//	}
 	
 	//D 지도 - 지역별 가게 키워드 검색
 	@RequestMapping(value="mapSearchKey.dz", method=RequestMethod.GET)
@@ -117,7 +135,6 @@ public class ShopController {
 	public String shopDetail(@RequestParam("shopNo") int shopNo, @ModelAttribute Shop shop, Model model) {
 		// 파라미터 - 가게 번호 (쿼리스트링)
 		
-		// 이하 전부 해시맵?
 		// 가게 상세정보 가져오기
 		Shop sInfo = sService.selectShopOne(shopNo);
 		// 가게 메인메뉴 가져오기

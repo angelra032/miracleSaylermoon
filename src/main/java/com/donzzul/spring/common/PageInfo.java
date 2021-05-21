@@ -1,13 +1,13 @@
-package com.donzzul.spring.shop.domain;
+package com.donzzul.spring.common;
 
 public class PageInfo {
 
 	private int currentPage; // 현재 페이지
-	private int boardLimit; // 한 페이지 게시글 갯수
+	private int boardLimit; // 한 페이지당 게시글 갯수
 	private int pageLimit; // 네비게이션 수
 	private int startPage; // 네비게이션 첫번째 값
 	private int endPage; // 네비게이션 마지막 값
-	private int listCount; // 전체 개시글 갯수
+	private int listCount; // 전체 게시글 갯수
 	private int maxPage; // 페이지 마지막 번호
 	
 	public PageInfo() {}
