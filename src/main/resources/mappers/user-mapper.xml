@@ -21,6 +21,15 @@
 		SELECT * FROM "USER"
 		WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
 	</select>
+
+	<select id="findId" parameterType="HashMap" resultType="string">
+		SELECT USER_ID FROM "USER"
+		WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
+	</select>
+	
+	<select id="checkLoginDup" resultType="_int" parameterType="HashMap">
+		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+	</select>
 	
 	<insert id="insertDreamUser" parameterType="User">
 		INSERT INTO "USER"
@@ -52,6 +61,10 @@
 	<select id="checkCardDup" resultType="_int" parameterType="HashMap">
 		SELECT COUNT(*) FROM "USER" WHERE DREAM_CARDNO = #{2}
 	</select>
+	
+	<select id="checkNickDup" resultType="_int">
+		SELECT COUNT(*) FROM "USER" WHERE USER_NICK = #{userNick}
+	</select>
 
 	<select id="checkPVerifyDup" resultType="_int">
 		SELECT COUNT(*) FROM "USER" WHERE PARTNER_VERIFY = #{partnerVerify}
@@ -61,6 +74,16 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail}
 	</select>
 	
+
+	<select id="checkFindIdDup" resultType="_int" parameterType="HashMap">
+		SELECT COUNT(*) FROM "USER" WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
+	</select>
+	
+	<select id="checkFindPwDup" resultType="_int" parameterType="HashMap">
+		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
+	</select>
+	
+
 	<update id="updateUserPoint">
 		UPDATE "USER" SET USER_POINT = #{userPoint} WHERE USER_NO = #{userNo}
 	</update>
