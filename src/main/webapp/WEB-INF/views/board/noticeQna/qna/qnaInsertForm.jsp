@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!-- <link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css"> -->
 	<!--  -->
-	<title>가게추천 글 등록</title>
+	<title>문의하기</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
@@ -19,20 +19,18 @@
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">가게추천</div>
+		<div id="main-title">QnA</div>
 		
 		<div class="form-group">
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
-				<label for="recommendTitle">제목</label>
-				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목">
+				<label for="qnaTitle">제목</label>
+				<input type="text" name="qnaTitle" id="qnaTitle" class="form-control"" placeholder="제목" value="문의합니다.">
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
 				<div class="user-nick-area">${ loginUser.userNick }</div>
 			</div>
-			<!-- <p>닉네임위치</p> -->
-			<!-- <textarea name="recommendContent" placeholder="내용"></textarea> -->
 			<br>
 			<div class="editor-area">
 				<label>내용</label>
@@ -41,11 +39,18 @@
 				</div>
 			</div>
 			<div class="btn-area">
+					<div class="text-center col-sm-3">
+						<button class="btn btn-lg" id="saveBtn">등록하기</button>
+					</div>
+				<c:if test="${ !empty loginUser }">
+				</c:if>
+				<%-- <c:if test="${ empty loginUser }">
+					<div class="text-center col-sm-3">
+						<button class="btn btn-lg" onclick="location.href='/loginView.dz'">로그인</button>
+					</div>
+				</c:if> --%>
 				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">등록하기</button>
-				</div>
-				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">목록보기</button>
+					<button class="btn btn-lg" onclick="location.href='/notiQnaMain.dz'">목록보기</button>
 				</div>
 			</div>
 		</div>
@@ -96,7 +101,7 @@
 				               ['color', ['color']],
 				               ['para', ['ul', 'ol', 'paragraph']],
 				               ['height', ['height']],
-				               ['insert', ['picture', 'link', 'hr']],
+				               ['insert', ['link', 'hr']],
 				               ['view', ['codeview']]
 				             ]
 				         });
@@ -105,18 +110,18 @@
 				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
-					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
-						var recommendTitle = $("#recommendTitle").val();
+					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
+						var qnaTitle = $("#qnaTitle").val();
 					    $.ajax({
-						   url : "recommendInsertForm.dz",
+						   url : "qaInsertForm.dz",
 						   type : "POST",
-						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
+						   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
 						   success : function(data){
 							   if(data == "success") {
-								   location.href="recommendMain.dz";
+								   location.href="notiQnaMain.dz";
 								} else {
 									alert('게시글 올리기 실패');
-									location.href="recommendMain.dz";
+									location.href="notiQnaMain.dz";
 								}
 						   },
 						   error : function() {
@@ -128,22 +133,5 @@
 				   
 				 }); 
 		}); 
-		 
-		 function uploadSummernoteImageFile(file, editor) {
-				data = new FormData();
-				data.append("file", file);
-				$.ajax({
-					data : data,
-					type : "POST",
-					url : "uploadSummernoteImageFile",
-					contentType : false,
-					enctype : 'multipart/form-data',
-					processData : false,
-					success : function(data) {
-						$(editor).summernote('insertImage', data.url);
-					}
-				});
-			}
-		 
 	</script>
 </html>

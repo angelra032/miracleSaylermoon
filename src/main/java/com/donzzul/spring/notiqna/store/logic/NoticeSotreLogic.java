@@ -28,8 +28,7 @@ public class NoticeSotreLogic implements NoticeStore {
 
 	@Override
 	public int insertNotice(Notice notice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("notiQnaMapper.insertNotice", notice);
 	}
 
 	@Override
