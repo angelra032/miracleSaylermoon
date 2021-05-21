@@ -359,9 +359,6 @@ public class UserController {
 		model.addAttribute("userEmail", userEmail);
 		model.addAttribute("randomCode", randomCode);
 		return "user/userFindPw";
-
-	//	return randomCode+"";
-//				return "user/userFindIdResult";
 	}
 
 	// 아이디 패스워드 인증받기 함수
@@ -381,15 +378,30 @@ public class UserController {
 	
 	
 	// 비밀번호 재설정 폼
-	@RequestMapping(value = "resetPwView.dz", method = RequestMethod.GET)
-	public String resetPwView() {
-		return "";
+	@RequestMapping(value = "resetPwView.dz", method = RequestMethod.POST)
+	public String resetPwView(@RequestParam("userEmail") String userEmail, @RequestParam("userId") String userId, Model model) {
+		model.addAttribute("userId", userId);
+		model.addAttribute("userEmail", userEmail);
+		return "/user/userResetPw";
 	}
 	
 	// 비밀번호 재설정
+	@RequestMapping(value = "resetPw.dz", method = RequestMethod.POST)
 	public String resetPw(@RequestParam("userId") String userId,
-						@RequestParam("userEmail") String userEmail) {
-		return service.resetPw(userId, userEmail);
+						@RequestParam("userEmail") String userEmail,
+						@RequestParam("userPw") String userPw,
+						Model model) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("userEmail", userEmail);
+		map.put("userPw", userPw);
+		int result =  service.resetPw(map);
+		if(result>0) {
+			return "user/userLogin";
+		}else {
+			model.addAttribute("msg", "비밀번호 등록 실패");
+			return "common/errorPage";
+		}
 	}
 	
 }

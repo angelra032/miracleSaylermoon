@@ -117,6 +117,12 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.checkFindPwDup", map);
 	}
 
+	// 비밀번호 업데이트
+	@Override
+	public int resetPw(HashMap<String, String> map) {
+		return sqlSession.update("userMapper.resetPw", map);
+	}
+
 	
 
 	
