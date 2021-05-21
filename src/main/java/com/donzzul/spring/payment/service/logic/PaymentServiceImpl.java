@@ -1,5 +1,7 @@
 package com.donzzul.spring.payment.service.logic;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,13 +58,13 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public int insertDonList(Don don) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("서비스"+don);
+		return store.insertDonList(don);
 	}
 
 	@Override
-	public MainMenu selectShopMenu(int shopNo) {
-		MainMenu mainmenu = store.selectShopMenu(shopNo);
+	public ArrayList<MainMenu> selectShopMenu(int shopNo) {
+		ArrayList<MainMenu> mainmenu = store.selectShopMenu(shopNo);
 		System.out.println("서비스임플"+mainmenu);
 		return mainmenu;
 	}

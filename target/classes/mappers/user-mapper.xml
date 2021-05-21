@@ -74,6 +74,7 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail}
 	</select>
 	
+
 	<select id="checkFindIdDup" resultType="_int" parameterType="HashMap">
 		SELECT COUNT(*) FROM "USER" WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
 	</select>
@@ -82,4 +83,8 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</select>
 	
+	<update id="updateUserPoint">
+		UPDATE "USER" SET USER_POINT = #{userPoint} WHERE USER_NO = #{userNo}
+	</update>
+
 </mapper>

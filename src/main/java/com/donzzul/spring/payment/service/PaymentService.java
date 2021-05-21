@@ -1,5 +1,7 @@
 package com.donzzul.spring.payment.service;
 
+import java.util.ArrayList;
+
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.Shop;
@@ -20,7 +22,7 @@ public interface PaymentService {
 	public String selectDonList(User user); // 돈쭐내역 출력
 	
 	///////// +
-	public MainMenu selectShopMenu(int shopNo); // 가게 메뉴 출력
+	public ArrayList<MainMenu> selectShopMenu(int shopNo); // 가게 메뉴 출력
 	public Shop selectShop(Shop shop); // 가게 출력
 	
 }

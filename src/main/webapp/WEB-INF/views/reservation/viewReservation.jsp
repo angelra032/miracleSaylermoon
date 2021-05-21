@@ -44,6 +44,9 @@
 		var date = new Date(arg); // arg의 값을 데이터베이스 날짜로 형변환한다!
 		var date2 = getFormatDate(date); // date에 서식 포맷을 변경!
 		$("input[name='reserveDate']").val(date2);
+		if("${loginUser.userId == 'null'}"){
+			alert("로그인을 해주세요")
+		} 
 		if(date2 != null){
 			$("#selectAreaFirst").show(500);
 			$("#selectAreaSecond").hide();

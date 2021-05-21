@@ -9,8 +9,24 @@
 		<result property="menuName" column="MENU_NAME"/>
 		<result property="amount" column="AMOUNT"/>
 		<result property="paymentDate" column="PAYMENT_DATE"/>
-		<result property="shopNo" column="SHOP_NAME"/>
-		<result property="shopName" column="SHOP_NO"/>
+		<result property="shopName" column="SHOP_NAME"/>
+		<result property="shopNo" column="SHOP_NO"/>
+	</resultMap>
+	
+	<resultMap type="User" id="userResultMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPw" column="USER_PW"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userNick" column="USER_NICK"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="partnerVerify" column="PARTNER_VERIFY"/>
+		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
+		<result property="dreamCardno" column="DREAM_CARDNO"/>
+		<result property="userPoint" column="USER_POINT"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="partnerName" column="PARTNER_NAME"/>
 	</resultMap>
 	
 	<!-- select - insert - update - delete -->
@@ -18,18 +34,23 @@
 	<select id=""></select>
 	
 	<update id="updateUserPoint">
-		UPDATE USER SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo }
+		UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo }
 				<!-- 아 근데 #{userPoint } 이거 쓰려면 돈쭐 테이블에 포인트가 있어야함..? 아님 조인..? 
 								아니면 payment가 아니라 user에서 처리? service 바꿔서..(User service 선언해주고) -->
 	</update>
 	
+	<insert id="insertDonList">
+		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo } )
+	</insert>
 	
 	
 	
 	
+
 	<!-- 사업자 가게 테이블 -->
 	<resultMap type="Shop" id="shopResultMap">
 		<id property="shopNo" column="SHOP_NO"/>
+		<result property="reserveNo" column="RESERVE_NO"/>
 		<result property="shopName" column="SHOP_NAME"/>
 		<result property="shopShortAddr" column="SHOP_SHORT_ADDR"/>
 		<result property="shopAddr" column="SHOP_ADDR"/>
@@ -40,7 +61,6 @@
 		<result property="shopFilePath" column="SHOP_FILEPATH"/>
 		<result property="shopFileSize" column="SHOP_FILESIZE"/>
 		<result property="shopUploadTime" column="SHOP_UPLOADTIME"/>
-		<result property="shopPhone" column="SHOP_PHONE"/>
 		<result property="shopParking" column="SHOP_PARKING_YN"/>
 		<result property="shopMaxReserv" column="SHOP_MAX_RESERVATION"/>
 		<result property="shopContent" column="SHOP_CONTENT"/>
@@ -49,11 +69,12 @@
 		<result property="shopPoint" column="SHOP_POINT"/>
 		<result property="shopPointYn" column="SHOP_POINT_YN"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="donNo" column="DON_NO"/>
 		<result property="startTime" column="START_TIME"/>
 		<result property="endTime" column="END_TIME"/>
 		<result property="businessDay" column="BUSINESS_DAY"/>
-		
-		<!-- <result property="mainMenuNo" column="MAIN_MENU_NO"/> -->
+		<!-- <result property="shopPhone" column="SHOP_PHONE"/> -->
+		<result property="shopPhone" column="SHOP_PHONE"/>
 	</resultMap>
 	
 	
@@ -64,6 +85,7 @@
 		<result property="mainMenuPrice" column="MAIN_MENU_PRICE"/>
 		<result property="shopNo" column="SHOP_NO"/>
 	</resultMap>
+	
 	
 	
 	

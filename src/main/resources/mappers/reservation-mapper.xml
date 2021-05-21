@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservationMapper">
    <resultMap type="Reservation" id="reservationResultMap">
-      <id property="reserveNo"  column="RESERVATION_NO"></id>
+      <id property="reservationNo"  column="RESERVATION_NO"></id>
       <result property="shopNo" column="SHOP_NO"></result>
       <result property="reserveDate" column="RESERVE_DATE"></result>
       <result property="reserveTime" column="RESERVE_TIME"></result>
@@ -10,14 +10,65 @@
       <result property="pointYn" column="POINT_YN"></result>
       <result property="paymentPoint" column="PAYMENT_POINT"></result>
       <result property="userNo" column="USER_NO"></result>
+      <result property="rState" column="R_STATE"></result>
+      <result property="shopName" column="SHOP_NAME"></result>
    </resultMap>
 
 	<insert id="insertRservation">
-		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo})
+		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo}, DEFAULT)
 	</insert>
+	
+	<select id="selectOneByRno" resultMap="reservationResultMap">
+		SELECT * FROM RESERVATION WHERE RESERVATION_NO = #{reservationNo}
+	</select>
+	
+	<update id="cancleReservation">
+		UPDATE RESERVATION SET R_STATE = 'X' WHERE RESERVATION_NO = #{reservationNo}
+	</update>
 
-	<select id="selectByDream" resultMap="reservationResultMap">
-		SELECT * FROM RESERVATION WHERE USER_NO = #{userNo} ORDER BY RESERVE_DATE DESC
+
+	<resultMap type="Shop" id="shopResultMap">
+		<id property="shopNo" column="SHOP_NO"/>
+		<result property="reserveNo" column="RESERVE_NO"/>
+		<result property="shopName" column="SHOP_NAME"/>
+		<result property="shopShortAddr" column="SHOP_SHORT_ADDR"/>
+		<result property="shopAddr" column="SHOP_ADDR"/>
+		<result property="shopTarget" column="SHOP_TARGET"/>
+		<result property="shopProduct" column="SHOP_PRODUCT"/>
+		<result property="shopType" column="SHOP_TYPE"/>
+		<result property="shopFileName" column="SHOP_FILENAME"/>
+		<result property="shopFilePath" column="SHOP_FILEPATH"/>
+		<result property="shopFileSize" column="SHOP_FILESIZE"/>
+		<result property="shopUploadTime" column="SHOP_UPLOADTIME"/>
+		<result property="shopPhone" column="SHOP_PHONE"/>
+		<result property="shopParking" column="SHOP_PARKING_YN"/>
+		<result property="shopMaxReserv" column="SHOP_MAX_RESERVATION"/>
+		<result property="shopContent" column="SHOP_CONTENT"/>
+		<result property="shopLat" column="SHOP_LAT"/>
+		<result property="shopLng" column="SHOP_LNG"/>
+		<result property="shopPoint" column="SHOP_POINT"/>
+		<result property="shopPointYn" column="SHOP_POINT_YN"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="donNo" column="DON_NO"/>
+		<result property="startTime" column="START_TIME"/>
+		<result property="endTime" column="END_TIME"/>
+		<result property="businessDay" column="BUSINESS_DAY"/>
+	</resultMap>
+
+	<select id="selectAllByDream" resultMap="reservationResultMap">
+		SELECT SHOP_NAME, RESERVE_DATE, RESERVATION_NO, RESERVATION.USER_NO, R_STATE FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE RESERVATION.USER_NO = #{userNo} ORDER BY RESERVE_DATE DESC
+	</select>
+
+	<select id="rListByDreamUpToThree" resultMap="reservationResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION_NO, RESERVATION.USER_NO, R_STATE FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE  RESERVATION.USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
+	</select>
+	
+	<select id="rListByMZToThree" resultMap="reservationResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION_NO, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE  RESERVATION.USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
+	</select>
+	
+	<select id="rListByShopToThree">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
 
 </mapper>
