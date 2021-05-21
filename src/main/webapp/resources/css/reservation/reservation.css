@@ -2,32 +2,99 @@
 
 #calendar {
 	height: 500px;
-	width: 31%;
+	width: 410px;
 	float: left;
 }
 
+#calendatSection{
+  width: 411px;
+  height: 700px;
+  border: solid 1px #fdb504;
+  background-color: #ffffff;
+  float: left;
+}
+
+#calendarText{
+  width: 410px;
+  height: 60px;
+  background-color: #fdb504;
+}
+
 h1{
-	position:relative;
-	margin-top: 15%;
 	font: #333;
 }
 
 #selectAreaFirst{
 	float: left;
-	height:500px;
-	width:23%;
+	height:700px;
+	width:410px;
+	position:relative;
+	left:50px;
+	border: solid 1px #fdb504;
+    background-color: #ffffff;
 }
 
+#rTimeText{
+	height: 60px;
+	width: 100%;
+	background-color: #fdb504;
+	
+}
+
+#selectTSection{
+	height: 100px;
+	width: 100%;
+}
+
+#selectTime{
+	border-radius: 3px;
+  	border: solid 2px #fdb504;
+  	font-size: 20px;
+  	font: #333;
+}
+
+
+/* 여기가 세번째 섹션 */
 #selectAreaSecond{
 	float: left;
-	height:500px;
-	width:23%;	
+	height:567px;
+	width:410px;
+	position:relative;
+	left:130px;
 }
+
+#rCountText{
+	height: 60px;
+	width: 100%;
+	background-color: #fdb504;
+}
+
+#selectCSection{
+	height: 100px;
+	width: 100%;
+}
+
+#rPointText{
+	height: 60px;
+	width: 100%;
+	background-color: #fdb504;
+}
+
 
 #selectAreaThird{
 	float: left;
-	height:500px;
-	width:23%;
+	height:700px;
+	width:410px;
+	position:relative;
+	left:100px;
+	border: solid 1px #fdb504;
+    background-color: #ffffff;
+}
+
+#rInfomationText{
+	height: 80px;
+	width: 100%;
+	background-color: #fdb504;
 }
 
 .allInformation{
@@ -43,9 +110,8 @@ h1{
 	margin-top: 5%;
 }
 
-.poinUse{
+.pointUse{
 	position: relative;
-	margin-top: 30%;
 	font-size: 14px;
 }
 
@@ -76,10 +142,10 @@ body {
 }
 
 .frame {
-	width: 1440px;
+	width: 1270px;
 	margin: 0 auto;
 	position:relative;
-	height:500px;
+	height:1000px;
 	margin-top:140px;
 	margin-bottom: 140px;
 }

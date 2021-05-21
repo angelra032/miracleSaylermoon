@@ -2,15 +2,15 @@ package com.donzzul.spring.reservation.domain;
 
 public class Reservation {
 
-	public int reservationNo;
-	public int shopNo;
-	public String reserveDate;
-	public int reserveTime;
-	public int reserveCount;
-	public String pointYn;
-	public int paymentPoint;
-	public int userNo;
-	public String rState;
+	private int reservationNo;
+	private int shopNo;
+	private String reserveDate;
+	private int reserveTime;
+	private int reserveCount;
+	private String pointYn;
+	private int paymentPoint;
+	private int userNo;
+	private String rState;
 //	예약기본상태 O(default)
 //	예약승인 Y(comfirm)
 //	예약취소 X(cancle)
