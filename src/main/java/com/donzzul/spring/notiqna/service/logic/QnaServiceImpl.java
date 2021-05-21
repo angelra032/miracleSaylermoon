@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.notiqna.domain.Qna;
-import com.donzzul.spring.notiqna.domain.QnaPage;
 import com.donzzul.spring.notiqna.service.QnaService;
 import com.donzzul.spring.notiqna.store.QnaStore;
 
@@ -27,7 +27,7 @@ public class QnaServiceImpl implements QnaService{
 	}
 	
 	@Override
-	public ArrayList<Qna> selectAllQna(QnaPage pi) {
+	public ArrayList<Qna> selectAllQna(PageInfo pi) {
 		return qnaStore.selectAllQna(pi);
 	}
 
@@ -38,8 +38,12 @@ public class QnaServiceImpl implements QnaService{
 
 	@Override
 	public int insertQna(Qna qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaStore.insertQna(qna);
+	}
+	
+	@Override
+	public int updateGroup(Qna qna) {
+		return qnaStore.updateGroup(qna);
 	}
 
 	@Override
@@ -53,6 +57,8 @@ public class QnaServiceImpl implements QnaService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 

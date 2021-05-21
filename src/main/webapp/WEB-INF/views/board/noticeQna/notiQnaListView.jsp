@@ -27,7 +27,7 @@
 	                        <td width=160>작성자</td>
 	                        <td width=180>날짜</td>
 	                    </tr>
-	                    <c:forEach items="${ nList }" var="notice" varStatus="status">
+	                   <c:forEach items="${ nList }" var="notice" varStatus="status">
 	                    	<c:set var="num" value="${ status.index }"/>
 		                    <tr onclick="location.href='noticeDetail.dz?noticeNo=${notice.noticeNo}'" style="cursor: pointer;"> <!-- 공지사항위치 -->
 		                        <td>${ num }</td>
@@ -43,16 +43,16 @@
 	                		 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 		                    <tr onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
-		                        <c:if test="${ qna.userNo eq '1' }">
+		                        <c:if test="${ qna.userType eq '1' }">
 			                        <td>꿈나무</td>
 		                        </c:if>
-             					<c:if test="${ qna.userNo eq '2' }">
+             					<c:if test="${ qna.userType eq '2' }">
 			                        <td>일반</td>
 		                        </c:if>
-		                        <c:if test="${ qna.userNo eq '3' }">
+		                        <c:if test="${ qna.userType eq '3' }">
 			                        <td>사업자</td>
 		                        </c:if>
-		                        <c:if test="${ qna.userNo eq '4' }">
+		                        <c:if test="${ qna.userType eq '4' }">
 			                        <td>관리자</td>
 		                        </c:if>
 		                        <td>${ qna.qnaTitle }</td>
@@ -114,7 +114,7 @@
 			
 			<c:if test="${ loginUser.userType eq '2' }">
 	            <div id="write-btn-area">
-	                <button>문의하기</button>
+	                <button onclick="location.href='/qaWriteView.dz'">문의하기</button>
 	            </div>
 			</c:if>
 			<c:if test="${ loginUser.userType eq '4' }">
@@ -127,5 +127,8 @@
 </body>
 <script type="text/javascript">
 	$('.menu-btn').eq(3).css('background','#0160ff').css('color','white');
+	$(document).ready(function() { 
+		
+	});
 </script>
 </html>

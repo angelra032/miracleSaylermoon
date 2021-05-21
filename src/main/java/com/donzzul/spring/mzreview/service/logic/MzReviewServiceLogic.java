@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.MzReviewPage;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
@@ -22,7 +22,7 @@ public class MzReviewServiceLogic implements MzReviewService {
 	}
 	
 	@Override
-	public ArrayList<MzReview> selectAllReview(MzReviewPage pi) {
+	public ArrayList<MzReview> selectAllReview(PageInfo pi) {
 		return mStore.selectAllReview(pi);
 	}
 	
@@ -59,7 +59,7 @@ public class MzReviewServiceLogic implements MzReviewService {
     } 	
     //D selectAllReview 오버로딩 (사진 포함)
     public ArrayList<MzReview> selectAllReview(int shopNo) {
-        return null;
+        return mStore.selectAllReview(shopNo);
     }
 
 

@@ -7,7 +7,8 @@
 	<meta charset="UTF-8">
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
-	<link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css">
+	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
+	<!-- <link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css"> -->
 	<!--  -->
 	<title>가게추천 글 등록</title>
 </head>
@@ -22,9 +23,13 @@
 		
 		<div class="form-group">
 			<!-- <input type="hidden"> -->
-			<div class="title-area"">
+			<div class="title-area">
 				<label for="recommendTitle">제목</label>
 				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목">
+			</div>
+			<div class="nick-area">
+				<label>이름</label>
+				<div class="user-nick-area">${ loginUser.userNick }</div>
 			</div>
 			<!-- <p>닉네임위치</p> -->
 			<!-- <textarea name="recommendContent" placeholder="내용"></textarea> -->
@@ -35,12 +40,12 @@
 				 	<textarea id="summernote" name="eventContent"></textarea>  
 				</div>
 			</div>
-			<div class="btn-area col-md-12">
-				<div class="col-md-2">
-					<button class="btn" id="saveBtn">등록하기</button>
+			<div class="btn-area">
+				<div class="text-center col-sm-3">
+					<button class="btn btn-lg" id="saveBtn">등록하기</button>
 				</div>
-				<div class="col-md-2">
-					<button class="btn" id="saveBtn">목록보기</button>
+				<div class="text-center col-sm-3">
+					<button class="btn btn-lg" id="saveBtn">목록보기</button>
 				</div>
 			</div>
 		</div>
@@ -61,7 +66,7 @@
 			$(document).ready(function() { 
 				   $('#summernote').summernote({
 				         width: 1000,
-				          height: 600,                // 에디터 높이
+				          height: 500,                // 에디터 높이
 				          minHeight: null,            // 최소 높이
 				          maxHeight: null,            // 최대 높이
 				          focus: true,                // 에디터 로딩후 포커스를 맞출지 여부
@@ -106,14 +111,18 @@
 						   url : "recommendInsertForm.dz",
 						   type : "POST",
 						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
-						   success : function(){
-							   // console.log('성공');
-								alert('성공');							   
+						   success : function(data){
+							   if(data == "success") {
+								   location.href="recommendMain.dz";
+								} else {
+									alert('게시글 올리기 실패');
+									location.href="recommendMain.dz";
+								}
 						   },
 						   error : function() {
-								alert('실패');							   
 						   }
 					   });
+					    
 				   });
 				   
 				   

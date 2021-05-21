@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.notiqna.domain.Qna;
-import com.donzzul.spring.notiqna.domain.QnaPage;
 import com.donzzul.spring.notiqna.store.QnaStore;
 
 
@@ -29,9 +29,9 @@ public class QnaStoreLogic implements QnaStore {
 	}
 	
 	@Override
-	public ArrayList<Qna> selectAllQna(QnaPage pi) {
+	public ArrayList<Qna> selectAllQna(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getPageLimit());
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("notiQnaMapper.selectQnaAllList", null, rowBounds);
 	}
 //	, 
@@ -43,9 +43,15 @@ public class QnaStoreLogic implements QnaStore {
 
 	@Override
 	public int insertQna(Qna qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println(qna.toString());
+		return sqlSession.insert("notiQnaMapper.inserQna", qna);
 	}
+	
+	@Override
+	public int updateGroup(Qna qna) {
+		return sqlSession.update("", qna);
+	}
+
 
 	@Override
 	public int updateQna(Qna qna) {
@@ -58,6 +64,7 @@ public class QnaStoreLogic implements QnaStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 

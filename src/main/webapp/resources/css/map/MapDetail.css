@@ -58,7 +58,7 @@ main {
 			}
 		
 			#btn-search {
-				width: 45px;
+				width: 2.5em;
 				height: 45px;
 				margin-top: 5px;
 				border-style: none;
@@ -138,8 +138,9 @@ main {
 				}
 				
 				.content-list > a {
-					display: inline-block;
 					color: #333333; 
+					width: 30px;
+					height: 30px;
 				}
 				
 					.content-list > a:hover {
@@ -160,6 +161,11 @@ main {
 					color: #ffffff;
 
 				}
+				
+				#otherPage {
+					display: inline-block;
+					padding: 5px;
+				}
 
 		
 	/* 지도 영역 시작 */	
@@ -167,12 +173,50 @@ main {
 		width: 1500px;
 		height: 940px;
 		float: left;
+		position: relative;
 	}	
 	
+		
+  		.mapZoom {
+			width: 45px;
+			height: 90px;
+			position: fixed;
+			z-index: 999;
+			padding: 5px;
+			margin: 0;
+			cursor: pointer;
+			right: 0;
+			margin: 20px;
+		}
+		
+		.mapZoom > .in {
+				width: 45px;
+				height: 45px;
+				border-bottom: solid 1px #ffffff;
+				background-color: #fdb504;
+				top: 125px;
+			}
+			
+		.mapZoom > .out {
+			width: 45px;
+			height: 45px;
+			background-color: #fdb504;
+			top: 170px;
+			
+		}
+		
+		.mapZoom img {
+			display: block;
+			width: 35px;
+			height: 35px;
+			align: center;
+		}  
+		
 		#map {
 			width: 1500px;
 			height: 940px;
 		}
+			
 
 		.customoverlay {
 			position:relative;
@@ -222,7 +266,7 @@ main {
 			background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 		}
 		
-		
+/* 		
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
     .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -237,3 +281,4 @@ main {
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;object-fit:cover;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
+ */

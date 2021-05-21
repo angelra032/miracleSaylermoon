@@ -65,6 +65,10 @@ public class ShopStoreLogic implements ShopStore {
 	public int selectListCount(int mapNo) {
 		return sqlSession.selectOne("shopMapper.selectListCount", mapNo);
 	}
+	
+	public int selectKeyListCount(String searchKeyword) {
+		return sqlSession.selectOne("shopMapper.selectListCountKey", searchKeyword);
+	}
 
 	@Override
 	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {

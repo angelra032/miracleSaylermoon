@@ -27,10 +27,16 @@
 		SELECT * FROM DREAM_REVIEW WHERE DRMREVIEW_NO = #{drmRviewNo}
 	</select>
 
+	<select id="selectListShopNo" resultMap="drmReviewResultMap">
+		SELECT * FROM DREAM_REVIEW WHERE SHOP_NO=#{shopNo}
+	</select>
+
 	<insert id="insertDrmReview">
 		INSERT INTO DREAM_REVIEW
 		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo})
 	</insert>
+	
+	
 	
 
 </mapper>

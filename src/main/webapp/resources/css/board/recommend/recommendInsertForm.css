@@ -33,6 +33,7 @@ main {
 .title-area {
 	margin: 80px 0 5px 0;
 	width: 1000px;
+	height : 40px;
 }
 	.title-area > label {
 		font-size : 18px;
@@ -59,4 +60,10 @@ main {
 .form-group {
 	width : 1000px;
 	margin : 0 auto;
+}
+
+/* 버튼 */
+.btn-area {
+	width : 500px;
+	margin-left: 440px;
 }

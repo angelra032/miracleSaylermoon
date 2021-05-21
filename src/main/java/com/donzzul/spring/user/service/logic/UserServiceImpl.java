@@ -104,17 +104,7 @@ public class UserServiceImpl implements UserService {
 		return 0;
 	}
 
-	@Override
-	public String sendEmail(String userEmail, String userId, String pwCode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String resetPw(String userId, String userEmail) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	//아이디 찾기 중복검사
@@ -134,9 +124,13 @@ public class UserServiceImpl implements UserService {
 	public int checkFindPwDup(HashMap<String, String> map) {
 		return store.checkFindPwDup(map);
 	}
+	
+	// 새 비밀번호 입력
+	@Override
+	public int resetPw(HashMap<String, String> map) {
+		return store.resetPw(map);
+	}
 
-	
-	
 
 
 }

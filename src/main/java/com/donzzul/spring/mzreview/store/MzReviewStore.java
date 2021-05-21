@@ -2,13 +2,13 @@ package com.donzzul.spring.mzreview.store;
 
 import java.util.ArrayList;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.MzReviewPage;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 
 public interface MzReviewStore {
 	public ArrayList<MzReview> selectAllReview();
-	public ArrayList<MzReview> selectAllReview(MzReviewPage pi);
+	public ArrayList<MzReview> selectAllReview(PageInfo pi);
 	public MzReview selectOneReview(int mzReviewNo);
 	public int insertMzReview(MzReview mzReview);
 	public int updateMzReview(MzReview mzReview);
