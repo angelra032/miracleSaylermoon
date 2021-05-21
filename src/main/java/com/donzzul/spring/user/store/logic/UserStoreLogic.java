@@ -57,6 +57,12 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.checkCardDup", map);
 	}
 	
+	// 닉네임 중복검사
+	@Override
+	public int checkNickDup(String userNick) {
+		return sqlSession.selectOne("userMapper.checkNickDup", userNick);
+	}
+	
 	// 사업자번호 중복검사
 	@Override
 	public int checkPVerifyDup(String partnerVerify) {
@@ -75,6 +81,12 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.selectOneUser", user);
 	}
 	
+	// 로그인 중복검사
+	@Override
+	public int checkLoginDup(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.checkLoginDup", map);
+	}
+	
 	@Override
 	public int updateUser(User user) {
 		// TODO Auto-generated method stub
@@ -86,6 +98,26 @@ public class UserStoreLogic implements UserStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	// 아이디 찾기 중복검사
+	@Override
+	public int checkFindIdDup(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.checkFindIdDup", map);
+	}
+
+	// 아이디 찾기
+	@Override
+	public String findId(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.findId", map);
+	}
+
+	// 비밀번호 찾기 중복검사
+	@Override
+	public int checkFindPwDup(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.checkFindPwDup", map);
+	}
+
+	
 
 	
 	

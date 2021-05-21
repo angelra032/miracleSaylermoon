@@ -85,6 +85,7 @@
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti nicknoti nick_noti_0">닉네임을 입력해 주세요.</div>
 								<div class="form-noti nicknoti nick_noti_1">한글 2자 이상 입력</div>
+								<div class="form-noti nicknoti nick_noti_2">이미 사용중인 닉네임입니다.</div>
 							</div>
 							<div class="form-body">
 								<input name="userNick" class="form-elem nickelem" type="text" maxlength="20" placeholder="한글 2자 이상 입력">
@@ -97,7 +98,7 @@
 								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPhone" id="phoneelem" class="form-elem phoneelem" type="tel" maxlength="13" placeholder="숫자만 입력">
+								<input name="userPhone" id="phoneelem" class="form-elem phoneelem" type="text" maxlength="13" placeholder="숫자만 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -169,7 +170,7 @@
 								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPhone" id="mzphoneelem" class="form-elem phoneelem" type="tel" maxlength="13" placeholder="숫자만 입력">
+								<input name="userPhone" id="mzphoneelem" class="form-elem phoneelem" type="text" maxlength="13" placeholder="숫자만 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -236,11 +237,11 @@
 							<div class="form-head form-head2">
 								연락처&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
-								<div class="form-noti pphonenoti pphone_noti_0">연락처를 입력해 주세요.</div>
-								<div class="form-noti pphonenoti pphone_noti_2">이미 등록된 번호입니다.</div>
+								<div class="form-noti phonenoti phone_noti_0">연락처를 입력해 주세요.</div>
+								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="12" placeholder="숫자만 입력">
+								<input name="userPhone" id="pphoneelem" class="form-elem phoneelem" type="tel" maxlength="12" placeholder="숫자만 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -331,7 +332,7 @@
 		 });  
 			
 			///비밀번호 찾기 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			userPwd = $(".current .pwdelem");
+			var userPwd = $(".current .pwdelem");
 			var regExpPw = /^[a-z0-9][a-z0-9]{5,11}$/;
 			userPwd.keyup(function() {
 				$('.current .pwnoti').css('display', 'none');
@@ -382,7 +383,7 @@
 			});
 			
 			//이름 유효성 검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			userName = $(".current .nameelem");
+			var userName = $(".current .nameelem");
 			var regExpName = /^[가-힣]{2,11}$/;
 			userName.keyup(function() {
 				$('.current .namenoti').css('display', 'none');
@@ -395,7 +396,7 @@
 					$('.current .nameelem').css('border', '0');
 				}
 			});
-			$(".current .nameelem").on("blur", function() {
+			userName.on("blur", function() {
 				$('.current .namenoti').css('display', 'none');
 				if (userName.val() =="") {
 					$('.current .name_noti_0').css('color', '#ff5442');
@@ -414,63 +415,63 @@
 			
 			//간이사업자명 영어허용@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			userSimpleName = $(".current .simplenameelem");
-			var regExpSimpleName = /^[가-힣,a-z,A-Z]{2,11}$/;
+			var regExpSimpleName = /^[가-힣,a-z,A-Z]{2,11}$/; //undefind를 소문자로 받아들인다
 			userSimpleName.keyup(function() {
-				$('.simplenamenoti').css('display', 'none');
+				$('.current .simplenamenoti').css('display', 'none');
 				if (!regExpSimpleName.test(userSimpleName.val())) {
-					$('.simplename_noti_1').css('color', '#ff5442');
-					$('.simplename_noti_1').css('display', 'block');
-					$('.simplenameelem').css('border', '1px solid #ff5442');
+					$('.current .simplename_noti_1').css('color', '#ff5442');
+					$('.current .simplename_noti_1').css('display', 'block');
+					$('.current .simplenameelem').css('border', '1px solid #ff5442');
 				}else{
-					$('.simplenamenoti').css('display', 'none');
-					$('.simplenameelem').css('border', '0');
+					$('.current .simplenamenoti').css('display', 'none');
+					$('.current .simplenameelem').css('border', '0');
 				}
 			});
-			$(".simplenameelem").on("blur", function() {
-				$('.simplenamenoti').css('display', 'none');
+			userSimpleName.on("blur", function() {
+				$('.current .simplenamenoti').css('display', 'none');
 				if (userSimpleName.val() =="") {
-					$('.simplename_noti_0').css('color', '#ff5442');
-					$('.simplename_noti_0').css('display', 'block');
-					$('.simplenameelem').css('border', '1px solid #ff5442');
+					$('.current .simplename_noti_0').css('color', '#ff5442');
+					$('.current .simplename_noti_0').css('display', 'block');
+					$('.current .simplenameelem').css('border', '1px solid #ff5442');
 				}else if(!regExpSimpleName.test(userSimpleName.val())){
-					$('.simplenamenoti').css('display', 'none');
-					$('.simplename_noti_1').css('color', '#ff5442');
-					$('.simplename_noti_1').css('display', 'block');
-					$('.simplenameelem').css('border', '1px solid #ff5442');
+					$('.current .simplenamenoti').css('display', 'none');
+					$('.current .simplename_noti_1').css('color', '#ff5442');
+					$('.current .simplename_noti_1').css('display', 'block');
+					$('.current .simplenameelem').css('border', '1px solid #ff5442');
 				}else{
-					$('.siplenamenoti').css('display', 'none');
-					$('.simplenameelem').css('border', '0');
+					$('.current .siplenamenoti').css('display', 'none');
+					$('.current .simplenameelem').css('border', '0');
 				}
 			});
 			
 			//사업자명-(주)괄호 들어가도 됨, 영어허용 유효성 검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			userPName = $(".current .pnameelem");
+			var userPName = $(".current .pnameelem");
 			var regExpPName = /^[가-힣,a-z,A-Z()]{2,11}$/;
 			userPName.keyup(function() {
-				$('.pnamenoti').css('display', 'none');
+				$('.current .pnamenoti').css('display', 'none');
 				if (!regExpPName.test(userPName.val())) {
-					$('.pname_noti_1').css('color', '#ff5442');
-					$('.pname_noti_1').css('display', 'block');
-					$('.pnameelem').css('border', '1px solid #ff5442');
+					$('.current .pname_noti_1').css('color', '#ff5442');
+					$('.current .pname_noti_1').css('display', 'block');
+					$('.current .pnameelem').css('border', '1px solid #ff5442');
 				}else{
-					$('.pnamenoti').css('display', 'none');
-					$('.pnameelem').css('border', '0');
+					$('.current .pnamenoti').css('display', 'none');
+					$('.current .pnameelem').css('border', '0');
 				}
 			});
-			$(".pnameelem").on("blur", function() {
-				$('.pnamenoti').css('display', 'none');
+			$(".current .pnameelem").on("blur", function() {
+				$('.current .pnamenoti').css('display', 'none');
 				if (userPName.val() =="") {
-					$('.pname_noti_0').css('color', '#ff5442');
-					$('.pname_noti_0').css('display', 'block');
-					$('.pnameelem').css('border', '1px solid #ff5442');
+					$('.current .pname_noti_0').css('color', '#ff5442');
+					$('.current .pname_noti_0').css('display', 'block');
+					$('.current .pnameelem').css('border', '1px solid #ff5442');
 				}else if(!regExpPName.test(userPName.val())){
-					$('.pnamenoti').css('display', 'none');
-					$('.pname_noti_1').css('color', '#ff5442');
-					$('.pname_noti_1').css('display', 'block');
-					$('.pnameelem').css('border', '1px solid #ff5442');
+					$('.current .pnamenoti').css('display', 'none');
+					$('.current .pname_noti_1').css('color', '#ff5442');
+					$('.current .pname_noti_1').css('display', 'block');
+					$('.current .pnameelem').css('border', '1px solid #ff5442');
 				}else{
-					$('.pnamenoti').css('display', 'none');
-					$('.pnameelem').css('border', '0');
+					$('.current .pnamenoti').css('display', 'none');
+					$('.current .pnameelem').css('border', '0');
 				}
 			});
 			
@@ -512,7 +513,7 @@
 			  this.value = autoHypenCard( this.value ) ;  
 			}
 			
-			// 카드데이터와 일치여부 - 유효하지 않은카드번호입니다
+			// 카드데이터와 일치여부 - 유효하지 않은카드번호입니다.
 			$('.current .cardelem').keyup(function() {
 				$('.current .cardnoti').css('display', 'none');
 				$.ajax({
@@ -556,8 +557,8 @@
 			});
 			
 			//닉네임 유효성 검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			userNick = $(".current .nickelem");
-			var regExpNick = /^[가-힣]{2,11}$/;
+			var userNick = $(".current .nickelem");
+			var regExpNick = /^[가-힣,a-z,A-Z]{2,11}$/;
 			userNick.keyup(function() {
 				$('.current .nicknoti').css('display', 'none');
 				$.ajax({
@@ -641,15 +642,15 @@
 			
 			// 중복(2) - 이미 등록된 번호입니다
 			var userPhone = $(".current .phoneelem");
-			$(".current .phoneelem").keyup(function() {
+			userPhone.keyup(function() {
 				$('.current .phonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhone.dz",
 					data : { "userPhone" : userPhone.val() },
 					success : function(result) {
 						if(result != 0){
-							$('.current .phonenoti').css('display', 'none');
-							$('.current .phone_noti_2').css('color', '#ff5442');
+							//$('.current .phonenoti').css('display', 'none');
+							$('.current .phone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
 							$('.current .phone_noti_2').css('display', 'block');
 							$('.current .phoneelem').css('border', '1px solid #ff5442');
 						}else {
@@ -669,10 +670,7 @@
 					$('.current .phone_noti_0').css('color', '#ff5442');
 					$('.current .phone_noti_0').css('display', 'block');
 					$('.current .phoneelem').css('border', '1px solid #ff5442');
-				}/* else{
-					$('.current .phonenoti').css('display', 'none');
-					$('.current .phoneelem').css('border', '0');
-				} */
+				}
 			});
 			
 			///사업자 연락처 -위치 수정@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -712,19 +710,6 @@
 			  console.log(this.value);
 			  this.value = autoHypenPPhone( this.value ) ;  
 			}
-			// 안적었을때 - 휴대폰번호를입력해주세요 - 이거그냥 phoneelem이라고 적어도 될듯
-			userPPhone = $(".pphoneelem");
-			$(".pphoneelem").on("blur", function() {
-				$('.pphonenoti').css('display', 'none');
-				if (userPPhone.val() =="") {
-					$('.pphone_noti_0').css('color', '#ff5442');
-					$('.pphone_noti_0').css('display', 'block');
-					$('.pphoneelem').css('border', '1px solid #ff5442');
-				}else{
-					$('.pphonenoti').css('display', 'none');
-					$('.pphoneelem').css('border', '0');
-				}
-			});
 			
 			/// 사업자번호@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			userPVeri = $(".current .pverielem");
@@ -877,18 +862,18 @@
 					alert("이름을 입력해주세요.");
 					userName.focus();
 					rtn = false;
-				}else if(!regExpName.test(userName.val())){
+				}else if(userName.length != 0 && !regExpName.test(userName.val())){
 					alert("이름이 올바르지 않습니다. 다시 입력해주세요.");
 					userName.focus();
 					rtn = false;
-				}
+				} 
 				
 				//사업자명
 				else if (userPName.val() =="") {
 					alert("사업자명을 입력해주세요.");
 					userPName.focus();
 					rtn = false;
-				}else if(!regExpPName.test(userPName.val())){
+				}else if(userPName.length != 0 && !regExpPName.test(userPName.val())){
 					alert("사업자명이 올바르지 않습니다. 다시 입력해주세요.");
 					userPName.focus();
 					rtn = false;
@@ -899,7 +884,7 @@
 					alert("간이사업자명을 입력해주세요.");
 					userSimpleName.focus();
 					rtn = false;
-				}else if(!regExpSimpleName.test(userSimpleName.val())){
+				}else if(userSimpleName.length != 0 && !regExpSimpleName.test(userSimpleName.val())){
 					alert("간이사업자명이 올바르지 않습니다. 다시 입력해주세요.");
 					userSimpleName.focus();
 					rtn = false;
@@ -932,15 +917,30 @@
 				});
 				
 				//닉네임
-				if (userNick.val() =="") {
-					alert("닉네임을 입력해주세요.");
-					userNick.focus();
-					rtn = false;
-				}else if(!regExpNick.test(userNick.val())){
-					alert("닉네임이 올바르지 않습니다. 다시 입력해주세요.");
-					userNick.focus();
-					rtn = false;
-				}
+				$.ajax({
+					url : "dupNick.dz",
+					type : "get",
+					data : { "userNick" : userNick.val()},
+					success : function(result) {
+						if (userNick.val() =="") {
+							alert("닉네임을 입력해주세요.");
+							userNick.focus();
+							rtn = false;
+						}else if(result != 0){
+							alert("이미 사용중인 닉네임입니다. 다시 입력해주세요.");
+							userNick.focus();
+							rtn = false;
+						}else if(!regExpNick.test(userNick.val())){
+							alert("닉네임이 올바르지 않습니다. 다시 입력해주세요.");
+							userNick.focus();
+							rtn = false;
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
+				
 				
 				///휴대폰번호
 				$.ajax({
@@ -993,15 +993,15 @@
 					success : function(result) {
 						if (userEmail.val() =="") {
 							alert("이메일을 입력해주세요.");
-							userPVeri.focus();
+							userEmail.focus();
 							rtn = false;
 						}else if(result != 0){
 							alert("이미 등록된 이메일입니다. 다시 입력해주세요.");
-							userPVeri.focus();
+							userEmail.focus();
 							rtn = false;
 						}else if(!emailReg.test(userEmail.val())) {
 							alert("이메일이 올바르지 않습니다. 다시 입력해주세요.");
-							userNick.focus();
+							userEmail.focus();
 							rtn = false;
 						}
 					},

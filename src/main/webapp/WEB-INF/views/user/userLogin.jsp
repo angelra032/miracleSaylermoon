@@ -32,7 +32,8 @@
 							<label for="userpw">비밀번호</label> 
 						</div> 
 						<input type="submit" id="left-login-bt" value="로그인"> 
-						<div id="findpw">비밀번호 찾기</div> 
+						<a href="findIdView.dz">아이디 찾기</a>
+						<a href="findPwView.dz">비밀번호 찾기</a>
 					</form>
 				</div>
 			</div>
@@ -41,16 +42,7 @@
 				<h4>일반회원전용</h4>
 				<div class="left-inner-box">
 					<form action="" method="POST"> 
-						<div class="input-box"> 
-							<input id="username" type="text" name="username" placeholder="아이디"> 
-							<label for="username">아이디</label> 
-						</div> 
-						<div class="input-box"> 
-							<input id="password" type="password" name="password" placeholder="비밀번호"> 
-							<label for="password">비밀번호</label> 
-						</div> 
-						<input type="submit" id="left-login-bt" value="로그인"> 
-						<div id="findpw">비밀번호 찾기</div> 
+						
 					</form>
 				</div>
 			</div>
@@ -60,4 +52,44 @@
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script>
+	$(function() {
+		$('#left-login-bt').click(function() {
+			var rtn = true;
+			var userId = $("#userid");
+			var userPw = $("#userpw");
+			/* if(userId.val() == "") {
+				alert("아이디를 입력해주세요")
+				rtn = false;
+			}else if(userPw.val() == ""){
+				alert("비밀번호를 입력해주세요")
+				rtn = false;
+			} */
+			$.ajax({
+				url : "dupLogin.dz",
+				data : { "userId" : userId.val(), "userPw" : userPw.val() },
+				async: false,
+				success : function(result) {
+					if(userId.val() == "") {
+						alert("아이디를 입력해주세요")
+						rtn = false;
+					}else if(userPw.val() == ""){
+						alert("비밀번호를 입력해주세요")
+						rtn = false;
+					}else if(result == 1){
+						alert("아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+						userId.focus();
+						rtn = false;
+					}else {
+						rtn = true;
+					}
+				},
+				error : function() {
+					console.log("전송실패");
+				}
+			});
+			return rtn;
+		});
+	});
+</script>
 </html>
