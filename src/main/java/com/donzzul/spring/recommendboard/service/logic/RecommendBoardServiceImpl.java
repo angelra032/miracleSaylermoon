@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
-import com.donzzul.spring.recommendboard.domain.RecommendBoardPage;
 import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 import com.donzzul.spring.recommendboard.store.RecommendBoardStore;
 
@@ -23,7 +23,7 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	
 
 	@Override
-	public ArrayList<RecommendBoard> selectAllRecommend(RecommendBoardPage pi) {
+	public ArrayList<RecommendBoard> selectAllRecommend(PageInfo pi) {
 		return reStore.selectAllRecommend(pi);
 	}
 	

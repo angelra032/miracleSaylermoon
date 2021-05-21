@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
-import com.donzzul.spring.dreamreview.domain.DreamReviewPage;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 
 @Repository
@@ -28,7 +28,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	}
 	
 	@Override
-	public ArrayList<DreamReview> selectAllDreamReview(DreamReviewPage pi) {
+	public ArrayList<DreamReview> selectAllDreamReview(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectAllList", null, rowBounds);
@@ -58,8 +58,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 
 	@Override
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectListShopNo", shopNo);
 	}
 
 

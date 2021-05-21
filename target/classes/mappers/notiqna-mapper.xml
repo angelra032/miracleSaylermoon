@@ -36,8 +36,8 @@
 		SELECT * FROM NOTICE WHERE NOTICE_NO = #{noticeNo}
 	</select>
 	
-	<insert id="insertNotice" parameterType="Notice">
-		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4', "Y")
+	<insert id="insertNotice">
+		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4', 'Y')
 	</insert>
 	
 	
@@ -57,8 +57,18 @@
 	</select>
 	
 	<insert id="inserQna" parameterType="Qna">
-		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, '문의사항', '내용', '닉네임', DEFAULT, DEFAULT, 'Y', '1', '1', '1', '1', '1')
+		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, null, null, null)
 	</insert>
+	
+<!-- 	<update id="">
+		UPDATE QNA_BOARD
+		SET ORIGIN_NO = (SELECT QNA_NO FROM QNA_BOARD WHERE QNA_NO = '31'),
+		GROUP_ORDER = (CASE WHEN GROUP_ORDER LIKE 0  THEN 1
+		WHEN GROUP_ORDER LIKE 1 THEN 2 END),
+		GROUP_LAYER = (CASE WHEN GROUP_LAYER LIKE '0' THEN 1
+		WHEN GROUP_LAYER LIKE 1 THEN 2 END)
+		WHERE QNA_NO = '32';
+	</update> -->
 
 
 </mapper>

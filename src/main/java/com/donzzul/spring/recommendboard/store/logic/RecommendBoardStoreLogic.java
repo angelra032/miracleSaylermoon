@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
-import com.donzzul.spring.recommendboard.domain.RecommendBoardPage;
 import com.donzzul.spring.recommendboard.store.RecommendBoardStore;
 
 @Repository
@@ -23,7 +23,7 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 	}
 	
 	@Override
-	public ArrayList<RecommendBoard> selectAllRecommend(RecommendBoardPage pi) {
+	public ArrayList<RecommendBoard> selectAllRecommend(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("recommendMapper.selectAllList", null, rowBounds);
