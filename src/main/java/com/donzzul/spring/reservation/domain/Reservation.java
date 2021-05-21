@@ -16,11 +16,12 @@ public class Reservation {
 //	예약취소 X(cancle)
 //	예약완료 C(complete)
 	private String shopName;
+	private String userNick;
 	
 	public Reservation() {}
 
 	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
-			String pointYn, int paymentPoint, int userNo, String rState, String shopName) {
+			String pointYn, int paymentPoint, int userNo, String rState, String shopName, String userNick) {
 		super();
 		this.reservationNo = reservationNo;
 		this.shopNo = shopNo;
@@ -32,6 +33,7 @@ public class Reservation {
 		this.userNo = userNo;
 		this.rState = rState;
 		this.shopName = shopName;
+		this.userNick = userNick;
 	}
 
 	public int getReservationNo() {
@@ -114,14 +116,21 @@ public class Reservation {
 		this.shopName = shopName;
 	}
 
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationNo=" + reservationNo + ", shopNo=" + shopNo + ", reserveDate=" + reserveDate
 				+ ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn=" + pointYn
 				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + ", rState=" + rState + ", shopName="
-				+ shopName + "]";
+				+ shopName + ", userNick=" + userNick + "]";
 	}
 
-	
 	
 }

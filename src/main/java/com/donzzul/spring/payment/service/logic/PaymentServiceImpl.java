@@ -65,13 +65,19 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public ArrayList<MainMenu> selectShopMenu(int shopNo) {
 		ArrayList<MainMenu> mainmenu = store.selectShopMenu(shopNo);
-		System.out.println("서비스임플"+mainmenu);
 		return mainmenu;
 	}
 
 	@Override
 	public Shop selectShop(Shop shop) {
 		return store.selectShop(shop);
+	}
+
+	// 사업자 마이페이지 가게 불러오기
+	@Override
+	public Shop selectMyShop(int userNo) {
+		System.out.println("=================");
+		return store.selectMyShop(userNo);
 	}
 
 

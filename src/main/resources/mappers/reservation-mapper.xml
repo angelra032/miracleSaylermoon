@@ -12,6 +12,7 @@
       <result property="userNo" column="USER_NO"></result>
       <result property="rState" column="R_STATE"></result>
       <result property="shopName" column="SHOP_NAME"></result>
+      <result property="userNick" column="USER_NICK"></result>
    </resultMap>
 
 	<insert id="insertRservation">
@@ -67,8 +68,28 @@
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION_NO, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE  RESERVATION.USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
-	<select id="rListByShopToThree">
-		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
+	
+	<resultMap type="User" id="userResultMap">
+		<id property="userNo" column="USER_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPw" column="USER_PW"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userNick" column="USER_NICK"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="partnerVerify" column="PARTNER_VERIFY"/>
+		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
+		<result property="dreamCardno" column="DREAM_CARDNO"/>
+		<result property="userPoint" column="USER_POINT"/>
+		<result property="userType" column="USER_TYPE"/>
+		<result property="partnerName" column="PARTNER_NAME"/>
+	</resultMap>
+	
+	<select id="rListByShopToThree" resultMap="reservationResultMap" >
+		<!-- SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION.USER_NO, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) AS USER_NICK FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3 -->
+		
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) AS USER_NICK, RESERVE_COUNT, RESERVE_DATE, R_STATE, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
+		
 	</select>
 
 </mapper>

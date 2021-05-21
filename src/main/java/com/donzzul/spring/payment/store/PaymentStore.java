@@ -24,5 +24,7 @@ public interface PaymentStore {
 	public ArrayList<MainMenu> selectShopMenu(int shopNo); // 가게 메뉴 가져오기
 	public Shop selectShop(Shop shop); // 가게 출력
 	
+	public Shop selectMyShop(int userNo); // 사업자 마이페이지 가게 불러오기
+	
 	
 }
