@@ -17,23 +17,36 @@
     }
 
 .frame {
-	width:1440px;
-	height:600px;
+	width:1258px;
+	height:inherit;
 	margin:0 auto;
 	/* background-color:yellow; */
 }
 .left-login {
-	width:48%;
+	width:700px;
 	height: 100%;
 	display:inline-block;
 }
-.left-login:first-child {
-	margin-right:50px;
+
+.color-frame {
+	width: 600px;
+	height: 500px;
+	margin: auto;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	border:1px solid #fdb504;
+	display:inline-block;
 }
+
+.color-frame:first-child {
+	margin-right: 50px;
+}
+
 h2 {
 	font-size:38px;
-	margin-top:100px;
+	margin-top:60px;
 	text-align:center;
+	
 }
 
 h4 {
@@ -44,13 +57,15 @@ h4 {
 	margin-bottom:50px;
 }
 .left-inner-box {
-	width:250px;
+	width:300px;
 	margin:0 auto;
 }
 .input-box{ 
-	width: 250px;
+	width: 300px;
+	height:inherit;
 	position:relative; 
-	margin:10px auto; 
+	margin:20px auto; 
+	display: block;
 }
 .input-box > input{ 
 	background:transparent; 
@@ -80,6 +95,12 @@ input:focus + label, label{
 input:focus, input:not(:placeholder-shown){ 
 	border-bottom: solid 1px #8aa1a1; 
 	outline:none; 
+}
+.kakao-btn img {
+	width:300px;
+	height: 45px;
+	margin-top: 20px;
+	margin-bottom: 100px
 }
 #left-login-bt {
 	width: 100%;
