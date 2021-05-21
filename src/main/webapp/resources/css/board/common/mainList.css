@@ -58,15 +58,15 @@
             border-collapse: collapse;
         }
         .board-list-table > thead > tr {
-            background-color: #e3e4e5;
-            border-top: 1px solid #e3e4e5;
+            background-color: #EAEAEA;
+            border-top: 1px solid #E1E1E1;
         }
         .board-list-table > tbody > tr:hover {
             background-color: pink;
         }
             .board-list-table tr {
                     height: 43px;
-                    border-bottom: 1px solid #e3e4e5;
+                    border-bottom: 1px solid #E1E1E1; /* #cacaca / #e3e4e5  */
             }
         
         .board-page-table {

@@ -26,6 +26,37 @@
 
 /* 메인 */
 main {
-	height : 1200px;
-	text-align: -webkit-center;
+	height : 1000px;
+}
+
+/* 제목 */
+.title-area {
+	margin: 80px 0 5px 0;
+	width: 1000px;
+}
+	.title-area > label {
+		font-size : 18px;
+	}
+	.title-area > input {
+		position: relative;
+	    top: -31px;
+	    left: 70px;
+	}
+	
+.editor-area {
+	
+}
+	.editor-area > label {
+		font-size : 18px;
+	}
+	.editor-area > .summernote-edit-area {
+		position: relative;
+	    top: -31px;
+	    left: 70px;
+	}
+	
+
+.form-group {
+	width : 1000px;
+	margin : 0 auto;
 }

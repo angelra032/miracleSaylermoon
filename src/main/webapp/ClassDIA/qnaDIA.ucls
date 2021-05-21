@@ -58,8 +58,9 @@
     <position height="269" width="318" x="1127" y="203"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <interface id="9" language="java" name="com.donzzul.spring.qna.service.QnaService" project="donzzul" 
-    file="/donzzul/src/main/java/com/donzzul/spring/qna/service/QnaService.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="9" language="java" name="com.donzzul.spring.notiqna.service.QnaService" project="donzzul" 
+    file="/donzzul/src/main/java/com/donzzul/spring/notiqna/service/QnaService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1287" y="364"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -102,11 +103,15 @@
     <end type="TARGET" refId="5"/>  
   </realization>  
   <association id="15">    
-    <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="16" name="qnaService"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="16" name="qnaStore">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="18">    
@@ -114,11 +119,15 @@
     <end type="TARGET" refId="9"/>  
   </realization>  
   <association id="19">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="20" name="qnaStore"/>      
-      <multiplicity id="21" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="20" name="qnaService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

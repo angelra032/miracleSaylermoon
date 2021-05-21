@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="resources/css/board/mainList.css">
+<link rel="stylesheet" href="resources/css/board/common/mainList.css">
 <title>가게추천</title>
 </head>
 <body>
@@ -16,97 +16,112 @@
 	   	</div>
 		<div id="main-title">가게추천</div>
 		<div class="frame">
-			<jsp:include page="/WEB-INF/views/board/boardNavi.jsp"></jsp:include>
-            <!-- <div class="top-board-menu-area">
-                <ul id="top-board-menu">
-                    <li><a href="#">맛집후기</a></li>
-                    <li><a href="#">감사후기</a></li>
-                    <li><a href="#">가게추천</a></li>
-                    <li><a href="#" class="menu-selected">문의 및 공지</a></li>
-                </ul>
-            </div> -->
+			<jsp:include page="/WEB-INF/views/board/common/boardNavi.jsp"></jsp:include>
+			<c:if test="${ qList.size() > 0 }">
+	            <table class="board-list-table">
+	                <thead>
+	                    <tr>
+	                        <td width=110>No</td>
+	                        <td width=110>구분</td>
+	                        <td width=450>제목</td>
+	                        <td width=160>작성자</td>
+	                        <td width=180>날짜</td>
+	                    </tr>
+	                    <c:forEach items="${ nList }" var="notice" varStatus="status">
+	                    	<c:set var="num" value="${ status.index }"/>
+		                    <tr onclick="location.href='noticeDetail.dz?noticeNo=${notice.noticeNo}'" style="cursor: pointer;"> <!-- 공지사항위치 -->
+		                        <td>${ num }</td>
+		                        <td>관리자</td>
+		                        <td>${ notice.noticeTitle }</td>
+		                        <td>관리자</td>
+		                        <td>${ notice.noticeCreateDate }</td>
+		                    </tr>
+	                    </c:forEach>
+	                </thead>
+	                <tbody>
+	                	<c:forEach items="${ qList }" var="qna" varStatus="status">
+	                		 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
+		                    <tr onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}'" style="cursor: pointer;">
+		                        <td>${ num }</td>
+		                        <c:if test="${ qna.userNo eq '1' }">
+			                        <td>꿈나무</td>
+		                        </c:if>
+             					<c:if test="${ qna.userNo eq '2' }">
+			                        <td>일반</td>
+		                        </c:if>
+		                        <c:if test="${ qna.userNo eq '3' }">
+			                        <td>사업자</td>
+		                        </c:if>
+		                        <c:if test="${ qna.userNo eq '4' }">
+			                        <td>관리자</td>
+		                        </c:if>
+		                        <td>${ qna.qnaTitle }</td>
+		                        <td>${ qna.qnaWriter }</td>
+		                        <td>${ qna.qanCreateDate }</td>
+		                    </tr>
+	                		
+	                	</c:forEach>
+	                </tbody>
+	            </table>
     
-            <table class="board-list-table">
-                <thead>
-                    <tr>
-                        <td width=110>No</td>
-                        <td width=110>구분</td>
-                        <td width=450>제목</td>
-                        <td width=160>작성자</td>
-                        <td width=180>날짜</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>관리자</td>
-                        <td>제목제목</td>
-                        <td>관리자</td>
-                        <td>2021-05-17</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>8</td>
-                        <td>관리자</td>
-                        <td>너무 감사합니다 사장님</td>
-                        <td>순둥순둥순둥순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>관리자</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>관리자</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>관리자</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>관리자</td>
-                        <td>감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                    <tr onclick="" style="cursor: pointer;">
-                        <td>6</td>
-                        <td>관리자</td>
-                        <td>감사합니다 감사합니다 감사합니다</td>
-                        <td>순둥</td>
-                        <td>2021-02-21</td>
-                    </tr>
-                </tbody>
-            </table>
-    
-            <!-- 페이징 -->
-            <table class="board-page-table">
-                <tbody>
-                    <tr>
-                        <td><a href="#">&ne;</a></td>
-                        <td><a href="#">1</a></td>
-                        <td><a href="#">2</a></td>
-                        <td><a href="#">3</a></td>
-                        <td><a href="#">4</a></td>
-                        <td><a href="#">5</a></td>
-                        <td><a href="#">&ne;</a></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div id="write-btn-area">
-                <button>글쓰기</button>
-            </div>
+	            <!-- 페이징 -->
+	            <table class="board-page-table">
+	                <tbody>
+	                    <tr>
+	                    <!-- 이전 시작 -->
+	                   	 	<c:url var="before" value="notiQnaMain.dz"> 
+	                    		<c:param name="page" value="${ pi.currentPage -1 }"></c:param>
+	                    	</c:url>
+	                    	<c:if test="${ pi.currentPage <= 1 }">
+		                        
+	                    	</c:if>
+	                    	<c:if test="${ pi.currentPage >1 }">
+		                        <td class="page-td" width=35px><a href="${ before }">&lt;</a></td>
+	                    	</c:if>
+	                    <!-- 이전 끝 -->
+	                    <!-- 페이지 -->
+	                    	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+	                    		<c:url var="pagination" value="notiQnaMain.dz">
+	                    			<c:param name="page" value="${ p }"></c:param>
+	                    		</c:url>
+	                    		<c:if test="${ p eq pi.currentPage }">
+			                        <td class="page-td page-selected" width=35px>${ p }</td>
+	                    		</c:if>
+								<c:if test="${ p ne pi.currentPage }">
+			                        <td class="page-td" width=35px><a href="${ pagination }">${ p }</a></td>
+								</c:if>	                    	
+	                    	</c:forEach>
+	                    <!-- 페이지 끝 -->
+	                    <!-- 다음 시작 -->
+	                    	<c:url var="after" value="notiQnaMain.dz">
+	                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+	                    	</c:url>
+	                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
+	                    	</c:if>
+	                    	<c:if test="${ pi.currentPage < pi.maxPage }">
+	                    		<td class="page-td" width=35px><a href="${ after }">&gt;</a></td>
+	                    	</c:if>
+	                    <!-- 다음 끝 -->
+	                    </tr>
+	                </tbody>
+	            </table>
+			
+			</c:if>   
+			
+			<c:if test="${ empty qList.size() }">
+				<h1>${ msg }</h1>
+			</c:if> 
+			
+			<c:if test="${ loginUser.userType eq '2' }">
+	            <div id="write-btn-area">
+	                <button>문의하기</button>
+	            </div>
+			</c:if>
+			<c:if test="${ loginUser.userType eq '4' }">
+				<div id="write-btn-area">
+	                <button>공지글쓰기</button>
+	            </div>
+			</c:if>
         </div>
 	</main>
 </body>

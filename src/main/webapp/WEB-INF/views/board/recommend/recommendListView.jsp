@@ -16,7 +16,7 @@
 	   	</div>
 		<div id="main-title">가게추천</div>
 		<div class="frame">
-			<jsp:include page="/WEB-INF/views/board/boardNavi.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/board/common/boardNavi.jsp"></jsp:include>
     		
     		<c:if test="${ rList.size() > 0 }">
 	            <table class="board-list-table">
@@ -89,7 +89,7 @@
     			<h1>${ msg }</h1>
     		</c:if>
     		
-			<c:if test="${ loginUser.userType eq '2'.charAt(0) }">
+			<c:if test="${ loginUser.userType eq '2' }">
 	            <div id="write-btn-area">
 	                <button>글쓰기</button>
 	            </div>
