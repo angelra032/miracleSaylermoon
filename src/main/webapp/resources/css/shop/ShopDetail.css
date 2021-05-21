@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'Jal_Onuel';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Jal_Onuel.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333333;
+    max-height: 100%;
+    height: 100%;
+}
+a {
+    text-decoration: none;
+}
+
+.mainTitle {
+	
+}
+    
+.frame {
+	width: 1440px;
+	height: 3300px;
+	margin: 0 auto;
+	/* background-color: yellow; */
+}
+	
+	.sub-title > p {
+		text-align: center;
+		font-size: 19px;
+		margin-top: 140px;
+		margin-bottom: 158px;
+	}

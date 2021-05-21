@@ -17,6 +17,7 @@ public interface ShopStore {
 	public ArrayList<MainMenu> selectMainMenu(int shopNo); // 가게 메인 메뉴 출력
 	public ArrayList<MenuPhoto> selectMenuPhoto(int shopNo); // 가게 메뉴 사진 출력
 	public int selectListCount(int mapNo);
+	public int selectKeyListCount(String searchKeyword);
 	public ArrayList<Shop> searchMapKeyword(String searchKeyword);
 
 }

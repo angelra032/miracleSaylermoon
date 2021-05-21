@@ -63,6 +63,10 @@ public class ShopServiceImpl implements ShopService {
 	public int selectListCount(int mapNo) {
 		return sStore.selectListCount(mapNo);
 	}
+	
+	public int selectKeyListCount(String searchKeyword) {
+		return sStore.selectKeyListCount(searchKeyword);
+	}
 
 	@Override
 	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
