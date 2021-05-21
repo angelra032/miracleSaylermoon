@@ -67,7 +67,6 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</select>
 	
-
 	<insert id="insertDreamUser" parameterType="User">
 		INSERT INTO "USER"
 		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, #{dreamCardno}, null, '1', null)
@@ -90,5 +89,4 @@
 	<update id="resetPw">
 		UPDATE "USER" SET USER_PW = #{userPw} WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</update>
-
 </mapper>

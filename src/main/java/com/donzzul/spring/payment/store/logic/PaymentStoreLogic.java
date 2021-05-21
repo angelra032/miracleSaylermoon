@@ -61,13 +61,19 @@ public class PaymentStoreLogic implements PaymentStore{
 	@Override
 	public ArrayList<MainMenu> selectShopMenu(int shopNo) {
 		ArrayList<MainMenu> mainmenu = (ArrayList)sqlSession.selectList("paymentMapper.selectShopMenu", shopNo);
-		System.out.println("스토어"+mainmenu);
 		return mainmenu;
 	}
 
 	@Override
 	public Shop selectShop(Shop shop) {
-		return sqlSession.selectOne("paymentMapper.selectShop", shop);
+		return sqlSession.selectOne("paymentMapper.selectShopShopNo", shop);
+	}
+
+	// 사업자 가게 불러오기
+	@Override
+	public Shop selectMyShop(int userNo) {
+		System.out.println("서비스"+userNo);
+		return sqlSession.selectOne("paymentMapper.selectShopUserNo", userNo);
 	}
 
 }

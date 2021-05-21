@@ -12,6 +12,7 @@
       <result property="userNo" column="USER_NO"></result>
       <result property="rState" column="R_STATE"></result>
       <result property="shopName" column="SHOP_NAME"></result>
+      <result property="userNick" column="USER_NICK"></result>
    </resultMap>
 
 	<insert id="insertRservation">
@@ -37,17 +38,9 @@
 		UPDATE RESERVATION SET R_STATE = 'X' WHERE RESERVATION_NO = #{reservationNo}
 	</update>
 	
-	
-	
-	
-	
 	<select id="rSelectListCount" resultType="_int">
 		SELECT COUNT(*) FROM RESERVATION WHERE USER_NO = #{userNo}
 	</select>
-	
-	
-	
-
 
 	<resultMap type="Shop" id="shopResultMap">
 		<id property="shopNo" column="SHOP_NO"/>
@@ -89,8 +82,8 @@
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION_NO, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE  RESERVATION.USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
-	<select id="rListByShopToThree">
-		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, RESERVE_DATE, RESERVATION.USER_NO, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
+	<select id="rListByShopToThree" resultMap="reservationResultMap" >
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) AS USER_NICK, RESERVE_COUNT, RESERVE_DATE, R_STATE, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
 
 </mapper>
