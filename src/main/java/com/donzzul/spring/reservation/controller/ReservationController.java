@@ -72,9 +72,6 @@ public class ReservationController {
 		int rResult = service.insertReservation(reservation);
 		int pResult = 0;
 		
-		System.out.println(userPoint);
-		System.out.println(rResult);
-		
 		if(paymentPoint > 0) {
 			int point = userPoint - paymentPoint;
 			User user = new User();
@@ -84,7 +81,7 @@ public class ReservationController {
 		}
 		
 		if( rResult > 0 && rResult > 0) {
-			return "redirect:reservationView.kh";
+			return "redirect:reservationView.dz";
 		}else {
 			model.addAttribute("msg","어림도 없지!!!!!!");
 			return "redirect:reservationView.dz";

@@ -33,23 +33,22 @@ public class ReservationServiceImpl implements ReservationService{
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByDreamUpToThree(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> rList = rStore.rListByDreamUpToThree(userNo);
+		return rList;
 	}
 	
 	// 꿈나무회원별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservationListByDream(int userNo) {
 		ArrayList<Reservation> rList = rStore.reservationListByDream(userNo);
-		System.out.println(rList);
 		return rList;
 	}
 	
 	// MZ회원별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByMZUpToThree(int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> rList = rStore.rListByDreamUpToThree(userNo);
+		return rList;
 	}
 
 	// MZ회원별 "전체" 예약목록 불러오기
@@ -62,8 +61,8 @@ public class ReservationServiceImpl implements ReservationService{
 	// 가게별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByShopUpToThree(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> rList = rStore.rListByDreamUpToThree(shopNo);
+		return rList;
 	}
 	
 	// 가게별 "전체" 예약목록 불러오기
@@ -73,6 +72,23 @@ public class ReservationServiceImpl implements ReservationService{
 		return null;
 	}
 
+	//=============여기까지가 예약 불러오기
+	
+	// 예약번호로 예약 하나 불러오기
+	@Override
+	public Reservation selectOne(int reservationNo) {
+		Reservation reservation = rStore.selectOne(reservationNo);
+		System.out.println("서비스임플"+reservation);
+		return reservation;
+	}
+	
+	// 예약상태 취소로 바꾸기
+	@Override
+	public int cancleReservation(int reservationNo) {
+		int result = rStore.cancleReservation(reservationNo);
+		return result;
+	}
+	
 	@Override
 	public int deleteReservation(int reservationNo) {
 		// TODO Auto-generated method stub
@@ -87,12 +103,6 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public int comfirmReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int cancleReservation(int reservationNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

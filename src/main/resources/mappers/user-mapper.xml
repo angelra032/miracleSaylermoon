@@ -60,4 +60,8 @@
 	<select id="checkEmailDup" resultType="_int">
 		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail}
 	</select>
+	
+	<update id="updateUserPoint">
+		UPDATE "USER" SET USER_POINT = #{userPoint} WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

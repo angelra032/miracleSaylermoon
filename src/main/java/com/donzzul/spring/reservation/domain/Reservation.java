@@ -10,11 +10,17 @@ public class Reservation {
 	public String pointYn;
 	public int paymentPoint;
 	public int userNo;
+	public String rState;
+//	예약기본상태 O(default)
+//	예약승인 Y(comfirm)
+//	예약취소 X(cancle)
+//	예약완료 C(complete)
+	private String shopName;
 	
 	public Reservation() {}
 
 	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
-			String pointYn, int paymentPoint, int userNo) {
+			String pointYn, int paymentPoint, int userNo, String rState, String shopName) {
 		super();
 		this.reservationNo = reservationNo;
 		this.shopNo = shopNo;
@@ -24,6 +30,8 @@ public class Reservation {
 		this.pointYn = pointYn;
 		this.paymentPoint = paymentPoint;
 		this.userNo = userNo;
+		this.rState = rState;
+		this.shopName = shopName;
 	}
 
 	public int getReservationNo() {
@@ -90,11 +98,30 @@ public class Reservation {
 		this.userNo = userNo;
 	}
 
+	public String getrState() {
+		return rState;
+	}
+
+	public void setrState(String rState) {
+		this.rState = rState;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationNo=" + reservationNo + ", shopNo=" + shopNo + ", reserveDate=" + reserveDate
 				+ ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn=" + pointYn
-				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + "]";
+				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + ", rState=" + rState + ", shopName="
+				+ shopName + "]";
 	}
+
+	
 	
 }
