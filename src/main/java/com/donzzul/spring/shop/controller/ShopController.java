@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
@@ -50,15 +51,13 @@ public class ShopController {
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
 		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
-		System.out.println(currentPage);
-		System.out.println(listCount);
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
-		System.out.println(pi.getMaxPage());
 		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
 		if( !mapList.isEmpty() ) {
 			mv.addObject("mList", mapList);
 			mv.addObject("pi",	pi);
 			mv.addObject("mapNo", mapNo);
+			mv.addObject("shopOne", mapList.get(0));
 			mv.setViewName("map/MapDetail");
 		}else {
 			mv.addObject("msg", "지도 조회에 실패하였습니다.");
@@ -66,11 +65,6 @@ public class ShopController {
 		}
 		return mv;
 	}
-	
-//	public String searchShopMap() {
-//		ArrayList<Shop> mapList = sService.selectShopMap(mapNo);
-//		System.out.println(mapList);
-//		return "map/MapDetail";
 	
 	// Json
 //	public void searchShopMapJson(@RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
@@ -88,29 +82,27 @@ public class ShopController {
 	
 	//D 지도 - 지역별 가게 키워드 검색
 	@RequestMapping(value="mapSearchKey.dz", method=RequestMethod.GET)
-	public void searchShopMapKey(@RequestParam("searchKeyword") String searchKeyword,  HttpServletResponse response) throws Exception {
-////		 파라미터 - 메뉴 클릭시 각각 넘버값
-////		 mapper.xml 에서 넘버별로 스트링값 설정하기
-//		
-//		// sPageInfo 만들기 위해 필요한 데이터
-//		int currentPage = (page != null) ? page : 1; // 삼항연산자
-//		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
-//		
-		
+	public void searchShopMapKey(@RequestParam("searchKeyword") String searchKeyword,  HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) throws Exception {
+
+		int currentPage = (page != null) ? page : 1; 
+		int listCount = sService.selectKeyListCount(searchKeyword); 
+		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); 
+		System.out.println(pi.toString());
 		ArrayList<Shop> mapList = sService.searchMapKeyword(searchKeyword);
-		System.out.println(mapList);
-		if( !mapList.isEmpty() ) {
-			new Gson().toJson(mapList, response.getWriter());
-		}else {
-			System.out.println("검색 결과가 없습니다.");
-		}
+		System.out.println(mapList.toString());
+		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("pi", pi);
+		hashMap.put("mList", mapList);
+		
+		Gson gson = new Gson();
+		gson.toJson(hashMap, response.getWriter());
 	}
 	
 	//D 가게검색 - 화면 출력 +++
 	@RequestMapping(value="searchShopView.dz", method=RequestMethod.GET)
 	public String searchShopView() {
-		return "redirect:shop/ShopSearchList";
+		return "shop/ShopSearchList";
 	}
 	
 	//D 가게검색 - 키워드 
@@ -125,26 +117,26 @@ public class ShopController {
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
 	public String searchTheme(@RequestParam("themeNo") int themeNo, Model model) {
 		// 파라미터 - 메뉴 클릭시 넘버
-		// 1번
+		// 1번 - 약식정보 가져오기
 		ArrayList<Shop> sList = sService.searchShopTheme(themeNo);
 		return "";
 	}
 	
 	//D 가게 상세 페이지 출력
+	@ResponseBody
 	@RequestMapping(value="shopDetail.dz", method=RequestMethod.GET)
-	public String shopDetail(@RequestParam("shopNo") int shopNo, @ModelAttribute Shop shop, Model model) {
+	public String shopDetail(@RequestParam("shopNo") int shopNo, @ModelAttribute Shop shop) {
 		// 파라미터 - 가게 번호 (쿼리스트링)
-		
 		// 가게 상세정보 가져오기
 		Shop sInfo = sService.selectShopOne(shopNo);
 		// 가게 메인메뉴 가져오기
-		ArrayList<MainMenu> menu = sService.selectMainMenu(shopNo);
+//		ArrayList<MainMenu> menu = sService.selectMainMenu(shopNo);
 		// 메뉴 사진 가져오기 
-		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
+//		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		// 전체 후기 가져오기
 		// 주석을 풀어주세요....
 //		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
-		return "";
+		return "shop/ShopDetail";
 	}
 	
 	//D 전체후기 가져오기

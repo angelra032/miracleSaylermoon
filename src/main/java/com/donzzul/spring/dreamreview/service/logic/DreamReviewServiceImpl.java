@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
-import com.donzzul.spring.dreamreview.domain.DreamReviewPage;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 
@@ -27,10 +27,9 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	}
 	
 	@Override
-	public ArrayList<DreamReview> selectAllDreamReview(DreamReviewPage pi) {
-		ArrayList<DreamReview> drList = drStore.selectAllDreamReview(pi);
-		return drList;
-	} 
+	public ArrayList<DreamReview> selectAllDreamReview(PageInfo pi) {
+		return  drStore.selectAllDreamReview(pi);
+	}
 	
 	@Override
 	public DreamReview selectOneDreamReview(int drmRviewNo) {
@@ -57,8 +56,10 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	
     // dreamReview 오버로딩
     public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
-        return null;
+        return drStore.selectAllDreamReview(shopNo);
     }
+
+
 
 
 

@@ -30,6 +30,10 @@
 		SELECT * FROM MZ_REVIEW WHERE MZREVIEW_NO = #{mReviewNo}
 	</select>
 	
+	<select id="selectListShopNo"  resultMap="mzReviewResultMap">
+		SELECT * FROM MZ_REVIEW WHERE SHOP_NO = #{shopNo}
+	</select>
+	
 	<insert id="insertMzReview" parameterType="MzReview">
 		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, '닉네임', DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, '2', '3', '1')
 	</insert>

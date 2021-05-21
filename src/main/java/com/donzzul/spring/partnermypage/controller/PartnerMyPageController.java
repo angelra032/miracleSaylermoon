@@ -52,19 +52,7 @@ public class PartnerMyPageController {
 			return "common/errorPage";
 		}
 		
-		//System.out.println(userNo);
-//		System.out.println(shopNo);
-		// 예약목록 불러오기(
-		/*ArrayList<Reservation> rList = pService.reservaionListByShop(userNo);
-		if(!rList.isEmpty()) {
-			model.addAttribute("rList", rList);
-			return "partnerMyPage/partnerMyPage";
-		}else {
-			model.addAttribute("msg", "사업자 예약목록 조회 실패");
-			return "common/errorPage";
-		}*/
-//		return "partnerMyPage/partnerMyPage";
-	}
+
 	
 	// 예약 상태(업데이트)
 	
@@ -84,6 +72,6 @@ public class PartnerMyPageController {
 	
 	// 회원탈퇴 요청
 	
-
+	}
 }
 

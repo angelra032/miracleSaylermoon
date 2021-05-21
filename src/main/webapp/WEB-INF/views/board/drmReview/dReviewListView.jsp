@@ -33,7 +33,7 @@
 		                <c:forEach items="${ drList }" var="drmReview" varStatus="status">
 		                <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 		                <c:if test="${ drmReview.drmReviewPublicYn eq 'y' or drmReview.drmReviewPublicYn eq 'Y' }">
-		                	<tr onclick="DetailView(${drmReview.drmRviewNo})" style="cursor: pointer;">
+		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
 		                        <td>${ drmReview.drmReviewTitle }</td>
 		                        <td>${ drmReview.drmReviewWriter }</td>
@@ -41,7 +41,7 @@
 	                    	</tr>
 		                </c:if>
 		                <c:if test="${ drmReview.drmReviewPublicYn eq 'N' or drmReview.drmReviewPublicYn eq 'n' }">
-		                	<tr onclick="secretDetailView(${drmReview.drmRviewNo})" style="cursor: pointer;">
+		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
 		                        <td>비공개글입니다</td>
 		                        <td>비공개</td>
@@ -106,8 +106,8 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-<script type="text/javascript" src="resources/js/board/drmList.js"></script>
 <script type="text/javascript">
 	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
+	
 </script>
 </html>

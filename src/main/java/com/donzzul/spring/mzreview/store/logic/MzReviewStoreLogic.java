@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.MzReviewPage;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
 
@@ -25,7 +25,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	}
 	
 	@Override
-	public ArrayList<MzReview> selectAllReview(MzReviewPage pi) {
+	public ArrayList<MzReview> selectAllReview(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectAllList", null, rowBounds);
@@ -66,7 +66,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
     
     // selectAllReview 오버로딩 (사진 포함)
     public ArrayList<MzReview> selectAllReview(int shopNo) {
-        return null;
+        return (ArrayList)sqlSession.selectList("mzReviewMapper.selectListShopNo", shopNo);
     }
 
 

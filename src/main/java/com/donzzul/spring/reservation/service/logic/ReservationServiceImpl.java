@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.reservation.store.ReservationStore;
@@ -28,6 +29,13 @@ public class ReservationServiceImpl implements ReservationService{
 	public int updateUserPoint(User user) {
 		return rStore.updateUserPoint(user);
 	}
+	
+	@Override
+	public int confirmRCount(Reservation reservation) {
+		return rStore.confirmRCount(reservation);
+	}
+
+	
 	//-----------------------여기까지가 예약하기
 	
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
@@ -39,8 +47,8 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	// 꿈나무회원별 "전체" 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservationListByDream(int userNo) {
-		ArrayList<Reservation> rList = rStore.reservationListByDream(userNo);
+	public ArrayList<Reservation> reservationListByDream(int userNo, PageInfo pi) {
+		ArrayList<Reservation> rList = rStore.reservationListByDream(userNo, pi);
 		return rList;
 	}
 	
@@ -53,7 +61,7 @@ public class ReservationServiceImpl implements ReservationService{
 
 	// MZ회원별 "전체" 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservationListByMZ(int userNo) {
+	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -67,7 +75,7 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	// 가게별 "전체" 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservaionListByShop(int shopNo) {
+	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -113,4 +121,19 @@ public class ReservationServiceImpl implements ReservationService{
 		return 0;
 	}
 
+	//=========================페이징 처리
+	@Override
+	public int getListCount(int userNo) {
+		return rStore.selectListCount(userNo);
+	}
+
+	@Override
+	public int addReadCount(int reservationNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	
+	
 }
