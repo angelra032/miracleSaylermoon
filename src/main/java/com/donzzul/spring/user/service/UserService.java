@@ -20,8 +20,7 @@ public interface UserService {
 	public int insertPartnerUser(User user);
 	public int updateUser(User user);
 	public int deleteUser(String userId);
-	public String sendEmail(String userEmail, String userId, String pwCode);
-	public String resetPw(String userId, String userEmail);
+	public int resetPw(HashMap<String, String> map);
 	public int checkFindIdDup(HashMap<String, String> map);
 	public int checkFindPwDup(HashMap<String, String> map);
 	public String findId(HashMap<String, String> map);

@@ -23,4 +23,5 @@ public interface UserStore {
 	public int checkFindIdDup(HashMap<String, String> map);
 	public int checkFindPwDup(HashMap<String, String> map);
 	public String findId(HashMap<String, String> map);
+	public int resetPw(HashMap<String, String> map);
 }
