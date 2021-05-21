@@ -93,8 +93,12 @@
 			</if>	
 	</select>
 	
+	<select id="selectListCountKey" resultType="_int">
+		SELECT COUNT(*) FROM SHOP WHERE SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' 
+	</select>	
+	
 	<select id="selectAllList" resultMap="shopResultMap">
-		SELECT * FROM SHOP
+		SELECT SHOP_NO, SHOP_NAME, SHOP_ADDR, SHOP_TARGET, SHOP_PRODUCT, SHOP_TYPE, SHOP_FILENAME, SHOP_PHONE, SHOP_PARKING_YN, SHOP_MAX_RESERVATION, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
 			<if test="value == 1">
 				ORDER BY SHOP_NO DESC
 			</if>	
@@ -158,7 +162,7 @@
 	</select>
 	
 	<select id="selectMapKeyword" resultMap="shopResultMap">
-		SELECT * FROM SHOP WHERE SHOP_ADDR LIKE '%' || #{searchKeyword } || '%' ORDER BY SHOP_NO DESC
+		SELECT SHOP_NO, SHOP_NAME, SHOP_ADDR, SHOP_TARGET, SHOP_PRODUCT, SHOP_TYPE, SHOP_FILENAME, SHOP_PHONE, SHOP_PARKING_YN, SHOP_MAX_RESERVATION, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOP_ADDR LIKE '%' || #{searchKeyword } || '%' ORDER BY SHOP_NO DESC
 	</select>
 	
 	<select id="selectOne" resultMap="shopResultMap">
