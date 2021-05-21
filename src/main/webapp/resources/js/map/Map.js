@@ -1,5 +1,8 @@
 window.onload = function(){
 	
+	// 마커를 표시할 위치와 title 객체 배열입니다 
+	var positions = [];
+	
 	 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(37.55021, 126.92327), // 지도의 중심좌표

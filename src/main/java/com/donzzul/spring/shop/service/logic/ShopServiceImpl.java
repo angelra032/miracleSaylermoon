@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
-import com.donzzul.spring.shop.domain.ShopSearch;
-import com.donzzul.spring.shop.domain.PageInfo;
 import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.shop.store.ShopStore;
 
@@ -20,8 +19,14 @@ public class ShopServiceImpl implements ShopService {
 	private ShopStore sStore;
 
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, ShopSearch mapNo) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, int mapNo) {
 		return sStore.selectShopMap(pi, mapNo);
+	}
+	
+	public ArrayList<Shop> selectShopMap(int mapNo) {
+//		System.out.println("service");
+		return sStore.selectShopMap(mapNo);
+		
 	}
 
 	@Override
@@ -35,12 +40,12 @@ public class ShopServiceImpl implements ShopService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public Shop selectShopOne(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	   public Shop selectShopOne(int shopNo) {
+	      return sStore.selectShopOne(shopNo);
+	   }
+
 
 	@Override
 	public ArrayList<MainMenu> selectMainMenu(int shopNo) {
@@ -55,7 +60,7 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int selectListCount(ShopSearch mapNo) {
+	public int selectListCount(int mapNo) {
 		return sStore.selectListCount(mapNo);
 	}
 

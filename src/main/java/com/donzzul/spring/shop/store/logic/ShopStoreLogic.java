@@ -7,11 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
-import com.donzzul.spring.shop.domain.ShopSearch;
-import com.donzzul.spring.shop.domain.PageInfo;
 import com.donzzul.spring.shop.store.ShopStore;
 
 @Repository
@@ -21,10 +20,16 @@ public class ShopStoreLogic implements ShopStore {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, ShopSearch mapNo) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, int mapNo) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", mapNo, rowBounds);
+	}
+	
+	@Override
+	public ArrayList<Shop> selectShopMap(int mapNo) {
+//		System.out.println("store");
+		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", mapNo);
 	}
 
 	@Override
@@ -41,8 +46,7 @@ public class ShopStoreLogic implements ShopStore {
 
 	@Override
 	public Shop selectShopOne(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("shopMapper.selectOne", shopNo);
 	}
 
 	@Override
@@ -58,7 +62,7 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
-	public int selectListCount(ShopSearch mapNo) {
+	public int selectListCount(int mapNo) {
 		return sqlSession.selectOne("shopMapper.selectListCount", mapNo);
 	}
 
