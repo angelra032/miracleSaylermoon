@@ -4,11 +4,13 @@ import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.store.ReservationStore;
 import com.donzzul.spring.shop.domain.Shop;
@@ -30,6 +32,12 @@ public class ReservationStoreLogic implements ReservationStore {
 		return sqlSession.update("userMapper.updateUserPoint",user);
 	}
 	
+	@Override
+	public int confirmRCount(Reservation reservation) {
+		return sqlSession.selectOne("reservationMapper.confirmRCount",reservation);
+	}
+
+	
 	// ======================여기까지가 예약 끝
 
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
@@ -41,8 +49,10 @@ public class ReservationStoreLogic implements ReservationStore {
 	
 	// 꿈나무회원별 "전체" 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservationListByDream(int userNo) {
-		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.selectAllByDream",userNo);
+	public ArrayList<Reservation> reservationListByDream(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.selectAllByDream",userNo, rowBounds);
 		return reserve;
 	}
 
@@ -55,7 +65,7 @@ public class ReservationStoreLogic implements ReservationStore {
 	
 	// MZ회원별 "전체" 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservationListByMZ(int userNo) {
+	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi) {
 		return null;
 	}
 
@@ -68,7 +78,7 @@ public class ReservationStoreLogic implements ReservationStore {
 
 	// 가게별 "전체" 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> reservaionListByShop(int shopNo) {
+	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -117,6 +127,18 @@ public class ReservationStoreLogic implements ReservationStore {
 		return 0;
 	}
 
+	// ======================페이징 처리
+	
+	@Override
+	public int selectListCount(int userNo) {
+		return sqlSession.selectOne("reservationMapper.rSelectListCount", userNo);
+	}
+
+	@Override
+	public ArrayList<Reservation> selectAllList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }
