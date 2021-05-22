@@ -22,8 +22,10 @@
 		<div class=frame>
 			<div class=map-left>
 				<div class="searchBar">
-					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별 검색">
-					<button id="btn-search"><img src="/resources/images/undo.png"></button>
+					<form action="#" method="get">
+						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별 검색">
+						<button id="btn-search"><img src="/resources/images/undo.png"></button>
+					</form>
 				</div>
 				<hr>
 				<div class="content-list">
@@ -39,10 +41,7 @@
 									<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
 									<span>${ shop.shopType }</span><br>
 									<span>${ shop.shopAddr }</span><br>
-									<span>영업시간</span>
-									<span>${ shop.startTime }:00 - ${ shop.endTime }:00</span><br>
-									<span>휴무</span><br>
-									<span>${ shop.shopPhone }&nbsp;&nbsp;</span>
+									<span>${ shop.shopContent }</span><br>
 									<br>
 								</div>
 								<div class="content-shop right bottom">

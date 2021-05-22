@@ -47,7 +47,6 @@ public class ShopController {
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
 	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
-		
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
 		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
@@ -60,8 +59,8 @@ public class ShopController {
 			mv.addObject("shopOne", mapList.get(0));
 			mv.setViewName("map/MapDetail");
 		}else {
-			mv.addObject("msg", "지도 조회에 실패하였습니다.");
-			mv.setViewName("common/errorPage");
+			mv.addObject("msg", "준비중입니다.");
+			mv.setViewName("map/MapList");
 		}
 		return mv;
 	}
@@ -87,10 +86,12 @@ public class ShopController {
 		int currentPage = (page != null) ? page : 1; 
 		int listCount = sService.selectKeyListCount(searchKeyword); 
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); 
-		System.out.println(pi.toString());
+		System.out.println(pi.toString()); // 확인용
 		ArrayList<Shop> mapList = sService.searchMapKeyword(searchKeyword);
-		System.out.println(mapList.toString());
+		System.out.println(mapList.toString()); // 확인용
 		
+		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
+		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
@@ -125,18 +126,23 @@ public class ShopController {
 	//D 가게 상세 페이지 출력
 	@ResponseBody
 	@RequestMapping(value="shopDetail.dz", method=RequestMethod.GET)
-	public String shopDetail(@RequestParam("shopNo") int shopNo, @ModelAttribute Shop shop) {
+	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo) {
 		// 파라미터 - 가게 번호 (쿼리스트링)
 		// 가게 상세정보 가져오기
 		Shop sInfo = sService.selectShopOne(shopNo);
 		// 가게 메인메뉴 가져오기
-//		ArrayList<MainMenu> menu = sService.selectMainMenu(shopNo);
+//		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo);
 		// 메뉴 사진 가져오기 
 //		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		// 전체 후기 가져오기
 		// 주석을 풀어주세요....
 //		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
-		return "shop/ShopDetail";
+		mv.addObject("sInfo", sInfo);
+//		mv.addObject("mainMenu", mainMenu);
+//		mv.addObject("mPhoto", mPhoto);
+		mv.setViewName("shop/ShopDetail");
+		
+		return mv;
 	}
 	
 	//D 전체후기 가져오기

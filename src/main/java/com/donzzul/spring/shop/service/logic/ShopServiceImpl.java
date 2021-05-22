@@ -24,9 +24,12 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	public ArrayList<Shop> selectShopMap(int mapNo) {
-//		System.out.println("service");
 		return sStore.selectShopMap(mapNo);
-		
+	}
+	
+	@Override
+	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
+		return sStore.searchMapKeyword(searchKeyword);
 	}
 
 	@Override
@@ -66,11 +69,6 @@ public class ShopServiceImpl implements ShopService {
 	
 	public int selectKeyListCount(String searchKeyword) {
 		return sStore.selectKeyListCount(searchKeyword);
-	}
-
-	@Override
-	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
-		return sStore.searchMapKeyword(searchKeyword);
 	}
 
 }
