@@ -26,7 +26,7 @@
                     <li><a href="mReviewMain.dz">커뮤니티</a></li>
                 </ul>
             </div>
-	            <c:if test="${ empty sessionScope.loginUser }">
+	            <c:if test="${ empty sessionScope.loginUser && empty sessionScope.kakaoId}">
             		<div class="header-submenu-area">
 		                <a href="loginView.dz">로그인</a>
 		                <a href="enrollView.dz">회원가입</a>
@@ -38,20 +38,21 @@
 		                <a href="#">관리자페이지</a>
             		</div>
 	            </c:if>
-	            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId !='admin'}">
+	           <c:if test="${ (!empty sessionScope.loginUser && sessionScope.loginUser.userId !='admin') || (empty sessionScope.loginUser && !empty sessionScope.kakaoId)}">
 	            	<div class="header-submenu-area login-area">
 		                <a href="logout.dz">로그아웃</a>
 		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '1'}">
 	                	<a href="dreamMyPage.dz">마이페이지</a>
 	            	</c:if>
-		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
+		            <c:if test="${ (!empty sessionScope.loginUser && sessionScope.loginUser.userType == '2') || (empty sessionScope.loginUser && !empty sessionScope.kakaoId)}">
 	                	<a href="mzMyPage.dz">마이페이지</a>
 	            	</c:if>
 		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '3'}">
-	                	<a href="#">마이페이지</a>
+	                	<a href="partnerMyPage.dz">마이페이지</a>
 	            	</c:if>
             		</div>
             	</c:if>
+ 	            
         </div>
     </header>
     

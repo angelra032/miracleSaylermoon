@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +11,18 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">${ loginUser.userName }님 안녕하세요!</div>
+		<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
+			<div id="main-title">${ loginUser.userName }님 안녕하세요!</div>
+		</c:if>
+		<c:if test="${ empty sessionScope.loginUser && !empty sessionScope.kakaoId}">
+			<div id="main-title">${ kakaoNickname }님 안녕하세요!</div>
+		</c:if>
 		<div class="frame">
 			<div class="my-info">
 				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
 				<div class="info-btn-frame">
-					<a class="info-btn" href="#">나의 정보</a>
-					<a class="info-btn" href="#">회원 탈퇴</a>
+					<a class="info-btn" href="myINfo.dz">나의 정보</a>
+					<a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
 				</div>
 			</div>
 		</div>

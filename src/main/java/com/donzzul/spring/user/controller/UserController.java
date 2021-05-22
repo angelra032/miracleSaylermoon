@@ -39,6 +39,9 @@ public class UserController {
 	@Autowired
 	private static final long serialVersionUID = 1L;
 	
+	@Autowired
+	private final static String TAG = "KakaoController : ";
+	
 	// 회원가입폼
 	@RequestMapping(value = "enrollView.dz", method = RequestMethod.GET) 
 	public String enrollView() {
@@ -173,14 +176,15 @@ public class UserController {
 	}
 	
 	// 카카오 로그인
-	@RequestMapping(value = "kakaoLogin.dz", method = RequestMethod.POST)
-	public String kakaoLogin(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		User uOne = new User();
-		User loginUser = service.loginUser(uOne);
-		if (loginUser != null) {
+	@RequestMapping(value = "kakaologin.dz", method = RequestMethod.GET)
+	public String kakaoLogin(HttpServletRequest request, 
+							@RequestParam("kakaoId") String kakaoId, 
+							@RequestParam("kakaoNickname") String kakaoNickname, Model model) {
+		if(kakaoId != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			return "";
+			session.setAttribute("kakaoId", kakaoId);
+			session.setAttribute("kakaoNickname", kakaoNickname);
+			return "redirect:index.jsp";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
 			return "common/errorPage";
@@ -205,38 +209,73 @@ public class UserController {
 	//회원정보조회
 	@RequestMapping(value = "myINfo.dz", method = RequestMethod.GET)
 	public String myINfoView() {
-			return "";
+			return "user/userMyInfo";
 		
 	}
 		
-	// 정보수정
-	@RequestMapping(value = "userUpdate.dz", method = RequestMethod.POST)
-	public String userUpdate(@ModelAttribute User user,
+	// 일반회원정보수정
+	@RequestMapping(value = "mzModify.dz", method = RequestMethod.POST)
+	public String mzUserUpdate(@ModelAttribute User user,
 								Model model,
 								HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		int result = service.updateUser(user);
+		int result = service.updateMzUser(user);
 		if (result > 0) {
 			session.setAttribute("loginUser", user);
-			return "";
+			return "mzMyPage/MZMyPage";
 		}else {
 			return "common/errorPage";
 		}
 	}
 	
+	//회원탈퇴전 비밀번호 입력뷰
+		@RequestMapping(value = "userWritePwView.dz", method = RequestMethod.GET)
+		public String userWritePwView() {
+			return "user/userWritePw";
+		}
+		
+	// 비밀번호 유효성 검사
+		@ResponseBody 
+		@RequestMapping(value = "dupPw.dz", method = RequestMethod.GET)
+		public String pwDuplicateCheck(@RequestParam("userNo") String userNo, @RequestParam("userPw") String userPw) {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("userNo", userNo);
+			map.put("userPw", userPw);
+			int duplicateCheck = service.checkPwDup(map);
+			if(duplicateCheck == 0){
+				return 0+"";
+			}else {
+				return 1+"";
+			}
+		}
+		
 	//회원탈퇴
 	@RequestMapping(value = "userDelete.dz", method = RequestMethod.GET)
-	public String userDelete(@RequestParam("userId") String userId, 
-								Model model) {
+	public String userDelete(@RequestParam("userNo") int userNo, Model model) {
 		// 회원탈퇴를 하고 나서 세션파괴를 하지 않으면 
 		// 로그인한 상태가 유지되므로 세션파괴를 해줘야함.
-		int result = service.deleteUser(userId);
+		int result = service.deleteUser(userNo);
 		if (result>0) {
 			return "redirect:logout.dz";
 		}else {
+			model.addAttribute("msg", "회원탈퇴 실패");
 			return "common/errorPage";
 		}
 	}
+	
+	//회원탈퇴요청(사업자)
+		@RequestMapping(value = "userDeleteRequest.dz", method = RequestMethod.GET)
+		public String userDeleteRequest(@RequestParam("userNo") int userNo, Model model) {
+			// 회원탈퇴를 하고 나서 세션파괴를 하지 않으면 
+			// 로그인한 상태가 유지되므로 세션파괴를 해줘야함.
+			int result = service.deleteRequestUser(userNo);
+			if (result>0) {
+				return "partnerMyPage/partnerMyPage";
+			}else {
+				model.addAttribute("msg", "탈퇴요청 실패");
+				return "common/errorPage";
+			}
+		}
 	
 	//아이디 찾기 폼
 	@RequestMapping(value = "findIdView.dz", method = RequestMethod.GET)

@@ -67,7 +67,6 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</select>
 	
-
 	<insert id="insertDreamUser" parameterType="User">
 		INSERT INTO "USER"
 		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, #{dreamCardno}, null, '1', null)
@@ -91,4 +90,21 @@
 		UPDATE "USER" SET USER_PW = #{userPw} WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</update>
 
+	<update id="deleteRequestUser">
+		UPDATE "USER" SET PARTNER_WITHDRAW = 'Y' USER_NO=#{userNo}
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM "USER" WHERE USER_NO=#{userNo}
+	</delete>
+	
+	<select id="checkPwDup" resultType="_int" parameterType="HashMap">
+		SELECT COUNT(*) FROM "USER" WHERE USER_NO = #{userNo} AND USER_PW = #{userPw}
+	</select>
+	
+	<update id="updateMzUser">
+		UPDATE "USER"
+		SET USER_PW = #{userPw}, USER_PHONE = #{userPhone}, USER_EMAIL = #{userEmail}
+		WHERE USER_NO = #{userNo}
+	</update>
 </mapper>
