@@ -1,11 +1,13 @@
 package com.donzzul.spring.shop.domain;
 
-public class Pagination {
+import com.donzzul.spring.common.PageInfo;
 
-	public static PageInfo getPageInfo(int currentPage, int listCount) {
+public class MapPagination {
+
+	public static PageInfo getMapPageInfo(int currentPage, int listCount) {
 		PageInfo pi = null;
 		int pageLimit = 5; // 한 페이지에서 보여줄 네비게이션 수
-		int boardLimit = 10; // 한 페이지에서 보여줄 게시글 갯수
+		int boardLimit = 5; // 한 페이지에서 보여줄 게시글 갯수
 		int maxPage; // 전체 페이지 중 가장 마지막 페이지
 		int startPage; // 현재 페이지에서 시작하는 첫번째 페이지
 		int endPage; // 현재 페이지에서 시작하는 첫번째 페이지
@@ -20,7 +22,7 @@ public class Pagination {
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
-		pi = new PageInfo(currentPage, boardLimit, pageLimit, startPage, endPage, maxPage, listCount);
+		pi = new PageInfo(currentPage, boardLimit, pageLimit, startPage, endPage, listCount, maxPage);
 		
 		return pi;
 	}

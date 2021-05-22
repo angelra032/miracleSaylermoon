@@ -1,7 +1,19 @@
 package com.donzzul.spring.user.controller;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +35,9 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private static final long serialVersionUID = 1L;
 	
 	// 회원가입폼
 	@RequestMapping(value = "enrollView.dz", method = RequestMethod.GET) 
@@ -100,24 +115,46 @@ public class UserController {
 		}
 	}
 	
+	//닉네임 중복 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupNick.dz", method = RequestMethod.GET)
+	public String nickDuplicateCheck(@RequestParam("userNick") String userNick) {
+		return service.checkNickDup(userNick)+"";
+	}
+
 	//사업자번호 중복 검사
-		@ResponseBody 
-		@RequestMapping(value = "dupPveri.dz", method = RequestMethod.GET)
-		public String pVerifyDuplicateCheck(@RequestParam("partnerVerify") String partnerVerify) {
-			return service.checkPVerifyDup(partnerVerify)+"";
-		}
+	@ResponseBody 
+	@RequestMapping(value = "dupPveri.dz", method = RequestMethod.GET)
+	public String pVerifyDuplicateCheck(@RequestParam("partnerVerify") String partnerVerify) {
+		return service.checkPVerifyDup(partnerVerify)+"";
+	}
 		
-		//이메일 중복 검사
-		@ResponseBody 
-		@RequestMapping(value = "dupEmail.dz", method = RequestMethod.GET)
-		public String emailDuplicateCheck(@RequestParam("userEmail") String userEmail) {
-			return service.checkEmailDup(userEmail)+"";
-		}
+	//이메일 중복 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupEmail.dz", method = RequestMethod.GET)
+	public String emailDuplicateCheck(@RequestParam("userEmail") String userEmail) {
+		return service.checkEmailDup(userEmail)+"";
+	}
 	
 	//로그인 뷰
 	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
 	public String loginView() {
 		return "user/userLogin";
+	}
+	
+	//로그인 유효성 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupLogin.dz", method = RequestMethod.GET)
+	public String loginDuplicateCheck(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("userPw", userPw);
+		int duplicateCheck = service.checkLoginDup(map);
+		if(duplicateCheck == 0){
+			return 1+"";
+		}else {
+			return 2+"";
+		}
 	}
 	
 	//로그인
@@ -146,7 +183,7 @@ public class UserController {
 			return "";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
-			return "";
+			return "common/errorPage";
 		}
 	}
 	
@@ -183,7 +220,7 @@ public class UserController {
 			session.setAttribute("loginUser", user);
 			return "";
 		}else {
-			return "";
+			return "common/errorPage";
 		}
 	}
 	
@@ -197,37 +234,151 @@ public class UserController {
 		if (result>0) {
 			return "redirect:logout.dz";
 		}else {
-			return "";
+			return "common/errorPage";
 		}
 	}
 	
 	//아이디 찾기 폼
 	@RequestMapping(value = "findIdView.dz", method = RequestMethod.GET)
 	public String findIdView() {
-		return "";
+		return "user/userFindId";
 	}
 	
 	//아이디 찾기
 	@RequestMapping(value = "findId.dz", method = RequestMethod.POST)
-	public String findId(@RequestParam("userName") String userName,
-						@RequestParam("userEmail") String userEmail) {
-		return service.findId(userName, userEmail);
+	public String findId(@RequestParam("userName") String userName, @RequestParam("userEmail") String userEmail, Model model) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userName", userName);
+		map.put("userEmail", userEmail);
+		String userId =  service.findId(map);
+		if(userId != null) {
+			model.addAttribute("userName", userName);
+			model.addAttribute("userId", userId);
+			return "user/userFindIdResult";
+		}else {
+			model.addAttribute("msg", "아이디찾기 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	//아이디찾기 유효성 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupFindId.dz", method = RequestMethod.GET)
+	public String findIdDuplicateCheck(@RequestParam("userName") String userName, @RequestParam("userEmail") String userEmail) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userName", userName);
+		map.put("userEmail", userEmail);
+		int duplicateCheck = service.checkFindIdDup(map);
+		if(duplicateCheck == 0){
+			return 0+"";
+		}else {
+			return 1+"";
+		}
+	}
+	
+	//비밀번호찾기 유효성 검사
+	@ResponseBody 
+	@RequestMapping(value = "dupFindPw.dz", method = RequestMethod.GET)
+	public String findPwDuplicateCheck(@RequestParam("userId") String userId, @RequestParam("userEmail") String userEmail) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("userEmail", userEmail);
+		int duplicateCheck = service.checkFindPwDup(map);
+		if(duplicateCheck == 0){
+			return 0+"";
+		}else {
+			return 1+"";
+		}
 	}
 	
 	//비밀번호 찾기 폼
 	@RequestMapping(value = "findPwView.dz", method = RequestMethod.GET)
 	public String findPwView() {
-		return "";
+		return "user/userFindPw";
 	}
 	
+	
 	//메일 보내기
-	@ResponseBody
 	@RequestMapping(value = "sendEmail.dz", method = RequestMethod.POST)
-	public String sendEmail(@RequestParam("userEmail") String userEmail,
-							@RequestParam("userId") String userId,
-							@RequestParam("pwCode") String pwCode) {
-		return "";
+	public String sendEmail(@RequestParam("userEmail") String userEmail, @RequestParam("userId") String userId, Model model) {
+		
+		Properties props = System.getProperties();
+		props.put("mail.smtp.user", "pminae11@gmail.com"); // 서버 아이디만 쓰기(발신인 이메일)
+		props.put("mail.smtp.host", "smtp.gmail.com"); // 구글 SMTP
+		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.debug", "true"); //////////////
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.fallback", "false");
+		
+		// 메일 인증
+		Authenticator auth = new MyAuthentication();
+		// session 생성 및 MimeMessage 생성
+		Session session = Session.getDefaultInstance(props, auth); // getInst...
+//		session.setDebug(true); // 메일 전송 시 상세상황 콘솔에 출력 ///////////
+		MimeMessage msg = new MimeMessage(session);
+		int randomCode = 0;
+		try { 
+			// 편지 보낸 시간
+			msg.setSentDate(new Date());
+			
+			InternetAddress from = new InternetAddress("pminae11@gmail.com"); //보내는 사람(메일주소?)
+			
+			// 이메일 발신자
+			msg.setFrom(from);
+			
+			// 이메일 수신자
+			String email = userEmail; // 사용자가 입력한 이메일 받아오기
+			InternetAddress to = new InternetAddress(email);
+			msg.setRecipient(Message.RecipientType.TO, to);
+			
+			// 이메일 제목
+			msg.setSubject("[돈쭐] 인증코드 메일입니다.", "UTF-8");
+			
+			// 이메일 내용
+			randomCode = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+						// 5자리 숫자로 이루어진 인증번호 랜덤 생성
+			//String code = request.getParameter("code-check");
+			String content = "인증코드는 " + randomCode + " 입니다."; // 인증번호 값 받기
+			msg.setText(content, "UTF-8");
+			
+			// 이메일 헤더
+			msg.setHeader("content-Type", "text/html");
+			
+			// 메일 보내기
+			Transport.send(msg);
+			System.out.println("보냄!!");
+		} catch (AddressException addr_e) {
+			addr_e.printStackTrace();
+		}catch (MessagingException msg_e) {
+			msg_e.printStackTrace();
+		}
+		model.addAttribute("userId", userId);
+		model.addAttribute("userEmail", userEmail);
+		model.addAttribute("randomCode", randomCode);
+		return "user/userFindPw";
+
+	//	return randomCode+"";
+//				return "user/userFindIdResult";
 	}
+
+	// 아이디 패스워드 인증받기 함수
+	class MyAuthentication extends Authenticator{
+		PasswordAuthentication pa;
+		public MyAuthentication() {
+			String id = "pminae11"; // 구글 ID(발신인 이메일-도메인 제외)
+			String pw = "donjjul1234"; // 구글 비밀번호(발신인 이메일 비번)
+			// ID와 비밀번호 입력
+			pa = new PasswordAuthentication(id, pw);
+		}
+		// 시스템에서 사용하는 인증정보
+		public PasswordAuthentication getPasswordAuthentication() {
+			return pa;
+		}
+	}
+	
 	
 	// 비밀번호 재설정 폼
 	@RequestMapping(value = "resetPwView.dz", method = RequestMethod.GET)

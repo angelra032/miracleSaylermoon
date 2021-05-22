@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 public class Shop {
 	
 	private int shopNo;
-	private int reserveNo;
 	private String shopName;
 	private String shopShortAddr;
 	private String shopAddr;
@@ -16,7 +15,7 @@ public class Shop {
 	private String shopFilePath;
 	private long shopFileSize;
 	private Timestamp shopUploadTime;
-	private int shopPhone;
+	private String shopPhone;
 	private String shopParking;
 	private int shopMaxReserv;
 	private String shopContent;
@@ -25,21 +24,19 @@ public class Shop {
 	private int shopPoint;
 	private String shopPointYn;
 	private int userNo;
-	private int donNo;
 	private String startTime;
 	private String endTime;
 	private int businessDay;
 	
 	public Shop() {}
 
-	public Shop(int shopNo, int reserveNo, String shopName, String shopShortAddr, String shopAddr, String shopTarget,
+	public Shop(int shopNo, String shopName, String shopShortAddr, String shopAddr, String shopTarget,
 			String shopProduct, String shopType, String shopFileName, String shopFilePath, long shopFileSize,
-			Timestamp shopUploadTime, int shopPhone, String shopParking, int shopMaxReserv, String shopContent,
-			String shopLat, String shopLng, int shopPoint, String shopPointYn, int userNo, int donNo, String startTime,
+			Timestamp shopUploadTime, String shopPhone, String shopParking, int shopMaxReserv, String shopContent,
+			String shopLat, String shopLng, int shopPoint, String shopPointYn, int userNo, String startTime,
 			String endTime, int businessDay) {
 		super();
 		this.shopNo = shopNo;
-		this.reserveNo = reserveNo;
 		this.shopName = shopName;
 		this.shopShortAddr = shopShortAddr;
 		this.shopAddr = shopAddr;
@@ -59,7 +56,6 @@ public class Shop {
 		this.shopPoint = shopPoint;
 		this.shopPointYn = shopPointYn;
 		this.userNo = userNo;
-		this.donNo = donNo;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.businessDay = businessDay;
@@ -71,14 +67,6 @@ public class Shop {
 
 	public void setShopNo(int shopNo) {
 		this.shopNo = shopNo;
-	}
-
-	public int getReserveNo() {
-		return reserveNo;
-	}
-
-	public void setReserveNo(int reserveNo) {
-		this.reserveNo = reserveNo;
 	}
 
 	public String getShopName() {
@@ -161,11 +149,11 @@ public class Shop {
 		this.shopUploadTime = shopUploadTime;
 	}
 
-	public int getShopPhone() {
+	public String getShopPhone() {
 		return shopPhone;
 	}
 
-	public void setShopPhone(int shopPhone) {
+	public void setShopPhone(String shopPhone) {
 		this.shopPhone = shopPhone;
 	}
 
@@ -233,14 +221,6 @@ public class Shop {
 		this.userNo = userNo;
 	}
 
-	public int getDonNo() {
-		return donNo;
-	}
-
-	public void setDonNo(int donNo) {
-		this.donNo = donNo;
-	}
-
 	public String getStartTime() {
 		return startTime;
 	}
@@ -267,14 +247,14 @@ public class Shop {
 
 	@Override
 	public String toString() {
-		return "Shop [shopNo=" + shopNo + ", reserveNo=" + reserveNo + ", shopName=" + shopName + ", shopShortAddr="
-				+ shopShortAddr + ", shopAddr=" + shopAddr + ", shopTarget=" + shopTarget + ", shopProduct="
-				+ shopProduct + ", shopType=" + shopType + ", shopFileName=" + shopFileName + ", shopFilePath="
-				+ shopFilePath + ", shopFileSize=" + shopFileSize + ", shopUploadTime=" + shopUploadTime
-				+ ", shopPhone=" + shopPhone + ", shopParking=" + shopParking + ", shopMaxReserv=" + shopMaxReserv
-				+ ", shopContent=" + shopContent + ", shopLat=" + shopLat + ", shopLng=" + shopLng + ", shopPoint="
-				+ shopPoint + ", shopPointYn=" + shopPointYn + ", userNo=" + userNo + ", donNo=" + donNo
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay + "]";
+		return "Shop [shopNo=" + shopNo + ", shopName=" + shopName + ", shopShortAddr=" + shopShortAddr + ", shopAddr="
+				+ shopAddr + ", shopTarget=" + shopTarget + ", shopProduct=" + shopProduct + ", shopType=" + shopType
+				+ ", shopFileName=" + shopFileName + ", shopFilePath=" + shopFilePath + ", shopFileSize=" + shopFileSize
+				+ ", shopUploadTime=" + shopUploadTime + ", shopPhone=" + shopPhone + ", shopParking=" + shopParking
+				+ ", shopMaxReserv=" + shopMaxReserv + ", shopContent=" + shopContent + ", shopLat=" + shopLat
+				+ ", shopLng=" + shopLng + ", shopPoint=" + shopPoint + ", shopPointYn=" + shopPointYn + ", userNo="
+				+ userNo + ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay + "]";
 	}
 
+	
 }

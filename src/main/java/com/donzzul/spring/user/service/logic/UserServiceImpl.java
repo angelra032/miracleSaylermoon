@@ -59,6 +59,12 @@ public class UserServiceImpl implements UserService {
 	public int checkCardDup(HashMap<String, String> map) {
 		return store.checkCardDup(map);
 	}
+	
+	// 닉네임 중복검사
+	@Override
+	public int checkNickDup(String userNick) {
+		return store.checkNickDup(userNick);
+	}
 
 	// 사업자번호 중복검사
 	@Override
@@ -78,6 +84,13 @@ public class UserServiceImpl implements UserService {
 		User uOne = store.selectOneUser(user);
 		return uOne;
 	}
+	
+	// 로그인 중복검사
+	@Override
+	public int checkLoginDup(HashMap<String, String> map) {
+		return store.checkLoginDup(map);
+	}
+
 
 	@Override
 	public int updateUser(User user) {
@@ -103,10 +116,23 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+
+	//아이디 찾기 중복검사
 	@Override
-	public String findId(String userName, String userEmail) {
-		// TODO Auto-generated method stub
-		return null;
+	public int checkFindIdDup(HashMap<String, String> map) {
+		return store.checkFindIdDup(map);
+	}
+
+	// 아이디찾기
+	@Override
+	public String findId(HashMap<String, String> map) {
+		return store.findId(map);
+	}
+
+	// 비밀번호 찾기 중복검사
+	@Override
+	public int checkFindPwDup(HashMap<String, String> map) {
+		return store.checkFindPwDup(map);
 	}
 
 	

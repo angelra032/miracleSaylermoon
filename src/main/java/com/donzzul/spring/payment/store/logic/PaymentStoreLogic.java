@@ -1,5 +1,7 @@
 package com.donzzul.spring.payment.store.logic;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,8 +44,7 @@ public class PaymentStoreLogic implements PaymentStore{
 
 	@Override
 	public int insertDonList(Don don) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("paymentMapper.insertDonList", don);
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class PaymentStoreLogic implements PaymentStore{
 	// 가게 메뉴 가져오기
 
 	@Override
-	public MainMenu selectShopMenu(int shopNo) {
-		MainMenu mainmenu = sqlSession.selectOne("paymentMapper.selectShopMenu", shopNo);
+	public ArrayList<MainMenu> selectShopMenu(int shopNo) {
+		ArrayList<MainMenu> mainmenu = (ArrayList)sqlSession.selectList("paymentMapper.selectShopMenu", shopNo);
 		System.out.println("스토어"+mainmenu);
 		return mainmenu;
 	}

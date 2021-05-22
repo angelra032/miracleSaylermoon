@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,7 @@
 				<div class="my-title">
 					<span>예약 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="rListDetailAllByDream.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -38,14 +39,19 @@
 							<th>후기작성</th>
 						</tr>
 					</thead>
-					
 					<tbody>
-					<c:forEach items="${rList }" var="reservation">
+					<c:forEach items="${rList }" var="reservation" varStatus="status">
 						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>${reservation.shopNo }</p></a></td>
+							<td>${status.count }</td>
+							<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
 							<td>${reservation.reserveDate }</td>
-							<td><a class="reserv-btn" href="#">예약취소</a></td>
+							<c:if test="${reservation.rState eq 'O' }">
+							<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
+							</c:if>
+							<c:if test="${reservation.rState eq 'X' }">
+							<td><a class="btn btn-secondary">취소완료</a></td>
+							</c:if>
+							
 							<td><a class="reserv-btn" href="#">후기작성</a></td>
 						</tr>
 					</c:forEach>
