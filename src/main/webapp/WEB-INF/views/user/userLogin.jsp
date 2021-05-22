@@ -18,7 +18,7 @@
    		</div>	
 		<div id="main-title">로그인</div>
 		<div class="frame">
-			<div class="left-login">
+			<div class="color-frame">
 				<h2>회원로그인</h2>
 				<h4>꿈나무, 일반, 사업자 회원</h4>
 				<div class="left-inner-box">
@@ -37,16 +37,17 @@
 					</form>
 				</div>
 			</div>
-			<div class="left-login">
+			<div class="color-frame">
 				<h2>간편로그인</h2>
 				<h4>일반회원전용</h4>
 				<div class="left-inner-box">
-					<form action="" method="POST"> 
-						
-					</form>
+					<div class="input-box"> 
+						<a href="#"><img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png"></a>
+						<a class="kakao-btn" href="#"><img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png"></a>
+					</div>
 				</div>
-			</div>
-		
+			</div> 
+
 		</div>
 	</main>
 	

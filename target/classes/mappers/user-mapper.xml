@@ -31,21 +31,6 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
 	</select>
 	
-	<insert id="insertDreamUser" parameterType="User">
-		INSERT INTO "USER"
-		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, #{dreamCardno}, null, '1', null)
-	</insert>
-	
-	<insert id="insertMzUser" parameterType="User">
-		INSERT INTO "USER"
-		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, null, 0, '2', null)
-	</insert>
-
-	<insert id="insertPartnerUser" parameterType="User">
-		INSERT INTO "USER"
-		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, null, #{userPhone}, #{userEmail}, #{partnerVerify}, DEFAULT, null, null, '3', #{partnerName})
-	</insert>
-	
 	<select id="checkIdDup" resultType="_int">
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId}
 	</select>
@@ -73,7 +58,6 @@
 	<select id="checkEmailDup" resultType="_int">
 		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail}
 	</select>
-	
 
 	<select id="checkFindIdDup" resultType="_int" parameterType="HashMap">
 		SELECT COUNT(*) FROM "USER" WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
@@ -83,8 +67,26 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</select>
 	
+	<insert id="insertDreamUser" parameterType="User">
+		INSERT INTO "USER"
+		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, #{dreamCardno}, null, '1', null)
+	</insert>
+	
+	<insert id="insertMzUser" parameterType="User">
+		INSERT INTO "USER"
+		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, null, 0, '2', null)
+	</insert>
+
+	<insert id="insertPartnerUser" parameterType="User">
+		INSERT INTO "USER"
+		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, null, #{userPhone}, #{userEmail}, #{partnerVerify}, DEFAULT, null, null, '3', #{partnerName})
+	</insert>
+
 	<update id="updateUserPoint">
 		UPDATE "USER" SET USER_POINT = #{userPoint} WHERE USER_NO = #{userNo}
 	</update>
 
+	<update id="resetPw">
+		UPDATE "USER" SET USER_PW = #{userPw} WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
+	</update>
 </mapper>

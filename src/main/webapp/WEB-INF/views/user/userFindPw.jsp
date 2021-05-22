@@ -59,16 +59,19 @@
 					</div>
 				</div>
 					<c:if test="${ !empty randomCode }">
-						<div class="content-body">
-							<input name="userCode" class="form-elem codeelem" type="text" maxlength="50" placeholder="인증 코드 입력">
-							<input type="hidden" class="check-code" value="${ randomCode }">
-							<button class="code-submit-btn" type="submit">새 비밀번호 입력</button>
-						</div>
+						<form action="resetPwView.dz" method="post">
+							<div class="content-body">
+								<input name="userCode" class="form-elem codeelem" type="text" maxlength="50" placeholder="인증 코드 입력">
+								<input type="hidden" class="check-code" value="${ randomCode }">
+								<input type="hidden" class="userId" name="userId" value="${ userId }">
+								<input type="hidden" class="userEmail" name="userEmail" value="${ userEmail }">
+								<button class="code-submit-btn click-submit-btn" type="submit">새 비밀번호 입력</button>
+							</div>
+						</form>
 					</c:if>
 					<c:if test="${ empty randomCode }">
 						<div class="content-body">
 							<input name="userCode" class="form-elem codeelem" type="text" maxlength="50" placeholder="인증 코드 입력" readonly>
-							<input type="hidden" class="check-code" value="${ randomCode }">
 							<button class="code-submit-btn nonclick-btn" type="submit">새 비밀번호 입력</button>
 						</div>
 					</c:if>
@@ -98,6 +101,9 @@
 					}else if(result == 0){
 						alert("아이디 또는 이메일이 일치하지 않습니다. 다시 입력해주세요.");
 						rtn = false;
+					}else {
+						alert("인증코드를 발송하였습니다. 이메일을 확인해주세요.");
+						rtn = true;
 					}
 				},
 				error : function() {
@@ -106,7 +112,7 @@
 			});
 			return rtn;
 		});
-		$('.code-submit-btn').click(function() {
+		$('.click-submit-btn').click(function() {
 			var checkCode = $(".check-code");
 			var inputCode = $(".codeelem");
 			if(inputCode.val() =="") {
