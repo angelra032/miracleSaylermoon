@@ -80,12 +80,21 @@ public class ReservationController {
 			pResult = service.updateUserPoint(user);
 		}
 		
-		if( rResult > 0 && rResult > 0) {
+		if( rResult > 0) {
 			return "redirect:reservationView.dz";
 		}else {
 			model.addAttribute("msg","어림도 없지!!!!!!");
 			return "redirect:reservationView.dz";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rCountCheck.dz", method=RequestMethod.POST)
+	public String rCountCheck(@ModelAttribute Reservation reservation) {
+		System.out.println(reservation.toString());
+		int result = service.confirmRCount(reservation);
+		System.out.println(result);
+		return ""+result;
 	}
 	
 	// ============================여기까지 완성=============
@@ -100,7 +109,7 @@ public class ReservationController {
 	@RequestMapping(value="ListByMZ.dz", method = RequestMethod.GET)
 	public String reservationListByMZ(@RequestParam("reservationNo") int reservationNo,
 									@RequestParam("userNo") int userNo) {
-		ArrayList<Reservation> result = service.reservationListByMZ(userNo);
+		//ArrayList<Reservation> result = service.reservationListByMZ(userNo);
 		return "";	
 	}
 	
@@ -109,7 +118,7 @@ public class ReservationController {
 	@RequestMapping(value="ListByShop.dz", method = RequestMethod.GET)
 	public String reservationListByShop(@RequestParam("reservationNo") int reservationNo,
 										@RequestParam("shopNo") int shopNo) {
-		ArrayList<Reservation> result = service.reservaionListByShop(shopNo);
+		//ArrayList<Reservation> result = service.reservaionListByShop(shopNo);
 		return "";
 	}
 	

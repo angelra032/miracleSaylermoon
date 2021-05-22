@@ -18,21 +18,21 @@ public class PartnerMyPageController {
 	@Autowired
 	private ReservationService pService;
 	
-	@RequestMapping(value="partnerMyPage.dz", method=RequestMethod.GET)
-	public String PartnerMyPageView(@RequestParam("userNo") int userNo, Model model) { //requestParam("userNo") int userNo
-		System.out.println(userNo);
+//	@RequestMapping(value="partnerMyPage.dz", method=RequestMethod.GET)
+//	public String PartnerMyPageView(@RequestParam("userNo") int userNo, Model model) { //requestParam("userNo") int userNo
+//		System.out.println(userNo);
 //		System.out.println(shopNo);
-		// 예약목록 불러오기(
-		ArrayList<Reservation> rList = pService.reservaionListByShop(userNo);
-		if(!rList.isEmpty()) {
-			model.addAttribute("rList", rList);
-			return "partnerMyPage/partnerMyPage";
-		}else {
-			model.addAttribute("msg", "사업자 예약목록 조회 실패");
-			return "common/errorPage";
-		}
-		
-	}
+//		 예약목록 불러오기(
+//		ArrayList<Reservation> rList = pService.reservaionListByShop(userNo, pi);
+//		if(!rList.isEmpty()) {
+//			model.addAttribute("rList", rList);
+//			return "partnerMyPage/partnerMyPage";
+//		}else {
+//			model.addAttribute("msg", "사업자 예약목록 조회 실패");
+//			return "common/errorPage";
+//		}
+//		
+//	}
 	
 
 }
