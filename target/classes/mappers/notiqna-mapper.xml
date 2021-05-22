@@ -40,6 +40,10 @@
 		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4', 'Y')
 	</insert>
 	
+	<delete id="deleteNotice">
+		DELETE FROM NOTICE WHERE NOTICE_NO = #{noticeNo}
+	</delete>
+	
 	
 	
 	<!-- qna -->
@@ -57,18 +61,26 @@
 	</select>
 	
 	<insert id="inserQna" parameterType="Qna">
-		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, null, null, null)
+		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, null, 0, 0)
 	</insert>
 	
-<!-- 	<update id="">
+	<delete id="deleteQna">
+		DELETE FROM QNA_BOARD WHERE QNA_NO = #{qnaNo}
+	</delete>
+	
+	<update id="updateGroup">
 		UPDATE QNA_BOARD
-		SET ORIGIN_NO = (SELECT QNA_NO FROM QNA_BOARD WHERE QNA_NO = '31'),
-		GROUP_ORDER = (CASE WHEN GROUP_ORDER LIKE 0  THEN 1
-		WHEN GROUP_ORDER LIKE 1 THEN 2 END),
-		GROUP_LAYER = (CASE WHEN GROUP_LAYER LIKE '0' THEN 1
-		WHEN GROUP_LAYER LIKE 1 THEN 2 END)
-		WHERE QNA_NO = '32';
-	</update> -->
+				SET ORIGIN_NO = (SELECT QNA_NO FROM QNA_BOARD WHERE QNA_NO = #{qnaNo} ),
+				GROUP_ORDER = (CASE WHEN GROUP_ORDER LIKE 0  THEN 1
+				WHEN GROUP_ORDER LIKE 1 THEN 2 END),
+				GROUP_LAYER = (CASE WHEN GROUP_LAYER LIKE '0' THEN 1
+				WHEN GROUP_LAYER LIKE 1 THEN 2 END)
+				WHERE QNA_NO = #{qnaNo}
+	</update>
+	
+	<update id="updateQnA">
+		UPDATE QNA_BOARD SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent} WHERE QNA_NO = #{qnaNo}
+	</update>
 
 
 </mapper>

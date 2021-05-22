@@ -37,9 +37,21 @@
                 ${ drmReview.drmReviewContent }
             </div>
 
-            <div class="back-btn-area">
-                <button onclick="location.href='dReviewMain.dz'" style="cursor: pointer;">목록으로</button>
-            </div>
+            <div class="bottom-btn-area">
+			<c:if test="${ recommendBoard.userNo eq loginUser.userNo}">
+	            <div class="modify-btn-area">
+	                <button onclick="location.href='dReviewMain.dz'" style="cursor: pointer;">수정하기</button>
+	            </div>
+	            <div class="modify-btn-area">
+	                <button onclick="location.href='dReviewDelete.dz?drmRviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">삭제하기</button>
+	            </div>
+			</c:if>
+			<c:if test="${ recommendBoard.userNo ne loginUser.userNo }">
+			 	<div class="back-btn-area">
+	                <button onclick="location.href='dReviewMain.dz'" style="cursor: pointer;">목록으로</button>
+	            </div>
+			</c:if>
+			</div>
         </div>
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

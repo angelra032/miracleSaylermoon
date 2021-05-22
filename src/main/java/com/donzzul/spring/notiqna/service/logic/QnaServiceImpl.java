@@ -48,14 +48,12 @@ public class QnaServiceImpl implements QnaService{
 
 	@Override
 	public int updateQna(Qna qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaStore.updateQna(qna);
 	}
 
 	@Override
 	public int deleteQna(int qaNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaStore.deleteQna(qaNo);
 	}
 
 

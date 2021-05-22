@@ -35,10 +35,12 @@
 	</select>
 	
 	<insert id="insertMzReview" parameterType="MzReview">
-		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, '닉네임', DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, '2', '3', '1')
+		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, '1')
 	</insert>
 
-
+	<delete id="deleteMzReview">
+		DELETE FROM MZ_REVIEW WHERE MZREVIEW_NO=#{mzReviewNo}
+	</delete>
 
 
 </mapper>

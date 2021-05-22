@@ -30,6 +30,10 @@
 		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, #{recommendWriter}, DEFAULT, DEFAULT, NULL, #{userType}, #{userNo})
 	</insert>
 	
+	<delete id="deleteRecommend">
+		DELETE FROM RECOMMEND_BOARD WHERE RECOMMEND_NO = #{recommendNo}
+	</delete>
+	
 
 
 

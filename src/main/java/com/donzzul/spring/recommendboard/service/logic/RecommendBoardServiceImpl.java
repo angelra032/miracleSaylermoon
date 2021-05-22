@@ -50,9 +50,8 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	}
 
 	@Override
-	public int deleteRecommend(int recommendationNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteRecommend(int recommendNo) {
+		return reStore.deleteRecommend(recommendNo);
 	}
 
 
