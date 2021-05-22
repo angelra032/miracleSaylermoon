@@ -2,25 +2,26 @@ package com.donzzul.spring.reservation.domain;
 
 public class Reservation {
 
-	private int reservationNo;
-	private int shopNo;
-	private String reserveDate;
-	private int reserveTime;
-	private int reserveCount;
-	private String pointYn;
-	private int paymentPoint;
-	private int userNo;
-	private String rState;
+	public int reservationNo;
+	public int shopNo;
+	public String reserveDate;
+	public int reserveTime;
+	public int reserveCount;
+	public String pointYn;
+	public int paymentPoint;
+	public int userNo;
+	public String rState;
 //	예약기본상태 O(default)
 //	예약승인 Y(comfirm)
 //	예약취소 X(cancle)
 //	예약완료 C(complete)
 	private String shopName;
+	private String userNick;
 	
 	public Reservation() {}
 
 	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
-			String pointYn, int paymentPoint, int userNo, String rState, String shopName) {
+			String pointYn, int paymentPoint, int userNo, String rState, String shopName, String userNick) {
 		super();
 		this.reservationNo = reservationNo;
 		this.shopNo = shopNo;
@@ -32,6 +33,7 @@ public class Reservation {
 		this.userNo = userNo;
 		this.rState = rState;
 		this.shopName = shopName;
+		this.userNick = userNick;
 	}
 
 	public int getReservationNo() {
@@ -114,14 +116,21 @@ public class Reservation {
 		this.shopName = shopName;
 	}
 
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationNo=" + reservationNo + ", shopNo=" + shopNo + ", reserveDate=" + reserveDate
 				+ ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn=" + pointYn
 				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + ", rState=" + rState + ", shopName="
-				+ shopName + "]";
+				+ shopName + ", userNick=" + userNick + "]";
 	}
 
-	
 	
 }
