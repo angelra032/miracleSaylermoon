@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
-import com.donzzul.spring.recommendboard.domain.RecommendBoardPage;
 import com.donzzul.spring.recommendboard.service.RecommendBoardService;
+import com.donzzul.spring.user.domain.User;
+import com.donzzul.spring.user.service.logic.UserServiceImpl;
 
 @Controller
 public class RecommendBoardController {
@@ -35,7 +39,7 @@ public class RecommendBoardController {
 	public ModelAndView recommendMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = reService.getListCount();
-		RecommendBoardPage pi = getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<RecommendBoard> reList = reService.selectAllRecommend(pi);
 		if(!reList.isEmpty()) {
 			mv.addObject("rList", reList).addObject("pi", pi);
@@ -46,32 +50,6 @@ public class RecommendBoardController {
 		return mv;
 	}
 	
-	// 페이지 객체 리턴
-	public RecommendBoardPage getPageInfo(int currentPage, int listCount) {
-		RecommendBoardPage pi = null;
-		int pageLimit = 5; // 한페이지당 보여줄 네비게이션 갯수
-		int boardLimit = 10;	// 한 페이지에서 보여줄 게시글의 갯수
-		
-		int maxPage;		// 전체페이지 중 가장 마지막 페이지
-		int startPage;		// 현재페이지에서 시작하는 첫번째 페이지
-		int endPage;		// 현재 페이지에서 끝나는 마지막 페이지
-		
-		// 일반적인 페이지 계산법 // 0.9의 이유 : 0.1로 나왔을 때 int변환하면 0이 되어버리기 때문에 이를 방지하기 위해서다.
-		maxPage = (int)((double) listCount/boardLimit + 0.9);
-		startPage = (((int)((double)currentPage/pageLimit + 0.9)) - 1) * pageLimit + 1;
-		endPage = startPage + pageLimit - 1;
-		
-		// 오류방지용
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
-		pi = new RecommendBoardPage(currentPage, boardLimit, pageLimit, startPage, endPage, listCount, maxPage);
-		return pi;
-	}
-	
-	
-	// 페이지 끝
 	
 	// 디테일 selectOne
 	@RequestMapping(value="recommendDetail.dz", method=RequestMethod.GET)
@@ -93,23 +71,29 @@ public class RecommendBoardController {
 	}
 	
 	// 글쓰기 올림 (사진파일추가) insert
-	@RequestMapping(value="recommendInsertForm.dz", method=RequestMethod.POST)
-	public ModelAndView recommendRegister(ModelAndView mv,  @RequestParam("recommendTitle") String recommendTitle, @RequestParam("recommendContent") String recommendContent) {
+	@ResponseBody
+	@RequestMapping(value="recommendInsertForm.dz", method= RequestMethod.POST)
+	public String recommendRegister(@ModelAttribute RecommendBoard recommendBoard,
+									HttpServletRequest request) {
+//		@RequestParam("recommendTitle") String recommendTitle, @RequestParam("recommendContent") String recommendContent
 //		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
 //		HttpServletRequest request, @ModelAttribute RecommendBoard recommendBoard,
-		RecommendBoard recommendBoard = new RecommendBoard(recommendTitle, recommendContent);
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+		recommendBoard.setUserType(user.getUserType());
+		recommendBoard.setRecommendWriter(user.getUserNick());
+		recommendBoard.setUserNo(user.getUserNo());
+		
+		System.out.println(user.toString());
 		System.out.println(recommendBoard.toString());
 		int result = 0;
-		String path = "";
 		result = reService.insertRecommend(recommendBoard);
 		if(result > 0) {
-			path="home";
+			return "success";
 		} else {
-			mv.addObject("msg", "가게추천 글쓰기 실패");
-			path="common/errorPage";
+			return "fail";
 		}
-		mv.setViewName(path);
-		return mv;
 	}
 	
 	// 파일

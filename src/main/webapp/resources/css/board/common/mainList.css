@@ -87,6 +87,7 @@
             .board-page-table td {
             }
             .board-page-table a { 
+            	color: #333333;
 	            display: block;
                 text-decoration: none;
             }
@@ -112,6 +113,8 @@
             position: relative;
             top: -140px;
             right: -450px;
+            width: 100px;
+    		margin-left: 680px;
         }
             #write-btn-area > button {
                 border: none;

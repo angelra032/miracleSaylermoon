@@ -43,6 +43,17 @@ main {
 	    top: -31px;
 	    left: 70px;
 	}
+
+
+/* 닉네임 */
+	.nick-area > label {
+		font-size : 18px;
+	}
+	.user-nick-area {
+		margin-left: 35px;
+		font-size : 16px;
+		display:inline-block;
+	}
 	
 .editor-area {
 	
@@ -67,3 +78,13 @@ main {
 	width : 500px;
 	margin-left: 440px;
 }
+
+
+/*공개여부선택*/
+.select-area > label:first-child {
+	font-size : 18px;
+	margin-right : 20px;
+}
+	.select-area > label:nth-of-type(2),.select-area > label:nth-of-type(3) {
+		margin-right : 20px;
+	}

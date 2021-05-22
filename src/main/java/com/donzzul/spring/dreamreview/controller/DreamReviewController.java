@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
-import com.donzzul.spring.dreamreview.domain.DreamReviewPage;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.logic.ShopServiceImpl;
@@ -36,7 +37,7 @@ public class DreamReviewController {
 	public ModelAndView dReviewMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = drService.getListCount();
-		DreamReviewPage pi = getPageInfo(currentPage,listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage,listCount);
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(pi);
 		System.out.println(drList.toString());
 		if(!drList.isEmpty()) {
@@ -50,40 +51,19 @@ public class DreamReviewController {
 		
 	}
 	
-		// 페이지 객체를 리턴해주는 메소드
-		// 한번만 생성하여 정보를 저장해서 가지고 있을수 있도록 하기위해 static 메소드로 만듬
-		public static DreamReviewPage getPageInfo(int currentPage, int listCount) {
-			DreamReviewPage pi = null;
-			int pageLimit = 5; // 한페이지당 보여줄 네비게이션 갯수
-			int boardLimit = 10;	// 한 페이지에서 보여줄 게시글의 갯수
-			
-			int maxPage;		// 전체페이지 중 가장 마지막 페이지
-			int startPage;		// 현재페이지에서 시작하는 첫번째 페이지
-			int endPage;		// 현재 페이지에서 끝나는 마지막 페이지
-			
-			// 일반적인 페이지 계산법 // 0.9의 이유 : 0.1로 나왔을 때 int변환하면 0이 되어버리기 때문에 이를 방지하기 위해서다.
-			maxPage = (int)((double) listCount/boardLimit + 0.9);
-			startPage = (((int)((double)currentPage/pageLimit + 0.9)) - 1) * pageLimit + 1;
-			endPage = startPage + pageLimit - 1;
-			
-			// 오류방지용
-			if(maxPage < endPage) {
-				endPage = maxPage;
-			}
-			
-			pi = new DreamReviewPage(currentPage, boardLimit, pageLimit, startPage, endPage, listCount, maxPage);
-			return pi;
-		}
 	
 	/// 리스트 끝
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmRviewNo") int drmRviewNo) {
+	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo) {
 		
-		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
-		int shopNo = drmReview.getShopNo();
-		System.out.println(shopNo);
+		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
+//		int shopNo = drmReview.getShopNo();
+//		Shop shop = new ShopServiceImpl().selectShopOne(shopNo);
+//		String shopName = shop.getShopName();
+//		System.out.println(shopName);
+//		System.out.println(shopNo);
 //		String shopName = new ShopServiceImpl().selectShopOne(shopNo).getShopName();
 //		System.out.println(shopName);
 		if(drmReview != null) {
@@ -102,24 +82,32 @@ public class DreamReviewController {
 	}
 	
 	
-	// 글쓰기 올림 (사진파일추가) insert
+	// 글쓰기 올림  insert
+	@ResponseBody
 	@RequestMapping(value="dReviewWriterForm.dz", method=RequestMethod.POST)
-	public ModelAndView dReviewRegister(ModelAndView mv, @ModelAttribute DreamReview dreamReview, @RequestParam("drmReviewPublicYN") String drmReviewPublicYN) {
-//		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
-		dreamReview.setShopNo('3'); // 임시 데이터(shopNo = 3)
+	public String dReviewRegister(@ModelAttribute DreamReview dreamReview, @RequestParam("drmReviewPublicYN") String drmReviewPublicYN, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+		dreamReview.setShopNo('3'); // 임시 데이터(shopNo = 3) 수정필요******************
 		dreamReview.setDrmReviewPublicYn(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
+		dreamReview.setDrmReviewWriter(user.getUserNick());
+		dreamReview.setUserType(user.getUserType());
+		dreamReview.setUserNo(user.getUserNo());
 		System.out.println(dreamReview.toString());
 		
 		//db
 		int result = 0;
 		result = drService.insertDreamReview(dreamReview);
 		if(result > 0) {
-			mv.setViewName("redirect:dReviewMain.dz");
+//			mv.setViewName("redirect:dReviewMain.dz");
+			return "success";
 		} else {
-			mv.addObject("msg", "감사후기 게시글 등록 실패").setViewName("common/errorPage");;
+			return "fail";
+//			mv.addObject("msg", "감사후기 게시글 등록 실패").setViewName("common/errorPage");
 		}
 		
-		return mv;
+//		return mv;
 	}
 	
 	// 삭제 delete
