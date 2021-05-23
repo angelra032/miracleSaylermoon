@@ -104,6 +104,7 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
+	
 	<update id="updateUserPoint">
 		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) - (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO= #{reservationNo})
         WHERE USER_NO = #{userNo}

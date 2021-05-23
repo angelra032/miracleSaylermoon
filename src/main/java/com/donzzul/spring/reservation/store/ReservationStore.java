@@ -30,7 +30,6 @@ public interface ReservationStore {
 	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi); // 가게별 "전체" 예약목록 불러오기
 	
 	
-	
 	public int updateReservation(int reservationNo); // 예약수정하기
 	public int deleteReservation(int reservationNo); // 예약삭제
 	public int complteReservation(int reservationNo); //예약완료하기

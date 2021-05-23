@@ -35,6 +35,7 @@ public class ReservationServiceImpl implements ReservationService{
 		return rStore.updateUserPoint(nReservation);
 	}
 	
+	
 	@Override
 	public int confirmRCount(Reservation reservation) {
 		return rStore.confirmRCount(reservation);

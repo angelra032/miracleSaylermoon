@@ -25,6 +25,7 @@
 					<a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
 				</div>
 			</div>
+			
 		</div>
 		<div class="my-list reserv-list">
 			<div class="frame">

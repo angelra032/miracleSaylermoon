@@ -40,6 +40,7 @@ public class DreamMyPageController {
 		}
 	}
 	
+	
 	// 예약 취소를 눌렀을때 예약 상태 변경하기
 	@RequestMapping(value="cancelReservation.dz")
 	public String deleteReservation(@RequestParam("reservationNo") int reservationNo, Model model) {

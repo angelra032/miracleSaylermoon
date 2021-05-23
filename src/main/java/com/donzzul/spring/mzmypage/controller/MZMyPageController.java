@@ -44,6 +44,7 @@ public class MZMyPageController {
 	}
 	
 	
+	
 	// 예약 전체 페이지보기
 	@RequestMapping(value = "mzReservationList.dz", method = RequestMethod.GET)
 	public ModelAndView MZReservationListView(HttpSession session,

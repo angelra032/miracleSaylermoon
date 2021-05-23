@@ -15,6 +15,7 @@
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
+				
 					<a class="info-btn" href="dreamMyPage.dz">돌아가기</a>
 				</div>
 			</div>

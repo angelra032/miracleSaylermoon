@@ -15,6 +15,7 @@
       <result property="userNick" column="USER_NICK"></result>
    </resultMap>
 
+
 	<insert id="insertRservation">
 		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo}, DEFAULT)
 	</insert>

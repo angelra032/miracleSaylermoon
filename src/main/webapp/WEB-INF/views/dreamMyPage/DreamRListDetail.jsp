@@ -18,6 +18,7 @@
 					<a class="info-btn" href="dreamMyPage.dz">돌아가기</a>
 				</div>
 			</div>
+			
 		</div>
 		<div class="my-list reserv-list">
 			<div class="frame">

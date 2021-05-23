@@ -28,7 +28,6 @@
             // will output something like 'Sat Sep 01 2018 00:00:00 GMT-XX:XX (Eastern Daylight Time)'
          }
       });
-
       calendar.render();
     });
 

@@ -19,6 +19,7 @@
 					<a class="info-btn" href="myINfo.dz ">나의 정보</a>
 					<a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
 				</div>
+				
 			</div>
 		</div>
 		<div class="my-list reserv-list">

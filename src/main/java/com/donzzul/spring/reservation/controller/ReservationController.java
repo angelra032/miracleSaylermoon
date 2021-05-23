@@ -35,6 +35,7 @@ public class ReservationController {
 		HttpSession session = request.getSession();
 		User userOne = (User)session.getAttribute("loginUser");
 
+		
 		Shop shop = new Shop();
 		shop.setShopNo(3);
 		shop.setStartTime("9");

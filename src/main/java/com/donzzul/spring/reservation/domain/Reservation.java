@@ -20,6 +20,7 @@ public class Reservation {
 	
 	public Reservation() {}
 
+	
 	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
 			String pointYn, int paymentPoint, int userNo, String rState, String shopName, String userNick) {
 		super();
