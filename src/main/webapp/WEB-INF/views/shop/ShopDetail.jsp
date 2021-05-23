@@ -5,38 +5,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopDetail.css">
 <title>가게 상세 페이지</title>
 </head>
 <body>
 
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-	
-	<main>
-		
-		<!-- 찜버튼, 예약, 돈쭐 버튼 전달값 -->
-		<input type="hidden" name="shopNo" value="${ shop.shopNo }">
 		
 		 <div class="header-background-area">
 		 	<!-- 가게 메인 이미지 가져오기 -->
-		 	<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
+		 	<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
 	   	</div>
-	   	
-		<div id="shop-title" class="shopTitle">
-			<span>${ shop.shopName }</span>
-			<span>${ shop.shopType }</span><br>
-			<span>${ shop.shopProduct }</span>
-		</div>
-
-		<!-- 사업자 회원 제외 찜버튼 활성화 -->
-		<c:if test="${ loginUser.userType != 3 }">		
-			<div id="pick-zone">
-				<!-- 세션 체크 하여 동작 -->
-				<!-- 세션 없을시 로그인 연결 -->
-				찜버튼!!
-				<span id="pick-button" onclick=""><img src="" alt="pick-button"></span>
+		<div id="shop-header">
+			<div id="shop-main-title">
+				<span>${ shop.shopName }</span>
+				<span id="shop-main-title-type">${ shop.shopType }</span><br>
+				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			</div>
-		</c:if>
+			
+			<!-- 사업자 회원 제외 찜버튼 활성화 -->
+			<c:if test="${ loginUser.userType != 3 }">		
+				<div id="pick-zone">
+					<!-- 세션 체크 하여 동작 -->
+					<!-- 세션 없을시 로그인 연결 -->
+					찜버튼!!
+					<input type="hidden" name="shopNo" value="${ shop.shopNo }">
+					<span id="pick-button" onclick=""><img src="" alt="pick-button"></span>
+				</div>
+			</c:if>
+		</div>
 		
+	<main>
 		<div class=frame>
 			<div class="shop-detail">
 				<div class="detailAll line1">
@@ -150,9 +150,9 @@
 
 				
 				<!-- 예약후기 -->
-				<div class="header-background-area">
+				<!-- <div class="header-background-area">
 				 	<img src="/resources/images/review-title.png" alt="shopMain">
-			   	</div>
+			   	</div> -->
 				
 				<div id="review-title" class="reviewTitle">
 					<span>예약후기</span>&nbsp;&nbsp;
@@ -161,25 +161,27 @@
 				
 				<div id="review-tab">
 					<ul>
-						<li><a href="#">전체후기</a></li>
-						<li><a href="#">감사후기</a></li>
-						<li><a href="#">맛집후기</a></li>
+						<li><a href="javascript:void(0);" onclick="shopReviewAll()">전체후기</a></li>
+						<li><a href="javascript:void(0);" onclick="drReviewAll()">감사후기</a></li>
+						<li><a href="javascript:void(0);" onclick="mzReviewAll()">맛집후기</a></li>
 					</ul>
 				</div>
 				
 				<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
-				 	<c:forEach items="${ drList }" var="dReview">
+				 	<c:forEach items="${ drList }" var="reviewAll">
 						<div class="review-list rContent">
 							<div class="rContent left">
 								<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
 							</div>
 							<div class="rContent right">
-								<span>후기제목</span>&nbsp;&nbsp;
-								<span>dReview.drmReviewTitle</span><br>
-								<span>후기타입</span>&nbsp;&nbsp;
+								<hr>
+								<span><b>후기제목</b></span>&nbsp;&nbsp;
+								<span>${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;&nbsp;&nbsp;
+								<span><b>/&nbsp;&nbsp;후기타입</b></span>&nbsp;&nbsp;
 								<span>감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
-								<span>후기내용</span><br>
-								<span>dReview.drmReviewContent</span><br>
+								<span><b>후기내용</b></span><br>
+								<span>${ reviewAll.drmReviewContent }</span><br>
+								<hr>
 							</div>
 						</div>
 					</c:forEach> 
