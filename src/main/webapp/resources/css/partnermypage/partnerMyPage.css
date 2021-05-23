@@ -175,6 +175,26 @@ main {
 .reserv-list table thead th:nth-child(5) {
 	width: 150px;
 }
+.select-rstate {
+	width: 120px;
+	height: 40px;
+	background-color: #0160ff;
+	margin: 0 auto;
+	line-height: 40px;
+	color:#fff;
+	border-radius: 3px;
+	font-size: 16px;
+	text-align: center;
+	border: 0;
+}
+option {
+	background-color: #fff;
+	margin: 0 auto;
+	color: black;
+	font-size: 16px;
+	text-align: center;
+	border: 0;
+}
 .reserv-btn {
 	display: block;
 	width: 120px;
