@@ -8,6 +8,12 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
+
+   div {
+    border : 1px solid pink;
+    box-sizing: border-box;
+}    
+
 body {
     margin: 0;
     font-family: 'Noto Sans KR', sans-serif;
@@ -19,8 +25,52 @@ a {
     text-decoration: none;
 }
 
-.mainTitle {
+/* 백그라운드 이미지 */
+.header-background-area {
+    width: 1903px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+    .header-background-area > img {
+        position: absolute;
+        z-index: -5;
+        display: block;
+        top: 0;
+        width: 1903px;
+        height: 378px;
+        align: center;
+        object-fit:cover; 
+        filter: brightness(60%);
+    }
+
+#shop-header {
+	width: 1903px;
+	height: 278px;
+}
+
+#shop-main-title {
+    width: 80%;
+    height: 278px;
+    font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #ffffff;
+    text-align: left;
+    position: absolute;
+	padding-left: 300px;
+	top: 101px;
+    line-height: 4.7;
+    z-index: -2;
+}
 	
+	#shop-main-title-type {
+		font-size: 19px;
+    	font-family: 'Noto Sans KR', sans-serif;
+	}
+
+#pick-zone {
+	width: 10%;
+	height: 278px;
+	text-align: center;
 }
     
 .frame {

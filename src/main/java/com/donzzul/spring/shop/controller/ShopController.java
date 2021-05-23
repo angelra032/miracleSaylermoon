@@ -19,8 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
-import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll; 
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
@@ -35,7 +33,11 @@ public class ShopController {
 
 	@Autowired
 	private ShopService sService;
+	
+	@Autowired
 	private MzReviewService mzService;
+	
+	@Autowired
 	private DreamReviewService drService;
 	
 	//D 지도 - 지역별 화면단 출력 +++
@@ -62,20 +64,6 @@ public class ShopController {
 		
 		return mv;
 	}
-	
-	// Json
-//	public void searchShopMapJson(@RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
-//		int currentPage = (page != null) ? page : 1; // 삼항연산자
-//		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
-//		System.out.println(page);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
-//		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
-//		HashMap<String, Object> hashMap = new HashMap<String, Object>();
-//		hashMap.put("pi", pi);
-//		hashMap.put("mList", mapList);
-//		Gson gson = new Gson();
-//		gson.toJson(hashMap, response.getWriter());
-//	}
 	
 	//D 지도 - 지역별 가게 키워드 검색
 	@RequestMapping(value="mapSearchKey.dz", method=RequestMethod.GET)
@@ -136,15 +124,14 @@ public class ShopController {
 		// 전체 후기 가져오기
 //		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
 		
-		// 꿈나무 후기 테스트
-//		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
-//		System.out.println(drList.toString());
-		
+		// 감사 후기 가져오기
+		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
+		System.out.println(drList.toString());
 		mv.addObject("shop", shop);
 //		mv.addObject("mainMenu", mainMenu);
 //		mv.addObject("mPhoto", mPhoto);
 //		mv.addObject("rList", rList);
-//		mv.addObject("drList", drList);
+		mv.addObject("drList", drList);
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
@@ -157,6 +144,22 @@ public class ShopController {
 //		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
 		return "";
 	}
+	
+	
+	
+	// Json
+//	public void searchShopMapJson(@RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
+//		int currentPage = (page != null) ? page : 1; // 삼항연산자
+//		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
+//		System.out.println(page);
+//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
+//		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
+//		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+//		hashMap.put("pi", pi);
+//		hashMap.put("mList", mapList);
+//		Gson gson = new Gson();
+//		gson.toJson(hashMap, response.getWriter());
+//	}
 	
 //	// 각각 후기 패키지에 포함 xxxxxx
 //	//D 감사후기 가져오기
