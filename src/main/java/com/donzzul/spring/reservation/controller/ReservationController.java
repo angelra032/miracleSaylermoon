@@ -71,13 +71,15 @@ public class ReservationController {
 									) {
 		int rResult = service.insertReservation(reservation);
 		int pResult = 0;
-		
+		System.out.println("여기까지는 왔니");
 		if(paymentPoint > 0) {
-			int point = userPoint - paymentPoint;
-			User user = new User();
-			user.setUserNo(userNo);
-			user.setUserPoint(point);
-			pResult = service.updateUserPoint(user);
+			System.out.println("if문");
+			int sequenceNo = service.getReservNo(userNo);
+			System.out.println(reservation.toString());
+			System.out.println(sequenceNo);
+		
+			pResult = service.updateUserPoint(sequenceNo);
+			System.out.println(pResult);
 		}
 		
 		if( rResult > 0) {

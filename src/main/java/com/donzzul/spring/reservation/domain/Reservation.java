@@ -11,10 +11,10 @@ public class Reservation {
 	public int paymentPoint;
 	public int userNo;
 	public String rState;
-//	예약기본상태 O(default)
-//	예약승인 Y(comfirm)
-//	예약취소 X(cancle)
-//	예약완료 C(complete)
+//	예약기본상태 O(default) 사용자가 예약을 넣으면 예약에 이 값이 들어갑니다..
+//	예약승인 Y(comfirm) // 사업자가 예약을 승인하면 이 값이 사용자에게 넘어갑니다..
+//	예약취소 X(cancle) // 사용자가 취소하면 이 값이 사업자에게 넘어갑니다.. or 사업자가 취소하면 이 값이 사업자에게 넘어갑니다...
+//	예약완료 C(complete) //  사업자가 예약 완료를 누르면  이 값이 사용자에게 넘어가 후기 남기는 버튼이 활성화됩니다...
 	private String shopName;
 	private String userNick;
 	

@@ -19,8 +19,23 @@
 		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo}, DEFAULT)
 	</insert>
 	
+	<select id="getReserveNo" resultType="_int">
+		SELECT MAX(RESERVATION_NO) FROM RESERVATION WHERE USER_NO=#{userNo}
+	</select>
+	
 	<select id="selectOneByRno" resultMap="reservationResultMap">
-		SELECT * FROM RESERVATION WHERE RESERVATION_NO = #{reservationNo}
+		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) - (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO= #{reservationNo})
+        WHERE USER_NO = 1
+	</select>
+	
+	<select id="confirmRCount" resultType="_int">
+		SELECT SH.SHOP_MAX_RESERVATION - (SELECT NVL(SUM(RE.RESERVE_COUNT),0)
+                                    FROM RESERVATION RE
+                                    WHERE RE.SHOP_NO = SH.SHOP_NO
+                                    AND RE.RESERVE_DATE = #{reserveDate}
+                                    AND RE.RESERVE_TIME = #{reserveTime}) AS CNT
+                                    
+		FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
 	</select>
 	
 	<update id="cancleReservation">

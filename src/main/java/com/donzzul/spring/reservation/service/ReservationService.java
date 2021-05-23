@@ -12,7 +12,8 @@ public interface ReservationService {
 
 	// insert / select(by~~) / delete / update 
 	public int insertReservation(Reservation reservation); //예약하기
-	public int updateUserPoint(User user);  // 예약할때 유저 포인트 삭감하기
+	public int getReservNo(int userNo); // 예약 시퀀스 번호 가져오기
+	public int updateUserPoint(int sequenceNo);  // 예약할때 유저 포인트 삭감하기
 	public int confirmRCount(Reservation reservation); // 예약할때 가능한 인원 체크하기
 	
 	public ArrayList<Reservation> rListByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기

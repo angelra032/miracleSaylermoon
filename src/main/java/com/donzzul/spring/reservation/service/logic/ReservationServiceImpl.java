@@ -24,10 +24,15 @@ public class ReservationServiceImpl implements ReservationService{
 	public int insertReservation(Reservation reservation) {
 		return rStore.insertReservation(reservation);
 	}
+	
+	@Override
+	public int getReservNo(int userNo) {
+		return rStore.getReservNo(userNo);
+	}
 
 	@Override
-	public int updateUserPoint(User user) {
-		return rStore.updateUserPoint(user);
+	public int updateUserPoint(int sequenceNo) {
+		return rStore.updateUserPoint(sequenceNo);
 	}
 	
 	@Override
@@ -86,7 +91,7 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public Reservation selectOne(int reservationNo) {
 		Reservation reservation = rStore.selectOne(reservationNo);
-		System.out.println("서비스임플"+reservation);
+		System.out.println("selectOne서비스임플"+reservation);
 		return reservation;
 	}
 	
@@ -133,7 +138,4 @@ public class ReservationServiceImpl implements ReservationService{
 		return 0;
 	}
 
-
-	
-	
 }

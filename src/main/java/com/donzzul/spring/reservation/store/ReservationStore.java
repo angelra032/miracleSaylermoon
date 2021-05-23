@@ -12,7 +12,8 @@ public interface ReservationStore {
 
 	
 	public int insertReservation(Reservation reservation); //예약하기
-	public int updateUserPoint(User user); // 예약할때 유저 포인트 삭감하기
+	public int getReservNo(int userNo); // 예약번호 시퀀스 가져오기
+	public int updateUserPoint(int sequenceNo); // 예약할때 유저 포인트 삭감하기
 	public int confirmRCount(Reservation reservation); // 예약할때 예약 가능 인원 확인
 	
 	
