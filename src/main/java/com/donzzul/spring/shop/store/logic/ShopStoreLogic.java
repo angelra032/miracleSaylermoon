@@ -33,6 +33,11 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
+	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectMapKeyword", searchKeyword);
+	}
+
+	@Override
 	public ArrayList<Shop> searchShop(String searchKeyWord) {
 		// TODO Auto-generated method stub
 		return null;
@@ -68,11 +73,6 @@ public class ShopStoreLogic implements ShopStore {
 	
 	public int selectKeyListCount(String searchKeyword) {
 		return sqlSession.selectOne("shopMapper.selectListCountKey", searchKeyword);
-	}
-
-	@Override
-	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
-		return (ArrayList)sqlSession.selectList("shopMapper.selectMapKeyword", searchKeyword);
 	}
 
 }

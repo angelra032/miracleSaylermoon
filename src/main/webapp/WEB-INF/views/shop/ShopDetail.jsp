@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,24 +10,147 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-	 <div class="header-background-area">
-        	<img src="/resources/images/searchShop-bg.png" alt="뒷배경이미지">
-   	</div>
-	<div id="main-title" class="mainTitle">진짜파스타</div>
-	<h1>세션 확인 필수!!!</h1>
-	<h3>'예약하기','돈쭐내기','목록으로'</h3>
-	<h3>1. 일반회원 = '예약하기','돈쭐내기','목록으로'</h3>
-	<h3>2. 비회원 = '예약하기','돈쭐내기','목록으로' 클릭시 로그인 화면 연결</h3>
-	<h3>3. 꿈나무 = '예약하기','목록으로'</h3>
-	<h3>4. 사업자회원 = '목록으로'</h3>
-	
-	<h1>리뷰 목록 조회 - Ajax</h1>
-	<h3>더보기 버튼을 누르면 계속해서 후기글 보이는 형태</h3>
-	<h3>최신순 정렬</h3>
 	
 	<main>
+	
+		 <div class="header-background-area">
+		 	<!-- 가게 메인 이미지 가져오기 -->
+		 	<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
+	   	</div>
+	   	
+		<div id="shop-title" class="shopTitle">
+			<span>${ sInfo.shopName }</span>
+			<span>${ sInfo.shopType }</span><br>
+			<span>${ sInfo.shopProduct }</span>
+		</div>
+		
 		<div class=frame>
-			
+			<div class="shop-detail">
+				<div class="detailAll line1">
+					<div class="detail-left">휴무일</div>
+					<div class="detail-right">${ sInfo.businessDay }</div>
+				</div>
+				
+				<div class="detailAll line2">
+					<div class="detail-left">영업시간</div>
+					<div class="detail-right">${ sInfo.startTime }:00 - ${ sInfo.endTime }:00</div>
+				</div>
+				
+				<div class="detailAll line3">
+					<div class="detail-left">대표메뉴</div>
+					<div class="detail-right">
+						<div class="detail-right menu-list">${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }</div>
+						<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+							<img src="" alt="menuImg">
+							<%-- ${ mPhoto.menuFileName } --%>
+						</div> 
+					</div>
+				</div>
+				
+				<div class="detailAll line4">
+					<div class="detail-left">주차여부</div>
+					<div class="detail-right">
+						<c:if test="${ sInfo.shopParking eq 'Y' }">
+							주차가능
+						</c:if>
+						<c:if test="${ sInfo.shopParking eq 'N' }">
+							주차불가
+						</c:if>
+					</div>
+				</div>
+				
+				<div class="detailAll line5">
+					<div class="detail-left">상세내용</div>
+					<div class="detail-right">${ sInfo.shopContent }</div> <!-- 최대 몇글자? -->
+				</div>
+				
+				<div class="detailAll line6">
+					<div class="detail-left">연락처</div>
+					<div class="detail-right">${ sInfo.shopPhone }</div>
+				</div>
+				
+				<div class="detailAll line7">
+					<div class="detail-left">주소</div>
+					<div class="detail-right">${ sInfo.shopAddr }</div>
+				</div>
+				
+				<div id="map"></div>
+				
+				<div class="detailAll buttons">
+					<!-- 회원별 버튼 생성 -->
+					<c:if test="${ !empty loginUser }">
+						<!-- 꿈나무회원 -->
+						<c:if test="${ loginUser.userType == 1 }">
+							<ul>
+								<li><a href="#">예약하기</a></li>
+								<li><a href="#">목록으로</a></li>
+							</ul>
+						</c:if>
+						
+						<!-- mz -->
+						<c:if test="${ loginUser.userType == 2 }">
+							<ul>
+								<li><a href="#">예약하기</a></li>
+								<li><a href="#">돈쭐내기</a></li>
+								<li><a href="#">목록으로</a></li>
+							</ul>
+						</c:if>
+						
+						<!-- 사업자 -->
+						<c:if test="${ loginUser.userType == 3 }">
+							<ul>
+								<li><a href="#">목록으로</a></li>
+							</ul>
+						</c:if>
+					
+					</c:if>
+					
+					<!-- 비회원 : 로그인 연결 -->
+					<c:if test="${ empty loginUser }">
+						<ul>
+							<li><a href="#">예약하기</a></li>
+							<li><a href="#">돈쭐내기</a></li>
+							<li><a href="#">목록으로</a></li>
+						</ul>
+					</c:if>
+				</div>
+
+				
+				<!-- 예약후기 -->
+				<div class="header-background-area">
+				 	<img src="/resources/images/review-title.png" alt="shopMain">
+			   	</div>
+				
+				<div id="review-title" class="reviewTitle">
+					<span>예약후기</span>&nbsp;&nbsp;
+					<span>솔직하고 따뜻한 후기</span>
+				</div>
+				
+				<div id="review-tab">
+					<ul>
+						<li><a href="#">전체후기</a></li>
+						<li><a href="#">감사후기</a></li>
+						<li><a href="#">맛집후기</a></li>
+					</ul>
+				</div>
+				
+				<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
+					<div class="review-list rContent">
+						<div class="rContent left">
+							<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
+						</div>
+						<div class="rContent right">
+							<span>후기제목</span>
+							<span>후기타입</span> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
+							<span>후기내용</span>
+						</div>
+					</div>
+					<div class="review-list showMoreReply">
+						<!-- 클릭시 나올 후기 갯수 -->
+						<input type="button" id="moreReply" onclick="">더보기
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
 	
