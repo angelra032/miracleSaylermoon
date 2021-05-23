@@ -20,8 +20,8 @@
 				<a class="refund-btn" href="#">환급신청</a>
 				<div class="info-btn-frame">
 					<a class="info-btn" href="#">가게 수정</a> <!-- 등록/수정 -->
-					<a class="info-btn" href="#">나의 정보</a>
-					<a class="info-btn" href="#">탈퇴 요청</a>
+					<a class="info-btn" href="myINfo.dz">나의 정보</a>
+					<a class="info-btn" href="userWritePwView.dz">탈퇴 요청</a> <!-- 사업자userDeleteRequest.dz -->
 				</div>
 			</div>
 		</div>
@@ -50,7 +50,6 @@
 								<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
 								<td>${reservation.reserveCount }</td>
 								<td>${reservation.reserveDate }</td>
-								<td>${reservation.rState }</td>
 								<td>
 									<form action="" method="post" id="state-form">
 										<select name="rState" class="select-rstate" id="rState">
@@ -60,9 +59,10 @@
 										</select>
 									</form>
 								</td>
-								
+								<%-- 
+								<td>${reservation.rState }</td>
 								<td><a class="reserv-btn" href="#">예약취소</a></td>
-								
+								 --%>
 							</tr>
 						</c:forEach>
 						<%-- <c:forEach items="${rList }" var="reservation">

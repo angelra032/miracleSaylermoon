@@ -22,72 +22,102 @@ h1{
 	padding: 50px;
 	
 }          
-h2 {
-	font-size:28px;
-	text-align:center;
-}
 input[type=radio]{
 	display: none;
 	margin: 0px;
 }
 
+/* 헤더 */
+#main-title {
+	-- 끝에 맞추기;
+}
+#main-title-shop {
+	font-size: 20px;
+}
+
 /* 메인 */
 .frame {
+	background-color: beige;
 	width:1270px;
 	height:823px;
 	margin:0 auto;
-}
-#form{
-	background-color: beige;
 	margin-top: 140px;
 	margin-bottom: 140px;
-	border: 1px solid black;
-	width: auto;
-	height: auto; 
 }
-	.payment {
-		width: 33%;
-		height: 600px;
+	#lay1 {
 		float: left;
+		width: 410px;
+		height: 566px;
+		border: solid 1px #fdb504;
+		background-color: #ffffff;
+		margin-right: 20px;
 	}
-	/* .menu-choice {
-		display: inline-block;
-		border: 1px solid black;
-		
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		font-size: 20px;
-		text-align: center;
+		.lay-title {
+			width: 410px;
+			height: 60px;
+			background-color: #fdb504;
+			margin: 0 auto;
+			font-size: 28px;
+			text-align:center;
+			color: #fff;
+			line-height: 60px;
+			font-weight: 600;
+		}/* 
+	.title-span {
+		font-size:28px;
+		text-align:center;
 	} */
-	.menu-choice input[type=radio] + span{
-		display: inline-block;
-		--border: 1px solid black;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		font-size: 20px;
-		text-align: center;
-		background: #fff;
+	#lay2 {
+		float: left;
+		width: 410px;
+		height: 567px;
+		border: solid 1px #fdb504;
+		background-color: #ffffff;
+		margin-right: 20px;
 	}
-	.menu-choice input[type=radio]:checked + span{
-		display: inline-block;
-		--border: 1px solid black;
-		width: 100%;
-		height: 50px;
-		line-height: 50px;
-		font-size: 20px;
-		text-align: center;
-		background: #fdb504;
-		font-weight: bold;
+	#lay3 {
+		float: left;
+		width: 410px;
+		height: 566px;
+		border: solid 1px #fdb504;
+		background-color: #ffffff;
 	}
+		.menu-choice input[type=radio] + span{
+			display: inline-block;
+			height: 60px;
+			line-height: 58px;
+			font-size: 20px;
+			text-align: center;
+			width: 409px;
+			border-bottom: solid 1px #fdb504;
+			background-color: #ffffff;
+		}
+		.menu-choice input[type=radio]:checked + span{
+			display: inline-block;
+			width: 409px;
+			height: 60px;
+			line-height: 58px;
+			font-size: 20px;
+			text-align: center;
+			background: rgba(253, 181, 4, 0.3);
+			font-weight: bold;
+		}
 	
-		.lay2{
-			border: 1px solid black; 
-			height: 50%;
+	.lay2{
+		--border: 1px solid black; 
+		height: 50%;
+	}
+		#lay2-1 {
+			height : 240px;
+		}
+		#lay2-2 {
+			height : auto;
 		}
 			.amount{
 				text-align: center;
+			}
+			.amount-btn-div {
+				margin-top: 60px;
 			}
 				input[type=radio]{
 					display: none;
@@ -95,43 +125,39 @@ input[type=radio]{
 				}
 				.amount-btn input[type=radio] + span{
 					display: inline-block;
-					border: 1px solid black;
-					width: 130px;
-					height: 50px;
-					border-radius: 5px;
-					line-height: 50px;
+					line-height: 58px;
 					font-size: 20px;
+					width: 111px;
+					height: 61px;
+					border: solid 1px #fdb504;
+					background-color: #ffffff;
 				}
 				.amount-btn input[type=radio]:checked + span{
 					display: inline-block;
-					--border: 1px solid black;
-					width: 130px;
-					height: 50px;
-					border-radius: 5px;
-					line-height: 50px;
+					line-height: 58px;
 					font-size: 20px;
 					text-align: center;
-					background: #fdb504;
 					font-weight: bold;
+					width: 111px;
+					height: 61px;
+					border: solid 1px #fdb504;
+					background-color: #ffe9b4;
 				}
 
 			.point {
 				font-size: 20px;
-				--margin-bottom: 10px;
-				--display: inline-block;
 			}
 				#lay2-point-div {
 					width: 340px;
 					margin: 0 auto;
+					margin-top: 45px;
 					line-height: 35px;
-					font-weight: bold;
 					text-align: center;
 				}
 					#userPoint {
 						width: 140px;
 						height: 25px;
 						font-size: 16px;
-						--display: none;
 					}
 					#usePoint {
 						width: 140px;
@@ -140,33 +166,29 @@ input[type=radio]{
 					}
 
 				#pSubmit {
-					width: 100px;
-					height: 40px;
-					--margin-left: 125px;
-					--margin-top: 25px;
 					margin: 0 auto;
 					display: block;
-					background-color:#fdb504;
-					color: #fff;
+					color: black;
 					border:0;
 					font-size: 18px;
 					font-weight: 600;
-					cursor:pointer;
+					width: 200px;
+					height: 40px;
+					border-radius: 3px;
+					border: solid 1px #fdb504;
+					background-color: #ffffff;
 				}
 
 		.lay3 {
 			font-size: 20px;
 		}
 			#lay3-payment-result{
-				--background-color: blue;
 				width: 300px;
 				margin: 0 auto;
-				--margin-left: 55px;
+				margin-top: 60px;
 				line-height: 35px;
-				font-weight: bold;
 			}
 			#lay3-payment-result input{
-				--text-align: right;
 				float: right;
 				width: 140px;
 				height: 25px;
@@ -177,16 +199,19 @@ input[type=radio]{
 
 		/* 폼 전송버튼 */
 		#payment-btn {
-			width: 150px;
-			height: 40px;
 			margin: 0 auto;
 			display: block;
-			background-color:#fdb504;
 			color: #fff;
 			border:0;
-			font-size: 18px;
+			font-size: 24px;
 			font-weight: 600;
 			cursor:pointer;
+			text-align: center;
+			
+			width: 330px;
+			height: 60px;
+			margin: 103px 39px 0 41px;
+			background-color: #fdb504;
 		}
 
 
