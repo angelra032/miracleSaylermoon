@@ -19,6 +19,7 @@ public interface UserStore {
 	public int insertMzUser(User user);
 	public int insertPartnerUser(User user);
 	public int updateMzUser(User user);
+	public int updatePartnerUser(User user);
 	public int deleteUser(int userNo);
 	public int checkPwDup(HashMap<String, String> map);
 	public int deleteRequestUser(int userNo);

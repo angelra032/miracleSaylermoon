@@ -22,7 +22,7 @@
 				<div class="content-body">
 					<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '1'}">
 						<div id="dreamEnrollView" class="tab-content current">
-							<form action="dreamModify.dz" method="post">
+							<form action="mzModify.dz" method="post"> <!-- 일반회원이랑 수정양식 같아서 통일 -->
 								<div class="form-head">
 									아이디&nbsp;
 									<span class="required">*</span>&nbsp;&nbsp;
@@ -205,7 +205,7 @@
 									<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 								</div>
 								<div class="form-body">
-									<input name="userPhone" id="pphoneelem" class="form-elem phoneelem" type="tel" maxlength="12" placeholder="숫자만 입력" value="${ loginUser.userPhone }">
+									<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="12" placeholder="숫자만 입력" value="${ loginUser.userPhone }">
 								</div>
 								
 								<div class="form-head form-head2">
@@ -353,27 +353,11 @@
 			      return str;
 			}
 	
-			/* var phoneNum = document.getElementById('phoneelem');
-	
-			phoneNum.onkeyup = function(){
-			  console.log(this.value);
-			  this.value = autoHypenPhone( this.value ) ;  
-			}
-			
-			//mz휴대폰번호
-			var mzphoneNum = document.getElementById('mzphoneelem');
-			
-			mzphoneNum.onkeyup = function(){
-			  console.log(this.value);
-			  this.value = autoHypenPhone( this.value ) ;  
-			}  */
-			////////////////mz휴대폰번호끝
-			
 			// 중복(2) - 이미 등록된 번호입니다
 			var userPhone = $(".phoneelem");
 			$(".phoneelem").on("keyup", function() {
 				console.log(userPhone.val());
-				this.val() = autoHypenPhone(userPhone.val()) ;  
+				$(this).val(autoHypenPhone($(this).val())) ;  
 				$('.phonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhone.dz",
@@ -433,13 +417,39 @@
 			  
 			      return str;
 			}
-	
-			/* var pphoneNum = document.getElementById('pphoneelem');
-	
-			pphoneNum.onkeyup = function(){
-			  console.log(this.value);
-			  this.value = autoHypenPPhone( this.value ) ;  
-			} */
+
+			var userPhone = $(".pphoneelem");
+			$(".pphoneelem").on("keyup", function() {
+				console.log(userPhone.val());
+				$(this).val(autoHypenPPhone($(this).val())) ;  
+				$('.phonenoti').css('display', 'none');
+				$.ajax({
+					url : "dupPhone.dz",
+					data : { "userPhone" : userPhone.val() },
+					success : function(result) {
+						if(result != 0){
+							$('.phone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
+							$('.phone_noti_2').css('display', 'block');
+							$('.pphoneelem').css('border', '1px solid #ff5442');
+						}else {
+							$('.phonenoti').css('display', 'none');
+							$('.pphoneelem').css('border', '0');
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
+			});
+			// 안적었을때(0) - 휴대폰번호를입력해주세요
+			$(".pphoneelem").on("blur", function() {
+				if (userPhone.val() =="") {
+					$('.phonenoti').css('display', 'none');
+					$('.phone_noti_0').css('color', '#ff5442');
+					$('.phone_noti_0').css('display', 'block');
+					$('.pphoneelem').css('border', '1px solid #ff5442');
+				}
+			});
 			
 			// 이메일 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			var userEmail = $(".emailelem");
@@ -480,14 +490,14 @@
 			});
 			
 			///////////////제출버튼@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			$('.submit-btn').click(function() {
-				var rtn = true;
+			$('.submit-btn').click(function() { //제출버튼을 클릭하면
+				var rtn = true; // 원래 트루였던 rtn이
 				
 				//비밀번호
 				if (userPwd.val() =="") {
-					alert("비밀번호를 입력해주세요.");
+					alert("비밀번호를 입력해주세요."); // 빈칸인 비밀번호를 만나
 					userPwd.focus();
-					rtn = false;
+					rtn = false; // false가 되고
 				}else if (!regExpPw.test(userPwd.val())) {
 					alert("비밀번호가 올바르지 않습니다. 다시 입력해주세요.");
 					userPwd.focus();
@@ -509,18 +519,7 @@
 					rtn = false;
 				} 
 				
-				//사업자명
-				else if (userPName.val() =="") {
-					alert("사업자명을 입력해주세요.");
-					userPName.focus();
-					rtn = false;
-				}else if(userPName.length != 0 && !regExpPName.test(userPName.val())){
-					alert("사업자명이 올바르지 않습니다. 다시 입력해주세요.");
-					userPName.focus();
-					rtn = false;
-				}
-				
-				//간이사업자명//////////////////////이름경고창은 왜나오는 걸까요?
+				//간이사업자명/////////////////////
 				else if (userSimpleName.val() =="") {
 					alert("간이사업자명을 입력해주세요.");
 					userSimpleName.focus();
@@ -530,58 +529,6 @@
 					userSimpleName.focus();
 					rtn = false;
 				}
-				
-				///카드번호
-				$.ajax({
-					url : "dupCard.dz",
-					type : "get",
-					async: false,
-					data : { "userName" : userName.val(), "dreamCardno" : dreamCardno.val() },
-					success : function(result) {
-						if (userCard.val() =="") {
-							alert("카드번호를 입력해주세요.");
-							userCard.focus();
-							rtn = false;
-						}else if(result == 0){
-							alert("유효하지 않은 카드번호입니다. 카드번호를 다시 입력해주세요.");
-							userCard.focus();
-							rtn = false;
-						}else if(result == 1){
-							alert("이미 존재하는 카드번호입니다. 카드번호를 다시 입력해주세요.");
-							userCard.focus();
-							rtn = false;
-						}
-					},
-					error : function() {
-						console.log("전송실패");
-					}
-				});
-				
-				//닉네임
-				$.ajax({
-					url : "dupNick.dz",
-					type : "get",
-					data : { "userNick" : userNick.val()},
-					success : function(result) {
-						if (userNick.val() =="") {
-							alert("닉네임을 입력해주세요.");
-							userNick.focus();
-							rtn = false;
-						}else if(result != 0){
-							alert("이미 사용중인 닉네임입니다. 다시 입력해주세요.");
-							userNick.focus();
-							rtn = false;
-						}else if(!regExpNick.test(userNick.val())){
-							alert("닉네임이 올바르지 않습니다. 다시 입력해주세요.");
-							userNick.focus();
-							rtn = false;
-						}
-					},
-					error : function() {
-						console.log("전송실패");
-					}
-				});
-				
 				
 				///휴대폰번호
 				$.ajax({
@@ -596,28 +543,6 @@
 						}else if(result != 0){
 							alert("이미 등록된 휴대폰번호입니다. 다시 입력해주세요.");
 							userPhone.focus();
-							rtn = false;
-						}
-					},
-					error : function() {
-						console.log("전송실패");
-					}
-				});
-				// 사업자 연락처
-				
-				/// 사업자번호
-				$.ajax({
-					url : "dupPveri.dz",
-					data : { "partnerVerify" : userPVeri.val() },
-					async: false,
-					success : function(result) {
-						if (userPVeri.val() =="") {
-							alert("사업자번호를 입력해주세요.");
-							userPVeri.focus();
-							rtn = false;
-						}else if(result != 0){
-							alert("이미 등록된 사업자번호입니다. 다시 입력해주세요.");
-							userPVeri.focus();
 							rtn = false;
 						}
 					},
@@ -651,10 +576,10 @@
 					}
 				});
 				
-				return rtn;
+				return rtn; //리턴이 됩니다
 			});
-			
 		});
+			
 			
 </script>
 </html>
