@@ -212,6 +212,7 @@ public class UserController {
 			return "user/userMyInfo";
 		
 	}
+	
 		
 	// 일반회원정보수정
 	@RequestMapping(value = "mzModify.dz", method = RequestMethod.POST)
@@ -227,6 +228,21 @@ public class UserController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 사업자회원정보수정
+		@RequestMapping(value = "partnerModify.dz", method = RequestMethod.POST)
+		public String partnerUserUpdate(@ModelAttribute User user,
+									Model model,
+									HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			int result = service.updatePartnerUser(user);
+			if (result > 0) {
+				session.setAttribute("loginUser", user);
+				return "partnerMyPage/partnerMyPage";
+			}else {
+				return "common/errorPage";
+			}
+		}
 	
 	//회원탈퇴전 비밀번호 입력뷰
 		@RequestMapping(value = "userWritePwView.dz", method = RequestMethod.GET)

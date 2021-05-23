@@ -91,12 +91,18 @@ public class UserServiceImpl implements UserService {
 		return store.checkLoginDup(map);
 	}
 
-
+	// 일반회원정보수정
 	@Override
 	public int updateMzUser(User user) {
 		return store.updateMzUser(user);
 	}
 
+	// 사업자회원정보수정
+	@Override
+	public int updatePartnerUser(User user) {
+		return store.updatePartnerUser(user);
+	}
+	
 	//회원탈퇴
 	@Override
 	public int deleteUser(int userNo) {
@@ -139,6 +145,8 @@ public class UserServiceImpl implements UserService {
 	public int resetPw(HashMap<String, String> map) {
 		return store.resetPw(map);
 	}
+
+	
 
 	
 
