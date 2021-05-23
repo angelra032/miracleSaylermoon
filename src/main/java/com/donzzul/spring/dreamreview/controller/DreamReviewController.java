@@ -77,7 +77,8 @@ public class DreamReviewController {
 	
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="dReviewWriteView.dz", method=RequestMethod.GET)
-	public String dReviewWriteView() {
+	public String dReviewWriteView(@RequestParam("shopNo") int shopNo,Model model) {
+		model.addAttribute("shopNo", shopNo);
 		return "board/drmReview/dReviewInsertForm";
 	}
 	
@@ -89,7 +90,6 @@ public class DreamReviewController {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		
-		dreamReview.setShopNo('3'); // 임시 데이터(shopNo = 3) 수정필요******************
 		dreamReview.setDrmReviewPublicYn(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
 		dreamReview.setDrmReviewWriter(user.getUserNick());
 		dreamReview.setUserType(user.getUserType());
