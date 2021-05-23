@@ -130,82 +130,61 @@ public class RecommendBoardController {
 //		return jsonObject;
 //	}
 	
-	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
-		JsonObject jsonObject = new JsonObject();
-		// 내부경로로 저장
-//		String contextRoot = request.getSession().getServletContext().getRealPath("/");
-//		String fileRoot = contextRoot+"resources/fileupload/";
-		String fileRoot = "C:/Users/dlwnd/git/donjjul/src/main/webapp/resources/fileupload/";	//저장될 외부 파일 경로
-		
-		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-		
-		File targetFile = new File(fileRoot + savedFileName);	
-		try {
-			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/summernote/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-			jsonObject.addProperty("responseCode", "success");
-				
-		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-			jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
-		}
-		String a = jsonObject.toString();
-		return a;
-	}
-	
-	@RequestMapping(value="/summernote/imageView.dz")
-	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response) throws Exception {
-		OutputStream out = response.getOutputStream();
-        FileInputStream fis = null;
- 
-        try {
-            fis = new FileInputStream("C:/Users/dlwnd/git/donjjul/src/main/webapp/resources/fileupload/"+imgName);
-            FileCopyUtils.copy(fis, out);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
-            }
-            out.flush();
-        }
-	}
-	
-	// 파일
-//	public String saveFile(MultipartFile file, HttpServletRequest request) {
-//		// 파일 저장 경로 설정
-//		String root = request.getSession().getServletContext().getRealPath("resources");
-//		String savePath = root + "\\nuploadFiles";
-//		// 저장 폴더 선택
-//		File folder = new File(savePath);
-//		// 폴더가 없을 경우 자동 생성
-//		if(!folder.exists()) {
-//			folder.mkdir();
-//		}
-//		String filePath = folder + "\\" + file.getOriginalFilename();
-//		// 파일저장
+	//***************************************************이미지완료 (지우지말자!!
+//	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
+//	@ResponseBody
+//	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+//		JsonObject jsonObject = new JsonObject();
+//		// 내부경로로 저장
+//		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
+//		String fileRoot = contextRoot+"\\fileupload\\";
+////		String fileRoot = "C:/Users/dlwnd/git/donjjul/src/main/webapp/resources/fileupload/";	//저장될 외부 파일 경로
+//		
+//		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+//		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+//		
+//		File targetFile = new File(fileRoot + savedFileName);	
 //		try {
-//			file.transferTo(new File(filePath));
-//		} catch (IllegalStateException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+//			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+//			jsonObject.addProperty("url", "/summernote/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+//			jsonObject.addProperty("responseCode", "success");
+//				
 //		} catch (IOException e) {
-//			// TODO Auto-generated catch block
+//			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+//			jsonObject.addProperty("responseCode", "error");
 //			e.printStackTrace();
 //		}
-//		// 파일경로 리턴
-//		return filePath;
+//		String a = jsonObject.toString();
+//		return a;
 //	}
+//	
+//	@RequestMapping(value="/summernote/imageView.dz")
+//	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response, HttpServletRequest request) throws Exception {
+//		OutputStream out = response.getOutputStream();
+//        FileInputStream fis = null;
+//        
+//        String contextRoot = request.getSession().getServletContext().getRealPath("resources");
+//		String fileRoot = contextRoot+"\\fileupload\\";
+// 
+//        try {
+//            fis = new FileInputStream(fileRoot+imgName);
+//            FileCopyUtils.copy(fis, out);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (fis != null) {
+//                try {
+//                    fis.close();
+//                } catch (IOException ioe) {
+//                    ioe.printStackTrace();
+//                }
+//            }
+//            out.flush();
+//        }
+//	}
+	//***************************************************이미지완료 (지우지말자!!
 
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함

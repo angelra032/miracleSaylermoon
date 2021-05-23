@@ -98,8 +98,6 @@
 							}
 				         });
 				   
-				   // $('#summernote').summernote('code', '<p>가나다</p><p>마바사</p><p>아자차카타파하</p>');
-				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
 					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
@@ -142,6 +140,7 @@
 				url : "/uploadSummernoteImageFile",
 				success : function(data) {
 	            	//항상 업로드된 파일의 url이 있어야 한다.
+	            	alert('data : ' + data.url);
 					$(editor).summernote('insertImage', data.url);
 				}
 			});

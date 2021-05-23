@@ -40,7 +40,7 @@
 			
 				<label>공개여부</label>
 				<c:if test="${ drmReview.drmReviewPublicYN == 'y' || drmReview.drmReviewPublicYN == 'Y' }">
-					<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="y" checked> 
+					<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="Y" checked> 
 					<label for="radio-1">공개</label>
 					<input type="radio" name="drmReviewPublicYN" id="radio-2" value="n">
 					<label for="radio-2">비공개</label>
@@ -48,7 +48,7 @@
 				<c:if test="${ drmReview.drmReviewPublicYN == 'n' || drmReview.drmReviewPublicYN == 'N' }">
 					<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="y"> 
 					<label for="radio-1">공개</label>
-					<input type="radio" name="drmReviewPublicYN" id="radio-2" value="n" checked>
+					<input type="radio" name="drmReviewPublicYN" id="radio-2" value="N" checked>
 					<label for="radio-2">비공개</label>
 				</c:if>
 			</div>

@@ -38,9 +38,9 @@
 			</div>
 			<div class="select-area">
 				<label>공개여부</label>
-				<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="y" checked> 
+				<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="Y" checked> 
 				<label for="radio-1">공개</label>
-				<input type="radio" name="drmReviewPublicYN" id="radio-2" value="n">
+				<input type="radio" name="drmReviewPublicYN" id="radio-2" value="N">
 				<label for="radio-2">비공개</label>
 			</div>
 			<div class="btn-area">
