@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,18 +35,12 @@ public class PartnerMyPageController {
 	public String partnerMyPageView(HttpSession session, Model model) { //@RequestParam("userNo") int userNo, Model model, requestParam("userNo") int userNo
 		
 		User loginUser = (User)session.getAttribute("loginUser"); // 로그인세션(사업자)
-//		loginUser.toString();
 		int userNo = loginUser.getUserNo();
 	
 		Shop myShop = pService.selectMyShop(userNo); // 사업자 가게 불러오기
-		System.out.println("userNo"+userNo);
-		
 		int shopNo = myShop.getShopNo();
-		System.out.println("shopNo" + shopNo);
 		
-		// 예약관리 불러오기
 		ArrayList<Reservation> rList = rService.rListByShopUpToThree(shopNo);
-		System.out.println(rList);
 		if(!rList.isEmpty()) {
 			model.addAttribute("rList", rList);
 			return "partnerMyPage/partnerMyPage";
@@ -56,11 +51,38 @@ public class PartnerMyPageController {
 	
 	// 예약 상태(업데이트 - 대기, 승인, 거부)
 	@RequestMapping(value="updateReservation.dz", method=RequestMethod.POST)
-	public String updateReservationState(@RequestParam("rState") String rState) {
+	public String updateReservationState(@RequestParam("reservationNo") int reservationNo,
+										@RequestParam("rState") String rState,
+										@RequestParam("shopNo") int shopNo,
+										Model model) {
+		System.out.println("예약번호얌"+reservationNo);
 		
-		// 넘어온 값에 따라서 대기, 승인, 거부 선택 - 바꾸는 건 어떻게?
-		System.out.println("rState" + rState);
-		
+		Reservation resultReservation = rService.selectOne(reservationNo);
+		String rStateResulut = resultReservation.getrState();
+
+//		예약기본상태 O(default)
+//		예약승인 Y(comfirm)
+//		예약취소 X(cancle)
+//		예약완료 C(complete)
+		if(rStateResulut.equals("O")) {
+			switch(rState) {
+			case "Y" : 
+				int cResult = rService.comfirmReservation(reservationNo);
+				int pResult = rService.updateShopPoint(resultReservation);
+				
+				 	if(pResult > 0 && cResult > 0) { 
+				 		model.addAttribute("pResult", pResult); 
+				 		return "";
+				 }
+				
+				break;
+			case "X" :
+				break;
+			case "C" :
+				break;
+			}
+		}
+
 		return "partnerMyPage/partnerMyPage";
 	}
 	

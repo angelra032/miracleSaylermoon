@@ -33,8 +33,8 @@ public class ReservationStoreLogic implements ReservationStore {
 	}
 	
 	@Override
-	public int updateUserPoint(int sequenceNo) {
-		return sqlSession.update("userMapper.updateUserPoint",sequenceNo);
+	public int updateUserPoint(Reservation nReservation) {
+		return sqlSession.update("userMapper.updateUserPoint",nReservation);
 	}
 	
 	@Override
@@ -73,8 +73,8 @@ public class ReservationStoreLogic implements ReservationStore {
 	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		//ArrayList<reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper",,userNo, rowBounds);
-		return null;
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.selectAllByMZ",userNo, rowBounds);
+		return reserve;
 	}
 
 	// 가게별 상위 3개 예약목록 불러오기
@@ -87,8 +87,10 @@ public class ReservationStoreLogic implements ReservationStore {
 	// 가게별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.selectAllByShop",shopNo, rowBounds);
+		return reserve;
 	}
 	
 	//=======================여기까지가 예약 목록
@@ -121,12 +123,20 @@ public class ReservationStoreLogic implements ReservationStore {
 		return 0;
 	}
 
+
+//==========================================================================================
+	//예약상태 예약완료로 변경하기
 	@Override
 	public int comfirmReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("reservationMapper.comfirmReservation",reservationNo);
 	}
 
+	// 사업자 포인트 업데이트
+	@Override
+	public int updateShopPoint(Reservation reservation) {
+		return sqlSession.update("reservationMapper.updateShopPoint",reservation);
+	}
+//==========================================================================================
 
 
 	@Override
@@ -147,6 +157,7 @@ public class ReservationStoreLogic implements ReservationStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }

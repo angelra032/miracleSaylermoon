@@ -13,7 +13,7 @@ public interface ReservationStore {
 	
 	public int insertReservation(Reservation reservation); //예약하기
 	public int getReservNo(int userNo); // 예약번호 시퀀스 가져오기
-	public int updateUserPoint(int sequenceNo); // 예약할때 유저 포인트 삭감하기
+	public int updateUserPoint(Reservation nReservation); // 예약할때 유저 포인트 삭감하기
 	public int confirmRCount(Reservation reservation); // 예약할때 예약 가능 인원 확인
 	
 	
@@ -30,7 +30,10 @@ public interface ReservationStore {
 	public int cancleReservation(int reservationNo); //예약취소하기
 	
 	public int updateReservation(int reservationNo); // 예약수정하기
+	
 	public int comfirmReservation(int reservationNo); //예약승인하기(사업자가예약확인)
+	public int updateShopPoint(Reservation reservation); // 사업자가 예약확인 시 사업자 포인트 업데이트
+	
 	public int deleteReservation(int reservationNo); // 예약삭제
 	public int complteReservation(int reservationNo); //예약완료하기
 

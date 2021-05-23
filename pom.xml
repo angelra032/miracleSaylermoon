@@ -15,6 +15,12 @@
 	</properties>
 	<dependencies>
 	
+	<!-- jdbc log  -->
+	<dependency>
+		<groupId>org.lazyluke</groupId>
+		<artifactId>log4jdbc-remix</artifactId>
+		<version>0.2.7</version>
+	</dependency>
 	<!-- 중간 파일명한글오류 -->
 		<dependency>
 		    <groupId>xerces</groupId>
