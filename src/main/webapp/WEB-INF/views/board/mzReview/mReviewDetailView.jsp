@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,9 +37,21 @@
                 ${ mReview.mReviewContent }
             </div>
 
-            <div class="back-btn-area">
-                <button onclick="location.href='mReviewMain.dz'" style="cursor: pointer;">목록으로</button>
-            </div>
+            <div class="bottom-btn-area">
+			<c:if test="${ mReview.userNo eq loginUser.userNo}">
+	            <div class="modify-btn-area">
+	                <button onclick="location.href='mReviewMain.dz'" style="cursor: pointer;">수정하기</button>
+	            </div>
+	            <div class="modify-btn-area">
+	                <button onclick="location.href='mReviewDelete.dz?mReviewNo=${ mReview.mReviewNo }'" style="cursor: pointer;">삭제하기</button>
+	            </div>
+			</c:if>
+			<c:if test="${ mReview.userNo ne loginUser.userNo }">
+			 	<div class="back-btn-area">
+	                <button onclick="location.href='mReviewMain.dz'" style="cursor: pointer;">목록으로</button>
+	            </div>
+			</c:if>
+			</div>
         </div>
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

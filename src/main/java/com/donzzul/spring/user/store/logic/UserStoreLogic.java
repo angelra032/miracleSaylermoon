@@ -88,15 +88,26 @@ public class UserStoreLogic implements UserStore {
 	}
 	
 	@Override
-	public int updateUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMzUser(User user) {
+		return sqlSession.update("userMapper.updateMzUser", user);
 	}
 
+	//회원탈퇴
 	@Override
-	public int deleteUser(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteUser(int userNo) {
+		return sqlSession.delete("userMapper.deleteUser", userNo);
+	}
+	
+	//회원탈퇴요청
+	@Override
+	public int deleteRequestUser(int userNo) {
+		return sqlSession.update("userMapper.deleteRequestUser", userNo);
+	}
+	
+	//비밀번호 검사
+	@Override
+	public int checkPwDup(HashMap<String, String> map) {
+		return sqlSession.selectOne("userMapper.checkPwDup", map);
 	}
 
 	// 아이디 찾기 중복검사
@@ -123,6 +134,9 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.update("userMapper.resetPw", map);
 	}
 
+	
+
+	
 	
 
 	

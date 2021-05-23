@@ -39,8 +39,7 @@ public class NoticeSotreLogic implements NoticeStore {
 
 	@Override
 	public int deleteNotice(int noticeNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("notiQnaMapper.deleteNotice", noticeNo);
 	}
 
 

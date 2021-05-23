@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -100,10 +101,11 @@ public class NotiQnaController {
 		int result = qnaService.insertQna(qna);
 		if(result > 0) {
 			int updateGroup = qnaService.updateGroup(qna);
-//			if(update > 0) {
+			if(updateGroup > 0) {
 				return "success";
-//			}
-//			return "fail";
+			} else {
+				return "fail";
+			}
 		} else {
 			return "fail";
 		}
@@ -112,21 +114,43 @@ public class NotiQnaController {
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="qaDelete.dz", method=RequestMethod.GET)
-	public String qaDelete(@RequestParam int qaNo) {
-		return "";
+	public String qaDelete(@RequestParam("qnaNo") int qaNo, Model model) {
+		int result = qnaService.deleteQna(qaNo);
+		if(result > 0) {
+			return "redirect:notiQnaMain.dz";
+		} else {
+			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	
 	// 수정버튼누름
 	@RequestMapping(value="qaUpdateForm.dz", method=RequestMethod.GET)
-	public String qaUpdateView() {
-		return "";
+	public ModelAndView qaUpdateView(ModelAndView mv, @RequestParam("qnaNo") int qaNo) {
+		Qna qna = qnaService.selectOneQna(qaNo);
+		if(qna != null) {
+			mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaUpdateForm");
+		} else {
+			mv.addObject("msg", "게시글 수정페이지 접속 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	// 수정함 update
 	@RequestMapping(value="qaModify.dz", method=RequestMethod.POST)
-	public String qaUpdate(@ModelAttribute Qna qna) {
-		return "";
+	public String qaUpdate(@ModelAttribute Qna qna, Model model) {
+		System.out.println("서버단에오나요..");
+		int result = qnaService.updateQna(qna);
+		System.out.println("리저트아래 " + result);
+		if(result > 0) {
+//			return "redirect:notiQnaMain.dz";
+			return "success";
+		} else {
+//			model.addAttribute("msg", "게시글 수정 실패");
+//			return "common/errorPage";
+			return "fail";
+		}
 	}
 	
 //	************************************** 공지사항 영역
@@ -173,8 +197,14 @@ public class NotiQnaController {
 		// 삭제 delete
 		// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 		@RequestMapping(value="noticeDelete.dz", method=RequestMethod.GET)
-		public String noticeDelete(@RequestParam int noticeNo) {
-			return "";
+		public String noticeDelete(@RequestParam("noticeNo") int noticeNo, Model model) {
+			int result = nService.deleteNotice(noticeNo);
+			if(result > 0) {
+				return "redirect:notiQnaMain.dz";
+			} else {
+				model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
+				return "common/errorPage";
+			}
 		}
 		
 		

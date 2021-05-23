@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/payment/pointRoulette.css"> 
-<link href="/static/bootstrap.min.css" rel="stylesheet">
-<title>돈쭐내기</title></head>
+<!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
+<title>돈쭐내기</title>
+</head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	

@@ -52,8 +52,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 
 	@Override
 	public int deleteDreamReview(int drmRviewNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("drmReviewMapper.deleteDrmReview", drmRviewNo);
 	}
 
 	@Override

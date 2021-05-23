@@ -17,9 +17,11 @@
 		<div class="frame">
 			<div class="my-info">
 				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
+				<a class="refund-btn" href="#">환급신청</a>
 				<div class="info-btn-frame">
+					<a class="info-btn" href="#">가게 수정</a> <!-- 등록/수정 -->
 					<a class="info-btn" href="#">나의 정보</a>
-					<a class="info-btn" href="#">회원 탈퇴</a>
+					<a class="info-btn" href="#">탈퇴 요청</a>
 				</div>
 			</div>
 		</div>
@@ -42,20 +44,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						<%-- <tr>
-							<td>1${reservation.reservationNo }</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="reserv-btn" href="#">예약취소</a></td>
-							<td><a class="reserv-btn" href="#">후기작성</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="reserv-btn" href="#">예약취소</a></td>
-							<td><a class="reserv-btn" href="#">후기작성</a></td>
-						</tr> --%>
 						<c:forEach items="${rList }" var="reservation"  varStatus="status">
 							<tr>
 								<td>${status.count }</td>
@@ -63,8 +51,19 @@
 								<td>${reservation.reserveCount }</td>
 								<td>${reservation.reserveDate }</td>
 								<td>${reservation.rState }</td>
+								<td>
+								<!-- 예약상태 선택하면 값 전송(submit) / 변경 가능 / 값에 따른 동적쿼리문? -->
+									<form action="" method="post" id="state-form">
+										<select name="rState" class="select-rstate">
+											<option value="O" selected disabled>대기</option> <!-- none 못누르게 ?_? -->
+											<option value="Y" >승인</option>
+											<option value="X" >거부</option>
+										</select>
+									</form>
+								</td>
+								
 								<td><a class="reserv-btn" href="#">예약취소</a></td>
-								<td><a class="reserv-btn" href="#">후기작성</a></td>
+								
 							</tr>
 						</c:forEach>
 						<%-- <c:forEach items="${rList }" var="reservation">
@@ -79,7 +78,7 @@
 		<div class="my-list w-list recommend-list">
 			<div class="frame">
 				<div class="my-title">
-					<span>내가 쓴 글</span>
+					<span>내가 쓴 문의글</span>
 					<div class="more-btn-frame">
 						<a class="more-btn b-btn" href="#">더보기</a>
 					</div>
@@ -124,6 +123,27 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
+	<script>
+		$(".select-rstate").on("change", function(){
+	        var rState = $(".select-rstate").val();
+	        $.ajax({
+	            url : "updateReservation.dz",
+	            type : "POST",
+	            data : {"rState" : rState},
+	            success : function() {
+	            	console.log('rState'+rState);
+					if(rState.is(":selected")){
+						rState.remove();
+					}
+	            },
+	            error : function() {
+	            	console.log('실패');
+
+	            }
+	        });
+	    });
+
+	</script>
 	
 <%-- 	
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>

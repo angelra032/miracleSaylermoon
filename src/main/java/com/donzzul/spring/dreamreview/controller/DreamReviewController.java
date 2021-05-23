@@ -113,8 +113,15 @@ public class DreamReviewController {
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="dReviewDelete.dz", method=RequestMethod.GET)
-	public String dReviewDelete(@RequestParam int drmRviewNo) {
-		return "";
+	public String dReviewDelete(@RequestParam("drmRviewNo") int drmRviewNo, Model model) {
+		int result = drService.deleteDreamReview(drmRviewNo);
+		if(result > 0) {
+			return "redirect:dReviewMain.dz";
+		} else {
+			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
+			return "common/errorPage";
+			
+		}
 	}
 	
 	

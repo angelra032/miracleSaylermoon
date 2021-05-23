@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/user/login.css"> 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <title>돈쭐 로그인</title>
 </head>
 <body>
@@ -42,8 +43,10 @@
 				<h4>일반회원전용</h4>
 				<div class="left-inner-box">
 					<div class="input-box"> 
-						<a href="#"><img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png"></a>
-						<a class="kakao-btn" href="#"><img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png"></a>
+						<a href="javascript:kakaoLogin();">
+							<img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png">
+						</a>
+						<a class="kakao-btn" href="#"><img alt="구글 회원가입" src="/resources/images/kakaologin-btn.png"></a>
 					</div>
 				</div>
 			</div> 
@@ -92,5 +95,34 @@
 			return rtn;
 		});
 	});
+	window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.
+	console.log(Kakao.isInitialized()); // sdk초기화여부판단
+	//카카오로그인
+	function kakaoLogin() {
+	    window.Kakao.Auth.login({
+	    	scope: 'profile, account_email',
+	        success: function (result) {
+	        	console.log(result);
+	        	window.Kakao.API.request({
+	          		url: '/v2/user/me', // 현재 로그인한 사용자정보
+	          		success: function(res) {
+		        	    const kakao_account = res.kakao_account;
+		        	    console.log(kakao_account);
+		        	    console.log(res);
+		        	    
+		        	    var kakaoId = res.id;
+		        	    var kakaoNickname = res.properties.nickname;
+		        	    location.href="kakaologin.dz?kakaoId="+kakaoId+"&kakaoNickname="+kakaoNickname;
+	          		},
+	          		fail: function (error) {
+	            		console.log(error)
+	          		}
+	        	});
+	      	},
+		    fail: function (error) {
+		    	console.log(error)
+		    }
+	    });
+    }
 </script>
 </html>
