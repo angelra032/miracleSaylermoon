@@ -170,7 +170,7 @@
          <div id="main-title">${shop.shopName }</div>
          
          <div class="frame">
-			<div id="calendatSection">
+			<div id="calendarSection">
 				<div id="calendarText"><h1>예약날짜 선택</h1></div>
             	<div id='calendar'></div>
 			</div>
@@ -199,23 +199,23 @@
                
                <div class="pointUse" id="pointDiv" style="display:none">
                	<div id="rPointText"><h1>포인트 사용여부</h1></div>
-               	<div>
+               	  <div class="pRadion">
                      <input type="radio" name="point" id="pointY" value="Y" onclick="pointchecked();">
                      <label for="pointY">포인트 사용</label>
                   </div>
-                  <div>
+                  <div class="pRadion">
                      <input type="radio" name="point" id="pointN" value="N" onclick="pointchecked();"> 
                      <label for="pointN">포인트사용거부</label>
                   </div>
                   <div id="pointUseDiv" style="display:none">
                      <h1>사용할 포인트 금액</h1>
+                     <div id="pointBox">
                      <input type="text" id="pointText" name="point"  value="${user.userPoint }">
                      <input type="button" value="포인트사용" id="pButton" class="button">
+                  	 </div>
                   </div>
                </div>
             </div>
-
-            <!-- <div id="selectAreaSecond" style="display:none"> -->
             
             <div id="selectAreaThird" style="display:none">
 		     <div id="rImfomationPrint">
