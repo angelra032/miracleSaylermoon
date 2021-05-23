@@ -138,7 +138,7 @@
 					$.ajax({
 						url: "",
 						type: "get",
-						data: ,
+						data: "",
 						dataType: "json",
 						success: function(data) {
 							

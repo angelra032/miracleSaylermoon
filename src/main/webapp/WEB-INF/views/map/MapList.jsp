@@ -49,16 +49,6 @@
 	</main>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-	
-	<script>
-		$(function() {
-			var readyMessage = "<c:out value="${ msg }" />";
-			if(readyMessage != "") {
-				alert(readyMessage);
-				console.log(readyMessage);
-				return false;
-			}
-		});
-	</script>
+
 </body>
 </html>
