@@ -4,17 +4,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="resources/js/roulette/jQueryRotateCompressed.js"></script>
+<script src="resources/js/roulette/jquery-1.11.3.min.js"></script>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/payment/pointRoulette.css"> 
+<link rel="stylesheet" href="/resources/css/payment/pointRoulette.css"/> 
 <!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
 
 <!-- <link rel="stylesheet" href="resources/js/roulette/jQueryRotateCompressed.js"> -->
-<script type="text/javascript" src="resources/js/roulette/jquery-1.11.3.min.js"></script>
-<!-- <script type="text/javascript" src="resources/js/roulette/jQueryRotateCompressed.js"></script>
- -->
-<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
+<!-- <script type="text/javascript" src="resources/js/roulette/jquery-1.11.3.min.js"></script>
+
+ 
+<script src="</script'>http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="</script'>http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
+-->
 
 
+<!-- <script src="jQueryRotateCompressed.js"></script> -->
+<!-- <script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> -->
 <style>
 
 #image {
@@ -70,6 +76,7 @@
 							var pArr = ["0","1","2","3","4:꽝","5","6","7","8","9"];
 						
 							$('#start_btn').click(function(){
+								console.log("왜 안돼");
 								rotation();
 							});
 						

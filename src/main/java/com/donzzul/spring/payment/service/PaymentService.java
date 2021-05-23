@@ -19,7 +19,8 @@ public interface PaymentService {
 	public int saveReviewPoint(User user);// 리뷰포인트 적립
 	// 결제
 	public int insertDonList(Don don); // 돈쭐내역 업데이트
-	public String selectDonList(User user); // 돈쭐내역 출력
+	public String selectDonList(int userNo); // 돈쭐내역 출력
+	public ArrayList<Don> selectDonListThree(int userNo); // 돈쭐내역 출력(상위3개)
 	
 	///////// +
 	public ArrayList<MainMenu> selectShopMenu(int shopNo); // 가게 메뉴 출력
