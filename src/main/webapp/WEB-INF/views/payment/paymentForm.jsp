@@ -17,91 +17,92 @@
 	        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	    </div>
 		<div id="main-title">돈쭐내기</div>
-		<h1>진짜파스타${shop.shopName }</h1> 
+		<%-- <h1>진짜파스타${shop.shopName }</h1> --%> 
 		<div class="frame">
-			<form action="" method="post">
-			
-				<div id="lay1" class="payment lay1">
-					<br>
-					<div class="lay1-title">
-						<h2>메뉴 선택</h2>
-					</div>
-					<br>
-					<div class="lay1-content">
-						<!-- <label class="menu-choice"><input type="radio" name="menu" value="후라이드 치킨" onclick="menuChoice(this.value)" ><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="양념 치킨" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="소이갈릭 치킨" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						  -->
-						<!-- for each문(가게shop/메뉴mainMenu) -->
-						<c:forEach items="${mList }" var="menu">
-							<label class="menu-choice"><input type="hidden" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
-							
-						</c:forEach>
-						
-					</div>
-				</div>
-				<div id="lay2" class="payment">
-					<div id="lay2-1" class="lay2 amount">
-					<br>
-						<div>
-							<h2>수량 선택</h2>
-						</div>
-						<br>
-						<div>
-							<!-- 스타일 다시 주기 -->
-							<label class="amount-btn"><input type="radio" name="amountC" value="1" onclick="amountChoice(this.value)"><span>X 1</span></label>&nbsp;&nbsp;
-							<label class="amount-btn"><input type="radio" name="amountC" value="2" onclick="amountChoice(this.value)"><span>X 2</span></label>&nbsp;&nbsp;
-							<label class="amount-btn"><input type="radio" name="amountC" value="3" onclick="amountChoice(this.value)"><span>X 3</span></label>
-						</div>		
-					</div>
-					<div id="lay2-2" class="lay2 point" >
-					<br>
-						<div>
-							<h2>포인트 사용</h2>
-						</div>
-						<br>
-						<div>
-							<div id="lay2-point-div">
-								&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${loginUser.userPoint }" readonly/> 포인트 <br>
-								&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 포인트 <br>
-								<!-- <input type="text" id="pCount" placeholder="사용할 포인트 입력"/>원 --> 
-							</div>
-								&nbsp;&nbsp;<button id="pSubmit">사용하기</button>
-						</div>
-					</div>
-				</div>
-				<div id="lay3" class="payment lay3" >
-					<br>
-					<div>
-						<h2>결제 정보</h2>
-					</div>
-					<br>
-					<div>
-						<div id="lay3-payment-result">
-							메뉴명 : <input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
-							수량 : <input type="text" name="amount" value="" readonly/> <br>
-							총 상품 가격 : <input type="text" name="menu-price" value="0" readonly/> <br>
-							사용 포인트 : <input type="text" name="use-point" value="0" readonly/> <br>
-							총 결제 금액 : <input type="text" name="donPrice" value="0" readonly/>
-							<!-- 위에 폼 넘기려면 vo이름으로 맞춰야함 맞춰주기 | 가격 어쩔 겨-포인트제외or총(donPrice)-->
-							
-							<input type="hidden" name="userNo" value="${loginUser.userNo }"/>
-							<input type="hidden" name="shopNo" value="${shop.shopNo }" />
-							<input type="hidden" name="shopName" value="${shop.shopName }" />
-						</div>	
-						 <br>
-						<input type="submit" id="payment-btn" value="돈쭐내러 가기">
-					</div>
-				</div>
+			<!-- <div id="form"> -->
+				<form action="" method="post">
 				
-			</form>
-			
+					<div id="lay1" class="payment lay1">
+						<br>
+						<div class="lay1-title">
+							<h2>메뉴 선택</h2>
+						</div>
+						<br>
+						<div class="lay1-content">
+							<!-- <label class="menu-choice"><input type="radio" name="menu" value="후라이드 치킨" onclick="menuChoice(this.value)" ><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="양념 치킨" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="소이갈릭 치킨" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
+							<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
+							  -->
+							<!-- for each문(가게shop/메뉴mainMenu) -->
+							<c:forEach items="${mList }" var="menu">
+								<label class="menu-choice"><input type="hidden" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
+								
+							</c:forEach>
+							
+						</div>
+					</div>
+					<div id="lay2" class="payment">
+						<div id="lay2-1" class="lay2 amount">
+						<br>
+							<div>
+								<h2>수량 선택</h2>
+							</div>
+							<br>
+							<div>
+								<!-- 스타일 다시 주기 -->
+								<label class="amount-btn"><input type="radio" name="amountC" value="1" onclick="amountChoice(this.value)"><span>X 1</span></label>&nbsp;&nbsp;
+								<label class="amount-btn"><input type="radio" name="amountC" value="2" onclick="amountChoice(this.value)"><span>X 2</span></label>&nbsp;&nbsp;
+								<label class="amount-btn"><input type="radio" name="amountC" value="3" onclick="amountChoice(this.value)"><span>X 3</span></label>
+							</div>		
+						</div>
+						<div id="lay2-2" class="lay2 point" >
+						<br>
+							<div>
+								<h2>포인트 사용</h2>
+							</div>
+							<br>
+							<div>
+								<div id="lay2-point-div">
+									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${loginUser.userPoint }" readonly/> 포인트 <br>
+									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 포인트 <br>
+									<!-- <input type="text" id="pCount" placeholder="사용할 포인트 입력"/>원 --> 
+								</div>
+									&nbsp;&nbsp;<button id="pSubmit">사용하기</button>
+							</div>
+						</div>
+					</div>
+					<div id="lay3" class="payment lay3" >
+						<br>
+						<div>
+							<h2>결제 정보</h2>
+						</div>
+						<br>
+						<div>
+							<div id="lay3-payment-result">
+								메뉴명 : <input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
+								수량 : <input type="text" name="amount" value="" readonly/> <br>
+								총 상품 가격 : <input type="text" name="menu-price" value="0" readonly/> <br>
+								사용 포인트 : <input type="text" name="use-point" value="0" readonly/> <br>
+								총 결제 금액 : <input type="text" name="donPrice" value="0" readonly/>
+								<!-- 위에 폼 넘기려면 vo이름으로 맞춰야함 맞춰주기 | 가격 어쩔 겨-포인트제외or총(donPrice)-->
+								
+								<input type="hidden" name="userNo" value="${loginUser.userNo }"/>
+								<input type="hidden" name="shopNo" value="${shop.shopNo }" />
+								<input type="hidden" name="shopName" value="${shop.shopName }" />
+							</div>	
+							 <br>
+							<input type="submit" id="payment-btn" value="돈쭐내러 가기">
+						</div>
+					</div>
+					
+				</form>
+			<!-- </div> -->
 		</div>
 	</main>
 
