@@ -366,14 +366,14 @@
 			mzphoneNum.onkeyup = function(){
 			  console.log(this.value);
 			  this.value = autoHypenPhone( this.value ) ;  
-			} */
+			}  */
 			////////////////mz휴대폰번호끝
 			
 			// 중복(2) - 이미 등록된 번호입니다
 			var userPhone = $(".phoneelem");
 			$(".phoneelem").on("keyup", function() {
 				console.log(userPhone.val());
-				//this.val(autoHypenPhone()) ;  
+				this.val() = autoHypenPhone(userPhone.val()) ;  
 				$('.phonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhone.dz",
@@ -483,33 +483,6 @@
 			$('.submit-btn').click(function() {
 				var rtn = true;
 				
-				//아이디
-				$.ajax({
-					url : "dupId.dz",
-					data : { "userId" : userId.val() },
-					async: false,
-					success : function(result) {
-						if(result != 0){
-							alert("사용중인 아이디입니다. 아이디를 다시 입력해주세요.");
-							userId.focus();
-							rtn = false;
-						}else if(userId.val() =="") {
-							alert("아이디를 입력해주세요.");
-							userId.focus();
-							rtn = false;
-						}else if (!regExp.test(userId.val())) {
-							alert("아이디가 올바르지 않습니다. 다시 입력해주세요.");
-							userId.focus();
-							rtn = false;
-						}else {
-							rtn = true;
-						}
-					},
-					error : function() {
-						console.log("전송실패");
-					}
-				});
-
 				//비밀번호
 				if (userPwd.val() =="") {
 					alert("비밀번호를 입력해주세요.");
