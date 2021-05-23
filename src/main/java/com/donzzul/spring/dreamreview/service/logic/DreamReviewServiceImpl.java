@@ -44,8 +44,7 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 
 	@Override
 	public int updateDreamReview(DreamReview dreamReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		return drStore.updateDreamReview(dreamReview);
 	}
 
 	@Override

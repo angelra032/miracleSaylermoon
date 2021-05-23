@@ -46,8 +46,7 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 
 	@Override
 	public int updateDreamReview(DreamReview dreamReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("drmReviewMapper.updateDrmReview", dreamReview);
 	}
 
 	@Override

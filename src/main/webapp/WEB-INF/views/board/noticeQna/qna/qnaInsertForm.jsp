@@ -72,22 +72,6 @@
 				          focus: true,                // 에디터 로딩후 포커스를 맞출지 여부
 				          lang: "ko-KR",            // 한글 설정
 				          placeholder: '자유롭게 글을 작성할 수 있습니다. 명예훼손이나 상대방을 비방, 불쾌감을 주는 글, 욕설, 남을 모욕하는 글은 임의로 제제가 있을 수 있습니다.', //placeholder 설정
-				          callbacks: {
-					        	onImageUpload: function(files, editor, welEditable) {
-					        		for(var i = files.length -1; i>=0; i--) {
-					        			uploadSummernoteImageFile(files[i],this);
-					        		}
-					        	}
-					        },
-					        onPaste: function (e) {
-								var clipboardData = e.originalEvent.clipboardData;
-								if (clipboardData && clipboardData.items && clipboardData.items.length) {
-									var item = clipboardData.items[0];
-									if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-										e.preventDefault();
-									}
-								}
-							},
 				          toolbar: [
 				               ['style', ['style']],
 				               ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -100,8 +84,6 @@
 				             ]
 				         });
 				   
-				   // $('#summernote').summernote('code', '<p>가나다</p><p>마바사</p><p>아자차카타파하</p>');
-				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
 					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
@@ -112,10 +94,13 @@
 						   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
 						   success : function(data){
 							   if(data == "success") {
+								   alert('성공');
 								   location.href="notiQnaMain.dz";
-								} else {
+								} else if(data=="fail") {
 									alert('게시글 올리기 실패');
 									location.href="notiQnaMain.dz";
+								} else if(data=="fail2") {
+									alert('실패실패');
 								}
 						   },
 						   error : function() {

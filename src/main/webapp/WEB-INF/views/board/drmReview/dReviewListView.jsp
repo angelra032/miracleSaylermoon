@@ -32,7 +32,7 @@
 	                <tbody>
 		                <c:forEach items="${ drList }" var="drmReview" varStatus="status">
 		                <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-		                <c:if test="${ drmReview.drmReviewPublicYn eq 'y' or drmReview.drmReviewPublicYn eq 'Y' }">
+		                <c:if test="${ drmReview.drmReviewPublicYN eq 'y' or drmReview.drmReviewPublicYN eq 'Y' }">
 		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
 		                        <td>${ drmReview.drmReviewTitle }</td>
@@ -40,7 +40,7 @@
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
 	                    	</tr>
 		                </c:if>
-		                <c:if test="${ drmReview.drmReviewPublicYn eq 'N' or drmReview.drmReviewPublicYn eq 'n' }">
+		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n' }">
 		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
 		                        <td>비공개글입니다</td>

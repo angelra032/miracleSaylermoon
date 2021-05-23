@@ -90,7 +90,7 @@ public class DreamReviewController {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		
-		dreamReview.setDrmReviewPublicYn(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
+		dreamReview.setDrmReviewPublicYN(drmReviewPublicYN); // radio - 공개비공개 선택결과 넣어줌
 		dreamReview.setDrmReviewWriter(user.getUserNick());
 		dreamReview.setUserType(user.getUserType());
 		dreamReview.setUserNo(user.getUserNo());
@@ -127,14 +127,28 @@ public class DreamReviewController {
 	
 	// 수정버튼누름
 	@RequestMapping(value="dReviewUpdateForm.dz", method=RequestMethod.GET)
-	public String dReviewUpdateView() {
-		return "";
+	public ModelAndView dReviewUpdateView(@RequestParam("drmRviewNo") int drmRviewNo, ModelAndView mv) {
+		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
+		System.out.println(drmReview.toString());
+		if(drmReview != null) {
+			mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewUpdateForm");
+		} else {
+			mv.addObject("수정페이지 접속 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	// 수정함 update
-	@RequestMapping(value="dReviewModify.dz", method=RequestMethod.POST)
-	public String dReviewUpdate(@ModelAttribute DreamReview dreamReview) {
-		return "";
+	@ResponseBody
+	@RequestMapping(value="dReviewModify.dz", method= {RequestMethod.POST, RequestMethod.GET})
+	public String dReviewUpdate(@ModelAttribute DreamReview dreamReview, Model model) {
+		System.out.println(dreamReview.toString());
+		int result = drService.updateDreamReview(dreamReview);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 	
 	//D 감사후기 가져오기
