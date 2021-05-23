@@ -148,14 +148,15 @@
    <script>
    $(document).ready(function() {
       $("#pButton").on("click",function(){
-         var paymentPoint = $("#pointText").val();
-         var userPoint = "${loginUser.userPoint}";
+         var paymentPoint = parseInt($("#pointText").val());
+         var userPoint = parseInt("${loginUser.userPoint}");
          if(paymentPoint > userPoint){
             alert("욕심을 냈군요");
             return false;
+         }else{
+	         $("#paymentPoint").html(paymentPoint);
+	         $("input[name='paymentPoint']").val(paymentPoint);
          }
-         $("#paymentPoint").html(paymentPoint);
-         $("input[name='paymentPoint']").val(paymentPoint);
       });
    });
    </script>
@@ -232,7 +233,7 @@
 		            <input type="hidden" name="startTime" value="${shop.startTime }"><br> 
 		            <input type="hidden" name="endTime" value="${shop.endTime }"><br>
 		            <input type="hidden" name="businessDay" value="${shop.businessDay }"><br> 
-		            <input type="hidden"  name="userPoint" value="${loginUser.userPoint }"><br>
+		            <input type="text"  name="userPoint" value="${loginUser.userPoint }"><br>
 		                  
 		                  
 		            <span id="paymentPoint"></span>

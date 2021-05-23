@@ -31,8 +31,8 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public int updateUserPoint(int sequenceNo) {
-		return rStore.updateUserPoint(sequenceNo);
+	public int updateUserPoint(Reservation nReservation) {
+		return rStore.updateUserPoint(nReservation);
 	}
 	
 	@Override
@@ -67,8 +67,8 @@ public class ReservationServiceImpl implements ReservationService{
 	// MZ회원별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> rList = rStore.reservationListByMZ(userNo, pi);
+		return rList;
 	}
 	
 	// 가게별 상위 3개 예약목록 불러오기
@@ -81,8 +81,8 @@ public class ReservationServiceImpl implements ReservationService{
 	// 가게별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Reservation> rList = rStore.reservaionListByShop(shopNo, pi);
+		return rList;
 	}
 
 	//=============여기까지가 예약 불러오기
@@ -113,12 +113,18 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+//==========================================================================================
 	@Override
 	public int comfirmReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return rStore.comfirmReservation(reservationNo);
 	}
+	
+	@Override
+	public int updateShopPoint(Reservation reservation) {
+		return rStore.updateShopPoint(reservation);
+	}
+//==========================================================================================
 
 	@Override
 	public int completeReservation(int reservationNo) {
@@ -137,5 +143,6 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

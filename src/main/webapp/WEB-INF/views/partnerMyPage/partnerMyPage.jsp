@@ -47,6 +47,8 @@
 						<c:forEach items="${rList }" var="reservation"  varStatus="status">
 							<tr>
 								<td>${status.count }</td>
+								<input type="hidden" name="reservationNo" value="${reservation.reservationNo }">
+								<input type="hidden" name="shopNo" value="${reservation.shopNo }">
 								<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
 								<td>${reservation.reserveCount }</td>
 								<td>${reservation.reserveDate }</td>
@@ -54,9 +56,9 @@
 								<td>
 									<form action="" method="post" id="state-form">
 										<select name="rState" class="select-rstate" id="rState">
-											<option value="O" selected disabled>대기</option>
-											<option value="Y" >승인</option>
-											<option value="X" >거부</option>
+											<option value="O" selected disabled >대기</option>
+											<option value="Y" ${reservation.rState eq 'Y' ? 'selected="selected"' : '' } >승인</option>
+											<option value="X" ${reservation.rState eq 'X' ? 'selected="selected"' : '' }>거부</option>
 										</select>
 									</form>
 								</td>
@@ -124,18 +126,20 @@
 	
 	<script>
 		$(".select-rstate").on("change", function(){
-	        var rState = $(".select-rstate").val();
+	        var rState = $(this).val();
+	        var reservationNo = parseInt($(this).closest("tr").find("input[name='reservationNo']").val());
+	        var shopNo = parseInt($(this).closest("tr").find("input[name='shopNo']").val());
 	        $.ajax({
 	            url : "updateReservation.dz",
 	            type : "POST",
-	            data : {"rState" : rState},
+	            data : {"rState" : rState, "reservationNo" :reservationNo, "shopNo" :shopNo},
 	            success : function() {
 	            	console.log('rState'+rState);
 					if(rState.is(":selected")){
 						/* 다시 생각해야해... */
-						$('#rState').empty();
+						/* $('#rState').empty();
 						$('#rState').append("<option value='" + Y + "'>"+Y +"승인"+"</option>");
-						$('#rState').append("<option value='" + X + "'>"+X +"거부"+"</option>");
+						$('#rState').append("<option value='" + X + "'>"+X +"거부"+"</option>"); */
 					}
 	            },
 	            error : function() {

@@ -82,10 +82,6 @@
 		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, null, #{userPhone}, #{userEmail}, #{partnerVerify}, DEFAULT, null, null, '3', #{partnerName})
 	</insert>
 
-	<update id="updateUserPoint">
-		UPDATE "USER" SET USER_POINT = #{userPoint} WHERE USER_NO = #{userNo}
-	</update>
-
 	<update id="resetPw">
 		UPDATE "USER" SET USER_PW = #{userPw} WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</update>
@@ -106,5 +102,10 @@
 		UPDATE "USER"
 		SET USER_PW = #{userPw}, USER_PHONE = #{userPhone}, USER_EMAIL = #{userEmail}
 		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<update id="updateUserPoint">
+		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) - (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO= #{reservationNo})
+        WHERE USER_NO = #{userNo}
 	</update>
 </mapper>

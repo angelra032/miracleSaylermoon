@@ -58,7 +58,6 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public int insertDonList(Don don) {
-		System.out.println("서비스"+don);
 		return store.insertDonList(don);
 	}
 
@@ -76,7 +75,6 @@ public class PaymentServiceImpl implements PaymentService{
 	// 사업자 마이페이지 가게 불러오기
 	@Override
 	public Shop selectMyShop(int userNo) {
-		System.out.println("=================");
 		return store.selectMyShop(userNo);
 	}
 
