@@ -71,6 +71,9 @@ public class ReservationStoreLogic implements ReservationStore {
 	// MZ회원별 "전체" 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		//ArrayList<reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper",,userNo, rowBounds);
 		return null;
 	}
 

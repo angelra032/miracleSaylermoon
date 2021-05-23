@@ -74,7 +74,7 @@ public class ReservationServiceImpl implements ReservationService{
 	// 가게별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByShopUpToThree(int shopNo) {
-		ArrayList<Reservation> rList = rStore.rListByDreamUpToThree(shopNo);
+		ArrayList<Reservation> rList = rStore.rListByShopUpToThree(shopNo);
 		return rList;
 	}
 	
