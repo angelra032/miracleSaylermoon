@@ -52,10 +52,9 @@
 								<td>${reservation.reserveDate }</td>
 								<td>${reservation.rState }</td>
 								<td>
-								<!-- 예약상태 선택하면 값 전송(submit) / 변경 가능 / 값에 따른 동적쿼리문? -->
 									<form action="" method="post" id="state-form">
-										<select name="rState" class="select-rstate">
-											<option value="O" selected disabled>대기</option> <!-- none 못누르게 ?_? -->
+										<select name="rState" class="select-rstate" id="rState">
+											<option value="O" selected disabled>대기</option>
 											<option value="Y" >승인</option>
 											<option value="X" >거부</option>
 										</select>
@@ -133,7 +132,10 @@
 	            success : function() {
 	            	console.log('rState'+rState);
 					if(rState.is(":selected")){
-						rState.remove();
+						/* 다시 생각해야해... */
+						$('#rState').empty();
+						$('#rState').append("<option value='" + Y + "'>"+Y +"승인"+"</option>");
+						$('#rState').append("<option value='" + X + "'>"+X +"거부"+"</option>");
 					}
 	            },
 	            error : function() {

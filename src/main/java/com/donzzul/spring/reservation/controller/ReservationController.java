@@ -101,41 +101,6 @@ public class ReservationController {
 	
 	// ============================여기까지 완성=============
 	
-
-	
-	
-	
-	
-	
-	// mz회원별 예약목록 불러오기
-	@RequestMapping(value="ListByMZ.dz", method = RequestMethod.GET)
-	public String reservationListByMZ(@RequestParam("reservationNo") int reservationNo,
-									@RequestParam("userNo") int userNo) {
-		//ArrayList<Reservation> result = service.reservationListByMZ(userNo);
-		return "";	
-	}
-	
-	// 가게별 예약목록 불러오기
-	// int reserveNo, int ShopNo
-	@RequestMapping(value="ListByShop.dz", method = RequestMethod.GET)
-	public String reservationListByShop(@RequestParam("reservationNo") int reservationNo,
-										@RequestParam("shopNo") int shopNo) {
-		//ArrayList<Reservation> result = service.reservaionListByShop(shopNo);
-		return "";
-	}
-	
-	// 예약취소 int reserveNo
-	@RequestMapping(value="deleteReservation.dz", method = RequestMethod.GET)
-	public String deleteReservation(@RequestParam("reservationNo") int reservationNo) {
-		int result = service.deleteReservation(reservationNo);
-		if(result > 0) {
-			
-		}else {
-			
-		}
-		return "";
-	}
-	
 	
 	// 예약승인하기
 	@RequestMapping(value="Reservationcomfirm.dz", method=RequestMethod.GET)
@@ -144,12 +109,12 @@ public class ReservationController {
 		return "";
 	}
 	
-	// 예약취소하기
-	@RequestMapping(value="ReservationCancle.dz", method = RequestMethod.GET)
-	public String cancleReservation(@RequestParam("reservationNo") int reservationNo) {
-		int result = service.cancleReservation(reservationNo);
-		return "";
-	}
+//	// 예약취소하기
+//	@RequestMapping(value="ReservationCancle.dz", method = RequestMethod.GET)
+//	public String cancleReservation(@RequestParam("reservationNo") int reservationNo) {
+//		int result = service.cancleReservation(reservationNo);
+//		return "";
+//	}
 	
 	// 예약완료하기
 	@RequestMapping(value="ReservationComplete.dz", method = RequestMethod.GET)

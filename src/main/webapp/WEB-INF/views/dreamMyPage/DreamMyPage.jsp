@@ -17,7 +17,7 @@
 				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
 				<div class="info-btn-frame">
 					<a class="info-btn" href="#">나의 정보</a>
-					<a class="info-btn" href="#">회원 탈퇴</a>
+					<a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
 				</div>
 			</div>
 		</div>
