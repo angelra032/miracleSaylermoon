@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!--  -->
-	<title>공지사항 등록</title>
+	<title>공지사항 수정페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
@@ -70,14 +70,6 @@
 				          focus: true,                // 에디터 로딩후 포커스를 맞출지 여부
 				          lang: "ko-KR",            // 한글 설정
 				          placeholder: '자유롭게 글을 작성할 수 있습니다. 명예훼손이나 상대방을 비방, 불쾌감을 주는 글, 욕설, 남을 모욕하는 글은 임의로 제제가 있을 수 있습니다.', //placeholder 설정
-				          callbacks: {
-					        	onImageUpload: function(files, editor, welEditable) {
-					        		for(var i = files.length -1; i>=0; i--) {
-					        			/* sendFile(files[i], this); */
-					        			uploadSummernoteImageFile(files[i],this);
-					        		}
-					        	}
-					        },
 				          toolbar: [
 				               ['style', ['style']],
 				               ['font', ['bold', 'italic', 'underline', 'clear']],

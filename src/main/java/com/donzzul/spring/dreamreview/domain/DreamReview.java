@@ -22,6 +22,22 @@ public class DreamReview {
 		this.drmReviewContent = drmReviewContent;
 	}
 
+	public DreamReview(int drmRviewNo, String drmReviewTitle, String drmReviewContent, String drmReviewWriter,
+			Date drmReviewCreateDate, Date drmReviewUploadDate, String drmReviewPublicYN, String userType, int userNo,
+			int shopNo) {
+		super();
+		this.drmRviewNo = drmRviewNo;
+		this.drmReviewTitle = drmReviewTitle;
+		this.drmReviewContent = drmReviewContent;
+		this.drmReviewWriter = drmReviewWriter;
+		this.drmReviewCreateDate = drmReviewCreateDate;
+		this.drmReviewUploadDate = drmReviewUploadDate;
+		this.drmReviewPublicYN = drmReviewPublicYN;
+		this.userType = userType;
+		this.userNo = userNo;
+		this.shopNo = shopNo;
+	}
+
 	public int getDrmRviewNo() {
 		return drmRviewNo;
 	}
@@ -70,11 +86,11 @@ public class DreamReview {
 		this.drmReviewUploadDate = drmReviewUploadDate;
 	}
 
-	public String getDrmReviewPublicYn() {
+	public String getDrmReviewPublicYN() {
 		return drmReviewPublicYN;
 	}
 
-	public void setDrmReviewPublicYn(String drmReviewPublicYN) {
+	public void setDrmReviewPublicYN(String drmReviewPublicYN) {
 		this.drmReviewPublicYN = drmReviewPublicYN;
 	}
 
@@ -106,11 +122,10 @@ public class DreamReview {
 	public String toString() {
 		return "DreamReview [drmRviewNo=" + drmRviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent="
 				+ drmReviewContent + ", drmReviewWriter=" + drmReviewWriter + ", drmReviewCreateDate="
-				+ drmReviewCreateDate + ", drmReviewUploadDate=" + drmReviewUploadDate + ", drmReviewPublicYn="
+				+ drmReviewCreateDate + ", drmReviewUploadDate=" + drmReviewUploadDate + ", drmReviewPublicYN="
 				+ drmReviewPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + "]";
 	}
-	
-	
+
 
 
 	

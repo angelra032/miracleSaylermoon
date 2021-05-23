@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!--  -->
-	<title>감사후기 등록</title>
+	<title>감사후기 수정페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
@@ -23,7 +23,7 @@
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="drmReviewTitle">제목</label>
-				<input type="text" name="drmReviewTitle" id="drmReviewTitle" class="form-control"" placeholder="제목">
+				<input type="text" name="drmReviewTitle" id="drmReviewTitle" class="form-control"" placeholder="제목" value="${ drmReview.drmReviewTitle }">
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
@@ -37,11 +37,20 @@
 				</div>
 			</div>
 			<div class="select-area">
+			
 				<label>공개여부</label>
-				<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="y" checked> 
-				<label for="radio-1">공개</label>
-				<input type="radio" name="drmReviewPublicYN" id="radio-2" value="n">
-				<label for="radio-2">비공개</label>
+				<c:if test="${ drmReview.drmReviewPublicYN == 'y' || drmReview.drmReviewPublicYN == 'Y' }">
+					<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="y" checked> 
+					<label for="radio-1">공개</label>
+					<input type="radio" name="drmReviewPublicYN" id="radio-2" value="n">
+					<label for="radio-2">비공개</label>
+				</c:if>
+				<c:if test="${ drmReview.drmReviewPublicYN == 'n' || drmReview.drmReviewPublicYN == 'N' }">
+					<input type="radio" name="drmReviewPublicYN" id="radio-1" class="form-check-input" value="y"> 
+					<label for="radio-1">공개</label>
+					<input type="radio" name="drmReviewPublicYN" id="radio-2" value="n" checked>
+					<label for="radio-2">비공개</label>
+				</c:if>
 			</div>
 			<div class="btn-area">
 					<div class="text-center col-sm-3">
@@ -88,21 +97,23 @@
 			               ['view', ['codeview']]
 			             ]
 			         });
+			   $('#summernote').summernote('code', '${ drmReview.drmReviewTitle }');
+			   
 			   
 			   // 저장버튼
 			   $('#saveBtn').on('click', function() {
 				   	var drmReviewContent = $("#summernote").summernote('code', drmReviewContent);
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
-					var shopNo = '${shopNo}';
+					var drmRviewNo = '${drmReview.drmRviewNo}';
 				    $.ajax({
-					   url : "dReviewWriterForm.dz",
+					   url : "dReviewModify.dz",
 					   type : "POST",
-					   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "shopNo" : shopNo},
+					   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "drmRviewNo" : drmRviewNo},
 					   success : function(data){
 						   if(data == "success") {
-							   location.href="dReviewMain.dz";
-							} else {
+							   location.href="dReviewDetail.dz?drmReviewNo="+drmRviewNo;
+							} else if(data == 'fail') {
 								alert('게시글 올리기 실패');
 								location.href="dReviewMain.dz";
 							}

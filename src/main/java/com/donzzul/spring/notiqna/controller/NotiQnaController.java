@@ -97,15 +97,17 @@ public class NotiQnaController {
 		qna.setQnaWriter(user.getUserNick());
 		qna.setUserType(user.getUserType());
 		qna.setUserNo(user.getUserNo());
+		Qna afterQna;
 		
 		int result = qnaService.insertQna(qna);
 		if(result > 0) {
-			int updateGroup = qnaService.updateGroup(qna);
-			if(updateGroup > 0) {
+//			afterQna
+//			int updateGroup = qnaService.updateGroup(qna);
+//			if(updateGroup > 0) {
 				return "success";
-			} else {
-				return "fail";
-			}
+//			} else {
+//				return "fail";
+//			}
 		} else {
 			return "fail";
 		}
@@ -219,7 +221,8 @@ public class NotiQnaController {
 		}
 		
 		// 수정함 update
-		@RequestMapping(value="noticeModify.dz", method=RequestMethod.POST)
+		@ResponseBody
+		@RequestMapping(value="noticeModify.dz", method= {RequestMethod.POST,RequestMethod.GET})
 		public String noticeUpdate(@ModelAttribute Notice notice) {
 			int result = nService.updateNotice(notice);
 			if(result > 0) {

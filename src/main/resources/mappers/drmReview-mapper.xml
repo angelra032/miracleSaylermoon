@@ -40,6 +40,9 @@
 		DELETE FROM DREAM_REVIEW WHERE DRMREVIEW_NO = #{drmRviewNo}
 	</delete>
 	
+	<update id="updateDrmReview">
+		UPDATE DREAM_REVIEW SET DRMREVIEW_TITLE=#{drmReviewTitle}, DRMREVIEW_CONTENT=#{drmReviewContent}, DRMREVIEW_UPLOAD_DATE=SYSDATE, DRMREVIEW_PUBLIC_YN=#{drmReviewPublicYN} WHERE DRMREVIEW_NO = #{drmRviewNo}
+	</update>
 	
 	
 
