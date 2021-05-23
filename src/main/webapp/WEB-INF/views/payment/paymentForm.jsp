@@ -17,8 +17,8 @@
 	        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	    </div>
 		<div id="main-title">돈쭐내기</div>
+		<h1>진짜파스타${shop.shopName }</h1> 
 		<div class="frame">
-			<h1>진짜파스타${shop.shopName }</h1> 
 			<form action="" method="post">
 			
 				<div id="lay1" class="payment lay1">
@@ -28,7 +28,7 @@
 					</div>
 					<br>
 					<div class="lay1-content">
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드 치킨" onclick="menuChoice(this.value)" ><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
+						<!-- <label class="menu-choice"><input type="radio" name="menu" value="후라이드 치킨" onclick="menuChoice(this.value)" ><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
 						<label class="menu-choice"><input type="radio" name="menu" value="양념 치킨" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
 						<label class="menu-choice"><input type="radio" name="menu" value="소이갈릭 치킨" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
 						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
@@ -37,16 +37,17 @@
 						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
 						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
 						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						
+						  -->
 						<!-- for each문(가게shop/메뉴mainMenu) -->
 						<c:forEach items="${mList }" var="menu">
-							<label class="menu-choice"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><input type="hidden" value="${menu.mainMenuPrice }"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
+							<label class="menu-choice"><input type="hidden" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
+							
 						</c:forEach>
 						
 					</div>
 				</div>
-				<div id="lay2" class="payment" style="display:none">
-					<div id="lay2-1" class="lay2 amount" style="display:none">
+				<div id="lay2" class="payment">
+					<div id="lay2-1" class="lay2 amount">
 					<br>
 						<div>
 							<h2>수량 선택</h2>
@@ -59,7 +60,7 @@
 							<label class="amount-btn"><input type="radio" name="amountC" value="3" onclick="amountChoice(this.value)"><span>X 3</span></label>
 						</div>		
 					</div>
-					<div id="lay2-2" class="lay2 point" style="display:none">
+					<div id="lay2-2" class="lay2 point" >
 					<br>
 						<div>
 							<h2>포인트 사용</h2>
@@ -75,7 +76,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="lay3" class="payment lay3" style="display:none">
+				<div id="lay3" class="payment lay3" >
 					<br>
 					<div>
 						<h2>결제 정보</h2>
@@ -83,8 +84,8 @@
 					<br>
 					<div>
 						<div id="lay3-payment-result">
-							메뉴명 : <input type="text" name="menuName" value="${loginUser.userPoint }" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
-							수량 : <input type="text" name="amount" value="${loginUser.userPoint }" readonly/> <br>
+							메뉴명 : <input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
+							수량 : <input type="text" name="amount" value="" readonly/> <br>
 							총 상품 가격 : <input type="text" name="menu-price" value="0" readonly/> <br>
 							사용 포인트 : <input type="text" name="use-point" value="0" readonly/> <br>
 							총 결제 금액 : <input type="text" name="donPrice" value="0" readonly/>
@@ -107,6 +108,14 @@
 <script type="text/javascript">
 	$("#payment-btn").on("click", function(e){
 	    e.preventDefault();
+	    var usePoint = $("#usePoint").val();
+		var userPoint = $("#userPoint").val();
+		usePoint = Number(usePoint);
+		userPoint = Number(userPoint);
+		if(usePoint > userPoint) {
+			alert("포인트 사용 가능 범위를 넘었습니다!");
+			return false;
+		}
 	    
 	    var IMP = window.IMP; // 생략가능
 	    IMP.init('imp57766104'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -202,26 +211,32 @@
 	// 메뉴 선택하면
 	function menuChoice(menu){
 		var menuName = $(menu).val();
-		var menuPrice = $(menu).next().val();
+		var menuPrice = $(menu).prev().val();
+		
 		console.log(menuName);
 		console.log(menuPrice);
 		$("input[name='menuName']").val(menuName);
 		$("input[name='menu-price']").val(menuPrice);
 		if(menu != null){
-			$("#lay2").show();
-			$("#lay2-1").show(1000);
+			/* $("#lay2").show();
+			$("#lay2-1").show(500);
+			$("#lay2-2").hide();
+			$("#lay3").hide(); */
 		}
 		
 		
 	}
 
-	var amount = 0;
+	//var amount = 0;
 	// 수량 선택하면
 	function amountChoice(amount){
 		$("input[name='amount']").val(amount);
 		console.log(amount);
 		if(amount != null){
-			$("#lay2-2").show(1000);
+			/* $("#lay2").show();
+			$("#lay2-1").show(500);
+			$("#lay2-2").show(500);
+			$("#lay3").hide(); */
 		}
 		
 		var mName = $("input[name='menuName']").val();
@@ -240,21 +255,38 @@
 		console.log(finPrice);
 		$("input[name='donPrice']").val(finPrice); // 결제 가격 = 총가격 - 사용포인트
 	}
-	console.log(amount);
+	//console.log(amount);
 
 	// 포인트 입력시 자동으로(onkeyup)
 	function pointUse(){
 		var usePoint = $("#usePoint").val();
-		var userPoint = $("#userPoint").val();
+		/* var userPoint = $("#userPoint").val();
 		if(usePoint > userPoint) {
 			alert("포인트 사용 가능 범위를 넘었습니다!")
-		}
+		} */
+		
 		$("input[name='use-point']").val(usePoint);
 		
 	}
 	$(function() {
 		$("#pSubmit").on("click", function(e){
 			e.preventDefault(); // submit 버튼으로 작동하는 것을 중단.
+			var usePoint = $("#usePoint").val();
+			var userPoint = $("#userPoint").val();
+			console.log(userPoint);console.log(usePoint);
+			usePoint = Number(usePoint);
+			userPoint = Number(userPoint);
+			console.log(userPoint);console.log(usePoint);
+			
+			if(usePoint > userPoint) {
+				alert("포인트 사용 가능 범위를 넘었습니다!");
+				return false;
+			}
+			
+			/* $("#lay2").show();
+			$("#lay2-1").show(500);
+			$("#lay2-2").show(500);
+			$("#lay3").hide(); */
 			// 포인트 사용 클릭 시 
 			// lay3 이 보여야하며
 			// lay3의 내용 - 총가격(가격*수량), 포인트, 결제 금액 나타내야하고
