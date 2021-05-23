@@ -49,20 +49,19 @@ public class QnaStoreLogic implements QnaStore {
 	
 	@Override
 	public int updateGroup(Qna qna) {
-		return sqlSession.update("", qna);
+		return sqlSession.update("notiQnaMapper.updateGroup", qna.getQnaNo());
 	}
 
 
 	@Override
 	public int updateQna(Qna qna) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("notiQnaMapper.updateQnA", qna);
 	}
 
 	@Override
 	public int deleteQna(int qaNo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("notiQnaMapper.deleteQna", qaNo);
 	}
 
 

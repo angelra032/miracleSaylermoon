@@ -47,11 +47,6 @@ public class MzReviewServiceLogic implements MzReviewService {
 		return 0;
 	}
 
-	@Override
-	public int deleteMzReview(MzReview mzReview) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
     
     @Override //D 가게 전체 후기 가져오기
     public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo) {
@@ -61,6 +56,11 @@ public class MzReviewServiceLogic implements MzReviewService {
     public ArrayList<MzReview> selectAllReview(int shopNo) {
         return mStore.selectAllReview(shopNo);
     }
+
+	@Override
+	public int deleteMzReview(int mReviewNo) {
+		return mStore.deleteMzReview(mReviewNo);
+	}
 
 
 

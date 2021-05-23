@@ -53,9 +53,8 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	}
 
 	@Override
-	public int deleteMzReview(int mzReviewNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteMzReview(int mReviewNo) {
+		return sqlSession.delete("mzReviewMapper.deleteMzReview", mReviewNo);
 	}
 	
     

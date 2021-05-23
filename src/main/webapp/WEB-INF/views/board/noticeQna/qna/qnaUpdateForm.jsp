@@ -8,9 +8,8 @@
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
-	<!-- <link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css"> -->
 	<!--  -->
-	<title>가게추천 글 등록</title>
+	<title>문의하기</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
@@ -19,20 +18,18 @@
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">가게추천</div>
+		<div id="main-title">QnA</div>
 		
 		<div class="form-group">
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
-				<label for="recommendTitle">제목</label>
-				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목">
+				<label for="qnaTitle">제목</label>
+				<input type="text" name="qnaTitle" id="qnaTitle" class="form-control"" placeholder="제목" value="${ qna.qnaTitle }">
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ loginUser.userNick }</div>
+				<div class="user-nick-area">${ qna.qnaWriter }</div>
 			</div>
-			<!-- <p>닉네임위치</p> -->
-			<!-- <textarea name="recommendContent" placeholder="내용"></textarea> -->
 			<br>
 			<div class="editor-area">
 				<label>내용</label>
@@ -41,11 +38,13 @@
 				</div>
 			</div>
 			<div class="btn-area">
+					<div class="text-center col-sm-3">
+						<button class="btn btn-lg" id="saveBtn">수정하기</button>
+					</div>
+				<%-- <c:if test="${ empty sessionScope.loginUser }">
+				</c:if> --%>
 				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">등록하기</button>
-				</div>
-				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">목록보기</button>
+					<button class="btn btn-lg" onclick="location.href='/notiQnaMain.dz'">목록보기</button>
 				</div>
 			</div>
 		</div>
@@ -79,41 +78,28 @@
 				               ['color', ['color']],
 				               ['para', ['ul', 'ol', 'paragraph']],
 				               ['height', ['height']],
-				               ['insert', ['picture', 'link', 'hr']],
+				               ['insert', ['link', 'hr']],
 				               ['view', ['codeview']]
-				             ],
-			             callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-								onImageUpload : function(files) {
-									uploadSummernoteImageFile(files[0],this);
-								},
-								onPaste: function (e) {
-									var clipboardData = e.originalEvent.clipboardData;
-									if (clipboardData && clipboardData.items && clipboardData.items.length) {
-										var item = clipboardData.items[0];
-										if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-											e.preventDefault();
-										}
-									}
-								}
-							}
+				             ]
 				         });
-				   
-				   // $('#summernote').summernote('code', '<p>가나다</p><p>마바사</p><p>아자차카타파하</p>');
+				   	$('#summernote').summernote('code', '${qna.qnaContent}');
 				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
-					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
-						var recommendTitle = $("#recommendTitle").val();
+					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
+						var qnaTitle = $("#qnaTitle").val();
+						var qnaNo = '${qna.qnaNo}';
 					    $.ajax({
-						   url : "recommendInsertForm.dz",
+						   url : "qaModify.dz",
 						   type : "POST",
-						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
+						   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "qnaNo" : qnaNo},
 						   success : function(data){
 							   if(data == "success") {
-								   location.href="recommendMain.dz";
-								} else {
-									alert('게시글 올리기 실패');
-									location.href="recommendMain.dz";
+								   alert('게시글이 수정되었습니다');
+								   location.href="notiQnaMain.dz";
+								} else if(data == 'fail') {
+									alert('게시글 수정 실패');
+									location.href="notiQnaMain.dz";
 								}
 						   },
 						   error : function() {
@@ -126,28 +112,23 @@
 				 }); 
 		}); 
 		 
-	 /**
-		* 이미지 파일 업로드
-		*/
-		function uploadSummernoteImageFile(file, editor) {
-			var data = new FormData();
-			data.append("file", file);
-			
-			$.ajax({
-				data : data,
-				type : "post",
-				contentType : false,
-				processData : false,
-				enctype : "multipart/form-data",
-				url : "/uploadSummernoteImageFile",
-				success : function(data) {
-	            	//항상 업로드된 파일의 url이 있어야 한다.
-					$(editor).summernote('insertImage', data.url);
-				}
-			});
-		}
-		 
-		 
-		 
+		 /* 
+		 	callbacks: {
+					        	onImageUpload: function(files, editor, welEditable) {
+					        		for(var i = files.length -1; i>=0; i--) {
+					        			uploadSummernoteImageFile(files[i],this);
+					        		}
+					        	}
+					        },
+					        onPaste: function (e) {
+								var clipboardData = e.originalEvent.clipboardData;
+								if (clipboardData && clipboardData.items && clipboardData.items.length) {
+									var item = clipboardData.items[0];
+									if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+										e.preventDefault();
+									}
+								}
+							},
+		 */
 	</script>
 </html>

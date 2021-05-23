@@ -44,11 +44,6 @@
 					</div>
 				<c:if test="${ !empty loginUser }">
 				</c:if>
-				<%-- <c:if test="${ empty loginUser }">
-					<div class="text-center col-sm-3">
-						<button class="btn btn-lg" onclick="location.href='/loginView.dz'">로그인</button>
-					</div>
-				</c:if> --%>
 				<div class="text-center col-sm-3">
 					<button class="btn btn-lg" onclick="location.href='/notiQnaMain.dz'">목록보기</button>
 				</div>
@@ -80,7 +75,6 @@
 				          callbacks: {
 					        	onImageUpload: function(files, editor, welEditable) {
 					        		for(var i = files.length -1; i>=0; i--) {
-					        			/* sendFile(files[i], this); */
 					        			uploadSummernoteImageFile(files[i],this);
 					        		}
 					        	}

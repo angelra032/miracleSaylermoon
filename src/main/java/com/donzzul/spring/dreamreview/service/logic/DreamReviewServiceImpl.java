@@ -50,8 +50,7 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 
 	@Override
 	public int deleteDreamReview(int drmRviewNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return drStore.deleteDreamReview(drmRviewNo);
 	}
 	
     // dreamReview 오버로딩

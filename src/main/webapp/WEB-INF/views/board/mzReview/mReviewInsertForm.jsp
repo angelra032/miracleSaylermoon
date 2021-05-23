@@ -7,33 +7,47 @@
 	<meta charset="UTF-8">
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
+	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!--  -->
-	<title>맛집후기 글쓰기 등록</title>
+	<title>맛집후기</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	
-	<main align="center" style="height:700px;"> <!-- 인라인스타일 나중에 지워주기 -->
+	<main> <!-- 인라인스타일 나중에 지워주기 -->
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	   	</div>
 		<div id="main-title">맛집후기</div>
-	
-		<h1>맛집(mz예약)후기</h1>
 		
-		<form action="" method="post">
 		
-			<input type="text" name="mReviewTitle" id="mReviewTitle" placeholder="제목">
-			<p>${ loginUser.userNick }</p>
-			<br>
-			<textarea id="summernote" name="eventContent"></textarea> 
-			
-		</form>
-			<div class="col-md-3">
-				<button class="btn" id="saveBtn">작성</button>
+	<div class="form-group">
+			<div class="title-area">
+				<label for="mReviewTitle">제목</label>
+				<input type="text" name="mReviewTitle" id="mReviewTitle" class="form-control"" placeholder="제목" >
 			</div>
-		
-		<!-- <textarea id="summernote" name="eventContent"></textarea>  -->
+			<div class="nick-area">
+				<label>이름</label>
+				<div class="user-nick-area">${ loginUser.userNick }</div>
+			</div>
+			<br>
+			<div class="editor-area">
+				<label>내용</label>
+				<div class="summernote-edit-area">
+				 	<textarea id="summernote" name="eventContent"></textarea>  
+				</div>
+			</div>
+			<div class="btn-area">
+					<div class="text-center col-sm-3">
+						<button class="btn btn-lg" id="saveBtn">등록하기</button>
+					</div>
+				<c:if test="${ !empty loginUser }">
+				</c:if>
+				<div class="text-center col-sm-3">
+					<button class="btn btn-lg" onclick="location.href='/notiQnaMain.dz'">목록보기</button>
+				</div>
+			</div>
+		</div>
 	  
 	</main>
 	
@@ -76,11 +90,11 @@
 						   type : "POST",
 						   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent},
 						   success : function(){
-							   // console.log('성공');
-								alert('성공');							   
+							   location.href='mReviewMain.dz';						   
 						   },
 						   error : function() {
-								alert('실패');							   
+								alert('게시글 올리기 실패');							   
+							   location.href='mReviewMain.dz';						   
 						   }
 					   });
 				   });

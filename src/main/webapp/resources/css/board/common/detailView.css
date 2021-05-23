@@ -62,16 +62,28 @@
             height: auto;
             margin: 0 auto 50px auto;
         }
+/* 버튼위치 */
+.bottom-btn-area {
+	width : 600px;
+	height : 40px;
+	 margin: 0 auto 50px auto;
+	
+}
+	.modify-btn-area{
+		width: 250px;
+        height: 40px;
+        float : left;
+        margin-right : 15px;
+	}
 
         /* 목록으로 버튼 */
         .back-btn-area{
             width: 250px;
             height: 40px;
-            margin: 0 auto 50px auto;
+		    margin: 0 auto;
         }
-        .back-btn-area > button {
+        .back-btn-area > button, .modify-btn-area > button {
             width: inherit;
             height: inherit;
             border: none;
-
         }

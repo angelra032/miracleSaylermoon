@@ -52,9 +52,8 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 	}
 
 	@Override
-	public int deleteRecommend(int recommendationNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteRecommend(int recommendNo) {
+		return sqlSession.delete("recommendMapper.deleteRecommend", recommendNo);
 	}
 
 

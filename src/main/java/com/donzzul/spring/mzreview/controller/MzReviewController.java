@@ -3,6 +3,7 @@ package com.donzzul.spring.mzreview.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
+import com.donzzul.spring.user.domain.User;
 
 @Controller
 public class MzReviewController {
@@ -55,7 +57,7 @@ public class MzReviewController {
 		return mv;
 	}
 	
-	// 감사후기 글쓰기버튼으로 들어옴 
+	// 감사후기 글쓰기버튼으로 들어옴 *****
 	@RequestMapping(value="mReviewWriteView.dz", method=RequestMethod.GET)
 	public String mReviewWriteView() {
 		return "board/mzReview/mReviewInsertForm";
@@ -65,6 +67,11 @@ public class MzReviewController {
 	@RequestMapping(value="mReviewInsertForm.dz", method=RequestMethod.POST)
 	public ModelAndView mReviewRegister(ModelAndView mv, @ModelAttribute MzReview mzReview, HttpServletRequest request) {
 //		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("loginUser");
+		mzReview.setmReviewWriter(user.getUserNick());
+		mzReview.setUserType(user.getUserType());
+		mzReview.setUserNo(user.getUserNo());
 		System.out.println(mzReview.toString());
 		int result = 0;
 		result = mService.insertMzReview(mzReview);
@@ -104,8 +111,14 @@ public class MzReviewController {
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="mReviewDelete.dz", method=RequestMethod.GET)
-	public String mReviewDelete(@RequestParam int mzReviewNo) {
-		return "";
+	public String mReviewDelete(@RequestParam("mReviewNo") int mReviewNo, Model model) {
+		int result = mService.deleteMzReview(mReviewNo);
+		if(result > 0) {
+			return "redirect:mReviewMain.dz";
+		} else {
+			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	// 수정버튼누름 (페이지)

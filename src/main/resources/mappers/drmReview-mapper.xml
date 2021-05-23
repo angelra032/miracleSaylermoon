@@ -36,6 +36,10 @@
 		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo})
 	</insert>
 	
+	<delete id="deleteDrmReview">
+		DELETE FROM DREAM_REVIEW WHERE DRMREVIEW_NO = #{drmRviewNo}
+	</delete>
+	
 	
 	
 
