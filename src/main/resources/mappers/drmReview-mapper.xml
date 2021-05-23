@@ -28,7 +28,7 @@
 	</select>
 
 	<select id="selectListShopNo" resultMap="drmReviewResultMap">
-		SELECT * FROM DREAM_REVIEW WHERE SHOP_NO=#{shopNo}
+		SELECT DRMREVIEW_TITLE, DRMREVIEW_CONTENT FROM DREAM_REVIEW WHERE SHOP_NO=#{shopNo} AND DRMREVIEW_PUBLIC_YN = 'y'
 	</select>
 
 	<insert id="insertDrmReview">

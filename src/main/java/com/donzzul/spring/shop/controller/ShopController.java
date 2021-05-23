@@ -20,7 +20,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.mzreview.domain.MzReview;
-//import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll; // 주석을 풀어주세요....
+import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll; 
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
@@ -51,17 +51,15 @@ public class ShopController {
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
 		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
+
 		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
-		if( !mapList.isEmpty() ) {
-			mv.addObject("mList", mapList);
-			mv.addObject("pi",	pi);
-			mv.addObject("mapNo", mapNo);
-			mv.addObject("shopOne", mapList.get(0));
-			mv.setViewName("map/MapDetail");
-		}else {
-			mv.addObject("msg", "준비중입니다.");
-			mv.setViewName("map/MapList");
-		}
+		
+		mv.addObject("pi",	pi);
+		mv.addObject("mList", mapList);
+		mv.addObject("mapNo", mapNo);
+		mv.addObject("shopOne", mapList.get(0)); // 마커 테스트
+		mv.setViewName("map/MapDetail");
+		
 		return mv;
 	}
 	
@@ -129,17 +127,24 @@ public class ShopController {
 	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo) {
 		// 파라미터 - 가게 번호 (쿼리스트링)
 		// 가게 상세정보 가져오기
-		Shop sInfo = sService.selectShopOne(shopNo);
+		Shop shop = sService.selectShopOne(shopNo);
 		// 가게 메인메뉴 가져오기
 //		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo);
 		// 메뉴 사진 가져오기 
 //		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
+		
 		// 전체 후기 가져오기
-		// 주석을 풀어주세요....
 //		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
-		mv.addObject("sInfo", sInfo);
+		
+		// 꿈나무 후기 테스트
+//		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
+//		System.out.println(drList.toString());
+		
+		mv.addObject("shop", shop);
 //		mv.addObject("mainMenu", mainMenu);
 //		mv.addObject("mPhoto", mPhoto);
+//		mv.addObject("rList", rList);
+//		mv.addObject("drList", drList);
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;

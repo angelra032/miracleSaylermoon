@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 지도 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1683794343a4e97ff3195b44b6488d0c&libraries=services"></script>
+<script>
+	var positions = [];
+	for("${Shop}" shop in "${mList}") {
+		var shopMap = new Object();
+		shopMap.shopNo = shop.shopNo;
+		shopMap.shopName = shop.shopName;
+		shopMap.shopShortAddr = shop.shopShortAddr;
+		shopMap.shopAddr = shop.shopAddr;
+		shopMap.startTime = shop.startTime;
+		shopMap.endTime = shop.endTime;
+		shopMap.businessDay = shop.businessDay;
+		shopMap.shopTarget = shop.shopTarget;
+		shopMap.shopProduct = shop.shopProduct;
+	} 
+	positions.push(shopMap);
+	console.log("positions" + positions);
+</script>
 <title>지도 상세 페이지</title>
 </head>
 <body>
@@ -107,7 +125,7 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 	<script>
-		$(function() {
+		function() {
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
@@ -143,7 +161,7 @@
 					});
 				}
 			});
-		});
+		}
 /* 		function pageMove() {
 			$(".content-list").empty();
 			$(".content-list navi").empty();
@@ -168,9 +186,8 @@
 	<!-- 맵 js -->
 	<script>
 
-	// 마커를 표시할 위치와 title 객체 배열입니다 
-		var positions = [];
-		
+		console.log("맵 js" + "${ mList }");
+	
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	 		mapOption = { 
 	        center: new kakao.maps.LatLng(37.54699, 127.09598), // 지도의 중심좌표
@@ -193,53 +210,56 @@
 		    map.setLevel(map.getLevel() + 1);
 		}
 		
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('${shopOne.shopAddr}', function(result, status) {
 		
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-		
-				var imageSrc = '/resources/images/map_marker_blue.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
-				      
-				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
-				    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 마커가 표시될 위치입니다
-				
-				// 마커를 생성합니다
-				var marker = new kakao.maps.Marker({
-				    position: markerPosition, 
-				    image: markerImage // 마커이미지 설정 
-				});
-				
-				// 마커가 지도 위에 표시되도록 설정합니다
-				marker.setMap(map);  
-		
-				/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				var content = '<div class="customoverlay">' +
-				    '  <a href="javascript:void(0);" onclick="showShortInfo()">' +
-				    '    <span class="title">${shopOne.shopName}</span>' +
-				    '  </a>' +
-				    '</div>';
-				
-				// 커스텀 오버레이가 표시될 위치입니다 
-				var position = new kakao.maps.LatLng(result[0].y, result[0].x); 
-				
-				// 커스텀 오버레이를 생성합니다
-				var customOverlay = new kakao.maps.CustomOverlay({
-				    map: map,
-				    position: position,
-				    content: content,
-				    yAnchor: 1 
-				});
-				
-				
-			}
+		positions.forEach(function(shopMarker, index){ 
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+	
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(shopMarker.shopAddr, function(result, status) {
 			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
 			
+					var imageSrc = '/resources/images/map_marker_blue.png', // 마커이미지의 주소입니다    
+					    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
+					      
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
+					    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 마커가 표시될 위치입니다
+					
+					// 마커를 생성합니다
+					var marker = new kakao.maps.Marker({
+					    position: markerPosition, 
+					    image: markerImage // 마커이미지 설정 
+					});
+					
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);  
+			
+					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					var content = '<div class="customoverlay">' +
+					    '  <a href="javascript:void(0);" onclick="showShortInfo()">' +
+					    '    <span class="title">shopMarker.shopName</span>' +
+					    '  </a>' +
+					    '</div>';
+					
+					// 커스텀 오버레이가 표시될 위치입니다 
+					var position = new kakao.maps.LatLng(result[0].y, result[0].x); 
+					
+					// 커스텀 오버레이를 생성합니다
+					var customOverlay = new kakao.maps.CustomOverlay({
+					    map: map,
+					    position: position,
+					    content: content,
+					    yAnchor: 1 
+					});
+					
+					
+				}
+				
+			});
+		
 		});
 	
 	</script>
