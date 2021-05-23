@@ -111,10 +111,11 @@
 				   	var drmReviewContent = $("#summernote").summernote('code', drmReviewContent);
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
+					var shopNo = '${shopNo}';
 				    $.ajax({
 					   url : "dReviewWriterForm.dz",
 					   type : "POST",
-					   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN},
+					   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "shopNo" : shopNo},
 					   success : function(data){
 						   if(data == "success") {
 							   location.href="dReviewMain.dz";

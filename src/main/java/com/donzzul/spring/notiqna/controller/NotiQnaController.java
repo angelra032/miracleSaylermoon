@@ -138,17 +138,15 @@ public class NotiQnaController {
 	}
 	
 	// 수정함 update
-	@RequestMapping(value="qaModify.dz", method=RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value="qaModify.dz", method= {RequestMethod.POST, RequestMethod.GET})
 	public String qaUpdate(@ModelAttribute Qna qna, Model model) {
 		System.out.println("서버단에오나요..");
 		int result = qnaService.updateQna(qna);
 		System.out.println("리저트아래 " + result);
 		if(result > 0) {
-//			return "redirect:notiQnaMain.dz";
 			return "success";
 		} else {
-//			model.addAttribute("msg", "게시글 수정 실패");
-//			return "common/errorPage";
 			return "fail";
 		}
 	}
@@ -210,14 +208,25 @@ public class NotiQnaController {
 		
 		// 수정버튼누름
 		@RequestMapping(value="noticeUpdateForm.dz", method=RequestMethod.GET)
-		public String noticeUpdateView() {
-			return "";
+		public ModelAndView noticeUpdateView(ModelAndView mv,@RequestParam("noticeNo") int noticeNo) {
+			Notice notice = nService.selectOneNotice(noticeNo);
+			if(notice != null) {
+				mv.addObject("notice", notice).setViewName("board/noticeQna/notice/noticeUpdateForm");
+			} else {
+				mv.addObject("msg", "게시글 수정페이지 접속 실패").setViewName("common/errorPage");
+			}
+			return mv;
 		}
 		
 		// 수정함 update
 		@RequestMapping(value="noticeModify.dz", method=RequestMethod.POST)
 		public String noticeUpdate(@ModelAttribute Notice notice) {
-			return "";
+			int result = nService.updateNotice(notice);
+			if(result > 0) {
+				return "success";
+			} else {
+				return "fail";
+			}
 		}
 	
 }

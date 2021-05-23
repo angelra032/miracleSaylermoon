@@ -40,7 +40,7 @@
              <div class="bottom-btn-area">
 			<c:if test="${ loginUser.userType eq '4'}">
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='noticeNo=${ notice.noticeNo }'" style="cursor: pointer;">수정하기</button>
+	                <button onclick="location.href='noticeUpdateForm.dz?noticeNo=${ notice.noticeNo }'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
 	                <button onclick="location.href='noticeDelete.dz?noticeNo=${ notice.noticeNo }'" style="cursor: pointer;">삭제하기</button>
