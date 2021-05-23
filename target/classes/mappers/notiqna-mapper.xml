@@ -65,7 +65,7 @@
 	</select>
 	
 	<insert id="inserQna" parameterType="Qna">
-		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, null, 0, 0)
+		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, SEQ_QNA.CURRVAL, 0, 0)
 	</insert>
 	
 	<delete id="deleteQna">

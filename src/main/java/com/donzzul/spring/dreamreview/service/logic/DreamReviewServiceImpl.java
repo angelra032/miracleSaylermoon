@@ -52,10 +52,12 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		return drStore.deleteDreamReview(drmRviewNo);
 	}
 	
-    // dreamReview 오버로딩
+    @Override
     public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
+    	System.out.println("service");
         return drStore.selectAllDreamReview(shopNo);
     }
+
 
 
 

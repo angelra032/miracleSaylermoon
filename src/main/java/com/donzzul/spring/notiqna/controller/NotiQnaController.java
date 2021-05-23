@@ -59,13 +59,13 @@ public class NotiQnaController {
 	@RequestMapping(value="qaDetail.dz", method=RequestMethod.GET)
 	public ModelAndView qaDetailView(ModelAndView mv, @RequestParam("qnaNo") int qaNo, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Qna qna = qnaService.selectOneQna(qaNo); // qna 조회해옴
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser"); // 세션에서 유저를 불러옴
 		if(qna != null) {
 			if(qna.getBoardPublicYN().equals("Y")) { // qna 퍼블릭(없는경우임)
 				mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
 //				mv.addObject("msg", "자신이 쓴 글만 확인할 수 있습니다.").setViewName("common/errorPage");
 			} else {
-				HttpSession session = request.getSession();
-				User user = (User)session.getAttribute("loginUser"); // 세션에서 유저를 불러옴
 				if(user == null) { // 로그인 안함
 //					mv.addObject("msg", "로그인필요").setViewName("common/errorPage");
 					mv.setViewName("redirect:/loginView.dz");
@@ -97,17 +97,10 @@ public class NotiQnaController {
 		qna.setQnaWriter(user.getUserNick());
 		qna.setUserType(user.getUserType());
 		qna.setUserNo(user.getUserNo());
-		Qna afterQna;
 		
-		int result = qnaService.insertQna(qna);
+		int result = qnaService.insertQna(qna); // 글쓰기
 		if(result > 0) {
-//			afterQna
-//			int updateGroup = qnaService.updateGroup(qna);
-//			if(updateGroup > 0) {
-				return "success";
-//			} else {
-//				return "fail";
-//			}
+			return "success";
 		} else {
 			return "fail";
 		}

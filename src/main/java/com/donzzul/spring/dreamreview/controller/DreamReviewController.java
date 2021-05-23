@@ -56,9 +56,11 @@ public class DreamReviewController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo) {
+	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo, HttpServletRequest request) {
 		
 		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
 //		int shopNo = drmReview.getShopNo();
 //		Shop shop = new ShopServiceImpl().selectShopOne(shopNo);
 //		String shopName = shop.getShopName();
@@ -67,7 +69,17 @@ public class DreamReviewController {
 //		String shopName = new ShopServiceImpl().selectShopOne(shopNo).getShopName();
 //		System.out.println(shopName);
 		if(drmReview != null) {
-			mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
+			if(drmReview.getDrmReviewPublicYN().equals("Y") || drmReview.getDrmReviewPublicYN().equals("y")) { // 게시글이 있고 공개상태
+				mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
+			} else {
+				if(user == null) { // 게시글 비공개 - 로그인 안함
+					mv.setViewName("redirect:/loginView.dz");
+				} else if(drmReview.getUserNo() == user.getUserNo()) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
+					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
+				} else {
+					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");
+				}
+			}
 		} else {
 			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
 		}
