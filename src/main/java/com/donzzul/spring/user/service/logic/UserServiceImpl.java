@@ -93,18 +93,27 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public int updateUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateMzUser(User user) {
+		return store.updateMzUser(user);
 	}
 
+	//회원탈퇴
 	@Override
-	public int deleteUser(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteUser(int userNo) {
+		return store.deleteUser(userNo);
 	}
 
+	//회원탈퇴요청(사업자)
+	@Override
+	public int deleteRequestUser(int userNo) {
+		return store.deleteRequestUser(userNo);
+	}
 	
+	// 비밀번호 확인
+	@Override
+	public int checkPwDup(HashMap<String, String> map) {
+		return store.checkPwDup(map);
+	}
 
 
 	//아이디 찾기 중복검사
@@ -131,6 +140,7 @@ public class UserServiceImpl implements UserService {
 		return store.resetPw(map);
 	}
 
+	
 
 
 }

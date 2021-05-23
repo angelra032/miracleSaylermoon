@@ -16,13 +16,14 @@ import com.donzzul.spring.user.domain.User;
 @Controller
 public class MZMyPageController {
 
-	// 메인리스트뷰
+	// 마이페이지 메인
 	@RequestMapping(value = "mzMyPage.dz")
-	public String MZMyPageView(@RequestParam("userId") String userId) {
+	public String MZMyPageView() {
 		
 //		ArrayList<Reservation> rList = Service.selectListById(userId);
 		return "mzMyPage/MZMyPage";
 	}
+	
 	
 	// 예약페이지보기
 	@RequestMapping(value = "mzReservationList.dz")

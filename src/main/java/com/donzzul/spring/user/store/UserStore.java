@@ -18,8 +18,10 @@ public interface UserStore {
 	public int insertDreamUser(User user);
 	public int insertMzUser(User user);
 	public int insertPartnerUser(User user);
-	public int updateUser(User user);
-	public int deleteUser(String userId);
+	public int updateMzUser(User user);
+	public int deleteUser(int userNo);
+	public int checkPwDup(HashMap<String, String> map);
+	public int deleteRequestUser(int userNo);
 	public int checkFindIdDup(HashMap<String, String> map);
 	public int checkFindPwDup(HashMap<String, String> map);
 	public String findId(HashMap<String, String> map);

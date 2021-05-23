@@ -15,7 +15,7 @@
    		</div>	
    		<div id="main-title">새 비밀번호 입력</div>
 		<div class="frame">
-		<h4>아이디, 이메일을 입력하세요</h4>
+		<h4>새 비밀번호를 입력하세요</h4>
 			<div class="tabcontent">
 				<div class="underline">
 					<div class="content-body">
