@@ -76,4 +76,9 @@ public class PaymentStoreLogic implements PaymentStore{
 		return sqlSession.selectOne("paymentMapper.selectShopUserNo", userNo);
 	}
 
+	@Override
+	public ArrayList<Don> selectDonListThree(int userNo) {
+		return (ArrayList)sqlSession.selectList("paymentMapper.selectDonListThree", userNo);
+	}
+
 }

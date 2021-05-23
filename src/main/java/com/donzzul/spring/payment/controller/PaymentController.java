@@ -29,7 +29,7 @@ import com.donzzul.spring.user.domain.User;
 public class PaymentController {
 
 	@Autowired
-	private PaymentService service;
+	private PaymentService pService;
 
 	// 돈쭐 결제 폼
 	@RequestMapping(value = "paymentFormView.dz", method = { RequestMethod.GET, RequestMethod.POST })
@@ -38,10 +38,10 @@ public class PaymentController {
 		Shop shop = new Shop();
 		shop.setShopNo(87); //임시 데이터
 		
-		shop = service.selectShop(shop); // 샵도 뿌려줘야 don 폼에 담음..
+		shop = pService.selectShop(shop); // 샵도 뿌려줘야 don 폼에 담음..
 //		int shopNo = 87;
 //		MainMenu menu = new MainMenu();
-		ArrayList<MainMenu> mList = service.selectShopMenu(shop.getShopNo());
+		ArrayList<MainMenu> mList = pService.selectShopMenu(shop.getShopNo());
 		System.out.println(shop.toString());
 		System.out.println(mList.toString());
 		if (mList != null) {
@@ -78,7 +78,7 @@ public class PaymentController {
 		System.out.println(don);
 		System.out.println(usePoint);
 		
-		int result = service.insertDonList(don);
+		int result = pService.insertDonList(don);
 		if(result > 0) {
 			// 카카오페이 - 돈쭐 내역 저장 - 포인트 업데이트 - 룰렛 돌리기
 			// 포인트 업데이트(usePoint)
@@ -86,7 +86,7 @@ public class PaymentController {
 			
 			// 포인트 업데이트
 			loginUser.setUserPoint(loginUser.getUserPoint()-usePoint);
-			int upPoint = service.usePoint(loginUser);
+			int upPoint = pService.usePoint(loginUser);
 			if(upPoint > 0) {
 				System.out.println("포인트 업데이트 성공!");
 				mv.setViewName("");
@@ -101,16 +101,28 @@ public class PaymentController {
 		return mv;
 	}
 
-	public String insertDonList(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		// 결제 후 반환정보 파라미터로
-		return "";
-	}
 
 	// 돈쭐 내역 출력
-	@RequestMapping(value = "printDonList.dz", method = RequestMethod.GET)
-	public String printDonList(HttpServletRequest request, @ModelAttribute User user, Model model) {
+	@RequestMapping(value ="printDonList.dz", method = RequestMethod.GET)
+	public ModelAndView printDonList(HttpSession session, ModelAndView mv, Model model) {
 		// 결제 후 반환정보 파라미터로
-		return "";
+		
+		
+		// 돈쭐 (3개 / 페이징) 클릭하면 로그인세션(userNo)로 검색
+		
+		// 3개(마이페이지)
+		User loginUser = (User)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		
+		ArrayList<Don> dList = pService.selectDonListThree(userNo);
+		if(!dList.isEmpty()) {
+			mv.addObject("dList", dList);
+			mv.setViewName(""); // 마이페이지
+		}else {
+			mv.addObject("msg", "돈쭐 내역을 출력하는데 실패하였습니다!");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 
 	/// 필요한가? 어차피 세션 출력처리까지만. 디비는 안해도 될 듯

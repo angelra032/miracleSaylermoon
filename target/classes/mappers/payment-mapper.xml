@@ -31,7 +31,14 @@
 	
 	<!-- select - insert - update - delete -->
 	
-	<select id=""></select>
+	<select id="selectDonListThree"> <!-- 돈쭐내역 3개 출력 -->
+		SELECT * FROM DON
+	</select>
+	
+	
+	<insert id="insertDonList">
+		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo } )
+	</insert>
 	
 	<update id="updateUserPoint">
 		UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo }
@@ -39,9 +46,6 @@
 								아니면 payment가 아니라 user에서 처리? service 바꿔서..(User service 선언해주고) -->
 	</update>
 	
-	<insert id="insertDonList">
-		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo } )
-	</insert>
 	
 	
 	

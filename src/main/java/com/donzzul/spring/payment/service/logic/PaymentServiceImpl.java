@@ -16,12 +16,12 @@ import com.donzzul.spring.user.domain.User;
 public class PaymentServiceImpl implements PaymentService{
 
 	@Autowired
-	private PaymentStore store;
+	private PaymentStore pStore;
 
 	
 	@Override
 	public int usePoint(User user) { // 포인트 사용
-		int result = store.updatePoint(user);
+		int result = pStore.updatePoint(user);
 		return result;
 	}
 
@@ -48,7 +48,7 @@ public class PaymentServiceImpl implements PaymentService{
 	 */
 
 	@Override
-	public String selectDonList(User user) {
+	public String selectDonList(int userNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -58,24 +58,29 @@ public class PaymentServiceImpl implements PaymentService{
 
 	@Override
 	public int insertDonList(Don don) {
-		return store.insertDonList(don);
+		return pStore.insertDonList(don);
 	}
 
 	@Override
 	public ArrayList<MainMenu> selectShopMenu(int shopNo) {
-		ArrayList<MainMenu> mainmenu = store.selectShopMenu(shopNo);
+		ArrayList<MainMenu> mainmenu = pStore.selectShopMenu(shopNo);
 		return mainmenu;
 	}
 
 	@Override
 	public Shop selectShop(Shop shop) {
-		return store.selectShop(shop);
+		return pStore.selectShop(shop);
 	}
 
 	// 사업자 마이페이지 가게 불러오기
 	@Override
 	public Shop selectMyShop(int userNo) {
-		return store.selectMyShop(userNo);
+		return pStore.selectMyShop(userNo);
+	}
+
+	@Override
+	public ArrayList<Don> selectDonListThree(int userNo) {
+		return pStore.selectDonListThree(userNo);
 	}
 
 

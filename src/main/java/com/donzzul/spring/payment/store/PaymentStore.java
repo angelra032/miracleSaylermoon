@@ -19,6 +19,7 @@ public interface PaymentStore {
 	// 결제
 	public int insertDonList(Don don); // 돈쭐내역 업데이트
 	public String selectDonList(User user); // 돈쭐내역 출력
+	public ArrayList<Don> selectDonListThree(int userNo); // 돈쭐내역 3개
 	
 	//////// +
 	public ArrayList<MainMenu> selectShopMenu(int shopNo); // 가게 메뉴 가져오기
