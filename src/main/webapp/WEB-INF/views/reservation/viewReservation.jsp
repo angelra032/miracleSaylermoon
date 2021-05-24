@@ -17,16 +17,33 @@
       var calendarEl = document.getElementById('calendar');
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
-         editable : true,
+    	 editable : true,
          selectable : true,
          businessHours : true,
          locale : "ko",
-         dayMaxEvents : true, // allow "more" link when too many events
+         dayMaxEvents : true,
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
             // use *local* methods on the native Date Object
             // will output something like 'Sat Sep 01 2018 00:00:00 GMT-XX:XX (Eastern Daylight Time)'
-         }
+         },
+          eventSources : [{
+        	 events: function(info, successCallback, failureCallback){
+        		 $.ajax({
+        			 url: "printReservation.dz",
+        			 type : 'POST',
+        			 dataType : 'json',
+        			 data : {"shopNo": "${shop.shopNo }"},
+        			 success: function(data){
+        				 successCallback(data);
+        				 console.log(data);
+        			 }
+        		 });
+        	 }
+          	, color : "#FDB504"
+            , textColor : "#000000"
+         }] 
+         
       });
 
       calendar.render();
@@ -53,10 +70,11 @@
 	    	  alert("다른 날짜를 선택해주세요...!!");
 	    	  return false;
 	      }
-	      $("#selectTime").val("${startTime }"); // 클릭했을때 첫번째 값으로 초기화
+	      //$("#selectTime").val("${startTime }"); // 클릭했을때 첫번째 값으로 초기화
+	      $("#selectTime").val("0");  //선택으로 초기화
 	      $("input[name='reserveDate']").val(date2);
 	      $("#rDateSpan").text(date2);
-	      timeChange("${startTime }");  // 최초엔 눌렀던값을 또 눌렀을경우 나머지 창이 안열리니깐 그걸 보완한거
+	      timeChange("0");  // 최초엔 눌렀던값을 또 눌렀을경우 나머지 창이 안열리니깐 그걸 보완한거
 	  }else{
 		  alert("로그인좀..");
 	  }
@@ -65,13 +83,15 @@
 	
    // 요거는 체인지가 어울려!
    function timeChange(time){
-      $("input[name='reserveTime']").val(time);
       //날짜클릭시 예약시간선택 보임 나머지 숨김
-      if(time != null){
+      if(!(time == null || time == 0)){
+    	 $("input[name='reserveTime']").val(time);
          var reserveDate = $("input[name='reserveDate']").val();
          var reserveTime = $("input[name='reserveTime']").val();
          var shopNo = $("input[name='shopNo']").val();
-         $("#rTimeSpan").text(reserveTime);
+         if(reserveTime != 0){
+        	 $("#rTimeSpan").text(reserveTime);
+         }
          $.ajax({
         	 url : 'rCountCheck.dz',
         	 type : "post",
@@ -79,25 +99,40 @@
         	 success : function(data) {
         		 if(data < 1){
         			 alert('해당 시간에 예약이 불가합니다.');
+        			 timeChange(0);
         			 return false; // 자바 스크립트에서는 return false면 아래 구문으로 내려가지 않는다!
         		 }
         		 $('#selectCount').empty();
-        		 
+        		 var option = $("<option value='0'>선택</option>");
+        		 $('#selectCount').append(option);
         		 for(var i = 1; i <= data; i++){                
         		     var option = $("<option value='" + i + "'>"+i +"명"+"</option>");
         		     $('#selectCount').append(option);
         		 }
-        		 countChange(1);
+        		 countChange(0);
         	 },error : function(request,status,error) {
         		 alert('서버 오류가 발생했습니다\n\n 잠시후 이용해주시길 바랍니다.');
 			 }
          })
+      }else{
+    	  //초기화 부분
+    	  $("input[name='reserveTime']").val(""); //숨겨진 부분 값 초기화
+    	  $("#rTimeSpan").text(""); //보여지는 부분 초기화
+    	  $("#selectTime").val("0");
+    	  countChange(0);
       }
    }
    
    function countChange(count){
-	      $("input[name='reserveCount']").val(count);
-	      $("#rCountSpan").text(count);
+	   if(!(count == null || count == 0)){
+		   $("input[name='reserveCount']").val(count);
+		   $("#rCountSpan").text(count);
+	   }else{
+		   //초기화 부분
+		   $("input[name='reserveCount']").val(""); //value 초기화
+		   $("#rCountSpan").text(""); //보여주는 부분 초기화
+		   $('#selectCount').val("0");
+	   }
    }
     
    function pointchecked(){
@@ -168,6 +203,7 @@
                <div id="rTimeText"><h1>예약시간 선택</h1></div>
                <div id="selectTSection">
                	<select name="selectTime" id="selectTime" class="select" onchange="timeChange(this.value);">
+                  	 <option value="0">선택</option>
                   <c:forEach var="i" begin="${startTime }" end="${endTime }">
                      <option value="${i }">${i }시</option>
                   </c:forEach>
@@ -178,6 +214,7 @@
                	<div id="rCountText"><h1>인원수 선택</h1></div>
                	<div id="selectCSection">
                		<select name="selectCount" id="selectCount" class="select" onchange="countChange(this.value);">
+                  			<option value="0">선택</option>
                   		<c:forEach var="i" begin="1" end="${shop.shopMaxReserv }">
                      		<option value="${i }">${i }명</option>
                   		</c:forEach>

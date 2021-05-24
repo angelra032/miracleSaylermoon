@@ -50,6 +50,13 @@ public class ReservationStoreLogic implements ReservationStore {
 	}
 	
 	@Override
+	public ArrayList<Reservation> selectOneBySno(int shopNo) {
+		ArrayList<Reservation> reservation = (ArrayList)sqlSession.selectList("reservationMapper.selectOneBySno",shopNo);
+		return reservation;
+	}
+	
+	
+	@Override
 	public int updateRstate(Reservation reservation) {
 		int result = sqlSession.update("reservationMapper.updateRstate",reservation);
 		return result;
@@ -143,6 +150,7 @@ public class ReservationStoreLogic implements ReservationStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }

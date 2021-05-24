@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
+<link rel="stylesheet" href="/resources/css/dreammypage/dreservationdetail.css">
 <title>꿈나무회원 예약목록 페이지</title>
 </head>
 <body>

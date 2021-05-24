@@ -60,11 +60,9 @@
 											<option value="X" ${reservation.rState eq 'X' ? 'selected="selected"' : '' }>거부</option>
 										</select>
 									</form>
-								</td>
-								<%-- 
+								</td> 
 								<td>${reservation.rState }</td>
-								<td><a class="reserv-btn" href="#">예약취소</a></td>
-								 --%>
+								<td><a class="reserv-btn" href="#">방문완료</a></td>
 							</tr>
 						</c:forEach>
 						<%-- <c:forEach items="${rList }" var="reservation">
@@ -129,21 +127,16 @@
 	        var rState = $(this).val();
 	        var reservationNo = parseInt($(this).closest("tr").find("input[name='reservationNo']").val());
 	        var shopNo = parseInt($(this).closest("tr").find("input[name='shopNo']").val());
+	        console.log(rState)
 	        $.ajax({
 	            url : "updateReservation.dz",
 	            type : "POST",
 	            data : {"rState" : rState, "reservationNo" :reservationNo, "shopNo" :shopNo},
 	            success : function() {
-	            	console.log('rState'+rState);
-					if(rState.is(":selected")){
-						/* 다시 생각해야해... */
-						/* $('#rState').empty();
-						$('#rState').append("<option value='" + Y + "'>"+Y +"승인"+"</option>");
-						$('#rState').append("<option value='" + X + "'>"+X +"거부"+"</option>"); */
-					}
+	            	location.reload();
 	            },
 	            error : function() {
-	            	console.log('실패');
+	            	alert('예약 상태 변경이 실패하였습니다...');
 
 	            }
 	        });

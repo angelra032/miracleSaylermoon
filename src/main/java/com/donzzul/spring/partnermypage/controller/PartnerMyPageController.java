@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
@@ -55,36 +56,22 @@ public class PartnerMyPageController {
 										@RequestParam("rState") String rState,
 										@RequestParam("shopNo") int shopNo,
 										Model model) {
-		System.out.println("예약번호얌"+reservationNo);
-		
-		Reservation resultReservation = rService.selectOne(reservationNo);
-		String rStateResulut = resultReservation.getrState();
-
+		Reservation reservation = rService.selectOne(reservationNo);
+		String rStateResulut = reservation.getrState();
 //		예약기본상태 O(default)
 //		예약승인 Y(comfirm)
 //		예약취소 X(cancle)
 //		예약완료 C(complete)
-		if(rStateResulut.equals("O")) {
-			switch(rState) {
-			case "Y" : 
-				int cResult = rService.comfirmReservation(reservationNo);
-				int pResult = rService.updateShopPoint(resultReservation);
-				
-				 	if(pResult > 0 && cResult > 0) { 
-				 		model.addAttribute("pResult", pResult); 
-				 		return "";
-				 }
-				
-				break;
-			case "X" :
-				break;
-			case "C" :
-				break;
+		if(rStateResulut != null) {
+			reservation.setrState(rState);
+			int result = rService.updateRstate(reservation);
+			if(result > 0 && rState.equals("C")) {
+				rService.updateShopPoint(reservation);
+				}
 			}
-		}
-
+		model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
 		return "partnerMyPage/partnerMyPage";
-	}
+		}
 	
 	
 	// 예약 더보기(풀 리스트)

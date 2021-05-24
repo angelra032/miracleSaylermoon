@@ -25,7 +25,6 @@
 
 h1{
 	font: #333;
-	/* position: relative; */
 	top:10px;
 }
 
@@ -33,10 +32,9 @@ h1{
 	float: left;
 	height:650px;
 	width:410px;
-	position:relative;
-	left:50px;
 	border: solid 1px #fdb504;
     background-color: #ffffff;
+    margin-left: 20px;
 }
 
 #rTimeText{
@@ -76,8 +74,6 @@ h1{
 	float: left;
 	height:567px;
 	width:410px;
-	position:relative;
-	left:130px;
 }
 
 #rCountText{
@@ -98,18 +94,15 @@ h1{
 }
 
 .pRadion{
-	position: relative;
-	top:20px;
+	margin-top:20px;
 }
 
 #pointUseDiv{
-	position: relative;
-	top: 50px;
+	margin-top: 50px;
 }
 
 #pointBox{
-	position: relative;
-	top: 20px;
+	margin-top: 20px;
 }
 
 
@@ -117,20 +110,18 @@ h1{
 	float: left;
 	height:650px;
 	width:410px;
-	position:relative;
-	left:100px;
+	margin-left: 20px;
 	border: solid 1px #fdb504;
     background-color: #ffffff;
 }
 
 #rInfomationText{
-	height: 80px;
+	height: 60px;
 	width: 100%;
 	background-color: #fdb504;
 }
 
 .allInformation{
-	position: relative;
 	margin-top: 15%;
 	font-size: 25px;
 	font-weight: bold;
@@ -138,12 +129,10 @@ h1{
 
 .select{
 	font-size: 20px;
-	potison: relative;
-	margin-top: 5%;
+	margin-top: 32px;
 }
 
 .pointUse{
-	position: relative;
 	font-size: 14px;
 }
 
@@ -160,15 +149,6 @@ h1{
 	padding:5px 5px 5px 5px;
 }
 
-#rButton{
-	position: relative;
-	top:120px;
-}
-
-.reservationArea{
-	position:relative;
-	margin-top: 20%;
-}
 
 /* 내가 만진 css 끝 */
 
@@ -181,7 +161,7 @@ body {
 }
 
 .frame {
-	width: 1270px;
+	width: 1289px;
 	margin: 0 auto;
 	/* position:relative; */
 	height:1000px;

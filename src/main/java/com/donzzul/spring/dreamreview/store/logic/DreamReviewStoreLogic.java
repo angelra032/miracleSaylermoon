@@ -60,6 +60,11 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectListAllShopNo", shopNo);
 	}
 
+	@Override
+	public ArrayList<DreamReview> drmRwUptoThree(int userNo) {
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.drmRwUptoThree",userNo);
+	}
+
 
 
 
