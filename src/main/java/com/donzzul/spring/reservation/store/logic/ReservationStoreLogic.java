@@ -42,9 +42,28 @@ public class ReservationStoreLogic implements ReservationStore {
 		return sqlSession.selectOne("reservationMapper.confirmRCount",reservation);
 	}
 
+	@Override
+	public Reservation selectOne(int reservationNo) {
+		Reservation reservation = sqlSession.selectOne("reservationMapper.selectOneByRno",reservationNo);
+		System.out.println("selectOne스토어"+reservation);
+		return reservation;
+	}
 	
+	@Override
+	public int updateRstate(Reservation reservation) {
+		int result = sqlSession.update("reservationMapper.updateRstate",reservation);
+		return result;
+	}
+	
+	// 사업자 포인트 업데이트
+	@Override
+	public int updateShopPoint(Reservation reservation) {
+		return sqlSession.update("reservationMapper.updateShopPoint",reservation);
+	}
 	// ======================여기까지가 예약 끝
 
+	
+	
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
 	public ArrayList<Reservation> rListByDreamUpToThree(int userNo) {
@@ -93,24 +112,6 @@ public class ReservationStoreLogic implements ReservationStore {
 		return reserve;
 	}
 	
-	//=======================여기까지가 예약 목록
-
-	
-	// 예약번호로 예약 하나 불러오기
-	@Override
-	public Reservation selectOne(int reservationNo) {
-		Reservation reservation = sqlSession.selectOne("reservationMapper.selectOneByRno",reservationNo);
-		System.out.println("selectOne스토어"+reservation);
-		return reservation;
-	}
-	
-	// 예약상태 취소로 변경하기
-	@Override
-	public int cancleReservation(int reservationNo) {
-		int result = sqlSession.update("reservationMapper.cancleReservation", reservationNo);
-		return result;
-	}
-	
 	@Override
 	public int deleteReservation(int reservationNo) {
 		// TODO Auto-generated method stub
@@ -122,21 +123,6 @@ public class ReservationStoreLogic implements ReservationStore {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
-//==========================================================================================
-	//예약상태 예약완료로 변경하기
-	@Override
-	public int comfirmReservation(int reservationNo) {
-		return sqlSession.update("reservationMapper.comfirmReservation",reservationNo);
-	}
-
-	// 사업자 포인트 업데이트
-	@Override
-	public int updateShopPoint(Reservation reservation) {
-		return sqlSession.update("reservationMapper.updateShopPoint",reservation);
-	}
-//==========================================================================================
 
 
 	@Override
@@ -157,7 +143,6 @@ public class ReservationStoreLogic implements ReservationStore {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 
 }

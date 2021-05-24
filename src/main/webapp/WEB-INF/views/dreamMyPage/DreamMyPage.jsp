@@ -51,8 +51,15 @@
 							<c:if test="${reservation.rState eq 'X' }">
 							<td><a class="btn btn-secondary">취소완료</a></td>
 							</c:if>
+							<c:if test="${reservation.rState eq 'Y' }">
+							<td><a class="confirm-btn" >예약확정</a></td>
+							</c:if>
 							
+							
+							<td><a class="btn btn-secondary">후기작성</a></td>
+							<c:if test="${reservation.rState eq 'C' }">
 							<td><a class="reserv-btn" href="#">후기작성</a></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 					</tbody>
