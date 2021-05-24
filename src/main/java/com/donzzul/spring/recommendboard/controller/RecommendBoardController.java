@@ -77,12 +77,11 @@ public class RecommendBoardController {
 	// 글쓰기 올림 (사진파일추가) insert
 	@ResponseBody
 	@RequestMapping(value="recommendInsertForm.dz", method= RequestMethod.POST)
-	public String recommendRegister(@ModelAttribute RecommendBoard recommendBoard,
+	public String recommendRegister(@ModelAttribute RecommendBoard recommendBoard, 
 									HttpServletRequest request) {
 //		@RequestParam("recommendTitle") String recommendTitle, @RequestParam("recommendContent") String recommendContent
 //		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
 //		HttpServletRequest request, @ModelAttribute RecommendBoard recommendBoard,
-		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
 		recommendBoard.setUserType(user.getUserType());
