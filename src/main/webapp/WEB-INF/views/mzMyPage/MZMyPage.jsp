@@ -115,7 +115,7 @@
 				<div class="my-title">
 					<span>돈쭐 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="printDonAllList.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -128,24 +128,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>2021-01-01</td>
-							<td>21000원</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>2021-01-01</td>
-							<td>21000원</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>2021-01-01</td>
-							<td>21000원</td>
-						</tr>
+						<c:forEach items="${dList }" var="donList" varStatus="status">
+							<tr>
+								<td>${status.count }</td>
+								<td><a class="table-link-title" href="#"><p>${donList.shopName }</p></a></td>
+								<td>${donList.paymentDate }</td>
+								<td>${donList.donPrice }</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

@@ -33,8 +33,14 @@ public class PaymentController {
 
 	// 돈쭐 결제 폼
 	@RequestMapping(value = "paymentFormView.dz", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView paymentFormView(ModelAndView mv) { //, @RequestParam("shopNo") int shopNo
-		
+	public ModelAndView paymentFormView(ModelAndView mv, HttpSession session) { //, @RequestParam("shopNo") int shopNo
+		/*
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			//<script >alert("로그인 이후 사용 가능합니다!");
+			
+		}
+		*/
 		Shop shop = new Shop();
 		shop.setShopNo(87); //임시 데이터
 		
@@ -99,37 +105,6 @@ public class PaymentController {
 			System.out.println("돈줄 내역 저장(insert) 실패..");
 		}
 		return mv;
-	}
-
-
-	// 돈쭐 내역 출력
-	@RequestMapping(value ="printDonList.dz", method = RequestMethod.GET)
-	public ModelAndView printDonList(HttpSession session, ModelAndView mv, Model model) {
-		// 결제 후 반환정보 파라미터로
-		
-		
-		// 돈쭐 (3개 / 페이징) 클릭하면 로그인세션(userNo)로 검색
-		
-		// 3개(마이페이지)
-		User loginUser = (User)session.getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		
-		ArrayList<Don> dList = pService.selectDonListThree(userNo);
-		if(!dList.isEmpty()) {
-			mv.addObject("dList", dList);
-			mv.setViewName(""); // 마이페이지
-		}else {
-			mv.addObject("msg", "돈쭐 내역을 출력하는데 실패하였습니다!");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
-	}
-
-	/// 필요한가? 어차피 세션 출력처리까지만. 디비는 안해도 될 듯
-	// 포인트 조회(MZ 마이페이지 + 포인트사용(가용포인트))
-	@RequestMapping(value = "printMyPoint.dz", method = RequestMethod.GET) // post?
-	public String printMyPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		return "";
 	}
 
 	// 룰렛 페이지
