@@ -14,4 +14,6 @@ public interface DreamReviewStore {
 	public ArrayList<DreamReview> selectAllDreamReview(PageInfo pi);
 	public int selectListCount();
 	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
+	
+	public ArrayList<DreamReview> drmRwUptoThree(int userNo);
 }

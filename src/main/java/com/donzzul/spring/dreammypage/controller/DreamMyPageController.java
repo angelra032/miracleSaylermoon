@@ -14,15 +14,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
+import com.donzzul.spring.dreamreview.domain.DreamReview;
+import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
+
 
 @Controller
 public class DreamMyPageController {
 
 	@Autowired
 	private ReservationService rService;
+	
+	@Autowired
+	private DreamReviewService drService;
 	
 	@RequestMapping(value="dreamMyPage.dz")
 	public String DreamMyPageView(HttpSession session,
@@ -31,12 +37,16 @@ public class DreamMyPageController {
 		
 		int userNo = user.getUserNo();
 		ArrayList<Reservation> rList = rService.rListByDreamUpToThree(userNo);
-		if(!rList.isEmpty()) {
+		
+		ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
+		
+		if(!rList.isEmpty() && !drList.isEmpty()) {
 			model.addAttribute("rList",rList);
+			model.addAttribute("drList",drList);
 			return "dreamMyPage/DreamMyPage";
 		}else {
 			model.addAttribute("msg","예약목록 불러오는데 실패했지...!!");
-			return "common/errorPage";
+			return "dreamMyPage/DreamMyPage";
 		}
 	}
 	

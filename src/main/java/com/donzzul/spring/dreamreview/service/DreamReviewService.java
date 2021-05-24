@@ -14,4 +14,6 @@ public interface DreamReviewService {
 	public int deleteDreamReview(int drmRviewNo);
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public int getListCount();
+	
+	public ArrayList<DreamReview> drmRwUptoThree(int userNo);
 }
