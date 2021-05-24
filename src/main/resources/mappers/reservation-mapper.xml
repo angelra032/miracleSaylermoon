@@ -37,12 +37,8 @@
 		FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
 	</select>
 	
-	<update id="cancleReservation">
-		UPDATE RESERVATION SET R_STATE = 'X' WHERE RESERVATION_NO = #{reservationNo}
-	</update>
-	
-	<update id="comfirmReservation">
-		UPDATE RESERVATION SET R_STATE = 'Y' WHERE RESERVATION_NO = #{reservationNo}
+	<update id="updateRstate">
+		UPDATE RESERVATION SET R_STATE = #{rState} WHERE RESERVATION_NO = #{reservationNo}
 	</update>
 	
 	<update id="updateShopPoint">

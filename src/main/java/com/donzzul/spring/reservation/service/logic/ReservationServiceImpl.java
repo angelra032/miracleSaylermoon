@@ -40,8 +40,30 @@ public class ReservationServiceImpl implements ReservationService{
 		return rStore.confirmRCount(reservation);
 	}
 
+	// 예약번호로 예약 하나 불러오기
+	@Override
+	public Reservation selectOne(int reservationNo) {
+		Reservation reservation = rStore.selectOne(reservationNo);
+		System.out.println("selectOne서비스임플"+reservation);
+		return reservation;
+	}
+
+	@Override
+	public int updateRstate(Reservation reservation) {
+		int result = rStore.updateRstate(reservation);
+		System.out.println("서비스임플" + result);
+		return result;
+	}
+
+	@Override
+	public int updateShopPoint(Reservation reservation) {
+		return rStore.updateShopPoint(reservation);
+	}
+
 	
 	//-----------------------여기까지가 예약하기
+	
+	
 	
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
@@ -83,53 +105,6 @@ public class ReservationServiceImpl implements ReservationService{
 	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi) {
 		ArrayList<Reservation> rList = rStore.reservaionListByShop(shopNo, pi);
 		return rList;
-	}
-
-	//=============여기까지가 예약 불러오기
-	
-	// 예약번호로 예약 하나 불러오기
-	@Override
-	public Reservation selectOne(int reservationNo) {
-		Reservation reservation = rStore.selectOne(reservationNo);
-		System.out.println("selectOne서비스임플"+reservation);
-		return reservation;
-	}
-	
-	// 예약상태 취소로 바꾸기
-	@Override
-	public int cancleReservation(int reservationNo) {
-		int result = rStore.cancleReservation(reservationNo);
-		return result;
-	}
-	
-	@Override
-	public int deleteReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateReservation(Reservation reservation) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-//==========================================================================================
-	@Override
-	public int comfirmReservation(int reservationNo) {
-		return rStore.comfirmReservation(reservationNo);
-	}
-	
-	@Override
-	public int updateShopPoint(Reservation reservation) {
-		return rStore.updateShopPoint(reservation);
-	}
-//==========================================================================================
-
-	@Override
-	public int completeReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	//=========================페이징 처리

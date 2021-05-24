@@ -46,7 +46,8 @@ public class DreamMyPageController {
 		Reservation reservation = rService.selectOne(reservationNo);
 		String rStateResult = reservation.getrState();
 		if(rStateResult.equals("O")) {
-			int result = rService.cancleReservation(reservationNo);
+			reservation.setrState("X");
+			int result = rService.updateRstate(reservation);
 			if(result > 0) {
 				return "redirect:dreamMyPage.dz";
 			}else {

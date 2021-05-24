@@ -167,6 +167,11 @@ main {
 	font-size: 16px;
 }
 
+.confirm-btn{
+	font-size: 16px;
+	color: red;
+}
+
 /* **********가고싶다********** */
 .wish-list table thead th:nth-child(4) {
 	width: 150px;

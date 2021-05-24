@@ -100,24 +100,6 @@ public class ReservationController {
 	// ============================여기까지 완성=============
 	
 	
-	// 예약승인하기
-	@RequestMapping(value="Reservationcomfirm.dz", method=RequestMethod.GET)
-	public String comfirmReservation(@RequestParam("reservationNo") int reservationNo) {
-		int result = service.comfirmReservation(reservationNo);
-		return "";
-	}
 	
-//	// 예약취소하기
-//	@RequestMapping(value="ReservationCancle.dz", method = RequestMethod.GET)
-//	public String cancleReservation(@RequestParam("reservationNo") int reservationNo) {
-//		int result = service.cancleReservation(reservationNo);
-//		return "";
-//	}
-	
-	// 예약완료하기
-	@RequestMapping(value="ReservationComplete.dz", method = RequestMethod.GET)
-	public String completeReservation(@RequestParam("reservationNo") int reservationNo) {
-		int result = service.comfirmReservation(reservationNo);
-		return "";
-	}
+
 }
