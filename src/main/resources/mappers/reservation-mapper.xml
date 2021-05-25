@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="selectOneBySno" resultMap="reservationResultMap">
-		SELECT RESERVE_DATE, USER_NICK FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo}
+		SELECT RESERVE_DATE, RESERVE_COUNT, RESERVE_TIME, USER_NICK FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo}
 	</select>
 	
 	<select id="confirmRCount" resultType="_int">

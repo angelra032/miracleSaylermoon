@@ -14,6 +14,9 @@ public interface DreamReviewStore {
 	public ArrayList<DreamReview> selectAllDreamReview(PageInfo pi);
 	public int selectListCount();
 	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
-	
+
+	// 꿈나무 마이페이지
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo);
+	public int dreamGetListCount(int userNo);
+	public ArrayList<DreamReview> reviewListByDream(int userNo, PageInfo pi);
 }

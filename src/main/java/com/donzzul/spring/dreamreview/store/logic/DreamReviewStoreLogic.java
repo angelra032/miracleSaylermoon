@@ -60,15 +60,22 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectListAllShopNo", shopNo);
 	}
 
+	// 꿈나무 마이 페이지
 	@Override
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo) {
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.drmRwUptoThree",userNo);
 	}
 
+	@Override
+	public int dreamGetListCount(int userNo) {
+		int result = sqlSession.selectOne("drmReviewMapper.dreamGetListCount",userNo);
+		return result;
+	}
 
-
-
-
-
-
+	@Override
+	public ArrayList<DreamReview> reviewListByDream(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.reviewListByDream",userNo,rowBounds);
+	}
 }

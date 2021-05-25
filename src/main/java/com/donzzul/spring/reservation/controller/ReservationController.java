@@ -31,17 +31,10 @@ public class ReservationController {
 	// 노쇼도 생각하자
 	@RequestMapping(value="reservationView.dz")
 	public String reservationView(Model model,
-								HttpServletRequest request) {
+								HttpServletRequest request,
+								@ModelAttribute Shop shop) {
 		HttpSession session = request.getSession();
 		User userOne = (User)session.getAttribute("loginUser");
-
-		Shop shop = new Shop();
-		shop.setShopNo(3);
-		shop.setStartTime("9");
-		shop.setEndTime("18");
-		shop.setBusinessDay(12345);
-		shop.setShopName("라공방");
-		shop.setShopMaxReserv(9);
 		
 		int startTime = Integer.parseInt(shop.getStartTime());
 		int endTime = Integer.parseInt(shop.getEndTime());
