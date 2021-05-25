@@ -15,9 +15,11 @@ public class Don {
 	private int shopNo; // 가게번호
 	private String shopName; // 가게이름
 	
-	public Don() { // 기본 생성자
-		// TODO Auto-generated constructor stub
-	}
+	// test point
+	private int usePoint; // 사용할 포인트
+	private int savePoint; // 적립할 포인트
+	
+	public Don() {} // 기본 생성자
 	
 	public Don(String string, String string2, int i, int j) {}
 
@@ -85,11 +87,27 @@ public class Don {
 		this.shopName = shopName;
 	}
 
+	public int getUsePoint() {
+		return usePoint;
+	}
+
+	public void setUsePoint(int usePoint) {
+		this.usePoint = usePoint;
+	}
+
+	public int getSavePoint() {
+		return savePoint;
+	}
+
+	public void setSavePoint(int savePoint) {
+		this.savePoint = savePoint;
+	}
+
 	@Override
 	public String toString() {
 		return "Don [donNo=" + donNo + ", donPrice=" + donPrice + ", userNo=" + userNo + ", menuName=" + menuName
 				+ ", amount=" + amount + ", paymentDate=" + paymentDate + ", shopNo=" + shopNo + ", shopName="
-				+ shopName + "]";
+				+ shopName + ", usePoint=" + usePoint + ", savePoint=" + savePoint + "]";
 	}
 
 }
