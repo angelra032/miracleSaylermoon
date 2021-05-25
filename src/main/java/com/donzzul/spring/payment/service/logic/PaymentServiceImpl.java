@@ -15,15 +15,14 @@ import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
 
 @Service
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired
 	private PaymentStore pStore;
 
-	
 	@Override
-	public int usePoint(User user) { // 포인트 사용
-		int result = pStore.updatePoint(user);
+	public int usePoint(HashMap<String, Object> donPoint) { // 포인트 사용
+		int result = pStore.updatePoint(donPoint);
 		return result;
 	}
 
@@ -43,7 +42,6 @@ public class PaymentServiceImpl implements PaymentService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
 
 	@Override
 	public ArrayList<Don> selectDonList(int userNo, PageInfo pi) {
@@ -51,7 +49,6 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	///////////////////////////////////
-	
 
 	@Override
 	public int insertDonList(Don don) {
@@ -80,5 +77,16 @@ public class PaymentServiceImpl implements PaymentService{
 		return pStore.selectDonListThree(userNo);
 	}
 
+	
+	
+	@Override
+	public ArrayList<Don> selectAllDonList(HashMap<String, String> dateMap) {
+		return pStore.selectAllDonList(dateMap);
+	}
+
+//   @Override
+//   public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap) {
+//	      return pStore.selectAllDonListSum(dateMap);
+//   }
 
 }
