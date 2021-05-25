@@ -90,6 +90,12 @@ public class UserServiceImpl implements UserService {
 	public int checkLoginDup(HashMap<String, String> map) {
 		return store.checkLoginDup(map);
 	}
+	
+
+	@Override
+	public User selectOneUserByNo(int userNo) {
+		return store.selectOneUserByNo(userNo);
+	}
 
 	// 일반회원정보수정
 	@Override
@@ -145,6 +151,7 @@ public class UserServiceImpl implements UserService {
 	public int resetPw(HashMap<String, String> map) {
 		return store.resetPw(map);
 	}
+
 
 	
 

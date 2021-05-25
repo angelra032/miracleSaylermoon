@@ -87,9 +87,16 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.checkLoginDup", map);
 	}
 	
+	//회원정보 불러오기
+	@Override
+	public User selectOneUserByNo(int userNo) {
+		return sqlSession.selectOne("userMapper.selectOneUserByNo", userNo);
+	}
+	
 	// 일반회원정보 수정
 	@Override
 	public int updateMzUser(User user) {
+		
 		return sqlSession.update("userMapper.updateMzUser", user);
 	}
 
@@ -140,6 +147,8 @@ public class UserStoreLogic implements UserStore {
 	public int resetPw(HashMap<String, String> map) {
 		return sqlSession.update("userMapper.resetPw", map);
 	}
+
+	
 
 	
 

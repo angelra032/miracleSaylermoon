@@ -5,9 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="google-signin-client_id" content="donjjul.apps.googleusercontent.com">
 <link rel="stylesheet" href="/resources/css/user/login.css"> 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>돈쭐 로그인</title>
 </head>
 <body>
@@ -46,7 +48,7 @@
 						<a href="javascript:kakaoLogin();">
 							<img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png">
 						</a>
-						<a class="kakao-btn" href="#"><img alt="구글 회원가입" src="/resources/images/kakaologin-btn.png"></a>
+						<div class="googlelogin" data-onsuccess="onSignIn">구글 로그인</div>
 					</div>
 				</div>
 			</div> 

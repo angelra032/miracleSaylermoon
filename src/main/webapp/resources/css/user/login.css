@@ -114,6 +114,14 @@ input:focus, input:not(:placeholder-shown){
 	cursor:pointer;
 }
 
+/* 구글로그인 */
+#my-signin2 {
+	width: 300px;
+	display: block;
+	border-radius: 5px;
+}
+
+
 
 
 

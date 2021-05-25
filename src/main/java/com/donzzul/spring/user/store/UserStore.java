@@ -18,6 +18,7 @@ public interface UserStore {
 	public int insertDreamUser(User user);
 	public int insertMzUser(User user);
 	public int insertPartnerUser(User user);
+	public User selectOneUserByNo(int userNo);
 	public int updateMzUser(User user);
 	public int updatePartnerUser(User user);
 	public int deleteUser(int userNo);
