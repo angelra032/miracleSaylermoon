@@ -2,6 +2,7 @@ package com.donzzul.spring.payment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -115,10 +116,33 @@ public class PaymentController {
 
 	// 룰렛 포인트 정립
 	@RequestMapping(value = "saveRoulettePoint.dz", method = RequestMethod.POST)
-	public String saveRoulettePoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		String winningPoint = request.getParameter("winningPoint"); // 앞단에서 당첨된 포인트
+	public String saveRoulettePoint(HttpSession session, @RequestParam("winning-point") int winPoint, @ModelAttribute User user, Model model) {
+		
+		// 포인트 디비에서 계산하려면
+		// 포인트 컬럼 추가(일단 vo에)
+		// don의 포인트랑 user의 포인트 가져가서 계산
+		
+		// modelattrivbute로 user 가져갈 수 ㅣ잇나?(앞단에서 오는 건가)
+		User loginUser = (User)session.getAttribute("loginUser");
+		
+		
+		System.out.println("당첨포인트-뒷단: "+winPoint); // 앞단에서 당첨된 포인트
+		Don don = new Don();
+		don.setSavePoint(winPoint); // 포인트 담아주기
+		
+		HashMap<String, Object> hash = new HashMap<String, Object>();
+		hash.put("loginUser", loginUser);
+		hash.put("don", don);
+		
+		int result = pService.saveRoulettePoint(hash);
+		if(result > 0) {
+			System.out.println("룰렛 포인트 업데이트 성공!");
+			return "payment/snsPhoto";
+		}else {
+			System.out.println("룰렛 포인트 업데이트 실패");
+			return "common/errorPage";
+		}
 
-		return "";
 	}
 
 	// 인증샷 페이지

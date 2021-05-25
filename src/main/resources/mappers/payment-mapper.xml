@@ -49,6 +49,13 @@
 		UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo }
 	</update>
 	
+	<update id="updateRoulettePoint" parameterType="HashMap" >
+		<!-- UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo } -->
+		
+		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) + (SELECT NVL(SAVE_POINT,0) FROM DON WHERE DON_NO = #{donNo }) WHERE USER_NO = #{userNo}
+		
+	</update>
+	
 	
 	
 	

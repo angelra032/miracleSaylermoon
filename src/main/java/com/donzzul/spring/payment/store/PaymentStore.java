@@ -1,6 +1,7 @@
 package com.donzzul.spring.payment.store;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.payment.domain.Don;
@@ -15,7 +16,7 @@ public interface PaymentStore {
 	
 	public int updatePoint(User user); // 포인트 사용
 	public String selectMyPoint(User user); // 포인트 조회(string인가? user인가)
-	public int updateRoulettePoint(User user); // 룰렛포인트 적립
+	public int updateRoulettePoint(HashMap<String, Object> hash); // 룰렛포인트 적립
 	public int updateReviewPoint(User user);// 리뷰포인트 적립
 	// 결제
 	public int insertDonList(Don don); // 돈쭐내역 업데이트

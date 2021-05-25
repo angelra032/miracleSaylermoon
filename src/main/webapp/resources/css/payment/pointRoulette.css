@@ -7,7 +7,7 @@
  }
      .header-background-area > img {
          position: absolute;
-         z-index: 2;
+         z-index: -5;
          display: block;
          top: 0;
          width: 1903px;
@@ -49,7 +49,7 @@ h4 {
 	position: absolute;
 	top: 101px;
 	line-height: 4.7;
-	z-index: 5;
+	z-index: -2;
 }
 
 /* 메인 */
@@ -80,17 +80,23 @@ h4 {
 #roulette-img {
 	display: block;
 	margin: 0 auto;
-	padding-top: 36px;
-	width: 90%;
+	--padding-top: 36px;
+	width: 100%;
 	--height: 100%;
 	z-index:-10;
 }
 #needle {
 	--position:absolute;
 	position: relative;
-	bottom:670px;
+	bottom:700px;
 	left: 350px;
 	z-index: 0;
+}
+
+#start_btn {
+	background-color: blue;
+	width: 150px;
+	height: 150px;
 }
 
 
