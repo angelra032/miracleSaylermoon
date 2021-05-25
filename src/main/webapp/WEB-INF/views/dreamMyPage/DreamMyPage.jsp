@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/dreamreviewdetail.css">
+<link rel="stylesheet" href="/resources/css/dreammypage/dreammypage.css">
 <title>꿈나무회원 마이페이지</title>
 </head>
 <body>
@@ -14,7 +14,6 @@
 		<div id="main-title">${ loginUser.userName }님 안녕하세요!</div>
 		<div class="frame">
 			<div class="my-info">
-				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
 				<div class="info-btn-frame">
 					<a class="info-btn" href="myINfo.dz ">나의 정보</a>
 					<a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
@@ -151,7 +150,7 @@
 				<div class="my-title">
 					<span>내가 쓴 후기</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="allReviewListByDream.dz">더보기</a>
 					</div>
 				</div>
 				<table>

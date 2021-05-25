@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/dreservationdetail.css">
-<title>꿈나무회원 예약목록 페이지</title>
+<link rel="stylesheet" href="/resources/css/dreammypage/dreamreviewdetail.css">
+<title>꿈나무회원 리뷰목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">예약 목록</div>
+		<div id="main-title">리뷰 목록</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -25,40 +25,30 @@
 					<thead>
 						<tr>
 							<th>No</th>
+							<th>제목</th>
 							<th>가게이름</th>
-							<th>예약날짜</th>
-							<th>예약취소</th>
-							<th>후기작성</th>
+							<th>작성날짜</th>
+							<th>수정</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${rList }" var="reservation" varStatus="status">
+					<c:forEach items="${drReviewList }" var="dreamreview" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
-							<td>${reservation.reserveDate }</td>
+							<td><a class="table-link-title" href="#"><p>${dreamreview.drmReviewTitle }</p></a></td>
+							<td>${dreamreview.shopName }</td>
+							<td>${dreamreview.drmReviewCreateDate }</td>
+							<td><a class="modify-btn" href="#">수정</a></td>
+							<td><a class="delete-btn" href="#">삭제</a></td>
 							
-							<c:if test="${reservation.rState eq 'O' }">
-							<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
-							</c:if>
-							<c:if test="${reservation.rState eq 'X' }">
-							<td><a class="btn btn-secondary">취소완료</a></td>
-							</c:if>
-							<c:if test="${reservation.rState eq 'Y' }">
-							<td><a class="confirm-btn" >예약확정</a></td>
-							</c:if>
-							
-							<td><a class="btn btn-secondary">후기작성</a></td>
-							<c:if test="${reservation.rState eq 'C' }">
-							<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
-							</c:if>
 						</tr>
 					</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
 							<td colspan="5">
 								<!-- 이전 -->
-								<c:url var="before" value="rListDetailAllByDream.dz">
+								<c:url var="before" value="allReviewListByDream.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -69,7 +59,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="rListDetailAllByDream.dz">
+									<c:url var="pagination" value="allReviewListByDream.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -80,7 +70,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="rListDetailAllByDream.dz">
+								<c:url var="after" value="allReviewListByDream.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">
