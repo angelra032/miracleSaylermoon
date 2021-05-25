@@ -58,6 +58,11 @@ public class DreamReviewServiceImpl implements DreamReviewService {
         return drStore.selectAllDreamReview(shopNo);
     }
 
+	@Override
+	public ArrayList<DreamReview> drmRwUptoThree(int userNo) {
+		return drStore.drmRwUptoThree(userNo);
+	}
+
 
 
 

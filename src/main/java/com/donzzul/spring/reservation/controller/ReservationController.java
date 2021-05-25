@@ -75,9 +75,7 @@ public class ReservationController {
 			Reservation nReservation = new Reservation();
 			nReservation.setReservationNo(service.getReservNo(userNo));
 			nReservation.setUserNo(userNo);
-			System.out.println("잘담겼니.." + nReservation.toString());
 			pResult = service.updateUserPoint(nReservation);
-			System.out.println("얜 결과값이얌"+pResult);
 		}
 		
 		if( rResult > 0) {
@@ -91,13 +89,48 @@ public class ReservationController {
 	@ResponseBody
 	@RequestMapping(value="rCountCheck.dz", method=RequestMethod.POST)
 	public String rCountCheck(@ModelAttribute Reservation reservation) {
-		System.out.println(reservation.toString());
 		int result = service.confirmRCount(reservation);
-		System.out.println(result);
 		return ""+result;
 	}
 	
-	// ============================여기까지 완성=============
+	
+	  @ResponseBody
+	  
+	  @RequestMapping(value="printReservation.dz", method=RequestMethod.POST)
+	  public ArrayList<HashMap<String, String>> printReservation(@RequestParam("shopNo") int shopNo) {
+	  System.out.println(shopNo); 
+	  //HashMap<String, String>
+	  ArrayList<Reservation> reservation = service.selectOneBySno(shopNo); // 얘를 json 먼저 만들어주고
+	  
+	  ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+	  // ArrayList가 기차고 HashMap이 기차 한칸이야!
+	  
+	  for (int i = 0; i < reservation.size(); i++) { 
+		  HashMap<String, String> map = new HashMap<String, String>(); 
+		  map.put("title", reservation.get(i).getUserNick());
+		  map.put("start", reservation.get(i).getReserveDate()); 
+		  map.put("end", reservation.get(i).getReserveDate());
+		  
+		  list.add(map); 
+	  }
+		 
+	  //HashMap<String, String> map =  new HashMap<String, String>();
+	  //map.put("start", "2021-05-24");
+	  //map.put("end", "2021-05-24");
+	  //list.add(map);
+	  //map =  new HashMap<String, String>();
+	  //map.put("start", "2021-05-28");
+	  //map.put("end", "2021-05-28");
+	  //list.add(map);
+	  //map =  new HashMap<String, String>();
+	  //map.put("start", "2021-05-30");
+	  //map.put("end", "2021-05-30");
+	  //list.add(map);
+	  return list; 
+	  }
+	 
+	
+	 
 	
 	
 	

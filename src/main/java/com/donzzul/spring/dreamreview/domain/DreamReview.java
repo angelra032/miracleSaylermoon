@@ -13,6 +13,7 @@ public class DreamReview {
 	private String userType;
 	private int userNo;
 	private int shopNo;
+	private String shopName;
 	
 	public DreamReview() {}
 
@@ -24,7 +25,7 @@ public class DreamReview {
 
 	public DreamReview(int drmRviewNo, String drmReviewTitle, String drmReviewContent, String drmReviewWriter,
 			Date drmReviewCreateDate, Date drmReviewUploadDate, String drmReviewPublicYN, String userType, int userNo,
-			int shopNo) {
+			int shopNo, String shopName) {
 		super();
 		this.drmRviewNo = drmRviewNo;
 		this.drmReviewTitle = drmReviewTitle;
@@ -36,6 +37,7 @@ public class DreamReview {
 		this.userType = userType;
 		this.userNo = userNo;
 		this.shopNo = shopNo;
+		this.shopName = shopName;
 	}
 
 	public int getDrmRviewNo() {
@@ -118,15 +120,21 @@ public class DreamReview {
 		this.shopNo = shopNo;
 	}
 
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
 	@Override
 	public String toString() {
 		return "DreamReview [drmRviewNo=" + drmRviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent="
 				+ drmReviewContent + ", drmReviewWriter=" + drmReviewWriter + ", drmReviewCreateDate="
 				+ drmReviewCreateDate + ", drmReviewUploadDate=" + drmReviewUploadDate + ", drmReviewPublicYN="
-				+ drmReviewPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + "]";
+				+ drmReviewPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo
+				+ ", shopName=" + shopName + "]";
 	}
 
-
-
-	
 }

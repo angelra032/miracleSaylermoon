@@ -44,14 +44,18 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public Reservation selectOne(int reservationNo) {
 		Reservation reservation = rStore.selectOne(reservationNo);
-		System.out.println("selectOne서비스임플"+reservation);
+		return reservation;
+	}
+	
+	@Override
+	public ArrayList<Reservation> selectOneBySno(int shopNo) {
+		ArrayList<Reservation> reservation = rStore.selectOneBySno(shopNo);
 		return reservation;
 	}
 
 	@Override
 	public int updateRstate(Reservation reservation) {
 		int result = rStore.updateRstate(reservation);
-		System.out.println("서비스임플" + result);
 		return result;
 	}
 
@@ -118,6 +122,4 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 }
