@@ -47,6 +47,7 @@ li {
     width: 1903px;
     height: 100px;
     border-bottom: #ffffff 1px solid;
+    z-index: 100;
 }
 /* 스크롤 후 헤더 */
 
