@@ -161,3 +161,13 @@
 footer {
 	float: left;
 }
+
+.aside-area {
+	width : 80px;
+	background : red;
+	font-size: 14px;
+    text-align: center;
+}
+	.top-btn {
+		margin-bottom : 10px;
+	}
