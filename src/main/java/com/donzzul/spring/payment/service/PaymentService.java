@@ -2,6 +2,7 @@ package com.donzzul.spring.payment.service;
 
 import java.util.ArrayList;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.Shop;
@@ -19,7 +20,7 @@ public interface PaymentService {
 	public int saveReviewPoint(User user);// 리뷰포인트 적립
 	// 결제
 	public int insertDonList(Don don); // 돈쭐내역 업데이트
-	public String selectDonList(int userNo); // 돈쭐내역 출력
+	public ArrayList<Don> selectDonList(int userNo, PageInfo pi); // 돈쭐내역 출력
 	public ArrayList<Don> selectDonListThree(int userNo); // 돈쭐내역 출력(상위3개)
 	
 	///////// +

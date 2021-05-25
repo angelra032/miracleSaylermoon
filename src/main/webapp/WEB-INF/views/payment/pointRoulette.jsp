@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="resources/js/roulette/jQueryRotateCompressed.js"></script>
-<script src="resources/js/roulette/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="resources/js/roulette/jquery-1.11.3.min.js"></script> 
+<script type="text/javascript" src="resources/js/roulette/jQueryRotateCompressed.js"></script>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/payment/pointRoulette.css"/> 
 <!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
@@ -14,27 +14,12 @@
 <!-- <script type="text/javascript" src="resources/js/roulette/jquery-1.11.3.min.js"></script>
 
  
-<script src="</script'>http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="</script'>http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
--->
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
 
 
 <!-- <script src="jQueryRotateCompressed.js"></script> -->
 <!-- <script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> -->
-<style>
-
-#image {
-	margin:50px 50px;
-	z-index:10;
-}
-#n_id {
-	position:absolute;
-	left:286px;
-	top:75px;
-	z-index:20;
-}
-
-</style>
 
 <title>돈쭐내기</title>
 </head>
@@ -43,26 +28,21 @@
 	
 	<main>
 	
-
-		
-		
-	
-	
-	
 		<div class="header-background-area">
 	        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	    </div>
 		<div id="main-title">포인트 룰렛</div>
 		<div class="frame">
-			<h1>진짜파스타</h1>
 			<div class="roulette">
 				<h2>포인트 룰렛</h2>
 				<h4>최대 5000원 상당의 포인트를 지급받으세요!</h4>
 				
 				<div id="point-roulette">
 					
-					<img src="/resources/images/roulette/roulette.png" id="image">
-					<img src="/resources/images/roulette/niddle.png" id="n_id">
+					<div>
+						<img src="/resources/images/roulette/roulette.png" id="roulette-img">
+						<img src="/resources/images/roulette/niddle.png" id="needle">
+					</div>
 					<br />
 					<input type='button' value='시작' id='start_btn'></input>
 					<div id="result_id"></div>
@@ -81,7 +61,7 @@
 							});
 						
 							function rotation(){
-								$("#image").rotate({
+								$("#roulette-img").rotate({
 								  angle:0, 
 								  animateTo:360 * 5 + randomize(0, 360),
 								  center: ["50%", "50%"],
