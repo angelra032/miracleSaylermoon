@@ -9,6 +9,12 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
+	<!-- <aside>
+		<div class="aside-area">
+			<div claass="top-btn">위로</div>
+			<div class="bottom-btn">아래로</div>
+		</div>
+	</aside> -->
 	<main>
 		<div class="header-admin-nick-area">
 				관리자님 안녕하세요!
@@ -32,11 +38,11 @@
 					</div>
 				</div>
                 <div class="point-chart">
-				   <canvas id="myChart" style="height: 50vh; width: 45vw; margin: 0 auto;"></canvas>
+				   <canvas id="myChart" style="height: inherit; width: inherit; margin: 0 auto;"></canvas>
                 </div>
 				<div class="point-count-area">
 					<div class="all-point point-ck"><span>총 포인트 : </span> <span> 50,000 원</span></div>
-					<div class="month-point point-ck"><span>이번달 포인트 : </span> <span>30,000 원</span></div>
+					<!-- <div class="month-point point-ck"><span>이번달 포인트 : </span> <span>30,000 원</span></div> -->
 				</div>
 
             </div>
