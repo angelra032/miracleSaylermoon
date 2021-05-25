@@ -16,6 +16,7 @@ public interface ReservationStore {
 	public int updateUserPoint(Reservation nReservation); // 예약할때 유저 포인트 삭감하기
 	public int confirmRCount(Reservation reservation); // 예약할때 예약 가능 인원 확인
 	public Reservation selectOne(int reservationNo); // 예약번호로 예약 하나 불러오기
+	public ArrayList<Reservation> selectOneBySno(int shopNo); // 샵번호로 모든 예약 불러오기
 	public int updateRstate(Reservation reservation); // 예약상태 업데이트하기
 	public int updateShopPoint(Reservation reservation); // 샵포인트 업데이트하기
 	

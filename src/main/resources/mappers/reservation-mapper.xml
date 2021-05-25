@@ -27,14 +27,17 @@
 		SELECT * FROM RESERVATION WHERE RESERVATION_NO = #{reservationNo}
 	</select>
 	
+	<select id="selectOneBySno" resultMap="reservationResultMap">
+		SELECT RESERVE_DATE, USER_NICK FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo}
+	</select>
+	
 	<select id="confirmRCount" resultType="_int">
 		SELECT SH.SHOP_MAX_RESERVATION - (SELECT NVL(SUM(RE.RESERVE_COUNT),0)
                                     FROM RESERVATION RE
                                     WHERE RE.SHOP_NO = SH.SHOP_NO
                                     AND RE.RESERVE_DATE = #{reserveDate}
                                     AND RE.RESERVE_TIME = #{reserveTime}) AS CNT
-                                    
-		FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
+                                    FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
 	</select>
 	
 	<update id="updateRstate">

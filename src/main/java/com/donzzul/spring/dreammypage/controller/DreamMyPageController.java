@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
+import com.donzzul.spring.dreamreview.domain.DreamReview;
+import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
@@ -24,6 +26,9 @@ public class DreamMyPageController {
 	@Autowired
 	private ReservationService rService;
 	
+	@Autowired
+	private DreamReviewService drService;
+	
 	@RequestMapping(value="dreamMyPage.dz")
 	public String DreamMyPageView(HttpSession session,
 			Model model) {
@@ -31,18 +36,22 @@ public class DreamMyPageController {
 		
 		int userNo = user.getUserNo();
 		ArrayList<Reservation> rList = rService.rListByDreamUpToThree(userNo);
-		if(!rList.isEmpty()) {
+		
+		ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
+		
+		if(!rList.isEmpty() && !drList.isEmpty()) {
 			model.addAttribute("rList",rList);
+			model.addAttribute("drList",drList);
 			return "dreamMyPage/DreamMyPage";
 		}else {
 			model.addAttribute("msg","예약목록 불러오는데 실패했지...!!");
-			return "common/errorPage";
+			return "dreamMyPage/DreamMyPage";
 		}
 	}
 	
 	// 예약 취소를 눌렀을때 예약 상태 변경하기
 	@RequestMapping(value="cancelReservation.dz")
-	public String deleteReservation(@RequestParam("reservationNo") int reservationNo, Model model) {
+	public String cancleReservation(@RequestParam("reservationNo") int reservationNo, Model model) {
 		Reservation reservation = rService.selectOne(reservationNo);
 		String rStateResult = reservation.getrState();
 		if(rStateResult.equals("O")) {
@@ -62,8 +71,8 @@ public class DreamMyPageController {
 	
 	
 	//꿈나무회원 마이페이지 예약 전체 불러오기
-	@RequestMapping(value="rListDetailAllByDream.dz", method = RequestMethod.GET)
-	public ModelAndView reservaionAllListByDream(HttpSession session,
+	@RequestMapping(value="allRListDetailByDream.dz", method = RequestMethod.GET)
+	public ModelAndView allReservaionListByDream(HttpSession session,
 											Model model,
 											ModelAndView mv,
 											@RequestParam(value="page", required=false) Integer page) {
@@ -91,7 +100,39 @@ public class DreamMyPageController {
 		}
 		return mv;
 	}
-
+	
+	// 꿈나무 회원 리뷰 페이지 들어가기
+	@RequestMapping(value="dreamReviewDetail.dz", method = RequestMethod.GET)
+	public String dreamReviewDetail() {
+		return "dreamMyPage/DreamReviewDetail";
+	}
+	
+	// 꿈나무 회원 리뷰 전체 불러오기
+	
+	@RequestMapping(value="allReviewListByDream.dz", method = RequestMethod.GET)
+	public ModelAndView allReviewListByDream(HttpSession session,
+										Model model,
+										ModelAndView mv,
+										@RequestParam(value="page", required=false) Integer page) {
+		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = drService.dreamGetListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<DreamReview> drReviewList = drService.reviewListByDream(userNo, pi);
+		
+		if(!drReviewList.isEmpty()) {
+			mv.addObject("drReviewList",drReviewList);
+			mv.addObject("pi",pi);
+			mv.setViewName("dreamMyPage/DreamReviewPage");
+		}
+		
+		
+		
+		return null;
+	}
+	
 	
 	
 }

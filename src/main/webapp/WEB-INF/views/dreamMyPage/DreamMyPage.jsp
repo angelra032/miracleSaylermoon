@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/dreammypage/dreammypage.css">
-<title>일반회원 마이페이지</title>
+<title>꿈나무회원 마이페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -151,7 +151,7 @@
 				<div class="my-title">
 					<span>내가 쓴 후기</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="dreamReviewDetail.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -166,30 +166,16 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${drList }" var="dreamreview" varStatus="status">
 						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타 짱맛있습니다</p></a></td>
-							<td>진짜파스타</td>
-							<td>2021-01-01</td>
+							<td>${status.count }</td>
+							<td><a class="table-link-title" href="#"><p>${dreamreview.drmReviewTitle }</p></a></td>
+							<td>${dreamreview.shopName }</td>
+							<td>${dreamreview.drmReviewUploadDate }</td>
 							<td><a class="modify-btn" href="#">수정</a></td>
 							<td><a class="delete-btn" href="#">삭제</a></td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타 짱맛있습니다</p></a></td>
-							<td>진짜파스타</td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타 짱맛있습니다</p></a></td>
-							<td>진짜파스타</td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+					</c:forEach>	
 					</tbody>
 				</table>
 			</div>

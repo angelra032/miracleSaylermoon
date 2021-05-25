@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
-<title>꿈나무회원 예약목록 페이지</title>
+<title>꿈나무회원 후기목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">예약 목록</div>
+		<div id="main-title">내가 쓴 후기 목록</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -25,10 +25,11 @@
 					<thead>
 						<tr>
 							<th>No</th>
+							<th>제목</th>
 							<th>가게이름</th>
-							<th>예약날짜</th>
-							<th>예약취소</th>
-							<th>후기작성</th>
+							<th>작성날짜</th>
+							<th>수정</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,21 +38,9 @@
 							<td>${status.count }</td>
 							<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
 							<td>${reservation.reserveDate }</td>
-							
-							<c:if test="${reservation.rState eq 'O' }">
-							<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
-							</c:if>
-							<c:if test="${reservation.rState eq 'X' }">
-							<td><a class="btn btn-secondary">취소완료</a></td>
-							</c:if>
-							<c:if test="${reservation.rState eq 'Y' }">
-							<td><a class="confirm-btn" >예약확정</a></td>
-							</c:if>
-							
+							<td>${reservation.reserveDate }</td>
 							<td><a class="btn btn-secondary">후기작성</a></td>
-							<c:if test="${reservation.rState eq 'C' }">
-							<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
-							</c:if>
+							<td><a class="btn btn-secondary">후기작성</a></td>
 						</tr>
 					</c:forEach>
 						<!-- 페이징 처리 -->

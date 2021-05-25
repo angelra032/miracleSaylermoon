@@ -58,6 +58,22 @@ public class DreamReviewServiceImpl implements DreamReviewService {
         return drStore.selectAllDreamReview(shopNo);
     }
 
+    // 꿈나무 마이 페이지
+	@Override
+	public ArrayList<DreamReview> drmRwUptoThree(int userNo) {
+		return drStore.drmRwUptoThree(userNo);
+	}
+
+	@Override
+	public int dreamGetListCount(int userNo) {
+		return drStore.dreamGetListCount(userNo);
+	}
+
+	@Override
+	public ArrayList<DreamReview> reviewListByDream(int userNo, PageInfo pi) {
+		return drStore.reviewListByDream(userNo, pi);
+	}
+
 
 
 

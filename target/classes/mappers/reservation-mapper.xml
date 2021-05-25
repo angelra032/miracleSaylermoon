@@ -24,8 +24,11 @@
 	</select>
 	
 	<select id="selectOneByRno" resultMap="reservationResultMap">
-		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) - (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO= #{reservationNo})
-        WHERE USER_NO = 1
+		SELECT * FROM RESERVATION WHERE RESERVATION_NO = #{reservationNo}
+	</select>
+	
+	<select id="selectOneBySno" resultMap="reservationResultMap">
+		SELECT RESERVE_DATE, USER_NICK FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo}
 	</select>
 	
 	<select id="confirmRCount" resultType="_int">
@@ -34,12 +37,15 @@
                                     WHERE RE.SHOP_NO = SH.SHOP_NO
                                     AND RE.RESERVE_DATE = #{reserveDate}
                                     AND RE.RESERVE_TIME = #{reserveTime}) AS CNT
-                                    
-		FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
+                                    FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
 	</select>
 	
-	<update id="cancleReservation">
-		UPDATE RESERVATION SET R_STATE = 'X' WHERE RESERVATION_NO = #{reservationNo}
+	<update id="updateRstate">
+		UPDATE RESERVATION SET R_STATE = #{rState} WHERE RESERVATION_NO = #{reservationNo}
+	</update>
+	
+	<update id="updateShopPoint">
+		UPDATE SHOP SET SHOP_POINT = NVL(SHOP_POINT,0) + (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO = #{reservationNo}) WHERE SHOP_NO = #{shopNo}
 	</update>
 
 
@@ -114,9 +120,15 @@
 		<result property="partnerName" column="PARTNER_NAME"/>
 	</resultMap>
 	
-	<select id="rListByShopToThree" resultMap="reservationResultMap" >
-		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) AS USER_NICK, RESERVE_COUNT, RESERVE_DATE, R_STATE, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
+	<select id="selectAllByShop" resultMap="reservationResultMap"> 
+		SELECT USER_NICK, RESERVE_COUNT, RESERVE_DATE, R_STATE, RESERVATION_NO FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo} ORDER BY RESERVE_DATE DESC
 	</select>
+	
+	<select id="rListByShopToThree" resultMap="reservationResultMap" >
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) AS USER_NICK, RESERVE_COUNT, RESERVE_DATE, RESERVATION_NO, R_STATE, SHOP_NO, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
+	</select>
+	
+	
 
 </mapper>
 
