@@ -9,10 +9,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 
-   div {
+/* div {
     border : 1px solid pink;
     box-sizing: border-box;
-}    
+}  */  
 
 body {
     margin: 0;
@@ -43,50 +43,386 @@ a {
         filter: brightness(60%);
     }
 
-#shop-header {
+/* #shop-header {
 	width: 1903px;
 	height: 278px;
-}
+} */
 
 #shop-main-title {
-    width: 80%;
+    width: 1280px;
     height: 278px;
     font-size: 60px;
     font-family: 'Jal_Onuel';
     color: #ffffff;
     text-align: left;
     position: absolute;
-	padding-left: 300px;
-	top: 101px;
-    line-height: 4.7;
-    z-index: -2;
+	top: 240px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	z-index: -1;
 }
 	
 	#shop-main-title-type {
 		font-size: 19px;
     	font-family: 'Noto Sans KR', sans-serif;
 	}
+	
+	#shop-main-title-provide {
+		font-size: 19px;
+    	font-family: 'Noto Sans KR', sans-serif;
+    	display: block;
+    	line-height: 2.4;
+	}
 
-#pick-zone {
-	width: 10%;
-	height: 278px;
-	text-align: center;
-}
+ 	 #pick-button {
+		float: right;
+	}  
+	
+ 		#pick-button > img {
+			display: block;
+			cursor: pointer;
+			position: relative;
+			top: -70px;
+		}  
     
 .frame {
-	width: 1440px;
-	height: 3300px;
+	width: 1280px;
+	height: 1000px;
 	margin: 0 auto;
-	/* background-color: yellow; */
+	margin-top: 100px;
 }
+
+	.shop-detail {
+		width: 1280px;
+		margin: 0 auto;
+	}
+
+		.detailAll {
+			width: 100%;
+			height: inherit;
+			display: block;
+		}
+		
+			.detailAll > .detail-left {
+				width: 200px;
+				float: left;
+				padding-left: 10px;
+				line-height: 3.0em;
+				color: #666666;
+			}
+			
+			.detailAll > .detail-right {
+				width: 865px;
+				float: left;
+				line-height: 3.0em;
+			}
+			
+			.detailAll > .line3 {
+				/* min-height: 140px; */
+			}
+		
+				.detailAll > .line3 > .detail-right > .menu-img {
+					height: 90px;
+					float: left;
+					line-height: 3.0em;
+				}
+				
+					.detailAll > .line3 > .detail-right > .menu-img > img{
+						width: 90px;
+						height: 90px;
+						float: left;
+					}
+				
+						.detailAll > .line3 > .detail-right > .menu-img > img:nth-child(2n){
+							padding: 0 7px;
+						}
+						
+						.menu-list, .conInfo {
+							padding-top: 10px;
+							line-height: 1.5em;
+						}
+			
+			.detailAll > .line7 {
+				width: inherit;
+				height: 600px;
+			}
+			
+				.detailAll > .line7 > .detail-right > .top {
+					margin-bottom: 20px;
+				}
+			
+				.detailAll > .line7 > .detail-left > .middle {
+					width: 100%;
+					height: 500px;
+				}
+				
+				.detailAll > .line7 > .detail-left > .bottom {
+					width: 100%;
+					height: 50px;
+				}
+				
+					#map {
+						width: 630px;
+						height: 400px;
+						position: relative;
+						z-index: -9;
+					}
+					
+						.customoverlay {
+							position:relative;
+							bottom:50px;
+							border-radius:6px;
+							border: 1px solid #ccc;
+							border-bottom:2px solid #ddd;
+							float:left;
+						}
+						
+						.customoverlay:nth-of-type(n) {
+							border:0;
+							box-shadow:0px 1px 2px #888;
+							}
+							
+						.customoverlay a {
+							display:block;
+							text-decoration:none;
+							color:#000;
+							text-align:center;
+							border-radius:6px;
+							font-size:14px;
+							font-weight:bold;
+							overflow:hidden;
+							/* background: #fdb504; */
+							background: #fdb504 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+						}
+						
+						.customoverlay .title {
+							display:block;
+							text-align:center;
+							background:#fff;
+							margin-right:35px;
+							padding:0 15px;
+							font-size:14px;
+							font-weight:bold;
+						}
+					
+						.customoverlay:after {
+							content:'';
+							position:absolute;
+							margin-left:-12px;
+							left:50%;
+							bottom:-12px;
+							width:22px;
+							height:12px;
+							background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+						}
+		
+		
+		.detail-right > .buttons {
+			margin: 30px 0 100px 0;
+		}
+		
+			.detail-right > .buttons > ul {
+				list-style-type: none;
+				text-align: center;
+			}
+			
+				.detail-right > .buttons > ul > li {
+					width: 209px;
+					margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
+					border: solid 1px #e3e4e5;
+					float: left;
+					text-align: center;
+					color: #333333;
+				}
+				
+				.detail-right > .buttons > ul > li:hover {
+					background: #fdb504;
+				}
+				
+					.detail-right > .buttons > ul > li > a{
+						display: block;
+						color: #333333;
+					}
+					
+					.detail-right > .buttons > ul > li > a:hover {
+						color: #e3e4e5;
+					}
+					
+					
+				.detail-right > .two-buttons {
+					width: 262px;
+					margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
+					border: solid 1px #e3e4e5;
+					float: left;
+					color: #333333;
+				}
+				
+				.detail-right > .two-buttons:hover {
+					background: #fdb504;
+				}
+				
+					.detail-right > .two-buttons a {
+						display: block;
+						color: #333333;
+					}
+					
+					.detail-right > .two-buttons a:hover {
+						color: #e3e4e5;
+					}
+		
+		
+/* 예약후기 */					
+/* 백그라운드 이미지 */
+.review-background-area {
+    width: 1903px;
+    height: 180px;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: -1;
+}
+
+    .review-background-area > img {
+        display: block;
+        top: 0;
+        width: 1903px;
+        height: 180px;
+        align: center;
+        object-fit:cover; 
+        filter: brightness(60%);
+    }
+
+.review-title-area {
+	width: 1280px;
+	/* height: 180px; */
+	margin: 0 auto;
 	
-	.sub-title > p {
-		text-align: center;
-		font-size: 19px;
-		margin-top: 140px;
-		margin-bottom: 158px;
+}
+		
+	#review-title {
+	    font-size: 60px;
+	    font-family: 'Jal_Onuel';
+	    color: #ffffff;
+	    text-align: left;
+	    position: relative;
+	    top: -90px;
+	}
+		
+		#review-title-sub {
+			font-size: 19px;
+	    	font-family: 'Noto Sans KR', sans-serif;
+	    	color: #ffffff;
+	   	    position: relative;
+	    	top: -80px;
+		}
+		
+		#review-tab {
+			position: relative;
+			top: -129px;
+			left: 1006px;
+			line-height: 2.3;
+		}
+		
+			#review-tab > ul {
+				list-style-type: none;
+				text-align: center;
+			}
+			
+				#review-tab > ul > li {
+					width: 95px;
+					height: 35px;
+					margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
+					border: solid 1px #e3e4e5;
+					float: left;
+					text-align: center;
+					color: #ffffff;
+				}
+				
+				#review-tab > ul > li:hover {
+					background-color: rgba(255, 255, 255, 0.64);
+					color: #ffffff;
+				}
+				
+					#review-tab > ul > li > a{
+						display: block;
+						color: #ffffff;
+					}
+					
+					#review-tab > ul > li > a:hover{
+						color: #ffffff;
+					}
+				
+
+	/* 리뷰 리스트 */		
+	.review-list {
+		width: 1000px;
+		height: 130px;
+		margin: 0 auto;
 	}
 	
-	.detailAll .buttons {
-		text-align: center;
-	}
+		.review-yet {
+			font-size: 21px;
+			align: center;
+		}
+	
+		.review-list > .rContent {
+			width: 1000px;
+			height: 230px;
+			border: solid 1px #e3e4e5;
+			margin-bottom: 30px;
+		}
+			
+			.rContent .left {
+				width: 300px;
+				height: 230px;
+				float: left;
+				border-style: none;
+				border-right: solid 1px #e3e4e5;
+			}
+			
+				.rContent .left img {
+					width: 300px;
+					height: 230px;
+					object-fit: cover;
+				}
+			
+			.rContent .right {
+				width: 655px;
+				height: 200px;
+				float: left;
+				padding: 30px 20px 30px 20px;
+				margin: 0;
+				border-style: none;
+				font-size: 15px;
+				line-height: 1.8em;
+			}
+			
+				.review-title {
+					font-size: 23px;
+				}
+				
+				.review-type {
+					font-size: 14px;
+					color: #fdb504;
+				}
+				
+			.showMoreReply {
+				height: 50px;
+				text-align: center;
+			}
+			
+				#moreReply {
+					width: 300px;
+					height: 50px;
+					cursor: pointer;
+					border-radius: 0;
+					border: solid 1px #e3e4e5;
+					font-size: 17px;
+					color: #333333;
+					background-color: #ffffff;
+				}
+				
+					#moreReply:hover {
+						background-color: #fdb504;
+						color: #e3e4e5;
+					}
+	

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,10 +22,8 @@
 		<div class=frame>
 			<div class=map-left>
 				<div class="searchBar">
-					<form action="#" method="get">
-						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별 검색">
-						<button id="btn-search"><img src="/resources/images/undo.png"></button>
-					</form>
+					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별, 가게명 검색">
+					<button id="btn-search"><img src="/resources/images/undo.png"></button>
 				</div>
 				<hr>
 				<div class="content-list">
@@ -109,10 +106,9 @@
 	
 	<!-- 맵 js -->
 	<script>
-
 		var positions = [];
 		
-		<c:forEach var="shop" items="${mList}" >
+		<c:forEach var="shop" items="${mapMarkers}" >
 			var shopMap = new Object();
 			
 			shopMap.shopNo = "${shop.shopNo}";
@@ -128,14 +124,12 @@
 			positions.push(shopMap);
 		</c:forEach>
 	
-		/* console.log(positions); */
 	
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	 		mapOption = { 
-	        center: new kakao.maps.LatLng(37.54699, 127.09598), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(37.56421, 127.00169), // 지도의 중심좌표
 	        level: 7 // 지도의 확대 레벨
 	    	};
-
 		
 		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 		
@@ -146,7 +140,6 @@
 		function zoomIn() {
 		    map.setLevel(map.getLevel() - 1);
 		}
-
 		// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
 		function zoomOut() {
 		    map.setLevel(map.getLevel() + 1);
@@ -179,38 +172,95 @@
 					});
 					
 					// 마커가 지도 위에 표시되도록 설정합니다
-					marker.setMap(map);  
+					marker.setMap(map);
 					
-					/* console.log(shop.shopName); */
 					
 					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					var content = '<div class="customoverlay">' +
-					    '  <a href="javascript:void(0);" onclick="showShortInfo()">' +
+					    '  <a href="javascript:showShortInfo()">' +
 					    '    <span class="title">' + shop.shopName + '</span>' +
 					    '  </a>' +
 					    '</div>';
 					
 					// 커스텀 오버레이가 표시될 위치입니다 
-					var position = new kakao.maps.LatLng(result[0].y, result[0].x); 
+					/* var position = new kakao.maps.LatLng(result[0].y, result[0].x); */ 
 					
 					// 커스텀 오버레이를 생성합니다
-					var customOverlay = new kakao.maps.CustomOverlay({
-					    map: map,
-					    position: position,
+					var titleOverlay = new kakao.maps.CustomOverlay({
+					    position: markerPosition,
 					    content: content,
 					    yAnchor: 1 
 					});
 					
-				}
+ 					// 마커에 마우스오버 이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'mouseover', function() {
+						// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+					    titleOverlay.setMap(map);
+					});
+					
+					// 마커에 마우스아웃 이벤트를 등록합니다
+					kakao.maps.event.addListener(marker, 'mouseout', function() {
+					    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+					    titleOverlay.setMap(null);
+					});
+					
+ 					function showShortInfo() {
+						
+						titleOverlay.setMap(null);
+						
+						var shortContent = '<div class="wrap">' + 
+			            '    <div class="info">' + 
+			            '        <div class="title">' + 
+			            '            카카오 스페이스닷원' + 
+			            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+			            '        </div>' + 
+			            '        <div class="body">' + 
+			            '            <div class="img">' +
+			            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+			            '           </div>' + 
+			            '            <div class="desc">' + 
+			            '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
+			            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
+			            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+			            '            </div>' + 
+			            '        </div>' + 
+			            '    </div>' +    
+			            '</div>';
 				
+						// 마커 위에 커스텀오버레이를 표시합니다
+						// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+						var shortInfo = new kakao.maps.CustomOverlay({
+						    content: shortContent,
+						    map: map,
+						    position: markerPosition
+						});
+					
+					}
+					
+					
+					// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+					function closeOverlay() {
+						shortInfo.setMap(null);     
+					}
+					
+					
+					// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+					function closeOverlay() {
+						titleOverlay.setMap(null);     
+					}
+					
+					// 지도의 중심좌표를 얻어옵니다 
+				    var latlng = map.getCenter(); 
+				    var message = '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
+				    console.log(message);
+				}
 			});
-		
+			
 		});
-	 
 	</script>
 
 	<script>
-		function() {
+		$(function() {
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
@@ -225,18 +275,17 @@
 						data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
 						dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
 						success: function(data) {
-							if(data.mList.length > 0) {
+							/* if(data.mList.length > 0) { */
 								for( var i in data.mList) {
-									console.log(data.pi);
+								/* 	console.log(data.pi);
 									console.log(data.mList);
-									console.log(data.mList[0].shopNo);
+									console.log(data.mList[0].shopNo); */
 									/* $(".content-list").append("<span>mapList[i].shopNo</span>"); */	
-									data.mList[0].shopNo
-									
-								}
-							}else {
+									/* data.mList[0].shopNo */
+							 	}
+							/*}else {
 								
-							}
+							} */
 								
 						},
 						error: function() {
@@ -246,7 +295,7 @@
 					});
 				}
 			});
-		}
+		});
 /* 		function pageMove() {
 			$(".content-list").empty();
 			$(".content-list navi").empty();

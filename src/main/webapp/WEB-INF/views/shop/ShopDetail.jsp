@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopDetail.css">
+<!-- 지도 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1683794343a4e97ff3195b44b6488d0c&libraries=services"></script>
 <title>가게 상세 페이지</title>
 </head>
 <body>
@@ -22,18 +24,25 @@
 				<span>${ shop.shopName }</span>
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
-			</div>
 			
-			<!-- 사업자 회원 제외 찜버튼 활성화 -->
-			<c:if test="${ loginUser.userType != 3 }">		
-				<div id="pick-zone">
-					<!-- 세션 체크 하여 동작 -->
-					<!-- 세션 없을시 로그인 연결 -->
-					찜버튼!!
-					<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-					<span id="pick-button" onclick=""><img src="" alt="pick-button"></span>
-				</div>
-			</c:if>
+				<!-- 사업자 회원 제외 찜버튼 활성화 -->
+	 			<c:if test="${ loginUser.userType != 3 }">
+	 				<c:if test="${ empty pick }">		
+	 					<span id="pick-button" onclick=""><img src="/resources/images/zzimButton-before.png" alt="pick-button"></span>
+	 				</c:if>
+	 				<c:if test="${ !empty pick }">		
+						<div id="pick-zone">
+							<!-- 세션 체크 하여 동작 -->
+							<!-- 세션 없을시 로그인 연결 -->
+							<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 -->
+							<c:url var="reservation" value="reservationView.dz">
+								<c:param name="shopNo" value="${ shop.shopNo }"/>
+							</c:url>
+							<span id="pick-button" onclick=""><img src="/resources/images/zzimButton-after.png" alt="pick-button"></span>
+						</div>
+					</c:if>
+				</c:if> 
+			</div>
 		</div>
 		
 	<main>
@@ -46,17 +55,26 @@
 				
 				<div class="detailAll line2">
 					<div class="detail-left">영업시간</div>
-					<div class="detail-right">${ shop.startTime }:00 - ${ shop.endTime }:00</div>
+					<div class="detail-right">${ shop.startTime }:00 ~ ${ shop.endTime }:00</div>
 				</div>
 				
 				<div class="detailAll line3">
 					<div class="detail-left">대표메뉴</div>
 					<div class="detail-right">
-						<div class="detail-right menu-list">${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }</div>
-						<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-							<img src="" alt="menuImg">
-							<%-- ${ mPhoto.menuFileName } --%>
-						</div> 
+						<div class="detail-right menu-list">
+							파스타<br>
+							스테이크<br>
+							<!-- 샐러드<br> -->
+							<%-- 
+							<c:if test="${ !empty mainMenu }">
+								${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }
+							</c:if> --%>
+						</div>
+						<c:if test="${ !empty mPhoto }">
+							<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+								<img src="" alt="menuImg">
+							</div> 
+						</c:if>
 					</div>
 				</div>
 				
@@ -74,7 +92,7 @@
 				
 				<div class="detailAll line5">
 					<div class="detail-left">상세내용</div>
-					<div class="detail-right">${ shop.shopContent }</div> <!-- 최대 몇글자? -->
+					<div class="detail-right conInfo">"${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }"</div> <!-- 최대 몇글자? -->
 				</div>
 				
 				<div class="detailAll line6">
@@ -82,122 +100,194 @@
 					<div class="detail-right">${ shop.shopPhone }</div>
 				</div>
 				
-				<div class="detailAll line7">
-					<div class="detail-left">주소</div>
-					<div class="detail-right">${ shop.shopAddr }</div>
-				</div>
-				
-				<div id="map"></div>
-				
-				<div class="detailAll buttons">
-					<c:url var="reservation" value="reservationView.dz">
-						<c:param name="shopNo" value="${ shop.shopNo }"/>
-						<c:param name="shopName" value="${ shop.shopName }"/>
-						<c:param name="startTime" value="${ shop.startTime }"/>
-						<c:param name="endTime" value="${ shop.endTime }"/>
-						<c:param name="businessDay" value="${ shop.businessDay }"/>
-						<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/>
-					</c:url>
-					<c:url var="donation" value="reservationView.dz">
-						<c:param name="shopNo" value="${ shop.shopNo }"/>
-						<c:param name="shopName" value="${ shop.shopName }"/>
-						<c:param name="startTime" value="${ shop.startTime }"/>
-						<c:param name="endTime" value="${ shop.endTime }"/>
-						<c:param name="businessDay" value="${ shop.businessDay }"/>
-						<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/>
-					</c:url>
-					
-					<!-- 회원별 버튼 생성 -->
-					<!-- 비회원 : 로그인 연결 -->
-					<c:if test="${ empty loginUser }">
-						<ul>
-							<li><a href="javascript:void(0);" onclick="goLogin()">예약하기</a></li>
-							<li><a href="javascript:void(0);" onclick="goLogin()">돈쭐내기</a></li>
-							<li><a href="javascript:history.back();">목록으로</a></li>
-						</ul>
-					</c:if>
-					
-					<!-- 회원 -->
-					<c:if test="${ !empty loginUser }">
+				<div class="detailAll line7" style="height: 550px;">
+					<div class="detail-left">
+						<div class="detail-left top">주소</div>
+						<div class="detail-left middle"></div>
+						<div class="detail-left bottom"></div>
+					</div>
+					<div class="detail-right">
+						<div class="detail-right top">${ shop.shopAddr }</div>
+						<div id="map" class="detail-right bottom"></div>
+						<div class="detail-right buttons">
+							<c:url var="reservation" value="reservationView.dz">
+								<c:param name="shopNo" value="${ shop.shopNo }"/>
+								<c:param name="shopName" value="${ shop.shopName }"/>
+								<c:param name="startTime" value="${ shop.startTime }"/>
+								<c:param name="endTime" value="${ shop.endTime }"/>
+								<c:param name="businessDay" value="${ shop.businessDay }"/>
+								<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/>
+							</c:url>
+							<c:url var="donation" value="reservationView.dz">
+								<c:param name="shopNo" value="${ shop.shopNo }"/>
+								<c:param name="shopName" value="${ shop.shopName }"/>
+								<c:param name="startTime" value="${ shop.startTime }"/>
+								<c:param name="endTime" value="${ shop.endTime }"/>
+								<c:param name="businessDay" value="${ shop.businessDay }"/>
+								<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/>
+							</c:url>
 						
-						<!-- 꿈나무회원 -->
-						<c:if test="${ loginUser.userType == 1 }">
-							<ul>
-								<li><a href="${ reservation }">예약하기</a></li>
-								<li><a href="javascript:history.back();">목록으로</a></li>
-							</ul>
-						</c:if>
+						<!-- 회원별 버튼 생성 -->
+						<!-- 비회원 : 로그인 연결 -->
+							<c:if test="${ empty loginUser }">
+								<ul>
+									<li><a href="javascript:void(0);" onclick="goLogin()">예약하기</a></li>
+									<li><a href="javascript:void(0);" onclick="goLogin()">돈쭐내기</a></li>
+									<li><a href="javascript:history.back();">목록으로</a></li>
+								</ul>
+							</c:if>
 						
-						<!-- mz -->
-						<c:if test="${ loginUser.userType == 2 }">
-							<ul>
-								<li><a href="${ reservation }">예약하기</a></li>
-								<li><a href="${ donation }">돈쭐내기</a></li>
-								<li><a href="javascript:history.back();">목록으로</a></li>
-							</ul>
-						</c:if>
-						
-						<!-- 사업자 -->
-						<c:if test="${ loginUser.userType == 3 }">
-							<ul>
-								<li><a href="javascript:history.back();">목록으로</a></li>
-							</ul>
-						</c:if>
-					
-					</c:if>
-					
-				</div>
-
-				
-				<!-- 예약후기 -->
-				<!-- <div class="header-background-area">
-				 	<img src="/resources/images/review-title.png" alt="shopMain">
-			   	</div> -->
-				
-				<div id="review-title" class="reviewTitle">
-					<span>예약후기</span>&nbsp;&nbsp;
-					<span>솔직하고 따뜻한 후기</span>
-				</div>
-				
-				<div id="review-tab">
-					<ul>
-						<li><a href="javascript:void(0);" onclick="shopReviewAll()">전체후기</a></li>
-						<li><a href="javascript:void(0);" onclick="drReviewAll()">감사후기</a></li>
-						<li><a href="javascript:void(0);" onclick="mzReviewAll()">맛집후기</a></li>
-					</ul>
-				</div>
-				
-				<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
-				 	<c:forEach items="${ drList }" var="reviewAll">
-						<div class="review-list rContent">
-							<div class="rContent left">
-								<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
-							</div>
-							<div class="rContent right">
-								<hr>
-								<span><b>후기제목</b></span>&nbsp;&nbsp;
-								<span>${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;&nbsp;&nbsp;
-								<span><b>/&nbsp;&nbsp;후기타입</b></span>&nbsp;&nbsp;
-								<span>감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
-								<span><b>후기내용</b></span><br>
-								<span>${ reviewAll.drmReviewContent }</span><br>
-								<hr>
-							</div>
+							<!-- 회원 -->
+							<c:if test="${ !empty loginUser }">
+								<!-- 꿈나무회원 -->
+								<c:if test="${ loginUser.userType == 1 }">
+									<ul>
+										<li><a href="${ reservation }" class="two-buttons">예약하기</a></li>
+										<li><a href="javascript:history.back();" class="two-buttons">목록으로</a></li>
+									</ul>
+								</c:if>
+								
+								<!-- mz -->
+								<c:if test="${ loginUser.userType == 2 }">
+									<ul>
+										<li><a href="${ reservation }">예약하기</a></li>
+										<li><a href="${ donation }">돈쭐내기</a></li>
+										<li><a href="javascript:history.back();">목록으로</a></li>
+									</ul>
+								</c:if>
+								
+								<!-- 사업자 -->
+								<c:if test="${ loginUser.userType == 3 }">
+									<ul>
+										<li><a href="javascript:history.back();" class="one-button">목록으로</a></li>
+									</ul>
+								</c:if>
+							</c:if>
 						</div>
-					</c:forEach> 
-					<div class="review-list showMoreReply">
-						<!-- 클릭시 나올 후기 갯수 -->
-						<input type="button" id="moreReply" onclick="">더보기
 					</div>
 				</div>
 			</div>
 		</div>
-	</main>
+			
+				
+	<!-- 예약후기 -->
+		<div class="review">
+				<div class="review-background-area">
+				 	<img src="/resources/images/review-title.png" alt="shopMain">
+				</div>
+				<div class="review-title-area">
+					<span id="review-title">예약후기</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="review-title-sub">솔직하고 따뜻한 후기</span>
+					
+					<div id="review-tab">
+						<ul>
+							<li><a href="javascript:void(0);" onclick="shopReviewAll()">전체후기</a></li>
+							<li><a href="javascript:void(0);" onclick="drReviewAll()">감사후기</a></li>
+							<li><a href="javascript:void(0);" onclick="mzReviewAll()">맛집후기</a></li>
+						</ul>
+					</div>
+				</div>
+	
+		    <div class="frame">
+					
+			
+		    	<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
+	 		 		<c:if test="${ empty drList }">
+			 			<span class="review-yet">등록된 후기가 없습니다.</span>
+			 		</c:if> 
+			 		<c:if test="${ !empty drList }">
+					 	<c:forEach items="${ drList }" var="reviewAll">
+							 <div class="review-list rContent">
+								<div class="rContent left">
+									<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
+								</div>
+								<div class="rContent right">
+									<span class="review-title">${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;
+									<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
+									<span>${ reviewAll.drmReviewContent }</span><br>
+								</div>
+							</div>
+						</c:forEach> 
+						<div class="review-list showMoreReply">
+							<!-- 클릭시 나올 후기 갯수?? -->
+							<input type="button" id="moreReply" onclick="" value="더보기">
+						</div>
+			 		</c:if> 
+				</div>
+		    </div>
+		</div>
+	
+	</main>	
+
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
+	<!-- 맵 js -->
 	<script>
-	
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new kakao.maps.LatLng(37.55021, 126.92327), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		 // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+	    map.setZoomable(false); 
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('${shop.shopAddr}', function(result, status) {
+				
+			/* console.log(shop.shopAddr); */
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			    	 
+			     
+			    	 var imageSrc = '/resources/images/map_marker_blue.png', // 마커이미지의 주소입니다    
+					    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
+					      
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
+					    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 마커가 표시될 위치입니다
+					
+					    console.log(markerPosition);
+					// 마커를 생성합니다
+					var marker = new kakao.maps.Marker({
+					    position: markerPosition, 
+					    image: markerImage // 마커이미지 설정 
+					});
+					
+					// 마커가 지도 위에 표시되도록 설정합니다
+					marker.setMap(map);  
+					
+					/* console.log(shop.shopName); */
+					
+					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+					var content = '<div class="customoverlay">' +
+					    '  <a href="javascript:void(0);" onclick="showShortInfo()">' +
+					    '    <span class="title">${shop.shopName}</span>' +
+					    '  </a>' +
+					    '</div>';
+					
+					// 커스텀 오버레이가 표시될 위치입니다 
+					var position = new kakao.maps.LatLng(result[0].y, result[0].x); 
+					
+					// 커스텀 오버레이를 생성합니다
+					var customOverlay = new kakao.maps.CustomOverlay({
+					    map: map,
+					    position: position,
+					    content: content,
+					    yAnchor: 1 
+					});
+			    	
+					// 지도의 중심좌표 세팅 
+				    map.setCenter(markerPosition); 
+			     }
+			});
 	</script>
 </body>
 </html>

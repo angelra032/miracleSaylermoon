@@ -28,7 +28,6 @@ public class ShopStoreLogic implements ShopStore {
 	
 	@Override
 	public ArrayList<Shop> selectShopMap(int mapNo) {
-//		System.out.println("store");
 		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", mapNo);
 	}
 

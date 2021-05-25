@@ -26,7 +26,7 @@
 			<div class="map-menuAll">
 				<ul>
 					<li><a href="mapSearchShop.dz?mapNo=1">전체</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=2">서울</a></li>
+					<li><a href="mapSearchShop.dz?mapNo=2&centerPosition=서울">서울</a></li>
 					<li><a href="mapSearchShop.dz?mapNo=3">부산</a></li>
 					<li><a href="mapSearchShop.dz?mapNo=4">광주</a></li>
 					<li><a href="mapSearchShop.dz?mapNo=5">대구</a></li>
