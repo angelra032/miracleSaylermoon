@@ -1,6 +1,7 @@
 package com.donzzul.spring.payment.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -33,9 +34,8 @@ public class PaymentStoreLogic implements PaymentStore{
 	}
 
 	@Override
-	public int updateRoulettePoint(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateRoulettePoint(HashMap<String, Object> hash) {
+		return sqlSession.update("paymentMapper.updateRoulettePoint", hash);
 	}
 
 	@Override

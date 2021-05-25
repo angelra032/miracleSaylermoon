@@ -194,8 +194,11 @@
 
 	// 메뉴 선택하면
 	function menuChoice(menu){
+		// 리셋
+		
 		var menuName = $(menu).val();
 		var menuPrice = $(menu).prev().val();
+		console.log("메뉴선택 시 prev" + menuPrice);
 		
 		console.log("메뉴선택-메뉴이름" + menuName);
 		console.log("메뉴선택-메뉴가격" + menuPrice);
@@ -203,12 +206,13 @@
 		$("input[name='menuName']").val(menuName); // lay3-메뉴명
 		//$("input[name='menu-fin-price']").val(menuPrice); // lay3-메뉴총액
 		
-		$("input[name='menu-price']").val(menuPrice); // lay3-메뉴총액
+		$(menu).prev().val(menuPrice); // lay3-메뉴총액
 		console.log("hidden"+$("input[name='menu-price']").val());
+		
 	}
 
 	// 수량 선택하면
-	function amountChoice(amount){
+	function amountChoice(obj, amount){
 		$("input[name='amount']").val(amount); // lay3-수량
 		console.log("수량선택-수량"+amount);
 		

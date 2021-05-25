@@ -1,6 +1,7 @@
 package com.donzzul.spring.payment.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public int saveRoulettePoint(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int saveRoulettePoint(HashMap<String, Object> hash) {
+		return pStore.updateRoulettePoint(hash);
 	}
 
 	@Override
