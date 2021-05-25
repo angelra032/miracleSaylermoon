@@ -28,10 +28,8 @@
 			</div>
 						
 			<div class="searchBar">
-				<form action="#" method="get">
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
 					<button id="btn-search"><img src="/resources/images/search.png"></button>
-				</form>
 			</div>
 			
 			<!-- <a href="shopDetail.dz?shopNo=41">진짜 파스타</a> -->
@@ -96,7 +94,7 @@
 			<!-- 검색결과 가게 리스트 -->
 			<!-- AJAX -->
 			<div class="sub-title second">
-				<p>'' 검색결과</p>
+				<p>'${ searchKeyword }' 검색결과</p>
 			</div>
 			
 			<div class="searchResult">

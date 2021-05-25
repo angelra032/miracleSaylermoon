@@ -48,18 +48,20 @@ public class ShopController {
 	
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
-	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo, @RequestParam("centerPosition") String centerPosition, @RequestParam(value="page", required=false) Integer page) {
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
 		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
 
 		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
+		ArrayList<Shop> mapMarkers = sService.selectShopMap(mapNo);
 		
 		mv.addObject("pi",	pi);
 		mv.addObject("mList", mapList);
+		mv.addObject("mapMarkers", mapMarkers);
 		mv.addObject("mapNo", mapNo);
-		mv.addObject("shopOne", mapList.get(0)); // 마커 테스트
+		mv.addObject("center", centerPosition);
 		mv.setViewName("map/MapDetail");
 		
 		return mv;
@@ -117,9 +119,9 @@ public class ShopController {
 		// 가게 상세정보 가져오기
 		Shop shop = sService.selectShopOne(shopNo);
 		// 가게 메인메뉴 가져오기
-//		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo);
+		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo);
 		// 메뉴 사진 가져오기 
-//		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
+		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
 		// 전체 후기 가져오기
 //		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
@@ -128,10 +130,10 @@ public class ShopController {
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
 		System.out.println(drList.toString());
 		mv.addObject("shop", shop);
-//		mv.addObject("mainMenu", mainMenu);
-//		mv.addObject("mPhoto", mPhoto);
+		mv.addObject("mainMenu", mainMenu);
+		mv.addObject("mPhoto", mPhoto);
 //		mv.addObject("rList", rList);
-		mv.addObject("drList", drList);
+		mv.addObject("drList", drList); //
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
