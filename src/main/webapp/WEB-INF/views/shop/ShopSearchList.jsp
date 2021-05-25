@@ -28,14 +28,12 @@
 			</div>
 						
 			<div class="searchBar">
-					<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
-					<button id="btn-search"><img src="/resources/images/search.png"></button>
+				<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
+				<button id="btn-search"><img src="/resources/images/search.png"></button>
 			</div>
 			
-			<!-- <a href="shopDetail.dz?shopNo=41">진짜 파스타</a> -->
-			
 			<!-- 테마 메인!!!!!!!!! -->
-<!--			<div class="sub-title second">
+			<div class="sub-title second">
 				<p>에디터 추천</p>
 			</div>
 			
@@ -88,7 +86,7 @@
 					<img src="" alt="theme12">
 					<a href="">초밥 맛집 추천</a>
 				</div>
-			</div> -->
+			</div> 
 			
 			
 			<!-- 검색결과 가게 리스트 -->
@@ -103,7 +101,7 @@
 						<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
 					</div>
 					<div class="shopShortInfo right">
-						<%-- <input type="hidden" name="shopNo" value="${ shop.shopNo }"> --%>
+						<input type="hidden" name="shopNo" value="${ shop.shopNo }">
 						<input type="hidden" name="shopNo" value="41">
 						<span id=shop-title><b><a href="shopDetail.dz?shopNo=41">진짜 파스타</a></b></span>&nbsp;&nbsp;
 						<span id=shop-type>양식</span><br><br>

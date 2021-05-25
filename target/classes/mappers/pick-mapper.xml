@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pickMapper">
+
+	<!-- 사업자 가게 테이블 -->
+	<resultMap type="Pick" id="pickResultMap">
+		<id property="pickNo" column="PICK_NO"/>
+		<result property="shopNo" column="SHOP_NO"/>
+		<result property="userNo" column="USER_NO"/>
+	</resultMap>
+	
+	<select id="selectAllList" resultMap="pickResultMap">
+		
+	</select>
+	
+	<insert id="insertPick" parameterType="HashMap">
+		INSERT INTO PICK VALUES (SEQ_PICK.NEXTVAL, #{ shopNo }, #{ userNo })
+	</insert>
+	
+	<delete id="deletePick" parameterType="HashMap">
+		DELETE FROM PICK WHERE USER_NO = #{ userNo } AND SHOP_NO = #{ shopNo }
+	</delete>
+</mapper>

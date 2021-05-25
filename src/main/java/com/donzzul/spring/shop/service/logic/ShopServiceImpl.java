@@ -19,12 +19,12 @@ public class ShopServiceImpl implements ShopService {
 	private ShopStore sStore;
 
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, int mapNo) {
-		return sStore.selectShopMap(pi, mapNo);
+	public ArrayList<Shop> selectShopMap(PageInfo pi, String location) {
+		return sStore.selectShopMap(pi, location);
 	}
 	
-	public ArrayList<Shop> selectShopMap(int mapNo) {
-		return sStore.selectShopMap(mapNo);
+	public ArrayList<Shop> selectShopMap(String location) {
+		return sStore.selectShopMap(location);
 	}
 	
 	@Override
@@ -63,8 +63,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int selectListCount(int mapNo) {
-		return sStore.selectListCount(mapNo);
+	public int selectListCount(String location) {
+		return sStore.selectListCount(location);
 	}
 	
 	public int selectKeyListCount(String searchKeyword) {

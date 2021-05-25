@@ -20,15 +20,15 @@ public class ShopStoreLogic implements ShopStore {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, int mapNo) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, String location) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", mapNo, rowBounds);
+		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", location, rowBounds);
 	}
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(int mapNo) {
-		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", mapNo);
+	public ArrayList<Shop> selectShopMap(String location) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", location);
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
-	public int selectListCount(int mapNo) {
-		return sqlSession.selectOne("shopMapper.selectListCount", mapNo);
+	public int selectListCount(String location) {
+		return sqlSession.selectOne("shopMapper.selectListCount", location);
 	}
 	
 	public int selectKeyListCount(String searchKeyword) {
