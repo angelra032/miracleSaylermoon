@@ -24,18 +24,25 @@
 				<span>${ shop.shopName }</span>
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
-			</div>
 			
-			<!-- 사업자 회원 제외 찜버튼 활성화 -->
-<%-- 			<c:if test="${ loginUser.userType != 3 }">		
-				<div id="pick-zone">
-					<!-- 세션 체크 하여 동작 -->
-					<!-- 세션 없을시 로그인 연결 -->
-					찜버튼!!
-					<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-					<span id="pick-button" onclick=""><img src="" alt="pick-button"></span>
-				</div>
-			</c:if> --%>
+				<!-- 사업자 회원 제외 찜버튼 활성화 -->
+	 			<c:if test="${ loginUser.userType != 3 }">
+	 				<c:if test="${ empty pick }">		
+	 					<span id="pick-button" onclick=""><img src="/resources/images/zzimButton-before.png" alt="pick-button"></span>
+	 				</c:if>
+	 				<c:if test="${ !empty pick }">		
+						<div id="pick-zone">
+							<!-- 세션 체크 하여 동작 -->
+							<!-- 세션 없을시 로그인 연결 -->
+							<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 -->
+							<c:url var="reservation" value="reservationView.dz">
+								<c:param name="shopNo" value="${ shop.shopNo }"/>
+							</c:url>
+							<span id="pick-button" onclick=""><img src="/resources/images/zzimButton-after.png" alt="pick-button"></span>
+						</div>
+					</c:if>
+				</c:if> 
+			</div>
 		</div>
 		
 	<main>
@@ -55,9 +62,13 @@
 					<div class="detail-left">대표메뉴</div>
 					<div class="detail-right">
 						<div class="detail-right menu-list">
+							파스타<br>
+							스테이크<br>
+							<!-- 샐러드<br> -->
+							<%-- 
 							<c:if test="${ !empty mainMenu }">
 								${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }
-							</c:if>
+							</c:if> --%>
 						</div>
 						<c:if test="${ !empty mPhoto }">
 							<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
@@ -81,7 +92,7 @@
 				
 				<div class="detailAll line5">
 					<div class="detail-left">상세내용</div>
-					<div class="detail-right">${ shop.shopContent }</div> <!-- 최대 몇글자? -->
+					<div class="detail-right conInfo">"${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }"</div> <!-- 최대 몇글자? -->
 				</div>
 				
 				<div class="detailAll line6">
@@ -157,52 +168,56 @@
 				</div>
 			</div>
 		</div>
-	</main>		
+			
 				
 	<!-- 예약후기 -->
-	<div class="review">
-		<div class="review-background-area">
-		 	<img src="/resources/images/review-title.png" alt="shopMain">
-
-				<span id="review-title">예약후기</span>&nbsp;&nbsp;&nbsp;&nbsp;
-				<span id="review-title-sub">솔직하고 따뜻한 후기</span>
-			
-			<div id="review-tab">
-				<ul>
-					<li><a href="javascript:void(0);" onclick="shopReviewAll()">전체후기</a></li>
-					<li><a href="javascript:void(0);" onclick="drReviewAll()">감사후기</a></li>
-					<li><a href="javascript:void(0);" onclick="mzReviewAll()">맛집후기</a></li>
-				</ul>
-			</div>
-		</div>
-		
-	    <div class="frame">
-	    	<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
- 		 		<c:if test="${ empty drList }">
-		 			<span class="review-yet">등록된 후기가 없습니다.</span>
-		 		</c:if> 
-		 		<c:if test="${ !empty drList }">
-				 	<c:forEach items="${ drList }" var="reviewAll">
-						 <div class="review-list rContent">
-							<div class="rContent left">
-								<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
-							</div>
-							<div class="rContent right">
-								<span class="review-title">${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;
-								<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
-								<span>${ reviewAll.drmReviewContent }</span><br>
-							</div>
-						</div>
-					</c:forEach> 
-					<div class="review-list showMoreReply">
-						<!-- 클릭시 나올 후기 갯수?? -->
-						<input type="button" id="moreReply" onclick="" value="더보기">
+		<div class="review">
+				<div class="review-background-area">
+				 	<img src="/resources/images/review-title.png" alt="shopMain">
+				</div>
+				<div class="review-title-area">
+					<span id="review-title">예약후기</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="review-title-sub">솔직하고 따뜻한 후기</span>
+					
+					<div id="review-tab">
+						<ul>
+							<li><a href="javascript:void(0);" onclick="shopReviewAll()">전체후기</a></li>
+							<li><a href="javascript:void(0);" onclick="drReviewAll()">감사후기</a></li>
+							<li><a href="javascript:void(0);" onclick="mzReviewAll()">맛집후기</a></li>
+						</ul>
 					</div>
-		 		</c:if> 
-			</div>
-	    </div>
-	</div>
-				
+				</div>
+	
+		    <div class="frame">
+					
+			
+		    	<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
+	 		 		<c:if test="${ empty drList }">
+			 			<span class="review-yet">등록된 후기가 없습니다.</span>
+			 		</c:if> 
+			 		<c:if test="${ !empty drList }">
+					 	<c:forEach items="${ drList }" var="reviewAll">
+							 <div class="review-list rContent">
+								<div class="rContent left">
+									<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
+								</div>
+								<div class="rContent right">
+									<span class="review-title">${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;
+									<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
+									<span>${ reviewAll.drmReviewContent }</span><br>
+								</div>
+							</div>
+						</c:forEach> 
+						<div class="review-list showMoreReply">
+							<!-- 클릭시 나올 후기 갯수?? -->
+							<input type="button" id="moreReply" onclick="" value="더보기">
+						</div>
+			 		</c:if> 
+				</div>
+		    </div>
+		</div>
+	
+	</main>	
 
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

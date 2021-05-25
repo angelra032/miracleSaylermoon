@@ -96,7 +96,7 @@
 			<!-- 검색결과 가게 리스트 -->
 			<!-- AJAX -->
 			<div class="sub-title second">
-				<p>'' 검색결과</p>
+				<p>'${ searchKeyword }' 검색결과</p>
 			</div>
 			
 			<div class="searchResult">
