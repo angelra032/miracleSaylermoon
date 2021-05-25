@@ -34,42 +34,32 @@ public class MZMyPageController {
 	private ReservationService rService;
 	
 	// 마이페이지 메인
-	@RequestMapping(value = "mzMyPage.dz")
-
+  	@RequestMapping(value = "mzMyPage.dz")
 	public String MZMyPageView(HttpSession session, Model model) {
 		
 		User loginUser = (User)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
 		
 		// 예약 목록
-//		ArrayList<Reservation> rList = Service.selectListById(userId);
-		
+		ArrayList<Reservation> rList = rService.rListByMZUpToThree(userNo);
 		// 돈쭐 목록
 		ArrayList<Don> dList = pService.selectDonListThree(userNo);
-		if(!dList.isEmpty()) {
+		
+		if(!rList.isEmpty() && !dList.isEmpty()) {
+			model.addAttribute("rList", rList);
 			model.addAttribute("dList", dList);
-			System.out.println("돈쭐 3개 출력 성공!");
+			return "mzMyPage/MZMyPage";
+		}else if(rList.isEmpty()){
+			model.addAttribute("msg", "데이터가 없습니다.");
+			return "mzMyPage/MZMyPage";
+		}else if(dList.isEmpty()) {
+			model.addAttribute("msg", "데이터가 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
-			model.addAttribute("msg", "돈쭐 내역을 출력하는데 실패하였습니다!");
-			return ("common/errorPage");
-		}
-		
-
-	public String MZMyPageView(HttpSession session,
-									Model model) {
-		User user = (User) session.getAttribute("loginUser");
-		
-		int userNo = user.getUserNo();
-		ArrayList<Reservation> rList = rService.rListByDreamUpToThree(userNo);
-		if(!rList.isEmpty()) {
-			model.addAttribute("rList",rList);
-			return "dreamMyPage/DreamMyPage";
-		}else {
-			model.addAttribute("msg","예약목록 불러오는데 실패했지...!!");
+			model.addAttribute("msg", "내역을 출력하는데 실패했습니다");
 			return "common/errorPage";
 		}
-	}
+  	}
 	
 	// 돈쭐 내역 출력
 	@RequestMapping(value ="printDonAllList.dz", method = RequestMethod.GET)
