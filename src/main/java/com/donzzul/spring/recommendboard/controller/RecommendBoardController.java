@@ -131,59 +131,59 @@ public class RecommendBoardController {
 //	}
 	
 	//***************************************************이미지완료 (지우지말자!!
-//	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-//	@ResponseBody
-//	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
-//		JsonObject jsonObject = new JsonObject();
-//		// 내부경로로 저장
-//		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
-//		String fileRoot = contextRoot+"\\fileupload\\";
-////		String fileRoot = "C:/Users/dlwnd/git/donjjul/src/main/webapp/resources/fileupload/";	//저장될 외부 파일 경로
-//		
-//		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-//		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-//		
-//		File targetFile = new File(fileRoot + savedFileName);	
-//		try {
-//			InputStream fileStream = multipartFile.getInputStream();
-//			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-//			jsonObject.addProperty("url", "/summernote/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-//			jsonObject.addProperty("responseCode", "success");
-//				
-//		} catch (IOException e) {
-//			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-//			jsonObject.addProperty("responseCode", "error");
-//			e.printStackTrace();
-//		}
-//		String a = jsonObject.toString();
-//		return a;
-//	}
-//	
-//	@RequestMapping(value="/summernote/imageView.dz")
-//	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response, HttpServletRequest request) throws Exception {
-//		OutputStream out = response.getOutputStream();
-//        FileInputStream fis = null;
-//        
-//        String contextRoot = request.getSession().getServletContext().getRealPath("resources");
-//		String fileRoot = contextRoot+"\\fileupload\\";
-// 
-//        try {
-//            fis = new FileInputStream(fileRoot+imgName);
-//            FileCopyUtils.copy(fis, out);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (fis != null) {
-//                try {
-//                    fis.close();
-//                } catch (IOException ioe) {
-//                    ioe.printStackTrace();
-//                }
-//            }
-//            out.flush();
-//        }
-//	}
+	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+		JsonObject jsonObject = new JsonObject();
+		// 내부경로로 저장
+		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
+		String fileRoot = contextRoot+"\\fileupload\\";
+//		String fileRoot = "C:/Users/dlwnd/git/donjjul/src/main/webapp/resources/fileupload/";	//저장될 외부 파일 경로
+		
+		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		
+		File targetFile = new File(fileRoot + savedFileName);	
+		try {
+			InputStream fileStream = multipartFile.getInputStream();
+			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+			jsonObject.addProperty("url", "/summernote/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("responseCode", "success");
+				
+		} catch (IOException e) {
+			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+			jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
+		}
+		String a = jsonObject.toString();
+		return a;
+	}
+	
+	@RequestMapping(value="/summernote/imageView.dz")
+	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		OutputStream out = response.getOutputStream();
+        FileInputStream fis = null;
+        
+        String contextRoot = request.getSession().getServletContext().getRealPath("resources");
+		String fileRoot = contextRoot+"\\fileupload\\";
+ 
+        try {
+            fis = new FileInputStream(fileRoot+imgName);
+            FileCopyUtils.copy(fis, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+            out.flush();
+        }
+	}
 	//***************************************************이미지완료 (지우지말자!!
 
 	// 삭제 delete
