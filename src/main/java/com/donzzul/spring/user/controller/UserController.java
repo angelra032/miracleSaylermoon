@@ -214,7 +214,7 @@ public class UserController {
 	}
 	
 		
-	// 꿈나무, 일반회원정보수정
+	// 일반회원정보수정
 	@RequestMapping(value = "mzModify.dz", method = RequestMethod.POST)
 	public String mzUserUpdate(@ModelAttribute User user,
 								Model model,

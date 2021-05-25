@@ -1,12 +1,10 @@
 package com.donzzul.spring.payment.service.logic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.payment.store.PaymentStore;
@@ -34,8 +32,9 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public int saveRoulettePoint(HashMap<String, Object> hash) {
-		return pStore.updateRoulettePoint(hash);
+	public int saveRoulettePoint(User user) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -43,11 +42,15 @@ public class PaymentServiceImpl implements PaymentService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+	/*
+	 * @Override public int insertDonList(User user) { // TODO Auto-generated method
+	 * stub return 0; }
+	 */
 
 	@Override
-	public ArrayList<Don> selectDonList(int userNo, PageInfo pi) {
-		return pStore.selectDonList(userNo, pi);
+	public String selectDonList(int userNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	///////////////////////////////////

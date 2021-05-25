@@ -128,7 +128,10 @@ input[type=radio]{
 				text-align: center;
 			}
 			.amount-btn-div {
-				margin-top: 60px;
+				margin: 60px auto 0;
+				height: 60px;
+				width: 338px;
+				border: solid 1px #fdb504;
 			}
 				input[type=radio]{
 					display: none;
@@ -139,9 +142,15 @@ input[type=radio]{
 					line-height: 58px;
 					font-size: 20px;
 					width: 111px;
-					height: 61px;
-					border: solid 1px #fdb504;
+					height: 100%;
+					margin-right: -3px;
 					background-color: #ffffff;
+				}
+				.amount-btn:not(:last-child) input[type=radio] + span{
+					border-right:solid 1px #fdb504;
+				}
+				.amount-btn:first-child input[type=radio] + span{
+					margin-left: -2px;
 				}
 				.amount-btn input[type=radio]:checked + span{
 					display: inline-block;
@@ -149,9 +158,9 @@ input[type=radio]{
 					font-size: 20px;
 					text-align: center;
 					font-weight: bold;
-					width: 111px;
-					height: 61px;
-					border: solid 1px #fdb504;
+					--width: 33%;
+					--height: 61px;
+					--border: solid 1px #fdb504;
 					background-color: #ffe9b4;
 				}
 

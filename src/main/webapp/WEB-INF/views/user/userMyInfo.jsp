@@ -87,7 +87,7 @@
 								<div class="form-body">
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ loginUser.userEmail }">
 								</div>
-								<button class="submit-btn" type="submit">수정하기</button>
+								<button class="submit-btn" type="submit">가입하기</button>
 							</form>
 						</div>
 					</c:if>
@@ -151,7 +151,7 @@
 								<div class="form-body">
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ loginUser.userEmail }">
 								</div>
-								<button class="submit-btn" type="submit">수정하기</button>
+								<button class="submit-btn" type="submit">가입하기</button>
 								<input type="hidden" name="userNo" value="${ loginUser.userNo }">
 							</form>
 						</div>
@@ -226,7 +226,7 @@
 								<div class="form-body">
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ loginUser.userEmail }">
 								</div>
-								<button class="submit-btn" type="submit">수정하기</button>
+								<button class="submit-btn" type="submit">가입하기</button>
 							</form>
 						</div>
 				</c:if>
@@ -293,7 +293,7 @@
 			
 			
 			//간이사업자명 영어허용@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-			var userSimpleName = $(".simplenameelem");
+			userSimpleName = $(".simplenameelem");
 			var regExpSimpleName = /^[가-힣,a-z,A-Z]{2,11}$/; //undefind를 소문자로 받아들인다
 			userSimpleName.keyup(function() {
 				$('.simplenamenoti').css('display', 'none');
@@ -357,7 +357,7 @@
 			var userPhone = $(".phoneelem");
 			$(".phoneelem").on("keyup", function() {
 				console.log(userPhone.val());
-				$(this).val(autoHypenPhone($(this).val()));  
+				$(this).val(autoHypenPhone($(this).val())) ;  
 				$('.phonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhone.dz",
@@ -422,6 +422,24 @@
 			$(".pphoneelem").on("keyup", function() {
 				console.log(userPhone.val());
 				$(this).val(autoHypenPPhone($(this).val())) ;  
+				$('.phonenoti').css('display', 'none');
+				$.ajax({
+					url : "dupPhone.dz",
+					data : { "userPhone" : userPhone.val() },
+					success : function(result) {
+						if(result != 0){
+							$('.phone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
+							$('.phone_noti_2').css('display', 'block');
+							$('.pphoneelem').css('border', '1px solid #ff5442');
+						}else {
+							$('.phonenoti').css('display', 'none');
+							$('.pphoneelem').css('border', '0');
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
 			});
 			// 안적었을때(0) - 휴대폰번호를입력해주세요
 			$(".pphoneelem").on("blur", function() {
