@@ -45,35 +45,27 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${ !empty rList }">
-							<c:forEach items="${rList }" var="reservation" varStatus="status">
-								<tr>
-									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
-									<td>${reservation.reserveDate }</td>
-									<c:if test="${reservation.rState eq 'O' }">
-									<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
-									</c:if>
-									<c:if test="${reservation.rState eq 'X' }">
-									<td><a class="btn btn-secondary">취소완료</a></td>
-									</c:if>
-									<c:if test="${reservation.rState eq 'Y' }">
-									<td><a class="confirm-btn" >예약확정</a></td>
-									</c:if>
-									
-									
-									<td><a class="btn btn-secondary">후기작성</a></td>
-									<c:if test="${reservation.rState eq 'C' }">
-									<td><a class="reserv-btn" href="#">후기작성</a></td>
-									</c:if>
-								</tr>
-							</c:forEach>
-						</c:if>
-						<c:if test="${ empty rList }">
-							<tr>
-								<td colspan="5">${ msg }</td>
-							</tr>
-						</c:if>
+						<tr>
+							<td>1</td>
+							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
+							<td>2021-01-01</td>
+							<td><a class="reserv-btn" href="#">예약취소</a></td>
+							<td><a class="reserv-btn" href="#">후기작성</a></td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
+							<td>2021-01-01</td>
+							<td><a class="reserv-btn" href="#">예약취소</a></td>
+							<td><a class="reserv-btn" href="#">후기작성</a></td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
+							<td>2021-01-01</td>
+							<td><a class="reserv-btn" href="#">예약취소</a></td>
+							<td><a class="reserv-btn" href="#">후기작성</a></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -123,7 +115,7 @@
 				<div class="my-title">
 					<span>돈쭐 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="printDonAllList.dz">더보기</a>
+						<a class="more-btn b-btn" href="#">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -136,21 +128,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${ !empty dList }">
-						<c:forEach items="${dList }" var="donList" varStatus="status">
-							<tr>
-								<td>${status.count }</td>
-								<td><a class="table-link-title" href="#"><p>${donList.shopName }</p></a></td>
-								<td>${donList.paymentDate }</td>
-								<td>${donList.donPrice }</td>
-							</tr>
-						</c:forEach>
-						</c:if>
-						<c:if test="${ empty dList }">
-							<tr>
-								<td colspan="5">${ msg }</td>
-							</tr>
-						</c:if>
+						<tr>
+							<td>1</td>
+							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
+							<td>2021-01-01</td>
+							<td>21000원</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
+							<td>2021-01-01</td>
+							<td>21000원</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
+							<td>2021-01-01</td>
+							<td>21000원</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

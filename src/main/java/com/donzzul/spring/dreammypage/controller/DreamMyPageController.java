@@ -20,7 +20,6 @@ import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
 
-
 @Controller
 public class DreamMyPageController {
 
