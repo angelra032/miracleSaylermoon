@@ -16,6 +16,19 @@
         
     }
 
+#main-title {
+    width: 100%;
+    height: 278px;
+    font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+	top: 101px;
+    line-height: 4.7;
+    z-index: -2;
+}
+
 .frame {
 	width:1258px;
 	height:inherit;
@@ -100,7 +113,7 @@ input:focus, input:not(:placeholder-shown){
 	width:300px;
 	height: 45px;
 	margin-top: 20px;
-	margin-bottom: 100px
+	margin-bottom: 100px;
 }
 #left-login-bt {
 	width: 100%;
@@ -115,12 +128,26 @@ input:focus, input:not(:placeholder-shown){
 }
 
 /* 구글로그인 */
-#my-signin2 {
-	width: 300px;
+.google-login {
+	width: 100%;
 	display: block;
-	border-radius: 5px;
+	border-radius: 3px;
+	border: 1px solid #e3e4e5;
+	cursor: pointer;
+	height: 40px;
+	margin-top: 20px;
+	z-index: -1;
+	opacity: 0%;
 }
-
+.fake-glogin {
+	width: 300px;
+	height: 40px;
+	display: block;
+	border: 1px solid #e3e4e5;
+	border-radius: 3px;
+	z-index: 1;
+	margin-top: -40px;
+}
 
 
 

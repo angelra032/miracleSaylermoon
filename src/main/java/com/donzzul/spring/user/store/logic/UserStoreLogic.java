@@ -93,10 +93,15 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.selectOneUserByNo", userNo);
 	}
 	
+	// 회원수정필드 비우기
+	@Override
+	public int updateToNull(int userNo) {
+		return sqlSession.update("userMapper.updateToNull", userNo);
+	}
+	
 	// 일반회원정보 수정
 	@Override
 	public int updateMzUser(User user) {
-		
 		return sqlSession.update("userMapper.updateMzUser", user);
 	}
 
@@ -147,6 +152,8 @@ public class UserStoreLogic implements UserStore {
 	public int resetPw(HashMap<String, String> map) {
 		return sqlSession.update("userMapper.resetPw", map);
 	}
+
+	
 
 	
 

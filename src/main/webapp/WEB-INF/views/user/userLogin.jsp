@@ -5,11 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="google-signin-client_id" content="donjjul.apps.googleusercontent.com">
+<meta name="google-signin-client_id" content="415085927923-rlk2denkpna85ffki391opn4br9792f1.apps.googleusercontent.com">
 <link rel="stylesheet" href="/resources/css/user/login.css"> 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/api:client.js"></script>
 <title>돈쭐 로그인</title>
 </head>
 <body>
@@ -48,7 +50,8 @@
 						<a href="javascript:kakaoLogin();">
 							<img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png">
 						</a>
-						<div class="googlelogin" data-onsuccess="onSignIn">구글 로그인</div>
+						<div class="g-signin2 google-login" data-onsuccess="onSignIn">구글 로그인</div>
+						<div class="fake-glogin">구글 로그인</div>
 					</div>
 				</div>
 			</div> 
@@ -64,23 +67,17 @@
 			var rtn = true;
 			var userId = $("#userid");
 			var userPw = $("#userpw");
-			/* if(userId.val() == "") {
-				alert("아이디를 입력해주세요")
-				rtn = false;
-			}else if(userPw.val() == ""){
-				alert("비밀번호를 입력해주세요")
-				rtn = false;
-			} */
+			
 			$.ajax({
 				url : "dupLogin.dz",
 				data : { "userId" : userId.val(), "userPw" : userPw.val() },
 				async: false,
 				success : function(result) {
 					if(userId.val() == "") {
-						alert("아이디를 입력해주세요")
+						alert("아이디를 입력해주세요");
 						rtn = false;
 					}else if(userPw.val() == ""){
-						alert("비밀번호를 입력해주세요")
+						alert("비밀번호를 입력해주세요");
 						rtn = false;
 					}else if(result == 1){
 						alert("아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
@@ -97,7 +94,7 @@
 			return rtn;
 		});
 	});
-	window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.
+	/* window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
 	//카카오로그인
 	function kakaoLogin() {
@@ -126,5 +123,39 @@
 		    }
 	    });
     }
+	//구글
+	function onSignIn(googleUser) {
+		  var profile = googleUser.getBasicProfile();
+		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		  console.log('Name: ' + profile.getName());
+		  console.log('Image URL: ' + profile.getImageUrl());
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		}
+	//재시도
+	var googleUser = {};
+	  var startApp = function() {
+	    gapi.load('auth2', function(){
+	      // Retrieve the singleton for the GoogleAuth library and set up the client.
+	      auth2 = gapi.auth2.init({
+	        client_id: '415085927923-rlk2denkpna85ffki391opn4br9792f1.apps.googleusercontent.com',
+	        cookiepolicy: 'single_host_origin',
+	        // Request scopes in addition to 'profile' and 'email'
+	        //scope: 'additional_scope'
+	      });
+	      attachSignin(document.getElementById('customBtn'));
+	    });
+	  };
+
+	  function attachSignin(element) {
+	    console.log(element.id);
+	    auth2.attachClickHandler(element, {},
+	        function(googleUser) {
+	          document.getElementById('name').innerText = "Signed in: " +
+	              googleUser.getBasicProfile().getName();
+	        }, function(error) {
+	          alert(JSON.stringify(error, undefined, 2));
+	        }
+	        });
+ */
 </script>
 </html>

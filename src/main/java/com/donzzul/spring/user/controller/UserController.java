@@ -13,6 +13,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -205,16 +206,25 @@ public class UserController {
 		return "redirect:index.jsp";
 	}
 	
-	
-	//회원정보조회
+	//회원정보조회@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "myINfo.dz", method = RequestMethod.GET)
-	public String myINfoView(@RequestParam("userNo") int userNo ) {
+	public String myINfoView(@RequestParam("userNo") int userNo , Model model) {
 		User user = service.selectOneUserByNo(userNo);
-			return "user/userMyInfo";
-		
+		if( user!=null ) {
+			model.addAttribute("user", user);
+			int result = service.updateToNull(userNo);
+			if( result>0) {
+				return "user/userMyInfo";
+			}else {
+				model.addAttribute("msg", "리셋 실패");
+				return "common/errorPage";
+			}
+		}else {
+			model.addAttribute("msg", "정보조회 실패");
+			return "common/errorPage";
+		}
 	}
 	
-		
 	// 일반회원정보수정
 	@RequestMapping(value = "mzModify.dz", method = RequestMethod.POST)
 	public String mzUserUpdate(@ModelAttribute User user,
@@ -224,7 +234,7 @@ public class UserController {
 		int result = service.updateMzUser(user);
 		if (result > 0) {
 			session.setAttribute("loginUser", user);
-			return "mzMyPage/MZMyPage";
+			return "redirect:mzMyPage.dz";
 		}else {
 			return "common/errorPage";
 		}

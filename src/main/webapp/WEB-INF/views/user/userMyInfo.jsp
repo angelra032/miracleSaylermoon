@@ -92,7 +92,7 @@
 						</div>
 					</c:if>
 					<!-- 일반회원 -->
-					<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
+					<c:if test="${ !empty user && user.userType == '2'}">
 						<div id="mzEnrollView" class="tab-content">
 							<form action="mzModify.dz" method="post">
 								<div class="form-head">
@@ -153,6 +153,8 @@
 								</div>
 								<button class="submit-btn" type="submit">수정하기</button>
 								<input type="hidden" name="userNo" value="${ loginUser.userNo }">
+								<input type="hidden" name="userType" value="${ loginUser.userType }">
+								<input type="hidden" name="userPoint" value="${ loginUser.userPoint }">
 							</form>
 						</div>
 					</c:if>
@@ -356,12 +358,11 @@
 			// 중복(2) - 이미 등록된 번호입니다 꿈나무
 			var userPhone = $(".phoneelem");
 			$(".phoneelem").on("keyup", function() {
-				console.log(userPhone.val());
 				$(this).val(autoHypenPhone($(this).val()));  
 				$('.phonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhone.dz",
-					data : { "userPhone" : userPhone.val() },
+					data : { "userPhone" : $(".phoneelem").val() },
 					success : function(result) {
 						if(result != 0){
 							$('.phone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
@@ -390,12 +391,11 @@
 			// 중복(2) - 이미 등록된 번호입니다 -일반회원
 			var userPhone = $(".mzphoneelem");
 			$(".mzphoneelem").on("keyup", function() {
-				console.log(userPhone.val());
 				$(this).val(autoHypenPhone($(this).val()));  
 				$('.mzphonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhone.dz",
-					data : { "userPhone" : userPhone.val() },
+					data : { "userPhone" : $(".mzphoneelem").val() },
 					success : function(result) {
 						if(result != 0){
 							$('.mzphone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호

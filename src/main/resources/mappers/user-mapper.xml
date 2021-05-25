@@ -102,6 +102,12 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_NO = #{userNo} AND USER_PW = #{userPw}
 	</select>
 	
+	<update id="updateToNull">
+		UPDATE "USER"
+		SET USER_PHONE = NULL, USER_EMAIL = NULL, PARTNER_NAME= NULL
+		WHERE USER_NO = #{userNo}
+	</update>
+	
 	<update id="updateMzUser">
 		UPDATE "USER"
 		SET USER_PW = #{userPw}, USER_PHONE = #{userPhone}, USER_EMAIL = #{userEmail}

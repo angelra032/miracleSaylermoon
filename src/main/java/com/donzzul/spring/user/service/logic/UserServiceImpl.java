@@ -96,6 +96,11 @@ public class UserServiceImpl implements UserService {
 	public User selectOneUserByNo(int userNo) {
 		return store.selectOneUserByNo(userNo);
 	}
+	
+	@Override
+	public int updateToNull(int userNo) {
+		return store.updateToNull(userNo);
+	}
 
 	// 일반회원정보수정
 	@Override
@@ -151,6 +156,8 @@ public class UserServiceImpl implements UserService {
 	public int resetPw(HashMap<String, String> map) {
 		return store.resetPw(map);
 	}
+
+	
 
 
 	
