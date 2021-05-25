@@ -1,11 +1,14 @@
 package com.donzzul.spring.payment.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.store.PaymentStore;
 import com.donzzul.spring.shop.domain.MainMenu;
@@ -31,9 +34,8 @@ public class PaymentStoreLogic implements PaymentStore{
 	}
 
 	@Override
-	public int updateRoulettePoint(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateRoulettePoint(HashMap<String, Object> hash) {
+		return sqlSession.update("paymentMapper.updateRoulettePoint", hash);
 	}
 
 	@Override
@@ -48,9 +50,10 @@ public class PaymentStoreLogic implements PaymentStore{
 	}
 
 	@Override
-	public String selectDonList(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Don> selectDonList(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("paymentMapper.selectDonAllList", userNo, rowBounds);
 	}
 
 	
@@ -76,6 +79,7 @@ public class PaymentStoreLogic implements PaymentStore{
 		return sqlSession.selectOne("paymentMapper.selectShopUserNo", userNo);
 	}
 
+	// 돈쭐내역 출력 (3개, all)
 	@Override
 	public ArrayList<Don> selectDonListThree(int userNo) {
 		return (ArrayList)sqlSession.selectList("paymentMapper.selectDonListThree", userNo);

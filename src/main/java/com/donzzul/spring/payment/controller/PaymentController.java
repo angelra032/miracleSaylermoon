@@ -2,6 +2,7 @@ package com.donzzul.spring.payment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,8 +34,14 @@ public class PaymentController {
 
 	// 돈쭐 결제 폼
 	@RequestMapping(value = "paymentFormView.dz", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView paymentFormView(ModelAndView mv) { //, @RequestParam("shopNo") int shopNo
-		
+	public ModelAndView paymentFormView(ModelAndView mv, HttpSession session) { //, @RequestParam("shopNo") int shopNo
+		/*
+		User loginUser = (User)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			//<script >alert("로그인 이후 사용 가능합니다!");
+			
+		}
+		*/
 		Shop shop = new Shop();
 		shop.setShopNo(87); //임시 데이터
 		
@@ -55,28 +62,20 @@ public class PaymentController {
 		return mv;
 	}
 
-	
-	 // 결제하기(API로 넘어감)
-/*	 @RequestMapping(value = "kakaoPay.dz", method = RequestMethod.POST) 
-	 public String kakaoPay() {
-		 return "payment/kakaoView"; 
-	 }
-*/	 
 	 
 	/// 돈쭐 내역 저장 - 내역 저장(카카오페이가 완료되면)
 	@RequestMapping(value = "insertDonList.dz", method = RequestMethod.POST)
 	public ModelAndView insertDonList(ModelAndView mv, 
 											@ModelAttribute Don don, 
-											@RequestParam("use-point") int usePoint,
 											HttpSession session
 											// 카카오페이 ajax로 넘겨준 값 / 가게이름,날짜,가격
 											) {
 		User loginUser = (User) session.getAttribute("loginUser");
 		don.setUserNo(loginUser.getUserNo());
+		
 		// 최종 데이터(돈쭐form - ) 가져오기
 		// 돈쭐 내역 저장하기 - // 성공하면 포인트 업데이트하기(포인트는 don에 없으니까 param으로 따로 받아오기)
-		System.out.println(don);
-		System.out.println(usePoint);
+		System.out.println(don.toString());
 		
 		int result = pService.insertDonList(don);
 		if(result > 0) {
@@ -84,6 +83,7 @@ public class PaymentController {
 			// 포인트 업데이트(usePoint)
 			System.out.println("돈쭐내역 저장 성공!");
 			
+			/*
 			// 포인트 업데이트
 			loginUser.setUserPoint(loginUser.getUserPoint()-usePoint);
 			int upPoint = pService.usePoint(loginUser);
@@ -94,42 +94,12 @@ public class PaymentController {
 				System.out.println("포인트 업데이트 실패!");
 				mv.setViewName("");
 			}
+			*/
 			
 		}else {
 			System.out.println("돈줄 내역 저장(insert) 실패..");
 		}
 		return mv;
-	}
-
-
-	// 돈쭐 내역 출력
-	@RequestMapping(value ="printDonList.dz", method = RequestMethod.GET)
-	public ModelAndView printDonList(HttpSession session, ModelAndView mv, Model model) {
-		// 결제 후 반환정보 파라미터로
-		
-		
-		// 돈쭐 (3개 / 페이징) 클릭하면 로그인세션(userNo)로 검색
-		
-		// 3개(마이페이지)
-		User loginUser = (User)session.getAttribute("loginUser");
-		int userNo = loginUser.getUserNo();
-		
-		ArrayList<Don> dList = pService.selectDonListThree(userNo);
-		if(!dList.isEmpty()) {
-			mv.addObject("dList", dList);
-			mv.setViewName(""); // 마이페이지
-		}else {
-			mv.addObject("msg", "돈쭐 내역을 출력하는데 실패하였습니다!");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
-	}
-
-	/// 필요한가? 어차피 세션 출력처리까지만. 디비는 안해도 될 듯
-	// 포인트 조회(MZ 마이페이지 + 포인트사용(가용포인트))
-	@RequestMapping(value = "printMyPoint.dz", method = RequestMethod.GET) // post?
-	public String printMyPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		return "";
 	}
 
 	// 룰렛 페이지
@@ -140,10 +110,33 @@ public class PaymentController {
 
 	// 룰렛 포인트 정립
 	@RequestMapping(value = "saveRoulettePoint.dz", method = RequestMethod.POST)
-	public String saveRoulettePoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		String winningPoint = request.getParameter("winningPoint"); // 앞단에서 당첨된 포인트
+	public String saveRoulettePoint(HttpSession session, @RequestParam("winning-point") int winPoint, @ModelAttribute User user, Model model) {
+		
+		// 포인트 디비에서 계산하려면
+		// 포인트 컬럼 추가(일단 vo에)
+		// don의 포인트랑 user의 포인트 가져가서 계산
+		
+		// modelattrivbute로 user 가져갈 수 ㅣ잇나?(앞단에서 오는 건가)
+		User loginUser = (User)session.getAttribute("loginUser");
+		
+		
+		System.out.println("당첨포인트-뒷단: "+winPoint); // 앞단에서 당첨된 포인트
+		Don don = new Don();
+		don.setSavePoint(winPoint); // 포인트 담아주기
+		
+		HashMap<String, Object> hash = new HashMap<String, Object>();
+		hash.put("loginUser", loginUser);
+		hash.put("don", don);
+		
+		int result = pService.saveRoulettePoint(hash);
+		if(result > 0) {
+			System.out.println("룰렛 포인트 업데이트 성공!");
+			return "payment/snsPhoto";
+		}else {
+			System.out.println("룰렛 포인트 업데이트 실패");
+			return "common/errorPage";
+		}
 
-		return "";
 	}
 
 	// 인증샷 페이지

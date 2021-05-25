@@ -31,19 +31,33 @@
 	
 	<!-- select - insert - update - delete -->
 	
-	<select id="selectDonListThree"> <!-- 돈쭐내역 3개 출력 -->
-		SELECT * FROM DON
+	<!-- 돈쭐내역 출력(mz 마이페이지) -->
+	<select id="selectDonListThree" resultMap="paymentResultMap"> <!-- 돈쭐내역 3개 출력 -->
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY PAYMENT_DATE DESC) AS NUM, SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo }) WHERE NUM BETWEEN 1 AND 3
+	</select>
+	
+	<select id="selectDonAllList" resultMap="paymentResultMap">
+		SELECT SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo }
 	</select>
 	
 	
+	<!-- 룰렛 전 - don 내역 저장, 포인트 업데이트 -->
 	<insert id="insertDonList">
-		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo } )
+		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo }, #{usePoint }, DEFAULT )
 	</insert>
 	
 	<update id="updateUserPoint">
 		UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo }
-				<!-- 아 근데 #{userPoint } 이거 쓰려면 돈쭐 테이블에 포인트가 있어야함..? 아님 조인..? 
-								아니면 payment가 아니라 user에서 처리? service 바꿔서..(User service 선언해주고) -->
+	</update>
+	
+	
+	<!-- 룰렛 후 - don 내역 조회, 포인트 업데이트, 유저 포인트 업데이트 -->
+	
+	<update id="updateRoulettePoint" parameterType="HashMap" >
+		<!-- UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo } -->
+		
+		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) + (SELECT NVL(SAVE_POINT,0) FROM DON WHERE DON_NO = #{donNo }) WHERE USER_NO = #{userNo}
+		
 	</update>
 	
 	

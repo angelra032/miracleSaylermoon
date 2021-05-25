@@ -39,7 +39,7 @@ public class PartnerMyPageController {
 		int userNo = loginUser.getUserNo();
 	
 		Shop myShop = pService.selectMyShop(userNo); // 사업자 가게 불러오기
-		int shopNo = myShop.getShopNo();
+		int shopNo = myShop.getShopNo();									////////////////// 샵 넘버 없어도 들어갈 수 있게끔
 		
 		ArrayList<Reservation> rList = rService.rListByShopUpToThree(shopNo);
 		if(!rList.isEmpty()) {

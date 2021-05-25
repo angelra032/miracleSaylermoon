@@ -25,22 +25,10 @@
 						<span class="title-span">메뉴 선택</span>
 					</div>
 					<div class="lay1-content">
-						<!-- <label class="menu-choice"><input type="radio" name="menu" value="후라이드 치킨" onclick="menuChoice(this.value)" ><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="양념 치킨" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="소이갈릭 치킨" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>후라이드 치킨&nbsp;&nbsp;16000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>양념 치킨&nbsp;&nbsp;17000원</span></label>
-						<label class="menu-choice"><input type="radio" name="menu" value="후라이드" onclick="menuChoice(this.value)"><span>소이갈릭 치킨&nbsp;&nbsp;18000원</span></label>
-						  -->
 						<!-- for each문(가게shop/메뉴mainMenu) -->
 						<c:forEach items="${mList }" var="menu">
-							<label class="menu-choice"><input type="hidden" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
-							
+							<label class="menu-choice"><input type="hidden" name="menu-price" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
 						</c:forEach>
-						
 					</div>
 				</div>
 				<div id="lay2" class="payment">
@@ -49,10 +37,8 @@
 							<span class="title-span">수량 선택</span>
 						</div>
 						<div class="amount-btn-div">
-							<!-- 스타일 다시 주기 -->
-							<label class="amount-btn"><input type="radio" name="amountC" value="1" onclick="amountChoice(this.value)"><span>X 1</span></label>
-							<label class="amount-btn"><input type="radio" name="amountC" value="2" onclick="amountChoice(this.value)"><span>X 2</span></label>
-							<label class="amount-btn"><input type="radio" name="amountC" value="3" onclick="amountChoice(this.value)"><span>X 3</span></label>
+							<!-- 스타일 다시 주기 --><input type="hidden" id="hidden-price"/>
+							<label class="amount-btn"><input type="radio" name="amountC" value="1" onclick="amountChoice(this.value)"><span>X 1</span></label><label class="amount-btn"><input type="radio" name="amountC" value="2" onclick="amountChoice(this.value)"><span>X 2</span></label><label class="amount-btn"><input type="radio" name="amountC" value="3" onclick="amountChoice(this.value)"><span>X 3</span></label>
 						</div>		
 					</div>
 					<div id="lay2-2" class="lay2 point" >
@@ -62,7 +48,7 @@
 						<div>
 							<div id="lay2-point-div">
 								&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${loginUser.userPoint }" readonly/> 원 <br>
-								&nbsp;&nbsp;가용 포인트 : <input type="text" id="userPoint" value="${loginUser.userPoint }" readonly/> 원 <br>
+								&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
 								&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
 								<!-- <input type="text" id="pCount" placeholder="사용할 포인트 입력"/>원 --> 
 							</div>
@@ -78,7 +64,7 @@
 						<div id="lay3-payment-result">
 							메뉴명 : <input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
 							수 량 : <input type="text" name="amount" value="" readonly/> <br>
-							메뉴 총액 : <input type="text" name="menu-price" value="0" readonly/> <br>
+							메뉴 총액 : <input type="text" name="menu-fin-price" value="0" readonly/> <br>
 							포인트 사용 : <input type="text" name="use-point" value="0" readonly/> <br>
 							결제 금액 : <input type="text" name="donPrice" value="0" readonly/>
 							<!-- 위에 폼 넘기려면 vo이름으로 맞춰야함 맞춰주기 | 가격 어쩔 겨-포인트제외or총(donPrice)-->
@@ -97,25 +83,63 @@
 	</main>
 
 <script type="text/javascript">
+
+	$(function() {
+
+		//$("#userPoint").val(12);
+		console.log($("#usePoint").val());
+		
+		var userPoint = $("#userPoint").val();
+		var useablePoint = $("#useablePoint");
+			
+		// 가용 포인트
+		if(userPoint < 500){
+			useablePoint.val(0);
+		}else if(userPoint >= 500 && userPoint <= 5000){
+			useablePoint.val(userPoint);
+		}else if(userPoint > 5000){
+			useablePoint.val(5000);
+		}
+		
+	});
+
 	$("#payment-btn").on("click", function(e){
 	    e.preventDefault();
 	    var usePoint = $("#usePoint").val();
 		var userPoint = $("#userPoint").val();
 		usePoint = Number(usePoint);
 		userPoint = Number(userPoint);
-		if(usePoint > userPoint) {
-			alert("포인트 사용 가능 범위를 넘었습니다!");
+
+		if(usePoint > 5000){
+			alert("포인트는 5000원까지 사용 가능합니다!");
+			return false;
+		}else if(usePoint > 0 && usePoint < 500){
+			alert("500원부터 사용 가능합니다!");
+			return false;
+		}else if(usePoint < 0){
+			alert("500원부터 사용 가능합니다!");
 			return false;
 		}
+		/* else if(usePoint == 0){
+			return true;
+		} */
+		
+		// 돈쭐내기 버튼으로 포인트 까주기
+		var sum = $("input[name='menu-fin-price']").val();
+		var fin = sum - usePoint;
+		$("input[name='donPrice']").val(fin);
 	    
+		
 	    var IMP = window.IMP; // 생략가능
 	    IMP.init('imp57766104'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	    
-	    var donPrice = $("input[name='donPrice']").val();
+	    // 돈쭐 총금액
+	    var donPrice = $("input[name='menu-fin-price']").val();
+	    
+	    var finPrice = $("input[name='donPrice']").val();
 	    var menuName = $("input[name='menuName']").val();
 	    var amount = $("input[name='amount']").val();
 	    var usePoint = $("input[name='use-point']").val();
-	    //var paymentDate = 
 	    var shopNo = '${shop.shopNo }';
 	    var shopName = '${shop.shopName }';
 	    
@@ -143,7 +167,7 @@
 	        pay_method : 'card',
 	        merchant_uid : 'merchant_' + new Date().getTime(),
 	        name : '돈쭐내기 결제 : ${shop.shopName }',
-	        amount : donPrice, // 최종 결제 금액 
+	        amount : finPrice, // 최종 결제 금액 
 	        buyer_email : '${loginUser.userEmail }',
 	        buyer_name : '${loginUser.userName }',
 	        buyer_tel : '${loginUser.userPhone }',
@@ -167,7 +191,7 @@
 			            "amount" : amount,
 			            "shopNo" : shopNo,
 			            "shopName" : shopName,
-			            "use-point" : usePoint
+			            "usePoint" : usePoint
 			        }
 	            }).done(function(data) {
 	                //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
@@ -201,67 +225,67 @@
 
 	// 메뉴 선택하면
 	function menuChoice(menu){
+		// 리셋
+		
 		var menuName = $(menu).val();
 		var menuPrice = $(menu).prev().val();
+		$("#hidden-price").val(menuPrice);
+		console.log("메뉴선택 시 prev" + menuPrice);
 		
-		console.log(menuName);
-		console.log(menuPrice);
-		$("input[name='menuName']").val(menuName);
-		$("input[name='menu-price']").val(menuPrice);
-		if(menu != null){
-			/* $("#lay2").show();
-			$("#lay2-1").show(500);
-			$("#lay2-2").hide();
-			$("#lay3").hide(); */
-		}
+		console.log("메뉴선택-메뉴이름" + menuName);
+		console.log("메뉴선택-메뉴가격" + menuPrice);
 		
+		$("input[name='menuName']").val(menuName); // lay3-메뉴명
+		//$("input[name='menu-fin-price']").val(menuPrice); // lay3-메뉴총액
+		
+		$(menu).prev().val(menuPrice); // lay3-메뉴총액
+		console.log("hidden"+$("input[name='menu-price']").val());
 		
 	}
 
-	//var amount = 0;
 	// 수량 선택하면
 	function amountChoice(amount){
-		$("input[name='amount']").val(amount);
-		console.log(amount);
-		if(amount != null){
-			/* $("#lay2").show();
-			$("#lay2-1").show(500);
-			$("#lay2-2").show(500);
-			$("#lay3").hide(); */
-		}
+		$("input[name='amount']").val(amount); // lay3-수량
+		console.log("수량선택-수량"+amount);
 		
-		var mName = $("input[name='menuName']").val();
-		console.log(mName);
-		var mPrice = $("input[name='menu-price']").val();
+		
+		var mName = $("input[name='menuName']").val(); // lay3의 메뉴이름
+		console.log("lay3의 메뉴이름" + mName);
+		
+		//var mPrice = $("input[name='menu-fin-price']").val(); // lay3의 메뉴가격
+		var mPrice = $("#hidden-price").val()
 		mPrice = Number(mPrice);
-		console.log(mPrice);
-		var amount = $("input[name='amount']").val();
+		console.log("lay3의 메뉴가격" + mPrice);
+		
+		var amount = $("input[name='amount']").val(); // lay3의 수량
 		amount = Number(amount);
-		console.log(amount);
-		var priceSum = mPrice * amount;
-		console.log(priceSum);
-		var usePoint = $("#usePoint").val();
+		console.log("lay3의 메뉴수량" +amount);
+		
+		var priceSum = mPrice * amount; // 가격*수량
+		$("input[name='menu-fin-price']").val(priceSum);
+		console.log("lay3 가격*수량" + priceSum);
+		
+		var usePoint = $("#usePoint").val(); // 사용할 포인트
 		usePoint = Number(usePoint);
-		var finPrice = priceSum - usePoint;
-		console.log(finPrice);
+		
+		var finPrice = priceSum - usePoint; // 결제할 가격 = (가격*수량) - 포인트
+		console.log("lay3 결제할가격(차감)" + finPrice);
 		$("input[name='donPrice']").val(finPrice); // 결제 가격 = 총가격 - 사용포인트
 	}
-	//console.log(amount);
 
 	// 포인트 입력시 자동으로(onkeyup)
 	function pointUse(){
-		var usePoint = $("#usePoint").val();
-		/* var userPoint = $("#userPoint").val();
-		if(usePoint > userPoint) {
-			alert("포인트 사용 가능 범위를 넘었습니다!")
-		} */
+		var usePoint = $("#usePoint").val(); // 사용할 포인트
 		
-		$("input[name='use-point']").val(usePoint);
+		$("input[name='use-point']").val(usePoint); // lay3 포인트사용
 		
 	}
+	
+	// 포인트 버튼 클릭 시
 	$(function() {
 		$("#pSubmit").on("click", function(e){
 			e.preventDefault(); // submit 버튼으로 작동하는 것을 중단.
+			
 			var usePoint = $("#usePoint").val();
 			var userPoint = $("#userPoint").val();
 			console.log(userPoint);console.log(usePoint);
@@ -269,10 +293,41 @@
 			userPoint = Number(userPoint);
 			console.log(userPoint);console.log(usePoint);
 			
+			if(usePoint > 5000){
+				alert("포인트는 5000원까지 사용 가능합니다!");
+				return false;
+			}else if(usePoint > 0 && usePoint < 500){
+				alert("500원부터 사용 가능합니다!");
+				return false;
+			}else if(usePoint == 0){
+				return true;
+			}else if(usePoint < 0){
+				alert("500원부터 사용 가능합니다!");
+				return false;
+			}
+			
+			/* 
 			if(usePoint > userPoint) {
 				alert("포인트 사용 가능 범위를 넘었습니다!");
 				return false;
+			}else if(usePoint <= 500){
+				alert("포인트는 500원부터 사용 가능합니다!");
+				return false;
+			}else if(usePoint >= 5000){
+				alert("포인트는 5000원까지 사용 가능합니다!");
+				return false;
 			}
+			 */
+			/* 
+			// 가용 포인트
+			if($("#userPoint").val() < 500){
+				$("#useablePoint").val(0);
+			}else if($("#userPoint").val() >= 1 || $("#userPoint").val() <= 4900){
+				$("#useablePoint").val() = $("#userPoint").val();
+			}else if($("#userPoint").val() > 5000){
+				$("#useablePoint").val(5000);
+			}
+			 */
 			
 			/* $("#lay2").show();
 			$("#lay2-1").show(500);
@@ -282,23 +337,30 @@
 			// lay3 이 보여야하며
 			// lay3의 내용 - 총가격(가격*수량), 포인트, 결제 금액 나타내야하고
 			// 
-			$("#lay3").show(500);
+			//$("#lay3").show(500);
 			//$("input[name='menu-price']").val(); // 총가격 = 메뉴가격 * 수량
 			
-			var mName = $("input[name='menuName']").val();
-			console.log(mName);
-			var mPrice = $("input[name='menu-price']").val();
+			var mName = $("input[name='menuName']").val(); // lay3의 메뉴이름
+			console.log("lay3의 메뉴이름" + mName);
+			
+			//var mPrice = $("input[name='menu-fin-price']").val(); // lay3의 메뉴가격
+			var mPrice = $("#hidden-price").val()
 			mPrice = Number(mPrice);
-			console.log(mPrice);
-			var amount = $("input[name='amount']").val();
+			console.log("lay3의 메뉴가격" + mPrice);
+			
+			var amount = $("input[name='amount']").val(); // lay3의 수량
 			amount = Number(amount);
-			console.log(amount);
-			var priceSum = mPrice * amount;
-			console.log(priceSum);
-			var usePoint = $("#usePoint").val();
+			console.log("lay3의 메뉴수량" +amount);
+			
+			var priceSum = mPrice * amount; // 가격*수량
+			$("input[name='menu-fin-price']").val(priceSum);
+			console.log("lay3 가격*수량" + priceSum);
+			
+			var usePoint = $("#usePoint").val(); // 사용할 포인트
 			usePoint = Number(usePoint);
-			var finPrice = priceSum - usePoint;
-			console.log(finPrice);
+			
+			var finPrice = priceSum - usePoint; // 결제할 가격 = (가격*수량) - 포인트
+			console.log("lay3 결제할가격(차감)" + finPrice);
 			$("input[name='donPrice']").val(finPrice); // 결제 가격 = 총가격 - 사용포인트
 		});
 	});
