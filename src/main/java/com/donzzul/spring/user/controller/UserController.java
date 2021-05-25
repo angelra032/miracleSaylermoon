@@ -208,7 +208,8 @@ public class UserController {
 	
 	//회원정보조회
 	@RequestMapping(value = "myINfo.dz", method = RequestMethod.GET)
-	public String myINfoView() {
+	public String myINfoView(@RequestParam("userNo") int userNo ) {
+		User user = service.selectOneUserByNo(userNo);
 			return "user/userMyInfo";
 		
 	}
