@@ -11,6 +11,8 @@
 		<result property="paymentDate" column="PAYMENT_DATE"/>
 		<result property="shopName" column="SHOP_NAME"/>
 		<result property="shopNo" column="SHOP_NO"/>
+		<result property="usePoint" column="USE_POINT"/>
+		<result property="savePoint" column="SAVE_POINT"/>
 	</resultMap>
 	
 	<resultMap type="User" id="userResultMap">
@@ -53,6 +55,13 @@
 	
 	
 	<!-- 룰렛 후 - don 내역 조회, 포인트 업데이트, 유저 포인트 업데이트 -->
+	<select id="selectDonPrice" resultMap="paymentResultMap">
+		SELECT DON_PRICE FROM DON WHERE DON_NO = #{donNo }
+	</select>
+	
+	<update id="updateDonSavePoint">
+		UPDATE DON SET SAVE_POINT = #{savePoint } WHERE DON_NO = #{donNo }
+	</update>
 	
 	<update id="updateRoulettePoint" parameterType="HashMap" >
 		<!-- UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo } -->

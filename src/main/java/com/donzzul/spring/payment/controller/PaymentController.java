@@ -106,40 +106,62 @@ public class PaymentController {
 	// 룰렛 페이지
 	@RequestMapping(value = "rouletteView.dz", method = RequestMethod.GET)
 	public String rouletteView(@RequestParam("donNo") int donNo, HttpSession session, Model model) {
-		System.out.println(donNo);
+		System.out.println(donNo); 
 		model.addAttribute("donNo", donNo);
+		
+		System.out.println("여기까지 됨");
 		return "payment/pointRoulette";
 	}
 
 	// 룰렛 포인트 정립
-	@RequestMapping(value = "saveRoulettePoint.dz", method = RequestMethod.POST)
-	public String saveRoulettePoint(HttpSession session, @RequestParam("winning-point") int winPoint, @ModelAttribute User user, Model model) {
-		
+	@RequestMapping(value = "saveRoulettePoint.dz", method=RequestMethod.POST)
+	public String saveRoulettePoint(HttpSession session, Model model,
+									@ModelAttribute Don don // @RequestParam("winning-point") int winPoint, @RequestParam("donNo") int donNo,
+										) {
 		// 포인트 디비에서 계산하려면
 		// 포인트 컬럼 추가(일단 vo에)
 		// don의 포인트랑 user의 포인트 가져가서 계산
 		
-		// modelattrivbute로 user 가져갈 수 ㅣ잇나?(앞단에서 오는 건가)
 		User loginUser = (User)session.getAttribute("loginUser");
+		System.out.println("적립컨트롤"+don.getDonNo());
+		System.out.println("당첨포인트-뒷단:"+don.getSavePoint()); // 앞단에서 당첨된 포인트
+		System.out.println("담아준 돈 객체" + don.toString());
 		
-		
-		System.out.println("당첨포인트-뒷단: "+winPoint); // 앞단에서 당첨된 포인트
-		Don don = new Don();
-		don.setSavePoint(winPoint); // 포인트 담아주기
-		
-		HashMap<String, Object> hash = new HashMap<String, Object>();
-		hash.put("loginUser", loginUser);
-		hash.put("don", don);
-		
-		int result = pService.saveRoulettePoint(hash);
-		if(result > 0) {
-			System.out.println("룰렛 포인트 업데이트 성공!");
-			return "payment/snsPhoto";
+		// 포인트 계산...
+		// don쭐낸 가격(select)
+		Don donPrice = pService.selectDonPrice(don.getDonNo());
+		if(donPrice != null) {
+
+			//당첨만큼 % 계산 = savePoint
+			int price = donPrice.getDonPrice();
+			int savePoint = price / don.getSavePoint();
+			don.setSavePoint(savePoint);
+			
+			// don에 savePoint 저장하기(update)
+			int updateDon = pService.updateDonSavePoint(don);
+
+			// userPoint + savePoint 
+			if(updateDon > 0) {
+				HashMap<String, Object> roulettePoint = new HashMap<String, Object>();
+				roulettePoint.put("userNo", loginUser.getUserNo());
+				roulettePoint.put("donNo", don.getDonNo());
+				
+				int result = pService.saveRoulettePoint(roulettePoint);
+				if(result > 0) {
+					System.out.println("룰렛 포인트 업데이트 성공!");
+					return "redirect:snsPhotoView.dz";
+				}else {
+					System.out.println("룰렛 포인트 업데이트 실패");
+					return "common/errorPage";
+				}
+			}else {
+				System.out.println("don에 계산한 savePoint 저장하기(update) 실패");
+				return "common/errorPage";
+			}
 		}else {
-			System.out.println("룰렛 포인트 업데이트 실패");
+			System.out.println("don쭐낸 가격(select) 실패");
 			return "common/errorPage";
 		}
-
 	}
 
 	// 인증샷 페이지

@@ -84,9 +84,22 @@ public class PaymentServiceImpl implements PaymentService {
 		return pStore.selectAllDonList(dateMap);
 	}
 
+
 //   @Override
 //   public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap) {
 //	      return pStore.selectAllDonListSum(dateMap);
 //   }
 
+	
+	// 포인트 업데이트 시 사용
+	@Override
+	public Don selectDonPrice(int donNo) {
+		return pStore.selectDonPrice(donNo);
+	}
+
+	@Override
+	public int updateDonSavePoint(Don don) {
+		return pStore.updateDonSavePoint(don);
+	}
+	
 }

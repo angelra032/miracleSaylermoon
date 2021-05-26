@@ -34,4 +34,9 @@ public interface PaymentService {
 	// public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap);
 
 	
+	// 포인트 업데이트 시 사용
+	public Don selectDonPrice(int donNo);
+	public int updateDonSavePoint(Don don);
+	
+	
 }
