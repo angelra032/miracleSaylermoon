@@ -91,10 +91,12 @@ public class UserServiceImpl implements UserService {
 		return store.checkLoginDup(map);
 	}
 	
-
+	// 유저의 정보를 db에서 가져오면서 안의 값을 널로 바꾸고 싶다
 	@Override
 	public User selectOneUserByNo(int userNo) {
-		return store.selectOneUserByNo(userNo);
+		User user = store.selectOneUserByNo(userNo);
+		//store.updateToNull(userNo);
+		return user;
 	}
 	
 	@Override
