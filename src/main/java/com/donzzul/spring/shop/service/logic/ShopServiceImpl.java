@@ -20,12 +20,17 @@ public class ShopServiceImpl implements ShopService {
 	private ShopStore sStore;
 
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi,  HashMap<String, String> selectedLocation) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, HashMap<String, String> selectedLocation) {
 		return sStore.selectShopMap(pi, selectedLocation);
 	}
 	
 	public ArrayList<Shop> selectShopMap(HashMap<String, String> selectedLocation) {
 		return sStore.selectShopMap(selectedLocation);
+	}
+	
+	@Override
+	public ArrayList<Shop> searchMapKeyword(PageInfo pi, String searchKeyword) {
+		return sStore.searchMapKeyword(searchKeyword);
 	}
 	
 	@Override

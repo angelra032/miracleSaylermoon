@@ -166,7 +166,7 @@
 	</select>
 	
 	<select id="selectListCountKey" resultType="_int">
-		SELECT COUNT(*) FROM SHOP WHERE SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' 
+		SELECT COUNT(*) FROM SHOP WHERE SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' OR SHOP_NAME LIKE '%' || #{searchKeyword } || '%'
 	</select>	
 	
 	

@@ -33,6 +33,13 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
+	public ArrayList<Shop> searchMapKeyword(PageInfo pi, String searchKeyword) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("shopMapper.selectMapKeyword", searchKeyword, rowBounds);
+	}
+	
+	@Override
 	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
 		return (ArrayList)sqlSession.selectList("shopMapper.selectMapKeyword", searchKeyword);
 	}

@@ -38,14 +38,14 @@
 			
 			<div class="searchTheme">
 				<div class="theme one">
-					<input type=hidden name="themeNo" value="1">
+					<input type=hidden name="theme1" value="1">
 					<span>이주의 리뷰왕</span>
-					<img class="themeOne" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1">
+					<img class="theme1" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1">
 				</div>
 				<div class="theme two">
 					<input type=hidden name="themeNo" value="2">
 					<span>천안 맛집 추천</span>
-					<img class="themeOne" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
+					<img class="theme2" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
 				</div>
 				<div class="theme three">
 					<input type=hidden id="searchNum" value="3">
@@ -159,8 +159,8 @@
 				}
 			});
 			
-			$(".themeOne").on("click", function() {
-				var themeNo = $("input[name=themeNo]").val();
+			$(".theme1").on("click", function() {
+				var themeNo = $("input[name=theme1]").val();
  				$.ajax({
 					url: "searchTheme.dz",
 					type: "get",
