@@ -25,14 +25,12 @@
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="recommendTitle">제목</label>
-				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목">
+				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목" value="${ recommendBoard.recommendTitle}">
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ loginUser.userNick }</div>
+				<div class="user-nick-area">${ recommendBoard.recommendWriter }</div>
 			</div>
-			<!-- <p>닉네임위치</p> -->
-			<!-- <textarea name="recommendContent" placeholder="내용"></textarea> -->
 			<br>
 			<div class="editor-area">
 				<label>내용</label>
@@ -98,19 +96,23 @@
 							}
 				         });
 				   
+				   $('#summernote').summernote('code', '${ recommendBoard.recommendContent }');
+				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
 					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
 						var recommendTitle = $("#recommendTitle").val();
+						var recommendNo = '${recommendBoard.recommendNo}';
+						alert(recommendNo);
 					    $.ajax({
-						   url : "recommendInsertForm.dz",
+						   url : "recommendModify.dz",
 						   type : "POST",
-						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
+						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent, "recommendNo" : recommendNo},
 						   success : function(data){
 							   if(data == "success") {
-								   location.href="recommendMain.dz";
+								   location.href="recommendDetail.dz?recommendNo="+recommendNo;
 								} else {
-									alert('게시글 올리기 실패');
+									alert('게시글 수정 실패');
 									location.href="recommendMain.dz";
 								}
 						   },

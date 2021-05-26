@@ -112,7 +112,7 @@
 				<h1>${ msg }</h1>
 			</c:if> 
 			
-			<c:if test="${ loginUser.userType eq '2' }">
+			<c:if test="${ loginUser.userType eq '2' or loginUser.userType eq '1' or loginUser.userType eq '3'}">
 	            <div id="write-btn-area">
 	                <button onclick="location.href='/qaWriteView.dz'">문의하기</button>
 	            </div>

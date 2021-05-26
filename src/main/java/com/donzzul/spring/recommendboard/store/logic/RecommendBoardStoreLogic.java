@@ -47,8 +47,7 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 
 	@Override
 	public int updateRecommend(RecommendBoard recommendBoard) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("recommendMapper.updateRecommend", recommendBoard);
 	}
 
 	@Override
@@ -60,6 +59,18 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 	@Override
 	public int insertPhoto(RecommendPhoto recoPhoto) {
 		return sqlSession.insert("recommendMapper.insertPhoto", recoPhoto);
+	}
+	
+	// 사진 조회
+	@Override
+	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo) {
+		return (ArrayList)sqlSession.selectList("recommendMapper.selectPhoto", recommendNo);
+	}
+
+	// 수정 전 사진삭제
+	@Override
+	public int deleteBeforePhoto(int recommendNo) {
+		return sqlSession.delete("recommendMapper.deleteBeforePhoto", recommendNo);
 	}
 
 

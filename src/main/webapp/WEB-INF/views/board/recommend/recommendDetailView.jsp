@@ -41,7 +41,7 @@
 			<div class="bottom-btn-area">
 			<c:if test="${ recommendBoard.userNo eq loginUser.userNo}">
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='recommendMain.dz'" style="cursor: pointer;">수정하기</button>
+	                <button onclick="location.href='recommendUpdateForm.dz?recommendNo=${recommendBoard.recommendNo}'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
 	                <button onclick="location.href='recommendDelete.dz?recommendNo=${recommendBoard.recommendNo}'" style="cursor: pointer;">삭제하기</button>
