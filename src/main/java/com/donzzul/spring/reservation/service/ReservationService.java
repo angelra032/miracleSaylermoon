@@ -19,6 +19,8 @@ public interface ReservationService {
 	public ArrayList<Reservation> selectOneBySno(int shopNo); // 샵번호로 모든 예약 불러오기
 	public int updateRstate(Reservation reservation);
 	public int updateShopPoint(Reservation reservation); // 사업자가 예약확인 시 사업자 포인트 업데이트
+	public int cancleReservation(Reservation reservation);
+	
 	
 	public ArrayList<Reservation> rListByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservationListByDream(int userNo, PageInfo pi); // 꿈나무회원별 "전체" 예약목록 불러오기

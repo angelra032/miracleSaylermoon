@@ -67,6 +67,14 @@ public class ReservationStoreLogic implements ReservationStore {
 	public int updateShopPoint(Reservation reservation) {
 		return sqlSession.update("reservationMapper.updateShopPoint",reservation);
 	}
+	
+	@Override
+	public int cancleReservation(Reservation reservation) {
+		System.out.println("스토어에 들어왔니..?");
+		int result = sqlSession.update("reservationMapper.cancleReservation",reservation);
+		System.out.println("스토어"+result);
+		return result;
+	}
 	// ======================여기까지가 예약 끝
 
 	
@@ -119,11 +127,7 @@ public class ReservationStoreLogic implements ReservationStore {
 		return reserve;
 	}
 	
-	@Override
-	public int deleteReservation(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	public int updateReservation(int reservationNo) {

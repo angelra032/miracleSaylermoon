@@ -150,7 +150,21 @@
          $("#selectAreaThird").show(500);
       } 
    }
-   
+
+   function finalCheck(){
+	   var finalDate = $("#rDateSpan").html();
+	   var finalTime = $("#rTimeSpan").html();
+	   var finalCount = $("#rCountSpan").html();
+	   console.log(finalDate);
+	   console.log(finalTime);
+	   console.log(finalCount);
+	   if(finalDate === "" || finalTime === "" || finalCount === ""){
+		   alert('예약 옵션이 선택되지 않았습니다.\n\n 예약 옵션을 선택해주세요.');
+		   return false;
+	   }else(finalDate !== "" || finalTime !== "" || finalCount !== "")
+			return true;
+   }
+	   
 
 
    
@@ -274,7 +288,7 @@
 		            <input type="hidden" name="businessDay" value="${shop.businessDay }"><br> 
 		            <input type="hidden"  name="userPoint" value="${loginUser.userPoint }">
 	             	<div class="reservationArea">
-	                	<input type="submit" value="예약하기" id="rButton" class="button">
+	                	<input type="submit" value="예약하기" id="rButton" class="button" onclick="return finalCheck();">
 	             	</div>
                </div>
                

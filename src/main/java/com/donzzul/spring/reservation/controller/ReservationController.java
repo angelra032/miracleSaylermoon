@@ -57,25 +57,26 @@ public class ReservationController {
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.dz", method=RequestMethod.POST)
 	public String reservationInsert(@ModelAttribute Reservation reservation,
-									@RequestParam("paymentPoint") int paymentPoint,
 									@RequestParam("userPoint") int userPoint,
 									@RequestParam("userNo") int userNo,
 									 Model model
 									) {
+		int paymentPoint = String.valueOf(reservation.getPaymentPoint()) != "" ? reservation.getPaymentPoint() : 0;
 		int rResult = service.insertReservation(reservation);
 		int pResult = 0;
 		if(paymentPoint > 0) {
 			Reservation nReservation = new Reservation();
 			nReservation.setReservationNo(service.getReservNo(userNo));
 			nReservation.setUserNo(userNo);
+			nReservation.setPaymentPoint(paymentPoint);
 			pResult = service.updateUserPoint(nReservation);
 		}
 		
 		if( rResult > 0) {
-			return "redirect:reservationView.dz";
+			return "redirect:dreamMyPage.dz";
 		}else {
 			model.addAttribute("msg","어림도 없지!!!!!!");
-			return "redirect:reservationView.dz";
+			return "redirect:dreamMyPage.dz";
 		}
 	}
 	

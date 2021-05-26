@@ -33,6 +33,7 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:if test="${ !empty drReviewList }">
 					<c:forEach items="${drReviewList }" var="dreamreview" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
@@ -81,6 +82,12 @@
 								</c:if>
 							</td>
 						</tr>
+						</c:if>
+						<c:if test="${ empty drReviewList }">
+							<tr>
+								<td colspan="6">${ msg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>

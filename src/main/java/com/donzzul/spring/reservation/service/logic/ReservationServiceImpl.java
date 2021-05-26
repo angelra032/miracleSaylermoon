@@ -64,6 +64,13 @@ public class ReservationServiceImpl implements ReservationService{
 		return rStore.updateShopPoint(reservation);
 	}
 
+	@Override
+	public int cancleReservation(Reservation reservation) {
+		System.out.println("여기 넘어왔니...?");
+		int result = rStore.cancleReservation(reservation);
+		System.out.println("서비스 임플 "+ result);
+		return result;
+	}
 	
 	//-----------------------여기까지가 예약하기
 	
@@ -122,4 +129,6 @@ public class ReservationServiceImpl implements ReservationService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }
