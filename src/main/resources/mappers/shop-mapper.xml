@@ -30,66 +30,66 @@
 		<result property="mainMenuNo" column="MAIN_MENU_NO"/>
 	</resultMap>
 	
-	<select id="selectAllList" resultMap="shopResultMap">
+	<select id="selectAllList" parameterType="HashMap" resultMap="shopResultMap">
 		SELECT SHOP_NO, SHOP_NAME, SHOP_ADDR, SHOP_SHORT_ADDR, SHOP_TARGET, SHOP_PRODUCT, SHOP_TYPE, SHOP_FILENAME, SHOP_PHONE, SHOP_PARKING_YN, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
-			<if test="value.toString().equals('전체')">
+			<if test="location.equals('전체')">
 				ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.toString().equals('서울')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('서울')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('부산')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('부산')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('광주')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('광주')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('대구')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('대구')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('대전')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('대전')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('세종')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('세종')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('울산')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('울산')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('인천')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('인천')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('제주')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('제주')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('강원')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('강원')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('경기')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%' ORDER BY SHOP_NO DESC
+			<if test="location.equals('경기')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('경남')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('경남')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '경상남도' || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('경북')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('경북')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '경상북도' || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('전남')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('전남')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '전라남도' || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('전북')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('전북')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '전라북도' || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('충남')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('충남')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '충청남도' || '%' ORDER BY SHOP_NO DESC
 			</if>	
-			<if test="value.equals('충북')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('충북')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '충청북도' || '%' ORDER BY SHOP_NO DESC
 			</if>	
 	</select>
@@ -102,65 +102,65 @@
     	SELECT * FROM SHOP WHERE SHOP_NO = #{shopNo}
     </select>
 	
-	<select id="selectListCount" resultType="_int">
+	<select id="selectListCount" parameterType="HashMap" resultType="_int">
 		SELECT COUNT(*) FROM SHOP
-			<if test="value.equals('전체')">
+			<if test="location.equals('전체')">
 			</if>	
-			<if test="value.equals('서울')">
-				WHERE SHOP_ADDR LIKE '%' || '#{ value }' || '%'
+			<if test="location.equals('서울')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('부산')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('부산')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('광주')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('광주')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('대구')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('대구')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('대전')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('대전')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('세종')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('세종')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('울산')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('울산')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('인천')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('인천')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('제주')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('제주')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('강원')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('강원')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('경기')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('경기')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 			</if>	
-			<if test="value.equals('경남')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('경남')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '경상남도' || '%'
 			</if>	
-			<if test="value.equals('경북')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('경북')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '경상북도' || '%'
 			</if>	
-			<if test="value.equals('전남')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('전남')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '전라남도' || '%'
 			</if>	
-			<if test="value.equals('전북')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('전북')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '전라북도' || '%'
 			</if>	
-			<if test="value.equals('충남')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('충남')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '충청남도' || '%'
 			</if>	
-			<if test="value.equals('충북')">
-				WHERE SHOP_ADDR LIKE '%' || #{ value } || '%'
+			<if test="location.equals('충북')">
+				WHERE SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '충청북도' || '%'
 			</if>	
 	</select>

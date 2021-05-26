@@ -15,7 +15,6 @@
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 
 	<main>
-		
 		<div class="header-background-area">
 	       	<img src="/resources/images/searchShop-bg.png" alt="뒷배경이미지">
 	   	</div>
@@ -39,59 +38,71 @@
 			
 			<div class="searchTheme">
 				<div class="theme one">
-					<img src="" alt="theme1">
-					<a href="">이주의 리뷰왕</a>
+					<input type=hidden name="themeNo" value="1">
+					<span>이주의 리뷰왕</span>
+					<img class="themeOne" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1">
 				</div>
 				<div class="theme two">
-					<img src="" alt="theme2">
-					<a href="">천안 맛집 추천</a>
+					<input type=hidden name="themeNo" value="2">
+					<span>천안 맛집 추천</span>
+					<img class="themeOne" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
 				</div>
 				<div class="theme three">
-					<img src="" alt="theme3">
-					<a href="">이달의 신규가게</a>
+					<input type=hidden id="searchNum" value="3">
+					<span>이달의 신규가게</span>
+					<a href=""><img src="/resources/images/theme/shoptheme3.jpeg" alt="theme3"></a>
 				</div>
 				<div class="theme four">
-					<img src="" alt="theme4">
-					<a href="">백반 맛집 추천</a>
+					<input type=hidden id="searchNum" value="4">
+					<span>파스타 맛집 추천</span>
+					<a href=""><img src="/resources/images/theme/shoptheme4.jpeg" alt="theme4"></a>
 				</div>
 				<div class="theme five">
-					<img src="" alt="theme5">
-					<a href="">중식 맛집 추천</a>
+					<input type=hidden id="searchNum" value="5">
+					<span>중식 맛집 추천</span>
+					<a href=""><img src="/resources/images/theme/shoptheme5.jpeg" alt="theme5"></a>
 				</div>
 				<div class="theme six">
-					<img src="" alt="theme6">
-					<a href="">명동 맛집 추천</a>
+					<input type=hidden id="searchNum" value="6">
+					<span>명동 맛집 추천</span>
+					<a href="#"><img src="/resources/images/theme/shoptheme6.jpeg" alt="theme6"></a>
 				</div>
 				<div class="theme seven">
-					<img src="" alt="theme7">
-					<a href="">햄버거 맛집 추천</a>
+					<input type=hidden id="searchNum" value="7">
+					<span>햄버거 맛집 추천</span>
+					<a href=""><img src="/resources/images/theme/shoptheme7.jpeg" alt="theme7"></a>
 				</div>
 				<div class="theme eight">
-					<img src="" alt="theme8">
-					<a href="">제주 맛집 추천</a>
+					<input type=hidden id="searchNum" value="8">
+					<span>제주 맛집 추천</span>
+					<a href=""><img src="/resources/images/theme/shoptheme8.jpeg" alt="theme8"></a>
 				</div>
 				<div class="theme nine">
-					<img src="" alt="theme9">
-					<a href="">파스타 맛집 추천</a>
+					<input type=hidden id="searchNum" value="9">
+					<span>백반 맛집 추천</span>
+					<a href=""><img src="/resources/images/theme/shoptheme9.jpeg" alt="theme9"></a>
 				</div>
 				<div class="theme ten">
-					<img src="" alt="theme10">
-					<a href="">도심 속 작은 유럽</a>
+					<input type=hidden id="searchNum" value="10">
+					<span>도심 속<br>작은 유럽</span>
+					<a href=""><img src="/resources/images/theme/shoptheme10.jpeg" alt="theme10"></a>
 				</div>
 				<div class="theme eleven">
-					<img src="" alt="theme11">
-					<a href="">분식이 땡길 때</a>
+					<input type=hidden id="searchNum" value="11">
+					<span>분식이 땡길 때</span>
+					<a href=""><img src="/resources/images/theme/shoptheme11.jpeg" alt="theme11"></a>
 				</div>
 				<div class="theme twelve">
-					<img src="" alt="theme12">
-					<a href="">초밥 맛집 추천</a>
+					<input type=hidden id="searchNum" value="12">
+					<span>초밥 맛집 추천</span>
+					<a href=""><img src="/resources/images/theme/shoptheme12.jpeg" alt="theme12"></a>
 				</div>
 			</div> 
 			
 			
 			<!-- 검색결과 가게 리스트 -->
 			<!-- AJAX -->
-			<div class="sub-title second">
+<%-- 			<div class="sub-title second">
 				<p>'${ searchKeyword }' 검색결과</p>
 			</div>
 			
@@ -116,7 +127,7 @@
 			
 			<div class="searchResult navi">
 			
-			</div>
+			</div> --%>
 		</div> 
 	</main>
 	
@@ -141,11 +152,28 @@
 								
 						},
 						error: function() {
-							alert("서버에 연결할 수 없습니다.");
+							consloe.log("서버에 연결할 수 없습니다.");
 							return false;
 						}
 					});
 				}
+			});
+			
+			$(".themeOne").on("click", function() {
+				var themeNo = $("input[name=themeNo]").val();
+ 				$.ajax({
+					url: "searchTheme.dz",
+					type: "get",
+					data: { "themeNo" : themeNo },
+					dataType: "json",
+					success: function(data) {
+						
+					},
+					error: function() {
+						consloe.log("서버에 연결할 수 없습니다.");
+						return false;
+					}
+				});
 			});
 		});
 	</script>

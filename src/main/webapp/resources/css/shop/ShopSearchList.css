@@ -55,9 +55,7 @@ a {
     
 .frame {
 	width: 1440px;
-		/* height: 1500px; 테마 메인 높이 */
-		height: 900px; /* 검색 결과 최소 높이 */
-		/* height: 3300px; 검색 결과 최대 높이 */
+	height: 1500px; /* 검색 결과 최소 높이 */
 	margin: 0 auto;
 	/* background-color: yellow; */
 }
@@ -65,22 +63,22 @@ a {
 	/* 서브타이틀 첫번째 */
 	.first > p {
 		text-align: center;
-		font-size: 19px;
+		font-size: 21px;
 		margin-top: 140px;
 		margin-bottom: 50px;
 	}
 	
 	/* 검색창 */
 	.searchBar {
-		width: 541px;
-		height: 45px;	
+		width: 572px;
+		height: 60px;	
 		margin: 0 auto;
 		margin-bottom: 150px;
 	}
 	
 		#searchBox {
 			width: 470px;
-			padding: 12px;
+			padding: 20px;
 			border: solid 1px #e3e4e5;
 			font-size: 16px;
 			float: left;
@@ -91,8 +89,8 @@ a {
 		}
 	
 		#btn-search {
-			width: 45px;
-			height: 45px;
+			width: 60px;
+			height: 60px;
 			border-style: none;
 			background-color: #fdb504;
 		}
@@ -100,7 +98,7 @@ a {
 	/* 서브타이틀 두번째(텍스트 변동) */
  	.second > p {
 		text-align: center;
-		font-size: 30px;
+		font-size: 35px;
 		margin-bottom: 70px;
 	} 
 	
@@ -119,6 +117,7 @@ a {
 			border: solid 1px #e3e4e5;
 			margin: 0 auto;
 			margin-bottom: 30px;
+			position: relative;
 		}
 		
 		.theme:nth-child(3n+2) {
@@ -126,8 +125,30 @@ a {
 		}
 		
 			.theme img {
+				width: 310px;
+				height: 200px;
 				object-fit: cover;
+				filter: brightness(70%);
 			}
+			
+				.theme:hover {
+					cursor: pointer;
+				}
+			
+				.theme span {
+					color: #ffffff;
+					font-size: 22px;
+					text-shadow: 6px 6px 16px black;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					z-index: 1;
+				}
+			.theme a {
+				cursor: pointer;
+			}
+			
 	
 	
 	/* 검색 리스트 */		

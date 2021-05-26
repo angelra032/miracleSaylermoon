@@ -1,6 +1,7 @@
 package com.donzzul.spring.shop.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,15 +21,15 @@ public class ShopStoreLogic implements ShopStore {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, String location) {
+	public ArrayList<Shop> selectShopMap(PageInfo pi, HashMap<String, String> selectedLocation) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", location, rowBounds);
+		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", selectedLocation, rowBounds);
 	}
 	
 	@Override
-	public ArrayList<Shop> selectShopMap(String location) {
-		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", location);
+	public ArrayList<Shop> selectShopMap(HashMap<String, String> selectedLocation) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectAllList", selectedLocation);
 	}
 
 	@Override
@@ -66,8 +67,8 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
-	public int selectListCount(String location) {
-		return sqlSession.selectOne("shopMapper.selectListCount", location);
+	public int selectListCount(HashMap<String, String> selectedLocation) {
+		return sqlSession.selectOne("shopMapper.selectListCount", selectedLocation);
 	}
 	
 	public int selectKeyListCount(String searchKeyword) {

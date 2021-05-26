@@ -1,6 +1,7 @@
 package com.donzzul.spring.shop.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,12 @@ public class ShopServiceImpl implements ShopService {
 	private ShopStore sStore;
 
 	@Override
-	public ArrayList<Shop> selectShopMap(PageInfo pi, String location) {
-		return sStore.selectShopMap(pi, location);
+	public ArrayList<Shop> selectShopMap(PageInfo pi,  HashMap<String, String> selectedLocation) {
+		return sStore.selectShopMap(pi, selectedLocation);
 	}
 	
-	public ArrayList<Shop> selectShopMap(String location) {
-		return sStore.selectShopMap(location);
+	public ArrayList<Shop> selectShopMap(HashMap<String, String> selectedLocation) {
+		return sStore.selectShopMap(selectedLocation);
 	}
 	
 	@Override
@@ -63,8 +64,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public int selectListCount(String location) {
-		return sStore.selectListCount(location);
+	public int selectListCount(HashMap<String, String> selectedLocation) {
+		return sStore.selectListCount(selectedLocation);
 	}
 	
 	public int selectKeyListCount(String searchKeyword) {
