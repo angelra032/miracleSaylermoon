@@ -14,6 +14,17 @@
 		<result property="userNo" column="USER_NO"/>
 	</resultMap>
 	
+	
+ 	<resultMap type="RecommendPhoto" id="rePhotoResultMap">
+		<id property="recommendFileNo" column="RECOMMEND_FILENO"/>
+		<result property="recommendOriginalFileName" column="RECOMMEND_ORIGINAL_FILENAME"/>
+		<result property="recommendRenameFileName" column="RECOMMEND_RENAME_FILENAME"/>
+		<result property="recommendFilePath" column="RECOMMEND_FILEPATH"/>
+		<result property="recommendFileSize" column="RECOMMEND_FILESIZE"/>
+		<result property="recommendFileTime" column="RECOMMEND_FILETIME"/>
+		<result property="recommendNo" column="RECOMMEND_NO"/>
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM RECOMMEND_BOARD
 	</select>
@@ -26,7 +37,7 @@
 		SELECT * FROM RECOMMEND_BOARD WHERE RECOMMEND_NO = #{recommendNo}
 	</select>
 
- 	<insert id="insertRecommend">
+ 	<insert id="insertRecommend" useGeneratedKeys="true" keyProperty="recommendNo" keyColumn="RECOMMEND_NO">
 		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, #{recommendWriter}, DEFAULT, DEFAULT, NULL, #{userType}, #{userNo})
 	</insert>
 	
@@ -34,7 +45,10 @@
 		DELETE FROM RECOMMEND_BOARD WHERE RECOMMEND_NO = #{recommendNo}
 	</delete>
 	
-
-
+<!-- 사진 -->
+	
+	<insert id="insertPhoto">
+		INSERT INTO RECOMMEND_PHOTO VALUES (SEQ_RECOMMEND_PHOTO.NEXTVAL, #{recommendOriginalFileName}, #{recommendRenameFileName}, #{recommendFilePath}, #{recommendFileSize}, #{recommendFileTime}, #{recommendNo})  
+	</insert>
 
 </mapper>

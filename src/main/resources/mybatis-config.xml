@@ -12,6 +12,7 @@
 		<typeAlias type="com.donzzul.spring.notiqna.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.donzzul.spring.notiqna.domain.Qna" alias="Qna"/>
 		<typeAlias type="com.donzzul.spring.recommendboard.domain.RecommendBoard" alias="RecommendBoard"/>
+		<typeAlias type="com.donzzul.spring.recommendboard.domain.RecommendPhoto" alias="RecommendPhoto"/>
 		
 		<typeAlias type="com.donzzul.spring.payment.domain.Don" alias="Don"/>
 		

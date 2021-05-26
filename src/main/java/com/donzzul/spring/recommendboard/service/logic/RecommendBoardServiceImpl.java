@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.domain.RecommendPhoto;
 import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 import com.donzzul.spring.recommendboard.store.RecommendBoardStore;
 
@@ -39,8 +40,7 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 
 	@Override
 	public int insertRecommend(RecommendBoard recommendBoard) {
-		int result = reStore.insertRecommend(recommendBoard);
-		return result;
+		return reStore.insertRecommend(recommendBoard);
 	}
 
 	@Override
@@ -52,6 +52,12 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	@Override
 	public int deleteRecommend(int recommendNo) {
 		return reStore.deleteRecommend(recommendNo);
+	}
+
+	// 사진저장
+	@Override
+	public int insertPhoto(RecommendPhoto recoPhoto) {
+		return reStore.insertPhoto(recoPhoto);
 	}
 
 
