@@ -125,9 +125,14 @@
 		</c:forEach>
 	
 	
+		var selectedCenter = "${center}";
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	 		mapOption = { 
-	        center: new kakao.maps.LatLng(37.56421, 127.00169), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(37.54699, 127.09598), // 지도의 중심좌표
 	        level: 7 // 지도의 확대 레벨
 	    	};
 		
@@ -145,10 +150,21 @@
 		    map.setLevel(map.getLevel() + 1);
 		}
 		
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
 		
-			// 주소로 좌표를 검색합니다
+ 		geocoder.addressSearch(selectedCenter, function(result, status) {
+			
+			// 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		
+		    	 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				
+				map.setCenter(coords);
+		     }
+		});
+			
+			
+		
+		// 주소로 좌표를 검색합니다
 		positions.forEach(function(shop, index){ 
 			
 			geocoder.addressSearch(shop.shopAddr, function(result, status) {
@@ -158,7 +174,7 @@
 			    // 정상적으로 검색이 완료됐으면 
 			     if (status === kakao.maps.services.Status.OK) {
 			
-					var imageSrc = '/resources/images/map_marker_blue.png', // 마커이미지의 주소입니다    
+					var imageSrc = '/resources/images/map_marker_blue_v2.png', // 마커이미지의 주소입니다    
 					    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
 					      
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -177,13 +193,10 @@
 					
 					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					var content = '<div class="customoverlay">' +
-					    '  <a href="javascript:showShortInfo()">' +
+					    '  <a href="javascript:showShortInfo('+markerPosition+');">' +
 					    '    <span class="title">' + shop.shopName + '</span>' +
 					    '  </a>' +
 					    '</div>';
-					
-					// 커스텀 오버레이가 표시될 위치입니다 
-					/* var position = new kakao.maps.LatLng(result[0].y, result[0].x); */ 
 					
 					// 커스텀 오버레이를 생성합니다
 					var titleOverlay = new kakao.maps.CustomOverlay({
@@ -204,62 +217,56 @@
 					    titleOverlay.setMap(null);
 					});
 					
- 					function showShortInfo() {
-						
-						titleOverlay.setMap(null);
-						
-						var shortContent = '<div class="wrap">' + 
-			            '    <div class="info">' + 
-			            '        <div class="title">' + 
-			            '            카카오 스페이스닷원' + 
-			            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-			            '        </div>' + 
-			            '        <div class="body">' + 
-			            '            <div class="img">' +
-			            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-			            '           </div>' + 
-			            '            <div class="desc">' + 
-			            '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-			            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-			            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-			            '            </div>' + 
-			            '        </div>' + 
-			            '    </div>' +    
-			            '</div>';
-				
-						// 마커 위에 커스텀오버레이를 표시합니다
-						// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-						var shortInfo = new kakao.maps.CustomOverlay({
-						    content: shortContent,
-						    map: map,
-						    position: markerPosition
-						});
-					
-					}
-					
-					
-					// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-					function closeOverlay() {
-						shortInfo.setMap(null);     
-					}
-					
-					
-					// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-					function closeOverlay() {
-						titleOverlay.setMap(null);     
-					}
-					
-					// 지도의 중심좌표를 얻어옵니다 
-				    var latlng = map.getCenter(); 
-				    var message = '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
-				    console.log(message);
 				}
 			});
 			
 		});
-	</script>
+		
 
-	<script>
+		
+		function showShortInfo(markerPosition) {
+			 	
+				/* titleOverlay.setMap(null); */
+				
+				/* alert("확인!!"); */
+				
+				var shortContent = '<div class="wrap">' + 
+	            '    <div class="info">' + 
+	            '        <div class="title">' + 
+	            '            카카오 스페이스닷원' + 
+	            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+	            '        </div>' + 
+	            '        <div class="body">' + 
+	            '            <div class="img">' +
+	            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+	            '           </div>' + 
+	            '            <div class="desc">' + 
+	            '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
+	            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
+	            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+	            '            </div>' + 
+	            '        </div>' + 
+	            '    </div>' +    
+	            '</div>';
+		
+				// 마커 위에 커스텀오버레이를 표시합니다
+				// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+				var shortInfo = new kakao.maps.CustomOverlay({
+				    content: shortContent,
+				    map: map,
+				    position: markerPosition,
+				    yAnchor: 1 
+				 });
+				
+				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+				function closeOverlay() {
+					titleOverlay.setMap(null);     
+				}
+				
+			}
+		
+		
+		
 		$(function() {
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();

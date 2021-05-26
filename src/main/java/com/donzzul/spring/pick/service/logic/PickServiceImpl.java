@@ -1,5 +1,6 @@
 package com.donzzul.spring.pick.service.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,13 @@ public class PickServiceImpl implements PickService {
 	private PickStore store;
 	
 	@Override
-	public int insertPick(Pick pick) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertPick(HashMap<String, Integer> hash) {
+		return store.insertPick(hash);
 	}
 
 	@Override
-	public int deletePick(Pick pick) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deletePick(HashMap<String, Integer> hash) {
+		return store.deletePick(hash);
 	}
 
 	@Override

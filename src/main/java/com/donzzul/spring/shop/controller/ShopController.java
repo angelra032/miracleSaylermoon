@@ -48,20 +48,77 @@ public class ShopController {
 	
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
-	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("mapNo") int mapNo, @RequestParam("centerPosition") String centerPosition, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("location") String location, @RequestParam(value="page", required=false) Integer page) {
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
-		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
+		int listCount = sService.selectListCount(location); // 전체 게시글 갯수
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
 
-		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
-		ArrayList<Shop> mapMarkers = sService.selectShopMap(mapNo);
+		switch(location) {
+			case "Seoul" : 
+				location = "서울";
+				break;
+			case "Busan" : 
+				location = "부산";
+				break;
+			case "Gwangju" : 
+				location = "광주";
+				break;
+			case "Daegu" : 
+				location = "대구";
+				break;
+			case "Daejeon" : 
+				location = "대전";
+				break;
+			case "Sejong" : 
+				location = "세종";
+				break;
+			case "Ulsan" : 
+				location = "울산";
+				break;
+			case "Incheon" : 
+				location = "인천";
+				break;
+			case "Jeju" : 
+				location = "제주";
+				break;
+			case "Gangwon" : 
+				location = "강원";
+				break;
+			case "Gyeonggi" : 
+				location = "경기";
+				break;
+			case "SouthGyeongsang" : 
+				location = "경남";
+				break;
+			case "NorthGyeongsang" : 
+				location = "경북";
+				break;
+			case "SouthJeolla" : 
+				location = "전남";
+				break;
+			case "NorthJeolla" : 
+				location = "전북";
+				break;
+			case "SouthChungCheong" : 
+				location = "충남";
+				break;
+			case "NorthChungCheong" : 
+				location = "충북";
+				break;
+			default:
+				location = "서울";
+				break;
+		}
+		
+		System.out.println("로케이션 값" + location);
+		ArrayList<Shop> mapList = sService.selectShopMap(pi, location);
+		ArrayList<Shop> mapMarkers = sService.selectShopMap(location);
 		
 		mv.addObject("pi",	pi);
 		mv.addObject("mList", mapList);
 		mv.addObject("mapMarkers", mapMarkers);
-		mv.addObject("mapNo", mapNo);
-		mv.addObject("center", centerPosition);
+		mv.addObject("center", location);
 		mv.setViewName("map/MapDetail");
 		
 		return mv;

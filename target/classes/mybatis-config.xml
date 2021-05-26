@@ -19,6 +19,7 @@
 		<typeAlias type="com.donzzul.spring.shop.domain.Shop" alias="Shop"/>
 	    <typeAlias type="com.donzzul.spring.shop.domain.MainMenu" alias="MainMenu"/>
 	    <typeAlias type="com.donzzul.spring.shop.domain.MenuPhoto" alias="MenuPhoto"/>
+	    <typeAlias type="com.donzzul.spring.pick.domain.Pick" alias="Pick"/>
 	</typeAliases>
 	
 	
@@ -32,6 +33,7 @@
 
 		<mapper resource="mappers/user-mapper.xml"></mapper>
 		<mapper resource="mappers/shop-mapper.xml"></mapper>
+		<mapper resource="mappers/pick-mapper.xml"></mapper>
 		
 		<mapper resource="mappers/payment-mapper.xml"></mapper>
 

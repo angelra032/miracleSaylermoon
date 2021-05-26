@@ -25,24 +25,24 @@
 			</div>
 			<div class="map-menuAll">
 				<ul>
-					<li><a href="mapSearchShop.dz?mapNo=1">전체</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=2&centerPosition=서울">서울</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=3">부산</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=4">광주</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=5">대구</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=6">대전</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=7">세종</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=8">울산</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=9">인천</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=10">제주</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=11">강원</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=12">경기</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=13">경남</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=14">경북</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=15">전남</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=16">전북</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=17">충남</a></li>
-					<li><a href="mapSearchShop.dz?mapNo=18">충북</a></li>
+					<li><a href="mapSearchShop.dz?location=All">전체</a></li>
+					<li><a href="mapSearchShop.dz?location=Seoul">서울</a></li>
+					<li><a href="mapSearchShop.dz?location=Busan">부산</a></li>
+					<li><a href="mapSearchShop.dz?location=Gwangju">광주</a></li>
+					<li><a href="mapSearchShop.dz?location=Daegu">대구</a></li>
+					<li><a href="mapSearchShop.dz?location=Daejeon">대전</a></li>
+					<li><a href="mapSearchShop.dz?location=Sejong">세종</a></li>
+					<li><a href="mapSearchShop.dz?location=Ulsan">울산</a></li>
+					<li><a href="mapSearchShop.dz?location=Incheon">인천</a></li>
+					<li><a href="mapSearchShop.dz?location=Jeju">제주</a></li>
+					<li><a href="mapSearchShop.dz?location=Gangwon">강원</a></li>
+					<li><a href="mapSearchShop.dz?location=Gyeonggi">경기</a></li>
+					<li><a href="mapSearchShop.dz?location=SouthGyeongsang">경남</a></li>
+					<li><a href="mapSearchShop.dz?location=NorthGyeongsang">경북</a></li>
+					<li><a href="mapSearchShop.dz?location=SouthJeolla">전남</a></li>
+					<li><a href="mapSearchShop.dz?location=NorthJeolla">전북</a></li>
+					<li><a href="mapSearchShop.dz?location=SouthChungCheong">충남</a></li>
+					<li><a href="mapSearchShop.dz?location=NorthChungCheong">충북</a></li>
 				</ul>
 			</div>
 		</div>

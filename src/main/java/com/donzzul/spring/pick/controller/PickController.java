@@ -1,7 +1,11 @@
 package com.donzzul.spring.pick.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,42 +17,53 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.donzzul.spring.pick.domain.Pick;
 import com.donzzul.spring.pick.service.PickService;
+import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
 
 @Controller
 public class PickController {
 
 	@Autowired
-	private PickService pService;
+	private PickService service;
 	
 	//D 찜 등록
 	@RequestMapping(value="enrollPick.dz", method=RequestMethod.GET)
-	public String enrollPick(@ModelAttribute Pick pick, Model model) {
-		int result = pService.insertPick(pick);
+	public String enrollPick(@ModelAttribute int shopNo, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+		HashMap<String, Integer> hash = new HashMap<String, Integer>();
+		hash.put("userNo", user.getUserNo());
+		hash.put("shopNo", shopNo);
+		int result = service.insertPick(hash);
 		if(result > 0) {
-			
-			return "";
+			return "success";
 		}else {
-			
-			return "";
+			return "fail";
 		}
 	}
 	
 	//D 찜 해제
 	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
-	public String removePick(@ModelAttribute Pick pick, Model model) {
-		int result = pService.deletePick(pick);
+	public String removePick(@ModelAttribute int shopNo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+		HashMap<String, Integer> hash = new HashMap<String, Integer>();
+		hash.put("userNo", user.getUserNo());
+		hash.put("shopNo", shopNo);
+		int result = service.insertPick(hash);
 		if(result > 0) {
-			return "";
+			return "success";
 		}else {
-			return "";
+			return "fail";
 		}
 	}
 	
 	//A 찜 목록
 	@RequestMapping(value="listPick.dz", method=RequestMethod.GET)
 	public String listPick(@ModelAttribute User user) {
-		List<Pick> list = pService.selectAllPick(user);
+		List<Pick> list = service.selectAllPick(user);
 			return "";
 	}
 }
