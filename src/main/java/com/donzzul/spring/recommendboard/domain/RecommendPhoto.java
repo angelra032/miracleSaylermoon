@@ -2,7 +2,7 @@ package com.donzzul.spring.recommendboard.domain;
 
 import java.sql.Timestamp;
 
-public class recommendPhoto {
+public class RecommendPhoto {
 	private int recommendFileNo;
 	private String recommendOriginalFileName;
 	private String recommendRenameFileName;
@@ -11,9 +11,9 @@ public class recommendPhoto {
 	private Timestamp recommendFileTime;
 	private int recommendNo; // 가게추천글번호
 	
-	public recommendPhoto() {}
+	public RecommendPhoto() {}
 
-	public recommendPhoto(int recommendFileNo, String recommendOriginalFileName, String recommendRenameFileName,
+	public RecommendPhoto(int recommendFileNo, String recommendOriginalFileName, String recommendRenameFileName,
 			String recommendFilePath, long recommendFileSize, Timestamp recommendFileTime, int recommendNo) {
 		super();
 		this.recommendFileNo = recommendFileNo;

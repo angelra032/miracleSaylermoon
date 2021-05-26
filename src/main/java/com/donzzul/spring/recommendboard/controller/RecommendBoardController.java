@@ -5,8 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.domain.RecommendPhoto;
 import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 import com.donzzul.spring.user.domain.User;
 import com.google.gson.JsonObject;
@@ -87,12 +91,26 @@ public class RecommendBoardController {
 		User user = (User) session.getAttribute("loginUser");
 		recommendBoard.setUserType(user.getUserType());
 		recommendBoard.setRecommendWriter(user.getUserNick());
-		recommendBoard.setUserNo(user.getUserNo());
+		recommendBoard.setUserNo(user.getUserNo()); // recommendBoard 데이터 저장
+		
+		ArrayList<RecommendPhoto> recommendPhoto;// 데이터 담아줄 ArrayList
+		String target = recommendBoard.getRecommendContent();
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\\\"']?([^>\\\"']+)[\\\"']?[^>]*>"); // 이미지 잘라내기
+		Matcher matcher = pattern.matcher(target);
+		while(matcher.find()) {
+			String path = matcher.group(1).substring(0, matcher.group(1).lastIndexOf("/") + 1);
+			String savedName = matcher.group(1).substring(matcher.group(1).lastIndexOf("/") + 1);
+			System.out.println("패스 : " + path);
+			System.out.println("세입네임 : " + savedName);
+			String realName =  matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);
+			System.out.println("리얼네임 : " + realName);
+			
+			
+		}
 		
 		System.out.println(user.toString());
 		System.out.println(recommendBoard.toString());
-		int result = 0;
-		result = reService.insertRecommend(recommendBoard);
+		int result = reService.insertRecommend(recommendBoard);
 		if(result > 0) {
 			return "success";
 		} else {
@@ -134,6 +152,7 @@ public class RecommendBoardController {
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+		// 세션 attribute에 저장해서 옮기는 방법도 있음.
 		JsonObject jsonObject = new JsonObject();
 		// 내부경로로 저장
 		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
@@ -142,7 +161,9 @@ public class RecommendBoardController {
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		String savedFileName = "re" + UUID.randomUUID() + extension;	//저장될 파일 명
+		RecommendPhoto recommendPhoto = new RecommendPhoto();
+		HttpSession session = request.getSession(); // 세션
 		
 		File targetFile = new File(fileRoot + savedFileName);	
 		try {
@@ -150,6 +171,15 @@ public class RecommendBoardController {
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
 			jsonObject.addProperty("url", "/summernote/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
+			recommendPhoto.setRecommendOriginalFileName(originalFileName); // 사진원본이름
+			recommendPhoto.setRecommendRenameFileName(savedFileName); // 사진 바뀐이름
+			recommendPhoto.setRecommendFileSize(targetFile.length()); // 사진 사이즈
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			System.out.println(timestamp);
+			recommendPhoto.setRecommendFileTime(timestamp); // 사진 타임스탬프
+			session.setAttribute("recommendPhoto", recommendPhoto); // 세션에 저장...?
+			
+			
 				
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
@@ -167,7 +197,16 @@ public class RecommendBoardController {
         
         String contextRoot = request.getSession().getServletContext().getRealPath("resources");
 		String fileRoot = contextRoot+"\\fileupload\\";
- 
+		HttpSession session = request.getSession();
+		RecommendPhoto recommendPhoto = (RecommendPhoto) session.getAttribute("recommendPhoto");
+		System.out.println(recommendPhoto.toString());
+		recommendPhoto.setRecommendFilePath(contextRoot);
+		System.out.println("테스트 : " + recommendPhoto.toString());
+		ArrayList<RecommendPhoto> rPhotoList = new ArrayList<RecommendPhoto>();
+		rPhotoList.add(recommendPhoto);
+		session.setAttribute("rPhotoList", rPhotoList);
+		// 세션에 arrayList넣을수있음.
+		// 차곡차곡 저장 후 ... 나중에 삭제하기
         try {
             fis = new FileInputStream(fileRoot+imgName);
             FileCopyUtils.copy(fis, out);
