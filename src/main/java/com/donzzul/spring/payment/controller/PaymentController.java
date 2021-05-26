@@ -1,6 +1,7 @@
 package com.donzzul.spring.payment.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -64,47 +65,49 @@ public class PaymentController {
 
 	 
 	/// 돈쭐 내역 저장 - 내역 저장(카카오페이가 완료되면)
-	@RequestMapping(value = "insertDonList.dz", method = RequestMethod.POST)
-	public ModelAndView insertDonList(ModelAndView mv, 
-											@ModelAttribute Don don, 
-											HttpSession session
-											// 카카오페이 ajax로 넘겨준 값 / 가게이름,날짜,가격
-											) {
+	@ResponseBody
+	@RequestMapping(value = "insertDonList.dz", method=RequestMethod.POST)
+	public HashMap<String, Object> insertDonList(HttpServletResponse response, 
+								@ModelAttribute Don don,
+								HttpSession session ) throws Exception {
+								// 카카오페이 ajax로 넘겨준 값 / 가게이름,날짜,가격
+										
 		User loginUser = (User) session.getAttribute("loginUser");
 		don.setUserNo(loginUser.getUserNo());
 		
 		// 최종 데이터(돈쭐form - ) 가져오기
 		// 돈쭐 내역 저장하기 - // 성공하면 포인트 업데이트하기(포인트는 don에 없으니까 param으로 따로 받아오기)
-		System.out.println(don.toString());
 		
 		int result = pService.insertDonList(don);
 		if(result > 0) {
 			// 카카오페이 - 돈쭐 내역 저장 - 포인트 업데이트 - 룰렛 돌리기
-			// 포인트 업데이트(usePoint)
 			System.out.println("돈쭐내역 저장 성공!");
 			
-			/*
+			
 			// 포인트 업데이트
-			loginUser.setUserPoint(loginUser.getUserPoint()-usePoint);
-			int upPoint = pService.usePoint(loginUser);
+			HashMap<String, Object> donPoint = new HashMap<String, Object>();
+			donPoint.put("donNo", don.getDonNo());
+			donPoint.put("userNo", loginUser.getUserNo());
+			
+			int upPoint = pService.usePoint(donPoint);
 			if(upPoint > 0) {
 				System.out.println("포인트 업데이트 성공!");
-				mv.setViewName("");
 			}else {
 				System.out.println("포인트 업데이트 실패!");
-				mv.setViewName("");
 			}
-			*/
-			
+			return donPoint;
+
 		}else {
 			System.out.println("돈줄 내역 저장(insert) 실패..");
+			return null;
 		}
-		return mv;
 	}
 
 	// 룰렛 페이지
 	@RequestMapping(value = "rouletteView.dz", method = RequestMethod.GET)
-	public String rouletteView() {
+	public String rouletteView(@RequestParam("donNo") int donNo, HttpSession session, Model model) {
+		System.out.println(donNo);
+		model.addAttribute("donNo", donNo);
 		return "payment/pointRoulette";
 	}
 

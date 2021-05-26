@@ -14,7 +14,7 @@ public interface PaymentStore {
 	// 결제, 돈쭐내역 저장, 출력, 룰렛포인트 적립, 
 	// 리뷰포인트 적립, 포인트 사용, 포인트 조회
 	
-	public int updatePoint(User user); // 포인트 사용
+	public int updatePoint(HashMap<String, Object> donPoint); // 돈쭐 포인트 사용
 	public String selectMyPoint(User user); // 포인트 조회(string인가? user인가)
 	public int updateRoulettePoint(HashMap<String, Object> hash); // 룰렛포인트 적립
 	public int updateReviewPoint(User user);// 리뷰포인트 적립
@@ -29,5 +29,9 @@ public interface PaymentStore {
 	
 	public Shop selectMyShop(int userNo); // 사업자 마이페이지 가게 불러오기
 	
+	
+	public ArrayList<Don> selectAllDonList(HashMap<String, String> dateMap); // 어드민
+	//public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap);
+
 	
 }

@@ -15,7 +15,7 @@ public interface PaymentService {
 	// 리뷰포인트 적립, 포인트 사용, 포인트 조회
 	
 					// 포인트 업데이트문 다 계산해서 가져오는 거면 통합할건지 정하고
-	public int usePoint(User user); // 포인트 사용
+	public int usePoint(HashMap<String, Object> donPoint); // 돈쭐 포인트 사용
 	public String selectMyPoint(User user); // 포인트 조회(string인가? user인가)
 	public int saveRoulettePoint(HashMap<String, Object> hash); // 룰렛포인트 적립
 	public int saveReviewPoint(User user);// 리뷰포인트 적립
@@ -29,5 +29,9 @@ public interface PaymentService {
 	public Shop selectShop(Shop shop); // 가게 출력
 	
 	public Shop selectMyShop(int userNo); // 사업자 내 가게 가져오기
+
+	public ArrayList<Don> selectAllDonList(HashMap<String, String> dateMap); // 어드민
+	// public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap);
+
 	
 }

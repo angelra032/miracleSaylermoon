@@ -23,8 +23,8 @@ public class PaymentStoreLogic implements PaymentStore{
 
 	
 	@Override
-	public int updatePoint(User user) { // 포인트 사용
-		return sqlSession.update("paymentMapper.updateUserPoint", user);
+	public int updatePoint(HashMap<String, Object> donPoint) { // 포인트 사용
+		return sqlSession.update("paymentMapper.updateUserPoint", donPoint);
 	}
 
 	@Override
@@ -84,5 +84,18 @@ public class PaymentStoreLogic implements PaymentStore{
 	public ArrayList<Don> selectDonListThree(int userNo) {
 		return (ArrayList)sqlSession.selectList("paymentMapper.selectDonListThree", userNo);
 	}
+
+	
+	
+	@Override
+	public ArrayList<Don> selectAllDonList(HashMap<String, String> dateMap) {
+		return (ArrayList) sqlSession.selectList("paymentMapper.selectDonListView", dateMap);
+	}
+
+	// @Override
+	// public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String>
+	// dateMap) {
+//	      return (ArrayList)sqlSession.selectList("paymentMapper.selectDonListSum", dateMap);
+	// }
 
 }
