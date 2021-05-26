@@ -95,7 +95,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User selectOneUserByNo(int userNo) {
 		User user = store.selectOneUserByNo(userNo);
-		//store.updateToNull(userNo);
 		return user;
 	}
 	
@@ -157,6 +156,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int resetPw(HashMap<String, String> map) {
 		return store.resetPw(map);
+	}
+
+	// 이메일 중복검사 (나 빼고)
+	@Override
+	public int checkEmailDupNotMe(User user) {
+		return store.checkEmailDupNotMe(user);
+	}
+
+	// 연락처 중복검사 (나 빼고)
+	@Override
+	public int checkPhoneDupNotMe(User user) {
+		return store.checkPhoneDupNotMe(user);
 	}
 
 	

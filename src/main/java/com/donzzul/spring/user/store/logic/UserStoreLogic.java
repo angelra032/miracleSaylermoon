@@ -153,6 +153,18 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.update("userMapper.resetPw", map);
 	}
 
+	// 이메일 중복검사(나 빼고)
+	@Override
+	public int checkEmailDupNotMe(User user) {
+		return sqlSession.selectOne("userMapper.checkEmailDupNotMe", user);
+	}
+
+	// 폰번호 중복검사(나빼고)
+	@Override
+	public int checkPhoneDupNotMe(User user) {
+		return sqlSession.selectOne("userMapper.checkPhoneDupNotMe", user);
+	}
+
 	
 
 	
