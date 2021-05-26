@@ -92,10 +92,24 @@ public class PaymentStoreLogic implements PaymentStore{
 		return (ArrayList) sqlSession.selectList("paymentMapper.selectDonListView", dateMap);
 	}
 
+
 	// @Override
 	// public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String>
 	// dateMap) {
 //	      return (ArrayList)sqlSession.selectList("paymentMapper.selectDonListSum", dateMap);
 	// }
 
+	
+	// 포인트 업데이트 시 사용
+	@Override
+	public Don selectDonPrice(int donNo) {
+		return sqlSession.selectOne("paymentMapper.selectDonPrice", donNo);
+	}
+
+	@Override
+	public int updateDonSavePoint(Don don) {
+		return sqlSession.update("paymentMapper.updateDonSavePoint", don);
+	}
+	
+	
 }

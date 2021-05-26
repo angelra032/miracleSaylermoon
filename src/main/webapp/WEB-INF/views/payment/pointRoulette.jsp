@@ -37,23 +37,27 @@
 
 					<form action="saveRoulettePoint.dz" method="post">
 						<div>
-							<img src="/resources/images/roulette/roulette.png"
-								id="roulette-img"> <img
-								src="/resources/images/roulette/niddle.png" id="needle">
+							<img src="/resources/images/roulette/roulette.png" id="roulette-img"> 
+							<img src="/resources/images/roulette/niddle.png" id="needle">
 						</div>
-						<br /> <input type='button' value='시작' id='start_btn'
-							onclick="this.disabled=true"></input> <input type="hidden"
-							name="winning-point" value="" />
+						<br /> 
+							<input type="hidden" name="savePoint" value="" />
+							<input type="text" name="donNo" value="${donNo }"/>
+							<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
 						<div id="result_id"></div>
 						<div id="result_id2"></div>
 						<div id="result_id3"></div>
+						<input type="submit" value="전송"/>
 					</form>
 
 					<script>
 						window.onload = function() {
 
-							var pArr = [ "0", "1", "2", "3", "4:꽝", "5", "6",
-									"7", "8", "9" ];
+							/* var pArr = [ "0", "1", "2", "3", "4:꽝", "5", "6",
+									"7", "8", "9" ]; */
+							var pArr = [ 5, 8, 9, 6, 1, 4, 3,
+								2, 7, 10 ];
+							
 
 							$('#start_btn').click(function() {
 								rotation();
@@ -100,13 +104,14 @@
 										"<p>당첨내역:" + pArr[part] + "</p>");
 								var winPoint = Number(pArr[part]);
 								console.log("당첨포인트 : " + winPoint);
-								$("input[name='winning-point']")
-										.val(pArr[part])
+								
+								$("input[name='savePoint']").val(pArr[part])
+								
 								console.log("hidden당첨포인트 : "
-										+ $("input[name='winning-point']")
+										+ $("input[name='savePoint']")
 												.val());
 
-								console.log($('#result_id3').html());
+								//console.log($('#result_id3').html());
 								console.log(pArr[part]);
 								console.log("보내자!" + pArr[part]);
 
