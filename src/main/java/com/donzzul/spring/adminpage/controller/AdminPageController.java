@@ -23,7 +23,7 @@ public class AdminPageController {
 	@RequestMapping(value="adminPage.dz")
 	public ModelAndView adminPageView(ModelAndView mv) {
 //		ArrayList<Don> pList = pService.selectAllDonList();
-//		test();
+		test();
 //		if(!pList.isEmpty()) {
 //			mv.addObject("pList", pList).setViewName("adminPage/adminPage");
 //		} else {
@@ -41,12 +41,11 @@ public class AdminPageController {
 	}
 	
 	public void test() {
-//		SimpleDateFormat sDate = new SimpleDateFormat("yyyyMMdd");
 //		HashMap<String, String> dateMap = new HashMap<String, String>();
 //		dateMap.put("date1", "20210101");
 //		dateMap.put("date2", "20210601");
 //		ArrayList<Don> don = pService.selectAllDonList(dateMap);
-////		ArrayList<Don> donCount = pService.selectAllDonListSum(dateMap);
+//		ArrayList<DonCount> donCount = pService.selectAllDonListSum(dateMap);
 //		System.out.println(don.toString());
 //		System.out.println(donCount.toString());
 	}
