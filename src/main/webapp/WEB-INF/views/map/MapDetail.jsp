@@ -53,8 +53,8 @@
 					<hr>
 					<c:url var="before" value="mapSearchShop.dz">
 						<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-						<c:if test="${ mapNo != null }">
-							<c:param name="mapNo" value="${ mapNo }"></c:param>
+						<c:if test="${ !empty location }">
+							<c:param name="location" value="${ location }"></c:param>
 						</c:if>
 					</c:url>
 					<c:if test="${ pi.currentPage > 1 }">
@@ -63,8 +63,8 @@
 					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:url var="pagination" value="mapSearchShop.dz">
 							<c:param name="page" value="${ p }"></c:param>
-							<c:if test="${ mapNo != null }">
-								<c:param name="mapNo" value="${ mapNo }"></c:param>
+							<c:if test="${ !empty location }">
+								<c:param name="location" value="${ location }"></c:param>
 							</c:if>
 						</c:url>
 						<c:if test="${ p eq pi.currentPage }">
@@ -76,8 +76,8 @@
 					</c:forEach>
 					<c:url var="after" value="mapSearchShop.dz">
 						<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-						<c:if test="${ mapNo != null }">
-							<c:param name="mapNo" value="${ mapNo }"></c:param>
+						<c:if test="${ !empty location }">
+							<c:param name="location" value="${ location }"></c:param>
 						</c:if>
 					</c:url>
 					<c:if test="${ pi.currentPage >= pi.maxPage }">

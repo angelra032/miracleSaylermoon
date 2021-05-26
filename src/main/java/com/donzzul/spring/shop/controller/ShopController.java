@@ -49,12 +49,10 @@ public class ShopController {
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
 	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("location") String location, @RequestParam(value="page", required=false) Integer page) {
-		// PageInfo 만들기 위해 필요한 데이터
-		int currentPage = (page != null) ? page : 1; // 삼항연산자
-		int listCount = sService.selectListCount(location); // 전체 게시글 갯수
-		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
-
-		switch(location) {
+			switch(location) {
+			case "All" : 
+				location = "전체";
+				break;
 			case "Seoul" : 
 				location = "서울";
 				break;
@@ -110,10 +108,20 @@ public class ShopController {
 				location = "서울";
 				break;
 		}
+		System.out.println(location);
 		
-		System.out.println("로케이션 값" + location);
-		ArrayList<Shop> mapList = sService.selectShopMap(pi, location);
-		ArrayList<Shop> mapMarkers = sService.selectShopMap(location);
+		HashMap<String, String> selectedLocation = new HashMap<String, String>();
+		selectedLocation.put("location", location);
+		System.out.println("로케이션 값" + selectedLocation);
+		
+		// PageInfo 만들기 위해 필요한 데이터
+		int currentPage = (page != null) ? page : 1; // 삼항연산자
+		int listCount = sService.selectListCount(selectedLocation); // 전체 게시글 갯수
+		
+		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
+
+		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
+		ArrayList<Shop> mapMarkers = sService.selectShopMap(selectedLocation);
 		
 		mv.addObject("pi",	pi);
 		mv.addObject("mList", mapList);
@@ -161,11 +169,13 @@ public class ShopController {
 	
 	//D 가게검색 - 테마
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
-	public String searchTheme(@RequestParam("themeNo") int themeNo, Model model) {
+	public void searchTheme(@RequestParam("themeNo") int themeNo, Model model) {
 		// 파라미터 - 메뉴 클릭시 넘버
 		// 1번 - 약식정보 가져오기
+		System.out.println(themeNo);
 		ArrayList<Shop> sList = sService.searchShopTheme(themeNo);
-		return "";
+		Gson gson = new Gson();
+//		gson.toJson(hashMap, response.getWriter());
 	}
 	
 	//D 가게 상세 페이지 출력
