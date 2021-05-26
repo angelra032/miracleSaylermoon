@@ -19,6 +19,19 @@ body {
     
 }
 
+#main-title {
+    width: 100%;
+    height: 278px;
+    font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+	top: 101px;
+    line-height: 4.7;
+    z-index: -2;
+}
+
 .frame {
 	width:1440px;
 	height:auto;
