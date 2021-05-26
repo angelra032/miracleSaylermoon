@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.domain.RecommendPhoto;
 import com.donzzul.spring.recommendboard.store.RecommendBoardStore;
 
 @Repository
@@ -41,8 +42,7 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 
 	@Override
 	public int insertRecommend(RecommendBoard recommendBoard) {
-		int result = sqlSession.insert("recommendMapper.insertRecommend", recommendBoard);
-		return result;
+		return sqlSession.insert("recommendMapper.insertRecommend", recommendBoard);
 	}
 
 	@Override
@@ -54,6 +54,12 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 	@Override
 	public int deleteRecommend(int recommendNo) {
 		return sqlSession.delete("recommendMapper.deleteRecommend", recommendNo);
+	}
+
+	// 사진 추가
+	@Override
+	public int insertPhoto(RecommendPhoto recoPhoto) {
+		return sqlSession.insert("recommendMapper.insertPhoto", recoPhoto);
 	}
 
 
