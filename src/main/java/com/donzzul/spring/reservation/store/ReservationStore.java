@@ -19,6 +19,7 @@ public interface ReservationStore {
 	public ArrayList<Reservation> selectOneBySno(int shopNo); // 샵번호로 모든 예약 불러오기
 	public int updateRstate(Reservation reservation); // 예약상태 업데이트하기
 	public int updateShopPoint(Reservation reservation); // 샵포인트 업데이트하기
+	public int cancleReservation(Reservation reservation); // 예약삭제
 	
 	
 	public ArrayList<Reservation> rListByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기
@@ -33,7 +34,6 @@ public interface ReservationStore {
 	
 	
 	public int updateReservation(int reservationNo); // 예약수정하기
-	public int deleteReservation(int reservationNo); // 예약삭제
 	public int complteReservation(int reservationNo); //예약완료하기
 
 	//페이징

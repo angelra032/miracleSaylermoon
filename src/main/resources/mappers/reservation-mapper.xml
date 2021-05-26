@@ -49,6 +49,9 @@
 		UPDATE SHOP SET SHOP_POINT = NVL(SHOP_POINT,0) + (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO = #{reservationNo}) WHERE SHOP_NO = #{shopNo}
 	</update>
 
+	<update id="cancleReservation">
+		UPDATE "USER" SET USER_POINT = USER_POINT+(SELECT PAYMENT_POINT FROM RESERVATION WHERE USER_NO = #{userNo} AND RESERVATION_NO=#{reservationNo}) WHERE USER_NO = #{userNo} 
+	</update>
 
 	<resultMap type="Shop" id="shopResultMap">
 		<id property="shopNo" column="SHOP_NO"/>

@@ -32,6 +32,7 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:if test="${ !empty rList }">
 					<c:forEach items="${rList }" var="reservation" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
@@ -51,6 +52,9 @@
 							<td><a class="btn btn-secondary">후기작성</a></td>
 							<c:if test="${reservation.rState eq 'C' }">
 							<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+							</c:if>
+							<c:if test="${reservation.rState eq 'H' }">
+							<td><a class="reserv-btn">후기작성</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -91,6 +95,12 @@
 								</c:if>
 							</td>
 						</tr>
+						</c:if>
+						<c:if test="${ empty rList }">
+							<tr>
+								<td colspan="5">${ msg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
