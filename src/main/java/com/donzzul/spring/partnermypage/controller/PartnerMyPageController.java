@@ -1,5 +1,6 @@
 package com.donzzul.spring.partnermypage.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -111,6 +112,30 @@ public class PartnerMyPageController {
 	
 	
 	// 사업자 포인트 환급신청
+	@RequestMapping(value="refundsPartnerPoint.dz", method=RequestMethod.GET)
+	public String refundsPoint(HttpSession session, @ModelAttribute User user, Model model) {
+		// 내 가게 조회
+		User loginUser = (User)session.getAttribute("loginUser");
+		Shop myShop = pService.selectMyShop(loginUser.getUserNo());
+		// 포인트 환급신청
+		if(myShop != null) {
+			int shopPointYN = pService.applyRefundsShopPoint(myShop.getShopNo());
+			if(shopPointYN > 0) {
+				// alert창으로 2-3일 내에 포인트가 환급됩니다 띄우기 - model
+				model.addAttribute("msg", "환급신청이 완료되었습니다. \n2-3일 내에 포인트가 환급됩니다. ");
+				//model.addAttribute("url", "redirect:partnerMyPage.dz");
+				return "redirect:partnerMyPage.dz";
+			}else {
+				model.addAttribute("msg", "포인트 환급신청에 실패하였습니다.");
+				return "common/errorPage";
+			}
+		}else {
+			model.addAttribute("msg", "내 가게 조회에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+
+	
 	
 	
 	// 가게정보 등록 화면(view)
@@ -128,8 +153,6 @@ public class PartnerMyPageController {
 		
 		return "";
 	}
-	
-	// 가게정보 수정 ?
 	
 	
 	// 회원정보 수정

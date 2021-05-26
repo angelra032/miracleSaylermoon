@@ -37,6 +37,11 @@ public interface PaymentService {
 	// 포인트 업데이트 시 사용
 	public Don selectDonPrice(int donNo);
 	public int updateDonSavePoint(Don don);
+	// 포인트 업데이트 시 사용_2(%계산)
+	public int updateDonSavePoint(int donNo);
+	
+	// 사업자 포인트 환급신청
+	public int applyRefundsShopPoint(int shopNo);
 	
 	
 }

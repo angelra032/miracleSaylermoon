@@ -6,19 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/payment/pointRoulette.css" />
-<!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
-
-<!-- <link rel="stylesheet" href="resources/js/roulette/jQueryRotateCompressed.js"> -->
-<!-- <script type="text/javascript" src="resources/js/roulette/jquery-1.11.3.min.js"></script>
-
- 
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
-
-
-<!-- <script src="jQueryRotateCompressed.js"></script> -->
-<!-- <script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script> -->
-
 <title>돈쭐내기</title>
 </head>
 <body>
@@ -31,37 +18,30 @@
 		<div class="frame">
 			<div class="roulette">
 				<h2>포인트 룰렛</h2>
-				<h4>최대 5000원 상당의 포인트를 지급받으세요!</h4>
+				<h4>돈쭐낸 가격의 최대 10% 상당의 포인트를 지급받으세요!</h4>
 
-				<div id="point-roulette">
+				<form action="saveRoulettePoint.dz" method="post">
+					<div id="point-roulette">
 
-					<form action="saveRoulettePoint.dz" method="post">
 						<div>
 							<img src="/resources/images/roulette/roulette.png" id="roulette-img"> 
 							<img src="/resources/images/roulette/niddle.png" id="needle">
 						</div>
-						<br /> 
+						<br> 
 							<input type="hidden" name="savePoint" value="" />
-							<input type="text" name="donNo" value="${donNo }"/>
+							<input type="hidden" name="donNo" value="${donNo }"/>
 							<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
-						<div id="result_id"></div>
+						<!-- <div id="result_id"></div>
 						<div id="result_id2"></div>
-						<div id="result_id3"></div>
-						<input type="submit" value="전송"/>
-					</form>
+						<div id="result_id3"></div> -->
 
 					<script>
 						window.onload = function() {
-
-							/* var pArr = [ "0", "1", "2", "3", "4:꽝", "5", "6",
-									"7", "8", "9" ]; */
-							var pArr = [ 5, 8, 9, 6, 1, 4, 3,
-								2, 7, 10 ];
+							/* var pArr = [ "0", "1", "2", "3", "4:꽝", "5", "6", "7", "8", "9" ]; */
+							var pArr = [ 5, 8, 9, 6, 1, 4, 3, 2, 7, 10 ];
 							
-
 							$('#start_btn').click(function() {
 								rotation();
-
 							});
 
 							function rotation() {
@@ -84,52 +64,35 @@
 								var real_angle = n % 360 + 18;
 								var part = Math.floor(real_angle / 36);
 
-								$('#result_id2').html(
-										"<p>상품범위:" + part + "</p>");
+								$('#result_id2').html("<p>상품범위:" + part + "</p>");
 
 								if (part < 1) {
-									$('#result_id3').html(
-											"<p>당첨내역:" + pArr[0] + "</p>");
+									$('#result_id3').html("<p>당첨내역:" + pArr[0] + "</p>");
 									return;
 								}
 
 								if (part >= 10) {
-									$('#result_id3').html(
-											"<p>당첨내역:" + pArr[pArr.length - 1]
-													+ "</p>");
+									$('#result_id3').html("<p>당첨내역:" + pArr[pArr.length - 1] + "</p>");
 									return;
 								}
 
-								$('#result_id3').html(
-										"<p>당첨내역:" + pArr[part] + "</p>");
-								var winPoint = Number(pArr[part]);
-								console.log("당첨포인트 : " + winPoint);
+								$('#result_id3').html("<p>당첨내역:" + pArr[part] + "</p>");
+								//var winPoint = Number(pArr[part]);
+								//console.log("당첨포인트 : " + winPoint);
 								
-								$("input[name='savePoint']").val(pArr[part])
-								
-								console.log("hidden당첨포인트 : "
-										+ $("input[name='savePoint']")
-												.val());
-
-								//console.log($('#result_id3').html());
-								console.log(pArr[part]);
-								console.log("보내자!" + pArr[part]);
-
+								$("input[name='savePoint']").val(pArr[part]);
+								console.log("hidden당첨포인트 : " + $("input[name='savePoint']").val());
 							}
 
 							function randomize($min, $max) {
-								return Math.floor(Math.random()
-										* ($max - $min + 1))
-										+ $min;
+								return Math.floor(Math.random() * ($max - $min + 1)) + $min;
 							}
 						};
 					</script>
-
-
-
-
 				</div>
-				<button id="point-save-btn">포인트 받기</button>
+				
+				<input type="submit" id="point-save-btn" value="포인트 받기">
+			</form>
 			</div>
 
 		</div>

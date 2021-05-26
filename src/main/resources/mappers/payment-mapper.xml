@@ -63,6 +63,10 @@
 		UPDATE DON SET SAVE_POINT = #{savePoint } WHERE DON_NO = #{donNo }
 	</update>
 	
+	<update id="updateRealSavePoint">
+		UPDATE DON SET SAVE_POINT = DON_PRICE * (SELECT NVL(SAVE_POINT,0) FROM DON WHERE DON_NO = #{donNo }) WHERE DON_NO = #{donNo }
+	</update>
+	
 	<update id="updateRoulettePoint" parameterType="HashMap" >
 		<!-- UPDATE "USER" SET USER_POINT = #{userPoint } WHERE USER_NO = #{userNo } -->
 		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) + (SELECT NVL(SAVE_POINT,0) FROM DON WHERE DON_NO = #{donNo }) WHERE USER_NO = #{userNo}
@@ -113,7 +117,6 @@
 	</resultMap>
 	
 	
-	
 	<!-- 가게 출력 -->
 	<select id="selectShopShopNo" resultMap="shopResultMap">
 		SELECT * FROM SHOP WHERE SHOP_NO = #{shopNo } 
@@ -128,6 +131,11 @@
 		SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo } 
 	</select>
 
+
+	<!-- 사업자 포인트 환급신청 -->
+	<update id="updateShopPointYN">
+		UPDATE SHOP SET SHOP_POINT_YN = 'Y' WHERE SHOP_NO = #{shopNo }
+	</update>
 
 
 	<!-- 어드민 -->
