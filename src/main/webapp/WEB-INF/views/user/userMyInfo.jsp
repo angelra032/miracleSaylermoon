@@ -159,7 +159,7 @@
 						</div>
 					</c:if>
 					<!-- 사업자회원 -->
-					<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '3'}">
+					<c:if test="${ !empty user && user.userType == '3'}">
 						<div id="partnerEnrollView" class="tab-content">
 							<form action="partnerModify.dz" method="post">
 								<div class="form-head">
@@ -207,7 +207,7 @@
 									<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 								</div>
 								<div class="form-body">
-									<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="12" placeholder="숫자만 입력" value="${ loginUser.userPhone }">
+									<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="12" placeholder="숫자만 입력" value="${ user.userPhone }">
 								</div>
 								
 								<div class="form-head form-head2">
