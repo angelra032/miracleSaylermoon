@@ -6,30 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/board/common/detailView.css">
-<title>문의사항 상세페이지</title>
+<title>QnA</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	<main>
 		<div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">문의사항</div>
+		<div id="main-title">
+			<span class="top-sub-title">${ qna.qnaTitle }</span>
+			<span class="top-sub-shopName">QnA</span>
+		</div>
 		
         <div class="frame">
             <div class="title-nick-date-area">
-                <div class="title-top-area">
-                    <span class="title">${ qna.qnaTitle }</span>
-                </div>
-                <div class="title-bottom-area">
-                    <div class="title-bottom-shopName-area">
-                        <span class="shopName"></span>
+                    <div class="title-bottom-nick-area">
+                        <span class="userNick">${ qna.qnaWriter }</span>
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ qna.qanCreateDate }</span>
-                    </div>
-                    <div class="title-bottom-nick-area">
-                        <span class="userNick">${ qna.qnaWriter }</span>
                     </div>
                 </div>
             </div>
@@ -44,6 +40,9 @@
 	            </div>
 	            <div class="modify-btn-area">
 	                <button onclick="location.href='qaDelete.dz?qnaNo=${ qna.qnaNo }'" style="cursor: pointer;">삭제하기</button>
+	            </div>
+	            <div class="user-back-btn-area">
+	                <button onclick="location.href='recommendMain.dz'" style="cursor: pointer;">목록으로</button>
 	            </div>
 			</c:if>
 			<c:if test="${ qna.userNo ne loginUser.userNo }">

@@ -6,15 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/board/common/mainList.css">
-<title>가게추천</title>
+<title>공지 문의사항</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	<main align="center">
 		<div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">가게추천</div>
+		<div id="main-title">공지사항</div>
 		<div class="frame">
 			<jsp:include page="/WEB-INF/views/board/common/boardNavi.jsp"></jsp:include>
 			<c:if test="${ qList.size() > 0 }">

@@ -9,14 +9,14 @@
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!--  -->
-	<title>공지사항 수정페이지</title>
+	<title>공지사항</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	
 	<main> <!-- 인라인스타일 나중에 지워주기 -->
 		<div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
 		<div id="main-title">공지사항</div>
 		
