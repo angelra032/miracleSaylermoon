@@ -96,21 +96,26 @@
 				   $('#saveBtn').on('click', function() {
 					   	var noticeContent = $("#summernote").summernote('code', noticeContent);
 						var noticeTitle = $("#noticeTitle").val();
-					    $.ajax({
-						   url : "noticeInsertForm.dz",
-						   type : "POST",
-						   data : {"noticeTitle" : noticeTitle, "noticeContent" : noticeContent},
-						   success : function(data){
-							   if(data == "success") {
-								   location.href="notiQnaMain.dz";
-								} else {
-									alert('게시글 올리기 실패');
-									location.href="notiQnaMain.dz";
-								}
-						   },
-						   error : function() {
-						   }
-					   });
+						if(noticeTitle != "" && noticeContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "noticeInsertForm.dz",
+							   type : "POST",
+							   data : {"noticeTitle" : noticeTitle, "noticeContent" : noticeContent},
+							   success : function(data){
+								   if(data == "success") {
+									   location.href="notiQnaMain.dz";
+									} else {
+										alert('게시글 올리기 실패');
+										location.href="notiQnaMain.dz";
+									}
+							   },
+							   error : function() {
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
 					    
 				   });
 				   

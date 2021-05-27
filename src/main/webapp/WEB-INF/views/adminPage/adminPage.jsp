@@ -28,6 +28,7 @@
 					<li>관리자프로필</li>
 				</ul>
 			</div>
+			
         <!-- 포인트관리 -->
         <div class="point-area">
             <div class="point-center">
@@ -47,6 +48,7 @@
 
             </div>
         </div>
+        
         <!-- 사업자관리 -->
         <div class="partner-area">
 			<div class="center-area">
@@ -70,39 +72,32 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${ !empty shopList }">
+							<c:forEach items="${ shopList }" var="shop" varStatus="status" end="2">
+							
+								<tr>
+									<td>${ status.count }</td>
+									<td><a class="table-link-title" href="#"><span>${ shop.shopName }</span></a></td>
+									<td>${ shop.userId }</td>
+									<td>${ shop.partnerVerify }</td>
+									<td>N</td>
+									<td>N</td>
+									<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty shopList }">
 							<tr>
-								<td>1</td>
-								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
-								<td>papapa01</td>
-								<td>123457-456-7897</td>
-								<td>N</td>
-								<td>N</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+								<td colspan="5">${ msg }</td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
-								<td>papapa01</td>
-								<td>123457-456-7897</td>
-								<td>N</td>
-								<td>N</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
-								<td>papapa01</td>
-								<td>123457-456-7897</td>
-								<td>N</td>
-								<td>N</td> <!-- N일때는 버튼 비활성화 -->
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
-							</tr>
+						</c:if>
 							
 						</tbody>
 					</table>
 				</div>
 			</div>
         </div>
+        
         <!-- 회원관리 -->
         <div class="user-area">
             <div class="center-area">
@@ -125,36 +120,30 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach items="${ userList }" var="user" end="2" varStatus="status">
 							<tr>
-								<td>1</td>
-								<td>감자맛집</td>
-								<td><a class="table-link-title" href="#"><span>papapa01</span></a></td>
-								<td>123457-456-7897</td>
-								<td>꿈나무</td>
+								<td>${ status.count }</td>
+								<td>${ user.userName }</td>
+								<td><a class="table-link-title" href="#"><span>${ user.userId }</span></a></td>
+								<td>${ user.userPhone }</td>
+								<c:if test="${ user.userType eq '1' }">
+									<td>꿈나무</td>
+								</c:if>
+								<c:if test="${ user.userType eq '2' }">
+									<td>일반</td>
+								</c:if>
+								<c:if test="${ user.userType eq '3' }">
+									<td>사업자</td>
+								</c:if>
 								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>감자맛집</td>
-								<td><a class="table-link-title" href="#"><span>papapa01</span></a></td>
-								<td>123457-456-7897</td>
-								<td>일반</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>감자맛집</td>
-								<td><a class="table-link-title" href="#"><span>papapa01</span></a></td>
-								<td>123457-456-7897</td>
-								<td>사업자</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
-							</tr>
-							
+						</c:forEach>
 						</tbody>
 					</table>
 				</div>
 			</div>
         </div>
+        
         <!-- 게시판관리 -->
         <div class="board-area">
             <div class="center-area">

@@ -78,25 +78,32 @@
 				               ['para', ['ul', 'ol', 'paragraph']],
 				               ['height', ['height']],
 				               ['insert', ['picture', 'link', 'hr']],
-				               ['view', ['fullscreen', 'codeview']],
+				               ['view', ['codeview']],
 				             ]
 				         });
 				   
 				   $('#saveBtn').on('click', function() {
 					   	var mReviewContent = $("#summernote").summernote('code', mReviewContent);
+					   	var content = $('.note-editable').val();
 						var mReviewTitle = $("#mReviewTitle").val();
-					    $.ajax({
-						   url : "mReviewInsertForm.dz",
-						   type : "POST",
-						   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent},
-						   success : function(){
-							   location.href='mReviewMain.dz';						   
-						   },
-						   error : function() {
-								alert('게시글 올리기 실패');							   
-							   location.href='mReviewMain.dz';						   
-						   }
-					   });
+						//var shopNo = '${shopNo}';
+						if(mReviewTitle != "" && mReviewContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "mReviewInsertForm.dz",
+							   type : "POST",
+							   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent},
+							   success : function(){
+								   location.href='mReviewMain.dz';						   
+							   },
+							   error : function() {
+									alert('게시글 올리기 실패');							   
+								   location.href='mReviewMain.dz';						   
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
 				   });
 				   
 				   

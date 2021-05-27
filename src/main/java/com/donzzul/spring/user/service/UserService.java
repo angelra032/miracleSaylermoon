@@ -1,5 +1,6 @@
 package com.donzzul.spring.user.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.donzzul.spring.user.domain.User;
@@ -31,4 +32,5 @@ public interface UserService {
 	public String findId(HashMap<String, String> map);
 	public int checkEmailDupNotMe(User user);
 	public int checkPhoneDupNotMe(User user);
+	public ArrayList<User> selectAllUserList();
 }

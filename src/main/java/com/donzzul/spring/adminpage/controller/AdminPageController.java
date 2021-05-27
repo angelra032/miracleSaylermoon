@@ -12,12 +12,22 @@ import org.springframework.web.servlet.ModelAndView;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.domain.DonCount;
 import com.donzzul.spring.payment.service.PaymentService;
+import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.service.ShopService;
+import com.donzzul.spring.user.domain.User;
+import com.donzzul.spring.user.service.UserService;
 
 @Controller
 public class AdminPageController {
 
 	@Autowired
 	private PaymentService pService;
+	
+	@Autowired
+	private UserService uService;
+	
+	@Autowired
+	private ShopService sService;
 	
 	// 관리자 페이지 출력
 	@RequestMapping(value="adminPage.dz")
@@ -28,16 +38,24 @@ public class AdminPageController {
 		//for(int i = 1; i >= month; i++) {}
 		//String monthDate = Integer.toString(year+month)+"01";
 		
+		// *** 포인트출력
 		HashMap<String, String> dateMap = new HashMap<String, String>();
 		dateMap.put("date1", "20210101");
 		dateMap.put("date2", "20210601");
 //		ArrayList<DonCount> donCount = pService.selectAllDonListSum(dateMap);
 //		ArrayList<Don> pList = pService.selectAllDonList();
-//		if(!pList.isEmpty()) {
-//			mv.addObject("pList", pList).setViewName("adminPage/adminPage");
-//		} else {
+		
+		// *** 회원출력
+		ArrayList<User> userList = uService.selectAllUserList();
+		
+		// *** 사업자출력
+		ArrayList<Shop> shopList = sService.selectAllShopListDESC();
+		
+		if(!userList.isEmpty() && !shopList.isEmpty()) { // !pList.isEmpty()
+			mv.addObject("userList", userList).addObject("shopList", shopList).setViewName("adminPage/adminPage"); // addObject("pList", pList)
+		} else {
 			mv.addObject("msg", "목록 불러오기 실패").setViewName("adminPage/adminPage");
-//		}
+		}
 		
 		return mv;
 	}

@@ -89,22 +89,27 @@
 					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
 						var qnaTitle = $("#qnaTitle").val();
 						var qnaNo = '${qna.qnaNo}';
-					    $.ajax({
-						   url : "qaModify.dz",
-						   type : "POST",
-						   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "qnaNo" : qnaNo},
-						   success : function(data){
-							   if(data == "success") {
-								   alert('게시글이 수정되었습니다');
-								   location.href="qaDetail.dz?qnaNo=" + qnaNo;
-								} else if(data == 'fail') {
-									alert('게시글 수정 실패');
-									location.href="notiQnaMain.dz";
-								}
-						   },
-						   error : function() {
-						   }
-					   });
+						if(qnaTitle != "" && qnaContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "qaModify.dz",
+							   type : "POST",
+							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "qnaNo" : qnaNo},
+							   success : function(data){
+								   if(data == "success") {
+									   alert('게시글이 수정되었습니다');
+									   location.href="qaDetail.dz?qnaNo=" + qnaNo;
+									} else if(data == 'fail') {
+										alert('게시글 수정 실패');
+										location.href="notiQnaMain.dz";
+									}
+							   },
+							   error : function() {
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
 					    
 				   });
 				   

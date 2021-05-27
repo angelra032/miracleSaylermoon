@@ -192,6 +192,22 @@ public class UserController {
 		}
 	}
 	
+	// 구글 로그인
+    @RequestMapping(value = "googlelogin.dz", method = RequestMethod.GET)
+    public String googleLogin(HttpServletRequest request, 
+                      @RequestParam("googleId") String googleId, 
+                      @RequestParam("googleName") String googleName, Model model) {
+       if(googleId != null) {
+          HttpSession session = request.getSession();
+          session.setAttribute("googleId", googleId);
+          session.setAttribute("googleName", googleName);
+          return "redirect:index.jsp";
+       }else {
+          model.addAttribute("msg", "로그인 실패");
+          return "common/errorPage";
+       }
+    }
+	
 	//로그아웃
 	@RequestMapping(value = "logout.dz", method = RequestMethod.GET) 
 	public String userLogout(HttpServletRequest request) {

@@ -1,5 +1,6 @@
 package com.donzzul.spring.user.service.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,6 +169,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int checkPhoneDupNotMe(User user) {
 		return store.checkPhoneDupNotMe(user);
+	}
+	
+	// 모든 유저 출력하기(관리자페이지)
+	@Override
+	public ArrayList<User> selectAllUserList() {
+		return store.selectAllUserList();
 	}
 
 	

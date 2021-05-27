@@ -89,21 +89,27 @@
 					   	var noticeContent = $("#summernote").summernote('code', noticeContent);
 						var noticeTitle = $("#noticeTitle").val();
 						var noticeNo = '${notice.noticeNo}';
-					    $.ajax({
-						   url : "noticeModify.dz",
-						   type : "POST",
-						   data : {"noticeTitle" : noticeTitle, "noticeContent" : noticeContent, "noticeNo" : noticeNo},
-						   success : function(data){
-							   if(data == "success") {
-								   location.href="noticeDetail.dz?noticeNo="+noticeNo;
-								} else {
-									alert('게시글 올리기 실패');
-									location.href="notiQnaMain.dz";
-								}
-						   },
-						   error : function() {
-						   }
-					   });
+						if(noticeTitle != "" && noticeContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "noticeModify.dz",
+							   type : "POST",
+							   data : {"noticeTitle" : noticeTitle, "noticeContent" : noticeContent, "noticeNo" : noticeNo},
+							   success : function(data){
+								   if(data == "success") {
+									   location.href="noticeDetail.dz?noticeNo="+noticeNo;
+									} else {
+										alert('게시글 올리기 실패');
+										location.href="notiQnaMain.dz";
+									}
+							   },
+							   error : function() {
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
+						
 					    
 				   });
 				   

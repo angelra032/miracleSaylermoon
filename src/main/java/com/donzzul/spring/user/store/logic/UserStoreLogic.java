@@ -1,5 +1,6 @@
 package com.donzzul.spring.user.store.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -163,6 +164,12 @@ public class UserStoreLogic implements UserStore {
 	@Override
 	public int checkPhoneDupNotMe(User user) {
 		return sqlSession.selectOne("userMapper.checkPhoneDupNotMe", user);
+	}
+	
+	// 모든 유저 출력하기(관리자페이지)
+	@Override
+	public ArrayList<User> selectAllUserList() {
+		return (ArrayList)sqlSession.selectList("userMapper.selectAllUser");
 	}
 
 	
