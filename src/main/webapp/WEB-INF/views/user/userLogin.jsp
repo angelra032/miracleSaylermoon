@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script src="https://apis.google.com/js/api:client.js"></script>
 <title>돈쭐 로그인</title>
 </head>
 <body>
@@ -51,7 +50,6 @@
 						<a href="javascript:kakaoLogin();">
 							<img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png">
 						</a>
-						<div class="g-signin2 google-login" data-onsuccess="onSignIn">구글 로그인</div>
 						<div class="g-signin2 google-login" data-onsuccess="onSignIn">구글 로그인</div>
 						<div class="fake-glogin"><img alt="구글로그인" src="/resources/images/g-logo.png"><p>구글 로그인</p></div>
 					</div>
@@ -97,6 +95,15 @@
 			return rtn;
 		});
 	});
+		//구글
+		function onSignIn(googleUser) {
+		  var profile = googleUser.getBasicProfile();
+		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		  console.log('Name: ' + profile.getName());
+		  console.log('Image URL: ' + profile.getImageUrl());
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		  location.href="googlelogin.dz?googleId="+profile.getEmail()+"&googleName="+profile.getName();
+		}
 	window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
 	//카카오로그인
@@ -125,19 +132,8 @@
 		    	console.log(error)
 		    }
 	    });
+		
     }
-	//구글
-	function onSignIn(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
-	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-	  
-	  var id_token = googleUser.getAuthResponse().id_token;
-	  
-	  location.href="googlelogin.dz?googleId="+profile.getEmail()+"&googleName="+profile.getName();
-	}
 	
  
 </script>

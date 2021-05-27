@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/resources/css/header.css"> 
     <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 	<script src="https://apis.google.com/js/api:client.js"></script>
     <title>헤더 </title>
 </head>
@@ -63,7 +63,7 @@
  	            </c:if>
  	            <c:if test="${ empty sessionScope.loginUser && !empty sessionScope.googleId}"> 
  	            	<div class="header-submenu-area login-area">
- 	            		<a href="logout.dz" onclick="signOut()">로그아웃</a>
+ 	            		<a href="#" onclick="signOut();">로그아웃</a>
  	            		<a href="GoogleMyPage.dz">마이페이지</a>
  	            	</div>
  	            </c:if>
@@ -72,6 +72,25 @@
     
 </body>
 <script>
+//구글로그아웃
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+      auth2.disconnect();
+      if(!gapi.auth2){
+    	    gapi.load('auth2', function() {
+    	        gapi.auth2.init();
+    	    });
+    	 }
+      location.href="logout.dz";
+    });
+  }
+function onLoad() {
+    gapi.load('auth2', function() {
+        gapi.auth2.init();
+    });
+}
     $(document).ready(function(){
         $(window).scroll(function(){
             var scroll = $(window).scrollTop();
@@ -102,15 +121,7 @@
             $(".header-logo-area img").attr("src", '/resources/images/logo.png');
         }
         
-        //구글로그아웃
-        function signOut() {
-        	var auth2 = gapi.auth2.getAuthInstanse();
-        	auth2.signOut().then(function () {
-        		console.log('User signed out.');
-        	});
-        	auth2.disconnect();
-        }
-        
+       
 		function kakaoLogout() {
 			 if (Kakao.Auth.getAccessToken()) {
 		      Kakao.API.request({
@@ -126,6 +137,8 @@
 		    }
 		}
     });
+    
+    
         
 </script>
 </body>

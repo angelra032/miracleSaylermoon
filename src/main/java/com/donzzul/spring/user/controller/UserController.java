@@ -203,7 +203,7 @@ public class UserController {
           session.setAttribute("googleName", googleName);
           return "redirect:index.jsp";
        }else {
-          model.addAttribute("msg", "로그인 실패");
+          model.addAttribute("msg", "구글로그인 실패");
           return "common/errorPage";
        }
     }
