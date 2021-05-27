@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
-<title>일반회원 마이페이지</title>
+<link rel="stylesheet" href="/resources/css/partnermypage/partnerReservationDetail.css">
+<title>사업자회원 예약관리 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">돈쭐 목록</div>
+		<div id="main-title">예약 관리</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -25,25 +25,48 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>가게이름</th>
-							<th>돈쭐날짜</th>
-							<th>돈쭐금액</th>
+							<th>회원닉네임</th>
+							<th>예약인원</th>
+							<th>예약날짜</th>
+							<th>예약상태</th>
+							<th>후기작성</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${dList }" var="donList" varStatus="status">
+					<c:if test="${ !empty rList }">
+					<c:forEach items="${rList }" var="reservation" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${donList.shopName }</p></a></td> <!-- 가게 상세페이지 -->
-							<td>${donList.paymentDate }</td>
-							<td>${donList.donPrice }</td>
+							<input type="hidden" name="reservationNo" value="${reservation.reservationNo }">
+							<input type="hidden" name="shopNo" value="${reservation.shopNo }">
+							<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+							<td>${reservation.reserveCount }</td>
+							<td>${reservation.reserveDate }</td>
+							
+							<c:if test="${reservation.rState eq 'O' }">
+							<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
+							</c:if>
+							<c:if test="${reservation.rState eq 'X' }">
+							<td><a class="btn btn-secondary">취소완료</a></td>
+							</c:if>
+							<c:if test="${reservation.rState eq 'Y' }">
+							<td><a class="confirm-btn" >예약확정</a></td>
+							</c:if>
+							
+							<td><a class="btn btn-secondary">후기작성</a></td>
+							<c:if test="${reservation.rState eq 'C' }">
+							<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+							</c:if>
+							<c:if test="${reservation.rState eq 'H' }">
+							<td><a class="reserv-btn">후기작성</a></td>
+							</c:if>
 						</tr>
 					</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
 							<td colspan="5">
 								<!-- 이전 -->
-								<c:url var="before" value="printDonAllList.dz">
+								<c:url var="before" value="partnerReserveList.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -54,7 +77,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="printDonAllList.dz">
+									<c:url var="pagination" value="partnerReserveList.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -65,7 +88,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="printDonAllList.dz">
+								<c:url var="after" value="partnerReserveList.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">
@@ -76,6 +99,12 @@
 								</c:if>
 							</td>
 						</tr>
+						</c:if>
+						<c:if test="${ empty rList }">
+							<tr>
+								<td colspan="5">${ msg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>

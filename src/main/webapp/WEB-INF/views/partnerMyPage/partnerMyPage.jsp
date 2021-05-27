@@ -16,7 +16,7 @@
 		<div id="main-title">${ loginUser.userName }님 안녕하세요!</div>
 		<div class="frame">
 			<div class="my-info">
-				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
+				<span>보유포인트 : <b>${shop.shopPoint }</b>원</span>
 				<a class="refund-btn" href="refundsPartnerPoint.dz">환급신청</a>
 				<div class="info-btn-frame">
 					<a class="info-btn" href="#">가게 수정</a> <!-- 등록/수정 -->
@@ -41,6 +41,7 @@
 							<th>예약인원</th>
 							<th>예약날짜</th>
 							<th>예약상태</th>
+							<th>방문완료</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -141,14 +142,6 @@
 	            }
 	        });
 	    });
-
-		/* $(function(){
-			var msg = '${msg}';
-			alert(msg);
-			location.href='${url}';
-			/* var url = '${url}';
-			document.location.href = url; */
-		}); */
 		
 	</script>
 	
