@@ -41,7 +41,7 @@ public class MZMyPageController {
 		int userNo = loginUser.getUserNo();
 		
 		// 예약 목록
-		ArrayList<Reservation> rList = rService.rListByMZUpToThree(userNo);
+		ArrayList<Reservation> rList = rService.listByMZToThree(userNo);
 		// 돈쭐 목록
 		ArrayList<Don> dList = pService.selectDonListThree(userNo);
 		
