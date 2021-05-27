@@ -17,10 +17,10 @@
 		<div class="frame">
 			<div class="my-info">
 				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
-				<a class="refund-btn" href="#">환급신청</a>
+				<a class="refund-btn" href="refundsPartnerPoint.dz">환급신청</a>
 				<div class="info-btn-frame">
 					<a class="info-btn" href="#">가게 수정</a> <!-- 등록/수정 -->
-					<a class="info-btn" href="myINfo.dz">나의 정보</a>
+					<a class="info-btn" href="myINfo.dz?userNo=${loginUser.userNo }">나의 정보</a>
 					<a class="info-btn" href="userWritePwView.dz">탈퇴 요청</a> <!-- 사업자userDeleteRequest.dz -->
 				</div>
 			</div>
@@ -142,6 +142,12 @@
 	        });
 	    });
 
+		$(function(){
+			var msg = '${msg}';
+			//var url = '${url}';
+			alert(msg);
+		});
+		
 	</script>
 	
 <%-- 	

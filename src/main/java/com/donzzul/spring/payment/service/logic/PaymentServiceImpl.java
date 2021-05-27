@@ -101,5 +101,18 @@ public class PaymentServiceImpl implements PaymentService {
 	public int updateDonSavePoint(Don don) {
 		return pStore.updateDonSavePoint(don);
 	}
+
+	// 포인트 업데이트 시 사용_2(%계산)
+	@Override
+	public int updateDonSavePoint(int donNo) {
+		return pStore.updateDonSavePoint(donNo);
+	}
 	
+	
+	// 사업자 포인트 환급신청
+	@Override
+	public int applyRefundsShopPoint(int shopNo) {
+		return pStore.updateShopPointYN(shopNo);
+	}
+
 }

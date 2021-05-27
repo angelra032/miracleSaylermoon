@@ -127,21 +127,20 @@ public class PaymentController {
 		System.out.println("당첨포인트-뒷단:"+don.getSavePoint()); // 앞단에서 당첨된 포인트
 		System.out.println("담아준 돈 객체" + don.toString());
 		
-		// 포인트 계산...
-		// don쭐낸 가격(select)
-		Don donPrice = pService.selectDonPrice(don.getDonNo());
-		if(donPrice != null) {
-
-			//당첨만큼 % 계산 = savePoint
-			int price = donPrice.getDonPrice();
-			int savePoint = price / don.getSavePoint();
-			don.setSavePoint(savePoint);
+		double savePoint = (don.getSavePoint() * 0.01);
+		don.setSavePoint(savePoint);
+		System.out.println("double로 계산" + don.toString());
+		
+		// 돈쭐 % update
+		int updateDon = pService.updateDonSavePoint(don);
+		if(updateDon > 0) {
+			System.out.println("돈쭐 savePoint update"+don.toString());
 			
-			// don에 savePoint 저장하기(update)
-			int updateDon = pService.updateDonSavePoint(don);
-
-			// userPoint + savePoint 
-			if(updateDon > 0) {
+			// % 포인트 계산 update 
+			int updateSavePoint = pService.updateDonSavePoint(don.getDonNo());
+			
+			if(updateSavePoint > 0) {
+				// user point 업데이트..
 				HashMap<String, Object> roulettePoint = new HashMap<String, Object>();
 				roulettePoint.put("userNo", loginUser.getUserNo());
 				roulettePoint.put("donNo", don.getDonNo());
@@ -155,13 +154,14 @@ public class PaymentController {
 					return "common/errorPage";
 				}
 			}else {
-				System.out.println("don에 계산한 savePoint 저장하기(update) 실패");
+				System.out.println("% Real 포인트 계산 update 실패");
 				return "common/errorPage";
 			}
 		}else {
-			System.out.println("don쭐낸 가격(select) 실패");
+			System.out.println("% 포인트 update 실패");
 			return "common/errorPage";
 		}
+		
 	}
 
 	// 인증샷 페이지
@@ -178,14 +178,6 @@ public class PaymentController {
 		return "";
 	}
 
-	// 환급 신청 /////////어디서? 사업자
-//	@RequestMapping(value="refundsPoint.dz", method=RequestMethod.GET)
-//	public String refundsPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
-//		return "";
-//	}
-//	public int updateRefundsPoint(User user);
-
-	
 	
 
 	

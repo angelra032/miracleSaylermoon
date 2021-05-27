@@ -17,7 +17,7 @@ public class Don {
 	
 	// test point
 	private int usePoint; // 사용할 포인트
-	private int savePoint; // 적립할 포인트
+	private double savePoint; // 적립할 포인트
 	
 	public Don() {} // 기본 생성자
 	
@@ -95,11 +95,11 @@ public class Don {
 		this.usePoint = usePoint;
 	}
 
-	public int getSavePoint() {
+	public double getSavePoint() {
 		return savePoint;
 	}
 
-	public void setSavePoint(int savePoint) {
+	public void setSavePoint(double savePoint) {
 		this.savePoint = savePoint;
 	}
 
