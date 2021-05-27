@@ -124,4 +124,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return rStore.selectListCount(userNo);
 	}
 
+	@Override
+	public int selectShopListCount(int shopNo) {
+		return rStore.selectShopListCount(shopNo);
+	}
+
 }

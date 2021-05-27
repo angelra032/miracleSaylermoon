@@ -193,6 +193,11 @@ input[type=radio]{
 					border-radius: 3px;
 					border: solid 1px #fdb504;
 					background-color: #ffffff;
+					cursor:pointer;
+				}
+				#pSubmit:hover {
+					background-color: #ffe9b4;
+					--cursor:pointer;
 				}
 
 		.lay3 {

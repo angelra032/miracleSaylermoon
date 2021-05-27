@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="selectDonAllList" resultMap="paymentResultMap">
-		SELECT SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo }
+		SELECT SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo } ORDER BY PAYMENT_DATE DESC
 	</select>
 	
 	
@@ -143,7 +143,7 @@
 
 	<!-- 사업자 포인트 환급신청 -->
 	<update id="updateShopPointYN">
-		UPDATE SHOP SET SHOP_POINT_YN = 'Y' WHERE SHOP_NO = #{shopNo }
+		UPDATE SHOP SET SHOP_POINT = 0, SHOP_POINT_YN = 'Y' WHERE SHOP_NO = #{shopNo }
 	</update>
 
 

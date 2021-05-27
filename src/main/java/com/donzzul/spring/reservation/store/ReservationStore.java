@@ -38,5 +38,7 @@ public interface ReservationStore {
 
 	//페이징
 	public int selectListCount(int userNo);
+	public int selectShopListCount(int shopNo);
+	
 	
 }

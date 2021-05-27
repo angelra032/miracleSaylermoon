@@ -33,4 +33,6 @@ public interface ReservationService {
 	
 	// 페이징
 	public int getListCount(int userNo); // 페이징처리
+	public int selectShopListCount(int shopNo);
+	
 }

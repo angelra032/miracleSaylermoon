@@ -149,4 +149,10 @@ public class ReservationStoreLogic implements ReservationStore {
 		return sqlSession.selectOne("reservationMapper.selectListCount", userNo);
 	}
 
+	@Override
+	public int selectShopListCount(int shopNo) {
+		return sqlSession.selectOne("reservationMapper.selectShopListCount", shopNo);
+	}
+	
+
 }

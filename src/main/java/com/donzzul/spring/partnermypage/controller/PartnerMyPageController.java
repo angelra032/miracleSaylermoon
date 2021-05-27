@@ -42,16 +42,32 @@ public class PartnerMyPageController {
 		int userNo = loginUser.getUserNo();
 	
 		Shop myShop = pService.selectMyShop(userNo); // 사업자 가게 불러오기
-		int shopNo = myShop.getShopNo();									////////////////// 샵 넘버 없어도 들어갈 수 있게끔
+		////////////////// 샵 넘버 없어도 들어갈 수 있게끔 - ? 이거 뭔데..
 		
-		// 예약 목록 3개
-		ArrayList<Reservation> rList = rService.rListByShopUpToThree(shopNo);
-		if(!rList.isEmpty()) {
-			model.addAttribute("rList", rList);
-			return "partnerMyPage/partnerMyPage";
+		if(myShop != null) {
+
+			System.out.println(myShop.toString());
+			model.addAttribute("shop", myShop);
+			
+			// 예약 목록 3개
+			ArrayList<Reservation> rList = rService.listByShopToThree(myShop.getShopNo());
+			// 문의글 3개
+			
+			if(!rList.isEmpty()) {
+				model.addAttribute("rList", rList);
+				return "partnerMyPage/partnerMyPage";
+			}else if(rList.isEmpty()) {
+				model.addAttribute("msg", "불러올 데이터가 없습니다.");
+				return "common/errorPage";
+			}else {
+				model.addAttribute("msg", "내역을 출력하는데 실패했습니다.");
+				return "common/errorPage";
+			}
 		}else {
+			model.addAttribute("msg", "등록되어 있는 가게가 존재하지 않습니다.");
 			return "common/errorPage";
 		}
+		
 	}
 	
 	// 예약 상태(업데이트 - 대기, 승인, 거부)
@@ -60,22 +76,26 @@ public class PartnerMyPageController {
 										@RequestParam("rState") String rState,
 										@RequestParam("shopNo") int shopNo,
 										Model model) {
-		Reservation reservation = rService.selectOne(reservationNo);
-		String rStateResulut = reservation.getrState();
+		
+		// 예약 번호, 예약 상태, 예약 가게 받음
+		Reservation reservation = rService.selectOne(reservationNo); // 예약넘버로 하나 가져옴
+		String rStateResulut = reservation.getrState(); // 상태 가져와서
 //		예약기본상태 O(default)
 //		예약승인 Y(comfirm)
 //		예약취소 X(cancle)
 //		예약완료 C(complete)
+		// 예약 확정 후 후기 글쓰기 가능 H
 		if(rStateResulut != null) {
 			reservation.setrState(rState);
-			int result = rService.updateRstate(reservation);
+			int result = rService.updateRstate(reservation); // rState 변경
 			if(result > 0 && rState.equals("C")) {
 				rService.updateShopPoint(reservation);
-				}
+				// 
 			}
+		}
 		model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
 		return "partnerMyPage/partnerMyPage";
-		}
+	}
 	
 	
 	// 예약 더보기(풀 리스트)
@@ -90,7 +110,7 @@ public class PartnerMyPageController {
 
 		// 페이징 pi
 		int currentPage = (page != null) ? page : 1;
-		int listCount = rService.getListCount(loginUser.getUserNo());
+		int listCount = rService.selectShopListCount(myShop.getShopNo());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		// 예약 전체 리스트 가져오기
@@ -98,7 +118,7 @@ public class PartnerMyPageController {
 		if(!rList.isEmpty()) {
 			mv.addObject("rList", rList);
 			mv.addObject("pi", pi);
-			mv.setViewName("partnerMyPage/partnerMyPage"); // 전체 예약페이지로 가기!!!(바꾸기)
+			mv.setViewName("partnerMyPage/partnerReservationDetail"); // 전체 예약페이지로 가기!!!(바꾸기)
 		}else {
 			mv.addObject("msg", "사업자 예약 더보기 조회 실패");
 			mv.setViewName("common/errorPage");
@@ -116,29 +136,32 @@ public class PartnerMyPageController {
 	
 	// 사업자 포인트 환급신청
 	@RequestMapping(value="refundsPartnerPoint.dz", method=RequestMethod.GET)
-	public String refundsPoint(HttpServletResponse response, HttpSession session, @ModelAttribute User user, Model model) throws Exception {
+	public void refundsPoint(HttpServletResponse response, HttpSession session, @ModelAttribute User user, Model model) throws Exception {
+		// 환급신청(전체)
+		// userNo랑 shopNo 통해서 shop의 shopPoint랑 shopPointYN 변경(update)
+		
 		// 내 가게 조회
 		User loginUser = (User)session.getAttribute("loginUser");
 		Shop myShop = pService.selectMyShop(loginUser.getUserNo());
+		
 		// 포인트 환급신청
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=UTF-8");
 		if(myShop != null) {
-			int shopPointYN = pService.applyRefundsShopPoint(myShop.getShopNo());
-			if(shopPointYN > 0) {
+			int shopPointandYN = pService.applyRefundsShopPoint(myShop.getShopNo());
+			if(shopPointandYN > 0) {
 				System.out.println("환급신청 YN 업데이트");
+				
 				// alert창으로 2-3일 내에 포인트가 환급됩니다 띄우기 - model
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>alert('환급신청이 완료되었습니다. \\n2-3일 내에 포인트가 환급됩니다.');</script>");
+				out.println("<script>alert('환급신청이 완료되었습니다. \\n2-3일 내에 포인트가 환급됩니다.');location.href='partnerMyPage.dz';</script>");
 				//location.href='partnerMyPage.dz';
 				out.flush();
-				return "partnerMyPage/partnerMyPage";
 			}else {
-				model.addAttribute("msg", "포인트 환급신청에 실패하였습니다.");
-				return "common/errorPage";
+//				model.addAttribute("msg", "포인트 환급신청에 실패하였습니다.");
+				out.println("<script>alert('포인트 환급신청에 실패하였습니다.');location.href='/index.jsp';</script>");
 			}
 		}else {
-			model.addAttribute("msg", "내 가게 조회에 실패하였습니다.");
-			return "common/errorPage";
+			out.println("<script>alert('내 가게 조회에 실패하였습니다.');location.href='/index.jsp';</script>");
 		}
 	}
 

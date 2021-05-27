@@ -93,6 +93,10 @@
 		SELECT COUNT(*) FROM RESERVATION WHERE USER_NO = #{userNo}
 	</select>
 	
+	<select id="selectShopListCount" resultType="_int">
+		SELECT COUNT(*) FROM RESERVATION WHERE SHOP_NO = #{shopNo}
+	</select>
+	
 	
 	
 	
