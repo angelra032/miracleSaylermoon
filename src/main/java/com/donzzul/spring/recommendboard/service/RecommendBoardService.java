@@ -16,5 +16,7 @@ public interface RecommendBoardService {
 	public int deleteRecommend(int recommendNo);
 	public int getListCount();
 	public int insertPhoto(RecommendPhoto recoPhoto);
+	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo);
+	public int deleteBeforePhoto(int recommendNo);
 	
 }

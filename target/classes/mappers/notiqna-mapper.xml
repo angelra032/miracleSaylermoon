@@ -37,7 +37,7 @@
 	</select>
 	
 	<insert id="insertNotice">
-		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, '4', 'Y')
+		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, #{userType}, 'Y')
 	</insert>
 	
 	<delete id="deleteNotice">

@@ -96,7 +96,8 @@ public class NotiQnaController {
 		User user = (User) session.getAttribute("loginUser");
 		qna.setQnaWriter(user.getUserNick());
 		qna.setUserType(user.getUserType());
-		qna.setUserNo(user.getUserNo());
+		qna.setUserNo(user.getUserNo()); 
+		qna.setUserType(user.getUserType());
 		
 		int result = qnaService.insertQna(qna); // 글쓰기
 		if(result > 0) {

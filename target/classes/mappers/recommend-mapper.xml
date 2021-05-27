@@ -41,14 +41,26 @@
 		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, #{recommendWriter}, DEFAULT, DEFAULT, NULL, #{userType}, #{userNo})
 	</insert>
 	
+	<update id="updateRecommend">
+		UPDATE RECOMMEND_BOARD SET RECOMMEND_TITLE= #{recommendTitle}, RECOMMEND_CONTENT= #{recommendContent} WHERE RECOMMEND_NO = #{recommendNo}
+	</update>
+	
 	<delete id="deleteRecommend">
 		DELETE FROM RECOMMEND_BOARD WHERE RECOMMEND_NO = #{recommendNo}
 	</delete>
 	
 <!-- 사진 -->
+
+	<select id="selectPhoto" resultMap="rePhotoResultMap">
+		SELECT * FROM RECOMMEND_PHOTO WHERE RECOMMEND_NO LIKE #{recommendNo}
+	</select>
 	
 	<insert id="insertPhoto">
 		INSERT INTO RECOMMEND_PHOTO VALUES (SEQ_RECOMMEND_PHOTO.NEXTVAL, #{recommendOriginalFileName}, #{recommendRenameFileName}, #{recommendFilePath}, #{recommendFileSize}, #{recommendFileTime}, #{recommendNo})  
 	</insert>
+	
+	<delete id="deleteBeforePhoto">
+		DELETE FROM RECOMMEND_PHOTO WHERE RECOMMEND_NO LIKE #{recommendNo}
+	</delete>
 
 </mapper>

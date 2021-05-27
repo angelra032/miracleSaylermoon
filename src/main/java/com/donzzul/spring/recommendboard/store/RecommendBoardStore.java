@@ -13,6 +13,9 @@ public interface RecommendBoardStore {
 	public int updateRecommend(RecommendBoard recommendBoard);
 	public int deleteRecommend(int recommendNo);
 	public ArrayList<RecommendBoard> selectAllRecommend(PageInfo pi);
-	public int getListCount();
+	public int getListCount(); // 
+	
+	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo);
 	public int insertPhoto(RecommendPhoto recoPhoto);
+	public int deleteBeforePhoto(int recommendNo);
 }

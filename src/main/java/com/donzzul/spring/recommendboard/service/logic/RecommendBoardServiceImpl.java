@@ -43,10 +43,10 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 		return reStore.insertRecommend(recommendBoard);
 	}
 
+	// 수정
 	@Override
 	public int updateRecommend(RecommendBoard recommendBoard) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reStore.updateRecommend(recommendBoard);
 	}
 
 	@Override
@@ -58,6 +58,18 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	@Override
 	public int insertPhoto(RecommendPhoto recoPhoto) {
 		return reStore.insertPhoto(recoPhoto);
+	}
+
+	// 사진조회
+	@Override
+	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo) {
+		return reStore.selectPhoto(recommendNo);
+	}
+
+	// 수정 전 사진삭제
+	@Override
+	public int deleteBeforePhoto(int recommendNo) {
+		return reStore.deleteBeforePhoto(recommendNo);
 	}
 
 
