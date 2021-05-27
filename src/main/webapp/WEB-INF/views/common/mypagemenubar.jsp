@@ -26,7 +26,7 @@
                     <li><a href="mReviewMain.dz">커뮤니티</a></li>
                 </ul>
             </div>
-	            <c:if test="${ empty sessionScope.loginUser && empty sessionScope.kakaoId}">
+	            <c:if test="${ empty sessionScope.loginUser && empty sessionScope.kakaoId && empty sessionScope.googleId}">
             		<div class="header-submenu-area">
 		                <a href="loginView.dz">로그인</a>
 		                <a href="enrollView.dz">회원가입</a>
@@ -39,13 +39,13 @@
 		                <a href="#">관리자페이지</a>
             		</div>
 	            </c:if>
-	            <c:if test="${ (!empty sessionScope.loginUser && sessionScope.loginUser.userId !='admin') || (empty sessionScope.loginUser && !empty sessionScope.kakaoId)}">
+	            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId !='admin'}"> 
 	            	<div class="header-submenu-area login-area">
 		                <a href="logout.dz">로그아웃</a>
 		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '1'}">
-	                	<a href="#">마이페이지</a>
+	                	<a href="dreamMyPage.dz">마이페이지</a>
 	            	</c:if>
-		            <c:if test="${ (!empty sessionScope.loginUser && sessionScope.loginUser.userType == '2') || (empty sessionScope.loginUser && !empty sessionScope.kakaoId)}">
+		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
 	                	<a href="mzMyPage.dz">마이페이지</a>
 	            	</c:if>
 		            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '3'}">
@@ -53,6 +53,18 @@
 	            	</c:if>
             		</div>
             	</c:if>
+ 	            <c:if test="${ empty sessionScope.loginUser && !empty sessionScope.kakaoId}"> 
+ 	            	<div class="header-submenu-area login-area">
+ 	            		<a href="logout.dz">로그아웃</a>
+ 	            		<a href="mzMyPage.dz">마이페이지</a>
+ 	            	</div>
+ 	            </c:if>
+ 	            <c:if test="${ empty sessionScope.loginUser && !empty sessionScope.googleId}"> 
+ 	            	<div class="header-submenu-area login-area">
+ 	            		<a href="logout.dz" onclick="signOut();">로그아웃</a>
+ 	            		<a href="GoogleMyPage.dz">마이페이지</a>
+ 	            	</div>
+ 	            </c:if>
         </div>
     </header>
     

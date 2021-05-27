@@ -23,6 +23,7 @@
    		</div>	
 		<div id="main-title">로그인</div>
 		<div class="frame">
+			<div class="height-fixed">
 			<div class="color-frame">
 				<h2>회원로그인</h2>
 				<h4>꿈나무, 일반, 사업자 회원</h4>
@@ -42,7 +43,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="color-frame">
+			<div class="color-frame right-frame">
 				<h2>간편로그인</h2>
 				<h4>일반회원전용</h4>
 				<div class="left-inner-box">
@@ -51,10 +52,12 @@
 							<img alt="카카오 회원가입" src="/resources/images/kakaologin-btn.png">
 						</a>
 						<div class="g-signin2 google-login" data-onsuccess="onSignIn">구글 로그인</div>
-						<div class="fake-glogin">구글 로그인</div>
+						<div class="g-signin2 google-login" data-onsuccess="onSignIn">구글 로그인</div>
+						<div class="fake-glogin"><img alt="구글로그인" src="/resources/images/g-logo.png"><p>구글 로그인</p></div>
 					</div>
 				</div>
 			</div> 
+			</div>
 
 		</div>
 	</main>
@@ -94,7 +97,7 @@
 			return rtn;
 		});
 	});
-	/* window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.
+	window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.
 	console.log(Kakao.isInitialized()); // sdk초기화여부판단
 	//카카오로그인
 	function kakaoLogin() {
@@ -125,37 +128,17 @@
     }
 	//구글
 	function onSignIn(googleUser) {
-		  var profile = googleUser.getBasicProfile();
-		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		  console.log('Name: ' + profile.getName());
-		  console.log('Image URL: ' + profile.getImageUrl());
-		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-		}
-	//재시도
-	var googleUser = {};
-	  var startApp = function() {
-	    gapi.load('auth2', function(){
-	      // Retrieve the singleton for the GoogleAuth library and set up the client.
-	      auth2 = gapi.auth2.init({
-	        client_id: '415085927923-rlk2denkpna85ffki391opn4br9792f1.apps.googleusercontent.com',
-	        cookiepolicy: 'single_host_origin',
-	        // Request scopes in addition to 'profile' and 'email'
-	        //scope: 'additional_scope'
-	      });
-	      attachSignin(document.getElementById('customBtn'));
-	    });
-	  };
-
-	  function attachSignin(element) {
-	    console.log(element.id);
-	    auth2.attachClickHandler(element, {},
-	        function(googleUser) {
-	          document.getElementById('name').innerText = "Signed in: " +
-	              googleUser.getBasicProfile().getName();
-	        }, function(error) {
-	          alert(JSON.stringify(error, undefined, 2));
-	        }
-	        });
- */
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	  
+	  var id_token = googleUser.getAuthResponse().id_token;
+	  
+	  location.href="googlelogin.dz?googleId="+profile.getEmail()+"&googleName="+profile.getName();
+	}
+	
+ 
 </script>
 </html>
