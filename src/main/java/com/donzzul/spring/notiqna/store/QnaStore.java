@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.notiqna.domain.Qna;
+import com.donzzul.spring.reservation.domain.Reservation;
 
 
 public interface QnaStore {
@@ -15,4 +16,9 @@ public interface QnaStore {
 	public int deleteQna(int qaNo);
 	public int getListCount();
 	public int updateGroup(Qna qna);
+	
+	// 꿈나무 마이페이지
+	public ArrayList<Qna> dreamQnaUpToThree(int userNo);
+	public ArrayList<Qna> qnaListBydream(int userNo, PageInfo pi);
+	public int dreamListCount(int userNo); 
 }

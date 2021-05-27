@@ -184,17 +184,20 @@
       $("#pButton").on("click",function(){
          var paymentPoint = parseInt($("#pointText").val());
          var userPoint = parseInt("${loginUser.userPoint}");
-         if(paymentPoint > userPoint){
-            alert("욕심을 냈군요");
-            return false;
+         if(paymentPoint < userPoint){
+        	 if(paymentPoint > 500 && paymentPoint < 50000 && paymentPoint > 0){
+        		$("#paymentPoint").html(paymentPoint);
+	         	$("input[name='paymentPoint']").val(paymentPoint);
+	         	$("#paymentSpan").text(paymentPoint);
+         	}else{
+         		alert("사용가능포인트는 500원 이상 5000원 이하입니다.");
+       		 	return false;
+         	}
          }else{
-	         $("#paymentPoint").html(paymentPoint);
-	         $("input[name='paymentPoint']").val(paymentPoint);
-	         $("#paymentSpan").text(paymentPoint);
-	         
+        	 alert("보유 금액 이상 사용은 불가능 합니다.");
+             return false;
          }
       });
-
    });
    </script>
 

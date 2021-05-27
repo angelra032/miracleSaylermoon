@@ -4,15 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/dreamreviewdetail.css">
-<title>꿈나무회원 리뷰목록 페이지</title>
+<link rel="stylesheet" href="/resources/css/dreammypage/dreamqnadetail.css">
+<title>꿈나무회원 문의목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">리뷰 목록</div>
+		<div id="main-title">문의 목록</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -26,31 +25,30 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>제목</th>
 							<th>가게이름</th>
-							<th>작성날짜</th>
-							<th>수정</th>
-							<th>삭제</th>
+							<th>예약날짜</th>
+							<th>예약취소</th>
+							<th>후기작성</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:if test="${ !empty drReviewList }">
-					<c:forEach items="${drReviewList }" var="dreamreview" varStatus="status">
+					<c:if test="${ !empty qList }">
+					<c:forEach items="${qList }" var="qna" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${dreamreview.drmReviewTitle }</p></a></td>
-							<td>${dreamreview.shopName }</td>
-							<td>${dreamreview.drmReviewCreateDate }</td>
+							<td><a class="table-link-title" href="#"><p>${qna.qnaTitle }</p></a></td>
+							<td>${qna.qanCreateDate }</td>
+							
+							
 							<td><a class="modify-btn" href="#">수정</a></td>
 							<td><a class="delete-btn" href="#">삭제</a></td>
-							
 						</tr>
 					</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
 							<td colspan="5">
 								<!-- 이전 -->
-								<c:url var="before" value="allReviewListByDream.dz">
+								<c:url var="before" value="allQnaListByDream.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -61,7 +59,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="allReviewListByDream.dz">
+									<c:url var="pagination" value="allQnaListByDream.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -72,7 +70,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="allReviewListByDream.dz">
+								<c:url var="after" value="allQnaListByDream.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">
@@ -84,9 +82,9 @@
 							</td>
 						</tr>
 						</c:if>
-						<c:if test="${ empty drReviewList }">
+						<c:if test="${ empty rList }">
 							<tr>
-								<td colspan="6">${ msg }</td>
+								<td colspan="5">${ msg }</td>
 							</tr>
 						</c:if>
 					</tbody>

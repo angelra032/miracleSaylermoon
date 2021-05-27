@@ -22,16 +22,15 @@ public interface ReservationService {
 	public int cancleReservation(Reservation reservation);
 	
 	
-	public ArrayList<Reservation> rListByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기
+	public ArrayList<Reservation> listByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservationListByDream(int userNo, PageInfo pi); // 꿈나무회원별 "전체" 예약목록 불러오기
 	
-	public ArrayList<Reservation> rListByMZUpToThree(int userNo); // MZ회원별 상위 3개 예약목록 불러오기
+	public ArrayList<Reservation> listByMZToThree(int userNo); // MZ회원별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi); // MZ회원별 "전체" 예약목록 불러오기
 	
-	public ArrayList<Reservation> rListByShopUpToThree(int shopNo); // 가게별 상위 3개 예약목록 불러오기
+	public ArrayList<Reservation> listByShopToThree(int shopNo); // 가게별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi); // 가게별 "전체" 예약목록 불러오기
 	
 	// 페이징
 	public int getListCount(int userNo); // 페이징처리
-	public int addReadCount(int reservationNo);
 }

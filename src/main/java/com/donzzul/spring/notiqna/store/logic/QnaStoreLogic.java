@@ -63,6 +63,26 @@ public class QnaStoreLogic implements QnaStore {
 		return sqlSession.delete("notiQnaMapper.deleteQna", qaNo);
 	}
 
+	
+	// 드림 마이페이지
+	@Override
+	public ArrayList<Qna> dreamQnaUpToThree(int userNo) {
+		return (ArrayList)sqlSession.selectList("notiQnaMapper.dreamQnaUpToThree",userNo);
+	}
+
+	@Override
+	public ArrayList<Qna> qnaListBydream(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Qna> qna = (ArrayList)sqlSession.selectList("notiQnaMapper.selectAllByDream",userNo, rowBounds);
+		return qna;
+	}
+
+	@Override
+	public int dreamListCount(int userNo) {
+		return sqlSession.selectOne("notiQnaMapper.qnaListCount", userNo);
+	}
+
 
 
 
