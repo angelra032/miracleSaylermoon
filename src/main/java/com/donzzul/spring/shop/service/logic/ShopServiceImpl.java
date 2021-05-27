@@ -45,9 +45,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public ArrayList<Shop> searchShopTheme(int themeNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Shop> searchShopTheme(String themeWord) {
+		return sStore.searchShopTheme(themeWord);
 	}
 	
 	@Override

@@ -143,6 +143,7 @@ public class ShopController {
 		
 		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
 		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
+		System.out.println("테스트 확인 :" + mapList);
 		
 		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
@@ -150,9 +151,8 @@ public class ShopController {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
-		hashMap.put("center", mapList.get(0).getShopAddr());
 		hashMap.put("mapMarkers", mapMarkers);
-		
+		hashMap.put("center", mapList.get(0).getShopAddr());
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());
 	}
@@ -173,13 +173,56 @@ public class ShopController {
 	
 	//D 가게검색 - 테마
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
-	public void searchTheme(@RequestParam("themeNo") int themeNo, Model model) {
+	public void searchTheme(@RequestParam("themeNo") int themeNo, HttpServletResponse response) throws Exception {
 		// 파라미터 - 메뉴 클릭시 넘버
+		String themeWord = "";	
+		switch(themeNo) {
+			case 1 : 
+				themeWord = "리뷰";
+				break;
+			case 2 : 
+				themeWord = "천안";
+				break;
+			case 3 : 
+				themeWord = "신규";
+				break;
+			case 4 : 
+				themeWord = "파스타";
+				break;
+			case 5 : 
+				themeWord = "중식";
+				break;
+			case 6 : 
+				themeWord = "명동";
+				break;
+			case 7 : 
+				themeWord = "버거";
+				break;
+			case 8 : 
+				themeWord = "제주";
+				break;
+			case 9 : 
+				themeWord = "백반";
+				break;
+			case 10 : 
+				themeWord = "피자";
+				break;
+			case 11 : 
+				themeWord = "떡볶이";
+				break;
+			case 12 : 
+				themeWord = "초밥";
+				break;
+			default:
+				themeWord = "서울";
+				break;
+		}
 		// 1번 - 약식정보 가져오기
 		System.out.println(themeNo);
-		ArrayList<Shop> sList = sService.searchShopTheme(themeNo);
+		System.out.println(themeWord);
+		ArrayList<Shop> sList = sService.searchShopTheme(themeWord);
 		Gson gson = new Gson();
-//		gson.toJson(hashMap, response.getWriter());
+		gson.toJson(sList, response.getWriter());
 	}
 	
 	//D 가게 상세 페이지 출력
