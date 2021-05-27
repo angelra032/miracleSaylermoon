@@ -17,4 +17,5 @@ public interface MzReviewService {
     public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo); // 가게 전체 후기 가져오기	
     public ArrayList<MzReview> selectAllReview(int shopNo);
 	public int getListCount();
+	public ArrayList<MzReview> selectThreeReview();
 }

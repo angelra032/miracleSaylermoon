@@ -68,6 +68,12 @@ public class MzReviewStoreLogic implements MzReviewStore {
         return (ArrayList)sqlSession.selectList("mzReviewMapper.selectListShopNo", shopNo);
     }
 
+    // 메인페이지에 최근글 세개 뿌리기
+	@Override
+	public ArrayList<MzReview> selectThreeReview() {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectThreeReview");
+	}
+
 
 
 

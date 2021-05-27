@@ -138,7 +138,7 @@
   font-size: 38px;
   font-weight: 600;
   line-height: 1.32;
-  letter-spacing: -1.2px;
+  letter-spacing: -1.5px;
   text-align: center;
   color: #333333;
 }
@@ -171,7 +171,7 @@
 	height: 1024px;
 	background-color: #e3e4e5;
 }
-.more-margintop {
+.more-paddingtop {
 	padding-top: 140px;
 }
 .thanks-area .content-area {
@@ -226,6 +226,65 @@
 	background-image: url("/resources/images/main/main-systembg.png") ;\
 	background-repeat: no-repeat;
 }
+.less-margintop {
+	margin-top: 0;
+	color: #fdb504;
+}
+.less-margintop span {
+	border-bottom: 4px solid #fdb504;
+}
+.white-text {
+	color: #fff;
+	font-weight: 500;
+	height: 50px;
+}
+.system-area img {
+	margin: 50px auto 0;
+	display: block;
+}
+/* 내역영역 */
+.money-area {
+	width: 100%;
+	height: 1030px;
+	background-color: #ffd83f;
+}
+.less-margintop-blue {
+	margin-top: 0;
+	color: #0160ff;
+}
+.less-margintop-blue span {
+	border-bottom: 4px solid #0160ff;
+}
+.main-content-title span {
+	font-weight: 400;
+	line-height: 1.5;
+}
+.money-intro {
+	text-align: center;
+	margin-top: 80px;
+	font-family: NotoSansKR;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.8;
+	letter-spacing: -1.5;
+	color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -546,8 +546,9 @@
 					rtn = false;
 				}
 				
-				//이름
-				else if (userName.val() =="") {
+				/* //이름
+				var userName = $(".nameelem");
+				if (userName.val() =="") {
 					alert("이름을 입력해주세요.");
 					userName.focus();
 					rtn = false;
@@ -555,10 +556,10 @@
 					alert("이름이 올바르지 않습니다. 다시 입력해주세요.");
 					userName.focus();
 					rtn = false;
-				} 
+				}  */
 				
 				//간이사업자명/////////////////////
-				else if (userSimpleName.val() =="") {
+				if (userSimpleName.val() =="") {
 					alert("간이사업자명을 입력해주세요.");
 					userSimpleName.focus();
 					rtn = false;
@@ -567,7 +568,6 @@
 					userSimpleName.focus();
 					rtn = false;
 				}
-				
 				///휴대폰번호
 				$.ajax({
 					url : "dupPhoneNotMe.dz",

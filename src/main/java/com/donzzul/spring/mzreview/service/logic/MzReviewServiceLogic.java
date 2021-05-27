@@ -62,6 +62,11 @@ public class MzReviewServiceLogic implements MzReviewService {
 		return mStore.deleteMzReview(mReviewNo);
 	}
 
+	@Override
+	public ArrayList<MzReview> selectThreeReview() {
+		return mStore.selectThreeReview();
+	}
+
 
 
 
