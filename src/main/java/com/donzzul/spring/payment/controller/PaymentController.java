@@ -106,11 +106,24 @@ public class PaymentController {
 	// 룰렛 페이지
 	@RequestMapping(value = "rouletteView.dz", method = RequestMethod.GET)
 	public String rouletteView(@RequestParam("donNo") int donNo, HttpSession session, Model model) {
-		System.out.println(donNo); 
-		model.addAttribute("donNo", donNo);
 		
-		System.out.println("여기까지 됨");
-		return "payment/pointRoulette";
+		System.out.println(donNo); 
+		
+		// ROULETTE YN(사용가능 여부) 체크해서 화면단에서 c:if로 처리
+		// Y면 돌리고 N이면 못 돌리게
+		// 돌리고 N으로 바꿔주기
+		Don rouletteYN = pService.selectRouletteYN(donNo);
+		if(rouletteYN != null) {
+			System.out.println("룰렛 사용가능 여부 뿌려줌 : "+rouletteYN.toString());
+			model.addAttribute("donNo", rouletteYN.getDonNo());
+			model.addAttribute("rouletteYN", rouletteYN.getRouletteYN());
+			System.out.println("여기까지 됨");
+			return "payment/pointRoulette";
+		}else {
+			System.out.println("룰렛 사용가능 여부 조회 실패!");
+			model.addAttribute("msg", "룰렛 사용가능 여부 조회 실패!");
+			return "common/errorPage";
+		}
 	}
 
 	// 룰렛 포인트 정립
@@ -126,6 +139,13 @@ public class PaymentController {
 		System.out.println("적립컨트롤"+don.getDonNo());
 		System.out.println("당첨포인트-뒷단:"+don.getSavePoint()); // 앞단에서 당첨된 포인트
 		System.out.println("담아준 돈 객체" + don.toString());
+		
+		// savePoint 널일 때
+		if(don.getSavePoint() == 0 ) {
+			model.addAttribute("msg", "당첨내역이 없습니다.");
+			//
+			return "common/errorPage";
+		}
 		
 		double savePoint = (don.getSavePoint() * 0.01);
 		don.setSavePoint(savePoint);
@@ -148,7 +168,16 @@ public class PaymentController {
 				int result = pService.saveRoulettePoint(roulettePoint);
 				if(result > 0) {
 					System.out.println("룰렛 포인트 업데이트 성공!");
-					return "redirect:snsPhotoView.dz";
+					// 룰렛 사용가능 여부 N으로 update
+					int updateRouletteYN = pService.updateRouletteYN(don.getDonNo());
+					if(updateRouletteYN > 0) {
+						System.out.println("룰렛 사용가능 여부 업데이트!");
+						return "redirect:snsPhotoView.dz";
+					}else {
+						System.out.println("룰렛 사용가능 여부 실패");
+						return "common/errorPage";
+					}
+					
 				}else {
 					System.out.println("룰렛 포인트 업데이트 실패");
 					return "common/errorPage";
@@ -166,7 +195,10 @@ public class PaymentController {
 
 	// 인증샷 페이지
 	@RequestMapping(value = "snsPhotoView.dz", method = RequestMethod.GET)
-	public String snsPhotoView() {
+	public String snsPhotoView(HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		// shopName도 출력해서 인증샷 바뀌도록
+		
 		return "payment/snsPhoto";
 	}
 

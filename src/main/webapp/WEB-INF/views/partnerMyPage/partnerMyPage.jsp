@@ -30,7 +30,7 @@
 				<div class="my-title">
 					<span>예약 관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="partnerReserveList.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -142,11 +142,13 @@
 	        });
 	    });
 
-		$(function(){
+		/* $(function(){
 			var msg = '${msg}';
-			//var url = '${url}';
 			alert(msg);
-		});
+			location.href='${url}';
+			/* var url = '${url}';
+			document.location.href = url; */
+		}); */
 		
 	</script>
 	

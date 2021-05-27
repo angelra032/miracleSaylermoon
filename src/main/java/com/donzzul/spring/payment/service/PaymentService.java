@@ -14,8 +14,7 @@ public interface PaymentService {
 	// 결제, 돈쭐내역 저장, 출력, 룰렛포인트 적립, 
 	// 리뷰포인트 적립, 포인트 사용, 포인트 조회
 	
-					// 포인트 업데이트문 다 계산해서 가져오는 거면 통합할건지 정하고
-	public int usePoint(HashMap<String, Object> donPoint); // 돈쭐 포인트 사용
+	public int usePoint(HashMap<String, Object> donPoint); // 돈쭐 포인트 차감
 	public String selectMyPoint(User user); // 포인트 조회(string인가? user인가)
 	public int saveRoulettePoint(HashMap<String, Object> hash); // 룰렛포인트 적립
 	public int saveReviewPoint(User user);// 리뷰포인트 적립
@@ -39,6 +38,9 @@ public interface PaymentService {
 	public int updateDonSavePoint(Don don);
 	// 포인트 업데이트 시 사용_2(%계산)
 	public int updateDonSavePoint(int donNo);
+	// 포인트 업데이트 시 사용_3(룰렛 여부 체크 - select / update)
+	public Don selectRouletteYN(int donNo);
+	public int updateRouletteYN(int donNo);
 	
 	// 사업자 포인트 환급신청
 	public int applyRefundsShopPoint(int shopNo);
