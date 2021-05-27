@@ -104,22 +104,26 @@
 						var recommendTitle = $("#recommendTitle").val();
 						var recommendNo = '${recommendBoard.recommendNo}';
 						alert(recommendNo);
-					    $.ajax({
-						   url : "recommendModify.dz",
-						   type : "POST",
-						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent, "recommendNo" : recommendNo},
-						   success : function(data){
-							   if(data == "success") {
-								   location.href="recommendDetail.dz?recommendNo="+recommendNo;
-								} else {
-									alert('게시글 수정 실패');
-									location.href="recommendMain.dz";
-								}
-						   },
-						   error : function() {
-						   }
-					   });
-					    
+						if(recommendTitle != "" && recommendContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "recommendModify.dz",
+							   type : "POST",
+							   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent, "recommendNo" : recommendNo},
+							   success : function(data){
+								   if(data == "success") {
+									   location.href="recommendDetail.dz?recommendNo="+recommendNo;
+									} else {
+										alert('게시글 수정 실패');
+										location.href="recommendMain.dz";
+									}
+							   },
+							   error : function() {
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
 				   });
 				   
 				   

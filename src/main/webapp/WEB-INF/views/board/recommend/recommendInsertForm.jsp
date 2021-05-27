@@ -102,21 +102,26 @@
 				   $('#saveBtn').on('click', function() {
 					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
 						var recommendTitle = $("#recommendTitle").val();
-					    $.ajax({
-						   url : "recommendInsertForm.dz",
-						   type : "POST",
-						   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
-						   success : function(data){
-							   if(data == "success") {
-								   location.href="recommendMain.dz";
-								} else {
-									alert('게시글 올리기 실패');
-									location.href="recommendMain.dz";
-								}
-						   },
-						   error : function() {
-						   }
-					   });
+						if(recommendTitle != "" && recommendContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "recommendInsertForm.dz",
+							   type : "POST",
+							   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
+							   success : function(data){
+								   if(data == "success") {
+									   location.href="recommendMain.dz";
+									} else {
+										alert('게시글 올리기 실패');
+										location.href="recommendMain.dz";
+									}
+							   },
+							   error : function() {
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
 					    
 				   });
 				   

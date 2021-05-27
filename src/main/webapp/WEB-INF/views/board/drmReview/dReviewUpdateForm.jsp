@@ -106,22 +106,26 @@
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
 					var drmRviewNo = '${drmReview.drmRviewNo}';
-				    $.ajax({
-					   url : "dReviewModify.dz",
-					   type : "POST",
-					   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "drmRviewNo" : drmRviewNo},
-					   success : function(data){
-						   if(data == "success") {
-							   location.href="dReviewDetail.dz?drmReviewNo="+drmRviewNo;
-							} else if(data == 'fail') {
-								alert('게시글 올리기 실패');
-								location.href="dReviewMain.dz";
-							}
-					   },
-					   error : function() {
-					   }
-				   });
-				    
+					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") {
+					    $.ajax({
+						   url : "dReviewModify.dz",
+						   type : "POST",
+						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "drmRviewNo" : drmRviewNo},
+						   success : function(data){
+							   if(data == "success") {
+								   location.href="dReviewDetail.dz?drmReviewNo="+drmRviewNo;
+								} else if(data == 'fail') {
+									alert('게시글 수정 실패');
+									location.href="dReviewMain.dz";
+								}
+						   },
+						   error : function() {
+						   }
+					   });
+					} else {
+						alert('제목과 내용을 입력해주세요');
+						return false;
+					}
 			   });
 			   
 			   

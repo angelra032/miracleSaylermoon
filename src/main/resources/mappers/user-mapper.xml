@@ -79,6 +79,12 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_ID = #{userId} AND USER_EMAIL = #{userEmail}
 	</select>
 	
+	<!-- 어드민조회 / 1.패스워드제외 최신순 회원 조회 / -->
+	<select id="selectAllUser" parameterType="User" resultMap="userResultMap">
+		SELECT USER_NO, USER_ID, USER_NAME, USER_NICK, USER_PHONE, USER_EMAIL, PARTNER_VERIFY, PARTNER_WITHDRAW, DREAM_CARDNO, USER_POINT, USER_TYPE, PARTNER_NAME FROM "USER" ORDER BY USER_NO DESC
+	</select>
+	<!-- 어드민 조회 -->
+	
 	<insert id="insertDreamUser" parameterType="User">
 		INSERT INTO "USER"
 		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userNick}, #{userPhone}, #{userEmail}, null, null, #{dreamCardno}, null, '1', null)

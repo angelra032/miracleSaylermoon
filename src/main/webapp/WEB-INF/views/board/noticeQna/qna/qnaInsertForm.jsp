@@ -88,24 +88,29 @@
 				   $('#saveBtn').on('click', function() {
 					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
 						var qnaTitle = $("#qnaTitle").val();
-					    $.ajax({
-						   url : "qaInsertForm.dz",
-						   type : "POST",
-						   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
-						   success : function(data){
-							   if(data == "success") {
-								   alert('성공');
-								   location.href="notiQnaMain.dz";
-								} else if(data=="fail") {
-									alert('게시글 올리기 실패');
-									location.href="notiQnaMain.dz";
-								} else if(data=="fail2") {
-									alert('실패실패');
-								}
-						   },
-						   error : function() {
-						   }
-					   });
+						if(qnaTitle != "" && qnaContent != "<p><br></p>") {
+						    $.ajax({
+							   url : "qaInsertForm.dz",
+							   type : "POST",
+							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
+							   success : function(data){
+								   if(data == "success") {
+									   alert('성공');
+									   location.href="notiQnaMain.dz";
+									} else if(data=="fail") {
+										alert('게시글 올리기 실패');
+										location.href="notiQnaMain.dz";
+									} else if(data=="fail2") {
+										alert('실패');
+									}
+							   },
+							   error : function() {
+							   }
+						   });
+						} else {
+							alert('제목과 내용을 입력해주세요');
+							return false;
+						}
 					    
 				   });
 				   
