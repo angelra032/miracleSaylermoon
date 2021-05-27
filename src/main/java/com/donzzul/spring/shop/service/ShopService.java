@@ -21,5 +21,6 @@ public interface ShopService {
 	public ArrayList<MenuPhoto> selectMenuPhoto(int shopNo); // 가게 메뉴 사진 출력
 	public int selectListCount(HashMap<String, String> selectedLocation); // 지역별 지도 전체 게시글 갯수
 	public int selectKeyListCount(String searchKeyword); // 지도 검색시 전체 게시글 갯수
-	
+    public ArrayList<Shop> selectAllShopListDESC();
+    public ArrayList<Shop> selectAllShopListASC();	
 }

@@ -38,63 +38,63 @@
 			
 			<div class="searchTheme">
 				<div class="theme one">
-					<input type=hidden name="theme1" value="1">
 					<span>이주의 리뷰왕</span>
+					<input type=hidden name="theme1" value="1">
 					<img class="theme1" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1">
 				</div>
 				<div class="theme two">
-					<input type=hidden name="themeNo" value="2">
 					<span>천안 맛집 추천</span>
-					<img class="theme2" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
+					<input type=hidden name="themeNo" value="2">
+					<img class="theme1" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
 				</div>
 				<div class="theme three">
-					<input type=hidden id="searchNum" value="3">
 					<span>이달의 신규가게</span>
+					<input type=hidden id="searchNum" value="3">
 					<a href=""><img src="/resources/images/theme/shoptheme3.jpeg" alt="theme3"></a>
 				</div>
 				<div class="theme four">
-					<input type=hidden id="searchNum" value="4">
 					<span>파스타 맛집 추천</span>
+					<input type=hidden id="searchNum" value="4">
 					<a href=""><img src="/resources/images/theme/shoptheme4.jpeg" alt="theme4"></a>
 				</div>
 				<div class="theme five">
-					<input type=hidden id="searchNum" value="5">
 					<span>중식 맛집 추천</span>
+					<input type=hidden id="searchNum" value="5">
 					<a href=""><img src="/resources/images/theme/shoptheme5.jpeg" alt="theme5"></a>
 				</div>
 				<div class="theme six">
-					<input type=hidden id="searchNum" value="6">
 					<span>명동 맛집 추천</span>
+					<input type=hidden id="searchNum" value="6">
 					<a href="#"><img src="/resources/images/theme/shoptheme6.jpeg" alt="theme6"></a>
 				</div>
 				<div class="theme seven">
-					<input type=hidden id="searchNum" value="7">
 					<span>햄버거 맛집 추천</span>
+					<input type=hidden id="searchNum" value="7">
 					<a href=""><img src="/resources/images/theme/shoptheme7.jpeg" alt="theme7"></a>
 				</div>
 				<div class="theme eight">
-					<input type=hidden id="searchNum" value="8">
 					<span>제주 맛집 추천</span>
+					<input type=hidden id="searchNum" value="8">
 					<a href=""><img src="/resources/images/theme/shoptheme8.jpeg" alt="theme8"></a>
 				</div>
 				<div class="theme nine">
-					<input type=hidden id="searchNum" value="9">
 					<span>백반 맛집 추천</span>
+					<input type=hidden id="searchNum" value="9">
 					<a href=""><img src="/resources/images/theme/shoptheme9.jpeg" alt="theme9"></a>
 				</div>
 				<div class="theme ten">
-					<input type=hidden id="searchNum" value="10">
 					<span>도심 속<br>작은 유럽</span>
+					<input type=hidden id="searchNum" value="10">
 					<a href=""><img src="/resources/images/theme/shoptheme10.jpeg" alt="theme10"></a>
 				</div>
 				<div class="theme eleven">
-					<input type=hidden id="searchNum" value="11">
 					<span>분식이 땡길 때</span>
+					<input type=hidden id="searchNum" value="11">
 					<a href=""><img src="/resources/images/theme/shoptheme11.jpeg" alt="theme11"></a>
 				</div>
 				<div class="theme twelve">
-					<input type=hidden id="searchNum" value="12">
 					<span>초밥 맛집 추천</span>
+					<input type=hidden id="searchNum" value="12">
 					<a href=""><img src="/resources/images/theme/shoptheme12.jpeg" alt="theme12"></a>
 				</div>
 			</div> 
@@ -159,8 +159,10 @@
 				}
 			});
 			
-			$(".theme1").on("click", function() {
-				var themeNo = $("input[name=theme1]").val();
+			$(".theme1").on("click", function(e) {
+				console.log(e.target);
+				console.log($(e.target).prev().val());
+				var themeNo = $(e.target).prev().val();
  				$.ajax({
 					url: "searchTheme.dz",
 					type: "get",
@@ -170,7 +172,7 @@
 						
 					},
 					error: function() {
-						consloe.log("서버에 연결할 수 없습니다.");
+						console.log("서버에 연결할 수 없습니다.");
 						return false;
 					}
 				});

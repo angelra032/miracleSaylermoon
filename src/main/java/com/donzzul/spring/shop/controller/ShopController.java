@@ -49,69 +49,70 @@ public class ShopController {
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
 	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("location") String location, @RequestParam(value="page", required=false) Integer page) {
-			switch(location) {
+		String qLocation = "";	
+		switch(location) {
 			case "All" : 
-				location = "전체";
+				qLocation = "전체";
 				break;
 			case "Seoul" : 
-				location = "서울";
+				qLocation = "서울";
 				break;
 			case "Busan" : 
-				location = "부산";
+				qLocation = "부산";
 				break;
 			case "Gwangju" : 
-				location = "광주";
+				qLocation = "광주";
 				break;
 			case "Daegu" : 
-				location = "대구";
+				qLocation = "대구";
 				break;
 			case "Daejeon" : 
-				location = "대전";
+				qLocation = "대전";
 				break;
 			case "Sejong" : 
-				location = "세종";
+				qLocation = "세종";
 				break;
 			case "Ulsan" : 
-				location = "울산";
+				qLocation = "울산";
 				break;
 			case "Incheon" : 
-				location = "인천";
+				qLocation = "인천";
 				break;
 			case "Jeju" : 
-				location = "제주";
+				qLocation = "제주";
 				break;
 			case "Gangwon" : 
-				location = "강원";
+				qLocation = "강원";
 				break;
 			case "Gyeonggi" : 
-				location = "경기";
+				qLocation = "경기";
 				break;
 			case "SouthGyeongsang" : 
-				location = "경남";
+				qLocation = "경남";
 				break;
 			case "NorthGyeongsang" : 
-				location = "경북";
+				qLocation = "경북";
 				break;
 			case "SouthJeolla" : 
-				location = "전남";
+				qLocation = "전남";
 				break;
 			case "NorthJeolla" : 
-				location = "전북";
+				qLocation = "전북";
 				break;
 			case "SouthChungCheong" : 
-				location = "충남";
+				qLocation = "충남";
 				break;
 			case "NorthChungCheong" : 
-				location = "충북";
+				qLocation = "충북";
 				break;
 			default:
-				location = "서울";
+				qLocation = "서울";
 				break;
 		}
-		System.out.println(location);
+		System.out.println(qLocation);
 		
 		HashMap<String, String> selectedLocation = new HashMap<String, String>();
-		selectedLocation.put("location", location);
+		selectedLocation.put("location", qLocation);
 		System.out.println("로케이션 값" + selectedLocation);
 		
 		// PageInfo 만들기 위해 필요한 데이터
@@ -125,9 +126,10 @@ public class ShopController {
 		mv.addObject("pi",	pi);
 		mv.addObject("mList", mapList);
 		mv.addObject("mapMarkers", mapMarkers);
-		mv.addObject("center", location);
+		mv.addObject("location", location);
+		mv.addObject("center", qLocation);
 		mv.setViewName("map/MapDetail");
-		
+		System.out.println(location);
 		return mv;
 	}
 	
@@ -148,6 +150,7 @@ public class ShopController {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
+		hashMap.put("center", mapList.get(0).getShopAddr());
 		hashMap.put("mapMarkers", mapMarkers);
 		
 		Gson gson = new Gson();
