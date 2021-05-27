@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- css -->
-<link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopSearchList.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopSearchResult.css">
 <!-- JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>가게 찾기 리스트</title>
@@ -30,75 +30,6 @@
 				<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
 				<button id="btn-search"><img src="/resources/images/search.png"></button>
 			</div>
-			
-			<!-- 테마 메인!!!!!!!!! -->
-			<div class="sub-title second">
-				<p>에디터 추천</p>
-			</div>
-			
-			<div class="searchTheme">
-				<div class="theme one">
-					<span>이주의 리뷰왕</span>
-					<input type=hidden name="theme1" value="1">
-					<img class="theme1" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1">
-				</div>
-				<div class="theme two">
-					<span>천안 맛집 추천</span>
-					<input type=hidden name="theme2" value="2">
-					<img class="theme1" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
-				</div>
-				<div class="theme three">
-					<span>이달의 신규가게</span>
-					<input type=hidden name="theme3" value="3">
-					<img class="theme1" src="/resources/images/theme/shoptheme3.jpeg" alt="theme3">
-				</div>
-				<div class="theme four">
-					<span>파스타 맛집 추천</span>
-					<input type=hidden name="theme4" value="4">
-					<img class="theme1" src="/resources/images/theme/shoptheme4.jpeg" alt="theme4">
-				</div>
-				<div class="theme five">
-					<span>중식 맛집 추천</span>
-					<input type=hidden name="theme5" value="5">
-					<img class="theme1" src="/resources/images/theme/shoptheme5.jpeg" alt="theme5">
-				</div>
-				<div class="theme six">
-					<span>명동 맛집 추천</span>
-					<input type=hidden name="theme6" value="6">
-					<img class="theme1" src="/resources/images/theme/shoptheme6.jpeg" alt="theme6">
-				</div>
-				<div class="theme seven">
-					<span>햄버거 맛집 추천</span>
-					<input type=hidden name="theme7" value="7">
-					<img class="theme1" src="/resources/images/theme/shoptheme7.jpeg" alt="theme7">
-				</div>
-				<div class="theme eight">
-					<span>제주 맛집 추천</span>
-					<input type=hidden name="theme8" value="8">
-					<img class="theme1" src="/resources/images/theme/shoptheme8.jpeg" alt="theme8">
-				</div>
-				<div class="theme nine">
-					<span>백반 맛집 추천</span>
-					<input type=hidden name="theme9" value="9">
-					<img class="theme1" src="/resources/images/theme/shoptheme9.jpeg" alt="theme9">
-				</div>
-				<div class="theme ten">
-					<span>도심 속<br>작은 유럽</span>
-					<input type=hidden name="theme10" value="10">
-					<img class="theme1" src="/resources/images/theme/shoptheme10.jpeg" alt="theme10">
-				</div>
-				<div class="theme eleven">
-					<span>분식이 땡길 때</span>
-					<input type=hidden name="theme11" value="11">
-					<img class="theme1" src="/resources/images/theme/shoptheme11.jpeg" alt="theme11">
-				</div>
-				<div class="theme twelve">
-					<span>초밥 맛집 추천</span>
-					<input type=hidden name="theme12" value="12">
-					<img class="theme1" src="/resources/images/theme/shoptheme12.jpeg" alt="theme12">
-				</div>
-			</div> 
-			
 			
 			<!-- 검색결과 가게 리스트 -->
 			<!-- AJAX -->
@@ -126,7 +57,40 @@
 			</div>
 			
 			<div class="searchResult navi">
-			
+				<c:url var="before" value="mapSearchShop.dz">
+						<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+						<c:if test="${ !empty location }">
+							<c:param name="location" value="${ location }"></c:param>
+						</c:if>
+					</c:url>
+					<c:if test="${ pi.currentPage > 1 }">
+						<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+					</c:if>
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:url var="pagination" value="mapSearchShop.dz">
+							<c:param name="page" value="${ p }"></c:param>
+							<c:if test="${ !empty location }">
+								<c:param name="location" value="${ location }"></c:param>
+							</c:if>
+						</c:url>
+						<c:if test="${ p eq pi.currentPage }">
+							<span id="currentPage">${ p }</span>
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+						</c:if>
+					</c:forEach>
+					<c:url var="after" value="mapSearchShop.dz">
+						<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+						<c:if test="${ !empty location }">
+							<c:param name="location" value="${ location }"></c:param>
+						</c:if>
+					</c:url>
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+					</c:if>
 			</div>
 		</div> 
 	</main>
@@ -159,7 +123,7 @@
 				}
 			});
 			
-			 $(".theme1").on("click", function(e) {
+			$(".theme1").on("click", function(e) {
 				console.log(e.target);
 				console.log($(e.target).prev().val());
 				var themeNo = $(e.target).prev().val();
@@ -176,7 +140,7 @@
 						return false;
 					}
 				});
-			}); s
+			});
 		});
 	</script>
 </body>

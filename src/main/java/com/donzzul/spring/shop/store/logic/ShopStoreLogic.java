@@ -51,9 +51,8 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
-	public ArrayList<Shop> searchShopTheme(int themeNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Shop> searchShopTheme(String themeWord) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", themeWord);
 	}
 
 	@Override
