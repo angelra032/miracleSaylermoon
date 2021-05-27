@@ -19,7 +19,7 @@
 		<div class="header-admin-nick-area">
 				관리자님 안녕하세요!
 			</div>
-			<div class="admin-menu">
+		<!-- 	<div class="admin-menu">
 				<ul>
 					<li>포인트관리</li>
 					<li>사업자관리</li>
@@ -27,7 +27,7 @@
 					<li>게시판관리</li>
 					<li>관리자프로필</li>
 				</ul>
-			</div>
+			</div> -->
 			
         <!-- 포인트관리 -->
         <div class="point-area">
@@ -43,7 +43,7 @@
                 </div>
 				<div class="point-count-area">
 					<div class="all-point point-ck"><span>총 포인트 : </span> <span> 50,000 원</span></div>
-					<!-- <div class="month-point point-ck"><span>이번달 포인트 : </span> <span>30,000 원</span></div> -->
+					<!-- <div class="monthrh-point point-ck"><span>이번달 포인트 : </span> <span>30,000 원</span></div> -->
 				</div>
 
             </div>

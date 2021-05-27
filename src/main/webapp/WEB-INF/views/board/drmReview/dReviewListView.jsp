@@ -7,13 +7,13 @@
 <meta charset="UTF-8">
 <!-- <link rel="stylesheet" href="resources/css/board/drmReview/dReviewListView.css"> -->
 <link rel="stylesheet" href="resources/css/board/common/mainList.css">
-<title>게시글</title>
+<title>감사후기</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	<main align="center">
 		<div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
 		<div id="main-title">감사후기</div>
 		<div class="frame">

@@ -10,14 +10,14 @@
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!-- <link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css"> -->
 	<!--  -->
-	<title>문의하기</title>
+	<title>QnA</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	
 	<main>
 		<div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
 		<div id="main-title">QnA</div>
 		

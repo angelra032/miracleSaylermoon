@@ -10,14 +10,14 @@
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
 	<!-- <link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css"> -->
 	<!--  -->
-	<title>가게추천 글 등록</title>
+	<title>가게추천</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	
 	<main>
 		<div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
 		<div id="main-title">가게추천</div>
 		
