@@ -17,87 +17,137 @@
 		<div id="main-title">포인트 룰렛</div>
 		<div class="frame">
 			<div class="roulette">
+				
 				<h2>포인트 룰렛</h2>
 				<h4>돈쭐낸 가격의 최대 10% 상당의 포인트를 지급받으세요!</h4>
 
-				<form action="saveRoulettePoint.dz" method="post">
-					<div id="point-roulette">
-
-						<div>
-							<img src="/resources/images/roulette/roulette.png" id="roulette-img"> 
-							<img src="/resources/images/roulette/niddle.png" id="needle">
+				<c:if test="${rouletteYN == 'Y' }">
+					<form action="saveRoulettePoint.dz" method="post">
+						<div id="point-roulette">
+							<div>
+								<img src="/resources/images/roulette/roulette.png" id="roulette-img"> 
+								<img src="/resources/images/roulette/niddle.png" id="needle">
+							</div>
+							<br> 
+								<input type="hidden" name="savePoint" value="" />
+								<input type="text" name="donNo" value="${donNo }"/>
+								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
+							<!-- <div id="result_id"></div>
+							<div id="result_id2"></div>
+							<div id="result_id3"></div> -->
 						</div>
-						<br> 
-							<input type="hidden" name="savePoint" value="" />
-							<input type="hidden" name="donNo" value="${donNo }"/>
-							<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
-						<!-- <div id="result_id"></div>
-						<div id="result_id2"></div>
-						<div id="result_id3"></div> -->
-
-					<script>
-						window.onload = function() {
-							/* var pArr = [ "0", "1", "2", "3", "4:꽝", "5", "6", "7", "8", "9" ]; */
-							var pArr = [ 5, 8, 9, 6, 1, 4, 3, 2, 7, 10 ];
-							
-							$('#start_btn').click(function() {
-								rotation();
-							});
-
-							function rotation() {
-								$("#roulette-img").rotate({
-									angle : 0,
-									animateTo : 360 * 5 + randomize(0, 360),
-									center : [ "50%", "50%" ],
-									easing : $.easing.easeInOutElastic,
-									callback : function() {
-										var n = $(this).getRotateAngle();
-										endAnimate(n);
-									},
-									duration : 5000
-								});
-							}
-
-							function endAnimate($n) {
-								var n = $n;
-								$('#result_id').html("<p>움직인각도:" + n + "</p>");
-								var real_angle = n % 360 + 18;
-								var part = Math.floor(real_angle / 36);
-
-								$('#result_id2').html("<p>상품범위:" + part + "</p>");
-
-								if (part < 1) {
-									$('#result_id3').html("<p>당첨내역:" + pArr[0] + "</p>");
-									return;
-								}
-
-								if (part >= 10) {
-									$('#result_id3').html("<p>당첨내역:" + pArr[pArr.length - 1] + "</p>");
-									return;
-								}
-
-								$('#result_id3').html("<p>당첨내역:" + pArr[part] + "</p>");
-								//var winPoint = Number(pArr[part]);
-								//console.log("당첨포인트 : " + winPoint);
-								
-								$("input[name='savePoint']").val(pArr[part]);
-								console.log("hidden당첨포인트 : " + $("input[name='savePoint']").val());
-							}
-
-							function randomize($min, $max) {
-								return Math.floor(Math.random() * ($max - $min + 1)) + $min;
-							}
-						};
-					</script>
-				</div>
+						<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true">
+					</form>
+				</c:if>
 				
-				<input type="submit" id="point-save-btn" value="포인트 받기">
-			</form>
+				<c:if test="${rouletteYN == 'N' }">
+					<form action="saveRoulettePoint.dz" method="post">
+						<div id="point-roulette">
+							<div>
+								<!-- <img src="/resources/images/roulette/roulette.png" id="roulette-img">  -->
+								<img src="/resources/images/roulette/niddle.png" id="needle">
+							</div>
+							<br> 
+								<input type="hidden" name="savePoint" value="" />
+								<input type="text" name="donNo" value="${donNo }"/>
+								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
+							<!-- <div id="result_id"></div>
+							<div id="result_id2"></div>
+							<div id="result_id3"></div> -->
+						</div>
+						<input type="submit" id="point-save-btn" value="포인트 받기">
+					</form>
+				</c:if>
+				
 			</div>
 
 		</div>
-
 	</main>
+	
+	<script>
+		window.onload = function() {
+			/* var pArr = [ "0", "1", "2", "3", "4:꽝", "5", "6", "7", "8", "9" ]; */
+			var pArr = [ 5, 8, 9, 6, 1, 4, 3, 2, 7, 10 ];
+			
+			$('#start_btn').click(function() {
+				rotation();
+			});
+		
+			function rotation() {
+				$("#roulette-img").rotate({
+					angle : 0,
+					animateTo : 360 * 5 + randomize(0, 360),
+					center : [ "50%", "50%" ],
+					easing : $.easing.easeInOutElastic,
+					callback : function() {
+						var n = $(this).getRotateAngle();
+						endAnimate(n);
+					},
+					duration : 5000
+				});
+			}
+		
+			function endAnimate($n) {
+				var n = $n;
+				$('#result_id').html("<p>움직인각도:" + n + "</p>");
+				var real_angle = n % 360 + 18;
+				var part = Math.floor(real_angle / 36);
+		
+				$('#result_id2').html("<p>상품범위:" + part + "</p>");
+		
+				if (part < 1) {
+					$('#result_id3').html("<p>당첨내역:" + pArr[0] + "</p>");
+					return;
+				}
+		
+				if (part >= 10) {
+					$('#result_id3').html("<p>당첨내역:" + pArr[pArr.length - 1] + "</p>");
+					return;
+				}
+		
+				$('#result_id3').html("<p>당첨내역:" + pArr[part] + "</p>");
+				//var winPoint = Number(pArr[part]);
+				//console.log("당첨포인트 : " + winPoint);
+				
+				$("input[name='savePoint']").val(pArr[part]);
+				console.log("hidden당첨포인트 : " + $("input[name='savePoint']").val());
+			}
+		
+			function randomize($min, $max) {
+				return Math.floor(Math.random() * ($max - $min + 1)) + $min;
+			}
+			
+			/* $("#point-save-btn").click(function() {
+				$("input[name='savePoint']").val())
+				/* if($("input[name='savePoint']").val() == null){
+					alert("포인트 룰렛을 돌려 포인트를 지급받으세요!");
+					return false;
+				}
+			}); */
+			
+		};
+		
+		//새로고침 막기
+		function doNotReload(){
+		    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+		        event.keyCode = 0;
+		        event.cancelBubble = true;
+		        event.returnValue = false;
+		        alert("새로고침이 불가능합니다.");
+		        return false;
+		    } 
+		}
+		document.onkeydown = doNotReload;
+		
+
+		// 뒤로 가기 방지
+		window.history.forward();
+		function noBack() {
+			window.history.forward();
+		}
+
+	</script>	
+	
 	<script type="text/javascript" src="/resources/js/roulette/jQueryRotateCompressed.js"></script>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>

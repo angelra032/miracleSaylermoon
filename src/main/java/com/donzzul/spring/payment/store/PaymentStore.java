@@ -39,6 +39,9 @@ public interface PaymentStore {
 	public int updateDonSavePoint(Don don);
 	// 포인트 업데이트 시 사용_2(%계산)
 	public int updateDonSavePoint(int donNo);
+	// 포인트 업데이트 시 사용_3(룰렛 여부 체크 - select / update)
+	public Don selectRouletteYN(int donNo);
+	public int updateRouletteYN(int donNo);
 	
 	// 사업자 포인트 환급신청
 	public int updateShopPointYN(int shopNo);

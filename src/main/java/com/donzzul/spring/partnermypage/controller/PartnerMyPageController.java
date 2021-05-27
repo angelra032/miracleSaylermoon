@@ -1,8 +1,10 @@
 package com.donzzul.spring.partnermypage.controller;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,7 @@ public class PartnerMyPageController {
 		Shop myShop = pService.selectMyShop(userNo); // 사업자 가게 불러오기
 		int shopNo = myShop.getShopNo();									////////////////// 샵 넘버 없어도 들어갈 수 있게끔
 		
+		// 예약 목록 3개
 		ArrayList<Reservation> rList = rService.rListByShopUpToThree(shopNo);
 		if(!rList.isEmpty()) {
 			model.addAttribute("rList", rList);
@@ -113,7 +116,7 @@ public class PartnerMyPageController {
 	
 	// 사업자 포인트 환급신청
 	@RequestMapping(value="refundsPartnerPoint.dz", method=RequestMethod.GET)
-	public String refundsPoint(HttpSession session, @ModelAttribute User user, Model model) {
+	public String refundsPoint(HttpServletResponse response, HttpSession session, @ModelAttribute User user, Model model) throws Exception {
 		// 내 가게 조회
 		User loginUser = (User)session.getAttribute("loginUser");
 		Shop myShop = pService.selectMyShop(loginUser.getUserNo());
@@ -121,10 +124,14 @@ public class PartnerMyPageController {
 		if(myShop != null) {
 			int shopPointYN = pService.applyRefundsShopPoint(myShop.getShopNo());
 			if(shopPointYN > 0) {
+				System.out.println("환급신청 YN 업데이트");
 				// alert창으로 2-3일 내에 포인트가 환급됩니다 띄우기 - model
-				model.addAttribute("msg", "환급신청이 완료되었습니다. \n2-3일 내에 포인트가 환급됩니다. ");
-				//model.addAttribute("url", "redirect:partnerMyPage.dz");
-				return "redirect:partnerMyPage.dz";
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('환급신청이 완료되었습니다. \\n2-3일 내에 포인트가 환급됩니다.');</script>");
+				//location.href='partnerMyPage.dz';
+				out.flush();
+				return "partnerMyPage/partnerMyPage";
 			}else {
 				model.addAttribute("msg", "포인트 환급신청에 실패하였습니다.");
 				return "common/errorPage";

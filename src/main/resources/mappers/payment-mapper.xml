@@ -13,6 +13,7 @@
 		<result property="shopNo" column="SHOP_NO"/>
 		<result property="usePoint" column="USE_POINT"/>
 		<result property="savePoint" column="SAVE_POINT"/>
+		<result property="rouletteYN" column="ROULETTE_YN"/>
 	</resultMap>
 	
 	<resultMap type="User" id="userResultMap">
@@ -45,7 +46,7 @@
 	
 	<!-- 룰렛 전 - don 내역 저장, 포인트 업데이트 -->
 	<insert id="insertDonList" useGeneratedKeys="true" keyProperty="donNo" keyColumn="DON_NO">
-		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo }, #{usePoint }, DEFAULT )
+		INSERT INTO DON VALUES(SEQ_DON.NEXTVAL, #{donPrice }, #{userNo }, #{menuName }, #{amount }, SYSDATE, #{shopName }, #{shopNo }, #{usePoint }, DEFAULT , DEFAULT )
 	</insert>
 	
 	<update id="updateUserPoint" parameterType="HashMap">
@@ -53,6 +54,14 @@
 		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) - (SELECT NVL(USE_POINT,0) FROM DON WHERE DON_NO = #{donNo }) WHERE USER_NO = #{userNo }
 	</update>
 	
+	<!-- 룰렛 사용가능 여부 체크하기 (select / update -->
+	<select id="selectRouletteYN" resultMap="paymentResultMap">
+		SELECT * FROM DON WHERE DON_NO = #{donNo }
+	</select>
+	
+	<update id="updateRouletteYN">
+		UPDATE DON SET ROULETTE_YN = 'N' WHERE DON_NO = #{donNo }
+	</update>
 	
 	<!-- 룰렛 후 - don 내역 조회, 포인트 업데이트, 유저 포인트 업데이트 -->
 	<select id="selectDonPrice" resultMap="paymentResultMap">

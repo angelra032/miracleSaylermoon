@@ -15,9 +15,10 @@ public class Don {
 	private int shopNo; // 가게번호
 	private String shopName; // 가게이름
 	
-	// test point
+	// point
 	private int usePoint; // 사용할 포인트
 	private double savePoint; // 적립할 포인트
+	private String rouletteYN; // 룰렛 사용가능 여부 
 	
 	public Don() {} // 기본 생성자
 	
@@ -103,11 +104,20 @@ public class Don {
 		this.savePoint = savePoint;
 	}
 
+	public String getRouletteYN() {
+		return rouletteYN;
+	}
+
+	public void setRouletteYN(String rouletteYN) {
+		this.rouletteYN = rouletteYN;
+	}
+
 	@Override
 	public String toString() {
 		return "Don [donNo=" + donNo + ", donPrice=" + donPrice + ", userNo=" + userNo + ", menuName=" + menuName
 				+ ", amount=" + amount + ", paymentDate=" + paymentDate + ", shopNo=" + shopNo + ", shopName="
-				+ shopName + ", usePoint=" + usePoint + ", savePoint=" + savePoint + "]";
+				+ shopName + ", usePoint=" + usePoint + ", savePoint=" + savePoint + ", rouletteYN=" + rouletteYN + "]";
 	}
 
+	
 }

@@ -108,11 +108,25 @@ public class PaymentServiceImpl implements PaymentService {
 		return pStore.updateDonSavePoint(donNo);
 	}
 	
+	// 포인트 업데이트 시 사용_3(룰렛 여부 체크 - select / update)
+	@Override
+	public Don selectRouletteYN(int donNo) {
+		return pStore.selectRouletteYN(donNo);
+	}
+
+	@Override
+	public int updateRouletteYN(int donNo) {
+		return pStore.updateRouletteYN(donNo);
+	}
+	
+	
 	
 	// 사업자 포인트 환급신청
 	@Override
 	public int applyRefundsShopPoint(int shopNo) {
 		return pStore.updateShopPointYN(shopNo);
 	}
+
+	
 
 }
