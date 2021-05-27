@@ -117,7 +117,6 @@ public class ShopController {
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
 		int listCount = sService.selectListCount(selectedLocation); // 전체 게시글 갯수
-		
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
 
 		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
@@ -135,19 +134,21 @@ public class ShopController {
 	//D 지도 - 지역별 가게 키워드 검색
 	@RequestMapping(value="mapSearchKey.dz", method=RequestMethod.GET)
 	public void searchShopMapKey(@RequestParam("searchKeyword") String searchKeyword,  HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) throws Exception {
-
+		
 		int currentPage = (page != null) ? page : 1; 
 		int listCount = sService.selectKeyListCount(searchKeyword); 
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); 
-		System.out.println(pi.toString()); // 확인용
-		ArrayList<Shop> mapList = sService.searchMapKeyword(searchKeyword);
-		System.out.println(mapList.toString()); // 확인용
+		
+		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
+		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
 		
 		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
+		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
+		hashMap.put("mapMarkers", mapMarkers);
 		
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());

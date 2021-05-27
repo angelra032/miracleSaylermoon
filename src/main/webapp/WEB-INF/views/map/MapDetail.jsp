@@ -132,7 +132,7 @@
 		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	 		mapOption = { 
-	        center: new kakao.maps.LatLng(37.54699, 127.09598), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(37.56557, 126.97808), // 지도의 중심좌표
 	        level: 7 // 지도의 확대 레벨
 	    	};
 		
@@ -156,8 +156,7 @@
 			// 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
 		
-		    	 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-				
+		    	var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 				map.setCenter(coords);
 		     }
 		});
@@ -228,9 +227,9 @@
 			 	
 				/* titleOverlay.setMap(null); */
 				
-				/* alert("확인!!"); */
+				 alert("확인!!"); 
 				
-				var shortContent = '<div class="wrap">' + 
+				/* var shortContent = '<div class="wrap">' + 
 	            '    <div class="info">' + 
 	            '        <div class="title">' + 
 	            '            카카오 스페이스닷원' + 
@@ -261,7 +260,7 @@
 				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 				function closeOverlay() {
 					titleOverlay.setMap(null);     
-				}
+				} */
 				
 			}
 		
@@ -282,21 +281,58 @@
 						data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
 						dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
 						success: function(data) {
-							/* if(data.mList.length > 0) { */
+							
+							var contentList = $(".content-list");
+							var contentShop = $(".content-shop");
+							var contentShopLeft = $(".content-shop left");
+							var contentShopRight = $(".content-shop right");
+							var contentShopRightTop = $(".content-shop right top");
+							var contentShopRightBottom = $(".content-shop right bottom");
+							
+							if(data.mList.length > 0) {
 								for( var i in data.mList) {
-								/* 	console.log(data.pi);
-									console.log(data.mList);
-									console.log(data.mList[0].shopNo); */
-									/* $(".content-list").append("<span>mapList[i].shopNo</span>"); */	
-									/* data.mList[0].shopNo */
+									
+								 	contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+								 	contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
+													   .append("<span>"+data.mList[i].shopName+"</span><br>")
+													   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
+													   .append("<span>"+data.mList[i].shopContent+"</span><br>");
+								 	contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
+								 						  .append("<button type='button' class='btn btn-primary btn-sm'>예약하기</button>");
+								 	 
+								 	contentShopRight.append(contentShopRightTop).append(contentShopRightBottom);
+								 	contentShop.append(contentShopLeft).append(contentShopRight);
+									contentList.append(contentShop);
+									
+																
+									
+								/* <div class="content-shop">
+									<div class="content-shop left">
+										<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
+										<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/> -->
+									</div>
+									<div class="content-shop right">
+										<div class="content-shop right top">
+											<input type="hidden" name="shopNo" value="${ shop.shopNo }">
+											<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
+											<span>${ shop.shopType }</span><br>
+											<span>${ shop.shopAddr }</span><br>
+											<span>${ shop.shopContent }</span><br>
+											<br>
+										</div>
+										<div class="content-shop right bottom">
+											<button type="button" class="btn btn-primary btn-sm">예약하기</button>
+										</div>
+									</div>
+								</div> */
 							 	}
-							/*}else {
+							}else {
 								
-							} */
+							} 
 								
 						},
 						error: function() {
-							alert("서버에 연결할 수 없습니다.");
+							console.log("서버에 연결할 수 없습니다.");
 							return false;
 						}
 					});
