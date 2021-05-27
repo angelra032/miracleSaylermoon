@@ -102,7 +102,7 @@
 			
 			<!-- 검색결과 가게 리스트 -->
 			<!-- AJAX -->
-<%-- 			<div class="sub-title second">
+ 			<div class="sub-title second">
 				<p>'${ searchKeyword }' 검색결과</p>
 			</div>
 			
@@ -127,7 +127,7 @@
 			
 			<div class="searchResult navi">
 			
-			</div> --%>
+			</div>
 		</div> 
 	</main>
 	

@@ -87,4 +87,17 @@
 	</update>
 
 
+	<!-- 드림 마이페이지 -->
+	<select id="dreamQnaUpToThree" resultMap="qnaResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY QNA_CREATE_DATE DESC) AS NUM,
+	QNA_TITLE, QNA_CREATE_DATE, QNA_NO FROM QNA_BOARD WHERE USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
+	</select>
+
+	<select id="selectAllByDream" resultMap="qnaResultMap">
+		SELECT QNA_TITLE, QNA_CREATE_DATE, QNA_NO FROM QNA_BOARD WHERE USER_NO = #{userNo} ORDER BY QNA_CREATE_DATE DESC
+	</select>
+	
+	<select id="qnaListCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA_BOARD WHERE USER_NO = #{userNo}
+	</select>
 </mapper>

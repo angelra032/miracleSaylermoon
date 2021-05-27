@@ -22,13 +22,13 @@ public interface ReservationStore {
 	public int cancleReservation(Reservation reservation); // 예약삭제
 	
 	
-	public ArrayList<Reservation> rListByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기
+	public ArrayList<Reservation> listByDreamUpToThree(int userNo); // 꿈나무회원별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservationListByDream(int userNo, PageInfo pi); // 꿈나무회원별 "전체" 예약목록 불러오기
 	
-	public ArrayList<Reservation> rListByMZUpToThree(int userNo); // MZ회원별 상위 3개 예약목록 불러오기
+	public ArrayList<Reservation> listByMZToThree(int userNo); // MZ회원별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservationListByMZ(int userNo, PageInfo pi); // MZ회원별 "전체" 예약목록 불러오기
 	
-	public ArrayList<Reservation> rListByShopUpToThree(int shopNo); // 가게별 상위 3개 예약목록 불러오기
+	public ArrayList<Reservation> listByShopToThree(int shopNo); // 가게별 상위 3개 예약목록 불러오기
 	public ArrayList<Reservation> reservaionListByShop(int shopNo, PageInfo pi); // 가게별 "전체" 예약목록 불러오기
 	
 	
@@ -37,7 +37,6 @@ public interface ReservationStore {
 	public int complteReservation(int reservationNo); //예약완료하기
 
 	//페이징
-	public int selectListCount(int userNo); 
-	public ArrayList<Reservation> selectAllList(PageInfo pi);
+	public int selectListCount(int userNo);
 	
 }

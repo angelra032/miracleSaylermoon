@@ -16,6 +16,8 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.notiqna.domain.Qna;
+import com.donzzul.spring.notiqna.service.QnaService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
@@ -28,24 +30,33 @@ public class DreamMyPageController {
 
 	@Autowired
 	private DreamReviewService drService;
+	
+	@Autowired
+	private QnaService qService;
 
 	@RequestMapping(value = "dreamMyPage.dz")
 	public String DreamMyPageView(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
 
 		int userNo = user.getUserNo();
-		ArrayList<Reservation> rList = rService.rListByDreamUpToThree(userNo);
+		ArrayList<Reservation> rList = rService.listByDreamUpToThree(userNo);
 
 		ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
+		
+		ArrayList<Qna> qList = qService.dreamQnaUpToThree(userNo);
 
-		if (!rList.isEmpty() && !drList.isEmpty()) {
+		if (!rList.isEmpty() && !drList.isEmpty() && !qList.isEmpty()) {
 			model.addAttribute("rList", rList);
 			model.addAttribute("drList", drList);
+			model.addAttribute("qList",qList);
 			return "dreamMyPage/DreamMyPage";
 		} else if (rList.isEmpty()) {
 			model.addAttribute("msg", "불러올 데이터가 없습니다.");
 			return "dreamMyPage/DreamMyPage";
 		} else if (drList.isEmpty()) {
+			model.addAttribute("msg", "불러올 데이터가 없습니다.");
+			return "dreamMyPage/DreamMyPage";
+		} else if(qList.isEmpty()) {
 			model.addAttribute("msg", "불러올 데이터가 없습니다.");
 			return "dreamMyPage/DreamMyPage";
 		} else {
@@ -135,6 +146,31 @@ public class DreamMyPageController {
 			mv.setViewName("dreamMyPage/DreamReviewDetail");
 		} else {
 			mv.addObject("msg", "전체리뷰를 불러오는데 실패했습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="allQnaListByDream.dz", method = RequestMethod.GET)
+	public ModelAndView allQnaListByDream(HttpSession session, 
+									Model model, 
+									ModelAndView mv,
+									@RequestParam(value = "page", required = false) Integer page) {
+		User user = (User) session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = qService.dreamListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Qna> qList = qService.qnaListBydream(userNo, pi);
+		
+		if(!qList.isEmpty()) {
+			mv.addObject("qList",qList);
+			mv.addObject("pi",pi);
+			mv.setViewName("dreamMyPage/DreamQnaDetail");
+		}else {
+			mv.addObject("msg","전체문의목록을 불러오는데 실패했습니다.");
 			mv.setViewName("common/errorPage");
 		}
 		return mv;

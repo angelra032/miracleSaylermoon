@@ -18,4 +18,9 @@ public interface QnaService {
 	public int updateGroup(Qna qna); // 답글번호 수정
 	
 	// qna
+	
+	// 꿈나무 마이페이지
+	public ArrayList<Qna> dreamQnaUpToThree(int userNo);
+	public ArrayList<Qna> qnaListBydream(int userNo, PageInfo pi);
+	public int dreamListCount(int userNo); 
 }

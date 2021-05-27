@@ -81,8 +81,8 @@ public class ReservationStoreLogic implements ReservationStore {
 	
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> rListByDreamUpToThree(int userNo) {
-		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.rListByDreamUpToThree", userNo);
+	public ArrayList<Reservation> listByDreamUpToThree(int userNo) {
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.listByDreamUpToThree", userNo);
 		return reserve;
 	}
 	
@@ -97,8 +97,8 @@ public class ReservationStoreLogic implements ReservationStore {
 
 	//// MZ회원별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> rListByMZUpToThree(int userNo) {
-		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.rListByMZToThree", userNo);
+	public ArrayList<Reservation> listByMZToThree(int userNo) {
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.listByMZToThree", userNo);
 		return reserve;
 	}
 	
@@ -113,8 +113,8 @@ public class ReservationStoreLogic implements ReservationStore {
 
 	// 가게별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> rListByShopUpToThree(int shopNo) {
-		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.rListByShopToThree", shopNo);
+	public ArrayList<Reservation> listByShopToThree(int shopNo) {
+		ArrayList<Reservation> reserve = (ArrayList)sqlSession.selectList("reservationMapper.listByShopToThree", shopNo);
 		return reserve;
 	}
 
@@ -146,15 +146,7 @@ public class ReservationStoreLogic implements ReservationStore {
 	
 	@Override
 	public int selectListCount(int userNo) {
-		return sqlSession.selectOne("reservationMapper.rSelectListCount", userNo);
+		return sqlSession.selectOne("reservationMapper.selectListCount", userNo);
 	}
-
-	@Override
-	public ArrayList<Reservation> selectAllList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 
 }

@@ -56,6 +56,23 @@ public class QnaServiceImpl implements QnaService{
 		return qnaStore.deleteQna(qaNo);
 	}
 
+	// 꿈나무 마이페이지
+	@Override
+	public ArrayList<Qna> dreamQnaUpToThree(int userNo) {
+		return qnaStore.dreamQnaUpToThree(userNo);
+	}
+
+	@Override
+	public ArrayList<Qna> qnaListBydream(int userNo, PageInfo pi) {
+		ArrayList<Qna> qList = qnaStore.qnaListBydream(userNo, pi);
+		return qList;
+	}
+
+	@Override
+	public int dreamListCount(int userNo) {
+		return qnaStore.dreamListCount(userNo);
+	}
+
 
 
 

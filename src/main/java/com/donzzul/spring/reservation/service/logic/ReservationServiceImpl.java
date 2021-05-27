@@ -78,8 +78,8 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> rListByDreamUpToThree(int userNo) {
-		ArrayList<Reservation> rList = rStore.rListByDreamUpToThree(userNo);
+	public ArrayList<Reservation> listByDreamUpToThree(int userNo) {
+		ArrayList<Reservation> rList = rStore.listByDreamUpToThree(userNo);
 		return rList;
 	}
 	
@@ -92,8 +92,8 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	// MZ회원별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> rListByMZUpToThree(int userNo) {
-		ArrayList<Reservation> rList = rStore.rListByDreamUpToThree(userNo);
+	public ArrayList<Reservation> listByMZToThree(int userNo) {
+		ArrayList<Reservation> rList = rStore.listByMZToThree(userNo);
 		return rList;
 	}
 
@@ -106,8 +106,8 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	// 가게별 상위 3개 예약목록 불러오기
 	@Override
-	public ArrayList<Reservation> rListByShopUpToThree(int shopNo) {
-		ArrayList<Reservation> rList = rStore.rListByShopUpToThree(shopNo);
+	public ArrayList<Reservation> listByShopToThree(int shopNo) {
+		ArrayList<Reservation> rList = rStore.listByShopToThree(shopNo);
 		return rList;
 	}
 	
@@ -123,12 +123,5 @@ public class ReservationServiceImpl implements ReservationService{
 	public int getListCount(int userNo) {
 		return rStore.selectListCount(userNo);
 	}
-
-	@Override
-	public int addReadCount(int reservationNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 }
