@@ -22,32 +22,39 @@
 		<div class=frame>
 			<div class=map-left>
 				<div class="searchBar">
-						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역별, 가게명 검색">
+					<!-- <form action="#"> -->
+						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
 						<button id="btn-search"><img src="/resources/images/undo.png"></button>
+					<!-- </form> -->
 				</div>
 				<hr>
 				<div class="content-list">
-					<c:forEach items="${ mList }" var="shop">
-						<div class="content-shop">
-							<div class="content-shop left">
-								<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
-								<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/> -->
-							</div>
-							<div class="content-shop right">
-								<div class="content-shop right top">
-									<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
-									<span>${ shop.shopType }</span><br>
-									<span>${ shop.shopAddr }</span><br>
-									<span>${ shop.shopContent }</span><br>
-									<br>
+					<c:if test="${empty mList}">
+						<span>등록된 가게가 없습니다.</span>
+					</c:if>
+					<c:if test="${!empty mList}">
+						<c:forEach items="${ mList }" var="shop">
+							<div class="content-shop">
+								<div class="content-shop left">
+									<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
+									<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/> -->
 								</div>
-								<div class="content-shop right bottom">
-									<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-									<button type="button" class="btn btn-primary btn-sm">예약하기</button>
+								<div class="content-shop right">
+									<div class="content-shop right top">
+										<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
+										<span>${ shop.shopType }</span><br>
+										<span>${ shop.shopAddr }</span><br>
+										<span>${ shop.shopContent }</span><br>
+										<br>
+									</div>
+									<div class="content-shop right bottom">
+										<input type="hidden" name="shopNo" value="${ shop.shopNo }">
+										<button type="button" class="btn btn-primary btn-sm">예약하기</button>
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</c:if>
 				</div>
 				<div class="content-list-navi">
 					<hr>
@@ -177,9 +184,8 @@
 					    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
 					      
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize),
-					    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 마커가 표시될 위치입니다
-					
+					var markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize),
+					    markerPosition = new kakao.maps.LatLng(result[0].y,result[0].x); // 마커가 표시될 위치입니다
 					// 마커를 생성합니다
 					var marker = new kakao.maps.Marker({
 					    position: markerPosition, 
@@ -204,6 +210,7 @@
 					    yAnchor: 1 
 					});
 					
+					
  					// 마커에 마우스오버 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseover', function() {
 						// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
@@ -214,6 +221,10 @@
 					kakao.maps.event.addListener(marker, 'mouseout', function() {
 					    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
 					    titleOverlay.setMap(null);
+					    
+					    
+
+					    
 					});
 					
 				}
@@ -221,67 +232,118 @@
 			
 		});
 		
+	    function showShortInfo(markerPosition) {
+			
+			/* titleOverlay.setMap(null); */
+			/* alert("확인"); */
+			
+		var content = '<div class="wrap">' + 
+        '    <div class="info">' + 
+        '        <div class="title">' + 
+        '            카카오 스페이스닷원' + 
+        '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+        '        </div>' + 
+        '        <div class="body">' + 
+        '            <div class="img">' +
+        '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+        '           </div>' + 
+        '            <div class="desc">' + 
+        '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
+        '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
+        '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+        '            </div>' + 
+        '        </div>' + 
+        '    </div>' +    
+        '</div>';
+
+		// 마커 위에 커스텀오버레이를 표시합니다
+		// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+		var overlay = new kakao.maps.CustomOverlay({
+		    content: content,
+		    map: map,
+		    position: markerPosition       
+		});
+		
+	}
 
 		
-		function showShortInfo(markerPosition) {
-			 	
-				/* titleOverlay.setMap(null); */
+
+		
+		/* function showShortInfo(markerPosition) {
+				var imageSrc = '/resources/images/map_marker_blue_v2.png', // 마커이미지의 주소입니다    
+				    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
+				      
+				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+				var markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize);
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+				    position: markerPosition, 
+				    image: markerImage // 마커이미지 설정 
+				});
 				
-				 /* alert("확인!!"); */ 
+				// 마커가 지도 위에 표시되도록 설정합니다
+				
 				
 				var shortContent = '<div class="wrap">' + 
-				            '    <div class="info">' + 
-				            '        <div class="title">' + 
-				            '            진짜 파스타' + 
-				            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-				            '        </div>' + 
-				            '        <div class="body">' + 
-				            '            <div class="desc">' + 
-				    '                <div class="ellipsis">제공대상 : </div>' + 
-				        '                <div class="ellipsis">제공품목 : </div>' + 
-				        '                <div class="ellipsis">영업시간 : </div>' + 
-				            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상세페이지</a></div>' + 
-				            '            </div>' + 
-				            '        </div>' + 
-				            '    </div>' +    
-				            '</div>';
+	            '    <div class="info">' + 
+	            '        <div class="title">' + 
+	            '            진짜 파스타' + 
+	            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+	            '        </div>' + 
+	            '        <div class="body">' + 
+	            '            <div class="desc">' + 
+			    '                <div class="ellipsis">제공대상 : </div>' + 
+			        '                <div class="ellipsis">제공품목 : </div>' + 
+			        '                <div class="ellipsis">영업시간 : </div>' + 
+			            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상세페이지</a></div>' + 
+			            '            </div>' + 
+			            '        </div>' + 
+			            '    </div>' +    
+			            '</div>';
 		
 				// 마커 위에 커스텀오버레이를 표시합니다
 				// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 				var shortInfo = new kakao.maps.CustomOverlay({
-				    position: markerPosition,
 				    content: shortContent,
 				    map: map,
+				    position: markerPosition,
 				    yAnchor: 1 
 				 });
+						
+						
+				/* titleOverlay.setMap(null); */
 				
-				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-				function closeOverlay() {
-					titleOverlay.setMap(null);     
-				}
+				 /* alert("확인!!"); */ 
 				
-			}
+				
+				
+			/* }  */
 		
 		/* $(function() { */
 		$("#btn-search").on("click", function() {
+			/* var result = true; */
+			
 			var searchKeyword = $("#searchBox").val();
 			if(searchKeyword == "") {
 				alert("검색하실 지역을 입력해주세요.");
+				/* result = false; */
 				return false;
 			}else {
 				$(".content-list").empty();
-				$(".content-list navi").empty();
+				$(".content-list-navi").empty();
 				$.ajax({
 					url: "mapSearchKey.dz",
 					type: "get",
 					data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+					/* async: false, */
 					dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
 					success: function(data) {
 						var contentList = $(".content-list");
+						var contentListNavi = $(".content-list-navi");
 						/* var contentListNavi = $("<div class='content-list navi'>"); */
 						if(data.mList.length > 0) { 
 							$(".content-list").empty();
-							$(".content-list navi").empty();
+							$(".content-list-navi").empty();
 							for( var i in data.mList) {
 								/* 검색 리스트 */
 								console.log(data.mList.length);
@@ -305,18 +367,37 @@
 								contentShopRight.append(contentShopRightBottom);
 								contentShop.append(contentShopRight);
 								contentList.append(contentShop); 
+								
+								contentListNavi.append("<hr>")
+								.append("<c:url var='before' value='mapSearchShop.dz'>"
+										+ "<c:param name='page' value='"+${ data.pi.currentPage - 1 }"'></c:param>"
+										+ "<c:if test='${ !empty data.searchKeyword }'>
+										if( "${ !empty data.searchKeyword }") {
+										+ "<c:param name='data.searchKeyword' value='${ data.searchKeyword }'></c:param>"
+										+ "</c:if>"
+										+ "</c:url>");
 					 	 	}
-							
+										
+										
+							/*			
+								.append("")
+								.append("")
+								.append("")
+								.append("")
+								.append("") */
+								
 						}else {
-							
+							$(".content-list").empty();
+							$(".content-list-navi").empty();
+							contentList.append("<span>등록된 가게가 없습니다.</span>");
+							/* result = false; */
 						}  
-							
 					},
 					error: function() {
 						console.log("서버에 연결할 수 없습니다.");
-						return false;
 					}
 				});
+ 				/* result = true; */
 			}
 		});
 	/* }); */

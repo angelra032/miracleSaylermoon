@@ -176,7 +176,7 @@
 						return false;
 					}
 				});
-			}); s
+			});
 		});
 	</script>
 </body>
