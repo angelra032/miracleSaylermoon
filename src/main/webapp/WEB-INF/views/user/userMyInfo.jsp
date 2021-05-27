@@ -20,7 +20,7 @@
 		<div class="frame">
 			<div class="tabcontent">
 				<div class="content-body">
-					<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '1'}">
+					<c:if test="${ !empty user && user.userType == '1'}">
 						<div id="dreamEnrollView" class="tab-content current">
 							<form action="mzModify.dz" method="post"> <!-- 일반회원이랑 수정양식 같아서 통일 -->
 								<div class="form-head">
@@ -88,6 +88,8 @@
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ loginUser.userEmail }">
 								</div>
 								<button class="submit-btn" type="submit">수정하기</button>
+								<input type="hidden" name="userNo" class="userNo" value="${ loginUser.userNo }">
+								<input type="hidden" name="userType" value="${ loginUser.userType }">
 							</form>
 						</div>
 					</c:if>
@@ -152,7 +154,7 @@
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ loginUser.userEmail }">
 								</div>
 								<button class="submit-btn" type="submit">수정하기</button>
-								<input type="hidden" name="userNo" value="${ loginUser.userNo }">
+								<input type="hidden" name="userNo" class="userNo" value="${ loginUser.userNo }">
 								<input type="hidden" name="userType" value="${ loginUser.userType }">
 								<input type="hidden" name="userPoint" value="${ loginUser.userPoint }">
 							</form>
@@ -203,8 +205,8 @@
 								<div class="form-head form-head2">
 									연락처&nbsp;
 									<span class="required">*</span>&nbsp;&nbsp;
-									<div class="form-noti phonenoti phone_noti_0">연락처를 입력해 주세요.</div>
-									<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
+									<div class="form-noti pphonenoti phone_noti_0">연락처를 입력해 주세요.</div>
+									<div class="form-noti pphonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 								</div>
 								<div class="form-body">
 									<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="12" placeholder="숫자만 입력" value="${ user.userPhone }">
@@ -229,6 +231,8 @@
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ loginUser.userEmail }">
 								</div>
 								<button class="submit-btn" type="submit">수정하기</button>
+								<input type="hidden" name="userNo" class="userNo" value="${ loginUser.userNo }">
+								<input type="hidden" name="userType" value="${ loginUser.userType }">
 							</form>
 						</div>
 				</c:if>
@@ -361,8 +365,8 @@
 				$(this).val(autoHypenPhone($(this).val()));  
 				$('.phonenoti').css('display', 'none');
 				$.ajax({
-					url : "dupPhone.dz",
-					data : { "userPhone" : $(".phoneelem").val() },
+					url : "dupPhoneNotMe.dz",
+					data : { "userPhone" : $(".phoneelem").val(), "userNo" : $(".userNo").val() },
 					success : function(result) {
 						if(result != 0){
 							$('.phone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
@@ -394,8 +398,8 @@
 				$(this).val(autoHypenPhone($(this).val()));  
 				$('.mzphonenoti').css('display', 'none');
 				$.ajax({
-					url : "dupPhone.dz",
-					data : { "userPhone" : $(".mzphoneelem").val() },
+					url : "dupPhoneNotMe.dz",
+					data : { "userPhone" : $(".mzphoneelem").val(), "userNo" : $(".userNo").val() },
 					success : function(result) {
 						if(result != 0){
 							$('.mzphone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
@@ -452,15 +456,33 @@
 			      return str;
 			}
 
-			var userPhone = $(".pphoneelem");
+			var userPPhone = $(".pphoneelem");
 			$(".pphoneelem").on("keyup", function() {
 				console.log(userPhone.val());
 				$(this).val(autoHypenPPhone($(this).val())) ;  
+				$('.pphonenoti').css('display', 'none');
+				$.ajax({
+					url : "dupPhoneNotMe.dz",
+					data : { "userPhone" : $(".pphoneelem").val(), "userNo" : $(".userNo").val() },
+					success : function(result) {
+						if(result != 0){
+							$('.phone_noti_2').css('color', '#ff5442'); // 에러메시지:이미 등록된 휴대폰번호
+							$('.phone_noti_2').css('display', 'block');
+							$('.pphoneelem').css('border', '1px solid #ff5442');
+						}else {
+							$('.pphonenoti').css('display', 'none');
+							$('.pphoneelem').css('border', '0');
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
 			});
 			// 안적었을때(0) - 휴대폰번호를입력해주세요
 			$(".pphoneelem").on("blur", function() {
-				if (userPhone.val() =="") {
-					$('.phonenoti').css('display', 'none');
+				if (userPPhone.val() =="") {
+					$('.pphonenoti').css('display', 'none');
 					$('.phone_noti_0').css('color', '#ff5442');
 					$('.phone_noti_0').css('display', 'block');
 					$('.pphoneelem').css('border', '1px solid #ff5442');
@@ -473,8 +495,8 @@
 			$(".emailelem").keyup(function() {
 				$('.emailnoti').css('display', 'none');
 				$.ajax({
-					url : "dupEmail.dz",
-					data : { "userEmail" : userEmail.val() },
+					url : "dupEmailNotMe.dz",
+					data : { "userEmail" : userEmail.val(), "userNo" : $(".userNo").val() },
 					success : function(result) {
 						if(result != 0){
 							$('.email_noti_2').css('color', '#ff5442');
@@ -548,11 +570,11 @@
 				
 				///휴대폰번호
 				$.ajax({
-					url : "dupPhone.dz",
-					data : { "userPhone" : userPhone.val() },
+					url : "dupPhoneNotMe.dz",
+					data : { "userPhone" : userPhone.val(), "userNo" : $(".userNo").val() },
 					async: false,
 					success : function(result) {
-						if (userPhone.val() =="") {
+						if (userPhone.length != 0 && userPhone.val() =="") {
 							alert("휴대폰번호를 입력해주세요.");
 							userPhone.focus();
 							rtn = false;
@@ -567,10 +589,30 @@
 					}
 				});
 				
+				$.ajax({
+					url : "dupPhoneNotMe.dz",
+					data : { "userPhone" : $(".pphoneelem").val(), "userNo" : $(".userNo").val() },
+					async: false,
+					success : function(result) {
+						if ($(".pphoneelem").val() =="") {
+							alert("연락처를 입력해주세요.");
+							$(".pphoneelem").focus();
+							rtn = false;
+						}else if(result != 0){
+							alert("이미 등록된 연락처입니다. 다시 입력해주세요.");
+							$(".pphoneelem").focus();
+							rtn = false;
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
+				
 				// 이메일
 				$.ajax({
-					url : "dupEmail.dz",
-					data : { "userEmail" : userEmail.val() },
+					url : "dupEmailNotMe.dz",
+					data : { "userEmail" : userEmail.val(), "userNo" : $(".userNo").val() },
 					async: false,
 					success : function(result) {
 						if (userEmail.val() =="") {

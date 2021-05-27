@@ -63,6 +63,14 @@
 		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail}
 	</select>
 
+	<select id="checkEmailDupNotMe" resultType="_int" parameterType="User">
+		SELECT COUNT(*) FROM "USER" WHERE USER_EMAIL = #{userEmail} AND USER_NO != #{userNo}
+	</select>
+
+	<select id="checkPhoneDupNotMe" resultType="_int" parameterType="User">
+		SELECT COUNT(*) FROM "USER" WHERE USER_PHONE = #{userPhone} AND USER_NO != #{userNo}
+	</select>
+
 	<select id="checkFindIdDup" resultType="_int" parameterType="HashMap">
 		SELECT COUNT(*) FROM "USER" WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
 	</select>

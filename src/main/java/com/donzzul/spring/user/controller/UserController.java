@@ -192,12 +192,6 @@ public class UserController {
 		}
 	}
 	
-	//네이버 로그인
-	@RequestMapping(value = "NaverLogin.dz", method = RequestMethod.POST)
-	public String NaverLogin(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		return "";
-	}
-	
 	//로그아웃
 	@RequestMapping(value = "logout.dz", method = RequestMethod.GET) 
 	public String userLogout(HttpServletRequest request) {
@@ -212,19 +206,34 @@ public class UserController {
 		User user = service.selectOneUserByNo(userNo);
 		if( user!=null ) {
 			model.addAttribute("user", user);
-			int result = service.updateToNull(userNo);
-			if( result>0) {
-				return "user/userMyInfo";
-			}else {
-				model.addAttribute("msg", "리셋 실패");
-				return "common/errorPage";
-			}
+			return "user/userMyInfo";
+			
 		}else {
 			model.addAttribute("msg", "정보조회 실패");
 			return "common/errorPage";
 		}
 	}
 	
+	//연락처 중복 검사(내꺼 빼고)
+		@ResponseBody 
+		@RequestMapping(value = "dupPhoneNotMe.dz", method = RequestMethod.GET)
+		public String phoneDuplicateCheckNotMe(@RequestParam("userPhone") String userPhone, @RequestParam("userNo") int userNo) {
+			User user = new User();
+			user.setUserNo(userNo);
+			user.setUserPhone(userPhone);
+			return service.checkPhoneDupNotMe(user)+"";
+		}
+	
+	//이메일 중복 검사(내꺼빼고)
+	@ResponseBody 
+	@RequestMapping(value = "dupEmailNotMe.dz", method = RequestMethod.GET)
+	public String emailDuplicateCheckNotMe(@RequestParam("userEmail") String userEmail, @RequestParam("userNo") int userNo ) {
+		User user = new User();
+		user.setUserNo(userNo);
+		user.setUserEmail(userEmail);
+		return service.checkEmailDupNotMe(user)+"";
+	}
+
 	// 일반회원정보수정
 	@RequestMapping(value = "mzModify.dz", method = RequestMethod.POST)
 	public String mzUserUpdate(@ModelAttribute User user,
