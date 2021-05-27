@@ -43,9 +43,7 @@ public class PartnerMyPageController {
 	
 		Shop myShop = pService.selectMyShop(userNo); // 사업자 가게 불러오기
 		////////////////// 샵 넘버 없어도 들어갈 수 있게끔 - ? 이거 뭔데..
-		
 		if(myShop != null) {
-
 			System.out.println(myShop.toString());
 			model.addAttribute("shop", myShop);
 			
@@ -67,7 +65,6 @@ public class PartnerMyPageController {
 			model.addAttribute("msg", "등록되어 있는 가게가 존재하지 않습니다.");
 			return "common/errorPage";
 		}
-		
 	}
 	
 	// 예약 상태(업데이트 - 대기, 승인, 거부)
@@ -125,14 +122,7 @@ public class PartnerMyPageController {
 		}
 		return mv;
 	}
-	
-	
-	
-	// 내가 쓴 글 목록(띄우기, 수정, 삭제)
-	
-	// 내가 쓴 글 목록 더보기
-	
-	
+
 	
 	// 사업자 포인트 환급신청
 	@RequestMapping(value="refundsPartnerPoint.dz", method=RequestMethod.GET)
@@ -148,20 +138,28 @@ public class PartnerMyPageController {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html; charset=UTF-8");
 		if(myShop != null) {
-			int shopPointandYN = pService.applyRefundsShopPoint(myShop.getShopNo());
-			if(shopPointandYN > 0) {
-				System.out.println("환급신청 YN 업데이트");
-				
-				// alert창으로 2-3일 내에 포인트가 환급됩니다 띄우기 - model
-				out.println("<script>alert('환급신청이 완료되었습니다. \\n2-3일 내에 포인트가 환급됩니다.');location.href='partnerMyPage.dz';</script>");
-				//location.href='partnerMyPage.dz';
-				out.flush();
+			// 환급할 포인트가 0보다 크면
+			if(myShop.getShopPoint() > 0) {
+				System.out.println("가게 포인트:"+myShop.toString());
+				int shopPointandYN = pService.applyRefundsShopPoint(myShop.getShopNo());
+				if(shopPointandYN > 0) {
+					System.out.println("환급신청 YN 업데이트");
+					// alert창으로 2-3일 내에 포인트가 환급됩니다 띄우기 - model
+					out.println("<script>alert('환급신청이 완료되었습니다. \\n2-3일 내에 포인트가 환급됩니다.');location.href='partnerMyPage.dz';</script>");
+					out.flush();
+				}else {
+					out.println("<script>alert('포인트 환급신청에 실패하였습니다.');location.href='/index.jsp';</script>");
+					out.flush();
+				}
 			}else {
-//				model.addAttribute("msg", "포인트 환급신청에 실패하였습니다.");
-				out.println("<script>alert('포인트 환급신청에 실패하였습니다.');location.href='/index.jsp';</script>");
+				// 환급할 포인트가 0보다 작거나 같으면
+				System.out.println("가게 포인트:"+myShop.toString());
+				out.println("<script>alert('신청할 포인트가 존재하지 않습니다.'); location.href='partnerMyPage.dz';</script>");
+				out.flush();
 			}
 		}else {
 			out.println("<script>alert('내 가게 조회에 실패하였습니다.');location.href='/index.jsp';</script>");
+			out.flush();
 		}
 	}
 
@@ -179,24 +177,8 @@ public class PartnerMyPageController {
 	public String shopRegister() {
 		
 		// 가게 파일 저장(서버, 디비)
-		
-		
 		return "";
 	}
-	
-	
-	// 회원정보 수정
-	
-	// 회원탈퇴 요청
-	@RequestMapping(value="", method=RequestMethod.GET)
-	public String memberWithdraw(HttpSession session
-								) {
-		User loginUser = (User)session.getAttribute("loginUser");
-//		loginUser.getUserNo()
-		
-		return "";
-	}
-	
 
 }
 
