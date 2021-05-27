@@ -30,7 +30,7 @@ public class ShopServiceImpl implements ShopService {
 	
 	@Override
 	public ArrayList<Shop> searchMapKeyword(PageInfo pi, String searchKeyword) {
-		return sStore.searchMapKeyword(searchKeyword);
+		return sStore.searchMapKeyword(pi, searchKeyword);
 	}
 	
 	@Override
@@ -77,4 +77,13 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.selectKeyListCount(searchKeyword);
 	}
 
+    @Override
+    public ArrayList<Shop> selectAllShopListDESC() {
+       return sStore.selectAllShopListDESC();
+    }
+ 
+    @Override
+    public ArrayList<Shop> selectAllShopListASC() {
+       return sStore.selectAllShopListASC();
+    }
 }

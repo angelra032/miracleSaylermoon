@@ -27,6 +27,10 @@ public class Shop {
 	private String startTime;
 	private String endTime;
 	private int businessDay;
+    private String showShopYN;
+    private String userId;
+    private String partnerVerify;
+    private String partnerWithdraw;
 	
 	public Shop() {}
 
@@ -34,7 +38,8 @@ public class Shop {
 			String shopProduct, String shopType, String shopFileName, String shopFilePath, long shopFileSize,
 			Timestamp shopUploadTime, String shopPhone, String shopParking, int shopMaxReserv, String shopContent,
 			String shopLat, String shopLng, int shopPoint, String shopPointYn, int userNo, String startTime,
-			String endTime, int businessDay) {
+			String endTime, int businessDay, String showShopYN, String userId, String partnerVerify,
+			String partnerWithdraw) {
 		super();
 		this.shopNo = shopNo;
 		this.shopName = shopName;
@@ -59,6 +64,10 @@ public class Shop {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.businessDay = businessDay;
+		this.showShopYN = showShopYN;
+		this.userId = userId;
+		this.partnerVerify = partnerVerify;
+		this.partnerWithdraw = partnerWithdraw;
 	}
 
 	public int getShopNo() {
@@ -245,6 +254,38 @@ public class Shop {
 		this.businessDay = businessDay;
 	}
 
+	public String getShowShopYN() {
+		return showShopYN;
+	}
+
+	public void setShowShopYN(String showShopYN) {
+		this.showShopYN = showShopYN;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getPartnerVerify() {
+		return partnerVerify;
+	}
+
+	public void setPartnerVerify(String partnerVerify) {
+		this.partnerVerify = partnerVerify;
+	}
+
+	public String getPartnerWithdraw() {
+		return partnerWithdraw;
+	}
+
+	public void setPartnerWithdraw(String partnerWithdraw) {
+		this.partnerWithdraw = partnerWithdraw;
+	}
+
 	@Override
 	public String toString() {
 		return "Shop [shopNo=" + shopNo + ", shopName=" + shopName + ", shopShortAddr=" + shopShortAddr + ", shopAddr="
@@ -253,8 +294,9 @@ public class Shop {
 				+ ", shopUploadTime=" + shopUploadTime + ", shopPhone=" + shopPhone + ", shopParking=" + shopParking
 				+ ", shopMaxReserv=" + shopMaxReserv + ", shopContent=" + shopContent + ", shopLat=" + shopLat
 				+ ", shopLng=" + shopLng + ", shopPoint=" + shopPoint + ", shopPointYn=" + shopPointYn + ", userNo="
-				+ userNo + ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay + "]";
+				+ userNo + ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay
+				+ ", showShopYN=" + showShopYN + ", userId=" + userId + ", partnerVerify=" + partnerVerify
+				+ ", partnerWithdraw=" + partnerWithdraw + "]";
 	}
 
-	
 }

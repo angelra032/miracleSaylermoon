@@ -28,6 +28,10 @@
 		<result property="endTime" column="END_TIME"/>
 		<result property="businessDay" column="BUSINESS_DAY"/>
 		<result property="mainMenuNo" column="MAIN_MENU_NO"/>
+		<result property="showShopYN" column="SHOW_SHOP_YN"/>
+<!-- 		<result property="userId" column="USER_ID"/>
+		<result property="partnerVerify" column="PARTNER_VERIFY"/>
+		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/> -->
 	</resultMap>
 	
 	<select id="selectAllList" parameterType="HashMap" resultMap="shopResultMap">
@@ -169,6 +173,13 @@
 		SELECT COUNT(*) FROM SHOP WHERE SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' OR SHOP_NAME LIKE '%' || #{searchKeyword } || '%'
 	</select>	
 	
+	<!-- 관리자페이지 shop조회 -->
+      <select id="selectAllShopDESC" resultMap="shopResultMap">
+         SELECT SHOP.*,"USER".USER_ID, "USER".PARTNER_VERIFY, "USER". PARTNER_WITHDRAW FROM SHOP LEFT JOIN "USER" ON SHOP.USER_NO = "USER".USER_NO ORDER BY SHOP_NO DESC
+      </select>
+      <select id="selectAllShopASC" resultMap="shopResultMap">
+         SELECT SHOP.*,"USER".USER_ID, "USER".PARTNER_VERIFY, "USER". PARTNER_WITHDRAW FROM SHOP LEFT JOIN "USER" ON SHOP.USER_NO = "USER".USER_NO ORDER BY SHOP_NO ASC
+      </select>
 	
 	
 	<!-- 메인 메뉴 테이블 -->

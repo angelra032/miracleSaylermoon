@@ -227,9 +227,9 @@
 			 	
 				/* titleOverlay.setMap(null); */
 				
-				 alert("확인!!"); 
+				 /* alert("확인!!"); */ 
 				
-				/* var shortContent = '<div class="wrap">' + 
+				var shortContent = '<div class="wrap">' + 
 	            '    <div class="info">' + 
 	            '        <div class="title">' + 
 	            '            카카오 스페이스닷원' + 
@@ -251,22 +251,22 @@
 				// 마커 위에 커스텀오버레이를 표시합니다
 				// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 				var shortInfo = new kakao.maps.CustomOverlay({
+				    position: markerPosition,
 				    content: shortContent,
 				    map: map,
-				    position: markerPosition,
 				    yAnchor: 1 
 				 });
 				
 				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 				function closeOverlay() {
 					titleOverlay.setMap(null);     
-				} */
+				}
 				
 			}
 		
 		
 		
-		$(function() {
+		/* $(function() { */
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
@@ -283,49 +283,83 @@
 						success: function(data) {
 							
 							var contentList = $(".content-list");
-							var contentShop = $(".content-shop");
-							var contentShopLeft = $(".content-shop left");
-							var contentShopRight = $(".content-shop right");
-							var contentShopRightTop = $(".content-shop right top");
-							var contentShopRightBottom = $(".content-shop right bottom");
+							
+							var contentShopRight = $("<div class='content-shop right'>");
+							var contentShopRightTop = $("<div class='content-shop right top'>");
+							var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+							var contentListNavi = $("<div class='content-list navi'>");
 							
 							if(data.mList.length > 0) {
 								for( var i in data.mList) {
+									/* 검색 리스트 */
+									var contentShop = $("<div class='content-shop'>");
+									var contentShopLeft = $("<div class='content-shop left'>");
 									
-								 	contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
-								 	contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
-													   .append("<span>"+data.mList[i].shopName+"</span><br>")
+									contentShop.append(contentShopLeft)
+											   .append(contentShopRight);
+									contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>")
+									contentShopRight.append(contentShopRightTop)
+													.append(contentShopRightBottom);
+									contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
+													   .append("<span>"+data.mList[i].shopType+"</span><br>")
 													   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
 													   .append("<span>"+data.mList[i].shopContent+"</span><br>");
-								 	contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-								 						  .append("<button type='button' class='btn btn-primary btn-sm'>예약하기</button>");
-								 	 
-								 	contentShopRight.append(contentShopRightTop).append(contentShopRightBottom);
-								 	contentShop.append(contentShopLeft).append(contentShopRight);
+									contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
+														  .append("<button type='button' class='btn btn-primary btn-sm'>예약하기</button>");
 									contentList.append(contentShop);
 									
-																
 									
-								/* <div class="content-shop">
-									<div class="content-shop left">
-										<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
-										<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/> -->
-									</div>
-									<div class="content-shop right">
-										<div class="content-shop right top">
-											<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-											<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
-											<span>${ shop.shopType }</span><br>
-											<span>${ shop.shopAddr }</span><br>
-											<span>${ shop.shopContent }</span><br>
-											<br>
-										</div>
-										<div class="content-shop right bottom">
-											<button type="button" class="btn btn-primary btn-sm">예약하기</button>
-										</div>
-									</div>
+									/* 네비 */
+									/* var contentListNavi = $("<div class='content-list navi'>");
+									
+									contentListNavi.append("<hr>")
+												   .append("");
+												   .append("");
+												   .append("");
+												   .append("");
+												   .append("");
+												   .append(""); */
+									/* <div class="content-list navi">
+									<hr>
+									<c:url var="before" value="mapSearchShop.dz">
+										<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+										<c:if test="${ !empty location }">
+											<c:param name="location" value="${ location }"></c:param>
+										</c:if>
+									</c:url>
+									<c:if test="${ pi.currentPage > 1 }">
+										<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+									</c:if>
+									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+										<c:url var="pagination" value="mapSearchShop.dz">
+											<c:param name="page" value="${ p }"></c:param>
+											<c:if test="${ !empty location }">
+												<c:param name="location" value="${ location }"></c:param>
+											</c:if>
+										</c:url>
+										<c:if test="${ p eq pi.currentPage }">
+											<span id="currentPage">${ p }</span>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+										</c:if>
+									</c:forEach>
+									<c:url var="after" value="mapSearchShop.dz">
+										<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+										<c:if test="${ !empty location }">
+											<c:param name="location" value="${ location }"></c:param>
+										</c:if>
+									</c:url>
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+									</c:if> 
 								</div> */
+									
+								
 							 	}
+								
 							}else {
 								
 							} 
@@ -338,7 +372,7 @@
 					});
 				}
 			});
-		});
+		/* }); */
 /* 		function pageMove() {
 			$(".content-list").empty();
 			$(".content-list navi").empty();

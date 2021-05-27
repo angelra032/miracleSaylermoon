@@ -78,8 +78,19 @@ public class ShopStoreLogic implements ShopStore {
 		return sqlSession.selectOne("shopMapper.selectListCount", selectedLocation);
 	}
 	
+	@Override
 	public int selectKeyListCount(String searchKeyword) {
 		return sqlSession.selectOne("shopMapper.selectListCountKey", searchKeyword);
 	}
+	
+    @Override
+    public ArrayList<Shop> selectAllShopListDESC() {
+       return (ArrayList)sqlSession.selectList("shopMapper.selectAllShopDESC");
+    }
+
+    @Override
+    public ArrayList<Shop> selectAllShopListASC() {
+       return (ArrayList)sqlSession.selectList("shopMapper.selectAllShopASC");
+    }
 
 }
