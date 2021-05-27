@@ -17,14 +17,18 @@
 		<c:if test="${ empty sessionScope.loginUser && !empty sessionScope.kakaoId}">
 			<div id="main-title">${ kakaoNickname }님 안녕하세요!</div>
 		</c:if>
+		<c:if test="${ empty sessionScope.loginUser && !empty sessionScope.googleId}">
+			<div id="main-title">${ googleName }님 안녕하세요!</div>
+		</c:if>
 		<div class="frame">
 			<div class="my-info">
 				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
+				<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
 				<div class="info-btn-frame">
 					<a class="info-btn" href="myINfo.dz?userNo=${ loginUser.userNo }">나의 정보</a>
-					
 					<a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
 				</div>
+				</c:if>
 			</div>
 		</div>
 		<div class="my-list reserv-list">
