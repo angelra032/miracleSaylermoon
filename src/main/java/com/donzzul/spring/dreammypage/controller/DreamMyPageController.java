@@ -104,8 +104,8 @@ public class DreamMyPageController {
 			mv.addObject("pi", pi);
 			mv.setViewName("dreamMyPage/DreamReservationDetail");
 		} else {
-			mv.addObject("msg", "전체예약목록을 불러오는데 실패했습니다.");
-			mv.setViewName("common/errorPage");
+			mv.addObject("msg", "불러올 예약 데이터가 없습니다.");
+			mv.setViewName("dreamMyPage/DreamReservationDetail");
 		}
 		return mv;
 	}
@@ -133,13 +133,10 @@ public class DreamMyPageController {
 			mv.addObject("drReviewList", drReviewList);
 			mv.addObject("pi", pi);
 			mv.setViewName("dreamMyPage/DreamReviewDetail");
-		} else if (drReviewList.isEmpty()) {
-			mv.addObject("msg", "불러올 데이터가 없습니다.");
-			mv.setViewName("dreamMyPage/DreamReviewDetail");
 		} else {
-			mv.addObject("msg", "전체리뷰를 불러오는데 실패했습니다.");
-			mv.setViewName("common/errorPage");
-		}
+			mv.addObject("msg", "불러올 후기 데이터가 없습니다.");
+			mv.setViewName("dreamMyPage/DreamReviewDetail");
+		} 
 		return mv;
 	}
 	
@@ -163,8 +160,8 @@ public class DreamMyPageController {
 			mv.addObject("pi",pi);
 			mv.setViewName("dreamMyPage/DreamQnaDetail");
 		}else {
-			mv.addObject("msg","전체문의목록을 불러오는데 실패했습니다.");
-			mv.setViewName("common/errorPage");
+			mv.addObject("msg","불러올 문의 데이터가 없습니다.");
+			mv.setViewName("dreamMyPage/DreamQnaDetail");
 		}
 		return mv;
 	}
