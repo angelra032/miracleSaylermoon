@@ -120,6 +120,12 @@ public class PaymentStoreLogic implements PaymentStore{
 	 public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap) {
 	      return (ArrayList)sqlSession.selectList("paymentMapper.selectDonListSum", dateMap);
 	 }
+	 
+	// 메인에 뿌려줄 돈쭐 총액
+	@Override
+	public Don selectMoneyTotal() {
+		return sqlSession.selectOne("paymentMapper.selectMoneyTotal");
+	}
 
 	
 	

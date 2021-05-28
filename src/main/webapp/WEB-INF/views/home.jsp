@@ -48,13 +48,11 @@
 			<div class="main-content-title">그동안 전하지 못했던 감사한 마음을<br>돈쭐이 전달해 드립니다.</div>
 			<div class="content-area">
 				<div class="thanks-content">
-					<div class="thanks-title">사장님 정말정말 감사합니다!</div>
-					<div class="thanks-writer">게으른달팽이</div>
-					<div class="thanks-con">글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후
-또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼
- 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글
-후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오고싶고그래요 아무튼 아무
-고 짱이고 또오고싶고그래요 아무튼 아무 깉 후기글글글 아주긴 후기글 정성스러운 후기글입니다 아주 맛있고 짱이고 또오</div>
+					<c:if test="${ !empty drmReview }">
+						<div class="thanks-title">${ drmReview.drmReviewTitle }</div>
+						<div class="thanks-writer">${ drmReview.drmReviewWriter }</div>
+						<div class="thanks-con">${ drmReview.drmReviewContent }</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -76,11 +74,36 @@
 			</div>
 			<div class="money-count">
 				<div class="donation-title-area">
-					<div></div>
+					<div class="donation-title-side"></div>
+					<div class="donation-title-text">현재까지 누적 돈쭐금액</div>
+					<div class="donation-title-side"></div>
 				</div>
+				<div class="donation-content-area">
+					<c:if test="${ !empty don }">
+						<div class="donation-money"  id="donation-money">${ don.donPrice }<span>원</span></div>
+					</c:if>
+				</div>
+			</div>
+		</div>
+		<div class="insta-area">
+			<div class="main-sub-title more-paddingtop less-margintop-blue "><span>인스타그램</span></div>
+			<div class="main-content-title">프로 돈쭐러들의 인증샷을 확인해보세요!</div>
+			<div class= "insta-con-area">
+				<div class="insta-con"></div>
+				<div class="insta-con"></div>
+				<div class="insta-con"></div>
+				<div class="insta-con"></div>
+				<div class="insta-con"></div>
 			</div>
 		</div>
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script>
+	const n1 = document.getElementById('donation-money').innerHTML;
+	console.log(n1);
+	const nn1 = n1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	console.log(nn1);
+	document.getElementById('donation-money').innerHTML = nn1;
+</script>
 </html>
