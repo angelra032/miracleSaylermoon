@@ -169,7 +169,7 @@ public class UserController {
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			return "/home";
+			return "home";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
 			return "common/errorPage";
@@ -259,7 +259,11 @@ public class UserController {
 		int result = service.updateMzUser(user);
 		if (result > 0) {
 			session.setAttribute("loginUser", user);
-			return "redirect:mzMyPage.dz";
+			if (user.getUserType().equals("1")) {
+				return "redirect:dreamMyPage.dz";
+			}else {
+				return "redirect:mzMyPage.dz";
+			}
 		}else {
 			return "common/errorPage";
 		}

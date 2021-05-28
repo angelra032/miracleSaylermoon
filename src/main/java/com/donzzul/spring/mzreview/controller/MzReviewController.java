@@ -44,19 +44,6 @@ public class MzReviewController {
 		return mv;
 	}
 	
-	// 민애:맛집후기최신3개만 가져오기(메인페이지용)
-	public ModelAndView mReviewListForMainPage(ModelAndView mv) {
-		ArrayList<MzReview> mList = mService.selectThreeReview();
-		if(!mList.isEmpty()) {
-			mv.addObject("mList", mList);
-		} else {
-			mv.addObject("msg", "게시글이 없습니다");
-		}
-		mv.setViewName("/home");
-		return mv;
-	}
-	
-	
 	// 디테일 selectOne
 	@RequestMapping(value="mReviewDetail.dz", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mReviewDetailView(ModelAndView mv, @RequestParam("mzReviewNo") int mzReviewNo) {

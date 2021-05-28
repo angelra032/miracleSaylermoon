@@ -32,6 +32,10 @@
 		SELECT DRMREVIEW_TITLE, DRMREVIEW_CONTENT FROM DREAM_REVIEW WHERE SHOP_NO = #{shopNo} AND DRMREVIEW_PUBLIC_YN = 'Y'
 	</select>
 
+	<select id="selectOneDetailToMain" resultMap="drmReviewResultMap">
+		SELECT * FROM (SELECT * FROM DREAM_REVIEW ORDER BY DRMREVIEW_UPLOAD_DATE DESC) WHERE ROWNUM=1
+	</select>
+	
 	<insert id="insertDrmReview">
 		INSERT INTO DREAM_REVIEW
 		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo})

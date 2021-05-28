@@ -14,6 +14,7 @@ public interface DreamReviewService {
 	public int deleteDreamReview(int drmRviewNo);
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public int getListCount();
+	public DreamReview selectOneDreamReview(); //메인페이지에서 한개만 불러오기(오버라이딩)
 	
 	// 꿈나무 마이페이지
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo);

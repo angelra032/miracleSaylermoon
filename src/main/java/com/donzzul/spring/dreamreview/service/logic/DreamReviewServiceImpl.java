@@ -74,6 +74,12 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		return drStore.reviewListByDream(userNo, pi);
 	}
 
+	// 메인페이지에 하나 뿌려주기
+	@Override
+	public DreamReview selectOneDreamReview() {
+		return drStore.selectOneDreamReview();
+	}
+
 
 
 

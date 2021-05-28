@@ -78,4 +78,10 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.reviewListByDream",userNo,rowBounds);
 	}
+
+	// 메인페이지에 뿌려주기
+	@Override
+	public DreamReview selectOneDreamReview() {
+		return sqlSession.selectOne("drmReviewMapper.selectOneDetailToMain");
+	}
 }
