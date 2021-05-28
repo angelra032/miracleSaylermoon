@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
@@ -153,6 +154,7 @@ public class ShopController {
 		hashMap.put("mList", mapList);
 		hashMap.put("mapMarkers", mapMarkers);
 		hashMap.put("center", mapList.get(0).getShopAddr());
+		hashMap.put("searchKeyword", searchKeyword);
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());
 	}
@@ -173,7 +175,7 @@ public class ShopController {
 	
 	//D 가게검색 - 테마
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
-	public void searchTheme(@RequestParam("themeNo") int themeNo, HttpServletResponse response) throws Exception {
+	public void searchTheme(@RequestParam("themeNo") int themeNo, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) throws Exception {
 		// 파라미터 - 메뉴 클릭시 넘버
 		String themeWord = "";	
 		switch(themeNo) {
@@ -220,7 +222,16 @@ public class ShopController {
 		// 1번 - 약식정보 가져오기
 		System.out.println(themeNo);
 		System.out.println(themeWord);
+		
+		int currentPage = (page != null) ? page : 1; 
+//		int listCount = sService.selectShopThemeCount(themeWord); 
+//		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); 
+		
 		ArrayList<Shop> sList = sService.searchShopTheme(themeWord);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		
 		Gson gson = new Gson();
 		gson.toJson(sList, response.getWriter());
 	}
@@ -238,7 +249,7 @@ public class ShopController {
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
 		// 전체 후기 가져오기
-//		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
+		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
 		
 		// 감사 후기 가져오기
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
@@ -255,9 +266,9 @@ public class ShopController {
 	
 	//D 전체후기 가져오기
 	@RequestMapping(value="mdReviewShop.dz", method=RequestMethod.GET)
-	public String selectDmReview(@RequestParam("shopNo") String shopNo, Model model) {
+	public String selectDmReview(@RequestParam("shopNo") int shopNo) {
 		// 주석을 풀어주세요....
-//		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
+		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
 		return "";
 	}
 	
