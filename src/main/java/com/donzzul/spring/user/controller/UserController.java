@@ -169,7 +169,7 @@ public class UserController {
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			return "home";
+			return "/home";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
 			return "common/errorPage";

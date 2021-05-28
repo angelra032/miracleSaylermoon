@@ -53,6 +53,7 @@ public interface PaymentService {
 	//// 어드민 ////
 	public ArrayList<Don> selectAllDonList(HashMap<String, String> dateMap); // 어드민
 	public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap);
+	public Don selectMoneyTotal();
 
 	
 	

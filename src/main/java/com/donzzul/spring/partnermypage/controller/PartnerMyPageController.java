@@ -53,13 +53,10 @@ public class PartnerMyPageController {
 			
 			if(!rList.isEmpty()) {
 				model.addAttribute("rList", rList);
-				return "redirect:partnerMyPage.dz";
-			}else if(rList.isEmpty()) {
-				model.addAttribute("msg", "불러올 데이터가 없습니다.");
-				return "redirect:partnerMyPage.dz";
+				return "partnerMyPage/partnerMyPage";
 			}else {
-				model.addAttribute("msg", "내역을 출력하는데 실패했습니다.");
-				return "redirect:partnerMyPage.dz";
+				model.addAttribute("msg", "내역을 출력하는데 실패했습니다");
+				return "common/errorPage";
 			}
 		}else {
 			model.addAttribute("msg", "등록되어 있는 가게가 존재하지 않습니다.");

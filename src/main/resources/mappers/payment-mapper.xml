@@ -81,8 +81,10 @@
 		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) + (SELECT NVL(SAVE_POINT,0) FROM DON WHERE DON_NO = #{donNo }) WHERE USER_NO = #{userNo}
 	</update>
 	
-	
-	
+	<!-- 메인용 돈쭐 총액 -->
+	<select id="selectMoneyTotal" resultMap="paymentResultMap">
+		SELECT SUM(DON_PRICE) AS DON_PRICE FROM DON
+	</select>
 	
 	
 
