@@ -62,11 +62,11 @@
 					</div>
 					<div>
 						<div id="lay3-payment-result">
-							메뉴명 : <input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
-							수 량 : <input type="text" name="amount" value="" readonly/> <br>
-							메뉴 총액 : <input type="text" name="menu-fin-price" value="0" readonly/> <br>
-							포인트 사용 : <input type="text" name="use-point" value="0" readonly/> <br>
-							결제 금액 : <input type="text" name="donPrice" value="0" readonly/>
+							메 &nbsp; 뉴&nbsp; &nbsp; 명 : &nbsp; &nbsp;<input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
+							수 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 량 : <input type="text" name="amount" value="" readonly/>개<br>
+							메뉴 &nbsp; &nbsp;총액 : <input type="text" name="menu-fin-price" value="0" readonly/> 원<br>
+							포인트 사용 : <input type="text" name="use-point" value="0" readonly/> 원<br>
+							결제&nbsp; &nbsp; 금액 : <input type="text" name="donPrice" value="0" readonly/> 원
 							<!-- 위에 폼 넘기려면 vo이름으로 맞춰야함 맞춰주기 | 가격 어쩔 겨-포인트제외or총(donPrice)-->
 							
 							<input type="hidden" name="userNo" value="${loginUser.userNo }"/>
@@ -161,7 +161,8 @@
                 "use-point" : usePoint
             }
         }); */
-        $.ajax({
+        // api 떼고 test
+        /* $.ajax({
         	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
 			// data 보낼 url
 	        type: 'POST',
@@ -180,8 +181,8 @@
 	        	console.log(data);
 	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
 	        }
-        });
-	    /* IMP.request_pay({
+        }); */
+	    IMP.request_pay({
 	        pg : 'kakaopay',
 	        pay_method : 'card',
 	        merchant_uid : 'merchant_' + new Date().getTime(),
@@ -214,7 +215,7 @@
 			        },
 			        success : function(data) {
 			        	console.log(data);
-			        	location.href='rouletteView.dz?donNo='+data.donNo;
+			        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
 			        }
 	            });
 	            //성공시 이동할 페이지 (룰렛페이지인지 중간에 결제 완료창 있는지)
@@ -226,7 +227,7 @@
 	            alert(msg);
 	            location.href="paymentFormView.dz"; 
 	        }
-	    }); */
+	    });
 	    
 	});
 

@@ -138,13 +138,51 @@ h4 {
 
 #start_btn {
 	background-color: blue;
-	--opacity: 0.0;
+	opacity: 0.0;
 	width: 170px;
 	height: 170px;
 	border-radius: 50%;
 	position: relative;
 	top: -497px;
 	right: -298px;
+}
+
+
+/* N일 때 */
+#roulette-img-n {
+	display: block;
+	margin: 0 auto;
+	--padding-top: 36px;
+	width: 90%;
+	--height: 100%;
+	z-index:-10;
+	/* -webkit-filter: opacity(.5) drop-shadow(0 0 0 gray);
+	filter: opacity(.5) drop-shadow(0 0 0 gray);
+	background-color: black;
+	--rgba(0, 0, 0, 1) */
+	filter: opacity(30%);
+}
+#needle-n {
+	--position:absolute;
+	position: relative;
+	bottom:680px;
+	left: 370px;
+	z-index: 0;
+	filter: opacity(50%);
+}
+#point-save-btn-n {
+	width: 300px;
+	height: 60px;
+	margin: 0 auto;
+	margin-top: 80px;
+	display: block;
+	text-algin: center;
+	background-color: #fdb504;
+	color: #fff;
+	border:0;
+	font-size: 24px;
+	font-weight: bolder;
+	cursor:pointer;
 }
 
 

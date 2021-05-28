@@ -33,8 +33,6 @@
 								<input type="hidden" name="donPrice" value="${donPrice }"/>
 								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
 						</div>
-
-				
 					</div>
 					<div class="result">
 						<div class="lay-title">
@@ -47,6 +45,37 @@
 								당첨 포인트 : <span id="won">&nbsp;&nbsp; 0 </span> 원
 							</div>
 							<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='받는 중'; this.form.submit();">
+						</div>
+					</div>
+				</form>
+			</c:if>
+			
+			<c:if test="${rouletteYN == 'N' }">
+				<form action="saveRoulettePoint.dz" method="post">
+					<div class="roulette">
+						<div id="point-roulette">
+							<div>
+								<img src="/resources/images/roulette/roulette.png" id="roulette-img-n"> 
+								<img src="/resources/images/roulette/niddle.png" id="needle-n">
+							</div>
+							<br> 
+								<input type="hidden" name="savePoint" value="0" />
+								<input type="hidden" name="donNo" value="${donNo }"/>
+								<input type="hidden" name="shopName" value="${shopName }"/>
+								<input type="hidden" name="donPrice" value="${donPrice }"/>
+								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
+						</div>
+					</div>
+					<div class="result">
+						<div class="lay-title">
+							<span class="title-span">당첨 결과</span>
+						</div>
+						<div class="lay-content">
+							<div>
+								<span id="per">&nbsp; &nbsp;이미 룰렛을 돌리셨습니다!</span>
+								<br>
+							</div>
+							<button type="button" id="point-save-btn-n" onclick="location.href='/'">포인트 받기 완료</button>
 						</div>
 					</div>
 				</form>
@@ -109,6 +138,7 @@
 				var donPrice = $("input[name='donPrice']").val();
 				console.log(donPrice);
 				var point = donPrice * persent;
+				point = point.toFixed(0);
 				console.log(point);
 				$("#won").html("&nbsp;&nbsp; "+point);
 				
@@ -131,7 +161,7 @@
 		};
 		
 		//새로고침 막기
-		/* function doNotReload(){
+		function doNotReload(){
 		    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
 		        event.keyCode = 0;
 		        event.cancelBubble = true;
@@ -141,13 +171,13 @@
 		    } 
 		}
 		document.onkeydown = doNotReload;
-		 */
+		
 
 		// 뒤로 가기 방지
-		/* window.history.forward();
+		window.history.forward();
 		function noBack() {
 			window.history.forward();
-		} */
+		}
 
 	</script>	
 	
