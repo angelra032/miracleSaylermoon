@@ -30,7 +30,7 @@ h2 {
 	text-align:center;
 }
 h4 {
-	font-size:20px;
+	font-size:24px;
 	text-align:center;
 	margin-top:30px;
 	font-weight:400;
@@ -48,7 +48,7 @@ h4 {
     text-align: center;
     position: absolute;
 	top: 150px;
-	right: 480px;
+	right: 410px;
     line-height: 4.7;
     z-index: -2;
 }
@@ -75,11 +75,6 @@ h4 {
 	margin-right: 50px;
 }
 .result {
-/* 	float: left;
-	background-color: aqua;
-	width: 511px;
-	height: 720px; */
-	
 	float: left;
 	width: 410px;
 	height: 566px;
@@ -90,14 +85,6 @@ h4 {
 	--margin-right: 70px;
 	--margin-right: 20px;
 }
-/* 	#lay1 {
-		float: left;
-		width: 410px;
-		height: 566px;
-		border: solid 1px #fdb504;
-		background-color: #ffffff;
-		margin-right: 20px;
-	} */
 	.lay-title {
 		width: 410px;
 		height: 60px;
@@ -112,15 +99,16 @@ h4 {
 	.lay-content {
 		width: 300px;
 		margin: 0 auto;
-		margin-top: 60px;
+		margin-top: 80px;
 		line-height: 35px;
 		font-size: 20px;
+		line-height: 40px;
 	}
 	.lay-content  span{
 		--float: right;
 		width: 140px;
 		height: 25px;
-		font-size: 20px;
+		font-size: 24px;
 		text-align: center;
 		font-weight: bold;
 	}

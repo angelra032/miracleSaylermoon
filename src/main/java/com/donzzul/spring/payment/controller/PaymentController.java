@@ -97,6 +97,7 @@ public class PaymentController {
 			}else {
 				System.out.println("포인트 업데이트 실패!");
 			}
+			System.out.println("돈쭐 date(룰렛으로 보낼) : "+donPoint.toString());
 			return donPoint;
 
 		}else {
@@ -107,10 +108,20 @@ public class PaymentController {
 
 	// 룰렛 페이지
 	@RequestMapping(value = "rouletteView.dz", method = RequestMethod.GET)
-	public String rouletteView(@RequestParam("donNo") int donNo, @RequestParam("donPrice") int donPrice, HttpSession session, Model model) {
+	public String rouletteView(@RequestParam("donNo") int donNo, 
+								@RequestParam("donPrice") int donPrice, 
+								@RequestParam("shopName") String shopName, HttpSession session, Model model) {
 		
-		System.out.println(donNo); 
+		//System.out.println(userNo); 
+		System.out.println("룰렛페이지로 보내는 donNo"+donNo);
 		System.out.println(donPrice);
+		System.out.println(shopName); 
+		
+		//임시 데이터
+		Shop shop = new Shop();
+		shop.setShopNo(87);
+		shop = pService.selectShop(shop);
+		model.addAttribute("shop", shop);
 		
 		// ROULETTE YN(사용가능 여부) 체크해서 화면단에서 c:if로 처리
 		// Y면 돌리고 N이면 못 돌리게
@@ -119,8 +130,10 @@ public class PaymentController {
 		if(rouletteYN != null) {
 			System.out.println("룰렛 사용가능 여부 뿌려줌 : "+rouletteYN.toString());
 			model.addAttribute("donNo", rouletteYN.getDonNo());
+			model.addAttribute("donPrice", rouletteYN.getDonPrice());
+			model.addAttribute("shopName", rouletteYN.getShopName());
 			model.addAttribute("rouletteYN", rouletteYN.getRouletteYN());
-			System.out.println("여기까지 됨");
+			System.out.println("여기까지 됨(위랑 값 똑같나 맞춰봐)" + rouletteYN.toString());
 			return "payment/pointRoulette";
 		}else {
 			System.out.println("룰렛 사용가능 여부 조회 실패!");
@@ -132,9 +145,9 @@ public class PaymentController {
 	// 룰렛 포인트 정립
 	@RequestMapping(value = "saveRoulettePoint.dz", method=RequestMethod.POST)
 	public String saveRoulettePoint(HttpSession session, Model model,
-									@ModelAttribute Don don,
-									@RequestParam("shopName") String shopName, 
-									@RequestParam("donPrice") int donPrice
+									@ModelAttribute Don don
+									/*@RequestParam("shopName") String shopName, 
+									@RequestParam("donPrice") int donPrice*/
 										) {
 		// 포인트 디비에서 계산하려면
 		// 포인트 컬럼 추가(일단 vo에)
@@ -143,6 +156,8 @@ public class PaymentController {
 		User loginUser = (User)session.getAttribute("loginUser");
 		System.out.println("적립컨트롤"+don.getDonNo());
 		System.out.println("당첨포인트-뒷단:"+don.getSavePoint()); // 앞단에서 당첨된 포인트
+		System.out.println("샵네임"+don.getShopName());
+		System.out.println("가격"+don.getDonPrice());
 		System.out.println("담아준 돈 객체" + don.toString());
 		
 		// savePoint 널일 때
@@ -201,9 +216,15 @@ public class PaymentController {
 
 	// 인증샷 페이지
 	@RequestMapping(value = "snsPhotoView.dz", method = RequestMethod.GET)
-	public String snsPhotoView(HttpSession session) {
+	public String snsPhotoView(HttpSession session, Model model) {
 		User loginUser = (User)session.getAttribute("loginUser");
 		// shopName도 출력해서 인증샷 바뀌도록
+		
+		//임시 데이터
+		Shop shop = new Shop();
+		shop.setShopNo(87);
+		shop = pService.selectShop(shop);
+		model.addAttribute("shop", shop);
 		
 		return "payment/snsPhoto";
 	}

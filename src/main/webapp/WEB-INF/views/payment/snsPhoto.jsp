@@ -16,17 +16,30 @@
 		<div class="header-background-area">
 	        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	    </div>
-		<div id="main-title">돈쭐 인증샷</div>
+		
+		<div id="main-title">인증샷&nbsp;&nbsp;<span id="main-title-shop">${shop.shopName }</span></div>
 		<div class="frame">
-			<h1>진짜파스타</h1>
+		
 			<div class="sns">
-				<h2>${loginUser.userName }님, 호되게 돈쭐내셨군요!</h2>
-				<h4>인증샷을 SNS에 자랑해주세요.<br>많은 공유가 많은 돈쭐을 부릅니다.</h4>
 				
-				<div id="sns-Photo">
-					<img src="/resources/images/snsPhoto.png" width="100%;"> 
+				<div>
+					<img src="/resources/images/snsPhoto.png" id="sns-Photo"> 
+					
 				</div>
-				<button id="sns-link-btn">캡쳐한 이미지 SNS에 인증하기</button>
+				
+			</div>
+			
+			<div class="result">
+				<div class="lay-title">
+					<span class="title-span">당첨 결과</span>
+				</div>
+				<div class="lay-content">
+					<div>
+						<div id="h2">${loginUser.userName }님,<br> 호되게 돈쭐내셨군요!</div>
+						<h4>인증샷을 SNS에 자랑해주세요.<br>많은 공유가 많은 돈쭐을 부릅니다.</h4>
+					</div>
+					<button id="sns-link-btn">SNS에 인증하기</button>
+				</div>
 			</div>
 			
 		</div>

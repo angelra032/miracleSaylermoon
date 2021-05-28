@@ -165,20 +165,39 @@ input[type=radio]{
 					line-height: 35px;
 					text-align: center;
 				}
+				/* #lay2-point-div  input {
+					border: 0;
+				}
+				#lay2-point-div  span{
+					--float: right;
+					width: 140px;
+					height: 25px;
+					font-size: 20px;
+					text-align: center;
+					font-weight: bold;
+				} */
 					#userPoint {
+						border: 0;
 						width: 140px;
 						height: 25px;
-						font-size: 16px;
+						font-size: 20px;
+						text-align: center;
+						font-weight: bold;
 					}
 					#useablePoint {
+						border: 0;
 						width: 140px;
 						height: 25px;
-						font-size: 16px;
+						font-size: 20px;
+						text-align: center;
+						font-weight: bold;
 					}
 					#usePoint {
 						width: 140px;
 						height: 25px;
-						font-size: 16px;
+						font-size: 20px;
+						text-align: center;
+						font-weight: bold;
 					}
 
 				#pSubmit {
@@ -210,12 +229,14 @@ input[type=radio]{
 				line-height: 35px;
 			}
 			#lay3-payment-result input{
+				--border: 0;
 				float: right;
 				width: 140px;
 				height: 25px;
 				font-size: 20px;
 				text-align: center;
 				font-weight: bold;
+				--line-height: 500px;
 			}
 
 		/* 폼 전송버튼 */
