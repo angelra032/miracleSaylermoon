@@ -54,7 +54,7 @@ public class UserController {
 	public String dreamUserRegister(@ModelAttribute User user, Model model) {
 		int result = service.insertDreamUser(user);
 		if (result>0) {
-			return "redirect:index.jsp";
+			return "/home";
 		}else {
 			model.addAttribute("msg", "회원가입실패!");
 			return "common/errorPage";
@@ -66,7 +66,7 @@ public class UserController {
 	public String mzUserRegister(@ModelAttribute User user, Model model) {
 		int result = service.insertMzUser(user);
 		if (result>0) {
-			return "redirect:index.jsp";
+			return "/home";
 		}else {
 			model.addAttribute("msg", "회원가입실패!");
 			return "common/errorPage";
@@ -78,7 +78,7 @@ public class UserController {
 	public String partnerUserRegister(@ModelAttribute User user, Model model) {
 		int result = service.insertPartnerUser(user);
 		if (result>0) {
-			return "redirect:index.jsp";
+			return "/home";
 		}else {
 			model.addAttribute("msg", "회원가입실패!");
 			return "common/errorPage";
@@ -169,7 +169,7 @@ public class UserController {
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:index.jsp";
+			return "/home";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
 			return "common/errorPage";
@@ -185,7 +185,7 @@ public class UserController {
 			HttpSession session = request.getSession();
 			session.setAttribute("kakaoId", kakaoId);
 			session.setAttribute("kakaoNickname", kakaoNickname);
-			return "redirect:index.jsp";
+			return "/home";
 		}else {
 			model.addAttribute("msg", "로그인 실패");
 			return "common/errorPage";
@@ -201,7 +201,7 @@ public class UserController {
           HttpSession session = request.getSession();
           session.setAttribute("googleId", googleId);
           session.setAttribute("googleName", googleName);
-          return "redirect:index.jsp";
+          return "/home";
        }else {
           model.addAttribute("msg", "구글로그인 실패");
           return "common/errorPage";
@@ -213,7 +213,7 @@ public class UserController {
 	public String userLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "redirect:index.jsp";
+		return "/home";
 	}
 	
 	//회원정보조회@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
