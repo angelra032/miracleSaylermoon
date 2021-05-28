@@ -162,7 +162,7 @@
 				<div class="my-title">
 					<span>게시판관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="adminAllBoardList.dz">더보기</a>
 					</div>
 				</div>
 				<div class="center-table-area">

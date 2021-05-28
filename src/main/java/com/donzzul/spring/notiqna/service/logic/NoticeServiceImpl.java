@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.notiqna.domain.Notice;
 import com.donzzul.spring.notiqna.service.NoticeService;
 import com.donzzul.spring.notiqna.store.NoticeStore;
@@ -39,6 +40,16 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int deleteNotice(int noticeNo) {
 		return nStore.deleteNotice(noticeNo);
+	}
+
+	@Override
+	public ArrayList<Notice> selectAllNotice(PageInfo pi) {
+		return nStore.selectAllNotice(pi);
+	}
+
+	@Override
+	public int getListCount() {
+		return nStore.getListCount();
 	}
 
 
