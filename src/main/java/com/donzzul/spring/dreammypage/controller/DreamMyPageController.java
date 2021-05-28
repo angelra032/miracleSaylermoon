@@ -39,27 +39,19 @@ public class DreamMyPageController {
 		User user = (User) session.getAttribute("loginUser");
 
 		int userNo = user.getUserNo();
-		ArrayList<Reservation> rList = rService.listByDreamUpToThree(userNo);
-
-		ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
 		
-		ArrayList<Qna> qList = qService.dreamQnaUpToThree(userNo);
-
-		if (!rList.isEmpty() && !drList.isEmpty() && !qList.isEmpty()) {
+		try {
+			ArrayList<Reservation> rList = rService.listByDreamUpToThree(userNo);
+			ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
+			ArrayList<Qna> qList = qService.dreamQnaUpToThree(userNo);
 			model.addAttribute("rList", rList);
 			model.addAttribute("drList", drList);
 			model.addAttribute("qList",qList);
+			model.addAttribute("Rmsg","예약 데이터가 없습니다.");
+			model.addAttribute("DRmsg","후기 데이터가 없습니다.");
+			model.addAttribute("Qmsg","문의 데이터가 없습니다.");
 			return "dreamMyPage/DreamMyPage";
-		} else if (rList.isEmpty()) {
-			model.addAttribute("msg", "불러올 데이터가 없습니다.");
-			return "dreamMyPage/DreamMyPage";
-		} else if (drList.isEmpty()) {
-			model.addAttribute("msg", "불러올 데이터가 없습니다.");
-			return "dreamMyPage/DreamMyPage";
-		} else if(qList.isEmpty()) {
-			model.addAttribute("msg", "불러올 데이터가 없습니다.");
-			return "dreamMyPage/DreamMyPage";
-		} else {
+		}catch(Exception e) {
 			model.addAttribute("msg", "내역을 출력하는데 실패했습니다.");
 			return "common/errorPage";
 		}
@@ -124,8 +116,8 @@ public class DreamMyPageController {
 		return "dreamMyPage/DreamReviewDetail";
 	}
 
+	
 	// 꿈나무 회원 리뷰 전체 불러오기
-
 	@RequestMapping(value = "allReviewListByDream.dz", method = RequestMethod.GET)
 	public ModelAndView allReviewListByDream(HttpSession session, Model model, ModelAndView mv,
 			@RequestParam(value = "page", required = false) Integer page) {
@@ -151,6 +143,7 @@ public class DreamMyPageController {
 		return mv;
 	}
 	
+	// 꿈나무회원 qna 3개 불러오기
 	@RequestMapping(value="allQnaListByDream.dz", method = RequestMethod.GET)
 	public ModelAndView allQnaListByDream(HttpSession session, 
 									Model model, 

@@ -66,7 +66,7 @@
 						</c:if>
 						<c:if test="${ empty rList }">
 							<tr>
-								<td colspan="5">${ msg }</td>
+								<td colspan="5">${ Rmsg}</td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -148,53 +148,9 @@
 						</c:if>
 						<c:if test="${ empty drList }">
 							<tr>
-								<td colspan="6">${ msg }</td>
+								<td colspan="6">${DRmsg}</td>
 							</tr>
 						</c:if>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="my-list recommend-list">
-			<div class="frame">
-				<div class="my-title">
-					<span>내가 쓴 추천</span>
-					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
-					</div>
-				</div>
-				<table>
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>제목</th>
-							<th>작성날짜</th>
-							<th>수정</th>
-							<th>삭제</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>여기 추천해요</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>여기 추천해요</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>여기 추천해요</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -204,7 +160,7 @@
 				<div class="my-title">
 					<span>내가 쓴 문의글</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="allQnaListByDream.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -218,27 +174,22 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+						<c:if test="${ !empty qList}">
+							<c:forEach items="${ qList}" var="qna" varStatus="status">
+								<tr>
+									<td>${status.count }</td>
+									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}</p></a></td>
+									<td>${ qna.qanCreateDate }</td>
+									<td><a class="modify-btn" href="#">수정</a></td>
+									<td><a class="delete-btn" href="#">삭제</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty qList }">
+							<tr>
+								<td colspan="5">${Qmsg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>

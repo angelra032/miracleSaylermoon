@@ -208,7 +208,7 @@
             <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
          </div>
          
-         <div id="main-title">${shop.shopName }</div>
+         <div id="main-title">예약하기&nbsp;&nbsp;<span id="main-title-font">${shop.shopName }</span></div>
          
          <div class="frame">
 			<div id="calendarSection">

@@ -164,9 +164,8 @@ body {
 	width: 1289px;
 	margin: 0 auto;
 	/* position:relative; */
-	height:1000px;
+	height:790px;
 	margin-top:140px;
-	margin-bottom: 140px;
 }
 
 /* 백그라운드 이미지 */
@@ -194,7 +193,12 @@ body {
     color: #ffffff;
     text-align: center;
     position: absolute;
-   top: 101px;
+	top: 150px;
+	right: 480px;
     line-height: 4.7;
     z-index: -2;
 } 
+
+#main-title-font{
+	font-size: 20px;
+}
