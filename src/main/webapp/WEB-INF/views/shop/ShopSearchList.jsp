@@ -50,7 +50,7 @@
 				<div class="theme three">
 					<span>이달의 신규가게</span>
 					<input type=hidden name="theme3" value="3">
-					<<a href="searchTheme.dz?themeNo=3"><img class="theme1" src="/resources/images/theme/shoptheme3.jpeg" alt="theme3"></a>
+					<a href="searchTheme.dz?themeNo=3"><img class="theme1" src="/resources/images/theme/shoptheme3.jpeg" alt="theme3"></a>
 				</div>
 				<div class="theme four">
 					<span>파스타 맛집 추천</span>

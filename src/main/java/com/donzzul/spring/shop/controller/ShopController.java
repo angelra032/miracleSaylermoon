@@ -174,12 +174,24 @@ public class ShopController {
 		
 		String themeWord = "";	
 		
+		int currentPage = (page != null) ? page : 1; 
+		int listCount = sService.selectShopThemeCount(themeWord); 
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+		
 		switch(themeNo) {
 			case 1 : 
-//				ArrayList<Shop> sRank = mzService.selectReviewRanking();
+				ArrayList<ReviewDreamMzAll> sRank = mzService.selectReviewRanking();
+				System.out.println("테스트 shop ArrayList " + sRank);
+				System.out.println("shopNo" + sRank.toString());
 				break;
 			case 2 : 
 				themeWord = "천안";
+				
+				ArrayList<Shop> sList = sService.selectShopTheme(pi, themeWord);
+				
+				mv.addObject("pi", pi);
+				mv.addObject("sList", sList);
+				
 				break;
 			case 3 : 
 				themeWord = "신규";
@@ -200,7 +212,7 @@ public class ShopController {
 				themeWord = "제주";
 				break;
 			case 9 : 
-				themeWord = "백반";
+				themeWord = "카페";
 				break;
 			case 10 : 
 				themeWord = "피자";
@@ -217,15 +229,6 @@ public class ShopController {
 		}
 		// 
 		System.out.println(themeWord); // 확인용
-		
-		int currentPage = (page != null) ? page : 1; 
-		int listCount = sService.selectShopThemeCount(themeWord); 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
-		
-		ArrayList<Shop> sList = sService.selectShopTheme(pi, themeWord);
-		
-		mv.addObject("pi", pi);
-		mv.addObject("sList", sList);
 		
 		return mv;
 		

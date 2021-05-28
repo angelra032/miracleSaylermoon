@@ -10,6 +10,7 @@ import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
+import com.donzzul.spring.shop.domain.Shop;
 
 @Service
 public class MzReviewServiceLogic implements MzReviewService {
@@ -58,7 +59,7 @@ public class MzReviewServiceLogic implements MzReviewService {
     }
     
 	@Override
-	public int selectReviewRanking() {
+	public ArrayList<ReviewDreamMzAll> selectReviewRanking() {
 		return mStore.selectReviewRanking();
 	}
 

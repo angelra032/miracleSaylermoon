@@ -11,6 +11,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
+import com.donzzul.spring.shop.domain.Shop;
 
 @Repository
 public class MzReviewStoreLogic implements MzReviewStore {
@@ -69,8 +70,8 @@ public class MzReviewStoreLogic implements MzReviewStore {
     }
 
 	@Override
-	public int selectReviewRanking() {
-		return sqlSession.selectOne("mzReviewMapper.selectReviewRanking");
+	public ArrayList<ReviewDreamMzAll> selectReviewRanking() {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectReviewRanking");
 	}
 
     // 메인페이지에 최근글 세개 뿌리기
