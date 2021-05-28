@@ -2,10 +2,12 @@ package com.donzzul.spring.notiqna.store.logic;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.notiqna.domain.Notice;
 import com.donzzul.spring.notiqna.store.NoticeStore;
 
@@ -39,6 +41,19 @@ public class NoticeSotreLogic implements NoticeStore {
 	@Override
 	public int deleteNotice(int noticeNo) {
 		return sqlSession.delete("notiQnaMapper.deleteNotice", noticeNo);
+	}
+	
+	//페이징
+	@Override
+	public int getListCount() {
+		return sqlSession.selectOne("notiQnaMapper.selectNoticeListCount");
+	}
+
+	@Override
+	public ArrayList<Notice> selectAllNotice(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("notiQnaMapper.selectNoticeAllList", null, rowBounds);
 	}
 
 

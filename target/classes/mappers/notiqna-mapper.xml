@@ -27,13 +27,21 @@
 		<result property="groupLayer" column="GROUP_LAYER"/>
 	</resultMap>
 
-	<!-- 공지사항 -->
+	<!-- 공지사항******* -->
 	<select id="selectNoticePublicAllList" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE WHERE NOTICE_PUBLIC_YN = 'Y' ORDER BY NOTICE_NO ASC
 	</select>
 	
 	<select id="selectNoticeOneDetail" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
+	<!-- 페이징 -->
+	<select id="selectNoticeListCount" resultType="_int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	<select id="selectNoticeAllList" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE ORDER BY NOTICE_CREATE_DATE DESC
 	</select>
 	
 	<insert id="insertNotice">

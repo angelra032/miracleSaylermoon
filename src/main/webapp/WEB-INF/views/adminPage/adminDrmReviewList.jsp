@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
 <link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
-<title>전체회원 목록 페이지</title>
+<title>게시판 목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -27,12 +27,10 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>구분</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>핸드폰 번호</th>
-							<th>이메일</th>
-							<th>탈퇴</th>
+							<th>제목</th>
+							<th>날짜</th>
+							<th>수정</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -41,18 +39,6 @@
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 						<tr>
 							<td>${ num }</td>
-							<c:if test="${ user.userType eq '1' }">
-								<td>꿈나무</td>							
-							</c:if>
-							<c:if test="${ user.userType eq '2' }">
-								<td>일반</td>							
-							</c:if>
-							<c:if test="${ user.userType eq '3' }">
-								<td>사업자</td>							
-							</c:if>
-							<c:if test="${ user.userType eq '4' }">
-								<td>관리자</td>							
-							</c:if>
 							<td>${user.userName }</td>
 							<td>${user.userId }</td>
 							<td>${user.userPhone }</td>
