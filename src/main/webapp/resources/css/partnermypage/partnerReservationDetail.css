@@ -218,10 +218,31 @@ main {
 }
 
 
+.reserv-btn {
+	display: block;
+	width: 120px;
+	height: 40px;
+	background-color: #0160ff;
+	margin: 0 auto;
+	line-height: 40px;
+	color:#fff;
+	border-radius: 3px;
+	font-size: 16px;
+}
 
 
-
-
+.select-rstate {
+	width: 120px;
+	height: 40px;
+	background-color: #0160ff;
+	margin: 0 auto;
+	line-height: 40px;
+	color:#fff;
+	border-radius: 3px;
+	font-size: 16px;
+	text-align: center;
+	border: 0;
+}
 
 
 

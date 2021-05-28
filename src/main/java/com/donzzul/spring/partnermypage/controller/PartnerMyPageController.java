@@ -55,13 +55,13 @@ public class PartnerMyPageController {
 			
 			if(!rList.isEmpty()) {
 				model.addAttribute("rList", rList);
-				return "partnerMyPage/partnerMyPage";
+				return "redirect:partnerMyPage.dz";
 			}else if(rList.isEmpty()) {
 				model.addAttribute("msg", "불러올 데이터가 없습니다.");
-				return "common/errorPage";
+				return "redirect:partnerMyPage.dz";
 			}else {
 				model.addAttribute("msg", "내역을 출력하는데 실패했습니다.");
-				return "common/errorPage";
+				return "redirect:partnerMyPage.dz";
 			}
 		}else {
 			model.addAttribute("msg", "등록되어 있는 가게가 존재하지 않습니다.");
@@ -76,26 +76,42 @@ public class PartnerMyPageController {
 										@RequestParam("rState") String rState,
 										@RequestParam("shopNo") int shopNo,
 										Model model) {
-		
-		// 예약 번호, 예약 상태, 예약 가게 받음
-		Reservation reservation = rService.selectOne(reservationNo); // 예약넘버로 하나 가져옴
-		String rStateResulut = reservation.getrState(); // 상태 가져와서
+		Reservation reservation = rService.selectOne(reservationNo);
+		String rStateResulut = reservation.getrState();
 //		예약기본상태 O(default)
 //		예약승인 Y(comfirm)
 //		예약취소 X(cancle)
 //		예약완료 C(complete)
-		// 예약 확정 후 후기 글쓰기 가능 H
 		if(rStateResulut != null) {
 			reservation.setrState(rState);
-			int result = rService.updateRstate(reservation); // rState 변경
+			int result = rService.updateRstate(reservation);
 			if(result > 0 && rState.equals("C")) {
-				rService.updateShopPoint(reservation);
-				// 
+				//rService.updateShopPoint(reservation);
+				//방문 완료했을때 포인트가 업데이트 되게 바꾸기
+				}
 			}
+		model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
+		return "redirect:partnerMyPage.dz";
+		}
+	
+	// 방문완료
+	@RequestMapping(value="completeReservation.dz", method=RequestMethod.GET)
+	public String completeReservation(@RequestParam("reservationNo") int reservationNo,
+									@RequestParam("rState") String rState,
+									Model model) {
+		if(rState.equals("Y")) {
+			Reservation reservation = new Reservation();
+			reservation.setrState("C");
+			reservation.setReservationNo(reservationNo);
+			int result = rService.updateRstate(reservation); // rState 변경
+		}else {
+			model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
+			return "redirect:partnerMyPage.dz";
 		}
 		model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
-		return "partnerMyPage/partnerMyPage";
+		return "redirect:partnerMyPage.dz";
 	}
+	
 	
 	
 	// 예약 더보기(풀 리스트)
