@@ -140,11 +140,11 @@ public class UserController {
 		return service.checkEmailDup(userEmail)+"";
 	}
 	
-	//로그인 뷰
+	//로그인 폼을 띄우는 부분
 	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
 	public String loginView() {
 		return "user/userLogin";
-	}
+	} // end of loginView
 	
 	//로그인 유효성 검사
 	@ResponseBody 
@@ -159,21 +159,28 @@ public class UserController {
 		}else {
 			return 2+"";
 		}
-	}
+	} //end of loginDuplicateCheck 
 	
-	//로그인
+	//로그인 처리하는 부분
 	@RequestMapping(value = "login.dz", method = RequestMethod.POST)
-	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		User uOne = new User(user.getUserId(), user.getUserPw());
-		User loginUser = service.loginUser(uOne);
-		if (loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			return "/home";
-		}else {
-			model.addAttribute("msg", "로그인 실패");
-			return "common/errorPage";
+	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model, HttpSession session) {
+		String returnURL = "";
+		if (session.getAttribute("loginUser") != null) { // 기존에 login이란 세션값이 존재한다면
+			session.removeAttribute("loginUser"); // 기존값을 제거해준다.
 		}
+		
+		User uOne = new User(user.getUserId(), user.getUserPw());
+		// 로그인이 성공하면 User객체를 반환함
+		User loginUser = service.loginUser(uOne);
+		
+		if (loginUser != null) { // 로그인 성공
+			session = request.getSession();
+			session.setAttribute("loginUser", loginUser); // 세션에 loginUser란 이름으로 User객체를 저장해논다.
+			returnURL = "redirect:/"; // 로그인 성공시 메인페이지로 바로 이동하도록 함
+		}else { // 로그인이 실패한 경우
+			returnURL = "redirect:loginView.dz"; // 로그인 폼으로 다시 가도록 함
+		}
+		return returnURL; // 위에서 설정한 returnURL을 반환해서 이동시킴
 	}
 	
 	// 카카오 로그인
@@ -212,8 +219,8 @@ public class UserController {
 	@RequestMapping(value = "logout.dz", method = RequestMethod.GET) 
 	public String userLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		session.invalidate();
-		return "/home";
+		session.invalidate(); // 세션 전체를 날려버림
+		return "redirect:/"; // 로그아웃 후 메인페이지로
 	}
 	
 	//회원정보조회@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

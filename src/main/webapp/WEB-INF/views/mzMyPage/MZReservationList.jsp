@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/mzreservationdetail.css">
-<title>Dream회원 예약목록</title>
+<link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
+<title>꿈나무회원 예약목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -15,7 +15,7 @@
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
-					<a class="info-btn" href="dreamMyPage.dz">돌아가기</a>
+					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -32,11 +32,13 @@
 						</tr>
 					</thead>
 					<tbody>
+					<c:if test="${ !empty rList }">
 					<c:forEach items="${rList }" var="reservation" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
 							<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
 							<td>${reservation.reserveDate }</td>
+							
 							<c:if test="${reservation.rState eq 'O' }">
 							<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
 							</c:if>
@@ -47,10 +49,12 @@
 							<td><a class="confirm-btn" >예약확정</a></td>
 							</c:if>
 							
-							
 							<td><a class="btn btn-secondary">후기작성</a></td>
 							<c:if test="${reservation.rState eq 'C' }">
-							<td><a class="reserv-btn" href="#">후기작성</a></td>
+							<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+							</c:if>
+							<c:if test="${reservation.rState eq 'H' }">
+							<td><a class="reserv-btn">후기작성</a></td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -91,6 +95,12 @@
 								</c:if>
 							</td>
 						</tr>
+						</c:if>
+						<c:if test="${ empty rList }">
+							<tr>
+								<td colspan="5">${ msg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
