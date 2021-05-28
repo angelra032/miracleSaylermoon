@@ -95,11 +95,12 @@
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
 					var shopNo = '${shopNo}';
+					var reservationNo = '${reservationNo}';
 					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") {
 					    $.ajax({
 						   url : "dReviewWriterForm.dz",
 						   type : "POST",
-						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "shopNo" : shopNo},
+						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "shopNo" : shopNo, "reservationNo" : reservationNo},
 						   success : function(data){
 							   if(data == "success") {
 								   location.href="dReviewMain.dz";

@@ -57,9 +57,12 @@
 									</c:if>
 
 
-									<td><a class="btn btn-secondary">후기작성</a></td>
+										<td><a class="btn btn-secondary">후기작성</a></td>
 									<c:if test="${reservation.rState eq 'C' }">
-										<td><a class="reserv-btn" href="#">후기작성</a></td>
+										<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
+									</c:if>
+									<c:if test="${reservation.rState eq 'H' }">
+										<td><a class="btn btn-secondary">후기작성완료</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>

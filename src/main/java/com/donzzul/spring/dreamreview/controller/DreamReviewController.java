@@ -22,6 +22,8 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.reservation.domain.Reservation;
+import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.logic.ShopServiceImpl;
 import com.donzzul.spring.user.domain.User;
@@ -31,6 +33,10 @@ public class DreamReviewController {
 	
 	@Autowired
 	private DreamReviewService drService;
+	
+	@Autowired
+	private ReservationService rService;
+	
 	
 	// 감사후기 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="dReviewMain.dz", method=RequestMethod.GET)
@@ -89,8 +95,12 @@ public class DreamReviewController {
 	
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="dReviewWriteView.dz", method=RequestMethod.GET)
-	public String dReviewWriteView(@RequestParam("shopNo") int shopNo,Model model) {
+	public String dReviewWriteView(@RequestParam("shopNo") int shopNo,
+									@RequestParam("reservationNo") int reservationNo,
+									Model model) {
+		// rState update에 필요한 reservationNo 가져오기
 		model.addAttribute("shopNo", shopNo);
+		model.addAttribute("reservationNo", reservationNo);
 		return "board/drmReview/dReviewInsertForm";
 	}
 	
@@ -98,7 +108,10 @@ public class DreamReviewController {
 	// 글쓰기 올림  insert
 	@ResponseBody
 	@RequestMapping(value="dReviewWriterForm.dz", method=RequestMethod.POST)
-	public String dReviewRegister(@ModelAttribute DreamReview dreamReview, @RequestParam("drmReviewPublicYN") String drmReviewPublicYN, HttpServletRequest request) {
+	public String dReviewRegister(@ModelAttribute DreamReview dreamReview,
+								@RequestParam("reservationNo") int reservationNo,
+								@RequestParam("drmReviewPublicYN") String drmReviewPublicYN, 
+								HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		
@@ -108,10 +121,17 @@ public class DreamReviewController {
 		dreamReview.setUserNo(user.getUserNo());
 		System.out.println(dreamReview.toString());
 		
+		// rState update
+		Reservation reservation = new Reservation();
+		reservation.setReservationNo(reservationNo);
+		reservation.setrState("H");
+		
 		//db
 		int result = 0;
 		result = drService.insertDreamReview(dreamReview);
-		if(result > 0) {
+		// rState update
+		int rStateResult = rService.updateRstate(reservation);
+		if(result > 0 || rStateResult > 0) {
 //			mv.setViewName("redirect:dReviewMain.dz");
 			return "success";
 		} else {
