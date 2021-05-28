@@ -43,16 +43,18 @@ public class ShopStoreLogic implements ShopStore {
 	public ArrayList<Shop> searchMapKeyword(String searchKeyword) {
 		return (ArrayList)sqlSession.selectList("shopMapper.selectMapKeyword", searchKeyword);
 	}
+	
+	@Override
+	public ArrayList<Shop> selectShopTheme(PageInfo pi, String themeWord) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", themeWord, rowBounds);
+	}
 
 	@Override
 	public ArrayList<Shop> searchShop(String searchKeyWord) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public ArrayList<Shop> searchShopTheme(String themeWord) {
-		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", themeWord);
 	}
 
 	@Override
@@ -80,6 +82,11 @@ public class ShopStoreLogic implements ShopStore {
 	@Override
 	public int selectKeyListCount(String searchKeyword) {
 		return sqlSession.selectOne("shopMapper.selectListCountKey", searchKeyword);
+	}
+	
+	@Override
+	public int selectShopThemeCount(String themeWord) {
+		return sqlSession.selectOne("shopMapper.selectThemeCount", themeWord);
 	}
 	
     @Override

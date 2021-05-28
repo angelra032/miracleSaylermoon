@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
@@ -165,22 +166,17 @@ public class ShopController {
 		return "shop/ShopSearchList";
 	}
 	
-	//D 가게검색 - 키워드 
-	@RequestMapping(value="searchShop.dz", method=RequestMethod.GET)
-	public String searchShop(@RequestParam("searchKeyword") String searchKeyword, Model model) {
-		// 파라미터 - 유저 입력값
-		ArrayList<Shop> sList = sService.searchShop(searchKeyword);
-		return "";
-	}
-	
 	//D 가게검색 - 테마
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
-	public void searchTheme(@RequestParam("themeNo") int themeNo, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) throws Exception {
+	public ModelAndView searchTheme(ModelAndView mv, @RequestParam("themeNo") int themeNo, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
 		// 파라미터 - 메뉴 클릭시 넘버
+		System.out.println(themeNo); // 확인용
+		
 		String themeWord = "";	
+		
 		switch(themeNo) {
 			case 1 : 
-				themeWord = "리뷰";
+//				ArrayList<Shop> sRank = mzService.selectReviewRanking();
 				break;
 			case 2 : 
 				themeWord = "천안";
@@ -219,21 +215,35 @@ public class ShopController {
 				themeWord = "서울";
 				break;
 		}
-		// 1번 - 약식정보 가져오기
-		System.out.println(themeNo);
-		System.out.println(themeWord);
+		// 
+		System.out.println(themeWord); // 확인용
 		
 		int currentPage = (page != null) ? page : 1; 
-//		int listCount = sService.selectShopThemeCount(themeWord); 
-//		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); 
+		int listCount = sService.selectShopThemeCount(themeWord); 
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
 		
-		ArrayList<Shop> sList = sService.searchShopTheme(themeWord);
+		ArrayList<Shop> sList = sService.selectShopTheme(pi, themeWord);
 		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
+		mv.addObject("pi", pi);
+		mv.addObject("sList", sList);
 		
-		Gson gson = new Gson();
-		gson.toJson(sList, response.getWriter());
+		return mv;
+		
+//		
+//		response.setContentType("application/json");
+//		response.setCharacterEncoding("utf-8");
+//		
+//		Gson gson = new Gson();
+//		gson.toJson(sList, response.getWriter());
+	}
+	
+	
+	//D 가게검색 - 키워드 
+	@RequestMapping(value="searchShop.dz", method=RequestMethod.GET)
+	public String searchShop(@RequestParam("searchKeyword") String searchKeyword, Model model) {
+		// 파라미터 - 유저 입력값
+		ArrayList<Shop> sList = sService.searchShop(searchKeyword);
+		return "";
 	}
 	
 	//D 가게 상세 페이지 출력

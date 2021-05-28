@@ -7,10 +7,12 @@
 		<id property="pickNo" column="PICK_NO"/>
 		<result property="shopNo" column="SHOP_NO"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="shopName" column="SHOP_NAME"/>
+		<result property="shopShortAddr" column="SHOP_SHORT_ADDR"/>
 	</resultMap>
 	
 	<select id="selectAllList" resultMap="pickResultMap">
-		
+		SELECT PICK.USER_NO, PICK.SHOP_NO, SHOP.SHOP_NAME, SHOP.SHOP_SHORT_ADDR FROM PICK LEFT OUTER JOIN SHOP ON PICK.SHOP_NO = SHOP.SHOP_NO WHERE PICK.USER_NO = #{ userNo }
 	</select>
 	
 	<insert id="insertPick" parameterType="HashMap">

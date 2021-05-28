@@ -40,62 +40,62 @@
 				<div class="theme one">
 					<span>이주의 리뷰왕</span>
 					<input type=hidden name="theme1" value="1">
-					<img class="theme1" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1">
+					<a href="searchTheme.dz?themeNo=1"><img class="theme1" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1"></a>
 				</div>
 				<div class="theme two">
 					<span>천안 맛집 추천</span>
 					<input type=hidden name="theme2" value="2">
-					<img class="theme1" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2">
+					<a href="searchTheme.dz?themeNo=2"><img class="theme1" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2"></a>
 				</div>
 				<div class="theme three">
 					<span>이달의 신규가게</span>
 					<input type=hidden name="theme3" value="3">
-					<img class="theme1" src="/resources/images/theme/shoptheme3.jpeg" alt="theme3">
+					<<a href="searchTheme.dz?themeNo=3"><img class="theme1" src="/resources/images/theme/shoptheme3.jpeg" alt="theme3"></a>
 				</div>
 				<div class="theme four">
 					<span>파스타 맛집 추천</span>
 					<input type=hidden name="theme4" value="4">
-					<img class="theme1" src="/resources/images/theme/shoptheme4.jpeg" alt="theme4">
+					<a href="searchTheme.dz?themeNo=4"><img class="theme1" src="/resources/images/theme/shoptheme4.jpeg" alt="theme4"></a>
 				</div>
 				<div class="theme five">
 					<span>중식 맛집 추천</span>
 					<input type=hidden name="theme5" value="5">
-					<img class="theme1" src="/resources/images/theme/shoptheme5.jpeg" alt="theme5">
+					<a href="searchTheme.dz?themeNo=5"><img class="theme1" src="/resources/images/theme/shoptheme5.jpeg" alt="theme5"></a>
 				</div>
 				<div class="theme six">
 					<span>명동 맛집 추천</span>
 					<input type=hidden name="theme6" value="6">
-					<img class="theme1" src="/resources/images/theme/shoptheme6.jpeg" alt="theme6">
+					<a href="searchTheme.dz?themeNo=6"><img class="theme1" src="/resources/images/theme/shoptheme6.jpeg" alt="theme6"></a>
 				</div>
 				<div class="theme seven">
 					<span>햄버거 맛집 추천</span>
 					<input type=hidden name="theme7" value="7">
-					<img class="theme1" src="/resources/images/theme/shoptheme7.jpeg" alt="theme7">
+					<a href="searchTheme.dz?themeNo=7"><img class="theme1" src="/resources/images/theme/shoptheme7.jpeg" alt="theme7"></a>
 				</div>
 				<div class="theme eight">
 					<span>제주 맛집 추천</span>
 					<input type=hidden name="theme8" value="8">
-					<img class="theme1" src="/resources/images/theme/shoptheme8.jpeg" alt="theme8">
+					<a href="searchTheme.dz?themeNo=8"><img class="theme1" src="/resources/images/theme/shoptheme8.jpeg" alt="theme8"></a>
 				</div>
 				<div class="theme nine">
 					<span>백반 맛집 추천</span>
 					<input type=hidden name="theme9" value="9">
-					<img class="theme1" src="/resources/images/theme/shoptheme9.jpeg" alt="theme9">
+					<a href="searchTheme.dz?themeNo=9"><img class="theme1" src="/resources/images/theme/shoptheme9.jpeg" alt="theme9"></a>
 				</div>
 				<div class="theme ten">
 					<span>도심 속<br>작은 유럽</span>
 					<input type=hidden name="theme10" value="10">
-					<img class="theme1" src="/resources/images/theme/shoptheme10.jpeg" alt="theme10">
+					<a href="searchTheme.dz?themeNo=10"><img class="theme1" src="/resources/images/theme/shoptheme10.jpeg" alt="theme10"></a>
 				</div>
 				<div class="theme eleven">
 					<span>분식이 땡길 때</span>
 					<input type=hidden name="theme11" value="11">
-					<img class="theme1" src="/resources/images/theme/shoptheme11.jpeg" alt="theme11">
+					<a href="searchTheme.dz?themeNo=11"><img class="theme1" src="/resources/images/theme/shoptheme11.jpeg" alt="theme11"></a>
 				</div>
 				<div class="theme twelve">
 					<span>초밥 맛집 추천</span>
 					<input type=hidden name="theme12" value="12">
-					<img class="theme1" src="/resources/images/theme/shoptheme12.jpeg" alt="theme12">
+					<a href="searchTheme.dz?themeNo=12"><img class="theme1" src="/resources/images/theme/shoptheme12.jpeg" alt="theme12"></a>
 				</div>
 			</div> 
 			
@@ -158,7 +158,7 @@
 					});
 				}
 			});
-			
+			/* 
 			 $(".theme1").on("click", function(e) {
 				console.log(e.target);
 				console.log($(e.target).prev().val());
@@ -176,7 +176,7 @@
 						return false;
 					}
 				});
-			});
+			}); */
 		});
 	</script>
 </body>
