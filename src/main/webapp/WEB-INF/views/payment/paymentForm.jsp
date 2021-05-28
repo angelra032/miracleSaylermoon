@@ -178,7 +178,7 @@
 	        },
 	        success : function(data) {
 	        	console.log(data);
-	        	location.href='rouletteView.dz?donNo='+data.donNo;
+	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
 	        }
         });
 	    /* IMP.request_pay({

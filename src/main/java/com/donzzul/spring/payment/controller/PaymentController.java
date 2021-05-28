@@ -88,6 +88,8 @@ public class PaymentController {
 			HashMap<String, Object> donPoint = new HashMap<String, Object>();
 			donPoint.put("donNo", don.getDonNo());
 			donPoint.put("userNo", loginUser.getUserNo());
+			donPoint.put("donPrice", don.getDonPrice());
+			donPoint.put("shopName", don.getShopName());
 			
 			int upPoint = pService.usePoint(donPoint);
 			if(upPoint > 0) {
@@ -105,9 +107,10 @@ public class PaymentController {
 
 	// 룰렛 페이지
 	@RequestMapping(value = "rouletteView.dz", method = RequestMethod.GET)
-	public String rouletteView(@RequestParam("donNo") int donNo, HttpSession session, Model model) {
+	public String rouletteView(@RequestParam("donNo") int donNo, @RequestParam("donPrice") int donPrice, HttpSession session, Model model) {
 		
 		System.out.println(donNo); 
+		System.out.println(donPrice);
 		
 		// ROULETTE YN(사용가능 여부) 체크해서 화면단에서 c:if로 처리
 		// Y면 돌리고 N이면 못 돌리게
@@ -129,7 +132,9 @@ public class PaymentController {
 	// 룰렛 포인트 정립
 	@RequestMapping(value = "saveRoulettePoint.dz", method=RequestMethod.POST)
 	public String saveRoulettePoint(HttpSession session, Model model,
-									@ModelAttribute Don don // @RequestParam("winning-point") int winPoint, @RequestParam("donNo") int donNo,
+									@ModelAttribute Don don,
+									@RequestParam("shopName") String shopName, 
+									@RequestParam("donPrice") int donPrice
 										) {
 		// 포인트 디비에서 계산하려면
 		// 포인트 컬럼 추가(일단 vo에)
