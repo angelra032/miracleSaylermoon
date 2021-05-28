@@ -3,6 +3,7 @@ package com.donzzul.spring.user.store;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.user.domain.User;
 
 public interface UserStore {
@@ -32,5 +33,7 @@ public interface UserStore {
 	public int resetPw(HashMap<String, String> map);
 	public int checkEmailDupNotMe(User user);
 	public int checkPhoneDupNotMe(User user);
-	public ArrayList<User> selectAllUserList();
+	public ArrayList<User> selectUserListThree();
+	public int getListCount();
+	public ArrayList<User> selectAllUserList(PageInfo pi);
 }

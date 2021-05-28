@@ -3,10 +3,12 @@ package com.donzzul.spring.user.store.logic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.store.UserStore;
 
@@ -166,10 +168,25 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.selectOne("userMapper.checkPhoneDupNotMe", user);
 	}
 	
-	// 모든 유저 출력하기(관리자페이지)
+
+	// 3명 유저 출력하기(관리자페이지)
 	@Override
-	public ArrayList<User> selectAllUserList() {
-		return (ArrayList)sqlSession.selectList("userMapper.selectAllUser");
+	public ArrayList<User> selectUserListThree() {
+		return (ArrayList)sqlSession.selectList("userMapper.selectThreeUser");
+	}
+	
+	// 페이징 작업(어드민)
+	@Override
+	public int getListCount() {
+		return sqlSession.selectOne("userMapper.selectListCount");
+	}
+	
+	// 페이징 작업(어드민)
+	@Override
+	public ArrayList<User> selectAllUserList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("userMapper.selectAllListPage", null, rowBounds);
 	}
 
 	

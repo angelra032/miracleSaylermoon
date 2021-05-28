@@ -18,7 +18,7 @@
 	<main>
 		<div class="header-admin-nick-area">
 				관리자님 안녕하세요!
-			</div>
+		</div>
 		<!-- 	<div class="admin-menu">
 				<ul>
 					<li>포인트관리</li>
@@ -55,7 +55,7 @@
 				<div class="my-title">
 					<span>사업자관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="adminAllShopList.dz">더보기</a>
 					</div>
 				</div>
 				<div class="center-table-area">
@@ -80,8 +80,13 @@
 									<td><a class="table-link-title" href="#"><span>${ shop.shopName }</span></a></td>
 									<td>${ shop.userId }</td>
 									<td>${ shop.partnerVerify }</td>
-									<td>N</td>
-									<td>N</td>
+									<c:if test="${ shop.showShopYN eq 'Y' or shop.showShopYN eq 'y' }">
+										<td>승인</td>
+									</c:if>
+									<c:if test="${ shop.showShopYN eq 'N' or shop.showShopYN eq 'n' }">
+										<td>미승인</td>
+									</c:if>
+									<td>${ shop.partnerWithdraw }</td>										
 									<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
 								</tr>
 							</c:forEach>
@@ -104,7 +109,7 @@
 				<div class="my-title">
 					<span>회원관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="adminAllUserList.dz">더보기</a>
 					</div>
 				</div>
 				<div class="center-table-area">
@@ -120,24 +125,31 @@
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach items="${ userList }" var="user" end="2" varStatus="status">
+						<c:if test="${!empty userList }">
+							<c:forEach items="${ userList }" var="user" end="2" varStatus="status">
+								<tr>
+									<td>${ status.count }</td>
+									<td>${ user.userName }</td>
+									<td><a class="table-link-title" href="#"><span>${ user.userId }</span></a></td>
+									<td>${ user.userPhone }</td>
+									<c:if test="${ user.userType eq '1' }">
+										<td>꿈나무</td>
+									</c:if>
+									<c:if test="${ user.userType eq '2' }">
+										<td>일반</td>
+									</c:if>
+									<c:if test="${ user.userType eq '3' }">
+										<td>사업자</td>
+									</c:if>
+									<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty userList }">
 							<tr>
-								<td>${ status.count }</td>
-								<td>${ user.userName }</td>
-								<td><a class="table-link-title" href="#"><span>${ user.userId }</span></a></td>
-								<td>${ user.userPhone }</td>
-								<c:if test="${ user.userType eq '1' }">
-									<td>꿈나무</td>
-								</c:if>
-								<c:if test="${ user.userType eq '2' }">
-									<td>일반</td>
-								</c:if>
-								<c:if test="${ user.userType eq '3' }">
-									<td>사업자</td>
-								</c:if>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+								<td colspan="5">${ msg }</td>
 							</tr>
-						</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 				</div>

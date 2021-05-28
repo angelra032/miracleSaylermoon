@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.service.UserService;
 import com.donzzul.spring.user.store.UserStore;
@@ -171,10 +172,22 @@ public class UserServiceImpl implements UserService {
 		return store.checkPhoneDupNotMe(user);
 	}
 	
-	// 모든 유저 출력하기(관리자페이지)
+
+	// 3명 유저 출력하기(관리자페이지)
 	@Override
-	public ArrayList<User> selectAllUserList() {
-		return store.selectAllUserList();
+	public ArrayList<User> selectUserListThree() {
+		return store.selectUserListThree();
+	}
+	
+	// 페이징작업
+	@Override
+	public int getListCount() {
+		return store.getListCount();
+	}
+
+	@Override
+	public ArrayList<User> selectAllUserList(PageInfo pi) {
+		return store.selectAllUserList(pi);
 	}
 
 	
