@@ -89,7 +89,6 @@ public class ReservationController {
 	
 	
 	  @ResponseBody
-	  
 	  @RequestMapping(value="printReservation.dz", method=RequestMethod.POST)
 	  public ArrayList<HashMap<String, String>> printReservation(@RequestParam("shopNo") int shopNo) {
 	  System.out.println(shopNo); 
@@ -107,19 +106,6 @@ public class ReservationController {
 		  
 		  list.add(map); 
 	  }
-		 
-	  //HashMap<String, String> map =  new HashMap<String, String>();
-	  //map.put("start", "2021-05-24");
-	  //map.put("end", "2021-05-24");
-	  //list.add(map);
-	  //map =  new HashMap<String, String>();
-	  //map.put("start", "2021-05-28");
-	  //map.put("end", "2021-05-28");
-	  //list.add(map);
-	  //map =  new HashMap<String, String>();
-	  //map.put("start", "2021-05-30");
-	  //map.put("end", "2021-05-30");
-	  //list.add(map);
 	  return list; 
 	  }
 	 

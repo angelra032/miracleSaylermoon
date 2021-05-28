@@ -21,7 +21,7 @@
          selectable : true,
          businessHours : true,
          locale : "ko",
-         dayMaxEvents : true,
+         dayMaxEvents : false,
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
             // use *local* methods on the native Date Object
@@ -212,13 +212,13 @@
          
          <div class="frame">
 			<div id="calendarSection">
-				<div id="calendarText"><h1>예약날짜 선택</h1></div>
+				<div id="calendarText"><h1 class="titleH1">예약날짜 선택</h1></div>
             	<div id='calendar'></div>
 			</div>
 			
 			
             <div id="selectAreaFirst">
-               <div id="rTimeText"><h1>예약시간 선택</h1></div>
+               <div id="rTimeText"><h1 class="titleH1">예약시간 선택</h1></div>
                <div id="selectTSection">
                	<select name="selectTime" id="selectTime" class="select" onchange="timeChange(this.value);">
                   	 <option value="0">선택</option>
@@ -229,7 +229,7 @@
                </div>
                
                <div id="countDiv">
-               	<div id="rCountText"><h1>인원수 선택</h1></div>
+               	<div id="rCountText"><h1 class="titleH1">인원수 선택</h1></div>
                	<div id="selectCSection">
                		<select name="selectCount" id="selectCount" class="select" onchange="countChange(this.value);">
                   			<option value="0">선택</option>
@@ -241,7 +241,7 @@
                </div>
                
                <div class="pointUse" id="pointDiv">
-               	<div id="rPointText"><h1>포인트 사용여부</h1></div>
+               	<div id="rPointText"><h1 class="titleH1">포인트 사용여부</h1></div>
                	  <div class="pRadion">
                      <input type="radio" name="point" id="pointY" value="Y" onclick="pointchecked();">
                      <label for="pointY">포인트 사용</label>
@@ -251,7 +251,7 @@
                      <label for="pointN">포인트사용거부</label>
                   </div>
                   <div id="pointUseDiv" style="display:none">
-                     <h1>사용할 포인트 금액</h1>
+                     <h1 class="titleH1">사용할 포인트 금액</h1>
                      <div id="pointBox">
                      <input type="text" id="pointText" name="point"  value="${user.userPoint }">
                      <input type="button" value="포인트사용" id="pButton" class="button">
@@ -262,8 +262,8 @@
             
             <div id="selectAreaThird">
 		     <div id="rImfomationPrint">
-               <div id="rInfomationText"><h1>예약정보</h1></div>
-		            <input type="hidden" name="reserveDate" value=""><br>
+		     	<div class="resultBox">
+		     		<input type="hidden" name="reserveDate" value=""><br>
 		            <h2>선택한 예약 날짜 : <span id="rDateSpan"></span></h2>
 		            
 		            <input type="hidden" name="reserveTime" value=""> <br> 
@@ -271,8 +271,10 @@
 		            
 		            <input type="hidden" name="reserveCount" value=""><br> 
 		            <h2>선택한 인원 : <span id="rCountSpan"></span></h2>
+		     	</div>
 		            
-		            <input type="hidden" name="pointYn" value=""><br>
+		        <div class="resultBox">
+		        	<input type="hidden" name="pointYn" value=""><br>
 		            <h2>포인트 사용 여부 : <span id="pointYnSpan"></span></h2><br>
 		            
 		            <h2>소지한 포인트 : <span id="userPointDiv"></span></h2><br>
@@ -280,6 +282,8 @@
                   	<input type="hidden" name="paymentPoint" value="${reservation.paymentPoint}">
                   		<h2>포인트 사용 금액 : <span id="paymentSpan"></span></h2>
                   	</div>
+		        </div>    
+		            
 		            
 		
 				    <input type="hidden" name="shopName" value="${shop.shopName }"><br>

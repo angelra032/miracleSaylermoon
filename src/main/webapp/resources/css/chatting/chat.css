@@ -1,0 +1,41 @@
+@charset "UTF-8";
+*{
+			margin:0;
+			padding:0;
+		}
+		
+.container{
+			width: 350px;
+			margin: 0 auto;
+			padding: 25px;
+			border: 2px solid red;
+			border-radius: 10px;
+		}
+
+.container h4{
+			text-align: left;
+			padding: 5px 5px 5px 15px;
+			color: #FFBB00;
+			border-left: 3px solid #FFBB00;
+			margin-bottom: 20px;
+		}
+		
+.chating{
+			background-color: #ffc8dd;
+			width: 350px;
+			height: 400px;
+			overflow: auto;
+		}
+		
+.chating p{
+			color: #fff;
+			text-align: left;
+		}
+		
+input{
+			width: 200px;
+			height: 25px;
+		}
+#yourMsg{
+			display: none;
+		}
