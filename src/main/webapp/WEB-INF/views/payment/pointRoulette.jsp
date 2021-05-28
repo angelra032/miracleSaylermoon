@@ -14,15 +14,13 @@
 		<div class="header-background-area">
 			<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 		</div>
-		<div id="main-title">포인트 룰렛</div>
+		<div id="main-title">포인트 룰렛&nbsp;&nbsp;<span id="main-title-shop">${shop.shopName }</span></div>
 		<div class="frame">
-			<div class="roulette">
+			<h4>돈쭐낸 가격의 최대 10% 상당의 포인트를 지급받으세요!</h4>
 				
-				<h2>포인트 룰렛</h2>
-				<h4>돈쭐낸 가격의 최대 10% 상당의 포인트를 지급받으세요!</h4>
-
-				<c:if test="${rouletteYN == 'Y' }">
-					<form action="saveRoulettePoint.dz" method="post">
+			<c:if test="${rouletteYN == 'Y' }">
+				<form action="saveRoulettePoint.dz" method="post">
+					<div class="roulette">
 						<div id="point-roulette">
 							<div>
 								<img src="/resources/images/roulette/roulette.png" id="roulette-img"> 
@@ -31,35 +29,28 @@
 							<br> 
 								<input type="hidden" name="savePoint" value="0" />
 								<input type="hidden" name="donNo" value="${donNo }"/>
+								<%-- <input type="hidden" name="shopName" value="${shopName }"/>
+								<input type="hidden" name="donPrice" value="${donPrice }"/> --%>
 								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
-							<!-- <div id="result_id"></div>
-							<div id="result_id2"></div>
-							<div id="result_id3"></div> -->
 						</div>
-						<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='전송중'; this.form.submit();"> <!-- this.style.visibility=’hidden' -->
-					</form>
-				</c:if>
+
 				
-				<c:if test="${rouletteYN == 'N' }">
-					<form action="saveRoulettePoint.dz" method="post">
-						<div id="point-roulette">
+					</div>
+					<div class="result">
+						<div class="lay-title">
+							<span class="title-span">당첨 결과</span>
+						</div>
+						<div class="lay-content">
 							<div>
-								<!-- <img src="/resources/images/roulette/roulette.png" id="roulette-img">  -->
-								<img src="/resources/images/roulette/niddle.png" id="needle">
+								당첨 결과 : <span id="per">&nbsp; &nbsp; &nbsp; 0 </span> %
+								<br>
+								당첨 포인트 : <span id="won">&nbsp;&nbsp; 0 </span> 원
 							</div>
-							<br> 
-								<input type="hidden" name="savePoint" value="0" />
-								<input type="text" name="donNo" value="${donNo }"/>
-								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true;"></input> 
-							<!-- <div id="result_id"></div>
-							<div id="result_id2"></div>
-							<div id="result_id3"></div> -->
+							<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='받는 중'; this.form.submit();">
 						</div>
-						<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='전송중'; this.form.submit();">
-					</form>
-				</c:if>
-				
-			</div>
+					</div>
+				</form>
+			</c:if>
 
 		</div>
 	</main>
@@ -109,6 +100,18 @@
 				//var winPoint = Number(pArr[part]);
 				//console.log("당첨포인트 : " + winPoint);
 				
+				// 결과 넣어주기
+				$("#per").html("&nbsp; &nbsp; &nbsp; "+pArr[part]);
+				var persent = pArr[part] * 0.01;
+				console.log(persent);
+				console.log($("input[name='donNo']").val());
+				console.log($("input[name='donPrice']").val());
+				var donPrice = $("input[name='donPrice']").val();
+				console.log(donPrice);
+				var point = donPrice * persent;
+				console.log(point);
+				$("#won").html("&nbsp;&nbsp; "+point);
+				
 				$("input[name='savePoint']").val(pArr[part]);
 				console.log("hidden당첨포인트 : " + $("input[name='savePoint']").val());
 			}
@@ -128,7 +131,7 @@
 		};
 		
 		//새로고침 막기
-		function doNotReload(){
+		/* function doNotReload(){
 		    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
 		        event.keyCode = 0;
 		        event.cancelBubble = true;
@@ -138,10 +141,10 @@
 		    } 
 		}
 		document.onkeydown = doNotReload;
-		
-/* 
+		 */
+
 		// 뒤로 가기 방지
-		window.history.forward();
+		/* window.history.forward();
 		function noBack() {
 			window.history.forward();
 		} */
