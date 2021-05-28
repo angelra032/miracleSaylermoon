@@ -8,32 +8,17 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
 <link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
-<link rel="stylesheet" href="resources/css/adminpage/listDetailNavi.css">
 <title>게시판 목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title"></div>
+		<div id="main-title">공지사항</div>
 		<div class="frame">
 			<div class="my-info">
-			<div class="top-board-menu-area">
-                <ul id="top-board-menu">
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(1)">회원관리</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(2)">사업자관리</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(3)">게시판관리</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(4)">포인트관리</a></li>
-                </ul>
-    		 </div>
-			<div class="top-board-menu-area">
-                <ul id="top-board-menu">
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(1)">맛집후기</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(2)">감사후기</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(3)">가게추천</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(4)">문의사항</a></li>
-                    <li><a href="#" class='menu-btn' onclick="selectMenu(4)">공지사항</a></li>
-                </ul>
-    		 </div>
+			<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
+			<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
+			
 				<div class="info-btn-frame">
 					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
 				</div>
@@ -84,7 +69,7 @@
 							<tbody>
 								<tr>
 								<!-- 이전 -->
-									<c:url value="adminAllNoticeList.dz" var="before">
+									<c:url value="adminNoticeList.dz" var="before">
 										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
 									</c:url>
 									<c:if test="${ pi.currentPage <= 1 }">
@@ -95,7 +80,7 @@
 									<!-- 이전끝 -->
 									<!-- 페이징 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-			                    		<c:url var="pagination" value="adminAllNoticeList.dz">
+			                    		<c:url var="pagination" value="adminNoticeList.dz">
 			                    			<c:param name="page" value="${ p }"></c:param>
 			                    		</c:url>
 			                    		<c:if test="${ p eq pi.currentPage }">
@@ -106,7 +91,7 @@
 										</c:if>	                    	
 			                    	</c:forEach>
 									<!-- 페이징 끝 -->
-									<c:url var="after" value="adminAllNoticeList.dz">
+									<c:url var="after" value="adminNoticeList.dz">
 			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
 			                    	</c:url>
 			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
@@ -124,4 +109,8 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script>
+	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
+	$('.board-menu-btn').eq(4).css('background','#0160ff').css('color','white');
+</script>
 </html>

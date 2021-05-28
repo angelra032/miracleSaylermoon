@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -112,12 +113,12 @@ public class RecommendBoardController {
 				if(rPhotoList.size() != 0) {
 					System.out.println("이프테스트1");
 					for(RecommendPhoto recoPhoto : rPhotoList) {
-						System.out.println(" 뭥미 ? : " + recoPhoto.getRecommendRenameFileName() + " 뭥미 ? : " + realName);
 						if(recoPhoto.getRecommendRenameFileName().equals(realName)) { // 저장되는 이름과 업로드된 파일의 이름이 같은 경우
 							recoPhoto.setRecommendNo(recommendBoard.getRecommendNo());
 							int photoResult = reService.insertPhoto(recoPhoto);
-							System.out.println("이프테스트2");
-							System.out.println("포문테스트");
+//							if(photoResult > 0) {
+//								copyFile(recoPhoto, request);
+//							}
 						} else { // 저장되는 이름에 업로드된 파일이 없는 경우
 							System.out.println("실패테스트");
 							fileDelete(recoPhoto.getRecommendRenameFileName(), recoPhoto.getRecommendFilePath());
@@ -142,49 +143,47 @@ public class RecommendBoardController {
 	}
 	
 	// 파일 넣기
-	public void fileInsert(HttpServletRequest request, RecommendBoard recommendBoard) {
-		HttpSession session = request.getSession();
-		ArrayList<RecommendPhoto> rPhotoList = (ArrayList<RecommendPhoto>)session.getAttribute("rPhotoList"); // 데이터 담아줄 ArrayList
-		if(rPhotoList != null) { // 업로드 된 사진이 있으면
-			System.out.println("에디터 사진 모음" + rPhotoList.toString());
-			String target = recommendBoard.getRecommendContent();
-			Pattern pattern = Pattern.compile("<img[^>]*src=[\\\"']?([^>\\\"']+)[\\\"']?[^>]*>"); // 이미지 잘라내기
-			Matcher matcher = pattern.matcher(target);
-			
-			while(matcher.find()) {
-				String path = matcher.group(1).substring(0, matcher.group(1).lastIndexOf("/") + 1);
-				String savedName = matcher.group(1).substring(matcher.group(1).lastIndexOf("/") + 1);
-				System.out.println("패스 : " + path);
-				System.out.println("세입네임 : " + savedName);
-				String realName =  matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);
-				System.out.println("리얼네임 : " + realName);
-				
-				if(rPhotoList.size() != 0) {
-					System.out.println("이프테스트1" + rPhotoList.toString());
-					for(RecommendPhoto recoPhoto : rPhotoList) {
-						System.out.println(" 뭥미 ? : " + recoPhoto.getRecommendRenameFileName() + " 뭥미 ? : " + realName);
-						if(recoPhoto.getRecommendRenameFileName().equals(realName)) { // 저장되는 이름과 업로드된 파일의 이름이 같은 경우
-							recoPhoto.setRecommendNo(recommendBoard.getRecommendNo());
-							int photoResult = reService.insertPhoto(recoPhoto);
-							System.out.println("이프테스트2");
-							System.out.println("포문테스트");
-						} else { // 저장되는 이름에 업로드된 파일이 없는 경우
-							System.out.println("실패테스트");
-							fileDelete(recoPhoto.getRecommendRenameFileName(), recoPhoto.getRecommendFilePath());
-							// 파일삭제
-						}
-					}
-					
-				} else {
-					// 파일삭제
-					System.out.println("삭제실패테스트");
-				}
-			}
-			
-		} else { // 업로드 된 사진 없으면
-			return;
-		}
-	}
+//	public void fileInsert(HttpServletRequest request, RecommendBoard recommendBoard) {
+//		HttpSession session = request.getSession();
+//		ArrayList<RecommendPhoto> rPhotoList = (ArrayList<RecommendPhoto>)session.getAttribute("rPhotoList"); // 데이터 담아줄 ArrayList
+//		if(rPhotoList != null) { // 업로드 된 사진이 있으면
+//			System.out.println("에디터 사진 모음" + rPhotoList.toString());
+//			String target = recommendBoard.getRecommendContent();
+//			Pattern pattern = Pattern.compile("<img[^>]*src=[\\\"']?([^>\\\"']+)[\\\"']?[^>]*>"); // 이미지 잘라내기
+//			Matcher matcher = pattern.matcher(target);
+//			
+//			while(matcher.find()) {
+//				String path = matcher.group(1).substring(0, matcher.group(1).lastIndexOf("/") + 1);
+//				String savedName = matcher.group(1).substring(matcher.group(1).lastIndexOf("/") + 1);
+//				System.out.println("패스 : " + path);
+//				System.out.println("세입네임 : " + savedName);
+//				String realName =  matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);
+//				System.out.println("리얼네임 : " + realName);
+//				
+//				if(rPhotoList.size() != 0) {
+//					System.out.println("이프테스트1" + rPhotoList.toString());
+//					for(RecommendPhoto recoPhoto : rPhotoList) {
+//						System.out.println(" 뭥미 ? : " + recoPhoto.getRecommendRenameFileName() + " 뭥미 ? : " + realName);
+//						if(recoPhoto.getRecommendRenameFileName().equals(realName)) { // 저장되는 이름과 업로드된 파일의 이름이 같은 경우
+//							recoPhoto.setRecommendNo(recommendBoard.getRecommendNo());
+//							int photoResult = reService.insertPhoto(recoPhoto);
+//						} else { // 저장되는 이름에 업로드된 파일이 없는 경우
+//							System.out.println("실패테스트");
+//							fileDelete(recoPhoto.getRecommendRenameFileName(), recoPhoto.getRecommendFilePath());
+//							// 파일삭제
+//						}
+//					}
+//					
+//				} else {
+//					// 파일삭제
+//					System.out.println("삭제실패테스트");
+//				}
+//			}
+//			
+//		} else { // 업로드 된 사진 없으면
+//			return;
+//		}
+//	}
 	
 	
 	// 파일삭제
@@ -284,7 +283,6 @@ public class RecommendBoardController {
 			count++;
 			 System.out.println("1차 어레이리스트 체크 :  " + rPhotoList.toString());
 	        session.setAttribute("rPhotoList", rPhotoList);
-				
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
@@ -419,61 +417,89 @@ public class RecommendBoardController {
 		int recommendNo = recommendBoard.getRecommendNo();
 		ArrayList<RecommendPhoto> beforePhotoList = reService.selectPhoto(recommendNo); // 이전데이터값
 		ArrayList<RecommendPhoto> rPhotoList = (ArrayList<RecommendPhoto>)session.getAttribute("rPhotoList"); // 올린 사진 데이터 담아준 ArrayList
+		
+		
 		String target = recommendBoard.getRecommendContent();
 		Pattern pattern = Pattern.compile("<img[^>]*src=[\\\"']?([^>\\\"']+)[\\\"']?[^>]*>"); // 이미지 잘라내기
 		Matcher matcher = pattern.matcher(target);
 		
 		int result = reService.updateRecommend(recommendBoard);
 		if(result > 0) { // board 수정 성공하면
-		// 필요한 경우의 수 (사진추가수정X/ 업데이트, 사진추가업로드O 삭제X 업데이트/ 사진추가업로드O 삭제O /사진추가업로드X 삭제O)
+			
 			if(rPhotoList != null) { // 세션에서 불러온 리스트가 있다면
 				
 				while(matcher.find()) {
 					String path = matcher.group(1).substring(0, matcher.group(1).lastIndexOf("/") + 1);
 					String savedName = matcher.group(1).substring(matcher.group(1).lastIndexOf("/") + 1);
 					String realName =  matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);
+					System.out.println("패스 : " + path);
+					System.out.println("리얼네임 : " + realName);
 					
 					for(RecommendPhoto recoPhoto : rPhotoList) { // 세션에서 가져온값 for
-						if(recoPhoto.getRecommendRenameFileName().equals(savedName)) {
-							System.out.println("새로운 이미지를 업로드했습니다.");
-							int pResult = reService.insertPhoto(recoPhoto);
-						} else if(!recoPhoto.getRecommendRenameFileName().equals(savedName)) {
-							System.out.println("이미지는 업로드했지만 중간에 지웠습니다.");
-							fileDelete(recoPhoto.getRecommendRenameFileName(), recoPhoto.getRecommendFilePath());
+						
+						for(RecommendPhoto beforePhoto : beforePhotoList) { // DB에 저장된값
+							if(recoPhoto.getRecommendRenameFileName().equals(beforePhoto.getRecommendRenameFileName())) {
+								System.out.println("이미 있는 사진입니다");
+							} else if(!recoPhoto.getRecommendRenameFileName().equals(beforePhoto.getRecommendRenameFileName()) && recoPhoto.getRecommendRenameFileName().equals(realName)) {
+								recoPhoto.setRecommendNo(recommendNo);
+								int pResult = reService.insertPhoto(recoPhoto);
+								System.out.println("새로운 이미지를 업로드하였습니다");
+							}
+//							else if(!beforePhoto.getRecommendRenameFileName().equals(realName)) {
+//								System.out.println("삭제된 이미지입니다");
+//								fileDelete(beforePhoto.getRecommendRenameFileName(), beforePhoto.getRecommendFilePath());
+//							}
 						}
 					}
-					for(RecommendPhoto beforePhoto : beforePhotoList) { // DB에 저장된값
-						if(beforePhoto.getRecommendRenameFileName().equals(savedName)) {
+//					if(!recoPhoto.getRecommendRenameFileName().equals(beforePhoto.getRecommendRenameFileName()) && !recoPhoto.getRecommendRenameFileName().equals(realName)) {
+//						System.out.println("삭제된 이미지입니다");
+//						fileDelete(recoPhoto.getRecommendRenameFileName(), recoPhoto.getRecommendFilePath());
+//					} 
+				}
+			} else { // 세션에서 불러온 리스트가 없다 사진업로드 안했음
+				for(RecommendPhoto beforePhoto : beforePhotoList) {
+					while(matcher.find()) {
+						String path = matcher.group(1).substring(0, matcher.group(1).lastIndexOf("/") + 1);
+						String savedName = matcher.group(1).substring(matcher.group(1).lastIndexOf("/") + 1);
+						String realName =  matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);	
+						
+						if(beforePhoto.getRecommendRenameFileName().equals(realName)) {
 							System.out.println("이전에 저장된 값이랑 똑같은 값이 있습니다");
-						} else if(!beforePhoto.getRecommendRenameFileName().equals(savedName)) {
+						} else if(!beforePhoto.getRecommendRenameFileName().equals(realName)) {
 							System.out.println("이전에 저장된 값이 없습니다!!");
-							fileDelete(beforePhoto.getRecommendRenameFileName(), beforePhoto.getRecommendFilePath());
+//							fileDelete(beforePhoto.getRecommendRenameFileName(), beforePhoto.getRecommendFilePath());
+//							int pResult = reService.deleteBeforePhoto(recommendNo);
 						}
 					}
 				}
-			} // 세션에서 불러온 리스트가 없다 = 사진업로드도 안했다. 하지만 사진은 지울수도 있지
-				
-				while(matcher.find()) {
-					String path = matcher.group(1).substring(0, matcher.group(1).lastIndexOf("/") + 1);
-					String savedName = matcher.group(1).substring(matcher.group(1).lastIndexOf("/") + 1);
-					String realName =  matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);	
-					for(RecommendPhoto beforePhoto : beforePhotoList) {
-						if(beforePhoto.getRecommendRenameFileName().equals(savedName)) {
-							System.out.println("이전에 저장된 값이랑 똑같은 값이 있습니다");
-						} else if(!beforePhoto.getRecommendRenameFileName().equals(savedName)) {
-							System.out.println("이전에 저장된 값이 없습니다!!");
-							fileDelete(beforePhoto.getRecommendRenameFileName(), beforePhoto.getRecommendFilePath());
-						}
-					}
-				}
-				session.removeAttribute("rPhotoList");
-				count = 0;
-				return "success";
+			}
+			session.removeAttribute("rPhotoList");
+			count = 0;
+			return "success";
 		} else { // 게시글 업데이트 실패
 			System.out.println("게시글업데이트 실패");
 			session.removeAttribute("rPhotoList");
 			count = 0;
 			return "fail";
+		}
+	}
+	
+	// 파일이동
+	public void copyFile(RecommendPhoto recoPhoto, HttpServletRequest request ) {
+		// 원본위치
+		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
+		String fileRoot = contextRoot+"\\\\board\\recommend\\"; // 카피위치
+		
+		String targetPath = recoPhoto.getRecommendFilePath();
+		String targetFileName = recoPhoto.getRecommendRenameFileName();
+		
+		File target = new File(targetPath+targetFileName);
+		File dst = new File(fileRoot+targetFileName);
+		
+		try {
+			FileUtils.moveFile(target, dst);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

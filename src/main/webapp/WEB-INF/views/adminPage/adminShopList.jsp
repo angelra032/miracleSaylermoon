@@ -72,7 +72,7 @@
 							<tbody>
 								<tr>
 								<!-- 이전 -->
-									<c:url value="adminAllShopList.dz" var="before">
+									<c:url value="adminShopList.dz" var="before">
 										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
 									</c:url>
 									<c:if test="${ pi.currentPage <= 1 }">
@@ -83,7 +83,7 @@
 									<!-- 이전끝 -->
 									<!-- 페이징 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-			                    		<c:url var="pagination" value="adminAllShopList.dz">
+			                    		<c:url var="pagination" value="adminShopList.dz">
 			                    			<c:param name="page" value="${ p }"></c:param>
 			                    		</c:url>
 			                    		<c:if test="${ p eq pi.currentPage }">
@@ -94,7 +94,7 @@
 										</c:if>	                    	
 		                    		</c:forEach>
 									<!-- 페이징 끝 -->
-									<c:url var="after" value="adminAllShopList.dz">
+									<c:url var="after" value="adminShopList.dz">
 			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
 			                    	</c:url>
 			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">

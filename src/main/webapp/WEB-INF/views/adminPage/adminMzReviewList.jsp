@@ -8,14 +8,17 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
 <link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
-<title>전체회원 목록 페이지</title>
+<title>게시판 목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">회원 목록</div>
+		<div id="main-title">맛집후기</div>
 		<div class="frame">
 			<div class="my-info">
+			<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
+			<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
+			
 				<div class="info-btn-frame">
 					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
 				</div>
@@ -27,54 +30,39 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>구분</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>핸드폰 번호</th>
-							<th>이메일</th>
-							<th>탈퇴</th>
+							<th>제목</th>
+							<th>날짜</th>
+							<th width=150px>수정</th>
+							<th width=150px>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:if test="${ !empty userList }">
-					<c:forEach items="${userList }" var="user" varStatus="status">
-					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
+					<c:if test="${ !empty mRList }">
+					<c:forEach items="${mRList }" var="mReview" varStatus="status">
+					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index  }"/>
 						<tr>
 							<td>${ num }</td>
-							<c:if test="${ user.userType eq '1' }">
-								<td>꿈나무</td>							
-							</c:if>
-							<c:if test="${ user.userType eq '2' }">
-								<td>일반</td>							
-							</c:if>
-							<c:if test="${ user.userType eq '3' }">
-								<td>사업자</td>							
-							</c:if>
-							<c:if test="${ user.userType eq '4' }">
-								<td>관리자</td>							
-							</c:if>
-							<td>${user.userName }</td>
-							<td>${user.userId }</td>
-							<td>${user.userPhone }</td>
-							<td>${user.userEmail }</td>
-							<td><a class="delete-btn" href="#">탈퇴</a></td>
+							<td>${mReview.mReviewTitle }</td>
+							<td>${mReview.mReviewCreateDate }</td>
+							<td><a class="delete-btn" href="#">수정</a></td>
+							<td><a class="delete-btn" href="#">삭제</a></td>
 							
 						</tr>
 					</c:forEach>
 						</c:if>
-						<c:if test="${ empty userList }">
+						<c:if test="${ empty mRList }">
 							<tr>
 								<td colspan="6">${ msg }</td>
 							</tr>
 						</c:if>
 					</tbody>
 				</table>
-				<c:if test="${ !empty userList }">
+				<c:if test="${ !empty mRList }">
 					<table class="page-table">
 							<tbody>
 								<tr>
 								<!-- 이전 -->
-									<c:url value="adminUserList.dz" var="before">
+									<c:url value="adminMReviewList.dz" var="before">
 										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
 									</c:url>
 									<c:if test="${ pi.currentPage <= 1 }">
@@ -85,7 +73,7 @@
 									<!-- 이전끝 -->
 									<!-- 페이징 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-			                    		<c:url var="pagination" value="adminUserList.dz">
+			                    		<c:url var="pagination" value="adminMReviewList.dz">
 			                    			<c:param name="page" value="${ p }"></c:param>
 			                    		</c:url>
 			                    		<c:if test="${ p eq pi.currentPage }">
@@ -96,7 +84,7 @@
 										</c:if>	                    	
 			                    	</c:forEach>
 									<!-- 페이징 끝 -->
-									<c:url var="after" value="adminUserList.dz">
+									<c:url var="after" value="adminMReviewList.dz">
 			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
 			                    	</c:url>
 			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
@@ -114,4 +102,8 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script>
+	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
+	$('.board-menu-btn').eq(0).css('background','#0160ff').css('color','white');
+</script>
 </html>
