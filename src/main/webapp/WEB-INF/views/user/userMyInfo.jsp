@@ -360,7 +360,7 @@
 			}
 	
 			// 중복(2) - 이미 등록된 번호입니다 꿈나무
-			var userPhone = $(".phoneelem");
+			var userDPhone = $(".phoneelem");
 			$(".phoneelem").on("keyup", function() {
 				$(this).val(autoHypenPhone($(this).val()));  
 				$('.phonenoti').css('display', 'none');
@@ -384,7 +384,7 @@
 			});
 			// 안적었을때(0) - 휴대폰번호를입력해주세요
 			$(".phoneelem").on("blur", function() {
-				if (userPhone.val() =="") {
+				if (userDPhone.val() =="") {
 					$('.phonenoti').css('display', 'none');
 					$('.phone_noti_0').css('color', '#ff5442');
 					$('.phone_noti_0').css('display', 'block');
@@ -546,17 +546,6 @@
 					rtn = false;
 				}
 				
-				/* //이름
-				var userName = $(".nameelem");
-				if (userName.val() =="") {
-					alert("이름을 입력해주세요.");
-					userName.focus();
-					rtn = false;
-				}else if(userName.length != 0 && !regExpName.test(userName.val())){
-					alert("이름이 올바르지 않습니다. 다시 입력해주세요.");
-					userName.focus();
-					rtn = false;
-				}  */
 				
 				//간이사업자명/////////////////////
 				if (userSimpleName.val() =="") {
@@ -571,16 +560,16 @@
 				///휴대폰번호
 				$.ajax({
 					url : "dupPhoneNotMe.dz",
-					data : { "userPhone" : userPhone.val(), "userNo" : $(".userNo").val() },
+					data : { "userPhone" : userDPhone.val(), "userNo" : $(".userNo").val() },
 					async: false,
 					success : function(result) {
-						if (userPhone.length != 0 && userPhone.val() =="") {
+						if (userDPhone.length != 0 && userDPhone.val() =="") {
 							alert("휴대폰번호를 입력해주세요.");
-							userPhone.focus();
+							userDPhone.focus();
 							rtn = false;
 						}else if(result != 0){
 							alert("이미 등록된 휴대폰번호입니다. 다시 입력해주세요.");
-							userPhone.focus();
+							userDPhone.focus();
 							rtn = false;
 						}
 					},

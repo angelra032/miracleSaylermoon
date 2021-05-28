@@ -62,6 +62,7 @@ public class MzReviewServiceLogic implements MzReviewService {
 		return mStore.deleteMzReview(mReviewNo);
 	}
 
+	// 메인페이지용 세개 가져오기
 	@Override
 	public ArrayList<MzReview> selectThreeReview() {
 		return mStore.selectThreeReview();

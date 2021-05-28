@@ -14,7 +14,7 @@
 <body>
     <header>
         <div class="fixed-header-navi">
-            <div class="header-logo-area" onclick="location.href='index.jsp'">
+            <div class="header-logo-area" onclick="location.href='/'">
                 <!-- visual에서 작업함 경로수정필요!! -->
                 <img src="/resources/images/logo-color.png" alt="로고">
             </div>

@@ -47,7 +47,6 @@
 			<div class="main-sub-title more-paddingtop"><span>감사후기 전달</span></div>
 			<div class="main-content-title">그동안 전하지 못했던 감사한 마음을<br>돈쭐이 전달해 드립니다.</div>
 			<div class="content-area">
-				<!-- <img alt="감사후기" src="/resources/images/main/main-thanksbg.png"> -->
 				<div class="thanks-content">
 					<div class="thanks-title">사장님 정말정말 감사합니다!</div>
 					<div class="thanks-writer">게으른달팽이</div>
