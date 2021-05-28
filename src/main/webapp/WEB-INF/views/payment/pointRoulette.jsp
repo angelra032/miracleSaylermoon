@@ -29,8 +29,8 @@
 							<br> 
 								<input type="hidden" name="savePoint" value="0" />
 								<input type="hidden" name="donNo" value="${donNo }"/>
-								<%-- <input type="hidden" name="shopName" value="${shopName }"/>
-								<input type="hidden" name="donPrice" value="${donPrice }"/> --%>
+								<input type="hidden" name="shopName" value="${shopName }"/>
+								<input type="hidden" name="donPrice" value="${donPrice }"/>
 								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
 						</div>
 
