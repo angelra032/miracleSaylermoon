@@ -38,7 +38,7 @@
 	            <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId =='admin'}">
 	            	<div class="header-submenu-area admin-area">
 		                <a href="logout.dz">로그아웃</a>
-		                <a href="#">관리자페이지</a>
+		                <a href="adminPage.dz">관리자페이지</a>
             		</div>
 	            </c:if>
 	           <c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId !='admin'}"> 

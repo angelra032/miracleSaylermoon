@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
-<link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
+<link rel="stylesheet" href="/resources/css/adminpage/listdetail.css">
 <title>게시판 목록 페이지</title>
 </head>
 <body>
@@ -31,6 +31,7 @@
 						<tr>
 							<th>No</th>
 							<th>제목</th>
+							<th>작성자</th>
 							<th>날짜</th>
 							<th width=150px>답글</th>
 							<th width=150px>삭제</th>
@@ -40,9 +41,10 @@
 					<c:if test="${ !empty qnaList }">
 					<c:forEach items="${qnaList }" var="qna" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr>
+						<tr style="cursor: pointer;" onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}'">
 							<td>${ num }</td>
 							<td>${qna.qnaTitle }</td>
+							<td>${qna.qnaWriter }</td>
 							<td>${qna.qanCreateDate }</td>
 							<td><a class="delete-btn" href="#">답글</a></td>
 							<td><a class="delete-btn" href="#">삭제</a></td>

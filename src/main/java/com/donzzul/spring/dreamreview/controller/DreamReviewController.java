@@ -80,7 +80,7 @@ public class DreamReviewController {
 			} else {
 				if(user == null) { // 게시글 비공개 - 로그인 안함
 					mv.setViewName("redirect:/loginView.dz");
-				} else if(drmReview.getUserNo() == user.getUserNo()) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
+				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4")) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
 					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 				} else {
 					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");

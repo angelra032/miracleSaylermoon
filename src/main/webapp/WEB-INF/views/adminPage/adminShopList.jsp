@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
-<link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
+<link rel="stylesheet" href="/resources/css/adminpage/listdetail.css">
 <title>사업자 목록 페이지</title>
 </head>
 <body>
@@ -16,6 +16,7 @@
 		<div id="main-title">사업자 목록</div>
 		<div class="frame">
 			<div class="my-info">
+				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include>
 				<div class="info-btn-frame">
 					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
 				</div>

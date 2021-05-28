@@ -69,7 +69,7 @@ public class NotiQnaController {
 				if(user == null) { // 로그인 안함
 //					mv.addObject("msg", "로그인필요").setViewName("common/errorPage");
 					mv.setViewName("redirect:/loginView.dz");
-				} else if(qna.getUserNo() == user.getUserNo()) { // 글쓴이와 유저(세션)값이 같음
+				} else if(qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4") ) { // 글쓴이와 유저(세션)값이 같음
 					mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
 				} else {
 //					mv.addObject("msg", "다른사람글 확인불가").setViewName("common/errorPage");
@@ -176,13 +176,20 @@ public class NotiQnaController {
 		@ResponseBody
 		@RequestMapping(value="noticeInsertForm.dz", method=RequestMethod.POST)
 		public String noticeRegister(@ModelAttribute Notice notice, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			User user = (User)session.getAttribute("loginUser");
 			System.out.println(notice.toString());
 			
-			int result = 0;
-			result = nService.insertNotice(notice);
-			
-			if(result > 0) {
-				return "success";
+			if(user.getUserType().equals("4")) { // 관리자인 경우
+				int result = 0;
+				notice.setUserType("4");
+				result = nService.insertNotice(notice);
+				
+				if(result > 0) {
+					return "success";
+				} else {
+					return "fail";
+				}
 			} else {
 				return "fail";
 			}

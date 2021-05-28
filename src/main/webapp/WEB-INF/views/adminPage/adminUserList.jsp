@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
-<link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
+<link rel="stylesheet" href="/resources/css/adminpage/listdetail.css">
 <title>전체회원 목록 페이지</title>
 </head>
 <body>
@@ -16,8 +16,9 @@
 		<div id="main-title">회원 목록</div>
 		<div class="frame">
 			<div class="my-info">
+				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include>
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="adminPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -39,7 +40,7 @@
 					<c:if test="${ !empty userList }">
 					<c:forEach items="${userList }" var="user" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr>
+						<tr style="cursor: pointer;" onclick="location.href='adminUserInfo.dz?userNo=${user.userNo}'">
 							<td>${ num }</td>
 							<c:if test="${ user.userType eq '1' }">
 								<td>꿈나무</td>							
@@ -114,4 +115,7 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	$('.menu-btn').eq(0).css('background','#0160ff').css('color','white');
+</script>
 </html>
