@@ -134,9 +134,6 @@
 	
 		var selectedCenter = "${center}";
 		
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	 		mapOption = { 
 	        center: new kakao.maps.LatLng(37.56557, 126.97808), // 지도의 중심좌표
@@ -157,6 +154,8 @@
 		    map.setLevel(map.getLevel() + 1);
 		}
 		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
 		
  		geocoder.addressSearch(selectedCenter, function(result, status) {
 			
@@ -186,6 +185,7 @@
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 					var markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize),
 					    markerPosition = new kakao.maps.LatLng(result[0].y,result[0].x); // 마커가 표시될 위치입니다
+					    
 					// 마커를 생성합니다
 					var marker = new kakao.maps.Marker({
 					    position: markerPosition, 
@@ -194,7 +194,6 @@
 					
 					// 마커가 지도 위에 표시되도록 설정합니다
 					marker.setMap(map);
-					
 					
 					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					var content = '<div class="customoverlay">' +
@@ -211,21 +210,20 @@
 					});
 					
 					
- 					// 마커에 마우스오버 이벤트를 등록합니다
+ 				 	// 마커에 마우스오버 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseover', function() {
-						// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+						 // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
 					    titleOverlay.setMap(map);
+					    
+						
 					});
 					
-					// 마커에 마우스아웃 이벤트를 등록합니다
+				  	// 마커에 마우스아웃 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseout', function() {
 					    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
 					    titleOverlay.setMap(null);
 					    
-					    
-
-					    
-					});
+					}); 
 					
 				}
 			});
@@ -237,6 +235,14 @@
 			/* titleOverlay.setMap(null); */
 			/* alert("확인"); */
 			
+		// 마커 위에 커스텀오버레이를 표시합니다
+		// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+		var overlay = new kakao.maps.CustomOverlay({
+		    content: content,
+		    map: map,
+		    position: markerPosition       
+		});	
+		
 		var content = '<div class="wrap">' + 
         '    <div class="info">' + 
         '        <div class="title">' + 
@@ -256,13 +262,7 @@
         '    </div>' +    
         '</div>';
 
-		// 마커 위에 커스텀오버레이를 표시합니다
-		// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-		var overlay = new kakao.maps.CustomOverlay({
-		    content: content,
-		    map: map,
-		    position: markerPosition       
-		});
+
 		
 	}
 
@@ -368,14 +368,14 @@
 								contentShop.append(contentShopRight);
 								contentList.append(contentShop); 
 								
-								contentListNavi.append("<hr>")
+/* 								contentListNavi.append("<hr>")
 								.append("<c:url var='before' value='mapSearchShop.dz'>"
 										+ "<c:param name='page' value='"+${ data.pi.currentPage - 1 }"'></c:param>"
 										+ "<c:if test='${ !empty data.searchKeyword }'>
-										if( "${ !empty data.searchKeyword }") {
-										+ "<c:param name='data.searchKeyword' value='${ data.searchKeyword }'></c:param>"
+										if( "${ !empty data.searchKeyword }") { */
+										/* + "<c:param name='data.searchKeyword' value='${ data.searchKeyword }'></c:param>"
 										+ "</c:if>"
-										+ "</c:url>");
+										+ "</c:url>"); */
 					 	 	}
 										
 										
