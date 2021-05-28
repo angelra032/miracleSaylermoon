@@ -76,7 +76,7 @@
 						</c:if>
 						<c:if test="${ empty rList }">
 							<tr>
-								<td colspan="5">${ msg }</td>
+								<td colspan="5">${ Rmsg }</td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -153,7 +153,7 @@
 						</c:if>
 						<c:if test="${ empty dList }">
 							<tr>
-								<td colspan="5">${ msg }</td>
+								<td colspan="5">${ Dmsg }</td>
 							</tr>
 						</c:if>
 					</tbody>
