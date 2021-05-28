@@ -1,16 +1,4 @@
 @charset "UTF-8";
-#main-title {
-    width: 100%;
-    height: 278px;
-    font-size: 60px;
-    font-family: 'Jal_Onuel';
-    color: #ffffff;
-    text-align: center;
-    position: absolute;
-   top: 101px;
-    line-height: 4.7;
-    z-index: -2;
-}
 
   /* 메인 */
         main {
@@ -24,14 +12,14 @@
         }
 
         /* 게시판 메뉴 */
-        .top-board-menu-area {
-           /*  width: 1000px; */
+        .top-list-menu-area {
+           /*  width: 1150px; */
             height: 50px;
-            margin: 100px auto 120px auto;
+            margin: 100px auto 50px 50px;
         }
-        #top-board-menu {
+        #top-list-menu {
         }
-            #top-board-menu > li {
+            #top-list-menu > li {
                 list-style: none;
                 background-color: #e3e4e5;
                 width: 140px;
@@ -41,10 +29,10 @@
                 line-height: 2.7;
                 margin: 0 15px;
             }
-            #top-board-menu > li:nth-child(1) {
+            #top-list-menu > li:nth-child(1) {
                 margin: 0 15px 0 25%;
             }
-            #top-board-menu > li > a {
+            #top-list-menu > li > a {
                 text-decoration: none;
                 display: block;
                 width: 100%;
@@ -52,7 +40,7 @@
                 color: #333333;
                 font-size: 16px;
             }
-            #top-board-menu > li > a:hover {
+            #top-list-menu > li > a:hover {
                 background-color: #fdb504;
                 color: #ffffff;
             }

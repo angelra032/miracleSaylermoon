@@ -13,9 +13,11 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">회원 목록</div>
+		<div id="main-title">감사후기 목록</div>
 		<div class="frame">
 			<div class="my-info">
+				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
+				<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
 				<div class="info-btn-frame">
 					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
 				</div>
@@ -100,4 +102,8 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script>
+	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
+	$('.board-menu-btn').eq(1).css('background','#0160ff').css('color','white');
+</script>
 </html>

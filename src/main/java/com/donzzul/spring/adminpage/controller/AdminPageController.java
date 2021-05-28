@@ -12,8 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
+import com.donzzul.spring.dreamreview.domain.DreamReview;
+import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.notiqna.domain.Notice;
+import com.donzzul.spring.notiqna.domain.Qna;
 import com.donzzul.spring.notiqna.service.NoticeService;
+import com.donzzul.spring.notiqna.service.QnaService;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.domain.DonCount;
 import com.donzzul.spring.payment.service.PaymentService;
@@ -36,6 +42,15 @@ public class AdminPageController {
 	
 	@Autowired
 	private NoticeService nService;
+	
+	@Autowired
+	private QnaService qService;
+	
+	@Autowired
+	private MzReviewService mrReview;
+	
+	@Autowired
+	private DreamReviewService drReview;
 	
 	// 관리자 페이지 출력
 	@RequestMapping(value="adminPage.dz")
@@ -61,13 +76,14 @@ public class AdminPageController {
 		ArrayList<User> userList = uService.selectUserListThree();
 		
 		// *** 사업자출력
-		ArrayList<Shop> shopList = sService.selectAllShopListThree();
+//		ArrayList<Shop> shopList = sService.selectAllShopListThree();
+//		ArrayList<Shop> shopList = sService.();
 		
-		if(!userList.isEmpty() && !shopList.isEmpty()) { // !pList.isEmpty()
-			mv.addObject("userList", userList).addObject("shopList", shopList).setViewName("adminPage/adminPage"); // addObject("pList", pList)
-		} else {
+//		if(!userList.isEmpty() && !shopList.isEmpty()) { // !pList.isEmpty()
+//			mv.addObject("userList", userList).addObject("shopList", shopList).setViewName("adminPage/adminPage"); // addObject("pList", pList)
+//		} else {
 			mv.addObject("msg", "불러올 데이터가 없습니다.").setViewName("adminPage/adminPage");
-		}
+//		}
 		
 		return mv;
 	}
@@ -89,25 +105,26 @@ public class AdminPageController {
 //		System.out.println(donCount.toString());
 	}
 	
+	/////////////
 	// 사업자관리 더보기
-	@RequestMapping(value="adminAllShopList.dz")
+	@RequestMapping(value="adminShopList.dz")
 	public ModelAndView shopListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = sService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<Shop> shopList = sService.selectAllShopList(pi);
+//		ArrayList<Shop> shopList = sService.selectAllShopList(pi);
 //		ArrayList<Shop> shopList = sService.selectAllShopListDESC();
-		if(!shopList.isEmpty()) {
-			mv.addObject("shopList", shopList).addObject("pi", pi);
-		} else {
-			mv.addObject("msg", "불러올 데이터가 없습니다");
-		}
+//		if(!shopList.isEmpty()) {
+//			mv.addObject("shopList", shopList).addObject("pi", pi);
+//		} else {
+//			mv.addObject("msg", "불러올 데이터가 없습니다");
+//		}
 		mv.setViewName("adminPage/adminShopList");
 		return mv;
 	}
 	
 	// 회원관리 더보기
-	@RequestMapping(value="adminAllUserList.dz")
+	@RequestMapping(value="adminUserList.dz")
 	public ModelAndView userListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = uService.getListCount();
@@ -124,10 +141,62 @@ public class AdminPageController {
 		return mv;
 	}
 	
-	// 게시판관리 더보기
+	/////////// 게시판관리 더보기
+	// 맛집후기 리스트
+	@RequestMapping(value="adminMReviewList.dz")
+	public ModelAndView mReviewListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = (page != null) ? page : 1;
+		int listCount = nService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<MzReview> mRList = mrReview.selectAllReview(pi);
+		if(!mRList.isEmpty()) {
+			mv.addObject("mRList", mRList).addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "불러올 데이터가 없습니다");
+		}
+		mv.setViewName("adminPage/adminMzReviewList");
+		return mv;
+	}
+	
+	// 감사후기 리스트
+	@RequestMapping(value="adminDrmReviewList.dz")
+	public ModelAndView drmReviewListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = (page != null) ? page : 1;
+		int listCount = nService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Notice> noticeList = nService.selectAllNotice(pi);
+		
+		if(!noticeList.isEmpty()) {
+			mv.addObject("noticeList", noticeList).addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "불러올 데이터가 없습니다");
+		}
+		mv.setViewName("adminPage/adminDrmReviewList");
+		return mv;
+	}
+	
+	// QnA
+	@RequestMapping(value="adminQnaList.dz")
+	public ModelAndView qnaListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = (page != null) ? page : 1;
+		int listCount = nService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Qna> qnaList = qService.selectAllQna(pi);
+		
+		if(!qnaList.isEmpty()) {
+			mv.addObject("qnaList", qnaList).addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "불러올 데이터가 없습니다");
+		}
+		mv.setViewName("adminPage/adminQnaList");
+		return mv;
+	}
+	
+	
 	// 공지사항
-	@RequestMapping(value="adminAllNoticeList.dz")
-	public ModelAndView boardListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	@RequestMapping(value="adminNoticeList.dz")
+	public ModelAndView noticeListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = nService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
@@ -141,5 +210,6 @@ public class AdminPageController {
 		mv.setViewName("adminPage/adminNoticeList");
 		return mv;
 	}
+	
 	
 }

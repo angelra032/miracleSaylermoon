@@ -147,7 +147,7 @@ main {
 	width: 60px;
 }
 .reserv-list table thead th:nth-child(3) {
-	width: 100px;
+	/* width: 100px; */
 }
 .reserv-list table thead th:nth-child(4) {
 	width: 150px;
