@@ -28,7 +28,7 @@ public class PickController {
 	
 	//D 찜 등록
 	@RequestMapping(value="enrollPick.dz", method=RequestMethod.GET)
-	public String enrollPick(@ModelAttribute int shopNo, Model model, HttpServletRequest request) {
+	public String enrollPick(@RequestParam int shopNo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		
@@ -45,14 +45,14 @@ public class PickController {
 	
 	//D 찜 해제
 	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
-	public String removePick(@ModelAttribute int shopNo, HttpServletRequest request) {
+	public String removePick(@RequestParam int shopNo, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		
 		HashMap<String, Integer> hash = new HashMap<String, Integer>();
 		hash.put("userNo", user.getUserNo());
 		hash.put("shopNo", shopNo);
-		int result = service.insertPick(hash);
+		int result = service.deletePick(hash);
 		if(result > 0) {
 			return "success";
 		}else {

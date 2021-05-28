@@ -56,6 +56,11 @@ public class MzReviewServiceLogic implements MzReviewService {
     public ArrayList<MzReview> selectAllReview(int shopNo) {
         return mStore.selectAllReview(shopNo);
     }
+    
+	@Override
+	public int selectReviewRanking() {
+		return mStore.selectReviewRanking();
+	}
 
 	@Override
 	public int deleteMzReview(int mReviewNo) {
@@ -67,10 +72,6 @@ public class MzReviewServiceLogic implements MzReviewService {
 	public ArrayList<MzReview> selectThreeReview() {
 		return mStore.selectThreeReview();
 	}
-
-
-
-
 
 
 	

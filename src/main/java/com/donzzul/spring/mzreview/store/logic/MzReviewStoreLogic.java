@@ -60,7 +60,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
     
     @Override //D 가게 전체 후기 가져오기	
     public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo) {
-        return null;
+        return (ArrayList)sqlSession.selectList("mzReviewMapper.DMReviewAll", shopNo);
     } 
     
     // selectAllReview 오버로딩 (사진 포함)
@@ -68,14 +68,15 @@ public class MzReviewStoreLogic implements MzReviewStore {
         return (ArrayList)sqlSession.selectList("mzReviewMapper.selectListShopNo", shopNo);
     }
 
+	@Override
+	public int selectReviewRanking() {
+		return sqlSession.selectOne("mzReviewMapper.selectReviewRanking");
+	}
+
     // 메인페이지에 최근글 세개 뿌리기
 	@Override
 	public ArrayList<MzReview> selectThreeReview() {
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectThreeReview");
 	}
-
-
-
-
 
 }
