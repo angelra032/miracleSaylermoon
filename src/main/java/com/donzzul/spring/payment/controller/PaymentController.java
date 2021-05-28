@@ -142,6 +142,7 @@ public class PaymentController {
 		
 		// savePoint 널일 때
 		if(don.getSavePoint() == 0 ) {
+			System.out.println("savePoint null");
 			model.addAttribute("msg", "당첨내역이 없습니다.");
 			//
 			return "common/errorPage";

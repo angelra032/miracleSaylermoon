@@ -20,7 +20,7 @@
 		<div class="frame">
 			<h1>진짜파스타</h1>
 			<div class="sns">
-				<h2>${login.User }님, 호되게 돈쭐내셨군요!</h2>
+				<h2>${loginUser.userName }님, 호되게 돈쭐내셨군요!</h2>
 				<h4>인증샷을 SNS에 자랑해주세요.<br>많은 공유가 많은 돈쭐을 부릅니다.</h4>
 				
 				<div id="sns-Photo">

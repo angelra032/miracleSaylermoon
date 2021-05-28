@@ -161,8 +161,27 @@
                 "use-point" : usePoint
             }
         }); */
-	    
-	    IMP.request_pay({
+        $.ajax({
+        	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
+			// data 보낼 url
+	        type: 'POST',
+	        data: {
+	            //imp_uid : rsp.imp_uid,
+	            //기타 필요한 데이터가 있으면 추가 전달
+	            // 가게 이름, 날짜, 내역(얼마)
+	            "donPrice" : donPrice,
+	            "menuName" : menuName,
+	            "amount" : amount,
+	            "shopNo" : shopNo,
+	            "shopName" : shopName,
+	            "usePoint" : usePoint
+	        },
+	        success : function(data) {
+	        	console.log(data);
+	        	location.href='rouletteView.dz?donNo='+data.donNo;
+	        }
+        });
+	    /* IMP.request_pay({
 	        pg : 'kakaopay',
 	        pay_method : 'card',
 	        merchant_uid : 'merchant_' + new Date().getTime(),
@@ -207,7 +226,7 @@
 	            alert(msg);
 	            location.href="paymentFormView.dz"; 
 	        }
-	    });
+	    }); */
 	    
 	});
 

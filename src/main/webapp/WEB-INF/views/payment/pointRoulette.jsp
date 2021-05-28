@@ -29,14 +29,14 @@
 								<img src="/resources/images/roulette/niddle.png" id="needle">
 							</div>
 							<br> 
-								<input type="hidden" name="savePoint" value="" />
-								<input type="text" name="donNo" value="${donNo }"/>
+								<input type="hidden" name="savePoint" value="0" />
+								<input type="hidden" name="donNo" value="${donNo }"/>
 								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
 							<!-- <div id="result_id"></div>
 							<div id="result_id2"></div>
 							<div id="result_id3"></div> -->
 						</div>
-						<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true">
+						<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='전송중'; this.form.submit();"> <!-- this.style.visibility=’hidden' -->
 					</form>
 				</c:if>
 				
@@ -48,14 +48,14 @@
 								<img src="/resources/images/roulette/niddle.png" id="needle">
 							</div>
 							<br> 
-								<input type="hidden" name="savePoint" value="" />
+								<input type="hidden" name="savePoint" value="0" />
 								<input type="text" name="donNo" value="${donNo }"/>
-								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true"></input> 
+								<input type="button" value="시작" id="start_btn" onclick="this.disabled=true;"></input> 
 							<!-- <div id="result_id"></div>
 							<div id="result_id2"></div>
 							<div id="result_id3"></div> -->
 						</div>
-						<input type="submit" id="point-save-btn" value="포인트 받기">
+						<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='전송중'; this.form.submit();">
 					</form>
 				</c:if>
 				
@@ -117,13 +117,13 @@
 				return Math.floor(Math.random() * ($max - $min + 1)) + $min;
 			}
 			
-			/* $("#point-save-btn").click(function() {
-				$("input[name='savePoint']").val())
-				/* if($("input[name='savePoint']").val() == null){
+			$("#point-save-btn").click(function() {
+				console.log($("input[name='savePoint']").val());
+				if($("input[name='savePoint']").val() == 0){
 					alert("포인트 룰렛을 돌려 포인트를 지급받으세요!");
 					return false;
 				}
-			}); */
+			});
 			
 		};
 		
@@ -139,12 +139,12 @@
 		}
 		document.onkeydown = doNotReload;
 		
-
+/* 
 		// 뒤로 가기 방지
 		window.history.forward();
 		function noBack() {
 			window.history.forward();
-		}
+		} */
 
 	</script>	
 	
