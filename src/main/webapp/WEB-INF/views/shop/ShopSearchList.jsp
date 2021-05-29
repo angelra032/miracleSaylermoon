@@ -78,7 +78,7 @@
 					<a href="searchTheme.dz?themeNo=8"><img class="theme1" src="/resources/images/theme/shoptheme8.jpeg" alt="theme8"></a>
 				</div>
 				<div class="theme nine">
-					<span>백반 맛집 추천</span>
+					<span>카페 추천</span>
 					<input type=hidden name="theme9" value="9">
 					<a href="searchTheme.dz?themeNo=9"><img class="theme1" src="/resources/images/theme/shoptheme9.jpeg" alt="theme9"></a>
 				</div>
@@ -99,14 +99,7 @@
 				</div>
 			</div> 
 			
-			
-			<!-- 검색결과 가게 리스트 -->
-			<!-- AJAX -->
- 			<div class="sub-title second">
-				<p>'${ searchKeyword }' 검색결과</p>
-			</div>
-			
-			<div class="searchResult">
+			 <div class="searchResult">
 				<div class="shopShortInfo">
 					<div class="shopShortInfo left">
 						<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
@@ -123,11 +116,8 @@
 						<span>홍대 진짜 파스타</span> <!-- 글자수 줄이기 -->
 					</div>
 				</div>
-			</div>
+			</div> 
 			
-			<div class="searchResult navi">
-			
-			</div>
 		</div> 
 	</main>
 	
@@ -135,13 +125,14 @@
 
 
 	<script>
-		$(function() {
+ 		$(function() {
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
 					alert("검색어를 입력해주세요.");
 					return false;
-				}else {
+				}
+				/* }else {
 					$.ajax({
 						url: "",
 						type: "get",
@@ -157,7 +148,7 @@
 						}
 					});
 				}
-			});
+			});  */
 			/* 
 			 $(".theme1").on("click", function(e) {
 				console.log(e.target);

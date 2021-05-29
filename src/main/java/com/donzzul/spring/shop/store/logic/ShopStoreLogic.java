@@ -51,11 +51,15 @@ public class ShopStoreLogic implements ShopStore {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", themeWord, rowBounds);
 	}
-	
 
 	@Override
-	public ArrayList<Shop> selectShopRank(HashMap<String, Integer> rankNo) {
-		return (ArrayList)sqlSession.selectList("shopMapper.selectShopRank", rankNo);
+	public Shop selectShopRank(int shopNo) {
+		return sqlSession.selectOne("shopMapper.selectShopRank", shopNo);
+	}
+	
+	@Override
+	public ArrayList<Shop> selectNewShop() {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectNewShop");
 	}
 
 	@Override
@@ -71,8 +75,7 @@ public class ShopStoreLogic implements ShopStore {
 
 	@Override
 	public ArrayList<MainMenu> selectMainMenu(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		 return (ArrayList)sqlSession.selectList("shopMapper.selectShopMenu", shopNo);
 	}
 
 	@Override
