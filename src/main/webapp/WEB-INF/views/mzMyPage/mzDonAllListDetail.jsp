@@ -29,7 +29,6 @@
 							<th>돈쭐날짜</th>
 							<th>돈쭐금액</th>
 							<th>사용포인트</th>
-							<th>당첨포인트</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,7 +39,6 @@
 							<td>${donList.paymentDate }</td>
 							<td>${donList.donPrice }</td>
 							<td>${donList.usePoint }</td>
-							<td>${donList.savePoint }</td>
 						</tr>
 					</c:forEach>
 					</tbody>

@@ -227,16 +227,19 @@ input[type=radio]{
 				margin: 0 auto;
 				margin-top: 60px;
 				line-height: 35px;
+				--text-align: center;
+			}
+			.lay3-input {
+			
 			}
 			#lay3-payment-result input{
-				--border: 0;
-				float: right;
+				border: 0;
+				--float: right;
 				width: 140px;
 				height: 25px;
 				font-size: 20px;
 				text-align: center;
 				font-weight: bold;
-				--line-height: 500px;
 			}
 
 		/* 폼 전송버튼 */
