@@ -49,7 +49,7 @@
 
 									<c:if test="${reservation.rState eq 'O' }">
 										<td><a class="reserv-btn"
-											href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
+											href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }&mainPage=N">예약취소</a></td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'X' }">
 										<td><a class="btn btn-secondary">취소완료</a></td>

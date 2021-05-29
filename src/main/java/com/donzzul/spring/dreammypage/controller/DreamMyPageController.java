@@ -59,8 +59,10 @@ public class DreamMyPageController {
 
 	// 예약 취소
 	@RequestMapping(value = "cancelReservation.dz")
-	public String cancleReservation(@RequestParam("reservationNo") int reservationNo, Model model,
-			HttpSession session) {
+	public String cancleReservation(@RequestParam("reservationNo") int reservationNo, 
+									@RequestParam("mainPage") String mainPage,
+									Model model,
+									HttpSession session) {
 		User user = (User) session.getAttribute("loginUser");
 		int userNo = user.getUserNo();
 		Reservation reservation = rService.selectOne(reservationNo);
@@ -73,8 +75,14 @@ public class DreamMyPageController {
 			reservation.setReservationNo(reservationNo);
 			int cancleResult = rService.cancleReservation(reservation);
 
+			System.out.println("이 값 가져왔니" + mainPage);
+			
 			if (result > 0 && cancleResult > 0) {
-				return "redirect:dreamMyPage.dz";
+				if(mainPage.equals("N")) {
+					return "redirect:dreamMyPage.dz";
+				}else {
+					return "redirect:allRListDetailByDream.dz";
+				}
 			} else {
 				model.addAttribute("msg", "예약취소에 실패했습니다.");
 				return "redirect:dreamMyPage.dz";

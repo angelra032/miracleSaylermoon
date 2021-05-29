@@ -24,8 +24,6 @@
          dayMaxEvents : false,
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
-            // use *local* methods on the native Date Object
-            // will output something like 'Sat Sep 01 2018 00:00:00 GMT-XX:XX (Eastern Daylight Time)'
          },
           eventSources : [{
         	 events: function(info, successCallback, failureCallback){
@@ -105,6 +103,7 @@
         		 $('#selectCount').empty();
         		 var option = $("<option value='0'>선택</option>");
         		 $('#selectCount').append(option);
+
         		 for(var i = 1; i <= data; i++){                
         		     var option = $("<option value='" + i + "'>"+i +"명"+"</option>");
         		     $('#selectCount').append(option);

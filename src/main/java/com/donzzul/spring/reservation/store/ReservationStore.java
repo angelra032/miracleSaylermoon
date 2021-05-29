@@ -40,5 +40,7 @@ public interface ReservationStore {
 	public int selectListCount(int userNo);
 	public int selectShopListCount(int shopNo);
 	
+	// 사업자 마이페이지 예약현황 캘린터
+	public ArrayList<Reservation> reservationState(Reservation reservation);
 	
 }

@@ -36,8 +36,7 @@
                                     FROM RESERVATION RE
                                     WHERE RE.SHOP_NO = SH.SHOP_NO
                                     AND RE.RESERVE_DATE = #{reserveDate}
-                                    AND RE.RESERVE_TIME = #{reserveTime}) AS CNT
-                                    
+                                    AND RE.RESERVE_TIME = #{reserveTime}) AS CNT        
 		FROM SHOP SH WHERE SH.SHOP_NO = #{shopNo}
 	</select>
 	
@@ -136,6 +135,10 @@
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, (SELECT USER_NICK FROM "USER" WHERE USER_NO = RESERVATION.USER_NO) AS USER_NICK, RESERVE_COUNT, RESERVE_DATE, RESERVATION_NO, R_STATE, SHOP_NO, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
+	<!-- 사업자 마이페이지 캘린더에 예약 상태별 불러오기 -->
+	<select id="reservationState" resultMap="reservationResultMap">
+		SELECT RESERVE_DATE, (USER_NICK || '님 ' || RESERVE_TIME || '시 ' || RESERVE_COUNT || '명') AS USER_NICK  FROM RESERVATION JOIN "USER" USING (USER_NO) WHERE SHOP_NO = #{shopNo} AND R_STATE = #{rState}
+	</select>
 	
 
 </mapper>
