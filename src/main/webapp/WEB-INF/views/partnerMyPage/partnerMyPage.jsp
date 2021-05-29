@@ -9,6 +9,12 @@
 <link rel="stylesheet" href="/resources/css/partnermypage/partnerMyPage.css">
 <!-- <link rel="stylesheet" href="/resources/css/mzmypage/mzmypage.css">  -->
 <!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
+
+<!-- fullcander -->
+<link href='/resources/css/partnermypage/main.css' rel='stylesheet' />
+<script src='/resources/css/partnermypage/main.js'></script>
+<script src='/resources/css/partnermypage/ko.js'></script>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -25,7 +31,24 @@
 				</div>
 			</div>
 		</div>
-		<div class="my-list reserv-list">
+		
+		<!-- 달력 시작 -->
+		<div class="my-list reserv-calendar">
+			<div class="frame">
+				<div class="my-title">
+					<span>예약 현황</span>
+					<div class="more-btn-frame">
+						<a class="more-btn b-btn" href="partnerReserveList.dz">더보기</a>
+					</div>
+				</div>
+				<div class="calendar_frame">
+					<div id='calendar'></div>
+				</div>
+			</div>
+		</div>
+		<!-- 달력 끝 -->
+		
+		<div class="my-list w-list reserv-list">
 			<div class="frame">
 				<div class="my-title">
 					<span>예약 관리</span>
@@ -84,21 +107,19 @@
 								
 							</tr>
 						</c:forEach>
-						<%-- <c:forEach items="${rList }" var="reservation">
 						
-						</c:forEach> --%>
 						
 					</tbody>
 				</table>
 			</div>
 		</div>
 		
-		<div class="my-list w-list recommend-list">
+		<div class="my-list recommend-list">
 			<div class="frame">
 				<div class="my-title">
 					<span>내가 쓴 문의글</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="allQnaListByPartner.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -112,32 +133,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+						<c:if test="${ !empty qList }">
+							<c:forEach items="${qList }" var="qna" varStatus="status">
+								<tr>
+									<td>${status.count }</td>
+									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}</p></a></td>
+									<td>${ qna.qanCreateDate }</td>
+									<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
+									<td><a class="delete-btn" href="qaDelete.dz?qnaNo=${qna.qnaNo }">삭제</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty qList }">
+							<tr>
+								<td colspan="5">${Qmsg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
-		</div>
-		
+		</div>	
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	
@@ -161,54 +176,23 @@
 	        });
 	    });
 		
-	</script>
-	
-<%-- 	
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
+		document.addEventListener('DOMContentLoaded', function() {
+	        var calendarEl = document.getElementById('calendar');
+	        var calendar = new FullCalendar.Calendar(calendarEl, {
+	        	editable : true,
+	            selectable : true,
+	            businessHours : true,
+	            locale : "ko",
+	            dayMaxEvents : false,
+	            themeSystem:'bootstrap2'
+	        });
+	        calendar.render();
+	      });
+
 		
-		<main>
-			<div class="header-background-area">
-		        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
-		    </div>
-			<div id="main-title">partner${shop.shopName }님, 안녕하세요!</div>
-			<div class="frame">
-				
-				<div id="head-bar">
-					<div>
-						<button>환급신청</button>
-					</div>
-				
-				</div>
-				
-				<br>
-				
-				<div>
-					<div>
-						<h2>예약 관리</h2>
-						<button>더보기</button>
-					</div>
-					<hr>
-					<div>
-						
-					</div>
-				</div>
-				
-				<br>
-				
-				<div>
-					<div>
-						<h2>내가 쓴 글 목록</h2>
-						<button>더보기</button>
-					</div>
-					<hr>
-					<div>
-						
-					</div>
-				</div>
-				
-			</div>
-		</main>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> --%>
+		
+	</script>
+
 	
 	
 </body>

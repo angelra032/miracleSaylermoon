@@ -26,4 +26,6 @@ public interface QnaService {
 	
 	// 사업자 마이페이지
 	public ArrayList<Qna> shopQnaUpToThree(int shopNo);
+	public ArrayList<Qna> qnaListByPartner(int shopNo, PageInfo pi);
+	public int partnerListCount(int shopNo);
 }

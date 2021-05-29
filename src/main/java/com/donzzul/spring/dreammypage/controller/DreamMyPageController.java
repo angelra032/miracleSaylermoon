@@ -140,10 +140,9 @@ public class DreamMyPageController {
 		return mv;
 	}
 	
-	// 꿈나무회원 qna 3개 불러오기
+	// 꿈나무회원 qna 전체 불러오기
 	@RequestMapping(value="allQnaListByDream.dz", method = RequestMethod.GET)
 	public ModelAndView allQnaListByDream(HttpSession session, 
-									Model model, 
 									ModelAndView mv,
 									@RequestParam(value = "page", required = false) Integer page) {
 		User user = (User) session.getAttribute("loginUser");

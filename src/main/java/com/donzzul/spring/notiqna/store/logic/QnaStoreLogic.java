@@ -80,7 +80,7 @@ public class QnaStoreLogic implements QnaStore {
 
 	@Override
 	public int dreamListCount(int userNo) {
-		return sqlSession.selectOne("notiQnaMapper.qnaListCount", userNo);
+		return sqlSession.selectOne("notiQnaMapper.dreamListCount", userNo);
 	}
 
 
@@ -90,6 +90,17 @@ public class QnaStoreLogic implements QnaStore {
 		return (ArrayList)sqlSession.selectList("notiQnaMapper.shopQnaUpToThree",shopNo);
 	}
 	
+	@Override
+	public ArrayList<Qna> qnaListByPartner(int shopNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		ArrayList<Qna> qna = (ArrayList)sqlSession.selectList("notiQnaMapper.selectAllByPartner", shopNo, rowBounds);
+		return qna;
+	}
 
+	@Override
+	public int partnerListCount(int shopNo) {
+		return sqlSession.selectOne("notiQnaMapper.qnaListCountByP",shopNo);
+	}
 
 }

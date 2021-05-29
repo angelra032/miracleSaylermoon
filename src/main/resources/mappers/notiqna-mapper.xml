@@ -105,7 +105,7 @@
 		SELECT QNA_TITLE, QNA_CREATE_DATE, QNA_NO FROM QNA_BOARD WHERE USER_NO = #{userNo} ORDER BY QNA_CREATE_DATE DESC
 	</select>
 	
-	<select id="qnaListCount" resultType="_int">
+	<select id="dreamListCount" resultType="_int">
 		SELECT COUNT(*) FROM QNA_BOARD WHERE USER_NO = #{userNo}
 	</select>
 	
@@ -142,8 +142,17 @@
 		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
 	</resultMap>
 	
-	<select id="shopQnaUpToThree">
+	<select id="shopQnaUpToThree" resultMap="qnaResultMap">
 		SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY QNA_CREATE_DATE DESC) AS NUM,
 	QNA_TITLE, QNA_CREATE_DATE, QNA_NO FROM QNA_BOARD JOIN SHOP USING (USER_NO) WHERE SHOP.SHOP_NO = #{shopNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
+	
+	<select id="selectAllByPartner" resultMap="qnaResultMap">
+		SELECT QNA_TITLE, QNA_CREATE_DATE, QNA_NO FROM QNA_BOARD JOIN SHOP USING(USER_NO) WHERE SHOP.SHOP_NO = #{shopNo} ORDER BY QNA_CREATE_DATE DESC
+	</select>
+	
+	<select id="qnaListCountByP" resultMap="qnaResultMap">
+		SELECT COUNT(*) FROM QNA_BOARD JOIN SHOP USING(USER_NO) WHERE SHOP.SHOP_NO = #{ shopNo }
+	</select>
+	
 </mapper>
