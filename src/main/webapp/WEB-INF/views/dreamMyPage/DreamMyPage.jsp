@@ -15,8 +15,8 @@
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
-					<a class="info-btn" href="myINfo.dz?userNo=${ loginUser.userNo }">나의 정보</a> <a class="info-btn"
-						href="userWritePwView.dz">회원 탈퇴</a>
+					<a class="info-btn" href="myINfo.dz?userNo=${ loginUser.userNo }">나의
+						정보</a> <a class="info-btn" href="userWritePwView.dz">회원 탈퇴</a>
 				</div>
 			</div>
 		</div>
@@ -45,6 +45,8 @@
 									<td>${status.count }</td>
 									<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
 									<td>${reservation.reserveDate }</td>
+
+
 									<c:if test="${reservation.rState eq 'O' }">
 										<td><a class="reserv-btn"
 											href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
@@ -56,10 +58,10 @@
 										<td><a class="confirm-btn">예약확정</a></td>
 									</c:if>
 
-
-										<td><a class="btn btn-secondary">후기작성</a></td>
+									<td><a class="btn btn-secondary">후기작성</a></td>
 									<c:if test="${reservation.rState eq 'C' }">
-										<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
+										<td><a class="reserv-btn"
+											href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'H' }">
 										<td><a class="btn btn-secondary">후기작성완료</a></td>
