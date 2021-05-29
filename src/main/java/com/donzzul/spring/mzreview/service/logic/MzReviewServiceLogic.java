@@ -50,8 +50,8 @@ public class MzReviewServiceLogic implements MzReviewService {
 
     
     @Override //D 가게 전체 후기 가져오기
-    public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo) {
-        return null;
+    public ArrayList<MzReview> selectDmReviewAll(int shopNo) {
+        return mStore.selectDmReviewAll(shopNo);
     } 	
     //D selectAllReview 오버로딩 (사진 포함)
     public ArrayList<MzReview> selectAllReview(int shopNo) {
@@ -59,7 +59,7 @@ public class MzReviewServiceLogic implements MzReviewService {
     }
     
 	@Override
-	public ArrayList<ReviewDreamMzAll> selectReviewRanking() {
+	public ArrayList<MzReview> selectReviewRanking() {
 		return mStore.selectReviewRanking();
 	}
 

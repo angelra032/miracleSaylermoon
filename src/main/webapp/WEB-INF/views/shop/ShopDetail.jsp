@@ -268,7 +268,7 @@
 					
 					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					var content = '<div class="customoverlay">' +
-					    '  <a href="javascript:void(0);" onclick="showShortInfo()">' +
+					    '  <a href="javascript:void(0);">' +
 					    '    <span class="title">${shop.shopName}</span>' +
 					    '  </a>' +
 					    '</div>';

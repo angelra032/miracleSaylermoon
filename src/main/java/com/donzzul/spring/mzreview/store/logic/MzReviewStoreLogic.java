@@ -60,7 +60,8 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	
     
     @Override //D 가게 전체 후기 가져오기	
-    public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo) {
+    public ArrayList<MzReview> selectDmReviewAll(int shopNo) {
+    	System.out.println("리뷰 스토어");
         return (ArrayList)sqlSession.selectList("mzReviewMapper.DMReviewAll", shopNo);
     } 
     
@@ -70,7 +71,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
     }
 
 	@Override
-	public ArrayList<ReviewDreamMzAll> selectReviewRanking() {
+	public ArrayList<MzReview> selectReviewRanking() {
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectReviewRanking");
 	}
 

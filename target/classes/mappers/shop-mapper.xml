@@ -123,6 +123,41 @@
 		SELECT SHOP_NO, SHOP_NAME, SHOP_ADDR, SHOP_SHORT_ADDR, SHOP_TARGET, SHOP_PRODUCT, SHOP_TYPE, SHOP_FILENAME, SHOP_PHONE, SHOP_PARKING_YN, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y' AND (SHOP_ADDR LIKE '%' || #{searchKeyword } || '%' OR SHOP_NAME LIKE '%' || #{searchKeyword } || '%') ORDER BY SHOP_NO DESC
 	</select>
 	
+	<!-- 가게 검색 테마 후기 랭킹 출력 -->
+	<select id="selectShopRank" parameterType="HashMap" resultMap="shopResultMap">
+		SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y'
+		<if test="rank1">
+		 AND SHOP_NO = #{ rank1 }
+		</if>
+		<if test="rank2">
+		 AND SHOP_NO = #{ rank2 }
+		</if>
+		<if test="rank3">
+		 AND SHOP_NO = #{ rank3 }
+		</if>
+		<if test="rank4">
+		 AND SHOP_NO = #{ rank4 }
+		</if>
+		<if test="rank5">
+		 AND SHOP_NO = #{ rank5 }
+		</if>
+		<if test="rank6">
+		 AND SHOP_NO = #{ rank6 }
+		</if>
+		<if test="rank7">
+		 AND SHOP_NO = #{ rank7 }
+		</if>
+		<if test="rank8">
+		 AND SHOP_NO = #{ rank8 }
+		</if>
+		<if test="rank9">
+		 AND SHOP_NO = #{ rank9 }
+		</if>
+		<if test="rank10">
+		 AND SHOP_NO = #{ rank10 }
+		</if>
+	</select>
+	
 	<!-- 가게 검색 테마 출력 -->
 	<select id="selectShopTheme" resultMap="shopResultMap">
 		<if test="themeWord.equals('천안')">
