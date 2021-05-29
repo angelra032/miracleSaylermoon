@@ -7,13 +7,13 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
-<link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
+<link rel="stylesheet" href="/resources/css/adminpage/listdetail.css">
 <title>게시판 목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">감사후기 목록</div>
+		<div id="main-title">감사후기</div>
 		<div class="frame">
 			<div class="my-info">
 				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
@@ -30,39 +30,45 @@
 						<tr>
 							<th>No</th>
 							<th>제목</th>
+							<th>작성자</th>
+							<th>공개</th>
 							<th>날짜</th>
-							<th>수정</th>
-							<th>삭제</th>
+							<th width=150px>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:if test="${ !empty userList }">
-					<c:forEach items="${userList }" var="user" varStatus="status">
+					<c:if test="${ !empty dRList }">
+					<c:forEach items="${dRList }" var="drReview" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr>
+						<tr style="cursor: pointer;" onclick="location.href='dReviewDetail.dz?drmReviewNo=${drReview.drmRviewNo}'">
 							<td>${ num }</td>
-							<td>${user.userName }</td>
-							<td>${user.userId }</td>
-							<td>${user.userPhone }</td>
-							<td>${user.userEmail }</td>
+							<td>${drReview.drmReviewTitle }</td>
+							<td>${drReview.drmReviewWriter }</td>
+							<c:if test="${drReview.drmReviewPublicYN eq 'y' or drReview.drmReviewPublicYN eq 'Y' }">
+								<td>공개</td>
+							</c:if>
+							<c:if test="${drReview.drmReviewPublicYN eq 'n' or drReview.drmReviewPublicYN eq 'N' }">
+								<td>비공개</td>
+							</c:if>
+							<td>${drReview.drmReviewCreateDate }</td>
 							<td><a class="delete-btn" href="#">탈퇴</a></td>
 							
 						</tr>
 					</c:forEach>
 						</c:if>
-						<c:if test="${ empty userList }">
+						<c:if test="${ empty dRList }">
 							<tr>
 								<td colspan="6">${ msg }</td>
 							</tr>
 						</c:if>
 					</tbody>
 				</table>
-				<c:if test="${ !empty userList }">
+				<c:if test="${ !empty dRList }">
 					<table class="page-table">
 							<tbody>
 								<tr>
 								<!-- 이전 -->
-									<c:url value="adminAllUserList.dz" var="before">
+									<c:url value="adminDrmReviewList.dz" var="before">
 										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
 									</c:url>
 									<c:if test="${ pi.currentPage <= 1 }">
@@ -73,7 +79,7 @@
 									<!-- 이전끝 -->
 									<!-- 페이징 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-			                    		<c:url var="pagination" value="adminAllUserList.dz">
+			                    		<c:url var="pagination" value="adminDrmReviewList.dz">
 			                    			<c:param name="page" value="${ p }"></c:param>
 			                    		</c:url>
 			                    		<c:if test="${ p eq pi.currentPage }">
@@ -84,7 +90,7 @@
 										</c:if>	                    	
 			                    	</c:forEach>
 									<!-- 페이징 끝 -->
-									<c:url var="after" value="adminAllUserList.dz">
+									<c:url var="after" value="adminDrmReviewList.dz">
 			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
 			                    	</c:url>
 			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">

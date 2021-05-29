@@ -4,7 +4,7 @@ function selectMenu(data) {
 	} else if(data == 2) {
 		location.href="adminShopList.dz";
 	} else if(data == 3) {
-		alert('게시판관리');
+		location.href="adminMReviewList.dz";
 	} else if(data == 4) {
 		alert('포인트관리');
 	} else {

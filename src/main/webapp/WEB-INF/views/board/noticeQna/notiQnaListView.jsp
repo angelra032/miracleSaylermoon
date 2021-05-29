@@ -119,7 +119,7 @@
 			</c:if>
 			<c:if test="${ loginUser.userType eq '4' }">
 				<div id="write-btn-area">
-	                <button>공지글쓰기</button>
+	                <button onclick="location.href='/noticeWriteView.dz'">공지쓰기</button>
 	            </div>
 			</c:if>
         </div>

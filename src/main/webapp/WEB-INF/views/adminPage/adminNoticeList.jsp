@@ -7,7 +7,7 @@
 
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
-<link rel="stylesheet" href="/resources/css/adminpage/viewListdetail.css">
+<link rel="stylesheet" href="/resources/css/adminpage/listdetail.css">
 <title>게시판 목록 페이지</title>
 </head>
 <body>
@@ -33,15 +33,14 @@
 							<th>제목</th>
 							<th>날짜</th>
 							<th>공개여부</th>
-							<th width=150px>수정</th>
 							<th width=150px>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:if test="${ !empty noticeList }">
 					<c:forEach items="${noticeList }" var="notice" varStatus="status">
-					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr>
+					  <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
+						<tr style="cursor: pointer;" onclick="location.href='noticeDetail.dz?noticeNo=${notice.noticeNo}'">
 							<td>${ num }</td>
 							<td>${notice.noticeTitle }</td>
 							<td>${notice.noticeCreateDate }</td>
@@ -51,7 +50,6 @@
 							<c:if test="${notice.noticePublicYN eq 'n' or notice.noticePublicYN eq 'N' }">
 								<td>비공개</td>
 							</c:if>
-							<td><a class="delete-btn" href="#">수정</a></td>
 							<td><a class="delete-btn" href="#">삭제</a></td>
 							
 						</tr>

@@ -2,7 +2,7 @@ package com.donzzul.spring.recommendboard.domain;
 
 import java.sql.Timestamp;
 
-public class RecommendPhoto {
+public class RecommendPhoto  {
 	private int recommendFileNo;
 	private String recommendOriginalFileName;
 	private String recommendRenameFileName;
