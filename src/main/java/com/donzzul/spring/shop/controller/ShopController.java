@@ -20,6 +20,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
@@ -146,7 +147,8 @@ public class ShopController {
 		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
 		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
 		System.out.println("테스트 확인 :" + mapList);
-		
+		System.out.println("로케이션 테스트 확인 :" + mapList.get(0).getShopAddr());
+
 		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
 		
@@ -154,7 +156,7 @@ public class ShopController {
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
 		hashMap.put("mapMarkers", mapMarkers);
-		hashMap.put("center", mapList.get(0).getShopAddr());
+		hashMap.put("searchedCenter", mapList.get(0).getShopAddr());
 		hashMap.put("searchKeyword", searchKeyword);
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());
@@ -174,24 +176,31 @@ public class ShopController {
 		
 		String themeWord = "";	
 		
-		int currentPage = (page != null) ? page : 1; 
-		int listCount = sService.selectShopThemeCount(themeWord); 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
-		
 		switch(themeNo) {
 			case 1 : 
-				ArrayList<ReviewDreamMzAll> sRank = mzService.selectReviewRanking();
-				System.out.println("테스트 shop ArrayList " + sRank);
-				System.out.println("shopNo" + sRank.toString());
+				ArrayList<MzReview> sRank = mzService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
+				
+				ArrayList<Shop> rankNo = new ArrayList<Shop>();
+				for(int i = 0; i < sRank.size(); i++) {
+					Shop shop = new Shop();
+					shop.setShopNo(sRank.get(i).getShopNo());
+					rankNo.add(shop);
+				}
+				System.out.println(rankNo.toString());
+				
+//				HashMap<String, Integer> rankNo = new HashMap<String, Integer>();
+//				
+//				// 랭크순으로 가게번호 hashMap에 넣기
+//				for(int i = 0; i < sRank.size(); i++) {
+//					rankNo.put("rank" + (i+1), sRank.get(i).getShopNo());
+//				}
+//				
+//				// 가게번호 이용하여 가게 정보 가져오기
+//				ArrayList<Shop> sList = sService.selectShopRank(rankNo);
+//				System.out.println(sList.toString());
 				break;
 			case 2 : 
 				themeWord = "천안";
-				
-				ArrayList<Shop> sList = sService.selectShopTheme(pi, themeWord);
-				
-				mv.addObject("pi", pi);
-				mv.addObject("sList", sList);
-				
 				break;
 			case 3 : 
 				themeWord = "신규";
@@ -230,8 +239,16 @@ public class ShopController {
 		// 
 		System.out.println(themeWord); // 확인용
 		
-		return mv;
+		int currentPage = (page != null) ? page : 1; 
+		int listCount = sService.selectShopThemeCount(themeWord); 
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
 		
+		ArrayList<Shop> sList = sService.selectShopTheme(pi, themeWord);
+		
+		mv.addObject("pi", pi);
+		mv.addObject("sList", sList);
+		
+		return mv;
 //		
 //		response.setContentType("application/json");
 //		response.setCharacterEncoding("utf-8");
@@ -262,8 +279,8 @@ public class ShopController {
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
 		// 전체 후기 가져오기
-		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
-		
+		ArrayList<MzReview> rList = mzService.selectDmReviewAll(shopNo);
+		System.out.println("전체 후기 : " + rList.toString());
 		// 감사 후기 가져오기
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
 		System.out.println(drList.toString());
@@ -281,7 +298,7 @@ public class ShopController {
 	@RequestMapping(value="mdReviewShop.dz", method=RequestMethod.GET)
 	public String selectDmReview(@RequestParam("shopNo") int shopNo) {
 		// 주석을 풀어주세요....
-		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
+//		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
 		return "";
 	}
 	

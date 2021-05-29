@@ -133,6 +133,7 @@
 	
 	
 		var selectedCenter = "${center}";
+		var searchedCenter = "${searchedCenter}";
 		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	 		mapOption = { 
@@ -157,16 +158,29 @@
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
 		
- 		geocoder.addressSearch(selectedCenter, function(result, status) {
+		/* 지도조회 - 지역 선택시 */
+		if( selectedCenter ) {
+	 		geocoder.addressSearch(selectedCenter, function(result, status) {
+				
+				// 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
 			
-			// 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-		
-		    	var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-				map.setCenter(coords);
-		     }
-		});
+			    	var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					map.setCenter(coords);
+			     }
+			});
+	 	/* 지도상세 - 지역 검색시 */
+		}else if ( searchedCenter ) {
+			geocoder.addressSearch(searchedCenter, function(result, status) {
+				
+				// 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
 			
+			    	var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					map.setCenter(coords);
+			     }
+			});
+		}
 			
 		
 		// 주소로 좌표를 검색합니다
@@ -344,11 +358,13 @@
 						if(data.mList.length > 0) { 
 							$(".content-list").empty();
 							$(".content-list-navi").empty();
+							
+							/* 검색 리스트 */
 							for( var i in data.mList) {
-								/* 검색 리스트 */
-								console.log(data.mList.length);
+								/* console.log(data.mList.length);
 								console.log(data.mList);
-								console.log(data.pi);
+								console.log(data.pi); */
+								
 								var contentShop = $("<div class='content-shop'>");
 								var contentShopLeft = $("<div class='content-shop left'>");
 								var contentShopRight = $("<div class='content-shop right'>");
@@ -368,23 +384,64 @@
 								contentShop.append(contentShopRight);
 								contentList.append(contentShop); 
 								
-/* 								contentListNavi.append("<hr>")
-								.append("<c:url var='before' value='mapSearchShop.dz'>"
-										+ "<c:param name='page' value='"+${ data.pi.currentPage - 1 }"'></c:param>"
-										+ "<c:if test='${ !empty data.searchKeyword }'>
-										if( "${ !empty data.searchKeyword }") { */
-										/* + "<c:param name='data.searchKeyword' value='${ data.searchKeyword }'></c:param>"
-										+ "</c:if>"
-										+ "</c:url>"); */
 					 	 	}
+							
+							/* 네비 */
+							contentListNavi.append("<hr>");
+							if(data.pi.currentPage > 1) {
+								contentListNavi.append("<a href='mapSearchKey.dz?page="+(data.pi.currentPage - 1)+"&searchKeyword=searchKeyword'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+							}
+							for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
+								if(i == data.pi.currentPage) {
+									contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+								}else if(i != data.pi.currentPage) {
+									contentListNavi.append("<a href='mapSearchKey.dz?page="+i+"&searchKeyword=searchKeyword'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+								}
+							}
+							if(data.pi.currentPage < data.pi.maxPage) {
+								contentListNavi.append("<a href='mapSearchKey.dz?page='"+(data.pi.currentPage + 1)+"'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+							}
+
+							
+							
+							/* <hr>
+							<c:url var="before" value="mapSearchShop.dz">
+								<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+								<c:if test="${ !empty location }">
+									<c:param name="location" value="${ location }"></c:param>
+								</c:if>
+							</c:url>
+							<c:if test="${ pi.currentPage > 1 }">
+								<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+							</c:if>
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+								<c:url var="pagination" value="mapSearchShop.dz">
+									<c:param name="page" value="${ p }"></c:param>
+									<c:if test="${ !empty location }">
+										<c:param name="location" value="${ location }"></c:param>
+									</c:if>
+								</c:url>
+								<c:if test="${ p eq pi.currentPage }">
+									<span id="currentPage">${ p }</span>
+								</c:if>
+								<c:if test="${ p ne pi.currentPage }">
+									<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+								</c:if>
+							</c:forEach>
+							<c:url var="after" value="mapSearchShop.dz">
+								<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+								<c:if test="${ !empty location }">
+									<c:param name="location" value="${ location }"></c:param>
+								</c:if>
+							</c:url>
+							<c:if test="${ pi.currentPage >= pi.maxPage }">
+							</c:if>
+							<c:if test="${ pi.currentPage < pi.maxPage }">
+								<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+							</c:if> */
 										
 										
-							/*			
-								.append("")
-								.append("")
-								.append("")
-								.append("")
-								.append("") */
+							
 								
 						}else {
 							$(".content-list").empty();

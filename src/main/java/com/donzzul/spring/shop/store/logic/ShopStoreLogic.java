@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
@@ -49,6 +50,12 @@ public class ShopStoreLogic implements ShopStore {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", themeWord, rowBounds);
+	}
+	
+
+	@Override
+	public ArrayList<Shop> selectShopRank(HashMap<String, Integer> rankNo) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopRank", rankNo);
 	}
 
 	@Override
@@ -115,5 +122,6 @@ public class ShopStoreLogic implements ShopStore {
     public ArrayList<Shop> selectAllShopListThree() {
        return (ArrayList)sqlSession.selectList("shopMapper.selectThreeShop");
     }
+
 
 }

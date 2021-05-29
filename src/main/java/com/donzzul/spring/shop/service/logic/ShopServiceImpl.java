@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
@@ -41,6 +42,11 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public ArrayList<Shop> selectShopTheme(PageInfo pi, String themeWord) {
 		return sStore.selectShopTheme(pi, themeWord);
+	}
+
+	@Override
+	public ArrayList<Shop> selectShopRank(HashMap<String, Integer> rankNo) {
+		return sStore.selectShopRank(rankNo);
 	}
 
 	@Override
@@ -104,4 +110,5 @@ public class ShopServiceImpl implements ShopService {
     public ArrayList<Shop> selectAllShopListThree() {
        return sStore.selectAllShopListThree();
     }
+
 }
