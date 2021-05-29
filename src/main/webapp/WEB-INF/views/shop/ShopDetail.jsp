@@ -26,22 +26,22 @@
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			
 				<!-- 사업자 회원 제외 찜버튼 활성화 -->
-	 			<c:if test="${ loginUser.userType != 3 }">
-	 				<c:if test="${ empty pick }">		
-	 					<span id="pick-button" onclick=""><img src="/resources/images/zzimButton-before.png" alt="pick-button"></span>
-	 				</c:if>
-	 				<c:if test="${ !empty pick }">		
-						<div id="pick-zone">
+				<!-- <div id="pick-zone"> -->
+	 				<c:if test="${ loginUser.userType != 3 }">
+		 				<c:if test="${ empty pick }">		
+		 					<a href="enrollPick.dz" id="pick-button"><!-- <img src="/resources/images/zzimButton-before.png" alt="pick-button"> --></a>
+		 				</c:if>
+	 					<c:if test="${ !empty pick }">		
 							<!-- 세션 체크 하여 동작 -->
 							<!-- 세션 없을시 로그인 연결 -->
 							<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 -->
 							<c:url var="reservation" value="reservationView.dz">
 								<c:param name="shopNo" value="${ shop.shopNo }"/>
 							</c:url>
-							<span id="pick-button" onclick=""><img src="/resources/images/zzimButton-after.png" alt="pick-button"></span>
-						</div>
+							<a href="removePick.dz" id="pick-button"><img src="/resources/images/zzimButton-after.png" alt="pick-button"></a>
+						</c:if> 
 					</c:if>
-				</c:if> 
+				<!-- </div> -->
 			</div>
 		</div>
 		

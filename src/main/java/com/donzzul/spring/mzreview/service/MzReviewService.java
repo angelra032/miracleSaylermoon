@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
+import com.donzzul.spring.shop.domain.Shop;
 
 public interface MzReviewService {
 	// 리스트, 디테일, 추가, 수정, 삭제 (이후 페이징)
@@ -16,7 +17,7 @@ public interface MzReviewService {
 	public int deleteMzReview(int mzReviewNo);
     public ArrayList<ReviewDreamMzAll> selectDmReviewAll(int shopNo); // 가게 전체 후기 가져오기	
     public ArrayList<MzReview> selectAllReview(int shopNo);
-    public int selectReviewRanking(); // 리뷰 순위
+    public ArrayList<ReviewDreamMzAll> selectReviewRanking(); // 리뷰 순위
 	public int getListCount();
 	public ArrayList<MzReview> selectThreeReview();
 }

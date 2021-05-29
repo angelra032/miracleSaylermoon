@@ -98,5 +98,22 @@ public class ShopStoreLogic implements ShopStore {
     public ArrayList<Shop> selectAllShopListASC() {
        return (ArrayList)sqlSession.selectList("shopMapper.selectAllShopASC");
     }
+    
+    @Override
+    public int getListCount() {
+       return sqlSession.selectOne("shopMapper.selectAdminPageList");
+    }
+
+    @Override
+    public ArrayList<Shop> selectAllShopList(PageInfo pi) {
+       int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+       RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+       return (ArrayList)sqlSession.selectList("shopMapper.selectAllShopDESC", null, rowBounds);
+    }
+
+    @Override
+    public ArrayList<Shop> selectAllShopListThree() {
+       return (ArrayList)sqlSession.selectList("shopMapper.selectThreeShop");
+    }
 
 }

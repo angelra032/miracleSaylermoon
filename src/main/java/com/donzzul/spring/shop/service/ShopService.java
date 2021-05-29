@@ -24,4 +24,7 @@ public interface ShopService {
 	public int selectShopThemeCount(String themeWord); // 가게 검색시 전체 게시글 갯수 (테마, 키워드 검색 포함)
     public ArrayList<Shop> selectAllShopListDESC();
     public ArrayList<Shop> selectAllShopListASC();	
+    public int getListCount();
+    public ArrayList<Shop> selectAllShopList(PageInfo pi);
+    public ArrayList<Shop> selectAllShopListThree();  
 }

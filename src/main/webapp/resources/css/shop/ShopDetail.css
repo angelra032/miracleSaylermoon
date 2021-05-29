@@ -75,15 +75,17 @@ a {
 	}
 
  	 #pick-button {
+ 	 	width: 69px;
+ 	 	height: 69px;
 		float: right;
+		margin-top: -80px;
+		background-image: url("/resources/images/zzimButton-before.png");
 	}  
-	
- 		#pick-button > img {
+		
+		#pick-button a {
 			display: block;
 			cursor: pointer;
-			position: relative;
-			top: -70px;
-		}  
+		}
     
 .frame {
 	width: 1280px;

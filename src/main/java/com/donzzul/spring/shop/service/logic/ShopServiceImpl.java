@@ -90,4 +90,18 @@ public class ShopServiceImpl implements ShopService {
 	public int selectShopThemeCount(String themeWord) {
 		return sStore.selectShopThemeCount(themeWord);
 	}
+	@Override
+    public int getListCount() {
+      return sStore.getListCount();
+    }
+
+    @Override
+    public ArrayList<Shop> selectAllShopList(PageInfo pi) {
+       return sStore.selectAllShopList(pi);
+    }
+
+    @Override
+    public ArrayList<Shop> selectAllShopListThree() {
+       return sStore.selectAllShopListThree();
+    }
 }

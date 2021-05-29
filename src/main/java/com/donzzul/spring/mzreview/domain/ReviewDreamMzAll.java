@@ -7,8 +7,8 @@ public class ReviewDreamMzAll {
 
 	// 공통
 	private String userType;
-	private String userNo;
-	private String shopNo;
+	private int userNo;
+	private int shopNo;
 	// 감사후기
 	private int drmReviewNo;
 	private String drmReviewTitle;
@@ -34,7 +34,7 @@ public class ReviewDreamMzAll {
 	
 	public ReviewDreamMzAll() {}
 
-	public ReviewDreamMzAll(String userType, String userNo, String shopNo, int drmReviewNo, String drmReviewTitle,
+	public ReviewDreamMzAll(String userType, int userNo, int shopNo, int drmReviewNo, String drmReviewTitle,
 			String drmReviewContent, String drmReviewWriter, Date drmReviewCreateDate, Date drmReviewUploadDate,
 			String drmReviewPubicYn, int mReviewNo, String mReviewTitle, String mReviewContent, String mReviewWriter,
 			Date mReviewCreateDate, Date mReviewUploadDate, String mzReviewDate, int mReviewFileNo, String mFileName,
@@ -72,19 +72,19 @@ public class ReviewDreamMzAll {
 		this.userType = userType;
 	}
 
-	public String getUserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
 
-	public void setUserNo(String userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 
-	public String getShopNo() {
+	public int getShopNo() {
 		return shopNo;
 	}
 
-	public void setShopNo(String shopNo) {
+	public void setShopNo(int shopNo) {
 		this.shopNo = shopNo;
 	}
 
