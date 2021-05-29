@@ -84,6 +84,12 @@ public class QnaStoreLogic implements QnaStore {
 	}
 
 
+	// 사업자 마이페이지
+	@Override
+	public ArrayList<Qna> shopQnaUpToThree(int shopNo) {
+		return (ArrayList)sqlSession.selectList("notiQnaMapper.shopQnaUpToThree",shopNo);
+	}
+	
 
 
 }

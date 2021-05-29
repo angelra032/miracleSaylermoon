@@ -72,6 +72,13 @@ public class QnaServiceImpl implements QnaService{
 	public int dreamListCount(int userNo) {
 		return qnaStore.dreamListCount(userNo);
 	}
+	
+	
+	// 사업자 마이페이지
+	@Override
+	public ArrayList<Qna> shopQnaUpToThree(int shopNo) {
+		return qnaStore.shopQnaUpToThree(shopNo);
+	}
 
 
 
