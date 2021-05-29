@@ -40,15 +40,15 @@
 							<td>${qna.qanCreateDate }</td>
 							
 							
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
+							<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
+							<td><a class="delete-btn" href="qaDelete.dz?qnaNo=${qna.qnaNo }">삭제</a></td>
 						</tr>
 					</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
 							<td colspan="5">
 								<!-- 이전 -->
-								<c:url var="before" value="allQnaListByDream.dz">
+								<c:url var="before" value="allQnaListByPartner.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -59,7 +59,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="allQnaListByDream.dz">
+									<c:url var="pagination" value="allQnaListByPartner.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -70,7 +70,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="allQnaListByDream.dz">
+								<c:url var="after" value="allQnaListByPartner.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">

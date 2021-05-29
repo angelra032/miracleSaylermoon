@@ -30,6 +30,7 @@ import com.donzzul.spring.user.domain.User;
 @Controller
 public class NotiQnaController {
 	
+	
 	@Autowired
 	private QnaService qnaService;
 	

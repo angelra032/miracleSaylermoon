@@ -58,24 +58,17 @@
 									</c:otherwise>
 								</c:choose>	
 								
-								<c:if test="${reservation.rState eq 'O' }">
-										<td><a class="reserv-btn"
-											href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
+								<c:if test="${reservation.rState eq 'O'}">
+										<td>예약대기</td>
 									</c:if>
-									<c:if test="${reservation.rState eq 'X' }">
-										<td><a class="btn btn-secondary">취소완료</a></td>
+									<c:if test="${reservation.rState eq 'X'}">
+										<td>취소된예약</td>
 									</c:if>
-									<c:if test="${reservation.rState eq 'Y' }">
-										<td><a class="confirm-btn">예약확정</a></td>
+									<c:if test="${reservation.rState eq 'Y'}">
+										<td><a class="reserv-btn" href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }" >방문완료</a></td>
 									</c:if>
-
-
-										<td><a class="btn btn-secondary">후기작성</a></td>
-									<c:if test="${reservation.rState eq 'C' }">
-										<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
-									</c:if>
-									<c:if test="${reservation.rState eq 'H' }">
-										<td><a class="btn btn-secondary">후기작성완료</a></td>
+									<c:if test="${reservation.rState eq 'C'}">
+										<td>완료된 예약</td>
 									</c:if>
 							</td> 
 						</tr>

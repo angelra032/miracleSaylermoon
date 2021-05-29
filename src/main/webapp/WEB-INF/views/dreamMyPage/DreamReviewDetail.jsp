@@ -41,8 +41,8 @@
 							<td><a class="table-link-title" href="#"><p>${dreamreview.drmReviewTitle }</p></a></td>
 							<td>${dreamreview.shopName }</td>
 							<td>${dreamreview.drmReviewCreateDate }</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
+							<td><a class="modify-btn" href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
+							<td><a class="delete-btn" href="dReviewDelete.dz?drmRviewNo=${dreamreview.drmRviewNo }">삭제</a></td>
 							
 						</tr>
 					</c:forEach>
