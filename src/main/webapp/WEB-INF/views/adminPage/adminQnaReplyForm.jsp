@@ -87,11 +87,13 @@
 					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
 						var qnaTitle = $("#qnaTitle").val();
 						var originalQnaNo = '${originalQnaNo}';
+						var originalUserNo = '${originalUserNo}';
+						var qnaId = '${qnaId}';
 						if(qnaTitle != "" && qnaContent != "<p><br></p>") {
 						    $.ajax({
 							   url : "QnAReplyInsert.dz",
 							   type : "POST",
-							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "originalQnaNo" : originalQnaNo},
+							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "originalQnaNo" : originalQnaNo, "originalUserNo" : originalUserNo, "qnaId" : qnaId},
 							   success : function(data){
 								   if(data == "success") {
 									   alert('성공');

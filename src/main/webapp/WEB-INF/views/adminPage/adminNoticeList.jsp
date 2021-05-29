@@ -50,7 +50,7 @@
 							<c:if test="${notice.noticePublicYN eq 'n' or notice.noticePublicYN eq 'N' }">
 								<td>비공개</td>
 							</c:if>
-							<td><a class="delete-btn" href="#">삭제</a></td>
+							<td><div class="delete-btn" onclick="deleteResult('${ notice. noticeNo }')">삭제</div></td>
 							
 						</tr>
 					</c:forEach>
@@ -110,5 +110,15 @@
 <script>
 	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	$('.board-menu-btn').eq(4).css('background','#0160ff').css('color','white');
+	
+	function deleteResult(data) {
+        var result = confirm('글을 삭제합니다.');
+        if(result) {
+            location.href='noticeDelete.dz?noticeNo=' + data;
+			location.href='adminNoticeList.dz';
+        } else {
+			location.href='adminNoticeList.dz';
+        }
+    }
 </script>
 </html>

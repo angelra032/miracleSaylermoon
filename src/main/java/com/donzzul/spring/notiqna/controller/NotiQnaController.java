@@ -62,6 +62,8 @@ public class NotiQnaController {
 		Qna qna = qnaService.selectOneQna(qaNo); // qna 조회
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser"); // 세션에서 유저를 불러옴
+//		Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
+		
 		if(qna != null) {
 			if(qna.getBoardPublicYN().equals("Y")) { // qna 퍼블릭(없는경우임)
 				mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
@@ -70,9 +72,18 @@ public class NotiQnaController {
 				if(user == null) { // 로그인 안함
 					//mv.addObject("msg", "로그인필요").setViewName("common/errorPage");
 					mv.setViewName("redirect:/loginView.dz");
-				} else if(qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4") ) { // 글쓴이와 유저(세션)값이 같음
+				} else if(qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4")) { // 글쓴이와 유저(세션)값이 같음
+					//qna.getGroupLayer() == 1 && qna.getUserNo() != user.getUserNo() && qna.getUserType().equals("4")
+						Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
+						if(reply != null)
+							mv.addObject("reply", reply);
 					mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
-				} else {
+				} else if(user.getUserId() == qna.getQnaId() ) {
+					Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
+					if(reply != null)
+						mv.addObject("reply", reply);
+					mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
+				}else {
 					//mv.addObject("msg", "다른사람글 확인불가").setViewName("common/errorPage");
 					mv.setViewName("redirect:/notiQnaMain.dz");
 				}
@@ -99,6 +110,7 @@ public class NotiQnaController {
 		qna.setUserType(user.getUserType());
 		qna.setUserNo(user.getUserNo()); 
 		qna.setUserType(user.getUserType());
+		qna.setQnaId(user.getUserId());
 		
 		int result = qnaService.insertQna(qna); // 글쓰기
 		if(result > 0) {
