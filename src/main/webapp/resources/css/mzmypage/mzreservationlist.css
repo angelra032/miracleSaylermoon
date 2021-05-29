@@ -68,13 +68,10 @@ main {
 .my-list {
 	width:100%;
 	height: auto;
-	background-color: #e3e4e5;
+	background-color: #fff;
 	padding-bottom: 60px;
 }
 /* *****************배경색 흰색으로 */
-.w-list {
-	background-color: #fff;
-}
 .my-title {
 	width: 100%;
 	height: 80px;
@@ -115,7 +112,7 @@ main {
 .my-list table {
 	width: 1000px;
 	height: auto;
-	border-top: 2px solid #0160ff;
+	border-top: 3px solid #0160ff;
 	margin: 0 auto;
 	text-align: center;
 	color:#333;
@@ -182,50 +179,8 @@ main {
 	background-color: #0160ff;
 }
 
-/* **********가고싶다********** */
-.wish-list table thead th:nth-child(4) {
-	width: 150px;
-}
 
 
-.delete-btn {
-	display: block;
-	width: 120px;
-	height: 40px;
-	background-color: #0160ff;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#fff;
-	border-radius: 3px;
-	font-size: 16px;
-}
-/* ***************돈쭐******************* */
-.review-list table thead th:nth-child(5) {
-	width: 150px;
-}
-.review-list table thead th:nth-child(6) {
-	width: 150px;
-}
-
-.modify-btn {
-	display: block;
-	width: 120px;
-	height: 40px;
-	background-color: #0160ff;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#fff;
-	border-radius: 3px;
-	font-size: 16px;
-}
-
-/* **********추천목록************* */
-.recommend-list table thead th:nth-child(4) {
-	width: 150px;
-}
-.recommend-list table thead th:nth-child(5) {
-	width: 150px;
-}
 
 
 

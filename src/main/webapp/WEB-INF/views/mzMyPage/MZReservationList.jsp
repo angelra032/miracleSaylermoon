@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
+<link rel="stylesheet" href="/resources/css/mzmypage/mzreservationlist.css">
 <title>꿈나무회원 예약목록 페이지</title>
 </head>
 <body>
@@ -37,24 +37,28 @@
 						<tr>
 							<td>${status.count }</td>
 							<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
-							<td>${reservation.reserveDate }</td>
+							<td class="reserv-date${ reservation.reservationNo }">${reservation.reserveDate }</td>
 							
 							<c:if test="${reservation.rState eq 'O' }">
-							<td><a class="reserv-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }">예약취소</a></td>
+								<td class="reserv-stay${ reservation.reservationNo }"><a class="reserv-btn reserv-btn${ reservation.reservationNo }" href="#" >예약취소</a></td>
+								<input type="hidden" class="reservationNo" value="${ reservation.reservationNo }">
+								<td><a class="reserv-btn disable-btn">후기작성</a></td>
 							</c:if>
 							<c:if test="${reservation.rState eq 'X' }">
-							<td><a class="btn btn-secondary">취소완료</a></td>
+								<td class="reserv-cancle">취소완료</td>
+								<td><a class="reserv-btn disable-btn">후기작성</a></td>
 							</c:if>
 							<c:if test="${reservation.rState eq 'Y' }">
-							<td><a class="confirm-btn" >예약확정</a></td>
+								<td class="reserv-confirm">예약확정</td>
+								<td><a class="reserv-btn disable-btn">후기작성</a></td>
 							</c:if>
-							
-							<td><a class="btn btn-secondary">후기작성</a></td>
 							<c:if test="${reservation.rState eq 'C' }">
-							<td><a class="reserv-btn" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+								<td class="reserv-confirm">방문완료</td>
+								<td><a class="reserv-btn review-btn" href="dReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
 							</c:if>
 							<c:if test="${reservation.rState eq 'H' }">
-							<td><a class="reserv-btn">후기작성</a></td>
+								<td class="reserv-confirm">방문완료</td>
+								<td>후기작성완료</td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -108,4 +112,35 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// a href='#' 클릭 무시 스크립트
+		$('a[href="#"]').click(function(ignore) {
+            ignore.preventDefault();
+        });
+		
+		// 예약취소 aJax
+		$('.reserv-btn').on('click', function() {
+			var reservationNo = $(this).parent().next().val();
+			$.ajax({
+				url : "cancelMZReservation.dz",
+				data : {"reservationNo" : reservationNo},
+				success : function(result) {
+					if(result == 'ok'){
+						$('.reserv-stay'+reservationNo).remove();
+						$('.reserv-date'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
+					}
+				},
+				error : function() {
+					console.log("전송실패");
+				}
+			});
+		}); //end of $('.reserv-btn').click
+
+		// 후기작성버튼 비활성화 되어있을때 누르면 alert창 띄우기
+		$('.disable-btn').on('click', function() {
+			alert('작성 가능한 기간이 아닙니다.');
+		});
+	});
+</script>
 </html>

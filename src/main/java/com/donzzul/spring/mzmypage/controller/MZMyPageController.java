@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
@@ -55,7 +56,7 @@ public class MZMyPageController {
 			model.addAttribute("msg", "내역을 출력하는데 실패했습니다");
 			return "common/errorPage";
 		}
-  	}
+  	} // end of MZMyPageView
   	
  // (민애) 구글구글 mz마이페이지 메인뷰
    	@RequestMapping(value = "GoogleMyPage.dz")
@@ -113,6 +114,33 @@ public class MZMyPageController {
  		//}
    	}
 	
+   	// 예약 취소
+   	@ResponseBody
+ 	@RequestMapping(value = "cancelMZReservation.dz")
+ 	public String cancelMZReservation(@RequestParam("reservationNo") int reservationNo, Model model, HttpSession session) {
+ 		User user = (User) session.getAttribute("loginUser");
+ 		int userNo = user.getUserNo();
+ 		Reservation reservation = rService.selectOne(reservationNo);
+ 		String rStateResult = reservation.getrState();
+ 		if (rStateResult.equals("O")) { 
+ 			reservation.setrState("X");
+ 			int result = rService.updateRstate(reservation); // Reservation테이블에 예약 상태값 변경하기
+
+ 			reservation.setUserNo(userNo);
+ 			reservation.setReservationNo(reservationNo);
+ 			int cancleResult = rService.cancleReservation(reservation); // User테이블에 포인트 돌려받기
+
+ 			if (result > 0 && cancleResult > 0) {
+ 				return "ok";
+ 			} else {
+ 				return "예약취소에 실패했습니다.";
+ 			}
+ 		} else {
+ 			model.addAttribute("msg", "예약취소에 실패했습니다.");
+ 			return "common/errorPage";
+ 		}
+ 	} //end of cancelMZReservation
+   	
 	// 돈쭐 내역 출력
 	@RequestMapping(value ="printDonAllList.dz", method = RequestMethod.GET)
 	public ModelAndView printDonAllList(HttpSession session, ModelAndView mv, Model model, @RequestParam(value="page", required = false) Integer page) {
