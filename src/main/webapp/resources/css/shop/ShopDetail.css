@@ -428,3 +428,25 @@ a {
 						color: #e3e4e5;
 					}
 	
+	
+	
+	
+
+/* 모달창 테스트 */
+.menu-img-thumb {
+	margin-top: 10px;
+	margin-right: 5px;
+}
+#menu-img {
+	display: none;
+	position: fixed;
+    z-index: 5; 
+    padding-top: 250px; 
+    overflow: auto; 
+    top: 0; 
+    left: 300;
+}
+
+
+
+

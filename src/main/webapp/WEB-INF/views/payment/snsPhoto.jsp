@@ -31,7 +31,7 @@
 	        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
 	    </div>
 		
-		<div id="main-title">인증샷&nbsp;&nbsp;<span id="main-title-shop">${shop.shopName }</span></div>
+		<div id="main-title">인증샷&nbsp;&nbsp;<span id="main-title-shop">${shopName }</span></div>
 		<div class="frame">
 		
 			<div class="sns">

@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopDetail.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 <!-- 지도 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1683794343a4e97ff3195b44b6488d0c&libraries=services"></script>
 <title>가게 상세 페이지</title>
@@ -64,6 +69,36 @@
 						<div class="detail-right menu-list">
 							파스타<br>
 							스테이크<br>
+							
+							<c:if test="${ !empty mainMenu }">
+								<c:forEach items="${mainMenu }" var="mainMenu">
+									${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }원 <br>
+								</c:forEach>
+							</c:if>
+							
+							<!-- modal test 중.. -->
+							<div id="menu-img" title="클릭하면 창이 닫힙니다.">
+								<div>
+									<img src="/resources/images/snsPhoto.png" alt="menuImg" width="300px" >
+								</div>
+							</div>
+
+							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
+							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
+							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
+							
+							<script>
+								$(function(){
+									$(".menu-img-thumb").click(function() {
+										$("#menu-img").fadeIn();
+									});
+									$("#menu-img").click(function() {
+										$("#menu-img").fadeOut();
+									});
+								});
+							</script>
+							
+							
 							<!-- 샐러드<br> -->
 							<%-- 
 							<c:if test="${ !empty mainMenu }">
@@ -92,7 +127,7 @@
 				
 				<div class="detailAll line5">
 					<div class="detail-left">상세내용</div>
-					<div class="detail-right conInfo">"${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }"</div> <!-- 최대 몇글자? -->
+					<div class="detail-right conInfo">"${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }"</div> <!-- 최대 몇글자? -->
 				</div>
 				
 				<div class="detailAll line6">
@@ -118,13 +153,14 @@
 								<c:param name="businessDay" value="${ shop.businessDay }"/>
 								<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/>
 							</c:url>
-							<c:url var="donation" value="reservationView.dz">
+							<c:url var="donation" value="paymentFormView.dz">
 								<c:param name="shopNo" value="${ shop.shopNo }"/>
 								<c:param name="shopName" value="${ shop.shopName }"/>
+								<%-- <c:param name="mainMenu" value="${ mainMenu.endTime }"/>
 								<c:param name="startTime" value="${ shop.startTime }"/>
 								<c:param name="endTime" value="${ shop.endTime }"/>
 								<c:param name="businessDay" value="${ shop.businessDay }"/>
-								<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/>
+								<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/> --%>
 							</c:url>
 						
 						<!-- 회원별 버튼 생성 -->

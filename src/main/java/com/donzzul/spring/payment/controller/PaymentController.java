@@ -35,7 +35,7 @@ public class PaymentController {
 
 	// 돈쭐 결제 폼
 	@RequestMapping(value = "paymentFormView.dz", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView paymentFormView(ModelAndView mv, HttpSession session) { //, @RequestParam("shopNo") int shopNo
+	public ModelAndView paymentFormView(@ModelAttribute Shop shop, ModelAndView mv, HttpSession session) { //, @RequestParam("shopNo") int shopNo
 		/*
 		User loginUser = (User)session.getAttribute("loginUser");
 		if(loginUser == null) {
@@ -43,12 +43,6 @@ public class PaymentController {
 			
 		}
 		*/
-		Shop shop = new Shop();
-		shop.setShopNo(87); //임시 데이터
-		
-		shop = pService.selectShop(shop); // 샵도 뿌려줘야 don 폼에 담음..
-//		int shopNo = 87;
-//		MainMenu menu = new MainMenu();
 		ArrayList<MainMenu> mList = pService.selectShopMenu(shop.getShopNo());
 		System.out.println(shop.toString());
 		System.out.println(mList.toString());
@@ -57,6 +51,7 @@ public class PaymentController {
 			mv.addObject("shop", shop).setViewName("payment/paymentForm");
 			mv.addObject("mList", mList).setViewName("payment/paymentForm");
 		} else {
+			mv.addObject("msg", "돈쭐 가능한 메뉴가 없습니다.").setViewName("payment/paymentForm");
 			System.out.println("돈쭐 결제 폼 출력 오류 - 아마도 메뉴(가게넘버) 받아오는 게 잘못 됐음");
 		}
 //		mv.addObject("shop", shop).setViewName("payment/paymentForm");
@@ -116,12 +111,6 @@ public class PaymentController {
 		System.out.println("룰렛페이지로 보내는 donNo"+donNo);
 		System.out.println(donPrice);
 		System.out.println(shopName); 
-		
-		//임시 데이터
-		Shop shop = new Shop();
-		shop.setShopNo(87);
-		shop = pService.selectShop(shop);
-		model.addAttribute("shop", shop);
 		
 		// ROULETTE YN(사용가능 여부) 체크해서 화면단에서 c:if로 처리
 		// Y면 돌리고 N이면 못 돌리게
@@ -193,6 +182,9 @@ public class PaymentController {
 					int updateRouletteYN = pService.updateRouletteYN(don.getDonNo());
 					if(updateRouletteYN > 0) {
 						System.out.println("룰렛 사용가능 여부 업데이트!");
+						model.addAttribute("donNo", don.getDonNo());
+						model.addAttribute("shopName", don.getShopName());
+						System.out.println(don.toString());
 						return "redirect:snsPhotoView.dz";
 					}else {
 						System.out.println("룰렛 사용가능 여부 실패");
@@ -216,15 +208,11 @@ public class PaymentController {
 
 	// 인증샷 페이지
 	@RequestMapping(value = "snsPhotoView.dz", method = RequestMethod.GET)
-	public String snsPhotoView(HttpSession session, Model model) {
+	public String snsPhotoView(HttpSession session, Model model, @ModelAttribute Don don) {
 		User loginUser = (User)session.getAttribute("loginUser");
 		// shopName도 출력해서 인증샷 바뀌도록
-		
-		//임시 데이터
-		Shop shop = new Shop();
-		shop.setShopNo(87);
-		shop = pService.selectShop(shop);
-		model.addAttribute("shop", shop);
+		System.out.println(don.toString());
+		model.addAttribute("shopName", don.getShopName());
 		
 		return "payment/snsPhoto";
 	}
