@@ -65,7 +65,7 @@
 	</select>
 	
 	<select id="selectQnaAllList" resultMap="qnaResultMap">
-		SELECT * FROM QNA_BOARD ORDER BY QNA_NO DESC
+		SELECT * FROM QNA_BOARD ORDER BY ORIGIN_NO DESC, GROUP_ORDER ASC
 	</select>
 	
 	<select id="selectQnaOneDetail" resultMap="qnaResultMap">
@@ -93,7 +93,7 @@
 	<update id="updateQnA">
 		UPDATE QNA_BOARD SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}, QNA_UPLOAD_DATE = SYSDATE WHERE QNA_NO = #{qnaNo}
 	</update>
-
+	
 
 	<!-- 드림 마이페이지 -->
 	<select id="dreamQnaUpToThree" resultMap="qnaResultMap">
@@ -154,5 +154,15 @@
 	<select id="qnaListCountByP" resultMap="qnaResultMap">
 		SELECT COUNT(*) FROM QNA_BOARD JOIN SHOP USING(USER_NO) WHERE SHOP.SHOP_NO = #{ shopNo }
 	</select>
+	
+	
+	<!-- 관리자페이지-QnA 리스트 출력 -->
+	<select id="selectQnaAdminList" resultMap="qnaResultMap"> 
+		SELECT * FROM QNA_BOARD WHERE GROUP_ORDER LIKE '0' ORDER BY ORIGIN_NO DESC
+	</select>
+
+	<insert id="insertReplyAdmin">
+		INSERT INTO QNA_BOARD VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, '관리자', SYSDATE, SYSDATE, 'N', '4', #{userNo}, #{originNo}, '1', '1')
+	</insert>
 	
 </mapper>
