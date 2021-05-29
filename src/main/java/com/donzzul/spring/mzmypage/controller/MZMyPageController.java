@@ -160,7 +160,7 @@ public class MZMyPageController {
 		if(!rList.isEmpty()) {
 			mv.addObject("rList",rList);
 			mv.addObject("pi",pi);
-			mv.setViewName("dreamMyPage/DreamRListDetail");
+			mv.setViewName("mzMyPage/MZReservationList");
 		}else {
 			mv.addObject("msg","예약목록 전체 불러오는데 실패하였습니다.");
 			mv.setViewName("common/errorPage");

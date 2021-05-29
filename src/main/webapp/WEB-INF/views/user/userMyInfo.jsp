@@ -382,7 +382,7 @@
 					}
 				});
 			});
-			// 안적었을때(0) - 휴대폰번호를입력해주세요
+			// 안적었을때(0) - 휴대폰번호를입력해주세요 꿈나무
 			$(".phoneelem").on("blur", function() {
 				if (userDPhone.val() =="") {
 					$('.phonenoti').css('display', 'none');
@@ -415,7 +415,7 @@
 					}
 				});
 			});
-			// 안적었을때(0) - 휴대폰번호를입력해주세요
+			// 안적었을때(0) - 휴대폰번호를입력해주세요 일반
 			$(".mzphoneelem").on("blur", function() {
 				if (userPhone.val() =="") {
 					$('.mzphonenoti').css('display', 'none');
@@ -557,7 +557,7 @@
 					userSimpleName.focus();
 					rtn = false;
 				}
-				///휴대폰번호
+				///휴대폰번호 꿈나무
 				$.ajax({
 					url : "dupPhoneNotMe.dz",
 					data : { "userPhone" : userDPhone.val(), "userNo" : $(".userNo").val() },
@@ -578,6 +578,28 @@
 					}
 				});
 				
+				///휴대폰번호 일반
+				$.ajax({
+					url : "dupPhoneNotMe.dz",
+					data : { "userPhone" : userPhone.val(), "userNo" : $(".userNo").val() },
+					async: false,
+					success : function(result) {
+						if (userPhone.val() =="") {
+							alert("휴대폰번호를 입력해주세요.");
+							userPhone.focus();
+							rtn = false;
+						}else if(result != 0){
+							alert("이미 등록된 휴대폰번호입니다. 다시 입력해주세요.");
+							userPhone.focus();
+							rtn = false;
+						}
+					},
+					error : function() {
+						console.log("전송실패");
+					}
+				});
+				
+				//사업자휴대폰번호
 				$.ajax({
 					url : "dupPhoneNotMe.dz",
 					data : { "userPhone" : $(".pphoneelem").val(), "userNo" : $(".userNo").val() },
