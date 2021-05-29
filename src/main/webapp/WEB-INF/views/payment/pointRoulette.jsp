@@ -44,7 +44,8 @@
 								<br>
 								당첨 포인트 : <span id="won">&nbsp;&nbsp; 0 </span> 원
 							</div>
-							<input type="submit" id="point-save-btn" value="포인트 받기" onclick="this.disabled=true;this.value='받는 중'; this.form.submit();">
+							<input type="submit" id="point-save-btn" value="포인트 받기"">
+							 <!-- onclick="this.disabled=true;this.value='받는 중'; this.form.submit(); -->
 						</div>
 					</div>
 				</form>
