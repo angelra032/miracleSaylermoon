@@ -135,7 +135,7 @@ input{
 	height: 60px;
 	display: block;
 	margin: 0 auto;
-	margin-top: 80px;
+	margin-top: 60px;
 	text-algin: center;
 	background-color: #fdb504;
 	color: #fff;
@@ -146,3 +146,50 @@ input{
 }
 
 
+
+/* SNS 공유 */
+.sns-share {
+	width: 270px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 25px;
+	padding-left: 10px;
+}
+
+.link-icon {
+	display: inline-block;
+	width: 60px;
+	height: 0px;
+	font-size: 16px;
+	font-weight: 500;
+	color: #333;
+	margin-right: 10px;
+	padding-top: 40px;
+	margin: 0 auto;
+	text-align: center;
+	cursor: pointer;
+}
+
+.link-icon.twitter {
+	background-image: url(/resources/images/sns/icon-twitter.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.link-icon.facebook {
+	background-image: url(/resources/images/sns/icon-facebook.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.link-icon.kakao {
+	background-image: url(/resources/images/sns/icon-kakao.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.link-icon.naver {
+	background-image: url(/resources/images/sns/icon-naver.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}

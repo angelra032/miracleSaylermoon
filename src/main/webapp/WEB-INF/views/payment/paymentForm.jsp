@@ -161,8 +161,9 @@
                 "use-point" : usePoint
             }
         }); */
+        
         // api 떼고 test
-        /* $.ajax({
+        $.ajax({
         	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
 			// data 보낼 url
 	        type: 'POST',
@@ -181,8 +182,10 @@
 	        	console.log(data);
 	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
 	        }
-        }); */
-	    IMP.request_pay({
+        });
+        // 카카오 페이 api
+	    /* 
+        IMP.request_pay({
 	        pg : 'kakaopay',
 	        pay_method : 'card',
 	        merchant_uid : 'merchant_' + new Date().getTime(),
@@ -228,7 +231,7 @@
 	            location.href="paymentFormView.dz"; 
 	        }
 	    });
-	    
+	     */
 	});
 
 	// 메뉴 선택하면
