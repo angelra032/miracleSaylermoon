@@ -27,4 +27,8 @@ public interface QnaStore {
 	public ArrayList<Qna> qnaListByPartner(int shopNo, PageInfo pi);
 	public int partnerListCount(int shopNo);
 	
+	// 관리자 페이지
+	public ArrayList<Qna> adminQnaList(PageInfo pi);
+	public int insertReply(Qna replyqna);
+	public int updateQnaReply(int qnaNo);
 }
