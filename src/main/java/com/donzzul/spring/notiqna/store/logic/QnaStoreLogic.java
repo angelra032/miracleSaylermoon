@@ -90,6 +90,24 @@ public class QnaStoreLogic implements QnaStore {
 		return (ArrayList)sqlSession.selectList("notiQnaMapper.shopQnaUpToThree",shopNo);
 	}
 	
+	// 관리자 페이지
+	@Override
+	public ArrayList<Qna> adminQnaList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("notiQnaMapper.selectQnaAdminList", null, rowBounds);
+	}
+
+	@Override
+	public int insertReply(Qna replyqna) {
+		return sqlSession.insert("notiQnaMapper.insertReplyAdmin", replyqna);
+	}
+
+	@Override
+	public int updateQnaReply(int qnaNo) {
+		return sqlSession.update("notiQnaMapper.updateOriginQna", qnaNo);
+	}
+	
 
 
 }

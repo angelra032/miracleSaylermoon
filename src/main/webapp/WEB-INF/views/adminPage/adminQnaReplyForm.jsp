@@ -23,7 +23,7 @@
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="qnaTitle">제목</label>
-				<input type="text" name="qnaTitle" id="qnaTitle" class="form-control"" placeholder="제목">
+				<input type="text" name="qnaTitle" id="qnaTitle" class="form-control"" placeholder="제목" value="문의 답변드립니다.">
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
@@ -86,11 +86,12 @@
 				   $('#saveBtn').on('click', function() {
 					   	var qnaContent = $("#summernote").summernote('code', qnaContent);
 						var qnaTitle = $("#qnaTitle").val();
+						var originalQnaNo = '${originalQnaNo}';
 						if(qnaTitle != "" && qnaContent != "<p><br></p>") {
 						    $.ajax({
-							   url : "qaInsertForm.dz",
+							   url : "QnAReplyInsert.dz",
 							   type : "POST",
-							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
+							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "originalQnaNo" : originalQnaNo},
 							   success : function(data){
 								   if(data == "success") {
 									   alert('성공');

@@ -80,6 +80,23 @@ public class QnaServiceImpl implements QnaService{
 		return qnaStore.shopQnaUpToThree(shopNo);
 	}
 
+	
+	// 관리자 페이지
+	@Override
+	public ArrayList<Qna> adminQnaList(PageInfo pi) {
+		return qnaStore.adminQnaList(pi);
+	}
+
+	@Override
+	public int insertReply(Qna replyqna) {
+		return qnaStore.insertReply(replyqna);
+	}
+
+	@Override
+	public int updateQnaReply(int qnaNo) {
+		return qnaStore.updateQnaReply(qnaNo);
+	}
+	
 
 
 

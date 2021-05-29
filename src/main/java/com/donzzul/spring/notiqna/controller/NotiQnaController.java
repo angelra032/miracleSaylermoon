@@ -58,21 +58,22 @@ public class NotiQnaController {
 	// 디테일 selectOne
 	@RequestMapping(value="qaDetail.dz", method=RequestMethod.GET)
 	public ModelAndView qaDetailView(ModelAndView mv, @RequestParam("qnaNo") int qaNo, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		Qna qna = qnaService.selectOneQna(qaNo); // qna 조회해옴
+		Qna qna = qnaService.selectOneQna(qaNo); // qna 조회
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser"); // 세션에서 유저를 불러옴
+		
 		if(qna != null) {
 			if(qna.getBoardPublicYN().equals("Y")) { // qna 퍼블릭(없는경우임)
 				mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
-//				mv.addObject("msg", "자신이 쓴 글만 확인할 수 있습니다.").setViewName("common/errorPage");
+				//mv.addObject("msg", "자신이 쓴 글만 확인할 수 있습니다.").setViewName("common/errorPage");
 			} else {
 				if(user == null) { // 로그인 안함
-//					mv.addObject("msg", "로그인필요").setViewName("common/errorPage");
+					//mv.addObject("msg", "로그인필요").setViewName("common/errorPage");
 					mv.setViewName("redirect:/loginView.dz");
 				} else if(qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4") ) { // 글쓴이와 유저(세션)값이 같음
 					mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
 				} else {
-//					mv.addObject("msg", "다른사람글 확인불가").setViewName("common/errorPage");
+					//mv.addObject("msg", "다른사람글 확인불가").setViewName("common/errorPage");
 					mv.setViewName("redirect:/notiQnaMain.dz");
 				}
 			}

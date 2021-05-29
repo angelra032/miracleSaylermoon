@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
@@ -195,7 +199,7 @@ public class AdminPageController {
 		int currentPage = (page != null) ? page : 1;
 		int listCount = qService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<Qna> qnaList = qService.selectAllQna(pi);
+		ArrayList<Qna> qnaList = qService.adminQnaList(pi);
 		
 		if(!qnaList.isEmpty()) {
 			mv.addObject("qnaList", qnaList).addObject("pi", pi);
@@ -228,13 +232,30 @@ public class AdminPageController {
 	
 	// QnA 리플답글 페이지로 들어간다.
 	@RequestMapping(value="QnAReplyWrite.dz")
-	public ModelAndView qnaReplyWriteView (ModelAndView mv) {
+	public ModelAndView qnaReplyWriteView (ModelAndView mv, @RequestParam("qnaNo") int qnaNo, @RequestParam("userNo") int userNo) {
 		
-		mv.setViewName("board/noticeQna/qna/qnaReplyForm");
+		
+		mv.addObject("originalQnaNo", qnaNo).addObject("originalUserNo", userNo).setViewName("adminPage/adminQnaReplyForm");
 		return mv;
 	}
 	
-	
+	// QnA 답글달음
+	@ResponseBody
+	@RequestMapping(value="QnAReplyInsert.dz")
+	public String qnaReplyInsert (@RequestParam("originalQnaNo") int originalQnaNo, @ModelAttribute Qna Replyqna, HttpServletRequest request) {
+		Replyqna.setOriginNo(originalQnaNo);
+		int ReplyResult = qService.insertReply(Replyqna); // 답글달림
+		if(ReplyResult > 0) {
+			int result = qService.updateQnaReply(originalQnaNo); // 원글에 답글 달림을 업데이트
+			if(result > 0) {
+				return "success";
+			} else {
+				return "fail";
+			}
+		} else {
+			return "fail";
+		}
+	}
 	
 	
 }

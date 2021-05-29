@@ -26,4 +26,9 @@ public interface QnaService {
 	
 	// 사업자 마이페이지
 	public ArrayList<Qna> shopQnaUpToThree(int shopNo);
+	
+	// 관리자 페이지
+	public ArrayList<Qna> adminQnaList(PageInfo pi);
+	public int insertReply(Qna replyqna);
+	public int updateQnaReply(int qnaNo);
 }

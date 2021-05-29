@@ -46,7 +46,12 @@
 							<td>${qna.qnaTitle }</td>
 							<td>${qna.qnaWriter }</td>
 							<td>${qna.qanCreateDate }</td>
-							<td><a class="delete-btn" href="#">답글</a></td>
+							<c:if test="${qna.groupLayer eq '0' }">
+								<td><a class="delete-btn" href="QnAReplyWrite.dz?qnaNo=${ qna.qnaNo }&userNo=${qna.userNo}">답글</a></td>
+							</c:if>
+							<c:if test="${qna.groupLayer eq '1' }">
+								<td>답변완료</td>
+							</c:if>
 							<td><a class="delete-btn" href="#">삭제</a></td>
 							
 						</tr>
