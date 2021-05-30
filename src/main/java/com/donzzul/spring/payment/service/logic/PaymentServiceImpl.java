@@ -114,7 +114,7 @@ public class PaymentServiceImpl implements PaymentService {
 		return pStore.selectAllDonList(dateMap);
 	}
 	public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap) {
-		return null;
+		return pStore.selectAllDonListSum(dateMap);
 	}
 	
 	//메인에 뿌려줄 돈쭐 총액

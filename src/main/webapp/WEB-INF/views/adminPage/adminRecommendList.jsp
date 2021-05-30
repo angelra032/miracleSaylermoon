@@ -13,12 +13,11 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">공지사항</div>
+		<div id="main-title">맛집추천</div>
 		<div class="frame">
 			<div class="my-info">
-			<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
-			<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
-			
+				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
+				<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
 				<div class="info-btn-frame">
 					<a class="info-btn" href="adminPage.dz">돌아가기</a>
 				</div>
@@ -30,44 +29,39 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th width=600px>제목</th>
+							<th>제목</th>
+							<th>작성자</th>
 							<th>날짜</th>
-							<th>공개여부</th>
 							<th width=150px>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:if test="${ !empty noticeList }">
-					<c:forEach items="${noticeList }" var="notice" varStatus="status">
-					  <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
+					<c:if test="${ !empty rRList }">
+					<c:forEach items="${rRList }" var="recommend" varStatus="status">
+					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 						<tr>
 							<td>${ num }</td>
-							<td style="cursor: pointer;" onclick="location.href='noticeDetail.dz?noticeNo=${notice.noticeNo}'">${notice.noticeTitle }</td>
-							<td>${notice.noticeCreateDate }</td>
-							<c:if test="${notice.noticePublicYN eq 'y' or notice.noticePublicYN eq 'Y' }">
-								<td>공개</td>
-							</c:if>
-							<c:if test="${notice.noticePublicYN eq 'n' or notice.noticePublicYN eq 'N' }">
-								<td>비공개</td>
-							</c:if>
-							<td><div class="delete-btn" onclick="deleteResult('${ notice. noticeNo }')">삭제</div></td>
+							<td style="cursor: pointer;" onclick="location.href='recommendDetail.dz?recommendNo=${recommend.recommendNo}'">${recommend.recommendTitle }</td>
+							<td>${recommend.recommendWriter }</td>
+							<td>${recommend.recommendCreateDate }</td>
+							<td><div class="delete-btn" onclick="deleteResult('${ recommend. recommendNo }')">삭제</div></td>
 							
 						</tr>
 					</c:forEach>
 						</c:if>
-						<c:if test="${ empty noticeList }">
+						<c:if test="${ empty rRList }">
 							<tr>
 								<td colspan="6">${ msg }</td>
 							</tr>
 						</c:if>
 					</tbody>
 				</table>
-				<c:if test="${ !empty noticeList }">
+				<c:if test="${ !empty rRList }">
 					<table class="page-table">
 							<tbody>
 								<tr>
 								<!-- 이전 -->
-									<c:url value="adminNoticeList.dz" var="before">
+									<c:url value="adminRecommendList.dz" var="before">
 										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
 									</c:url>
 									<c:if test="${ pi.currentPage <= 1 }">
@@ -78,7 +72,7 @@
 									<!-- 이전끝 -->
 									<!-- 페이징 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-			                    		<c:url var="pagination" value="adminNoticeList.dz">
+			                    		<c:url var="pagination" value="adminRecommendList.dz">
 			                    			<c:param name="page" value="${ p }"></c:param>
 			                    		</c:url>
 			                    		<c:if test="${ p eq pi.currentPage }">
@@ -89,7 +83,7 @@
 										</c:if>	                    	
 			                    	</c:forEach>
 									<!-- 페이징 끝 -->
-									<c:url var="after" value="adminNoticeList.dz">
+									<c:url var="after" value="adminRecommendList.dz">
 			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
 			                    	</c:url>
 			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
@@ -109,15 +103,15 @@
 </body>
 <script>
 	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
-	$('.board-menu-btn').eq(4).css('background','#0160ff').css('color','white');
+	$('.board-menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	
 	function deleteResult(data) {
         var result = confirm('글을 삭제합니다.');
         if(result) {
-            location.href='noticeDelete.dz?noticeNo=' + data;
-			location.href='adminNoticeList.dz';
+            location.href='recommendDelete.dz?recommendNo=' + data;
+			location.href='adminRecommendList.dz';
         } else {
-			location.href='adminNoticeList.dz';
+			location.href='adminRecommendList.dz';
         }
     }
 </script>

@@ -42,8 +42,12 @@
 				   <canvas id="myChart" style="height: inherit; width: inherit; margin: 0 auto;"></canvas>
                 </div>
 				<div class="point-count-area">
-					<div class="all-point point-ck"><span>총 포인트 : </span> <span> 50,000 원</span></div>
-					<!-- <div class="monthrh-point point-ck"><span>이번달 포인트 : </span> <span>30,000 원</span></div> -->
+					<c:if test="${ ! empty YearDon }">
+							<div class="all-point point-ck"><span>총 기부금액 : </span> <span> ${ YearDon } 원</span></div>
+					</c:if>
+					<c:if test="${ empty YearDon }">
+						${ Dmsg }
+					</c:if>
 				</div>
 
             </div>
@@ -93,7 +97,7 @@
 						</c:if>
 						<c:if test="${ empty shopList }">
 							<tr>
-								<td colspan="7">${ msg }</td>
+								<td colspan="7">${ Smsg }</td>
 							</tr>
 						</c:if>
 							
@@ -121,7 +125,7 @@
 								<th>회원아이디</th>
 								<th>전화번호</th>
 								<th>구분</th>
-								<th>탈퇴</th>
+								<th width=200px>탈퇴</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -147,7 +151,7 @@
 						</c:if>
 						<c:if test="${ empty userList }">
 							<tr>
-								<td colspan="6">${ msg }</td>
+								<td colspan="6">${ Umsg }</td>
 							</tr>
 						</c:if>
 						</tbody>
