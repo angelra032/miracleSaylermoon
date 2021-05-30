@@ -40,6 +40,7 @@ public class DreamMyPageController {
 
 		int userNo = user.getUserNo();
 		
+		
 		try {
 			ArrayList<Reservation> rList = rService.listByDreamUpToThree(userNo);
 			ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);

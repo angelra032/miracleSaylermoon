@@ -14,6 +14,7 @@
 	<main>
 		<div id="main-title">리뷰 목록</div>
 		<div class="frame">
+		
 			<div class="my-info">
 				<div class="info-btn-frame">
 					<a class="info-btn" href="javascript:history.back();">돌아가기</a>

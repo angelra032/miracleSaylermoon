@@ -17,6 +17,7 @@
 				<div class="info-btn-frame">
 					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
 				</div>
+				
 			</div>
 		</div>
 		<div class="my-list reserv-list">
