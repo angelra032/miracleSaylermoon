@@ -52,11 +52,6 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	public int deleteDreamReview(int drmRviewNo) {
 		return drStore.deleteDreamReview(drmRviewNo);
 	}
-	
-    @Override
-    public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
-        return drStore.selectAllDreamReview(shopNo);
-    }
 
     // 꿈나무 마이 페이지
 	@Override
@@ -79,9 +74,14 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	public DreamReview selectOneDreamReview() {
 		return drStore.selectOneDreamReview();
 	}
+	
+	@Override
+	public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
+		return drStore.selectAllDreamReview(shopNo);
+	}
 
 	@Override //D 가게 전체 후기 가져오기
-	public ArrayList<MzReview> selectDMReviewAll(int shopNo) {
+	public ArrayList<DreamReview> selectDMReviewAll(int shopNo) {
 		return drStore.selectDMReviewAll(shopNo);
 	}
 	

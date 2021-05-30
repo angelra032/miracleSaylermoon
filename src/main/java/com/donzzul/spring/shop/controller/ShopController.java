@@ -37,7 +37,7 @@ public class ShopController {
 	private ShopService sService;
 	
 	@Autowired
-	private MzReviewService mzService;
+	private MzReviewService mService;
 	
 	@Autowired
 	private DreamReviewService drService;
@@ -177,7 +177,7 @@ public class ShopController {
 		String themeWord = "";	
 		
 		if(themeNo == 1) {
-			ArrayList<Integer> sRank = mzService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
+			ArrayList<Integer> sRank = drService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
 //			System.out.println("sRank 확인 : " + sRank.toString());
 			
 			ArrayList<Shop> rankList = sService.selectShopRank(sRank); // 가게번호 이용하여 가게 정보 가져오기 
@@ -269,11 +269,15 @@ public class ShopController {
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
 		// 전체 후기 가져오기
-		ArrayList<MzReview> rList = drService.selectDMReviewAll(shopNo);
+		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
 		System.out.println("전체 후기 : " + rList.toString());
 		// 감사 후기 가져오기
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
 		System.out.println("감사후기 : " + drList.toString());
+		// 맛집 후기 가져오기
+		ArrayList<MzReview> mzList = mService.selectAllMzReview(shopNo);
+		System.out.println("맛집후기 : " + mzList.toString());
+		
 		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);
@@ -284,16 +288,5 @@ public class ShopController {
 		
 		return mv;
 	}
-
-//	//D 맛집후기 가져오기
-//	@RequestMapping(value="mzReviewShop.dz", method=RequestMethod.GET)
-//	public void selectMzReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) {
-//		ArrayList<MzReview> mReview = mzService.selectAllReview(shopNo);
 	
-//		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
-//		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
-//		
-//		Gson gson = new Gson();
-//		gson.toJson(mReview, response.getWriter());
-//	}
 }

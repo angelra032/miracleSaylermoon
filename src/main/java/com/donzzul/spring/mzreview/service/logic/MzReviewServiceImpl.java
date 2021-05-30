@@ -54,20 +54,11 @@ public class MzReviewServiceImpl implements MzReviewService {
 	}
 
     
-    @Override //D 가게 전체 후기 가져오기
-    public ArrayList<MzReview> selectDmReviewAll(int shopNo) {
-        return mStore.selectDmReviewAll(shopNo);
-    } 	
-    //D selectAllReview 오버로딩 (사진 포함)
-    public ArrayList<MzReview> selectAllReview(int shopNo) {
-        return mStore.selectAllReview(shopNo);
+    @Override //D selectAllReview (사진 포함)
+    public ArrayList<MzReview> selectAllMzReview(int shopNo) {
+        return mStore.selectAllMzReview(shopNo);
     }
     
-	@Override
-	public ArrayList<Integer> selectReviewRanking() {
-		return mStore.selectReviewRanking();
-	}
-
 	@Override
 	public int deleteMzReview(int mReviewNo) {
 		return mStore.deleteMzReview(mReviewNo);

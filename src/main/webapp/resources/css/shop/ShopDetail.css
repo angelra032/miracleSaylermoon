@@ -120,10 +120,6 @@ a {
 				padding-top: 0;
 			}
 			
-			.detailAll > .line3 {
-				/* min-height: 140px; */
-			}
-		
 				.detailAll > .line3 > .detail-right > .menu-img {
 					height: 90px;
 					float: left;

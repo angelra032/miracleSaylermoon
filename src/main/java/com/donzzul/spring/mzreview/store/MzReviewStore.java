@@ -13,9 +13,7 @@ public interface MzReviewStore {
 	public int insertMzReview(MzReview mzReview);
 	public int updateMzReview(MzReview mzReview);
 	public int deleteMzReview(int mzReviewNo);
-	public ArrayList<MzReview> selectDmReviewAll(int shopNo); // 가게 전체 후기 가져오기
-	public ArrayList<MzReview> selectAllReview(int shopNo);
-	public ArrayList<Integer> selectReviewRanking(); // 리뷰 순위
+	public ArrayList<MzReview> selectAllMzReview(int shopNo);
 	public int getListCount();
 	public ArrayList<MzReview> selectThreeReview();
 }

@@ -78,7 +78,7 @@ a {
 	}
 	
 		#searchBox {
-			width: 470px;
+			width: 464px;
 			padding: 20px;
 			border: solid 1px #e3e4e5;
 			font-size: 16px;
@@ -90,8 +90,8 @@ a {
 		}
 	
 		#btn-search {
-			width: 60px;
-			height: 60px;
+			width: 66px;
+			height: 66px;
 			border-style: none;
 			background-color: #fdb504;
 		}
@@ -138,7 +138,7 @@ a {
 				height: 230px;
 				font-family: 'Jal_Onuel';
 				font-size: 40px;
-				font-color: #888;
+				color: #ffffff;
 				text-align: center;
 				line-height: 5.5em;
 				background-color: #fdb504;
@@ -188,12 +188,13 @@ a {
 			padding-top: 40px;
 			border-style: none;
 			text-align: center;
+			line-height: 2.3em;
 		}
 					
 			#currentPage {
 				display: inline-block;
-				width: 30px;
-				height: 30px;
+				width: 40px;
+				height: 40px;
 				background-color: #0160ff;
 				color: #ffffff;
 				text-align: center;
