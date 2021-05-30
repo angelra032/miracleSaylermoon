@@ -93,6 +93,9 @@ public class PaymentController {
 				System.out.println("포인트 업데이트 실패!");
 			}
 			System.out.println("돈쭐 date(룰렛으로 보낼) : "+donPoint.toString());
+			
+			//session.putValue("loginUser", loginUser);
+			
 			return donPoint;
 
 		}else {
@@ -185,6 +188,9 @@ public class PaymentController {
 						model.addAttribute("donNo", don.getDonNo());
 						model.addAttribute("shopName", don.getShopName());
 						System.out.println(don.toString());
+						
+						//session.putValue("loginUser", loginUser);
+						
 						return "redirect:snsPhotoView.dz";
 					}else {
 						System.out.println("룰렛 사용가능 여부 실패");
@@ -220,7 +226,9 @@ public class PaymentController {
 	// 리뷰 포인트 정립(MZ 마이페이지에서)
 	@RequestMapping(value = "saveReviewPoint.dz", method = RequestMethod.POST)
 	public String saveReviewPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
-		String winningPoint = request.getParameter("winningPoint"); // 리뷰작성 포인트
+		String winningPoint = request.getParameter("winningPoint"); // 리뷰작성 포인트 
+		
+		
 
 		return "";
 	}
