@@ -18,13 +18,17 @@
 		<div class="header-background-area">
         	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">맛집후기</div>
+		<div id="main-title">
+			맛집후기
+			<input type="hidden" class="shopNo" value="${ shopNo }">
+		</div>
+		
 		
 		
 	<div class="form-group">
 			<div class="title-area">
 				<label for="mReviewTitle">제목</label>
-				<input type="text" name="mReviewTitle" id="mReviewTitle" class="form-control"" placeholder="제목" >
+				<input type="text" name="mReviewTitle" id="mReviewTitle" class="form-control" placeholder="제목" >
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
@@ -44,7 +48,7 @@
 				<c:if test="${ !empty loginUser }">
 				</c:if>
 				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" onclick="location.href='/notiQnaMain.dz'">목록보기</button>
+					<button class="btn btn-lg gotolist-btn">목록보기</button>
 				</div>
 			</div>
 		</div>
@@ -63,7 +67,7 @@
 	jQuery(function ($) {
 			$(document).ready(function() { 
 				   $('#summernote').summernote({
-				         width: 1000,
+				         width: 930,
 				          height: 500,                // 에디터 높이
 				          minHeight: null,            // 최소 높이
 				          maxHeight: null,            // 최대 높이
@@ -86,18 +90,19 @@
 					   	var mReviewContent = $("#summernote").summernote('code', mReviewContent);
 					   	var content = $('.note-editable').val();
 						var mReviewTitle = $("#mReviewTitle").val();
-						//var shopNo = '${shopNo}';
+						var shopNo = '${shopNo}';
+						var reservationNo = '${reservationNo}';
 						if(mReviewTitle != "" && mReviewContent != "<p><br></p>") {
 						    $.ajax({
 							   url : "mReviewInsertForm.dz",
 							   type : "POST",
-							   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent},
+							   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent, "shopNo" : shopNo, "reservationNo" : reservationNo},
 							   success : function(){
-								   location.href='mReviewMain.dz';						   
+								   	location.href='mReviewMain.dz';						   
 							   },
 							   error : function() {
 									alert('게시글 올리기 실패');							   
-								   location.href='mReviewMain.dz';						   
+									history.back();					   
 							   }
 						   });
 						} else {
@@ -106,6 +111,14 @@
 						}
 				   });
 				   
+				   // 목록으로 버튼 클릭시 '작성된 내용은 저장되지 않습니다. 계속하시겠습니까?'출력
+					$('.gotolist-btn').on('click', function() {
+						var result = confirm('작성된 내용은 저장되지 않습니다. 계속하시겠습니까?');
+						if(result) {
+							history.back();
+						}else {
+						};
+					}); //end of $('.gotolist-btn').on('click', function(){});
 				   
 				 });
 		});
@@ -125,5 +138,6 @@
 				}
 			});
 		}
+	 
 	</script>
 </html>

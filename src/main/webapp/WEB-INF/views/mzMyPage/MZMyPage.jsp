@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/mzmypage/mzmypage.css">
-<title>일반회원 마이페이지</title>
+<title>마이페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -70,11 +70,11 @@
 										<td class="reserv-confirm">예약확정</td>
 										<td><a class="reserv-btn disable-btn">후기작성</a></td>
 									</c:if>
-									<c:if test="${reservation.rState eq 'C' }">
+									<c:if test="${reservation.rState eq 'C' }"><!-- 방문완료/후기작성가능 -->
 										<td class="reserv-confirm">방문완료</td>
-										<td><a class="reserv-btn review-btn" href="dReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
+										<td><a class="reserv-btn review-btn" href="mReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
 									</c:if>
-									<c:if test="${reservation.rState eq 'H' }">
+									<c:if test="${reservation.rState eq 'H' }"><!-- 방문완료/후기작성완료 -->
 										<td class="reserv-confirm">방문완료</td>
 										<td>후기작성완료</td>
 									</c:if>

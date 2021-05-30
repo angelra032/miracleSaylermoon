@@ -87,10 +87,14 @@ main {
 
 /* 버튼 */
 .btn-area {
-	width : 500px;
-	margin-left: 440px;
+	width : 360px;
+	height: 60px;
+	margin: 0 350px;
+	display: block;
 }
-
+.col-sm-3 {
+	width: 180px;
+}
 
 /*공개여부선택*/
 .select-area > label:first-child {
@@ -100,3 +104,8 @@ main {
 	.select-area > label:nth-of-type(2),.select-area > label:nth-of-type(3) {
 		margin-right : 20px;
 	}
+	
+/*텍스트박스 가로값 조정*/
+#mReviewTitle {
+	width: 930px;
+}
