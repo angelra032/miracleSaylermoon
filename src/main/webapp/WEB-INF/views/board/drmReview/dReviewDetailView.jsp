@@ -16,7 +16,7 @@
 	   	</div>
 		<div id="main-title">
 			<span class="top-sub-title">${ drmReview.drmReviewTitle }</span>
-			<span class="top-sub-shopName">어디어디어디 후기</span>
+			<span class="top-sub-shopName">${drmReview.shopName } 후기</span>
 		</div>
 		
         <div class="frame">

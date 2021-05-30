@@ -25,6 +25,7 @@ import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.shop.service.logic.ShopServiceImpl;
 import com.donzzul.spring.user.domain.User;
 
@@ -36,6 +37,9 @@ public class DreamReviewController {
 	
 	@Autowired
 	private ReservationService rService;
+	
+	@Autowired
+	private ShopService sService;
 	
 	
 	// 감사후기 주소로 들어옴 (리스트출력할곳) selectAll
@@ -67,6 +71,7 @@ public class DreamReviewController {
 		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
+		int shopNo = sService.selectShopOne(drmReview.getShopNo()).getShopNo();
 //		int shopNo = drmReview.getShopNo();
 //		Shop shop = new ShopServiceImpl().selectShopOne(shopNo);
 //		String shopName = shop.getShopName();
@@ -80,7 +85,7 @@ public class DreamReviewController {
 			} else {
 				if(user == null) { // 게시글 비공개 - 로그인 안함
 					mv.setViewName("redirect:/loginView.dz");
-				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4")) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
+				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4") || drmReview.getShopNo() == shopNo) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
 					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 				} else {
 					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");

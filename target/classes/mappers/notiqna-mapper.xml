@@ -25,6 +25,7 @@
 		<result property="originNo" column="ORIGIN_NO"/>
 		<result property="groupOrder" column="GROUP_ORDER"/>
 		<result property="groupLayer" column="GROUP_LAYER"/>
+		<result property="qnaId" column="QNA_ID"/>
 	</resultMap>
 
 	<!-- 공지사항******* -->
@@ -65,7 +66,7 @@
 	</select>
 	
 	<select id="selectQnaAllList" resultMap="qnaResultMap">
-		SELECT * FROM QNA_BOARD ORDER BY QNA_NO DESC
+		SELECT * FROM QNA_BOARD ORDER BY ORIGIN_NO DESC, GROUP_ORDER ASC
 	</select>
 	
 	<select id="selectQnaOneDetail" resultMap="qnaResultMap">
@@ -73,7 +74,7 @@
 	</select>
 	
 	<insert id="inserQna" parameterType="Qna">
-		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, SEQ_QNA.CURRVAL, 0, 0)
+		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, '[문의]'||#{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, SEQ_QNA.CURRVAL, 0, 0, #{qnaId})
 	</insert>
 	
 	<delete id="deleteQna">
@@ -93,7 +94,7 @@
 	<update id="updateQnA">
 		UPDATE QNA_BOARD SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}, QNA_UPLOAD_DATE = SYSDATE WHERE QNA_NO = #{qnaNo}
 	</update>
-
+	
 
 	<!-- 드림 마이페이지 -->
 	<select id="dreamQnaUpToThree" resultMap="qnaResultMap">
@@ -154,5 +155,23 @@
 	<select id="qnaListCountByP" resultMap="qnaResultMap">
 		SELECT COUNT(*) FROM QNA_BOARD JOIN SHOP USING(USER_NO) WHERE SHOP.SHOP_NO = #{ shopNo }
 	</select>
+	
+	
+	<!-- 관리자페이지-QnA 리스트 출력 -->
+	<select id="selectQnaAdminList" resultMap="qnaResultMap"> 
+		SELECT * FROM QNA_BOARD WHERE GROUP_ORDER LIKE '0' ORDER BY ORIGIN_NO DESC
+	</select>
+	
+	<select id="selectOneReply" resultMap="qnaResultMap">
+		SELECT * FROM QNA_BOARD WHERE GROUP_ORDER = '1' AND ORIGIN_NO =#{qnaNo}
+	</select>
+
+	<insert id="insertReplyAdmin">
+		INSERT INTO QNA_BOARD VALUES(SEQ_QNA.NEXTVAL, '┕[답변]'||#{qnaTitle}, #{qnaContent}, '관리자', SYSDATE, SYSDATE, 'N', '4', '2', #{originNo}, '1', '1', #{qnaId})
+	</insert>
+	
+	<update id="updateOriginQna">
+		UPDATE QNA_BOARD SET GROUP_LAYER = '1' WHERE QNA_NO LIKE #{qnaNo}
+	</update>
 	
 </mapper>

@@ -69,6 +69,13 @@
             border: solid 1px #fdb504;
             padding: 15px;
         }
+        .reply-area {
+         	width: 975px;
+            height: auto;
+            margin: 0 auto 50px auto;
+            border: solid 1px #fdb504;
+            padding: 15px;
+        }
 /* 버튼위치 */
 .bottom-btn-area {
 	width : 1000px;

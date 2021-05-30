@@ -105,4 +105,9 @@ public class QnaServiceImpl implements QnaService{
 	public int updateQnaReply(int qnaNo) {
 		return qnaStore.updateQnaReply(qnaNo);
 	}
+
+	@Override
+	public Qna selectOneReply(int qnaNo) {
+		return qnaStore.selectOneReply(qnaNo);
+	}
 }

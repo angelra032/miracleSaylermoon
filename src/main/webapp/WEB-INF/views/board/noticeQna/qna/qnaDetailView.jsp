@@ -21,20 +21,30 @@
 		
         <div class="frame">
             <div class="title-nick-date-area">
-                    <div class="title-bottom-nick-area">
-                        <span class="userNick">${ qna.qnaWriter }</span>
-                    </div>
-                    <div class="title-bottom-date-area">
-                        <span class="createDate">${ qna.qanCreateDate }</span>
-                    </div>
-                </div>
+                  <div class="title-bottom-nick-area">
+                      <span class="userNick">${ qna.qnaWriter }</span>
+                  </div>
+                  <div class="title-bottom-date-area">
+                      <span class="createDate">${ qna.qanCreateDate }</span>
+                  </div>
+            </div>
             </div>
             <div class="content-area">
                 ${ qna.qnaContent }
             </div>
+            <c:if test="${ qna.groupLayer == 1 &&  qna.groupOrder == 0}">
+	            <div class="reply-area">
+	            	답변 : <a href="qaDetail.dz?qnaNo=${reply.qnaNo }"><span>${ reply.qnaTitle }</span></a>
+	            </div>
+            </c:if>
+            <c:if test="${ qna.groupLayer == 1 &&  qna.groupOrder == 1}">
+	            <%-- <div class="reply-area">
+	            	문의 : <a href="qaDetail.dz?qnaNo=${ reply.qnaNo }"><span>${ reply.qnaTitle }</span></a>
+	            </div> --%>
+            </c:if>
 
             <div class="bottom-btn-area">
-			<c:if test="${ qna.userNo eq loginUser.userNo }">
+			<c:if test="${ qna.userType eq loginUser.userType }">
 	            <div class="modify-btn-area">
 	                <button onclick="location.href='qaUpdateForm.dz?qnaNo=${ qna.qnaNo }'" style="cursor: pointer;">수정하기</button>
 	            </div>
@@ -42,10 +52,10 @@
 	                <button onclick="location.href='qaDelete.dz?qnaNo=${ qna.qnaNo }'" style="cursor: pointer;">삭제하기</button>
 	            </div>
 	            <div class="user-back-btn-area">
-	                <button onclick="location.href='recommendMain.dz'" style="cursor: pointer;">목록으로</button>
+	                <button onclick="location.href='notiQnaMain.dz'" style="cursor: pointer;">목록으로</button>
 	            </div>
 			</c:if>
-			<c:if test="${ qna.userNo ne loginUser.userNo }">
+			<c:if test="${  qna.userType ne loginUser.userType }">
 			 	<div class="back-btn-area">
 	                <button onclick="location.href='notiQnaMain.dz'" style="cursor: pointer;">목록으로</button>
 	            </div>

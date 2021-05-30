@@ -40,15 +40,21 @@
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
 	                    	</tr>
 		                </c:if>
-		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n' }">
+		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n'}">
 		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
-		                        <td>비공개글입니다</td>
-		                        <td>비공개</td>
+		                        <c:if test="${ drmReview.userNo != sessionScope.loginUser.userNo }">
+			                        <td>비공개글입니다</td>
+			                        <td>비공개</td>
+		                        </c:if>
+		                        <c:if test="${ drmReview.userNo == sessionScope.loginUser.userNo }">
+		                        <!-- || drmReview.shopName == sessionScope.loginUser.partnerName  -->
+			                         <td>${ drmReview.drmReviewTitle } (비공개)</td>
+			                         <td>${ drmReview.drmReviewWriter }</td>
+		                        </c:if>
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
 	                    	</tr>
 		                </c:if>
-		                
 		                </c:forEach>
 	                </tbody>
 	            </table>

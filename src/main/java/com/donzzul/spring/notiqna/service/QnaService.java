@@ -33,4 +33,5 @@ public interface QnaService {
 	public ArrayList<Qna> adminQnaList(PageInfo pi);
 	public int insertReply(Qna replyqna);
 	public int updateQnaReply(int qnaNo);
+	public Qna selectOneReply(int qnaNo);
 }

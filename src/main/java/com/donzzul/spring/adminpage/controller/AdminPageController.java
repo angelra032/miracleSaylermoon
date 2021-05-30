@@ -232,16 +232,18 @@ public class AdminPageController {
 	
 	// QnA 리플답글 페이지로 들어간다.
 	@RequestMapping(value="QnAReplyWrite.dz")
-	public ModelAndView qnaReplyWriteView (ModelAndView mv, @RequestParam("qnaNo") int qnaNo, @RequestParam("userNo") int userNo) {		
-		mv.addObject("originalQnaNo", qnaNo).addObject("originalUserNo", userNo).setViewName("adminPage/adminQnaReplyForm");
+	public ModelAndView qnaReplyWriteView (ModelAndView mv, @RequestParam("qnaNo") int qnaNo, @RequestParam("userNo") int userNo, @RequestParam("qnaId") String qnaId) {		
+		mv.addObject("originalQnaNo", qnaNo).addObject("originalUserNo", userNo).addObject("qnaId", qnaId).setViewName("adminPage/adminQnaReplyForm");
 		return mv;
 	}
 	
 	// QnA 답글달음
 	@ResponseBody
 	@RequestMapping(value="QnAReplyInsert.dz")
-	public String qnaReplyInsert (@RequestParam("originalQnaNo") int originalQnaNo, @ModelAttribute Qna Replyqna, HttpServletRequest request) {
+	public String qnaReplyInsert (@RequestParam("originalQnaNo") int originalQnaNo, @RequestParam("originalUserNo") int originalUserNo, @RequestParam("qnaId") String qnaId, @ModelAttribute Qna Replyqna, HttpServletRequest request) {
 		Replyqna.setOriginNo(originalQnaNo);
+		Replyqna.setUserNo(originalUserNo);
+		Replyqna.setQnaId(qnaId);
 		int ReplyResult = qService.insertReply(Replyqna); // 답글달림
 		if(ReplyResult > 0) {
 			int result = qService.updateQnaReply(originalQnaNo); // 원글에 답글 달림을 업데이트

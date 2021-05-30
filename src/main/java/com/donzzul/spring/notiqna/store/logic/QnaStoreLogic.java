@@ -121,4 +121,9 @@ public class QnaStoreLogic implements QnaStore {
 		return sqlSession.update("notiQnaMapper.updateOriginQna", qnaNo);
 	}
 
+	@Override
+	public Qna selectOneReply(int qnaNo) {
+		return sqlSession.selectOne("notiQnaMapper.selectOneReply", qnaNo);
+	}
+
 }

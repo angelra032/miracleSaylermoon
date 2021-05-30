@@ -41,13 +41,13 @@
 					<c:if test="${ !empty qnaList }">
 					<c:forEach items="${qnaList }" var="qna" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr style="cursor: pointer;" onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}'">
+						<tr style="cursor: pointer;" onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}&qnaId=${ qna.qnaId }'">
 							<td>${ num }</td>
 							<td>${qna.qnaTitle }</td>
 							<td>${qna.qnaWriter }</td>
 							<td>${qna.qanCreateDate }</td>
 							<c:if test="${qna.groupLayer eq '0' }">
-								<td><a class="delete-btn" href="QnAReplyWrite.dz?qnaNo=${ qna.qnaNo }&userNo=${qna.userNo}">답글</a></td>
+								<td><a class="delete-btn" href="QnAReplyWrite.dz?qnaNo=${ qna.qnaNo }&userNo=${qna.userNo}&qnaId=${qna.qnaId}">답글</a></td>
 							</c:if>
 							<c:if test="${qna.groupLayer eq '1' }">
 								<td>답변완료</td>
