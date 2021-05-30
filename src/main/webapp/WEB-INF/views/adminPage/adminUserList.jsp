@@ -40,7 +40,7 @@
 					<c:if test="${ !empty userList }">
 					<c:forEach items="${userList }" var="user" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr style="cursor: pointer;" onclick="location.href='adminUserInfo.dz?userNo=${user.userNo}'">
+						<tr>
 							<td>${ num }</td>
 							<c:if test="${ user.userType eq '1' }">
 								<td>꿈나무</td>							
@@ -55,7 +55,7 @@
 								<td>관리자</td>							
 							</c:if>
 							<td>${user.userName }</td>
-							<td>${user.userId }</td>
+							<td style="cursor: pointer;" onclick="location.href='adminUserInfo.dz?userNo=${user.userNo}'">${user.userId }</td>
 							<td>${user.userPhone }</td>
 							<td>${user.userEmail }</td>
 							<td><a class="delete-btn" href="#">탈퇴</a></td>

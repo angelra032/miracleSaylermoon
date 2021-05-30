@@ -63,6 +63,7 @@ public class AdminPageController {
 	private RecommendBoardService rService;
 	
 	// 관리자 페이지 출력
+	@SuppressWarnings("null")
 	@RequestMapping(value="adminPage.dz")
 	public ModelAndView adminPageView(ModelAndView mv) {
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
@@ -70,17 +71,18 @@ public class AdminPageController {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH)+2; // 이번달주소
 		
+		// *** 달별 포인트 출력
 		ArrayList<DonCount> monthSumList = null;
 		HashMap<String, ArrayList<DonCount>> monthSum = new HashMap<String, ArrayList<DonCount>>();
-		for(int i = 1; i <= month; i++) {
+		for(int i = 2; i <= month; i++) {
 			String thisMonth = Integer.toString(year);
 			thisMonth += "0" + Integer.toString(i) + "01";
-			System.out.println("테스트 *** : " + thisMonth);
 			HashMap<String, String> dateMap = new HashMap<String, String>();
 			dateMap.put("date1", "20210101");
-			dateMap.put("date1", thisMonth);
+			dateMap.put("date2", thisMonth);
+			System.out.println("테스트 *** : " + thisMonth);
 			monthSumList = pService.selectAllDonListSum(dateMap);
-			monthSum.put(Integer.toString(i), monthSumList);
+			monthSum.put(Integer.toString(i-1), monthSumList);
 		}
 		
 		String monthDate = Integer.toString(year);
@@ -103,7 +105,7 @@ public class AdminPageController {
 			ArrayList<User> userList = uService.selectUserListThree(); // *** 회원출력
 			ArrayList<Shop> shopList = sService.selectAllShopListThree(); // *** 사업자출력
 			mv.addObject("YearDon", YearDon);
-			mv.addObject("monthSumList", monthSumList);
+			mv.addObject("monthSum", monthSum);
 			mv.addObject("userList", userList);
 			mv.addObject("shopList", shopList);
 			
