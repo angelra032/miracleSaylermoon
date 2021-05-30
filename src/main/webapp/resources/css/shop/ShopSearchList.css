@@ -55,7 +55,7 @@ a {
     
 .frame {
 	width: 1440px;
-	height: 1500px; /* 검색 결과 최소 높이 */
+	height: 1900px; /* 검색 결과 최소 높이 */
 	margin: 0 auto;
 	/* background-color: yellow; */
 }
@@ -105,14 +105,14 @@ a {
 	
 	/* 테마 메인 */		
 	.searchTheme {
-		width: 1000px;
-		height: 1400px;
+		width: 1280px;
+		height: 1800px;
 		margin: 0 auto;
 	}
 	
 		.theme {
-			width: 310px;
-			height: 200px;
+			width: 400px;
+			height: 300px;
 			float: left;
 			border: solid 1px #e3e4e5;
 			margin: 0 auto;
@@ -125,8 +125,8 @@ a {
 		}
 		
 			.theme img {
-				width: 310px;
-				height: 200px;
+				width: 400px;
+				height: 300px;
 				object-fit: cover;
 				filter: brightness(70%);
 			}
@@ -137,7 +137,7 @@ a {
 			
 				.theme span {
 					color: #ffffff;
-					font-size: 22px;
+					font-size: 27px;
 					text-shadow: 6px 6px 16px black;
 					position: absolute;
 					top: 50%;

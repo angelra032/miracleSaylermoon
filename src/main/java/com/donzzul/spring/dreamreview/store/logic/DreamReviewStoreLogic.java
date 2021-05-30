@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
+import com.donzzul.spring.mzreview.domain.MzReview;
 
 @Repository
 public class DreamReviewStoreLogic implements DreamReviewStore {
@@ -56,7 +57,6 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 
 	@Override
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
-		System.out.println("store");
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectListAllShopNo", shopNo);
 	}
 
@@ -83,5 +83,15 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	@Override
 	public DreamReview selectOneDreamReview() {
 		return sqlSession.selectOne("drmReviewMapper.selectOneDetailToMain");
+	}
+
+	@Override
+	public ArrayList<MzReview> selectDMReviewAll(int shopNo) {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.DMReviewAll", shopNo);
+	}
+	
+	@Override
+	public ArrayList<Integer> selectReviewRanking() {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectReviewRanking");
 	}
 }

@@ -1,9 +1,11 @@
 package com.donzzul.spring.dreamreview.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,15 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
+import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.shop.service.logic.ShopServiceImpl;
 import com.donzzul.spring.user.domain.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 @Controller
 public class DreamReviewController {
@@ -188,10 +193,27 @@ public class DreamReviewController {
 		}
 	}
 	
-	//D 감사후기 가져오기
-	@RequestMapping(value="drnReviewShop.dz", method=RequestMethod.GET)
-	public String selectDrReview(@RequestParam("shopNo") int shopNo, Model model) {
+	//D 가게 상세 감사 + 맛집후기 가져오기
+	@RequestMapping(value="mdReviewShop.dz", method=RequestMethod.GET)
+	public void selectDmReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) throws Exception {
+		ArrayList<MzReview> rList = drService.selectDMReviewAll(shopNo);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(rList, response.getWriter());
+	}
+	
+	//D 가게 상세 감사후기 가져오기
+	@RequestMapping(value="drmReviewShop.dz", method=RequestMethod.GET)
+	public void selectDrReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) throws Exception {
 		ArrayList<DreamReview> dReview = drService.selectAllDreamReview(shopNo);
-		return "";
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(dReview, response.getWriter());
 	}
 }

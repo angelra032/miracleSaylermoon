@@ -40,8 +40,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public ArrayList<Shop> selectShopTheme(PageInfo pi, String themeWord) {
-		return sStore.selectShopTheme(pi, themeWord);
+	public ArrayList<Shop> selectShopTheme(PageInfo pi, HashMap<String, String> selectedtheme) {
+		return sStore.selectShopTheme(pi, selectedtheme);
 	}
 
 	@Override
@@ -64,9 +64,8 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public ArrayList<Shop> searchShop(String searchKeyword) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Shop> searchShop(PageInfo pi, HashMap<String, String> searchedKey) {
+		return sStore.searchShop(pi, searchedKey);
 	}
 	
 	@Override
@@ -106,9 +105,15 @@ public class ShopServiceImpl implements ShopService {
     }
 
 	@Override
-	public int selectShopThemeCount(String themeWord) {
-		return sStore.selectShopThemeCount(themeWord);
+	public int selectShopThemeCount(HashMap<String, String> selectedtheme) {
+		return sStore.selectShopThemeCount(selectedtheme);
 	}
+	
+	@Override
+	public int searchShopCount(HashMap<String, String> searchedKey) {
+		return sStore.searchShopCount(searchedKey);
+	}
+	
 	@Override
     public int getListCount() {
       return sStore.getListCount();
@@ -123,6 +128,7 @@ public class ShopServiceImpl implements ShopService {
     public ArrayList<Shop> selectAllShopListThree() {
        return sStore.selectAllShopListThree();
     }
+
 
 
 }

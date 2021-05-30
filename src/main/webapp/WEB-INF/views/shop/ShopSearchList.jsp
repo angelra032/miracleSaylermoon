@@ -38,7 +38,7 @@
 			
 			<div class="searchTheme">
 				<div class="theme one">
-					<span>이주의 리뷰왕</span>
+					<span>이 주의 리뷰왕</span>
 					<input type=hidden name="theme1" value="1">
 					<a href="searchTheme.dz?themeNo=1"><img class="theme1" src="/resources/images/theme/shoptheme1.jpeg" alt="theme1"></a>
 				</div>
@@ -48,7 +48,7 @@
 					<a href="searchTheme.dz?themeNo=2"><img class="theme1" src="/resources/images/theme/shoptheme2.jpeg" alt="theme2"></a>
 				</div>
 				<div class="theme three">
-					<span>이달의 신규가게</span>
+					<span>이 달의 신규가게</span>
 					<input type=hidden name="theme3" value="3">
 					<a href="searchTheme.dz?themeNo=3"><img class="theme1" src="/resources/images/theme/shoptheme3.jpeg" alt="theme3"></a>
 				</div>
@@ -83,7 +83,7 @@
 					<a href="searchTheme.dz?themeNo=9"><img class="theme1" src="/resources/images/theme/shoptheme9.jpeg" alt="theme9"></a>
 				</div>
 				<div class="theme ten">
-					<span>도심 속<br>작은 유럽</span>
+					<span>도심 속 작은 유럽</span>
 					<input type=hidden name="theme10" value="10">
 					<a href="searchTheme.dz?themeNo=10"><img class="theme1" src="/resources/images/theme/shoptheme10.jpeg" alt="theme10"></a>
 				</div>
@@ -98,26 +98,6 @@
 					<a href="searchTheme.dz?themeNo=12"><img class="theme1" src="/resources/images/theme/shoptheme12.jpeg" alt="theme12"></a>
 				</div>
 			</div> 
-			
-			 <div class="searchResult">
-				<div class="shopShortInfo">
-					<div class="shopShortInfo left">
-						<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
-					</div>
-					<div class="shopShortInfo right">
-						<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-						<input type="hidden" name="shopNo" value="41">
-						<span id=shop-title><b><a href="shopDetail.dz?shopNo=41">진짜 파스타</a></b></span>&nbsp;&nbsp;
-						<span id=shop-type>양식</span><br><br>
-						<span>홍대 놀이터</span><br>
-						<span>12:00 - 22:00</span><br>
-						<span>매주 일요일</span>&nbsp;&nbsp;
-						<span>휴무</span><br>
-						<span>홍대 진짜 파스타</span> <!-- 글자수 줄이기 -->
-					</div>
-				</div>
-			</div> 
-			
 		</div> 
 	</main>
 	
