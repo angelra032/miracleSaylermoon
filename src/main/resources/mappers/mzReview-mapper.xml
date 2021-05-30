@@ -53,7 +53,7 @@
 	</select>
 	
 	<insert id="insertMzReview" parameterType="MzReview">
-		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, '1')
+		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, #{shopNo})
 	</insert>
 
 	<delete id="deleteMzReview">

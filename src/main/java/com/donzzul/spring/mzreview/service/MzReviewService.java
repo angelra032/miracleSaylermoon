@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.shop.domain.Shop;
 
 public interface MzReviewService {
@@ -11,7 +12,7 @@ public interface MzReviewService {
 	public ArrayList<MzReview> selectAllReview();
 	public ArrayList<MzReview> selectAllReview(PageInfo pi);
 	public MzReview selectOneReview(int mzReviewNo);
-	public int insertMzReview(MzReview mzReview);
+	public int insertMzReview(MzReview mzReview, Reservation reservation);
 	public int updateMzReview(MzReview mzReview);
 	public int deleteMzReview(int mzReviewNo);
     public ArrayList<MzReview> selectDmReviewAll(int shopNo); // 가게 전체 후기 가져오기	

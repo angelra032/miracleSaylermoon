@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/mzmypage/mzreservationlist.css">
-<title>꿈나무회원 예약목록 페이지</title>
+<title>마이페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -54,7 +54,7 @@
 							</c:if>
 							<c:if test="${reservation.rState eq 'C' }">
 								<td class="reserv-confirm">방문완료</td>
-								<td><a class="reserv-btn review-btn" href="dReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
+								<td><a class="reserv-btn review-btn" href="mReviewWriteView.dz?shopNo=${reservation.shopNo }&reservationNo=${reservation.reservationNo }">후기작성</a></td>
 							</c:if>
 							<c:if test="${reservation.rState eq 'H' }">
 								<td class="reserv-confirm">방문완료</td>

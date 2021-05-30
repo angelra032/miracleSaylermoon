@@ -19,6 +19,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
+import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.user.domain.User;
 
 @Controller
@@ -56,15 +57,20 @@ public class MzReviewController {
 		return mv;
 	}
 	
-	// 감사후기 글쓰기버튼으로 들어옴 *****
+	// 맛집후기 글쓰기버튼으로 들어옴 *****
 	@RequestMapping(value="mReviewWriteView.dz", method=RequestMethod.GET)
-	public String mReviewWriteView() {
+	public String mReviewWriteView(@RequestParam("shopNo") int shopNo, @RequestParam("reservationNo") int reservationNo, Model model ) {
+		model.addAttribute("shopNo", shopNo);
+		model.addAttribute("reservationNo", reservationNo);
 		return "board/mzReview/mReviewInsertForm";
 	}
 	
 	// 글쓰기 올림 (사진파일추가) insert
 	@RequestMapping(value="mReviewInsertForm.dz", method=RequestMethod.POST)
-	public ModelAndView mReviewRegister(ModelAndView mv, @ModelAttribute MzReview mzReview, HttpServletRequest request) {
+	public ModelAndView mReviewRegister(ModelAndView mv, 
+										@ModelAttribute MzReview mzReview, 
+										@RequestParam("reservationNo") int reservationNo, 
+										HttpServletRequest request) {
 //		@RequestParam(value="uploadFile", required=false)MultipartFile uploadFile, 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
@@ -72,8 +78,14 @@ public class MzReviewController {
 		mzReview.setUserType(user.getUserType());
 		mzReview.setUserNo(user.getUserNo());
 		System.out.println(mzReview.toString());
+		
+		// rState update 예약상태변경
+		Reservation reservation = new Reservation();
+		reservation.setReservationNo(reservationNo);
+		reservation.setrState("H");
+		
 		int result = 0;
-		result = mService.insertMzReview(mzReview);
+		result = mService.insertMzReview(mzReview, reservation);
 		if(result > 0) {
 			mv.setViewName("home");
 		} else {

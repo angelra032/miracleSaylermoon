@@ -50,6 +50,7 @@
 			<tx:method name="select*" rollback-for="Exception"/>
 			<tx:method name="update*" rollback-for="Exception"/>
 			<tx:method name="remove*" rollback-for="Exception"/>
+			<tx:method name="insert*" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
 
