@@ -218,8 +218,82 @@
 		    <div class="frame">
 					
 			
-		    	<div class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
-	 		 		<c:if test="${ empty drList }">
+		    	<div id="list-body" class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
+	 		 		
+	 		 		
+	 		 		<c:if test="${ empty rList }">
+			 			<span class="review-yet">등록된 후기가 없습니다.</span>
+			 		</c:if> 
+			 		<c:if test="${ !empty rList }">
+					 	<c:forEach items="${ rList }" var="reviewAll">
+							 <div id="list" class="review-list rContent">
+								<div class="rContent left">
+									<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
+								</div>
+								<div class="rContent right">
+									<span class="review-title">${ reviewAll.mReviewTitle }</span>&nbsp;&nbsp;
+									<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
+									<span>${ reviewAll.mReviewContent }</span><br>
+								</div>
+							</div>
+						</c:forEach> 
+						<div class="review-list showMoreReply">
+							<!-- 클릭시 나올 후기 갯수?? -->
+							<input type="button" id="moreReply" onclick="moreList()" value="더보기">
+						</div>
+			 		</c:if> 
+			 		
+			 		<script>
+			 		
+			 			function moreList(){
+			 				
+			 				// 변수 - 시작 번호(tr)
+			 				var startNum = $(".review-title").length; // 마지막 리스트 번호 알아내기 위해 (div 넣어야하는데 title로 대체,, 안 나옴ㅠ)
+			 				var addListHtml = ""; // 이건 뭔지 모르겠는데
+			 				console.log("startNum", startNum);
+			 				
+			 				// ajax
+			 				$.ajax({
+			 					url: "shopDetail.dz",
+			 					type: "post",
+			 					dataType: "json", // 객체?로 변환
+			 					data: { // 컨트롤로 보낼 데이터
+			 						"startNum" : startNum
+			 					},
+			 					success: function(data){
+			 						if(data.length < 5){ // 5보다 작으면
+			 							$("#moreReply").remove(); // 왜 없애?..
+			 							  // 더보기 버튼을 div 클래스로 줘야 할 수도 있음 - 뭔솔
+			 						}else{
+			 							var addListHtml = ""; // 이거 뭔데요.
+			 							if(data.length > 5){ // 5보다 크면
+			 								for(var i=0; i<data.length; i++){
+			 									var index = Number(startNum) + Number(i) + 1;
+			 									// 글번호 : startNum 이  10단위로 증가되기 때문에 startNum +i (+1은 i는 0부터 시작하므로 )
+			 									addListHtml += "<div>";
+			 									addListHtml += "<div>";
+			 									addListHtml += "<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>"; // 이미지 내용
+			 									addListHtml += "</div>";
+			 									addListHtml += "<div>";
+			 									addListHtml += "<span>" + data[i].mReviewTitle + "</span>";
+			 									addListHtml += "<span>" + data[i].mReviewContent + "</span>";
+			 									addListHtml += "</div>";
+			 									addListHtml += "</div>";
+			 								}
+			 								$("#list-body").append(addListHtml);
+			 							}
+			 						}
+			 					}
+			 				});
+			 				
+			 				
+			 			}
+			 		
+			 		</script>
+			 		
+	 		 		
+	 		 		
+	 		 		<%-- <c:if test="${ empty drList }">
 			 			<span class="review-yet">등록된 후기가 없습니다.</span>
 			 		</c:if> 
 			 		<c:if test="${ !empty drList }">
@@ -239,7 +313,9 @@
 							<!-- 클릭시 나올 후기 갯수?? -->
 							<input type="button" id="moreReply" onclick="" value="더보기">
 						</div>
-			 		</c:if> 
+			 		</c:if> --%> 
+			 		
+			 		
 				</div>
 		    </div>
 		</div>
