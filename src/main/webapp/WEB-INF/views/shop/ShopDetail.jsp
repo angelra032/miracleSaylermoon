@@ -67,9 +67,6 @@
 					<div class="detail-left">대표메뉴</div>
 					<div class="detail-right">
 						<div class="detail-right menu-list">
-							파스타<br>
-							스테이크<br>
-							
 							<c:if test="${ !empty mainMenu }">
 								<c:forEach items="${mainMenu }" var="mainMenu">
 									${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }원 <br>
@@ -98,12 +95,6 @@
 								});
 							</script>
 							
-							
-							<!-- 샐러드<br> -->
-							<%-- 
-							<c:if test="${ !empty mainMenu }">
-								${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }
-							</c:if> --%>
 						</div>
 						<c:if test="${ !empty mPhoto }">
 							<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
@@ -127,7 +118,12 @@
 				
 				<div class="detailAll line5">
 					<div class="detail-left">상세내용</div>
-					<div class="detail-right conInfo">"${ shop.shopContent }""${ shop.shopContent }""${ shop.shopContent }"</div> <!-- 최대 몇글자? -->
+					<c:if test="${empty shop.shopContent }">
+						<div class="detail-right conInfo">&nbsp;</div> <!-- 최대 몇글자? -->
+					</c:if>
+					<c:if test="${!empty shop.shopContent }">
+						<div class="detail-right conInfo">${ shop.shopContent }</div> <!-- 최대 몇글자? -->
+					</c:if>
 				</div>
 				
 				<div class="detailAll line6">
@@ -156,11 +152,6 @@
 							<c:url var="donation" value="paymentFormView.dz">
 								<c:param name="shopNo" value="${ shop.shopNo }"/>
 								<c:param name="shopName" value="${ shop.shopName }"/>
-								<%-- <c:param name="mainMenu" value="${ mainMenu.endTime }"/>
-								<c:param name="startTime" value="${ shop.startTime }"/>
-								<c:param name="endTime" value="${ shop.endTime }"/>
-								<c:param name="businessDay" value="${ shop.businessDay }"/>
-								<c:param name="shopMaxReserv" value="${ shop.shopMaxReserv }"/> --%>
 							</c:url>
 						
 						<!-- 회원별 버튼 생성 -->
@@ -324,6 +315,11 @@
 				    map.setCenter(markerPosition); 
 			     }
 			});
+			
+			
+			function goLogin() {
+				location.href='loginView.dz';
+			}
 	</script>
 </body>
 </html>

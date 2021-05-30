@@ -28,7 +28,8 @@ a {
     .header-background-area {
     width: 1903px;
     margin: 0 auto;
-}
+	}
+	
     .header-background-area > img {
         position: absolute;
         z-index: -5;
@@ -54,8 +55,8 @@ a {
 }  
     
 .frame {
-	width: 1440px;
-	height: 1500px; /* 검색 결과 최소 높이 */
+	width: 1280px;
+	height: 3250px;
 	margin: 0 auto;
 	/* background-color: yellow; */
 }
@@ -101,130 +102,106 @@ a {
 		font-size: 35px;
 		margin-bottom: 70px;
 	} 
+
+	.searchShopContent {
+		width: 1280px;
+		
+	}
 	
-	
-	/* 테마 메인 */		
-	.searchTheme {
-		width: 1000px;
-		height: 1400px;
+	/* 검색 리스트 */	
+	.searchResult {
+		width: 1280px;
+		height: inherit;
 		margin: 0 auto;
 	}
 	
-		.theme {
-			width: 310px;
-			height: 200px;
-			float: left;
-			border: solid 1px #e3e4e5;
-			margin: 0 auto;
-			margin-bottom: 30px;
-			position: relative;
+		.searchResult a {
+			color: #333333; 
+			width: 30px;
+			height: 30px;
 		}
 		
-		.theme:nth-child(3n+2) {
-			margin: 0 30px;
-		}
-		
-			.theme img {
-				width: 310px;
-				height: 200px;
-				object-fit: cover;
-				filter: brightness(70%);
+			.searchResult a:hover {
+				text-decoration: none; 
 			}
-			
-				.theme:hover {
-					cursor: pointer;
-				}
-			
-				.theme span {
-					color: #ffffff;
-					font-size: 22px;
-					text-shadow: 6px 6px 16px black;
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
-					z-index: 1;
-				}
-			.theme a {
-				cursor: pointer;
-			}
-			
-	
-	
-	/* 검색 리스트 */		
-	.shopShortInfo {
-		width: 1000px;
-		height: 230px;
-		margin: 0 auto;
-		border: solid 1px #e3e4e5;
-		margin-bottom: 30px;
-	}
 		
-		.shopShortInfo .left {
-			width: 300px;
+		.shopShortInfo {
+			width: 1280px;
 			height: 230px;
-			float: left;
-			border-style: none;
-			border-right: solid 1px #e3e4e5;
+			margin: 0 auto;
+			border: solid 1px #e3e4e5;
+			margin-bottom: 30px;
 		}
 		
-			.shopShortInfo .left img {
+			.shopShortInfo .rank {
+				width: 80px;
+				height: 230px;
+				font-family: 'Jal_Onuel';
+				font-size: 40px;
+				font-color: #888;
+				text-align: center;
+				line-height: 5.5em;
+				background-color: #fdb504;
+				border-right: solid 1px #e3e4e5;
+				float: left;
+			}
+			
+			.shopShortInfo .left {
 				width: 300px;
 				height: 230px;
-				object-fit: cover;
-			}
-		
-		.shopShortInfo .right {
-			width: 655px;
-			height: 200px;
-			float: left;
-			padding: 30px 20px 30px 20px;
-			margin: 0;
-			border-style: none;
-			font-size: 15px;
-			line-height: 1.8em;
-		}
-		
-			#shop-title {
-				font-size: 23px;
+				float: left;
+				border-style: none;
+				border-right: solid 1px #e3e4e5;
 			}
 			
-			#shop-type {
-				font-size: 14px;
-				color: #0160ff;
+				.shopShortInfo .left img {
+					width: 300px;
+					height: 230px;
+					object-fit: cover;
+				}
+			
+			.shopShortInfo .right {
+				width: 850px;
+				height: 200px;
+				float: left;
+				padding: 30px 20px 30px 20px;
+				margin: 0;
+				border-style: none;
+				font-size: 16px;
+				line-height: 1.8em;
 			}
-	
-	
-	/* 검색 리스트 페이지 네비 */
-	.searchResult > .navi {
-		width: 260px;
-		height: 40px;
-		border-style: none;
-		text-align: center;
-	}
+			
+				#shop-title {
+					font-size: 23px;
+				}
 				
-	.searchResult > a {
-		color: #333333; 
-		width: 30px;
-		height: 30px;
-	}
+				#shop-type {
+					font-size: 16px;
+					color: #0160ff;
+				}
 	
-		.searchResult > a:hover {
-			text-decoration: none; 
-			color: #0160ff;
+	
+		/* 검색 리스트 페이지 네비 */
+		.navi {
+			width: 260px;
+			height: 40px;
+			padding-top: 40px;
+			border-style: none;
+			text-align: center;
 		}
-
-	#currentPage {
-		display: inline-block;
-		width: 30px;
-		height: 30px;
-		background-color: #0160ff;
-		color: #ffffff;
-
-	}
-	
-	#otherPage {
-		display: inline-block;
-		padding: 5px;
-	}
+					
+			#currentPage {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				background-color: #0160ff;
+				color: #ffffff;
+				text-align: center;
+			}
+			
+			#otherPage {
+				display: inline-block;
+				padding: 5px;
+				text-align: center;
+			}
 	

@@ -9,6 +9,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
+import com.donzzul.spring.mzreview.domain.MzReview;
 
 @Service
 public class DreamReviewServiceImpl implements DreamReviewService {
@@ -54,7 +55,6 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	
     @Override
     public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
-    	System.out.println("service");
         return drStore.selectAllDreamReview(shopNo);
     }
 
@@ -80,9 +80,15 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		return drStore.selectOneDreamReview();
 	}
 
-
-
-
+	@Override //D 가게 전체 후기 가져오기
+	public ArrayList<MzReview> selectDMReviewAll(int shopNo) {
+		return drStore.selectDMReviewAll(shopNo);
+	}
+	
+	@Override //D 가게 후기 랭킹 가져오기
+	public ArrayList<Integer> selectReviewRanking() {
+		return drStore.selectReviewRanking();
+	}
 
 
 }

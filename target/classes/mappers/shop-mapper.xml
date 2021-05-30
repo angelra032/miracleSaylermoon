@@ -134,37 +134,46 @@
 	</select>
 	
 	<!-- 가게 검색 테마 출력 -->
-	<select id="selectShopTheme" resultMap="shopResultMap">
+	<select id="selectShopTheme" parameterType="HashMap" resultMap="shopResultMap">
 		<if test="themeWord.equals('천안')">
 			SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('파스타')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('중식')">
 			SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_TYPE LIKE '%' || #{ themeWord } ORDER BY SHOP_NO DESC
 		</if>	
+		<if test="themeWord.equals('명동')">
+			SELECT COUNT(*) FROM SHOP
+			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
+		</if>	
 		<if test="themeWord.equals('버거')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('제주')">
 			SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('카페')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE SHOP_NAME LIKE '%' || #{ themeWord } || '%'
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '아메리카노' || '%'
 		</if>	
 		<if test="themeWord.equals('피자')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('떡볶이')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('초밥')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
+	</select>
+	
+	<!-- 가게 찾기 키워드 검색 출력 -->
+	<select id="selectShopKey" resultMap="shopResultMap">
+		SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y' AND (SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' OR SHOP_NAME LIKE '%' || #{searchKeyword } || '%')
 	</select>
 	
 	<!-- 특정 가게 정보 출력 -->
@@ -239,42 +248,51 @@
 	</select>
 	
 	<!-- 지도 키워드 검색 출력 갯수 카운트 -->
-	<select id="selectListCountKey" resultType="_int">
+	<select id="selectMapCountKey" resultType="_int">
 		SELECT COUNT(*) FROM SHOP WHERE SHOW_SHOP_YN = 'Y' AND (SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' OR SHOP_NAME LIKE '%' || #{searchKeyword } || '%')
 	</select>
 		
 	<!-- 가게 검색 테마 출력 갯수 카운트 -->
-	<select id="selectThemeCount" resultType="_int">
+	<select id="selectThemeCount" parameterType="HashMap" resultType="_int">
 		<if test="themeWord.equals('천안')">
 			SELECT COUNT(*) FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('파스타')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('중식')">
 			SELECT COUNT(*) FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_TYPE LIKE '%' || #{ themeWord } ORDER BY SHOP_NO DESC
 		</if>	
+		<if test="themeWord.equals('명동')">
+			SELECT COUNT(*) FROM SHOP
+			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
+		</if>	
 		<if test="themeWord.equals('버거')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('제주')">
 			SELECT COUNT(*) FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('카페')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE SHOP_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '아메리카노' || '%')
 		</if>	
 		<if test="themeWord.equals('피자')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('떡볶이')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('초밥')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
+	</select>
+	
+	<!-- 가게 찾기 키워드 검색 출력 갯수 카운트 -->
+	<select id="selectShopCountKey" resultType="_int">
+		SELECT COUNT(*) FROM SHOP WHERE SHOW_SHOP_YN = 'Y' AND (SHOP_ADDR LIKE '%' || #{searchKeyword} || '%' OR SHOP_NAME LIKE '%' || #{searchKeyword } || '%')
 	</select>	
 	
 	<!-- 가게 메인 메뉴 출력 -->

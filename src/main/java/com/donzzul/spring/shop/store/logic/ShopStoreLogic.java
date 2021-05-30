@@ -46,10 +46,10 @@ public class ShopStoreLogic implements ShopStore {
 	}
 	
 	@Override
-	public ArrayList<Shop> selectShopTheme(PageInfo pi, String themeWord) {
+	public ArrayList<Shop> selectShopTheme(PageInfo pi, HashMap<String, String> selectedtheme) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", themeWord, rowBounds);
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopTheme", selectedtheme, rowBounds);
 	}
 
 	@Override
@@ -63,9 +63,10 @@ public class ShopStoreLogic implements ShopStore {
 	}
 
 	@Override
-	public ArrayList<Shop> searchShop(String searchKeyWord) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Shop> searchShop(PageInfo pi, HashMap<String, String> searchedKey) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopKey", searchedKey, rowBounds);
 	}
 
 	@Override
@@ -91,12 +92,17 @@ public class ShopStoreLogic implements ShopStore {
 	
 	@Override
 	public int selectKeyListCount(String searchKeyword) {
-		return sqlSession.selectOne("shopMapper.selectListCountKey", searchKeyword);
+		return sqlSession.selectOne("shopMapper.selectMapCountKey", searchKeyword);
 	}
 	
 	@Override
-	public int selectShopThemeCount(String themeWord) {
-		return sqlSession.selectOne("shopMapper.selectThemeCount", themeWord);
+	public int selectShopThemeCount(HashMap<String, String> selectedtheme) {
+		return sqlSession.selectOne("shopMapper.selectThemeCount", selectedtheme);
+	}
+	
+	@Override
+	public int searchShopCount(HashMap<String, String> searchedKey) {
+		return sqlSession.selectOne("shopMapper.selectShopCountKey", searchedKey);
 	}
 	
     @Override
@@ -125,6 +131,5 @@ public class ShopStoreLogic implements ShopStore {
     public ArrayList<Shop> selectAllShopListThree() {
        return (ArrayList)sqlSession.selectList("shopMapper.selectThreeShop");
     }
-
 
 }

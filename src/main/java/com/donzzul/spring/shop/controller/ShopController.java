@@ -115,7 +115,7 @@ public class ShopController {
 		
 		HashMap<String, String> selectedLocation = new HashMap<String, String>();
 		selectedLocation.put("location", qLocation);
-		System.out.println("로케이션 값" + selectedLocation);
+		System.out.println("로케이션 값" + selectedLocation); // 확인용
 		
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
@@ -137,7 +137,7 @@ public class ShopController {
 	
 	//D 지도 - 지역별 가게 키워드 검색
 	@RequestMapping(value="mapSearchKey.dz", method=RequestMethod.GET)
-	public void searchShopMapKey(@RequestParam("searchKeyword") String searchKeyword,  HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) throws Exception {
+	public void searchShopMapKey(@RequestParam("searchKeyword") String searchKeyword, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) throws Exception {
 		
 		int currentPage = (page != null) ? page : 1; 
 		int listCount = sService.selectKeyListCount(searchKeyword); 
@@ -187,16 +187,15 @@ public class ShopController {
 			mv.addObject("themeNo", themeNo);
 			mv.setViewName("shop/ShopSearchResult");
 		} else if(themeNo == 3) {
-			ArrayList<Shop> newShop = sService.selectNewShop();
-			System.out.println("신규가게 : " + newShop);
+			ArrayList<Shop> newSList = sService.selectNewShop();
+			System.out.println("신규가게 : " + newSList); // 확인용
 			
-			mv.addObject("newShop", newShop);
+			mv.addObject("newSList", newSList);
 			mv.addObject("themeNo", themeNo);
 			mv.setViewName("shop/ShopSearchResult");
 		} else {
 			if(themeNo == 2) {
 				themeWord = "천안";
-				
 			}else if (themeNo == 4) {
 				themeWord = "파스타";
 			}else if (themeNo == 5) {
@@ -216,21 +215,22 @@ public class ShopController {
 			}else if (themeNo == 12) {
 				themeWord = "초밥";
 			}
-			System.out.println(themeWord); // 확인용
-			
-			int currentPage = (page != null) ? page : 1; 
-			int listCount = sService.selectShopThemeCount(themeWord); 
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
-			
-			ArrayList<Shop> theme2List = sService.selectShopTheme(pi, themeWord);
-			
-			mv.addObject("pi", pi);
-			mv.addObject("theme2List", theme2List);
-			mv.setViewName("shop/ShopSearchResult");
-			
+				System.out.println(themeWord); // 확인용
+				
+				HashMap<String, String> selectedtheme = new HashMap<String, String>();
+				selectedtheme.put("themeWord", themeWord);
+				
+				int currentPage = (page != null) ? page : 1;
+				int listCount = sService.selectShopThemeCount(selectedtheme); 
+				PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+				ArrayList<Shop> themeList = sService.selectShopTheme(pi, selectedtheme);
+				System.out.println("테마리스트 : " + themeList);
+				
+				mv.addObject("pi", pi);
+				mv.addObject("themeNo", themeNo);
+				mv.addObject("themeList", themeList);
+				mv.setViewName("shop/ShopSearchResult");
 		}
-		
-		
 		
 		return mv;
 	}
@@ -241,11 +241,13 @@ public class ShopController {
 	public ModelAndView searchShop(ModelAndView mv, @RequestParam("searchKeyword") String searchKeyword, @RequestParam(value="page", required=false)Integer page) {
 		// 파라미터 - 유저 입력값
 		
-		int currentPage = (page != null) ? page : 1; 
-		int listCount = sService.selectShopThemeCount(searchKeyword); 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+		HashMap<String, String> searchedKey = new HashMap<String, String>();
+		searchedKey.put("searchKeyword", searchKeyword);
 		
-		ArrayList<Shop> sList = sService.searchShop(searchKeyword);
+		int currentPage = (page != null) ? page : 1; 
+		int listCount = sService.searchShopCount(searchedKey); 
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+		ArrayList<Shop> sList = sService.searchShop(pi, searchedKey);
 		
 		mv.addObject("pi", pi);
 		mv.addObject("sList", sList);
@@ -267,57 +269,31 @@ public class ShopController {
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
 		// 전체 후기 가져오기
-		ArrayList<MzReview> rList = mzService.selectDmReviewAll(shopNo);
+		ArrayList<MzReview> rList = drService.selectDMReviewAll(shopNo);
 		System.out.println("전체 후기 : " + rList.toString());
 		// 감사 후기 가져오기
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
-		System.out.println(drList.toString());
+		System.out.println("감사후기 : " + drList.toString());
+		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);
 		mv.addObject("mPhoto", mPhoto);
-//		mv.addObject("rList", rList);
-		mv.addObject("drList", drList); //
+		mv.addObject("rList", rList);
+		mv.addObject("drList", drList); // 확인용
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
 	}
-	
-	//D 전체후기 가져오기
-	@RequestMapping(value="mdReviewShop.dz", method=RequestMethod.GET)
-	public String selectDmReview(@RequestParam("shopNo") int shopNo) {
-		// 주석을 풀어주세요....
-//		ArrayList<ReviewDreamMzAll> rList = mzService.selectDmReviewAll(shopNo);
-		return "";
-	}
-	
-	
-	
-	// Json
-//	public void searchShopMapJson(@RequestParam("mapNo") int mapNo, @RequestParam(value="page", required=false) Integer page) {
-//		int currentPage = (page != null) ? page : 1; // 삼항연산자
-//		int listCount = sService.selectListCount(mapNo); // 전체 게시글 갯수
-//		System.out.println(page);
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
-//		ArrayList<Shop> mapList = sService.selectShopMap(pi, mapNo);
-//		HashMap<String, Object> hashMap = new HashMap<String, Object>();
-//		hashMap.put("pi", pi);
-//		hashMap.put("mList", mapList);
-//		Gson gson = new Gson();
-//		gson.toJson(hashMap, response.getWriter());
-//	}
-	
-//	// 각각 후기 패키지에 포함 xxxxxx
-//	//D 감사후기 가져오기
-//	@RequestMapping(value="drReviewShop.dz", method=RequestMethod.GET)
-//	public String selectDrReview(@RequestParam("shopNo") String shopNo, Model model) {
-//		ArrayList<DreamReview> dReview = drService.selectAllDreamReview(shopNo);
-//		return "";
-//	}
-//	
+
 //	//D 맛집후기 가져오기
 //	@RequestMapping(value="mzReviewShop.dz", method=RequestMethod.GET)
-//	public String selectMzReview(@RequestParam("shopNo") String shopNo, Model model) {
+//	public void selectMzReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) {
 //		ArrayList<MzReview> mReview = mzService.selectAllReview(shopNo);
-//		return "";
+	
+//		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
+//		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
+//		
+//		Gson gson = new Gson();
+//		gson.toJson(mReview, response.getWriter());
 //	}
 }
