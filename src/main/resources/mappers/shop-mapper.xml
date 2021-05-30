@@ -125,37 +125,12 @@
 	
 	<!-- 가게 검색 테마 후기 랭킹 출력 -->
 	<select id="selectShopRank" parameterType="HashMap" resultMap="shopResultMap">
-		SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y'
-		<if test="rank1">
-		 AND SHOP_NO = #{ rank1 }
-		</if>
-		<if test="rank2">
-		 AND SHOP_NO = #{ rank2 }
-		</if>
-		<if test="rank3">
-		 AND SHOP_NO = #{ rank3 }
-		</if>
-		<if test="rank4">
-		 AND SHOP_NO = #{ rank4 }
-		</if>
-		<if test="rank5">
-		 AND SHOP_NO = #{ rank5 }
-		</if>
-		<if test="rank6">
-		 AND SHOP_NO = #{ rank6 }
-		</if>
-		<if test="rank7">
-		 AND SHOP_NO = #{ rank7 }
-		</if>
-		<if test="rank8">
-		 AND SHOP_NO = #{ rank8 }
-		</if>
-		<if test="rank9">
-		 AND SHOP_NO = #{ rank9 }
-		</if>
-		<if test="rank10">
-		 AND SHOP_NO = #{ rank10 }
-		</if>
+		SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y' AND SHOP_NO = #{ shopNo }
+	</select>
+	
+	<!-- 가게 검색 테마 최신 등록순 출력 -->
+	<select id="selectNewShop" resultMap="shopResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY SHOP_NO DESC) AS NUM, SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y') WHERE NUM BETWEEN 1 AND 10
 	</select>
 	
 	<!-- 가게 검색 테마 출력 -->
@@ -301,6 +276,11 @@
 			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 	</select>	
+	
+	<!-- 가게 메인 메뉴 출력 -->
+    <select id="selectShopMenu" resultMap="mainMenuResultMap">
+       SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo }
+    </select>
 	
 	<!-- 관리자페이지 shop조회 -->
       <select id="selectAllShopDESC" resultMap="shopResultMap">

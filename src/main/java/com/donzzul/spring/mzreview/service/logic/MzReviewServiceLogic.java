@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
 import com.donzzul.spring.shop.domain.Shop;
@@ -59,7 +58,7 @@ public class MzReviewServiceLogic implements MzReviewService {
     }
     
 	@Override
-	public ArrayList<MzReview> selectReviewRanking() {
+	public ArrayList<Integer> selectReviewRanking() {
 		return mStore.selectReviewRanking();
 	}
 

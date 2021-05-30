@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
 import com.donzzul.spring.shop.domain.Shop;
 
@@ -71,7 +70,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
     }
 
 	@Override
-	public ArrayList<MzReview> selectReviewRanking() {
+	public ArrayList<Integer> selectReviewRanking() {
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectReviewRanking");
 	}
 

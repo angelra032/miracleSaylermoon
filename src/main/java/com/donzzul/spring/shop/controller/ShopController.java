@@ -21,7 +21,6 @@ import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.mzreview.domain.MzReview;
-import com.donzzul.spring.mzreview.domain.ReviewDreamMzAll;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
@@ -146,6 +145,7 @@ public class ShopController {
 		
 		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
 		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
+		
 		System.out.println("테스트 확인 :" + mapList);
 		System.out.println("로케이션 테스트 확인 :" + mapList.get(0).getShopAddr());
 
@@ -156,7 +156,7 @@ public class ShopController {
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
 		hashMap.put("mapMarkers", mapMarkers);
-		hashMap.put("searchedCenter", mapList.get(0).getShopAddr());
+		hashMap.put("center", mapList.get(0).getShopAddr());
 		hashMap.put("searchKeyword", searchKeyword);
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());
@@ -170,100 +170,88 @@ public class ShopController {
 	
 	//D 가게검색 - 테마
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
-	public ModelAndView searchTheme(ModelAndView mv, @RequestParam("themeNo") int themeNo, HttpServletResponse response, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView searchTheme(ModelAndView mv, @RequestParam("themeNo") int themeNo, @RequestParam(value="page", required=false) Integer page) {
 		// 파라미터 - 메뉴 클릭시 넘버
 		System.out.println(themeNo); // 확인용
 		
 		String themeWord = "";	
 		
-		switch(themeNo) {
-			case 1 : 
-				ArrayList<MzReview> sRank = mzService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
-				
-				ArrayList<Shop> rankNo = new ArrayList<Shop>();
-				for(int i = 0; i < sRank.size(); i++) {
-					Shop shop = new Shop();
-					shop.setShopNo(sRank.get(i).getShopNo());
-					rankNo.add(shop);
-				}
-				System.out.println(rankNo.toString());
-				
-//				HashMap<String, Integer> rankNo = new HashMap<String, Integer>();
-//				
-//				// 랭크순으로 가게번호 hashMap에 넣기
-//				for(int i = 0; i < sRank.size(); i++) {
-//					rankNo.put("rank" + (i+1), sRank.get(i).getShopNo());
-//				}
-//				
-//				// 가게번호 이용하여 가게 정보 가져오기
-//				ArrayList<Shop> sList = sService.selectShopRank(rankNo);
-//				System.out.println(sList.toString());
-				break;
-			case 2 : 
+		if(themeNo == 1) {
+			ArrayList<Integer> sRank = mzService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
+//			System.out.println("sRank 확인 : " + sRank.toString());
+			
+			ArrayList<Shop> rankList = sService.selectShopRank(sRank); // 가게번호 이용하여 가게 정보 가져오기 
+//			System.out.println("rankList 확인 : " + rankList.toString());
+			
+			mv.addObject("rankList", rankList);
+			mv.addObject("themeNo", themeNo);
+			mv.setViewName("shop/ShopSearchResult");
+		} else if(themeNo == 3) {
+			ArrayList<Shop> newShop = sService.selectNewShop();
+			System.out.println("신규가게 : " + newShop);
+			
+			mv.addObject("newShop", newShop);
+			mv.addObject("themeNo", themeNo);
+			mv.setViewName("shop/ShopSearchResult");
+		} else {
+			if(themeNo == 2) {
 				themeWord = "천안";
-				break;
-			case 3 : 
-				themeWord = "신규";
-				break;
-			case 4 : 
+				
+			}else if (themeNo == 4) {
 				themeWord = "파스타";
-				break;
-			case 5 : 
+			}else if (themeNo == 5) {
 				themeWord = "중식";
-				break;
-			case 6 : 
+			}else if (themeNo == 6) {
 				themeWord = "명동";
-				break;
-			case 7 : 
+			}else if (themeNo == 7) {
 				themeWord = "버거";
-				break;
-			case 8 : 
+			}else if (themeNo == 8) {
 				themeWord = "제주";
-				break;
-			case 9 : 
+			}else if (themeNo == 9) {
 				themeWord = "카페";
-				break;
-			case 10 : 
+			}else if (themeNo == 10) {
 				themeWord = "피자";
-				break;
-			case 11 : 
+			}else if (themeNo == 11) {
 				themeWord = "떡볶이";
-				break;
-			case 12 : 
+			}else if (themeNo == 12) {
 				themeWord = "초밥";
-				break;
-			default:
-				themeWord = "서울";
-				break;
+			}
+			System.out.println(themeWord); // 확인용
+			
+			int currentPage = (page != null) ? page : 1; 
+			int listCount = sService.selectShopThemeCount(themeWord); 
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+			
+			ArrayList<Shop> theme2List = sService.selectShopTheme(pi, themeWord);
+			
+			mv.addObject("pi", pi);
+			mv.addObject("theme2List", theme2List);
+			mv.setViewName("shop/ShopSearchResult");
+			
 		}
-		// 
-		System.out.println(themeWord); // 확인용
 		
-		int currentPage = (page != null) ? page : 1; 
-		int listCount = sService.selectShopThemeCount(themeWord); 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
 		
-		ArrayList<Shop> sList = sService.selectShopTheme(pi, themeWord);
-		
-		mv.addObject("pi", pi);
-		mv.addObject("sList", sList);
 		
 		return mv;
-//		
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("utf-8");
-//		
-//		Gson gson = new Gson();
-//		gson.toJson(sList, response.getWriter());
 	}
 	
 	
 	//D 가게검색 - 키워드 
 	@RequestMapping(value="searchShop.dz", method=RequestMethod.GET)
-	public String searchShop(@RequestParam("searchKeyword") String searchKeyword, Model model) {
+	public ModelAndView searchShop(ModelAndView mv, @RequestParam("searchKeyword") String searchKeyword, @RequestParam(value="page", required=false)Integer page) {
 		// 파라미터 - 유저 입력값
+		
+		int currentPage = (page != null) ? page : 1; 
+		int listCount = sService.selectShopThemeCount(searchKeyword); 
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+		
 		ArrayList<Shop> sList = sService.searchShop(searchKeyword);
-		return "";
+		
+		mv.addObject("pi", pi);
+		mv.addObject("sList", sList);
+		mv.setViewName("shop/ShopSearchResult");
+		
+		return mv;
 	}
 	
 	//D 가게 상세 페이지 출력

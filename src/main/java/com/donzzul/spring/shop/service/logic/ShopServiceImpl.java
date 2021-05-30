@@ -45,8 +45,22 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	public ArrayList<Shop> selectShopRank(HashMap<String, Integer> rankNo) {
-		return sStore.selectShopRank(rankNo);
+	public ArrayList<Shop> selectShopRank(ArrayList<Integer> sRank) {
+		ArrayList<Shop> rankingList = new ArrayList<Shop>();
+		for(int i = 0; i < sRank.size(); i++) {
+			Shop shop = new Shop();
+			System.out.println("shop Service sRank.get(i) : " + sRank.get(i));
+			int shopNo = sRank.get(i);
+			System.out.println("shop Service : " + shopNo);
+			shop = sStore.selectShopRank(shopNo);
+			rankingList.add(shop);
+		}
+		return rankingList;
+	}
+
+	@Override
+	public ArrayList<Shop> selectNewShop() {
+		return sStore.selectNewShop();
 	}
 
 	@Override
@@ -63,8 +77,7 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public ArrayList<MainMenu> selectMainMenu(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sStore.selectMainMenu(shopNo);
 	}
 
 	@Override
@@ -110,5 +123,6 @@ public class ShopServiceImpl implements ShopService {
     public ArrayList<Shop> selectAllShopListThree() {
        return sStore.selectAllShopListThree();
     }
+
 
 }

@@ -32,28 +32,44 @@
 			</div>
 			
 			<!-- 검색결과 가게 리스트 -->
-			<!-- AJAX -->
  			<div class="sub-title second">
-				<p>'${ searchKeyword }' 검색결과</p>
+ 				<c:choose>
+ 					<c:when test="${ themeNo eq 1 }">
+	 					<p>이주의 리뷰왕</p>
+ 					</c:when>
+ 					<c:otherwise>
+						<p>'${ searchKeyword }' 검색결과</p>
+ 					</c:otherwise>
+ 				</c:choose>
 			</div>
 			
 			<div class="searchResult">
-				<div class="shopShortInfo">
-					<div class="shopShortInfo left">
-						<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain"> -->
-					</div>
-					<div class="shopShortInfo right">
-						<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-						<input type="hidden" name="shopNo" value="41">
-						<span id=shop-title><b><a href="shopDetail.dz?shopNo=41">진짜 파스타</a></b></span>&nbsp;&nbsp;
-						<span id=shop-type>양식</span><br><br>
-						<span>홍대 놀이터</span><br>
-						<span>12:00 - 22:00</span><br>
-						<span>매주 일요일</span>&nbsp;&nbsp;
-						<span>휴무</span><br>
-						<span>홍대 진짜 파스타</span> <!-- 글자수 줄이기 -->
-					</div>
-				</div>
+				<c:choose>
+ 					<c:when test="${ themeNo eq 1 }">
+	 					<c:forEach var="shop" items="${ rankList }">
+							<div class="shopShortInfo">
+								<div class="shopShortInfo left">
+									<!-- <img src="/resources/images/shopMainImg/${shop.shopFileName}" alt="shopMain"> -->
+								</div>
+								<div class="shopShortInfo right">
+									<input type="hidden" name="shopNo" value="${ shop.shopNo }">
+									<input type="hidden" name="shopNo" value="41">
+									<span id=shop-title><b><a href="shopDetail.dz?shopNo=41">${ shop.shopName }</a></b></span>&nbsp;&nbsp;
+									<span id=shop-type>${ shop.shopType }</span><br><br>
+									<span>${ shop.shopShortAddr }</span><br>
+									<span>${ shop.startTime }:00 - ${ shop.endTime }:00</span><br>
+									<span>매주 일요일</span>&nbsp;&nbsp;
+									<span>휴무</span><br>
+									<span>${ shop.shopContent }</span> <!-- 글자수 줄이기 -->
+								</div>
+							</div>
+						</c:forEach>
+ 					</c:when>
+ 					<c:otherwise>
+						<p>'${ searchKeyword }' 검색결과</p>
+ 					</c:otherwise>
+ 				</c:choose>
+				
 			</div>
 			
 			<div class="searchResult navi">
@@ -99,7 +115,7 @@
 
 
 	<script>
-		$(function() {
+/* 		$(function() {
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
@@ -141,7 +157,7 @@
 					}
 				});
 			});
-		});
+		}); */
 	</script>
 </body>
 </html>
