@@ -18,7 +18,7 @@
 			<div class="my-info">
 				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include>
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="adminPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -28,13 +28,11 @@
 					<thead>
 						<tr>
 							<th width=60>No</th>
-							<th width=130px>업체명</th>
+							<th width=300px>업체명</th>
 							<th width=60px>아이디</th>
 							<th width=130px>업체등록번호</th>
 							<th width=130px>전화번호</th>
-							<th width=80px>승인상태</th>
-							<th width=80px>탈퇴요청</th>
-							<th width=120px>승인</th>
+							<th width=120px>공개상태</th>
 							<th width=120px>탈퇴</th>
 						</tr>
 					</thead>
@@ -48,15 +46,18 @@
 							<td>${shop.userId }</td>
 							<td>${shop.partnerVerify }</td>
 							<td>${shop.shopPhone }</td>
-							<c:if test="${shop.showShopYN eq 'y' or shop.showShopYN eq 'Y' }">
-								<td>승인</td>
+							<c:if test="${ shop.showShopYN eq 'Y' or shop.showShopYN eq 'y' }">
+								<td>승인완료</td>
 							</c:if>
-							<c:if test="${shop.showShopYN eq 'n' or shop.showShopYN eq 'N' }">
-								<td>미승인</td>
+							<c:if test="${ shop.showShopYN eq 'N' or shop.showShopYN eq 'n' }">
+								<td><a class="delete-btn" href="#">승인</a></td>
 							</c:if>
-							<td>${shop.partnerWithdraw }</td>
-							<td><a class="delete-btn" href="#">승인</a></td>
-							<td><a class="delete-btn" href="#">탈퇴</a></td>
+							<c:if test="${ shop.partnerWithdraw eq 'Y' or shop.partnerWithdraw eq 'y' }">
+								<td><a class="delete-btn" href="#">탈퇴</a></td>
+							</c:if>
+							<c:if test="${ shop.partnerWithdraw eq 'N' or shop.partnerWithdraw eq 'n' }">
+								<td><div class="done-btn">탈퇴</div></td>
+							</c:if>
 							
 						</tr>
 					</c:forEach>
@@ -113,4 +114,7 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
+</script>
 </html>

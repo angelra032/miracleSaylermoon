@@ -20,7 +20,7 @@
 			<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
 			
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="adminPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -40,12 +40,12 @@
 					<c:if test="${ !empty mRList }">
 					<c:forEach items="${mRList }" var="mReview" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index  }"/>
-						<tr style="cursor: pointer;" onclick="location.href='mReviewDetail.dz?mzReviewNo=${mReview.mReviewNo}'">
+						<tr>
 							<td>${ num }</td>
-							<td>${mReview.mReviewTitle }</td>
+							<td style="cursor: pointer;" onclick="location.href='mReviewDetail.dz?mzReviewNo=${mReview.mReviewNo}'">${mReview.mReviewTitle }</td>
 							<td>${mReview.mReviewWriter }</td>
 							<td>${mReview.mReviewCreateDate }</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
+							<td><div class="delete-btn" onclick="deleteResult('${ mReview. mReviewNo }')">삭제</div></td>
 							
 						</tr>
 					</c:forEach>
@@ -105,5 +105,15 @@
 <script>
 	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	$('.board-menu-btn').eq(0).css('background','#0160ff').css('color','white');
+	
+	function deleteResult(data) {
+        var result = confirm('글을 삭제합니다.');
+        if(result) {
+            location.href='mReviewDelete.dz?mReviewNo=' + data;
+			location.href='adminMReviewList.dz';
+        } else {
+			location.href='adminMReviewList.dz';
+        }
+    }
 </script>
 </html>

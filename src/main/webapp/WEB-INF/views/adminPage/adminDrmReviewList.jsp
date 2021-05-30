@@ -19,7 +19,7 @@
 				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include> <!--  -->
 				<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="adminPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -40,9 +40,9 @@
 					<c:if test="${ !empty dRList }">
 					<c:forEach items="${dRList }" var="drReview" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr style="cursor: pointer;" onclick="location.href='dReviewDetail.dz?drmReviewNo=${drReview.drmRviewNo}'">
+						<tr>
 							<td>${ num }</td>
-							<td>${drReview.drmReviewTitle }</td>
+							<td style="cursor: pointer;" onclick="location.href='dReviewDetail.dz?drmReviewNo=${drReview.drmRviewNo}'">${drReview.drmReviewTitle }</td>
 							<td>${drReview.drmReviewWriter }</td>
 							<c:if test="${drReview.drmReviewPublicYN eq 'y' or drReview.drmReviewPublicYN eq 'Y' }">
 								<td>공개</td>
@@ -51,7 +51,7 @@
 								<td>비공개</td>
 							</c:if>
 							<td>${drReview.drmReviewCreateDate }</td>
-							<td><a class="delete-btn" href="#">탈퇴</a></td>
+							<td><div class="delete-btn" onclick="deleteResult('${ drReview. drmRviewNo }')">삭제</div></td>
 							
 						</tr>
 					</c:forEach>
@@ -111,5 +111,15 @@
 <script>
 	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	$('.board-menu-btn').eq(1).css('background','#0160ff').css('color','white');
+	
+	function deleteResult(data) {
+        var result = confirm('글을 삭제합니다.');
+        if(result) {
+            location.href='dReviewDelete.dz?drmRviewNo=' + data;
+			location.href='adminDrmReviewList.dz';
+        } else {
+			location.href='adminDrmReviewList.dz';
+        }
+    }
 </script>
 </html>

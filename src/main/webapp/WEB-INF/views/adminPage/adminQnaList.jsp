@@ -20,7 +20,7 @@
 			<jsp:include page="/WEB-INF/views/adminPage/common/boardListNavi.jsp"></jsp:include> <!-- 게시판별 네비 -->
 			
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="adminPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -41,9 +41,9 @@
 					<c:if test="${ !empty qnaList }">
 					<c:forEach items="${qnaList }" var="qna" varStatus="status">
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
-						<tr style="cursor: pointer;" onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}&qnaId=${ qna.qnaId }'">
+						<tr>
 							<td>${ num }</td>
-							<td>${qna.qnaTitle }</td>
+							<td style="cursor: pointer;" onclick="location.href='qaDetail.dz?qnaNo=${qna.qnaNo}&qnaId=${ qna.qnaId }'">${qna.qnaTitle }</td>
 							<td>${qna.qnaWriter }</td>
 							<td>${qna.qanCreateDate }</td>
 							<c:if test="${qna.groupLayer eq '0' }">
@@ -52,7 +52,7 @@
 							<c:if test="${qna.groupLayer eq '1' }">
 								<td>답변완료</td>
 							</c:if>
-							<td><a class="delete-btn" href="#">삭제</a></td>
+							<td><div class="delete-btn" onclick="deleteResult('${ qna. qnaNo}')">삭제</div></td>
 							
 						</tr>
 					</c:forEach>
@@ -112,5 +112,15 @@
 <script>
 	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	$('.board-menu-btn').eq(3).css('background','#0160ff').css('color','white');
+	
+	function deleteResult(data) {
+        var result = confirm('글을 삭제합니다.');
+        if(result) {
+            location.href='qaDelete.dz?qnaNo=' + data;
+			location.href='adminQnaList.dz';
+        } else {
+			location.href='adminQnaList.dz';
+        }
+    }
 </script>
 </html>

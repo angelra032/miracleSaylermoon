@@ -19,7 +19,7 @@ function selectBoardMenu(data) {
 	} else if(data == 2) {
 		location.href="adminDrmReviewList.dz";
 	} else if(data == 3) {
-		alert('가게추천');
+		location.href="adminRecommendList.dz";
 	} else if(data == 4) {
 		location.href="adminQnaList.dz";
 	} else if(data == 5) {

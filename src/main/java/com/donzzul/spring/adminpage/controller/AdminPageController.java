@@ -1,5 +1,6 @@
 package com.donzzul.spring.adminpage.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -27,6 +28,8 @@ import com.donzzul.spring.notiqna.service.QnaService;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.domain.DonCount;
 import com.donzzul.spring.payment.service.PaymentService;
+import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.user.domain.User;
@@ -56,38 +59,64 @@ public class AdminPageController {
 	@Autowired
 	private DreamReviewService drReview;
 	
+	@Autowired
+	private RecommendBoardService rService;
+	
 	// 관리자 페이지 출력
 	@RequestMapping(value="adminPage.dz")
 	public ModelAndView adminPageView(ModelAndView mv) {
+		DecimalFormat formatter = new DecimalFormat("###,###.##");
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH)+2; // 이번달주소
-		for(int i = 1; i >= month; i++) {}
+		
+		ArrayList<DonCount> monthSumList = null;
+		HashMap<String, ArrayList<DonCount>> monthSum = new HashMap<String, ArrayList<DonCount>>();
+		for(int i = 1; i <= month; i++) {
+			String thisMonth = Integer.toString(year);
+			thisMonth += "0" + Integer.toString(i) + "01";
+			System.out.println("테스트 *** : " + thisMonth);
+			HashMap<String, String> dateMap = new HashMap<String, String>();
+			dateMap.put("date1", "20210101");
+			dateMap.put("date1", thisMonth);
+			monthSumList = pService.selectAllDonListSum(dateMap);
+			monthSum.put(Integer.toString(i), monthSumList);
+		}
+		
 		String monthDate = Integer.toString(year);
 		monthDate = monthDate + "0" + Integer.toString(month) +"01";
-		System.out.println(year);
-		System.out.println(month);
-		System.out.println(monthDate);
+		System.out.println("테스트 : " + monthDate);
 		
-		// *** 포인트출력
-		HashMap<String, String> dateMap = new HashMap<String, String>();
-		dateMap.put("date1", "20210101");
-		dateMap.put("date2", monthDate);
-//		ArrayList<DonCount> donCount = pService.selectAllDonListSum(dateMap); 
-//		ArrayList<Don> pList = pService.selectAllDonList(dateMap);
 		
-		// *** 회원출력
-		ArrayList<User> userList = uService.selectUserListThree();
 		
-		// *** 사업자출력
-//		ArrayList<Shop> shopList = sService.selectAllShopListThree();
-//		ArrayList<Shop> shopList = sService.();
+		// *** 총합 포인트출력
+		HashMap<String, String> yearSumDonMap = new HashMap<String, String>();
+		yearSumDonMap.put("date1", "20210101");
+		yearSumDonMap.put("date2", monthDate);
+		ArrayList<DonCount> yearCountList = pService.selectAllDonListSum(yearSumDonMap);  // *** 포인트총합
+		int priceSum = yearCountList.get(0).getDonPriceSum();
+		String YearDon = formatter.format(priceSum);
 		
-//		if(!userList.isEmpty() && !shopList.isEmpty()) { // !pList.isEmpty()
-//			mv.addObject("userList", userList).addObject("shopList", shopList).setViewName("adminPage/adminPage"); // addObject("pList", pList)
-//		} else {
-			mv.addObject("msg", "불러올 데이터가 없습니다.").setViewName("adminPage/adminPage");
-//		}
+		
+		try {
+//			ArrayList<Don> pList = pService.selectAllDonList(dateMap);  // *** 포인트월별
+			ArrayList<User> userList = uService.selectUserListThree(); // *** 회원출력
+			ArrayList<Shop> shopList = sService.selectAllShopListThree(); // *** 사업자출력
+			mv.addObject("YearDon", YearDon);
+			mv.addObject("monthSumList", monthSumList);
+			mv.addObject("userList", userList);
+			mv.addObject("shopList", shopList);
+			
+			mv.addObject("Smsg", "사업자 데이터가 없습니다.");
+			mv.addObject("Umsg", "유저 데이터가 없습니다.");
+			mv.addObject("Smsg", "사업자 데이터가 없습니다.");
+			
+			mv.setViewName("adminPage/adminPage");
+		} catch (Exception e) {
+			mv.addObject("msg", "내역을 출력하는데 실패했습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		
 		
 		return mv;
 	}
@@ -113,15 +142,15 @@ public class AdminPageController {
 	@RequestMapping(value="adminShopList.dz")
 	public ModelAndView shopListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
-//		int listCount = sService.getListCount();
-//		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		ArrayList<Shop> shopList = sService.selectAllShopList(pi);
+		int listCount = sService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Shop> shopList = sService.selectAllShopList(pi);
 //		ArrayList<Shop> shopList = sService.selectAllShopListDESC();
-//		if(!shopList.isEmpty()) {
-//			mv.addObject("shopList", shopList).addObject("pi", pi);
-//		} else {
-//			mv.addObject("msg", "불러올 데이터가 없습니다");
-//		}
+		if(!shopList.isEmpty()) {
+			mv.addObject("shopList", shopList).addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "불러올 데이터가 없습니다");
+		}
 		mv.setViewName("adminPage/adminShopList");
 		return mv;
 	}
@@ -190,6 +219,24 @@ public class AdminPageController {
 			mv.addObject("msg", "불러올 데이터가 없습니다");
 		}
 		mv.setViewName("adminPage/adminDrmReviewList");
+		return mv;
+	}
+	
+	// 가게추천 리스트
+	@RequestMapping(value="adminRecommendList.dz")
+	public ModelAndView RecommendListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		int currentPage = (page != null) ? page : 1;
+		int listCount = rService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<RecommendBoard> rRList = rService.selectAllRecommend(pi);
+		
+		if(!rRList.isEmpty()) {
+			mv.addObject("rRList", rRList ).addObject("pi", pi);
+			
+		} else {
+			mv.addObject("msg", "불러올 데이터가 없습니다");
+		}
+		mv.setViewName("adminPage/adminRecommendList");
 		return mv;
 	}
 	
