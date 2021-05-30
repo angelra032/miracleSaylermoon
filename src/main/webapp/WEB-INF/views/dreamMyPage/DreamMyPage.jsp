@@ -48,23 +48,30 @@
 
 
 									<c:if test="${reservation.rState eq 'O' }">
-										<td><a class="reserv-btn"
-											href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }&mainPage=N">예약취소</a></td>
-									</c:if>
-									<c:if test="${reservation.rState eq 'X' }">
-										<td><a class="btn btn-secondary">취소완료</a></td>
-									</c:if>
-									<c:if test="${reservation.rState eq 'Y' }">
-										<td><a class="confirm-btn">예약확정</a></td>
+										<td><a id="cancle-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }&mainPage=Y">예약취소</a></td>
+										<td><a id="review-btn">후기작성</a></td>
 									</c:if>
 
-									<td><a class="btn btn-secondary">후기작성</a></td>
-									<c:if test="${reservation.rState eq 'C' }">
-										<td><a class="reserv-btn"
-											href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+									<c:if test="${reservation.rState eq 'X' }">
+										<td><a id="cancle-complete">취소완료</a></td>
+										<td><a id="review-btn">후기작성</a></td>
 									</c:if>
+
+
+									<c:if test="${reservation.rState eq 'Y' }">
+										<td><a class="confirm-btn">예약확정</a></td>
+										<td><a id="review-btn">후기작성</a></td>
+									</c:if>
+
+
+									<c:if test="${reservation.rState eq 'C' }">
+										<td><a class="confirm-btn">방문완료</a></td>
+										<td><a id="visiti-comfirm" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+									</c:if>
+
 									<c:if test="${reservation.rState eq 'H' }">
-										<td><a class="btn btn-secondary">후기작성완료</a></td>
+										<td><a class="confirm-btn">방문완료</a></td>
+										<td><a>후기작성완료</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -146,8 +153,10 @@
 									<td><a class="table-link-title" href="#"><p>${dreamreview.drmReviewTitle }</p></a></td>
 									<td>${dreamreview.shopName }</td>
 									<td>${dreamreview.drmReviewUploadDate }</td>
-									<td><a class="modify-btn" href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
-									<td><a class="delete-btn" href="dReviewDelete.dz?drmRviewNo=${dreamreview.drmRviewNo }">삭제</a></td>
+									<td><a class="modify-btn"
+										href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
+									<td><a class="delete-btn"
+										href="dReviewDelete.dz?drmRviewNo=${dreamreview.drmRviewNo }">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -185,8 +194,10 @@
 									<td>${status.count }</td>
 									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}</p></a></td>
 									<td>${ qna.qanCreateDate }</td>
-									<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
-									<td><a class="delete-btn" href="qaDelete.dz?qnaNo=${qna.qnaNo }">삭제</a></td>
+									<td><a class="modify-btn"
+										href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
+									<td><a class="delete-btn"
+										href="qaDelete.dz?qnaNo=${qna.qnaNo }">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>

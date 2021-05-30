@@ -11,64 +11,66 @@
 <title>채팅</title>
 </head>
 <body>
-	<script type="text/javascript">
-		var ws;
 
-		function wsOpen() {
-			ws = new WebSocket("ws://" + location.host + "/chating");
-			wsEvt();
+<script type="text/javascript">
+	var ws;
+
+	function wsOpen(){
+		ws = new WebSocket("ws://" + location.host + "/chatting");
+		wsEvt();
+	}
+		
+	function wsEvt() {
+		ws.onopen = function(data){
+			//소켓이 열리면 초기화 세팅하기
 		}
-
-		function wsEvt() {
-			ws.onopen = function(data) {
-				//소켓이 열리면 초기화 세팅하기
-			}
-
-			ws.onmessage = function(data) {
-				var msg = data.data;
-				if (msg != null && msg.trim() != '') {
-					$("#chating").append("<p>" + msg + "</p>");
-				}
-			}
-
-			document.addEventListener("keypress", function(e) {
-				if (e.keyCode == 13) { //enter press
-					send();
-				}
-			});
-		}
-
-		function chatName() {
-			var userName = $("#userName").val();
-			if (userName == null || userName.trim() == "") {
-				alert("사용자 이름을 입력해주세요.");
-				$("#userName").focus();
-			} else {
-				wsOpen();
-				$("#yourName").hide();
-				$("#yourMsg").show();
+		
+		ws.onmessage = function(data) {
+			var msg = data.data;
+			if(msg != null && msg.trim() != ''){
+				$("#chating").append("<p>" + msg + "</p>");
 			}
 		}
 
-		function send() {
-			var uN = $("#userName").val();
-			var msg = $("#chatting").val();
-			ws.send(uN + " : " + msg);
-			$('#chatting').val("");
+		document.addEventListener("keypress", function(e){
+			if(e.keyCode == 13){ //enter press
+				send();
+			}
+		});
+	}
+
+	function chatName(){
+		var userName = $("#userName").val();
+		if(userName == null || userName.trim() == ""){
+			alert("사용자 이름을 입력해주세요.");
+			$("#userName").focus();
+		}else{
+			wsOpen();
+			$("#yourName").hide();
+			$("#yourMsg").show();
 		}
-	</script>
+	}
+
+	function send() {
+		var uN = $("#userName").val();
+		var msg = $("#chatting").val();
+		ws.send(uN+" : "+msg);
+		$('#chatting').val("");
+	}
+</script>
 
 
 	<div id="container" class="container">
 		<div id="header">
-			<h4>돈쭐 1대1 문의 채팅</h4>
+			<div class="header-icon"><img alt="" src="/resources/images/chatting/logo.png"></div>
+			<div class="header-text"><h4>실시간 상담</h4></div>
 		</div>
 		<div id="chating" class="chating"></div>
 
 		<div id="yourName">
 			<table class="inputTable">
 				<tr>
-					<td>사용자명</td>
+					<td></td>
 					<td><input type="text" name="userName" id="userName"></td>
 					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
 				</tr>
