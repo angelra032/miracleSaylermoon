@@ -49,12 +49,13 @@ public class MZMyPageController {
 		if(!rList.isEmpty() || !dList.isEmpty()) {
 			model.addAttribute("rList", rList);
 			model.addAttribute("dList", dList);
-			model.addAttribute("Rmsg", "예약 데이터가 없습니다.");
-			model.addAttribute("Dmsg", "돈쭐 데이터가 없습니다.");
+			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
+			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
-			model.addAttribute("msg", "내역을 출력하는데 실패했습니다");
-			return "common/errorPage";
+			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
+			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
+			return "mzMyPage/MZMyPage";
 		}
   	} // end of MZMyPageView
   	
@@ -183,7 +184,7 @@ public class MZMyPageController {
 		int listCount = rService.getListCount(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Reservation> rList = rService.reservationListByDream(userNo, pi);
+		ArrayList<Reservation> rList = rService.reservationListByMZ(userNo, pi);
 		
 		if(!rList.isEmpty()) {
 			mv.addObject("rList",rList);

@@ -150,12 +150,15 @@ main {
 	width: 60px;
 }
 .reserv-list table thead th:nth-child(3) {
-	width: 200px;
+	width: 220px;
 }
 .reserv-list table thead th:nth-child(4) {
-	width: 150px;
+	width: 80px;
 }
 .reserv-list table thead th:nth-child(5) {
+	width: 150px;
+}
+.reserv-list table thead th:nth-child(6) {
 	width: 150px;
 }
 .reserv-btn {

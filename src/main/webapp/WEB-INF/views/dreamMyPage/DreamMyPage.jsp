@@ -125,7 +125,7 @@
 				</table>
 			</div>
 		</div>
-		<div class="my-list w-list review-list">
+		<div class="my-list review-list">
 			<div class="frame">
 				<div class="my-title">
 					<span>내가 쓴 후기</span>

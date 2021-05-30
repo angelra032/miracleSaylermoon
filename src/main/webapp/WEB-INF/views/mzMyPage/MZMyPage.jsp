@@ -36,7 +36,9 @@
 				<div class="my-title">
 					<span>예약 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="mzReservationList.dz">더보기</a>
+						<c:if test="${ !empty rList }">
+							<a class="more-btn b-btn" href="mzReservationList.dz">더보기</a>
+						</c:if>
 					</div>
 				</div>
 				<table>
@@ -44,7 +46,8 @@
 						<tr>
 							<th>No</th>
 							<th>가게이름</th>
-							<th>예약날짜</th>
+							<th>예약일시</th>
+							<th>예약인원</th>
 							<th>예약취소</th>
 							<th>후기작성</th>
 						</tr>
@@ -54,8 +57,9 @@
 							<c:forEach items="${rList }" var="reservation" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
-									<td class="reserv-date${ reservation.reservationNo }">${reservation.reserveDate }</td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${reservation.shopNo }"><p>${reservation.shopName }</p></a></td>
+									<td>${reservation.reserveDate } / ${reservation.reserveTime }시</td>
+									<td class="reserv-membercount${ reservation.reservationNo }">${reservation.reserveCount }명</td>
 									
 									<c:if test="${reservation.rState eq 'O' }">
 										<td class="reserv-stay${ reservation.reservationNo }"><a class="reserv-btn reserv-btn${ reservation.reservationNo }" href="#" >예약취소</a></td>
@@ -323,7 +327,7 @@
 				success : function(result) {
 					if(result == 'ok'){
 						$('.reserv-stay'+reservationNo).remove();
-						$('.reserv-date'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
+						$('.reserv-membercount'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
 					}
 				},
 				error : function() {
