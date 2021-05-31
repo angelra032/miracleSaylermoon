@@ -199,6 +199,7 @@ main {
 		.mapZoom > .in {
 				width: 45px;
 				height: 45px;
+				border: solid 1px #e3e4e5;
 				border-bottom: solid 1px #ffffff;
 				background-color: #fdb504;
 				top: 125px;
@@ -207,6 +208,7 @@ main {
 		.mapZoom > .out {
 			width: 45px;
 			height: 45px;
+			border: solid 1px #e3e4e5;
 			background-color: #fdb504;
 			top: 170px;
 			
@@ -239,18 +241,9 @@ main {
 			border:0;
 			box-shadow:0px 1px 2px #888;
 			}
-			
-		.customoverlay a {
-			display:block;
-			text-decoration:none;
-			color:#000;
-			text-align:center;
-			border-radius:6px;
-			font-size:14px;
-			font-weight:bold;
-			overflow:hidden;
-			/* background: #fdb504; */
-			background: #fdb504 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+
+		.tail {
+			background-color: #fdb504;
 		}
 		
 		.customoverlay .title {
@@ -275,13 +268,14 @@ main {
 		}
 		
 .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+	.wrap {position:absolute; top: -309px; left: -144px;z-index: 999;}
+    .wrap .info {width: 259px;height: 260px;margin-bottom: 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .title {padding: 5px 0 0 10px;height: 36px;background-color: #fdb504;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #fff;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .info .body {position: relative;overflow: hidden;height: 220px;}
+    .info .desc {position: relative;margin: 5px 0 0 7px;height: 75px;}
     .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
     .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}

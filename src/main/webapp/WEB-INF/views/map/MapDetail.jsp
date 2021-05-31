@@ -38,7 +38,7 @@
 							<div class="content-shop">
 								<div class="content-shop left">
 									<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
-									<!-- <img src="/resources/images/shopMainImg/realPasta.jpeg" alt="대표이미지" class="img-thumbnail"/> -->
+									<!-- <img src="/resources/images/shopMainImg/" alt="대표이미지" class="img-thumbnail"/> -->
 								</div>
 								<div class="content-shop right">
 									<div class="content-shop right top">
@@ -213,21 +213,26 @@
 					
 					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					var content = '<div class="customoverlay">' +
-					    '  <a href="javascript:showShortInfo('+markerPosition+');">' +
-					    '    <span class="title">' + shop.shopName + '</span>' +
-					    '  </a>' +
+						 '  <div class="tail">' + 
+					    '    <span class="title" onclick="showShortInfo('+markerPosition+')">' + shop.shopName + '</span>' +
+					    '  </div>' +
 					    '</div>';
+					
+					
 					
 					// 커스텀 오버레이를 생성합니다
 					var titleOverlay = new kakao.maps.CustomOverlay({
 					    position: markerPosition,
 					    content: content,
 					    yAnchor: 2
-					});
+					});  
 					
+					// 마커가 지도 위에 표시되도록 설정합니다
+					/* titleOverlay.setMap(map); */
 					
 					var selectedMarker;
 					var selectedOverlay;
+					
 					
  				 	// 마커에 마우스오버 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -242,6 +247,49 @@
 					    selectedOverlay.setZIndex(999);
 						
 					});
+ 				 	
+					 // 마커에 클릭이벤트를 등록합니다
+				    kakao.maps.event.addListener(marker, 'click', function() {
+							
+						var content = '<div class="wrap">' + 
+				            '    <div class="info">' + 
+				            '        <div class="title">' + shop.shopName + 
+				            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+				            '        </div>' + 
+				            '        <div class="body">' + 
+				         /*    '            <div class="img">' +
+				            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+				            '           </div>' +  */
+				            '            <div class="desc">' + 
+				            '                <div class="ellipsis">제공대상 : '+shop.shopTarget+'</div>' + 
+				            '                <div class="ellipsis">제공품목 : '+shop.shopProduct+'</div>' + 
+				            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+				            '                <div><input type="hidden" name="shopNo" value="'+shop.shopNo+'">' +
+							'				 <button type="button" class="btn btn-primary btn-sm" onclick="goDetail(shopNo)">예약하기</button></div>' + 
+				            '            </div>' + 
+				            '        </div>' + 
+				            '    </div>' +    
+				            '</div>';
+				        
+						
+						// 마커 위에 커스텀오버레이를 표시합니다
+						// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+						var overlay = new kakao.maps.CustomOverlay({
+						    content: content,
+						    map: map,
+						    position: markerPosition,
+						    zIndex: 999
+						});	
+						
+						selectedOverlay = null;
+						
+						
+						// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+						function closeOverlay() {
+						    overlay.setMap(null);     
+						}
+						
+				    });
 					
 				  	// 마커에 마우스아웃 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseout', function() {
@@ -249,119 +297,19 @@
 					    titleOverlay.setMap(null);
 					    
 					});
+				  	
+					function goDetail(shopNo) {
+						location.href='shopDetail.dz';
+						
+					}
 					
 				}
 			});
 			
 		});
 		
-	    function showShortInfo(markerPosition) {
-			
-			/* titleOverlay.setMap(null); */
-		/* alert("확인");  */
-			
-		var content = '<div class="wrap">' + 
-            '    <div class="info">' + 
-            '        <div class="title">' + 
-            '            카카오 스페이스닷원' + 
-            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-            '        </div>' + 
-            '        <div class="body">' + 
-            '            <div class="img">' +
-            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-            '           </div>' + 
-            '            <div class="desc">' + 
-            '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-            '            </div>' + 
-            '        </div>' + 
-            '    </div>' +    
-            '</div>';
-/* 		var content = '<div class="wrap">' + 
-        '    <div class="info">' + 
-        '        <div class="title">' + 
-        '            카카오 스페이스닷원' + 
-        '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-        '        </div>' + 
-        '        <div class="body">' + 
-        '            <div class="img">' +
-        '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-        '           </div>' + 
-        '            <div class="desc">' + 
-        '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-        '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-        '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-        '            </div>' + 
-        '        </div>' + 
-        '    </div>' +    
-        '</div>'; */
-		
-		// 마커 위에 커스텀오버레이를 표시합니다
-		// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-		var overlay = new kakao.maps.CustomOverlay({
-		    content: content,
-		    map: map,
-		    position: markerPosition       
-		});	
+	    
 
-
-		
-	}
-
-		
-
-		
-		/* function showShortInfo(markerPosition) {
-				var imageSrc = '/resources/images/map_marker_blue_v2.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
-				      
-				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-				var markerImage = new kakao.maps.MarkerImage(imageSrc,imageSize);
-				// 마커를 생성합니다
-				var marker = new kakao.maps.Marker({
-				    position: markerPosition, 
-				    image: markerImage // 마커이미지 설정 
-				});
-				
-				// 마커가 지도 위에 표시되도록 설정합니다
-				
-				
-				var shortContent = '<div class="wrap">' + 
-	            '    <div class="info">' + 
-	            '        <div class="title">' + 
-	            '            진짜 파스타' + 
-	            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-	            '        </div>' + 
-	            '        <div class="body">' + 
-	            '            <div class="desc">' + 
-			    '                <div class="ellipsis">제공대상 : </div>' + 
-			        '                <div class="ellipsis">제공품목 : </div>' + 
-			        '                <div class="ellipsis">영업시간 : </div>' + 
-			            '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상세페이지</a></div>' + 
-			            '            </div>' + 
-			            '        </div>' + 
-			            '    </div>' +    
-			            '</div>';
-		
-				// 마커 위에 커스텀오버레이를 표시합니다
-				// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-				var shortInfo = new kakao.maps.CustomOverlay({
-				    content: shortContent,
-				    map: map,
-				    position: markerPosition,
-				    yAnchor: 1 
-				 });
-						
-						
-				/* titleOverlay.setMap(null); */
-				
-				 /* alert("확인!!"); */ 
-				
-				
-				
-			/* }  */
-		
 		/* $(function() { */
 		$("#btn-search").on("click", function() {
 			/* var result = true; */
@@ -374,10 +322,143 @@
 			}else {
 				$(".content-list").empty();
 				$(".content-list-navi").empty();
+
+					$.ajax({
+						url: "mapSearchKey.dz",
+						type: "get",
+						data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+						/* async: false, */
+						dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
+						success: function(data) {
+							var contentList = $(".content-list");
+							var contentListNavi = $(".content-list-navi");
+							/* var contentListNavi = $("<div class='content-list navi'>"); */
+							$("#center-value").val(data.center);
+							if(data.mList.length > 0) { 
+								$(".content-list").empty();
+								$(".content-list-navi").empty();
+								
+								/* 검색 리스트 */
+								for( var i in data.mList) {
+									/* console.log(data.mList.length);
+									console.log(data.mList);
+									console.log(data.pi); */
+									
+									var contentShop = $("<div class='content-shop'>");
+									var contentShopLeft = $("<div class='content-shop left'>");
+									var contentShopRight = $("<div class='content-shop right'>");
+									var contentShopRightTop = $("<div class='content-shop right top'>");
+									var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+									
+									contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+									contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
+													   .append("<span>"+data.mList[i].shopType+"</span><br>")
+													   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
+													   .append("<span>"+data.mList[i].shopContent+"</span><br>");
+									contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
+														  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+									contentShop.append(contentShopLeft);
+									contentShopRight.append(contentShopRightTop);
+									contentShopRight.append(contentShopRightBottom);
+									contentShop.append(contentShopRight);
+									contentList.append(contentShop); 
+									
+						 	 	}
+								
+								/* 네비 */
+								contentListNavi.append("<hr>");
+								if(data.pi.currentPage > 1) {
+									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+(data.pi.currentPage-1)+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+									/* contentListNavi.append("<img src='/resources/images/navi-left.png' alt='이전' onclick='searhLogic();'/>&nbsp;&nbsp;"); */
+								}
+								for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
+									if(i == data.pi.currentPage) {
+										contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+										/* contentListNavi.append("<span id='currentPage'>"+i+"</span>"); */	
+									}else if(i != data.pi.currentPage) {
+										contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+data.pi.currentPage+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+										/* contentListNavi.append("<span id='otherPage' onclick='searhLogic();'>"+i+"</span>&nbsp;&nbsp;"); */
+									}
+								}
+								if(data.pi.currentPage < data.pi.maxPage) {
+									contentListNavi.append("<a href='#'  onclick='searchLogic1("+data.searchKeyword+(data.pi.currentPage+1)+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+									/* contentListNavi.append("<img src='/resources/images/navi-right.png' alt='다음' onclick='searhLogic();'/>"); */
+								}
+	
+								var map = new kakao.maps.Map(mapContainer, mapOption);
+								
+								
+								/* <hr>
+								<c:url var="before" value="mapSearchShop.dz">
+									<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+									<c:if test="${ !empty location }">
+										<c:param name="location" value="${ location }"></c:param>
+									</c:if>
+								</c:url>
+								<c:if test="${ pi.currentPage > 1 }">
+									<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+								</c:if>
+								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+									<c:url var="pagination" value="mapSearchShop.dz">
+										<c:param name="page" value="${ p }"></c:param>
+										<c:if test="${ !empty location }">
+											<c:param name="location" value="${ location }"></c:param>
+										</c:if>
+									</c:url>
+									<c:if test="${ p eq pi.currentPage }">
+										<span id="currentPage">${ p }</span>
+									</c:if>
+									<c:if test="${ p ne pi.currentPage }">
+										<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+									</c:if>
+								</c:forEach>
+								<c:url var="after" value="mapSearchShop.dz">
+									<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+									<c:if test="${ !empty location }">
+										<c:param name="location" value="${ location }"></c:param>
+									</c:if>
+								</c:url>
+								<c:if test="${ pi.currentPage >= pi.maxPage }">
+								</c:if>
+								<c:if test="${ pi.currentPage < pi.maxPage }">
+									<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+								</c:if> */
+											
+								/* $.getScript("map-ajax.js"); */
+
+
+							
+										
+							
+								
+						}else {
+							$(".content-list").empty();
+							$(".content-list-navi").empty();
+							contentList.append("<span>등록된 가게가 없습니다.</span>");
+							/* result = false; */
+						}  
+					},
+					error: function() {
+						console.log("서버에 연결할 수 없습니다.");
+					}
+					
+					
+				});
+ 				/* result = true; */
+			}
+		});
+		
+		function shopDetail() {
+			location.href='shopDetail.dz';
+		}
+		function searchLogic1() {
+			$(".content-list").empty();
+			$(".content-list-navi").empty();
+
 				$.ajax({
 					url: "mapSearchKey.dz",
 					type: "get",
-					data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+					data: { "searchKeyword": '제주', "page" :  2}, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
 					/* async: false, */
 					dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
 					success: function(data) {
@@ -407,7 +488,7 @@
 												   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
 												   .append("<span>"+data.mList[i].shopContent+"</span><br>");
 								contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-													  .append("<button type='button' class='btn btn-primary btn-sm'>예약하기</button>");
+													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
 								contentShop.append(contentShopLeft);
 								contentShopRight.append(contentShopRightTop);
 								contentShopRight.append(contentShopRightBottom);
@@ -419,99 +500,33 @@
 							/* 네비 */
 							contentListNavi.append("<hr>");
 							if(data.pi.currentPage > 1) {
-								contentListNavi.append("<a href='mapSearchKey.dz?page="+(data.pi.currentPage - 1)+"&searchKeyword=searchKeyword'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+								contentListNavi.append("<a href='#' onclick='searchLogic1();'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+								/* contentListNavi.append("<img src='/resources/images/navi-left.png' alt='이전' onclick='searhLogic();'/>&nbsp;&nbsp;"); */
 							}
 							for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
 								if(i == data.pi.currentPage) {
 									contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
 								}else if(i != data.pi.currentPage) {
-									contentListNavi.append("<a href='mapSearchKey.dz?page="+i+"&searchKeyword=searchKeyword'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+									contentListNavi.append("<a href='#' onclick='searchLogic1();'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
 								}
 							}
 							if(data.pi.currentPage < data.pi.maxPage) {
-								contentListNavi.append("<a href='mapSearchKey.dz?page='"+(data.pi.currentPage + 1)+"'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+								contentListNavi.append("<a href='#'  onclick='searchLogic1();'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
 							}
 
 							var map = new kakao.maps.Map(mapContainer, mapOption);
 							
-							/* <hr>
-							<c:url var="before" value="mapSearchShop.dz">
-								<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-								<c:if test="${ !empty location }">
-									<c:param name="location" value="${ location }"></c:param>
-								</c:if>
-							</c:url>
-							<c:if test="${ pi.currentPage > 1 }">
-								<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
-							</c:if>
-							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-								<c:url var="pagination" value="mapSearchShop.dz">
-									<c:param name="page" value="${ p }"></c:param>
-									<c:if test="${ !empty location }">
-										<c:param name="location" value="${ location }"></c:param>
-									</c:if>
-								</c:url>
-								<c:if test="${ p eq pi.currentPage }">
-									<span id="currentPage">${ p }</span>
-								</c:if>
-								<c:if test="${ p ne pi.currentPage }">
-									<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
-								</c:if>
-							</c:forEach>
-							<c:url var="after" value="mapSearchShop.dz">
-								<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-								<c:if test="${ !empty location }">
-									<c:param name="location" value="${ location }"></c:param>
-								</c:if>
-							</c:url>
-							<c:if test="${ pi.currentPage >= pi.maxPage }">
-							</c:if>
-							<c:if test="${ pi.currentPage < pi.maxPage }">
-								<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
-							</c:if> */
-										
-							$.getScript("map-ajax.js");
-
-
-							
-										
-							
-								
-						}else {
-							$(".content-list").empty();
-							$(".content-list-navi").empty();
-							contentList.append("<span>등록된 가게가 없습니다.</span>");
-							/* result = false; */
-						}  
-					},
-					error: function() {
-						console.log("서버에 연결할 수 없습니다.");
-					}
-				});
- 				/* result = true; */
-			}
-		});
-	/* }); */
-/* 		function pageMove() {
-		$(".content-list").empty();
-		$(".content-list navi").empty();
-		$.ajax({
-			url : ,
-			type : ,
-			data : ,
-			success : function(data) {
-				for( int i in data.mapList) {
-					$(".content-list").append(mapList[i].showNo)	
-											
+					}else {
+						$(".content-list").empty();
+						$(".content-list-navi").empty();
+						contentList.append("<span>등록된 가게가 없습니다.</span>");
+					}  
+				},
+				error: function() {
+					console.log("서버에 연결할 수 없습니다.");
 				}
-			},
-			error : function() {
-				
-			}
-		});
-	} */
-		
-
+			});
+		}
 	</script>
 	
 	
