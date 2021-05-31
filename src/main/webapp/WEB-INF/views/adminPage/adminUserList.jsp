@@ -58,7 +58,7 @@
 							<td style="cursor: pointer;" onclick="location.href='adminUserInfo.dz?userNo=${user.userNo}'">${user.userId }</td>
 							<td>${user.userPhone }</td>
 							<td>${user.userEmail }</td>
-							<td><a class="delete-btn" href="#">탈퇴</a></td>
+							<td><div class="delete-btn" onclick="deleteResult('${user.userNo}')">탈퇴</div></td>
 							
 						</tr>
 					</c:forEach>
@@ -117,5 +117,15 @@
 </body>
 <script type="text/javascript">
 	$('.menu-btn').eq(0).css('background','#0160ff').css('color','white');
+	
+	function deleteResult(data) {
+        var result = confirm('회원을 탈퇴시킵니다.');
+        if(result) {
+            location.href='adminUserDelete.dz?userNo=' + data;
+			location.href='adminUserList.dz';
+        } else {
+			location.href='adminUserList.dz';
+        }
+    }
 </script>
 </html>

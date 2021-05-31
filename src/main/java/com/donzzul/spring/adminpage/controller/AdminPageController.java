@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,7 +75,7 @@ public class AdminPageController {
 		
 		// *** 달별 포인트 출력
 		ArrayList<DonCount> monthSumList = null;
-		HashMap<String, ArrayList<DonCount>> monthSum = new HashMap<String, ArrayList<DonCount>>();
+		HashMap<String, String> monthSum = new HashMap<String, String>();
 		for(int i = 2; i <= month; i++) {
 			String thisMonth = Integer.toString(year);
 			thisMonth += "0" + Integer.toString(i) + "01";
@@ -82,7 +84,8 @@ public class AdminPageController {
 			dateMap.put("date2", thisMonth);
 			System.out.println("테스트 *** : " + thisMonth);
 			monthSumList = pService.selectAllDonListSum(dateMap);
-			monthSum.put(Integer.toString(i-1), monthSumList);
+			int monthPriceSum = monthSumList.get(0).getDonPriceSum();
+			monthSum.put(Integer.toString(i-1), Integer.toString(monthPriceSum));
 		}
 		
 		String monthDate = Integer.toString(year);
@@ -124,10 +127,55 @@ public class AdminPageController {
 	}
 	
 	// 포인트 출력
-	@RequestMapping(value="allPointAdmin.dz")
-	public String allPoint() {
+	@RequestMapping(value="adminPointList.dz")
+	public ModelAndView allPoint(ModelAndView mv) {
+		DecimalFormat formatter = new DecimalFormat("###,###.##");
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+2; // 이번달주소
 		
-		return "";
+		// *** 달별 포인트 출력
+		ArrayList<DonCount> monthSumList = null;
+		HashMap<String, String> monthSum = new HashMap<String, String>();
+		for(int i = 2; i <= month; i++) {
+			String thisMonth = Integer.toString(year);
+			thisMonth += "0" + Integer.toString(i) + "01";
+			HashMap<String, String> dateMap = new HashMap<String, String>();
+			dateMap.put("date1", "20210101");
+			dateMap.put("date2", thisMonth);
+			System.out.println("테스트 *** : " + thisMonth);
+			monthSumList = pService.selectAllDonListSum(dateMap);
+			int monthPriceSum = monthSumList.get(0).getDonPriceSum();
+			monthSum.put(Integer.toString(i-1), Integer.toString(monthPriceSum));
+		}
+		
+		// *** 총 포인트 출력
+		String monthDate = Integer.toString(year);
+		monthDate = monthDate + "0" + Integer.toString(month) +"01";
+		
+		HashMap<String, String> yearSumDonMap = new HashMap<String, String>();
+		yearSumDonMap.put("date1", "20210101");
+		yearSumDonMap.put("date2", monthDate);
+		ArrayList<DonCount> yearCountList = pService.selectAllDonListSum(yearSumDonMap);  // *** 포인트총합
+		int priceSum = yearCountList.get(0).getDonPriceSum();
+		int userPoint = yearCountList.get(0).getDonUserPoint();
+		int don = yearCountList.get(0).getDonJjul();
+		int partnerPoint = yearCountList.get(0).getDonPartnerPoint();
+		String yearDonPriceSum = formatter.format(priceSum);
+		String yearDonUserPoint = formatter.format(userPoint);
+		String yearDonJjul =  formatter.format(don);
+		String yearDonPartnerPoint =  formatter.format(partnerPoint);
+		
+		try {
+			mv.addObject("monthSum", monthSum);
+			mv.addObject("yearDonPriceSum", yearDonPriceSum).addObject("yearDonUserPoint", yearDonUserPoint).addObject("yearDonJjul", yearDonJjul).addObject("yearDonPartnerPoint", yearDonPartnerPoint);
+			mv.addObject("month", month);
+			mv.setViewName("adminPage/adminPointList");
+		} catch (Exception e) {
+			mv.addObject("msg", "내역을 출력하는데 실패했습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	public void test(String monthDate) {
@@ -186,6 +234,18 @@ public class AdminPageController {
 			mv.addObject("msg", "유저정보 못불러왔음").setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	// 유저리스트 회원탈퇴
+	@RequestMapping(value = "adminUserDelete.dz", method = RequestMethod.GET)
+	public String userDelete(@RequestParam("userNo") int userNo, Model model) {
+		int result = uService.deleteUser(userNo);
+		if (result>0) {
+			return "redirect:adminUserList.dz";
+		}else {
+			model.addAttribute("msg", "회원탈퇴 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	/////////// 게시판관리 더보기
