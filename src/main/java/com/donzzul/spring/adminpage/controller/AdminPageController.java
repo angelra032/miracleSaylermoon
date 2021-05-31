@@ -78,7 +78,11 @@ public class AdminPageController {
 		HashMap<String, String> monthSum = new HashMap<String, String>();
 		for(int i = 2; i <= month; i++) {
 			String thisMonth = Integer.toString(year);
-			thisMonth += "0" + Integer.toString(i) + "01";
+			if(month < 10) {
+				thisMonth += "0" + Integer.toString(i) + "01";
+			} else {
+				thisMonth += 	Integer.toString(i) + "01";
+			}
 			HashMap<String, String> dateMap = new HashMap<String, String>();
 			dateMap.put("date1", "20210101");
 			dateMap.put("date2", thisMonth);
@@ -104,7 +108,6 @@ public class AdminPageController {
 		
 		
 		try {
-//			ArrayList<Don> pList = pService.selectAllDonList(dateMap);  // *** 포인트월별
 			ArrayList<User> userList = uService.selectUserListThree(); // *** 회원출력
 			ArrayList<Shop> shopList = sService.selectAllShopListThree(); // *** 사업자출력
 			mv.addObject("YearDon", YearDon);
@@ -146,7 +149,8 @@ public class AdminPageController {
 			System.out.println("테스트 *** : " + thisMonth);
 			monthSumList = pService.selectAllDonListSum(dateMap);
 			int monthPriceSum = monthSumList.get(0).getDonPriceSum();
-			monthSum.put(Integer.toString(i-1), Integer.toString(monthPriceSum));
+			System.out.println("확인가능한가 *************** : " + monthSumList.get(0).toString());
+			monthSum.put(Integer.toString(i-1), monthSumList.get(0).toString());
 		}
 		
 		// *** 총 포인트 출력

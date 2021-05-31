@@ -6,7 +6,7 @@ function selectMenu(data) {
 	} else if(data == 3) {
 		location.href="adminMReviewList.dz";
 	} else if(data == 4) {
-		alert('포인트관리');
+		location.href="adminPointList.dz";
 	} else {
 		alert('잘못된 접근입니다.');
 		location.href="adminUserList.dz"; // 임시

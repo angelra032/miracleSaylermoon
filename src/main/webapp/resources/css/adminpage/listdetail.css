@@ -231,8 +231,10 @@ main {
 }
 
 
-
-
+/* 포인트 */
+#monthTable {
+	margin : 100px auto 150px auto;
+}
 
 
 

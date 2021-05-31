@@ -13,7 +13,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">${ month }월 포인트 목록</div>
+		<div id="main-title">포인트 관리</div>
 		<div class="frame">
 			<div class="my-info">
 				<jsp:include page="/WEB-INF/views/adminPage/common/listTopNavi.jsp"></jsp:include>
@@ -42,7 +42,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<br><br><br>
+				
 				<table class="list-table" id="monthTable">
 					<thead>
 						<tr>
@@ -65,18 +65,43 @@
 	$('.menu-btn').eq(3).css('background','#0160ff').css('color','white');
 	
 	console.log('테스트 : ' + '${monthSum}');
-	var dataArr = [];
+	var donPriceSum = [];
+	var donUserPoint = [];
+	var donJjul = [];
+	var donPartnerPoint = [];
+	
 	var monthArr = [];
 	<c:forEach items="${ monthSum }" var="month" varStatus="status">
 		var test = '${month}';
-		console.log('test : ' + test);
+		console.log("포문속 데이터" + '${month}');
 		monthArr['${status.index}'] = test.substring(0, test.indexOf('=', 0));
-		dataArr['${status.index}'] = test.substring(test.indexOf('=', 1)+1, test.length);
+		
+		donPriceSum['${status.index}'] = test.substring(test.indexOf('=', 5)+1, test.indexOf(',', 1));
+		donUserPoint['${status.index}'] = test.substring(test.indexOf('=', 55)+1, test.indexOf(',', 55));
+		donJjul['${status.index}'] = test.substring(test.indexOf('=', 70)+1, test.indexOf(',', 75));
+		donPartnerPoint['${status.index}'] = test.substring(test.indexOf('=', 90)+1, test.length-1);
 	</c:forEach>
-	console.log("데이터 : " + dataArr);
+	console.log("donPriceSum : " + donPriceSum);
+	console.log("donUserPoint : " + donUserPoint);
+	console.log("donJjul : " + donJjul);
+	console.log("donPartnerPoint : " + donPartnerPoint);
 	console.log("날짜 : " + monthArr);
-	for(var i = 0; i < dataArr.length; i++) {
-		$('#monthTable').append('하이');
+	
+	for(var i = monthArr.length-1; i >= 0; i--) 
+	{
+		var html = null;
+		html += '<tbody>';
+		html +=  '<tr>';
+		html += '<td>' +monthArr[i].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</td>';
+		html += '<td>' +donPriceSum[i].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</td>';
+		html += '<td>' +donUserPoint[i].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</td>';
+		html += '<td>' +donJjul[i].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</td>';
+		html += '<td>' +donPartnerPoint[i].replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</td>';
+		html +=  '</tr>';
+		html += '</tbody>';
+		$('#monthTable').append(html);
+		
 	}
+	
 </script>
 </html>
