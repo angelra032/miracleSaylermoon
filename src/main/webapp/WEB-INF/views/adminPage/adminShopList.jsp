@@ -42,7 +42,7 @@
 						<c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 						<tr>
 							<td>${num }</td>
-							<td>${shop.shopName }</td>
+							<td style="cursor: pointer;" onclick="location.href='shopDetail.dz?shopNo=${shop.shopNo}'">${shop.shopName }</td>
 							<td>${shop.userId }</td>
 							<td>${shop.partnerVerify }</td>
 							<td>${shop.shopPhone }</td>

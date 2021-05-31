@@ -59,7 +59,7 @@
 				<div class="my-title">
 					<span>사업자관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="adminAllShopList.dz">더보기</a>
+						<a class="more-btn b-btn" href="adminShopList.dz">더보기</a>
 					</div>
 				</div>
 				<div class="center-table-area">
@@ -81,7 +81,7 @@
 							
 								<tr>
 									<td>${ status.count }</td>
-									<td><a class="table-link-title" href="#"><span>${ shop.shopName }</span></a></td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${shop.shopNo}"><span>${ shop.shopName }</span></a></td>
 									<td>${ shop.userId }</td>
 									<td>${ shop.partnerVerify }</td>
 									<c:if test="${ shop.showShopYN eq 'Y' or shop.showShopYN eq 'y' }">
@@ -113,7 +113,7 @@
 				<div class="my-title">
 					<span>회원관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="adminAllUserList.dz">더보기</a>
+						<a class="more-btn b-btn" href="adminUserList.dz">더보기</a>
 					</div>
 				</div>
 				<div class="center-table-area">
@@ -130,11 +130,12 @@
 						</thead>
 						<tbody>
 						<c:if test="${!empty userList }">
+						
 							<c:forEach items="${ userList }" var="user" end="2" varStatus="status">
 								<tr>
 									<td>${ status.count }</td>
 									<td>${ user.userName }</td>
-									<td><a class="table-link-title" href="#"><span>${ user.userId }</span></a></td>
+									<td><a class="table-link-title" href="adminUserInfo.dz?userNo=${user.userNo}"><span>${ user.userId }</span></a></td>
 									<td>${ user.userPhone }</td>
 									<c:if test="${ user.userType eq '1' }">
 										<td>꿈나무</td>
@@ -224,13 +225,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 	var ctx = document.getElementById('myChart');
+	var dataArr;
+	<c:forEach items="${ monthSum }" var="month" varStatus="status">
+		console.log("배고파 : " + '${month}');
+		dataArr = '${month}';
+	</c:forEach>
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
 			labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 			datasets: [{
 				label: '2021년 돈쭐포인트',
-				data: [120000, 190000, 300000, 550000, 20000, 30000, 0, 0, 0, 0, 0, 0],
+				data: [
+					
+				],
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
 					'rgba(54, 162, 235, 0.2)',
