@@ -9,6 +9,7 @@
 	content="415085927923-rlk2denkpna85ffki391opn4br9792f1.apps.googleusercontent.com">
 <!-- css -->
 <link rel="stylesheet" href="/resources/css/header.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
 <!-- chatting css -->
 <link rel="stylesheet" href="/resources/css/chatting/chat.css">
 <!-- JS -->
