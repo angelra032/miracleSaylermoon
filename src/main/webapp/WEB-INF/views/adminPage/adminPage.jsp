@@ -174,13 +174,11 @@
 					<table>
 						<thead>
 							<tr>
-								<th width=100>No</th>
-								<th>업체명</th>
-								<th>사업자아이디</th>
-								<th>업체등록번호</th>
-								<th>승인상태</th>
-								<th>탈퇴요청</th>
-								<th>탈퇴</th>
+								<th width=100px>No</th>
+								<th width=500px>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -189,8 +187,6 @@
 								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
 								<td>papapa01</td>
 								<td>123457-456-7897</td>
-								<td>N</td>
-								<td>N</td>
 								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
 							</tr>
 							<tr>
@@ -198,8 +194,6 @@
 								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
 								<td>papapa01</td>
 								<td>123457-456-7897</td>
-								<td>N</td>
-								<td>N</td>
 								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
 							</tr>
 							<tr>
@@ -207,8 +201,6 @@
 								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
 								<td>papapa01</td>
 								<td>123457-456-7897</td>
-								<td>N</td>
-								<td>N</td> <!-- N일때는 버튼 비활성화 -->
 								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
 							</tr>
 							
