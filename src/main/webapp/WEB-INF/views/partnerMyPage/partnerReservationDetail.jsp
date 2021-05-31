@@ -75,7 +75,7 @@
 					</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
-							<td colspan="5">
+							<td colspan="6">
 								<!-- 이전 -->
 								<c:url var="before" value="partnerReserveList.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
@@ -113,7 +113,7 @@
 						</c:if>
 						<c:if test="${ empty rList }">
 							<tr>
-								<td colspan="5">${ msg }</td>
+								<td colspan="6">${ msg }</td>
 							</tr>
 						</c:if>
 					</tbody>

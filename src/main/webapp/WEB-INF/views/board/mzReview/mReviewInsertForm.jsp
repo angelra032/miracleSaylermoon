@@ -8,6 +8,8 @@
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
 	<!--  -->
 	<title>맛집후기</title>
 </head>
@@ -20,6 +22,9 @@
 	   	</div>
 		<div id="main-title">
 			맛집후기
+			<div class="shop-name">
+				<span>${ shop.shopName }</span>
+			</div>
 			<input type="hidden" class="shopNo" value="${ shopNo }">
 		</div>
 		

@@ -82,7 +82,7 @@
 							</td>
 						</tr>
 						</c:if>
-						<c:if test="${ empty rList }">
+						<c:if test="${ empty qList }">
 							<tr>
 								<td colspan="5">${ msg }</td>
 							</tr>

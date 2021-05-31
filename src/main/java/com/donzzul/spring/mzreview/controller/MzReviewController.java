@@ -22,6 +22,8 @@ import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.reservation.domain.Reservation;
+import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.user.domain.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -31,6 +33,8 @@ public class MzReviewController {
 
 	@Autowired
 	private MzReviewService mService;
+	@Autowired
+	private ShopService sService;
 	
 	// 맛집후기 주소 selectAll
 	@RequestMapping(value="mReviewMain.dz", method=RequestMethod.GET)
@@ -61,11 +65,13 @@ public class MzReviewController {
 		return mv;
 	}
 	
-	// 맛집후기 글쓰기버튼으로 들어옴 *****
+	// 맛집후기 작성페이지 - 글쓰기버튼으로 들어옴 *****
 	@RequestMapping(value="mReviewWriteView.dz", method=RequestMethod.GET)
 	public String mReviewWriteView(@RequestParam("shopNo") int shopNo, @RequestParam("reservationNo") int reservationNo, Model model ) {
+		Shop shop = sService.selectShopOne(shopNo);
 		model.addAttribute("shopNo", shopNo);
 		model.addAttribute("reservationNo", reservationNo);
+		model.addAttribute("shop", shop);
 		return "board/mzReview/mReviewInsertForm";
 	}
 	
