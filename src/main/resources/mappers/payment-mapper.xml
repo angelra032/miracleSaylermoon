@@ -43,6 +43,11 @@
 		SELECT SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo } ORDER BY PAYMENT_DATE DESC
 	</select>
 	
+	<!-- 포인트 출력(마이페이지) -->
+	<select id="selectUserPoint" resultMap="userResultMap">
+		SELECT * FROM "USER" WHERE USER_NO = #{userNo }
+	</select>
+	
 	
 	<!-- 룰렛 전 - don 내역 저장, 포인트 업데이트 -->
 	<insert id="insertDonList" useGeneratedKeys="true" keyProperty="donNo" keyColumn="DON_NO">

@@ -30,7 +30,9 @@ public interface PaymentStore {
 	public int updateRoulettePoint(HashMap<String, Object> hash); // 룰렛포인트 적립
 	public int updateReviewPoint(User user);// 리뷰포인트 적립
 
+	
 	// 포인트 업데이트 시 사용
+	public User selectUserPoint(int userNo); // 포인트 조회(마이페이지)
 	public Don selectDonPrice(int donNo);
 	public int updateDonSavePoint(Don don);
 	// 포인트 업데이트 시 사용_2(%계산)

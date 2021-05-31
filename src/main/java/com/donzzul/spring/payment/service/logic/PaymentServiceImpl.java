@@ -59,6 +59,10 @@ public class PaymentServiceImpl implements PaymentService {
 
 	// 포인트 업데이트 시 사용
 	@Override
+	public User selectUserPoint(int userNo) {
+		return pStore.selectUserPoint(userNo);
+	}
+	@Override
 	public Don selectDonPrice(int donNo) {
 		return pStore.selectDonPrice(donNo);
 	}
@@ -122,6 +126,7 @@ public class PaymentServiceImpl implements PaymentService {
 	public Don selectMoneyTotal() {
 		return pStore.selectMoneyTotal();
 	}
+
 
 
 	

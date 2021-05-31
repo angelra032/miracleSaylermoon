@@ -61,6 +61,10 @@ public class PaymentStoreLogic implements PaymentStore{
 
 	// 포인트 업데이트 시 사용
 	@Override
+	public User selectUserPoint(int userNo) {
+		return sqlSession.selectOne("paymentMapper.selectUserPoint", userNo);
+	}
+	@Override
 	public Don selectDonPrice(int donNo) {
 		return sqlSession.selectOne("paymentMapper.selectDonPrice", donNo);
 	}
@@ -126,6 +130,7 @@ public class PaymentStoreLogic implements PaymentStore{
 	public Don selectMoneyTotal() {
 		return sqlSession.selectOne("paymentMapper.selectMoneyTotal");
 	}
+	
 
 	
 	

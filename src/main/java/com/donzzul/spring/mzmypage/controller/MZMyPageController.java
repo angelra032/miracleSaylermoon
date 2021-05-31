@@ -40,19 +40,25 @@ public class MZMyPageController {
 		
 		User loginUser = (User)session.getAttribute("loginUser");
 		int userNo = loginUser.getUserNo();
+
+		// userPoint 조회
+		User userPoint = pService.selectUserPoint(userNo);
 		
 		// 예약 목록
 		ArrayList<Reservation> rList = rService.listByMZToThree(userNo);
 		// 돈쭐 목록
 		ArrayList<Don> dList = pService.selectDonListThree(userNo);
 		
-		if(!rList.isEmpty() || !dList.isEmpty()) {
+		if(userPoint != null || !rList.isEmpty() || !dList.isEmpty()) {
+			model.addAttribute("userPoint", userPoint.getUserPoint());
 			model.addAttribute("rList", rList);
 			model.addAttribute("dList", dList);
+			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
+			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
