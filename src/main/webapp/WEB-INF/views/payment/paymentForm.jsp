@@ -17,6 +17,31 @@
 	        <img src="/resources/images/payment/donjjulmainbanner.jpg" alt="뒷배경이미지">
 	    </div>
 		<div id="main-title">돈쭐내기&nbsp;&nbsp;<span id="main-title-shop">${shop.shopName }</span></div>
+		
+		<c:if test="${ empty loginUser }">
+			<script>
+				alert("잘못된 접근입니다. \n로그인 이후 사용 가능합니다.");
+				location.href="loginView.dz";
+			</script>
+		</c:if>
+		<c:if test="${ ! empty loginUser }">
+			<c:if test="${loginUser.userType == 1 }">
+				<script>
+					alert("잘못된 접근입니다. \n일반 회원만 사용가능한 돈쭐 페이지입니다.");
+					location.href="/";
+				</script>
+			</c:if>
+			<c:if test="${loginUser.userType == 3 }">
+				<script>
+					alert("잘못된 접근입니다. \n일반 회원만 사용가능한 돈쭐 페이지입니다.");
+					location.href="/";
+				</script>
+			</c:if>
+			<%-- <c:if test="${loginUser.userType == 2 }">
+			</c:if> --%>
+		</c:if>
+		
+		
 		<div class="frame">
 			<form action="" method="post">
 			
@@ -53,12 +78,12 @@
 						<div>
 							<div id="lay2-point-div">
 								<c:if test="${ empty userPoint }">
-									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${Pmsg }" readonly/>  원 <br>
+									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="0" readonly/>  원 <br>
 									&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
 									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
 								</c:if>
 								<c:if test="${ !empty userPoint }">
-									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="0" readonly/>  원 <br> <%-- ${userPoint } --%>
+									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${userPoint }" readonly/>  원 <br> <%-- ${userPoint } --%>
 									&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
 									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
 								</c:if>
@@ -92,6 +117,10 @@
 				
 			</form>
 		</div>
+		
+		
+		
+		
 	</main>
 
 <script type="text/javascript">
@@ -115,6 +144,7 @@
 		
 	});
 
+	// 돈쭐내기 버튼
 	$("#payment-btn").on("click", function(e){
 	    e.preventDefault();
 	    var usePoint = $("#usePoint").val();
@@ -122,7 +152,7 @@
 		usePoint = Number(usePoint);
 		userPoint = Number(userPoint);
 
-		if(usePoint > 5000){
+		/* if(usePoint > 5000){
 			alert("포인트는 5000원까지 사용 가능합니다!");
 			return false;
 		}else if(usePoint > 0 && usePoint < 500){
@@ -132,7 +162,51 @@
 			alert("500원부터 사용 가능합니다!");
 			return false;
 		}
-		/* else if(usePoint == 0){
+		 */ 
+		if($("#useablePoint").val() == 0){
+			// 안 돼 ㅠ^ㅠ - 0일 때 안 넘어가고,, 500과 5000 사이에 넘어가면 안 되는데 넘어감..
+			/* if(usePoint == 0){
+				alert("왜. 리턴 트루인데..");
+				return true;
+			}else {
+				alert("사용 가능한 포인트가 없습니다.");
+				return false;
+			} */
+			/* if(usePoint > 5000 || usePoint < 0){
+				alert("사용 가능한 포인트가 없습니다.");
+				return false;
+			} else if(usePoint > 0 && usePoint < 500){
+				alert("사용 가능한 포인트가 없습니다.");
+				return false;
+			} else if(usePoint == 0){
+				alert("왜. 리턴 트루인데..");
+				return true;
+			} 
+			if(usePoint > 5000){
+				alert("포인트는 5000원까지 사용 가능합니다!");
+				return false;
+			}else if(usePoint > 0 && usePoint < 500){
+				alert("500원부터 사용 가능합니다!");
+				return false;
+			}else if(usePoint < 0){
+				alert("500원부터 사용 가능합니다!");
+				return false;
+			}
+			*/
+		}else if($("#useablePoint").val() != 0) {
+			if(usePoint > 5000){
+				alert("포인트는 5000원까지 사용 가능합니다!");
+				return false;
+			}else if(usePoint > 0 && usePoint < 500){
+				alert("500원부터 사용 가능합니다!");
+				return false;
+			}else if(usePoint < 0){
+				alert("500원부터 사용 가능합니다!");
+				return false;
+			}
+		}
+		/* 
+		else if(usePoint == 0){
 			return true;
 		} */
 		
@@ -309,6 +383,8 @@
 		$("#pSubmit").on("click", function(e){
 			e.preventDefault(); // submit 버튼으로 작동하는 것을 중단.
 			
+			console.log("젤 처음 콘솔" + $("input[name='donPrice']").val());
+			
 			var usePoint = $("#usePoint").val();
 			var userPoint = $("#userPoint").val();
 			console.log(userPoint);console.log(usePoint);
@@ -316,6 +392,31 @@
 			userPoint = Number(userPoint);
 			console.log(userPoint);console.log(usePoint);
 			
+			// 가용포인트가 0일 때 - 0 가능, 다른 수 불가능
+			if($("#useablePoint").val() == 0){
+				if(usePoint == 0){
+					alert("왜. 리턴 트루인데..");
+					return true;
+				}else{
+					alert("사용 가능한 포인트가 없습니다.");
+					return false;
+				}
+			}else if($("#useablePoint").val() != 0) {
+				if(usePoint > 5000){
+					alert("포인트는 5000원까지 사용 가능합니다!");
+					return false;
+				}else if(usePoint > 0 && usePoint < 500){
+					alert("500원부터 사용 가능합니다!");
+					return false;
+				}else if(usePoint == 0){
+					return true;
+				}else if(usePoint < 0){
+					alert("500원부터 사용 가능합니다!");
+					return false;
+				}
+			}
+			
+			/* 
 			if(usePoint > 5000){
 				alert("포인트는 5000원까지 사용 가능합니다!");
 				return false;
@@ -328,7 +429,7 @@
 				alert("500원부터 사용 가능합니다!");
 				return false;
 			}
-			
+			 */
 			/* 
 			if(usePoint > userPoint) {
 				alert("포인트 사용 가능 범위를 넘었습니다!");
@@ -352,10 +453,6 @@
 			}
 			 */
 			
-			/* $("#lay2").show();
-			$("#lay2-1").show(500);
-			$("#lay2-2").show(500);
-			$("#lay3").hide(); */
 			// 포인트 사용 클릭 시 
 			// lay3 이 보여야하며
 			// lay3의 내용 - 총가격(가격*수량), 포인트, 결제 금액 나타내야하고
@@ -385,6 +482,7 @@
 			var finPrice = priceSum - usePoint; // 결제할 가격 = (가격*수량) - 포인트
 			console.log("lay3 결제할가격(차감)" + finPrice);
 			$("input[name='donPrice']").val(finPrice); // 결제 가격 = 총가격 - 사용포인트
+			
 		});
 	});
 

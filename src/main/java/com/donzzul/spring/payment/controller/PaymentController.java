@@ -26,6 +26,7 @@ import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
+import com.sun.org.apache.xml.internal.serialize.Printer;
 
 @Controller
 public class PaymentController {
@@ -35,18 +36,27 @@ public class PaymentController {
 
 	// 돈쭐 결제 폼
 	@RequestMapping(value = "paymentFormView.dz", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView paymentFormView(@ModelAttribute Shop shop, ModelAndView mv, HttpSession session) { //, @RequestParam("shopNo") int shopNo
+	public ModelAndView paymentFormView(@ModelAttribute Shop shop, ModelAndView mv, HttpServletResponse response, HttpSession session) throws IOException { 
 		User loginUser = (User)session.getAttribute("loginUser");
-		/*
-		if(loginUser == null) {
-			//<script >alert("로그인 이후 사용 가능합니다!");
-			
-		}
-		*/
+		
+//		System.out.println("첫로드"+loginUser.toString());
+//		PrintWriter out = response.getWriter();
+//		response.setContentType("text/html; charset=UTF-8");
+//		if(loginUser == null) {
+//			out.println("<script>alert('로그인 이후 사용 가능합니다!'); location.href='/';</script>");
+//			out.flush();
+//		} 
+//		if(loginUser.getUserType() == "1" || loginUser.getUserType() == "3") {
+//			out.println("<script>alert('일반 회원만 돈쭐 가능합니다.'); location.href='/';</script>");
+//			out.flush();
+//		}
 		
 		// userPoint 조회
 		User userPoint = pService.selectUserPoint(loginUser.getUserNo());
-		
+		if(userPoint == null) {
+			mv.addObject("msg", "로그인 해주세요").setViewName("common/errorPage");
+		}
+		System.out.println("포인트"+userPoint.getUserPoint());
 		ArrayList<MainMenu> mList = pService.selectShopMenu(shop.getShopNo());
 		System.out.println(shop.toString());
 		System.out.println(mList.toString());
