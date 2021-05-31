@@ -15,7 +15,7 @@
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="mzMyPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,8 @@
 						<tr>
 							<th>No</th>
 							<th>가게이름</th>
-							<th>예약날짜</th>
+							<th>예약일시</th>
+							<th>예약인원</th>
 							<th>예약취소</th>
 							<th>후기작성</th>
 						</tr>
@@ -36,8 +37,9 @@
 					<c:forEach items="${rList }" var="reservation" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
-							<td class="reserv-date${ reservation.reservationNo }">${reservation.reserveDate }</td>
+							<td><a class="table-link-title" href="shopDetail.dz?shopNo=${reservation.shopNo }"><p>${reservation.shopName }</p></a></td>
+							<td>${reservation.reserveDate } / ${reservation.reserveTime }시</td>
+							<td class="reserv-membercount${ reservation.reservationNo }">${reservation.reserveCount }명</td>
 							
 							<c:if test="${reservation.rState eq 'O' }">
 								<td class="reserv-stay${ reservation.reservationNo }"><a class="reserv-btn reserv-btn${ reservation.reservationNo }" href="#" >예약취소</a></td>
@@ -64,7 +66,7 @@
 					</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
-							<td colspan="5">
+							<td colspan="6">
 								<!-- 이전 -->
 								<c:url var="before" value="rListDetailAllByDream.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
@@ -128,7 +130,7 @@
 				success : function(result) {
 					if(result == 'ok'){
 						$('.reserv-stay'+reservationNo).remove();
-						$('.reserv-date'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
+						$('.reserv-membercount'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
 					}
 				},
 				error : function() {
