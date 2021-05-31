@@ -185,7 +185,7 @@
 		
 		// 주소로 좌표를 검색합니다
 		positions.forEach(function(shop, index){ 
-			console.log(index);
+			
 			geocoder.addressSearch(shop.shopAddr, function(result, status) {
 				
 			/* console.log(shop.shopAddr); */
@@ -253,7 +253,7 @@
 							
 						var content = '<div class="wrap">' + 
 				            '    <div class="info">' + 
-				            '        <div class="title">' + shopMap.shopName + 
+				            '        <div class="title">' + shop.shopName + 
 				            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 				            '        </div>' + 
 				            '        <div class="body">' + 
@@ -261,10 +261,10 @@
 				            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
 				            '           </div>' +  */
 				            '            <div class="desc">' + 
-				            '                <div class="ellipsis">제공대상 : '+shopMap.shopTarget+'</div>' + 
-				            '                <div class="ellipsis">제공품목 : '+shopMap.shopProduct+'</div>' + 
-				            '                <div class="jibun ellipsis">영업시간 : '+shopMap.startTime+':00 - '+shopMap.endTime+':00</div>' + 
-				            '                <div><input type="hidden" name="shopNo" value="'+shopMap.shopNo+'">' +
+				            '                <div class="ellipsis">제공대상 : '+shop.shopTarget+'</div>' + 
+				            '                <div class="ellipsis">제공품목 : '+shop.shopProduct+'</div>' + 
+				            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+				            '                <div><input type="hidden" name="shopNo" value="'+shop.shopNo+'">' +
 							'				 <button type="button" class="btn btn-primary btn-sm" onclick="goDetail(shopNo)">예약하기</button></div>' + 
 				            '            </div>' + 
 				            '        </div>' + 
@@ -310,7 +310,6 @@
 		
 	    
 
-		
 		/* $(function() { */
 		$("#btn-search").on("click", function() {
 			/* var result = true; */
@@ -323,15 +322,11 @@
 			}else {
 				$(".content-list").empty();
 				$(".content-list-navi").empty();
-				function shopDetail() {
-					location.href='shopDetail.dz';
-				}
-				function searchLogic() {
+
 					$.ajax({
 						url: "mapSearchKey.dz",
 						type: "get",
-						data: { "searchKeyword": searchKeyword,
-								"page" : data.pi }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+						data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
 						/* async: false, */
 						dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
 						success: function(data) {
@@ -373,23 +368,25 @@
 								/* 네비 */
 								contentListNavi.append("<hr>");
 								if(data.pi.currentPage > 1) {
-									contentListNavi.append("<a href='mapSearchKey.dz?page="+(data.pi.currentPage - 1)+"&searchKeyword=searchKeyword'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+(data.pi.currentPage-1)+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
 									/* contentListNavi.append("<img src='/resources/images/navi-left.png' alt='이전' onclick='searhLogic();'/>&nbsp;&nbsp;"); */
 								}
 								for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
 									if(i == data.pi.currentPage) {
 										contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+										/* contentListNavi.append("<span id='currentPage'>"+i+"</span>"); */	
 									}else if(i != data.pi.currentPage) {
-										/* contentListNavi.append("<a href='mapSearchKey.dz?page="+i+"&searchKeyword=searchKeyword'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>"); */
-										contentListNavi.append("<span id='otherPage' onclick='searhLogic();'>"+i+"</span>&nbsp;&nbsp;");
+										contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+data.pi.currentPage+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+										/* contentListNavi.append("<span id='otherPage' onclick='searhLogic();'>"+i+"</span>&nbsp;&nbsp;"); */
 									}
 								}
 								if(data.pi.currentPage < data.pi.maxPage) {
-									/* contentListNavi.append("<a href='mapSearchKey.dz?page='"+(data.pi.currentPage + 1)+"'><img src='/resources/images/navi-right.png' alt='다음'/></a>"); */
-									contentListNavi.append("<img src='/resources/images/navi-right.png' alt='다음' onclick='searhLogic();'/>");
+									contentListNavi.append("<a href='#'  onclick='searchLogic1("+data.searchKeyword+(data.pi.currentPage+1)+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+									/* contentListNavi.append("<img src='/resources/images/navi-right.png' alt='다음' onclick='searhLogic();'/>"); */
 								}
 	
 								var map = new kakao.maps.Map(mapContainer, mapOption);
+								
 								
 								/* <hr>
 								<c:url var="before" value="mapSearchShop.dz">
@@ -447,12 +444,89 @@
 					
 					
 				});
-			 }
  				/* result = true; */
 			}
 		});
 		
+		function shopDetail() {
+			location.href='shopDetail.dz';
+		}
+		function searchLogic1() {
+			$(".content-list").empty();
+			$(".content-list-navi").empty();
 
+				$.ajax({
+					url: "mapSearchKey.dz",
+					type: "get",
+					data: { "searchKeyword": '제주', "page" :  2}, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+					/* async: false, */
+					dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
+					success: function(data) {
+						var contentList = $(".content-list");
+						var contentListNavi = $(".content-list-navi");
+						/* var contentListNavi = $("<div class='content-list navi'>"); */
+						$("#center-value").val(data.center);
+						if(data.mList.length > 0) { 
+							$(".content-list").empty();
+							$(".content-list-navi").empty();
+							
+							/* 검색 리스트 */
+							for( var i in data.mList) {
+								/* console.log(data.mList.length);
+								console.log(data.mList);
+								console.log(data.pi); */
+								
+								var contentShop = $("<div class='content-shop'>");
+								var contentShopLeft = $("<div class='content-shop left'>");
+								var contentShopRight = $("<div class='content-shop right'>");
+								var contentShopRightTop = $("<div class='content-shop right top'>");
+								var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+								
+								contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+								contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
+												   .append("<span>"+data.mList[i].shopType+"</span><br>")
+												   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
+												   .append("<span>"+data.mList[i].shopContent+"</span><br>");
+								contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
+													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+								contentShop.append(contentShopLeft);
+								contentShopRight.append(contentShopRightTop);
+								contentShopRight.append(contentShopRightBottom);
+								contentShop.append(contentShopRight);
+								contentList.append(contentShop); 
+								
+					 	 	}
+							
+							/* 네비 */
+							contentListNavi.append("<hr>");
+							if(data.pi.currentPage > 1) {
+								contentListNavi.append("<a href='#' onclick='searchLogic1();'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+								/* contentListNavi.append("<img src='/resources/images/navi-left.png' alt='이전' onclick='searhLogic();'/>&nbsp;&nbsp;"); */
+							}
+							for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
+								if(i == data.pi.currentPage) {
+									contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+								}else if(i != data.pi.currentPage) {
+									contentListNavi.append("<a href='#' onclick='searchLogic1();'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+								}
+							}
+							if(data.pi.currentPage < data.pi.maxPage) {
+								contentListNavi.append("<a href='#'  onclick='searchLogic1();'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+							}
+
+							var map = new kakao.maps.Map(mapContainer, mapOption);
+							
+					}else {
+						$(".content-list").empty();
+						$(".content-list-navi").empty();
+						contentList.append("<span>등록된 가게가 없습니다.</span>");
+					}  
+				},
+				error: function() {
+					console.log("서버에 연결할 수 없습니다.");
+				}
+			});
+		}
 	</script>
 	
 	
