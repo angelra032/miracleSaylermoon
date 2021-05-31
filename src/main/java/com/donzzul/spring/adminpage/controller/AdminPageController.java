@@ -72,11 +72,20 @@ public class AdminPageController {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH)+2; // 이번달주소
+		int lastMonth = cal.get(Calendar.MONTH); // 지난달주소
 		
 		// *** 달별 포인트 출력
 		ArrayList<DonCount> monthSumList = null;
 		HashMap<String, String> monthSum = new HashMap<String, String>();
 		for(int i = 2; i <= month; i++) {
+			// 이전달
+			String lastMonthString = Integer.toString(year);
+			if(lastMonth < 10) {
+				lastMonthString += "0" + Integer.toString(i-1) + "01"; 
+			} else {
+				lastMonthString += Integer.toString(i-1) + "01";
+			}
+			// 현재달
 			String thisMonth = Integer.toString(year);
 			if(month < 10) {
 				thisMonth += "0" + Integer.toString(i) + "01";
@@ -84,9 +93,9 @@ public class AdminPageController {
 				thisMonth += 	Integer.toString(i) + "01";
 			}
 			HashMap<String, String> dateMap = new HashMap<String, String>();
-			dateMap.put("date1", "20210101");
+			dateMap.put("date1", lastMonthString);
 			dateMap.put("date2", thisMonth);
-			System.out.println("테스트 *** : " + thisMonth);
+			System.out.println("테스트 ******* : " + lastMonth);
 			monthSumList = pService.selectAllDonListSum(dateMap);
 			int monthPriceSum = monthSumList.get(0).getDonPriceSum();
 			monthSum.put(Integer.toString(i-1), Integer.toString(monthPriceSum));
