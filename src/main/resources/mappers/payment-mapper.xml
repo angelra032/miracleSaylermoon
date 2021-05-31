@@ -43,6 +43,11 @@
 		SELECT SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo } ORDER BY PAYMENT_DATE DESC
 	</select>
 	
+	<!-- 포인트 출력(마이페이지) -->
+	<select id="selectUserPoint" resultMap="userResultMap">
+		SELECT * FROM "USER" WHERE USER_NO = #{userNo }
+	</select>
+	
 	
 	<!-- 룰렛 전 - don 내역 저장, 포인트 업데이트 -->
 	<insert id="insertDonList" useGeneratedKeys="true" keyProperty="donNo" keyColumn="DON_NO">
@@ -157,9 +162,13 @@
 	</select>
 
 	<select id="selectDonListSum" resultType="com.donzzul.spring.payment.domain.DonCount"> 
-		SELECT SUM(DON_PRICE) AS donPriceSum, COUNT(DON_PRICE) AS donPricePepole 
-		FROM DON WHERE PAYMENT_DATE BETWEEN TO_DATE(#{date1})AND TO_DATE(#{date2}) 
-		+ 0.99999 
+		SELECT SUM(DON_PRICE) AS donPriceSum, 
+        COUNT(DON_PRICE) AS donPricePepole,
+        SUM(SAVE_POINT) AS donUserPoint,
+        SUM(DON_PRICE*0.1) AS donJjul,
+        SUM(DON_PRICE) - SUM(SAVE_POINT) - SUM((DON_PRICE*0.1)) AS donPartnerPoint
+      FROM DON WHERE PAYMENT_DATE BETWEEN TO_DATE(#{date1})AND TO_DATE(#{date2}) 
+      + 0.99999
 	</select>
 
 	

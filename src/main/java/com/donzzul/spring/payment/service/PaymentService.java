@@ -27,6 +27,7 @@ public interface PaymentService {
 
 	
 	//// 포인트 적립(룰렛,리뷰) ////
+	public User selectUserPoint(int userNo); // 포인트 조회(마이페이지)
 	public int saveRoulettePoint(HashMap<String, Object> hash); // 룰렛포인트 적립
 	public int saveReviewPoint(User user);// 리뷰포인트 적립
 

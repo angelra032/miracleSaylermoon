@@ -25,10 +25,15 @@
 						<span class="title-span">메뉴 선택</span>
 					</div>
 					<div class="lay1-content">
-						<!-- for each문(가게shop/메뉴mainMenu) -->
-						<c:forEach items="${mList }" var="menu">
-							<label class="menu-choice"><input type="hidden" name="menu-price" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
-						</c:forEach>
+						<c:if test="${ empty mList }">
+							<label class="menu-choice"><input type="hidden" name="menu-price" value=""><input type="radio" name="menu" value="" onclick=""><span>${Dmsg }</span></label>
+						</c:if>
+						<c:if test="${ !empty mList }">
+							<!-- for each문(가게shop/메뉴mainMenu) -->
+							<c:forEach items="${mList }" var="menu">
+								<label class="menu-choice"><input type="hidden" name="menu-price" value="${menu.mainMenuPrice }"><input type="radio" name="menu" value="${menu.mainMenuName }" onclick="menuChoice(this)"><span>${menu.mainMenuName }&nbsp;&nbsp;${menu.mainMenuPrice }원</span></label>
+							</c:forEach>
+						</c:if>
 					</div>
 				</div>
 				<div id="lay2" class="payment">
@@ -47,9 +52,16 @@
 						</div>
 						<div>
 							<div id="lay2-point-div">
-								&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${loginUser.userPoint }" readonly/>  원 <br>
-								&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
-								&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
+								<c:if test="${ empty userPoint }">
+									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${Pmsg }" readonly/>  원 <br>
+									&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
+									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
+								</c:if>
+								<c:if test="${ !empty userPoint }">
+									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="0" readonly/>  원 <br> <%-- ${userPoint } --%>
+									&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
+									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
+								</c:if>
 								<!-- <input type="text" id="pCount" placeholder="사용할 포인트 입력"/>원 --> 
 							</div>
 								&nbsp;&nbsp;<button id="pSubmit">포인트 사용하기</button>

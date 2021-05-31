@@ -36,22 +36,30 @@ public class PaymentController {
 	// 돈쭐 결제 폼
 	@RequestMapping(value = "paymentFormView.dz", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView paymentFormView(@ModelAttribute Shop shop, ModelAndView mv, HttpSession session) { //, @RequestParam("shopNo") int shopNo
-		/*
 		User loginUser = (User)session.getAttribute("loginUser");
+		/*
 		if(loginUser == null) {
 			//<script >alert("로그인 이후 사용 가능합니다!");
 			
 		}
 		*/
+		
+		// userPoint 조회
+		User userPoint = pService.selectUserPoint(loginUser.getUserNo());
+		
 		ArrayList<MainMenu> mList = pService.selectShopMenu(shop.getShopNo());
 		System.out.println(shop.toString());
 		System.out.println(mList.toString());
-		if (mList != null) {
-//			mv.addObject("menu", menu).addObject("shop", shop).setViewName("payment/paymentForm");
+		if (userPoint != null || mList != null) {
+			mv.addObject("userPoint", userPoint.getUserPoint()).setViewName("payment/paymentForm");
 			mv.addObject("shop", shop).setViewName("payment/paymentForm");
 			mv.addObject("mList", mList).setViewName("payment/paymentForm");
+			
+			mv.addObject("Pmsg", "0");
+			mv.addObject("Dmsg", "돈쭐 가능한 메뉴가 없습니다.").setViewName("payment/paymentForm");
 		} else {
-			mv.addObject("msg", "돈쭐 가능한 메뉴가 없습니다.").setViewName("payment/paymentForm");
+			mv.addObject("Pmsg", "0");
+			mv.addObject("Dmsg", "돈쭐 가능한 메뉴가 없습니다.").setViewName("payment/paymentForm");
 			System.out.println("돈쭐 결제 폼 출력 오류 - 아마도 메뉴(가게넘버) 받아오는 게 잘못 됐음");
 		}
 //		mv.addObject("shop", shop).setViewName("payment/paymentForm");
@@ -88,13 +96,13 @@ public class PaymentController {
 			
 			int upPoint = pService.usePoint(donPoint);
 			if(upPoint > 0) {
+				session.setAttribute("loginUser", loginUser);
 				System.out.println("포인트 업데이트 성공!");
 			}else {
 				System.out.println("포인트 업데이트 실패!");
 			}
 			System.out.println("돈쭐 date(룰렛으로 보낼) : "+donPoint.toString());
 			
-			//session.putValue("loginUser", loginUser);
 			
 			return donPoint;
 
@@ -223,6 +231,7 @@ public class PaymentController {
 		return "payment/snsPhoto";
 	}
 
+	
 	// 리뷰 포인트 정립(MZ 마이페이지에서)
 	@RequestMapping(value = "saveReviewPoint.dz", method = RequestMethod.POST)
 	public String saveReviewPoint(HttpServletRequest request, @ModelAttribute User user, Model model) {
@@ -233,6 +242,24 @@ public class PaymentController {
 		return "";
 	}
 
+	
+	// 포인트 조회(마이페이지 - DB)
+	@RequestMapping(value="selectMyPoint.dz", method=RequestMethod.GET)
+	public String selectMyPoint(HttpSession session, Model model) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		// userNo으로 userPoint 조회
+		User userPoint = pService.selectUserPoint(loginUser.getUserNo());
+		if(userPoint != null) {
+			// 뿌려주기
+			model.addAttribute("userPoint", userPoint.getUserPoint());
+			System.out.println("userPoint 뿌리기 완료");
+			return ""; // 마이페이지
+		}else {
+			model.addAttribute("msg", "0"); // 포인트 0원
+			System.out.println("userPoint 0원");
+			return ""; // 마이페이지
+		}
+	}
 	
 
 	
