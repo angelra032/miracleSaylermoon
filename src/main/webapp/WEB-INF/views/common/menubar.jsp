@@ -105,7 +105,22 @@
 				<h4>실시간 상담</h4>
 			</div>
 		</div>
-		<div id="chating" class="chating"></div>
+		<div id="chating" class="chating">
+			<div id='startDiv'>
+				<div id='imgDiv'>
+					<img src='/resources/images/chatting/operator-1.png' >
+				</div>
+				<div id="msgBox">
+					<p>안녕하십니까? <br>
+					돈쭐 고객센터 담당자입니다.<br>
+					무엇을 도와드릴까요?</p>
+				</div>
+				<div>
+					<button id="requestBtn">실시간 상담하기</button>
+				</div>
+				
+			</div>
+		</div>
 
 		<div id="yourName">
 			<table class="inputTable">
@@ -119,7 +134,7 @@
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
-					<th>메시지</th>
+					<th></th>
 					<th><input id="chatting-text" placeholder="보내실 메시지를 입력하세요"></th>
 					<th><button onclick="send()" id="sendBtn">보내기</button></th>
 				</tr>
@@ -131,7 +146,8 @@
 <script type="text/javascript">
 	$("#modal").on("click", function() {
 		var userName = $("#userName").val();	
-		$("#chating").append("<div id='startDiv'>" + "안녕하세요 돈쭐 고객센터입니다." + "</div>");
+		/* $("#chating").append("<div id='startDiv'><div id='imgDiv'>");
+		$("#chating").append("<img src='/resources/images/chatting/operator-1.png'>"); */
 		chatName();
 	});
 
