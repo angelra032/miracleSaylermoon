@@ -205,7 +205,7 @@
 					// 마커를 생성합니다
 					var marker = new kakao.maps.Marker({
 					    position: markerPosition, 
-					    image: markerImage // 마커이미지 설정 
+					    image: markerImage, // 마커이미지 설정 
 					});
 					
 					// 마커가 지도 위에 표시되도록 설정합니다
@@ -222,9 +222,12 @@
 					var titleOverlay = new kakao.maps.CustomOverlay({
 					    position: markerPosition,
 					    content: content,
-					    yAnchor: 2 
+					    yAnchor: 2
 					});
 					
+					
+					var selectedMarker;
+					var selectedOverlay;
 					
  				 	// 마커에 마우스오버 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -232,14 +235,11 @@
 						selectedMarker = marker;
 						selectedOverlay = titleOverlay;
 						
-						/* if(selectedMarker != null && seletedOverlay != null) {
-							selectedMarker.setZIndex(1);
-						} */
 						 // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
 					    titleOverlay.setMap(map);
 					    
-					    selectedMarker.setZIndex(99);
-					    selectedOverlay.setZIndex(99);
+					    selectedMarker.setZIndex(999);
+					    selectedOverlay.setZIndex(999);
 						
 					});
 					
@@ -248,7 +248,7 @@
 					    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
 					    titleOverlay.setMap(null);
 					    
-					}); 
+					});
 					
 				}
 			});

@@ -227,7 +227,7 @@ main {
 
 		.customoverlay {
 			position:relative;
-			bottom:50px;
+			bottom:5px;
 			border-radius:6px;
 			border: 1px solid #ccc;
 			border-bottom:2px solid #ddd;
