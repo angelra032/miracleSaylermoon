@@ -23,6 +23,7 @@ import com.donzzul.spring.user.domain.User;
 @Controller
 public class ReservationController {
 
+	
 	@Autowired
 	private ReservationService service;
 	//@RequestParam -> 화면에서 가져오는 하나의 값

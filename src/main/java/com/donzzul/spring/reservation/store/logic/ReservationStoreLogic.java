@@ -75,9 +75,14 @@ public class ReservationStoreLogic implements ReservationStore {
 		System.out.println("스토어"+result);
 		return result;
 	}
-	// ======================여기까지가 예약 끝
-
 	
+	@Override
+	public ArrayList<Reservation> reservationState(Reservation reservation) {
+		ArrayList<Reservation> list = (ArrayList)sqlSession.selectList("reservationMapper.reservationState",reservation);
+		return list;
+	}
+	
+	// ======================여기까지가 예약 끝
 	
 	// 꿈나무회원별 상위 3개 예약목록 불러오기
 	@Override
@@ -154,11 +159,7 @@ public class ReservationStoreLogic implements ReservationStore {
 		return sqlSession.selectOne("reservationMapper.selectShopListCount", shopNo);
 	}
 
-	@Override
-	public ArrayList<Reservation> reservationState(Reservation reservation) {
-		ArrayList<Reservation> list = (ArrayList)sqlSession.selectList("reservationMapper.reservationState",reservation);
-		return list;
-	}
+
 	
 
 }

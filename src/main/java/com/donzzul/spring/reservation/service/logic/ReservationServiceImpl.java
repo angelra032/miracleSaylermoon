@@ -72,6 +72,12 @@ public class ReservationServiceImpl implements ReservationService{
 		return result;
 	}
 	
+	@Override
+	public ArrayList<Reservation> reservationState(Reservation reservation) {
+		ArrayList<Reservation> list = rStore.reservationState(reservation);
+		return list;
+	}
+	
 	//-----------------------여기까지가 예약하기
 	
 	
@@ -129,10 +135,6 @@ public class ReservationServiceImpl implements ReservationService{
 		return rStore.selectShopListCount(shopNo);
 	}
 
-	@Override
-	public ArrayList<Reservation> reservationState(Reservation reservation) {
-		ArrayList<Reservation> list = rStore.reservationState(reservation);
-		return list;
-	}
+
 
 }

@@ -65,7 +65,7 @@
 	text-align: left;
 }
 
-input {
+#chatting-input {
 	width: 200px;
 	height: 25px;
 }
