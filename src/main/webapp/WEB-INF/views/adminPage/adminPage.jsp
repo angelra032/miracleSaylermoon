@@ -35,7 +35,7 @@
                 <div class="my-title">
 					<span>포인트관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="adminPointList.dz">더보기</a>
 					</div>
 				</div>
                 <div class="point-chart">
@@ -225,11 +225,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.0/chart.min.js" integrity="sha512-yadYcDSJyQExcKhjKSQOkBKy2BLDoW6WnnGXCAkCoRlpHGpYuVuBqGObf3g/TdB86sSbss1AOP4YlGSb6EKQPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 	var ctx = document.getElementById('myChart');
-	var dataArr;
+	var dataArr = [];
 	<c:forEach items="${ monthSum }" var="month" varStatus="status">
-		console.log("배고파 : " + '${month}');
-		dataArr = '${month}';
+		var test = '${month}';
+		console.log('test : ' + test)
+		dataArr['${status.index}'] = test.substring(test.indexOf('=', 1)+1, test.length);
 	</c:forEach>
+		console.log("오이잉 : " + dataArr);
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
@@ -237,7 +239,7 @@
 			datasets: [{
 				label: '2021년 돈쭐포인트',
 				data: [
-					
+					dataArr[0], dataArr[1], dataArr[2], dataArr[3], dataArr[4], dataArr[5], dataArr[6], dataArr[7], dataArr[8], dataArr[9], dataArr[10], dataArr[11]
 				],
 				backgroundColor: [
 					'rgba(255, 99, 132, 0.2)',
