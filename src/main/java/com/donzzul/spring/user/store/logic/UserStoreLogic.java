@@ -189,6 +189,11 @@ public class UserStoreLogic implements UserStore {
 		return (ArrayList)sqlSession.selectList("userMapper.selectAllListPage", null, rowBounds);
 	}
 
+	@Override
+	public User getUsersByID(String userId) {
+		return sqlSession.selectOne("userMapper.getUsersByID");
+	}
+
 	
 
 	
