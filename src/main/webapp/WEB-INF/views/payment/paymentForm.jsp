@@ -175,7 +175,7 @@
 			if(usePoint > 5000 || usePoint <= -1){ // 먹히고
 				alert("5000보다 크거나 0보다 작음(-)사용 가능한 포인트가 없습니다.");
 				return false;
-			} else if(usePoint >= 1){
+			} else if(usePoint >= 1){ 
 				alert("500보다 작거나 0보다 큼사용 가능한 포인트가 없습니다.");
 				return false;
 			} else if(usePoint == 0) {
