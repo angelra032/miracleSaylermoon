@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+           
+	<http auto-config="true"  use-expressions="true">
+	<!-- 
+	- auto-config='true'를 설정한것만으로 기본 로그인페이지/ http기본인증/로그아웃 기능들을 제공
+	- use-expressions="true"는 SpEL을 사용한다는 뜻 
+	-->
+		<!-- 해당 url에 접근하기 위한 접근권한 설정 -->
+		<intercept-url pattern="/" access="permitAll" /><!-- permitAll : 모두 허용 -->
+		<intercept-url pattern="/loginView.dz" access="permitAll" />
+		<intercept-url pattern="/enrollView.dz" access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+
+		<intercept-url pattern="/**" access="permitAll" /><!-- /**나머지는 ROLE_USER권한을 가진 사람만 허용 -->
+		
+		<form-login login-page="/loginView.dz"                  
+			default-target-url="/home"        
+			username-parameter="userId"    
+			password-parameter="userPw"       
+		/>
+		<logout invalidate-session="true" logout-url="/logout.dz"   logout-success-url="/home" /> 
+
+		<!-- enable csrf protection 해킹막기 -->
+		<csrf/>  
+	</http>
+	
+	<!-- 인증처리를 위한 최상위 태그 -->
+	<authentication-manager> 
+		<!-- 사용자 이름, 비밀번호를 제공해줄 서비스 등록 -->
+	    <!-- <authentication-provider user-service-ref="UserDetailsServiceImpl"/> -->
+	    
+	    <!-- 여기서 직접 주기 -->
+	    <authentication-provider> 
+		    <user-service> 
+		    	<user name="admin" password="admin" authorities="ROLE_ADMIN" /> 
+		    </user-service> 
+	    </authentication-provider>
+
+	</authentication-manager>	
+
+	<!-- userService 빈등록 -->
+	<beans:bean id="UserDetailsServiceImpl" class="com.donzzul.spring.user.service.UserDetailsServiceImpl"> 
+
+   	</beans:bean>
+
+
+
+</beans:beans>
+

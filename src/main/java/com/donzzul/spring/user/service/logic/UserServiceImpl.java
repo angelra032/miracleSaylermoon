@@ -190,6 +190,11 @@ public class UserServiceImpl implements UserService {
 		return store.selectAllUserList(pi);
 	}
 
+	@Override
+	public User getUsersByID(String userId) {
+		return store.getUsersByID(userId);
+	}
+
 	
 
 

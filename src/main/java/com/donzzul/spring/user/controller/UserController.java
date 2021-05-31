@@ -140,7 +140,7 @@ public class UserController {
 		return service.checkEmailDup(userEmail)+"";
 	}
 	
-	//로그인 폼을 띄우는 부분
+	//로그인 폼을 띄우는 부분@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
 	public String loginView() {
 		return "user/userLogin";
@@ -161,7 +161,7 @@ public class UserController {
 		}
 	} //end of loginDuplicateCheck 
 	
-	//로그인 처리하는 부분
+	//로그인 처리하는 부분@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "login.dz", method = RequestMethod.POST)
 	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model, HttpSession session) {
 		String returnURL = "";

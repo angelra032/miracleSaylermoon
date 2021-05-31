@@ -36,4 +36,5 @@ public interface UserService {
 	public ArrayList<User> selectUserListThree();
 	public int getListCount();
 	public ArrayList<User> selectAllUserList(PageInfo pi);
+	public User getUsersByID(String userId);
 }

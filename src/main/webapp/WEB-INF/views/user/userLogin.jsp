@@ -27,7 +27,8 @@
 				<h2>회원로그인</h2>
 				<h4>꿈나무, 일반, 사업자 회원</h4>
 				<div class="left-inner-box">
-					<form action="login.dz" method="POST"> 
+				<!-- 	<form action="login.dz" method="POST">  -->
+					<form action="j_spring_security_check" method="POST"> 
 						<div class="input-box"> 
 							<input id="userid" type="text" name="userId" placeholder="아이디"> 
 							<label for="userid">아이디</label> 
@@ -37,6 +38,7 @@
 							<label for="userpw">비밀번호</label> 
 						</div> 
 						<input type="submit" id="left-login-bt" value="로그인"> 
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><!-- csrf 보안을 위한 코드 -->
 						<a href="findIdView.dz">아이디 찾기</a>
 						<a href="findPwView.dz">비밀번호 찾기</a>
 					</form>

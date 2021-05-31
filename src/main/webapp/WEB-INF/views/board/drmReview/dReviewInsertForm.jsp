@@ -23,7 +23,7 @@
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="drmReviewTitle">제목</label>
-				<input type="text" name="drmReviewTitle" id="drmReviewTitle" class="form-control"" placeholder="제목">
+				<input type="text" name="drmReviewTitle" id="drmReviewTitle" class="form-control" placeholder="제목">
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
@@ -70,7 +70,7 @@
 	jQuery(function ($) {
 		$(document).ready(function() { 
 			   $('#summernote').summernote({
-			         width: 1000,
+			         width: 930,
 			          height: 500,                // 에디터 높이
 			          minHeight: null,            // 최소 높이
 			          maxHeight: null,            // 최대 높이
