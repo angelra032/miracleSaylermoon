@@ -196,7 +196,7 @@ public class DreamReviewController {
 	//D 가게 상세 감사 + 맛집후기 가져오기
 	@RequestMapping(value="mdReviewShop.dz", method=RequestMethod.GET)
 	public void selectDmReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) throws Exception {
-		ArrayList<MzReview> rList = drService.selectDMReviewAll(shopNo);
+		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");

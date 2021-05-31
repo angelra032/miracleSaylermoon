@@ -13,10 +13,10 @@ public interface DreamReviewService {
 	public int insertDreamReview(DreamReview dreamReview);
 	public int updateDreamReview(DreamReview dreamReview);
 	public int deleteDreamReview(int drmRviewNo);
-	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public int getListCount();
 	public DreamReview selectOneDreamReview(); //메인페이지에서 한개만 불러오기(오버라이딩)
-	public ArrayList<MzReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
+	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
+	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
 	
 	// 꿈나무 마이페이지

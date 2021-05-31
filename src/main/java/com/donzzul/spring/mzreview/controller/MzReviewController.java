@@ -1,8 +1,10 @@
 package com.donzzul.spring.mzreview.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.user.domain.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 @Controller
 public class MzReviewController {
@@ -146,8 +150,13 @@ public class MzReviewController {
 	
 	//D 맛집후기 가져오기
 	@RequestMapping(value="mzReviewShop.dz", method=RequestMethod.GET)
-	public String selectMzReview(@RequestParam("shopNo") int shopNo, Model model) {
-		ArrayList<MzReview> mReview = mService.selectAllReview(shopNo);
-		return "";
+	public void selectMzReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) throws Exception {
+		ArrayList<MzReview> mzList = mService.selectAllMzReview(shopNo);
+	
+		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
+		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
+		
+		Gson gson = new Gson();
+		gson.toJson(mzList, response.getWriter());
 	}
 }

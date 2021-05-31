@@ -14,9 +14,9 @@ public interface DreamReviewStore {
 	public int deleteDreamReview(int drmRviewNo);
 	public ArrayList<DreamReview> selectAllDreamReview(PageInfo pi);
 	public int selectListCount();
-	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public DreamReview selectOneDreamReview();
-	public ArrayList<MzReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
+	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
+	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
 
 	// 꿈나무 마이페이지

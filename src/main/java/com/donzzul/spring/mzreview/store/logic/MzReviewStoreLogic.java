@@ -58,21 +58,10 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	}
 	
     
-    @Override //D 가게 전체 후기 가져오기	
-    public ArrayList<MzReview> selectDmReviewAll(int shopNo) {
-    	System.out.println("리뷰 스토어");
-        return (ArrayList)sqlSession.selectList("mzReviewMapper.DMReviewAll", shopNo);
-    } 
-    
-    // selectAllReview 오버로딩 (사진 포함)
-    public ArrayList<MzReview> selectAllReview(int shopNo) {
+    @Override //D 맛집 후기 사진 포함 전체 가져오기
+    public ArrayList<MzReview> selectAllMzReview(int shopNo) {
         return (ArrayList)sqlSession.selectList("mzReviewMapper.selectListShopNo", shopNo);
     }
-
-	@Override
-	public ArrayList<Integer> selectReviewRanking() {
-		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectReviewRanking");
-	}
 
     // 메인페이지에 최근글 세개 뿌리기
 	@Override

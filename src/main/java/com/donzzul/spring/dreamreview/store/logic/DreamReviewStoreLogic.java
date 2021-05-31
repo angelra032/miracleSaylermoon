@@ -55,11 +55,6 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 		return sqlSession.delete("drmReviewMapper.deleteDrmReview", drmRviewNo);
 	}
 
-	@Override
-	public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
-		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectListAllShopNo", shopNo);
-	}
-
 	// 꿈나무 마이 페이지
 	@Override
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo) {
@@ -84,14 +79,19 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	public DreamReview selectOneDreamReview() {
 		return sqlSession.selectOne("drmReviewMapper.selectOneDetailToMain");
 	}
+	
+	@Override
+	public ArrayList<DreamReview> selectAllDreamReview(int shopNo) {
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectListAllShopNo", shopNo);
+	}
 
 	@Override
-	public ArrayList<MzReview> selectDMReviewAll(int shopNo) {
-		return (ArrayList)sqlSession.selectList("mzReviewMapper.DMReviewAll", shopNo);
+	public ArrayList<DreamReview> selectDMReviewAll(int shopNo) {
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.DMReviewAll", shopNo);
 	}
 	
 	@Override
 	public ArrayList<Integer> selectReviewRanking() {
-		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectReviewRanking");
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectReviewRanking");
 	}
 }
