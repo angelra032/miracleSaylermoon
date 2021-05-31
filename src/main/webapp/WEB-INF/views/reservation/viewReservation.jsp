@@ -65,16 +65,23 @@
 	      var today = new Date(); // 문자랑 문자는 비교가 안된다! 날짜랑 날짜만 대소비교가 된다;
 	      today.setHours(0,0,0,0);
 	      if(today > date){
-	    	  alert("다른 날짜를 선택해주세요...!!");
+	    	  alert("오늘 이전 날짜는 예약이 불가합니다. 다른 날짜를 선택해주세요.");
 	    	  return false;
 	      }
-	      //$("#selectTime").val("${startTime }"); // 클릭했을때 첫번째 값으로 초기화
+	      /* 한번 더 생각해보기 
+	      	$.ajax({
+	    	  url:"",
+	    	  type:"POST",
+	    	  data : {},
+	    	  success: 
+	      }); */
+	      
 	      $("#selectTime").val("0");  //선택으로 초기화
 	      $("input[name='reserveDate']").val(date2);
 	      $("#rDateSpan").text(date2);
 	      timeChange("0");  // 최초엔 눌렀던값을 또 눌렀을경우 나머지 창이 안열리니깐 그걸 보완한거
 	  }else{
-		  alert("로그인좀..");
+		  alert("로그인 후 이용 부탁드립니다.");
 	  }
       
    }
@@ -243,11 +250,11 @@
                	<div id="rPointText"><h1 class="titleH1">포인트 사용여부</h1></div>
                	  <div class="pRadion">
                      <input type="radio" name="point" id="pointY" value="Y" onclick="pointchecked();">
-                     <label for="pointY">포인트 사용</label>
+                     <label for="pointY" class="label">포인트 사용</label>
                   </div>
                   <div class="pRadion">
                      <input type="radio" name="point" id="pointN" value="N" onclick="pointchecked();"> 
-                     <label for="pointN">포인트사용거부</label>
+                     <label for="pointN" class="label">포인트사용거부</label>
                   </div>
                   <div id="pointUseDiv" style="display:none">
                      <h1 class="titleH1">사용할 포인트 금액</h1>

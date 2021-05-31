@@ -33,7 +33,8 @@
 						<tr>
 							<th>No</th>
 							<th>가게이름</th>
-							<th>예약날짜</th>
+							<th>예약일시</th>
+							<th>예약인원</th>
 							<th>예약취소</th>
 							<th>후기작성</th>
 						</tr>
@@ -43,8 +44,9 @@
 							<c:forEach items="${rList }" var="reservation" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${reservation.shopName }</p></a></td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${reservation.shopNo }"><p>${reservation.shopName }</p></a></td>
 									<td>${reservation.reserveDate }</td>
+									<td>${reservation.reserveCount }명</td>
 
 
 									<c:if test="${reservation.rState eq 'O' }">
@@ -66,7 +68,7 @@
 
 									<c:if test="${reservation.rState eq 'C' }">
 										<td><a class="confirm-btn">방문완료</a></td>
-										<td><a id="visiti-comfirm" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+										<td><a id="visiti-comfirm" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }&reservationNo=${reservation.reservationNo}">후기작성</a></td>
 									</c:if>
 
 									<c:if test="${reservation.rState eq 'H' }">
@@ -78,7 +80,7 @@
 						</c:if>
 						<c:if test="${ empty rList }">
 							<tr>
-								<td colspan="5">${ Rmsg}</td>
+								<td colspan="6">${ Rmsg}</td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -90,7 +92,7 @@
 				<div class="my-title">
 					<span>가고싶다 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="pickListByDream.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -103,24 +105,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>서울시 종로구</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>서울시 종로구</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>서울시 종로구</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+						<c:if test="${ !empty pList }">
+							<c:forEach items="${pList }" var="pick" varStatus="status">
+								<tr>
+									<td>${status.count }</td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }"><p>${pick.shopName }</p></a></td>
+									<td>${ pick.shopShortAddr}</td>
+									<td><a class="delete-btn" href="removePick.dz?shopNo=${pick.shopNo }">삭제</a></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty pList }">
+							<tr>
+								<td colspan="4">${Pmsg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -150,7 +149,7 @@
 								varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${dreamreview.drmReviewTitle }</p></a></td>
+									<td><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
 									<td>${dreamreview.shopName }</td>
 									<td>${dreamreview.drmReviewUploadDate }</td>
 									<td><a class="modify-btn"

@@ -18,6 +18,8 @@ import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.notiqna.domain.Qna;
 import com.donzzul.spring.notiqna.service.QnaService;
+import com.donzzul.spring.pick.domain.Pick;
+import com.donzzul.spring.pick.service.PickService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
@@ -33,6 +35,9 @@ public class DreamMyPageController {
 	
 	@Autowired
 	private QnaService qService;
+	
+	@Autowired
+	private PickService pService;
 
 	@RequestMapping(value = "dreamMyPage.dz")
 	public String DreamMyPageView(HttpSession session, Model model) {
@@ -45,12 +50,15 @@ public class DreamMyPageController {
 			ArrayList<Reservation> rList = rService.listByDreamUpToThree(userNo);
 			ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
 			ArrayList<Qna> qList = qService.dreamQnaUpToThree(userNo);
+			ArrayList<Pick> pList = pService.dreamPickUpToThree(userNo);
 			model.addAttribute("rList", rList);
 			model.addAttribute("drList", drList);
 			model.addAttribute("qList",qList);
+			model.addAttribute("pList",pList);
 			model.addAttribute("Rmsg","예약 데이터가 없습니다.");
 			model.addAttribute("DRmsg","후기 데이터가 없습니다.");
 			model.addAttribute("Qmsg","문의 데이터가 없습니다.");
+			model.addAttribute("Pmsg","찜 데이터가 없습니다.");
 			return "dreamMyPage/DreamMyPage";
 		}catch(Exception e) {
 			model.addAttribute("msg", "내역을 출력하는데 실패했습니다.");
@@ -170,6 +178,31 @@ public class DreamMyPageController {
 		}else {
 			mv.addObject("msg","불러올 문의 데이터가 없습니다.");
 			mv.setViewName("dreamMyPage/DreamQnaDetail");
+		}
+		return mv;
+	}
+	
+	// 꿈나무 회원 찜목록 전체 불러오기
+	@RequestMapping(value="pickListByDream.dz", method = RequestMethod.GET)
+	public ModelAndView pickListByDream(HttpSession session,
+									ModelAndView mv,
+									@RequestParam(value= "page", required = false) Integer page) {
+		User user = (User) session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		
+		int currentPage = (page != null ) ? page : 1;
+		int listCount = pService.pickListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Pick> pList = pService.pickListByDream(userNo, pi);
+		
+		if(!pList.isEmpty()) {
+			mv.addObject("pList",pList);
+			mv.addObject("pi",pi);
+			mv.setViewName("dreamMyPage/dreamPickDetail");
+		}else {
+			mv.addObject("msg","불러올 찜 데이터가 없습니다.");
+			mv.setViewName("dreamMyPage/dreamPickDetail");
 		}
 		return mv;
 	}

@@ -15,7 +15,6 @@
 <link href='/resources/css/partnermypage/main.css' rel='stylesheet' />
 <script src='/resources/css/partnermypage/main.js'></script>
 <script src='/resources/css/partnermypage/ko.js'></script>
-
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
@@ -193,7 +192,6 @@
 						}
 					});
 				});
-
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -204,6 +202,13 @@
 				dayMaxEvents : 2,
 				//themeSystem:'bootstrap3',
 				//contentHeight: "auto",
+				dayRender: function (date, cell) {
+			       var check = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
+			                    var today = $.fullCalendar.formatDate(new Date(),'yyyy-MM-dd');
+			                    if (check < today) {
+			                        cell.css("background-color", "red");
+			                    }
+			    },
 				eventSources : [ {
 					events : function(info, successCallback, failureCallback) {
 						$.ajax({
@@ -247,6 +252,13 @@
 				dayMaxEvents : 2,
 				//themeSystem:'bootstrap3',
 				//contentHeight: "auto",
+				dayRender: function (date, cell) {
+			       var check = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
+			                    var today = $.fullCalendar.formatDate(new Date(),'yyyy-MM-dd');
+			                    if (check < today) {
+			                        cell.css("background-color", "red");
+			                    }
+			    },
 				eventSources : [ {
 					events : function(info, successCallback, failureCallback) {
 						$.ajax({

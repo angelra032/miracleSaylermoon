@@ -22,4 +22,50 @@
 	<delete id="deletePick" parameterType="HashMap">
 		DELETE FROM PICK WHERE USER_NO = #{ userNo } AND SHOP_NO = #{ shopNo }
 	</delete>
+	
+	<resultMap type="Shop" id="shopResultMap">
+		<id property="shopNo" column="SHOP_NO"/>
+		<result property="shopName" column="SHOP_NAME"/>
+		<result property="shopShortAddr" column="SHOP_SHORT_ADDR"/>
+		<result property="shopAddr" column="SHOP_ADDR"/>
+		<result property="shopTarget" column="SHOP_TARGET"/>
+		<result property="shopProduct" column="SHOP_PRODUCT"/>
+		<result property="shopType" column="SHOP_TYPE"/>
+		<result property="shopFileName" column="SHOP_FILENAME"/>
+		<result property="shopFilePath" column="SHOP_FILEPATH"/>
+		<result property="shopFileSize" column="SHOP_FILESIZE"/>
+		<result property="shopUploadTime" column="SHOP_UPLOADTIME"/>
+		<result property="shopPhone" column="SHOP_PHONE"/>
+		<result property="shopParking" column="SHOP_PARKING_YN"/>
+		<result property="shopMaxReserv" column="SHOP_MAX_RESERVATION"/>
+		<result property="shopContent" column="SHOP_CONTENT"/>
+		<result property="shopLat" column="SHOP_LAT"/>
+		<result property="shopLng" column="SHOP_LNG"/>
+		<result property="shopPoint" column="SHOP_POINT"/>
+		<result property="shopPointYn" column="SHOP_POINT_YN"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="startTime" column="START_TIME"/>
+		<result property="endTime" column="END_TIME"/>
+		<result property="businessDay" column="BUSINESS_DAY"/>
+		<result property="mainMenuNo" column="MAIN_MENU_NO"/>
+		<result property="showShopYN" column="SHOW_SHOP_YN"/>
+ 		<result property="userId" column="USER_ID"/>
+		<result property="partnerVerify" column="PARTNER_VERIFY"/>
+		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
+	</resultMap>
+	
+	<select id="dreamPickUpToThree" resultMap="shopResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY PICK_NO DESC) AS NUM, PICK_NO, PICK.SHOP_NO, SHOP_SHORT_ADDR, SHOP_NAME, USER_NO FROM PICK JOIN SHOP USING (USER_NO) WHERE USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
+	</select>
+	
+	
+	<select id="pickListByDream" resultMap="shopResultMap">
+		SELECT PICK_NO, SHOP_NO, PICK.USER_NO, SHOP_SHORT_ADDR, SHOP_NAME FROM PICK JOIN SHOP USING (SHOP_NO) WHERE PICK.USER_NO = #{useNo}
+	</select>
+	
+	
+	<select id="pickListCount" resultType="_int">
+		SELECT COUNT(*) FROM PICK WHERE USER_NO = #{userNo}
+	</select>
+	
 </mapper>

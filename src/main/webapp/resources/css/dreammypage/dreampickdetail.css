@@ -32,7 +32,7 @@ main {
 	width:100%;
 	height: 80px;
 	border-radius: 3px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .my-info span {
 	font-family: 'Jal_Onuel';
@@ -43,8 +43,8 @@ main {
 .info-btn-frame {
 	width: auto;
 	height: auto;
-	float:right;
-	margin-right: 200px;
+	float:left;
+	margin-left: 200px;
 }
 .info-btn {
 	display: inline-block;
@@ -58,22 +58,17 @@ main {
 	text-align: center;
 	border-radius: 3px;
 	cursor: pointer;
-}
-.info-btn:first-child {
-	margin-right: 5px;
+	
 }
 
 /* 목록 공통 -회색************************************** */
 .my-list {
 	width:100%;
 	height: auto;
-	background-color: #e3e4e5;
+	background-color: #fff;
 	padding-bottom: 60px;
 }
 /* *****************배경색 흰색으로 */
-.w-list {
-	background-color: #fff;
-}
 .my-title {
 	width: 100%;
 	height: 80px;
@@ -114,7 +109,7 @@ main {
 .my-list table {
 	width: 1000px;
 	height: auto;
-	border-top: 2px solid #0160ff;
+	border-top: 3px solid #0160ff;
 	margin: 0 auto;
 	text-align: center;
 	color:#333;
@@ -135,7 +130,7 @@ main {
 	border-bottom: 1px solid #e3e4e5;
 	text-align: center;
 }
-.my-list table tbody tr:hover {
+.my-list table tbody tr:not(:last-child):hover {
 	background-color: rgba(1,96,255,0.2)
 }
 .table-link-title {
@@ -149,15 +144,12 @@ main {
 	width: 60px;
 }
 .reserv-list table thead th:nth-child(3) {
-	width: 220px;
+	width: 200px;
 }
 .reserv-list table thead th:nth-child(4) {
-	width: 80px;
-}
-.reserv-list table thead th:nth-child(5) {
 	width: 150px;
 }
-.reserv-list table thead th:nth-child(6) {
+.reserv-list table thead th:nth-child(5) {
 	width: 150px;
 }
 .reserv-btn {
@@ -172,58 +164,10 @@ main {
 	font-size: 16px;
 }
 
-#cancle-btn{
-	display: block;
-	width: 120px;
-	height: 40px;
-	background-color: #888888;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#fff;
-	border-radius: 3px;
-	font-size: 16px;
-}
-
-#review-btn{
-	display: block;
-	width: 120px;
-	height: 40px;
-	background-color: #BBBBBB;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#fff;
-	border-radius: 3px;
-	font-size: 16px;
-}
-
-#cancle-complete{
-	display: block;
-	width: 120px;
-	height: 40px;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#BBBBBB;
-	border-radius: 3px;
-	font-size: 16px;
-}
-
 .confirm-btn{
 	font-size: 16px;
-	color: #0160ff;
+	color: red;
 }
-
-#visiti-comfirm{
-	display: block;
-	width: 120px;
-	height: 40px;
-	background-color: #0160ff;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#fff;
-	border-radius: 3px;
-	font-size: 16px;
-}
-
 
 /* **********가고싶다********** */
 .wish-list table thead th:nth-child(4) {
@@ -269,17 +213,4 @@ main {
 .recommend-list table thead th:nth-child(5) {
 	width: 150px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

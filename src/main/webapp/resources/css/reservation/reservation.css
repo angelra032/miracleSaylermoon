@@ -98,13 +98,16 @@
 }
 
 #pointUseDiv{
-	margin-top: 50px;
+	margin-top: 20px;
 }
 
 #pointBox{
 	margin-top: 20px;
 }
 
+#pButton{
+	margin-top: 10px;	
+}
 
 #selectAreaThird{
 	float: left;
@@ -162,6 +165,11 @@ h2{
 	color: #e3e4e5;
 	padding:5px 5px 5px 5px;
 }
+
+.label{
+	width: 10px;
+}
+
 
 
 /* 내가 만진 css 끝 */

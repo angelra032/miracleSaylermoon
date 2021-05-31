@@ -111,7 +111,15 @@ public class DreamReviewController {
 		// rState update에 필요한 reservationNo 가져오기
 		model.addAttribute("shopNo", shopNo);
 		model.addAttribute("reservationNo", reservationNo);
-		return "board/drmReview/dReviewInsertForm";
+		Reservation reservation = new Reservation();
+		reservation.setReservationNo(reservationNo);
+		reservation.setrState("H");
+		int result = rService.updateRstate(reservation);
+		if(result > 0) {
+			return "board/drmReview/dReviewInsertForm";
+		}else {
+			return "fail";
+		}
 	}
 	
 	

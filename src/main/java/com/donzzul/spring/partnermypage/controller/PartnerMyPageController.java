@@ -3,6 +3,7 @@ package com.donzzul.spring.partnermypage.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -202,8 +203,6 @@ public class PartnerMyPageController {
 	}
 
 	
-	
-	
 	// 가게정보 등록 화면(view)
 	@RequestMapping(value="shopRegisterView.dz", method=RequestMethod.GET)
 	public String shopRegisterView() {
@@ -216,6 +215,31 @@ public class PartnerMyPageController {
 		
 		// 가게 파일 저장(서버, 디비)
 		return "";
+	}
+	
+	
+	// 버튼별 예약 현황 다르게 보여주기
+	@ResponseBody
+	@RequestMapping(value="reservationStatue.dz", method=RequestMethod.POST)
+	public ArrayList<HashMap<String, String>> reservationStatue(@RequestParam("shopNo") int shopNo,
+																@RequestParam("rState") String rState){
+		System.out.println(shopNo);
+		System.out.println(rState);
+		Reservation reservation = new Reservation();
+		reservation.setrState(rState);
+		reservation.setShopNo(shopNo);
+		ArrayList<Reservation> rList = rService.reservationState(reservation);
+		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
+		
+		for(int i = 0; i< rList.size(); i++) {
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("title", rList.get(i).getUserNick());
+			map.put("start", rList.get(i).getReserveDate());
+			map.put("end", rList.get(i).getReserveDate());
+			list.add(map);
+		}
+		return list;
 	}
 
 }

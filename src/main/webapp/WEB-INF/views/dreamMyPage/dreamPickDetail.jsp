@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
-<title>꿈나무회원 예약목록 페이지</title>
+<link rel="stylesheet" href="/resources/css/dreammypage/dreampickdetail.css">
+<title>꿈나무회원 찜목록 페이지</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">예약 목록</div>
+		<div id="main-title">찜 목록</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -26,54 +26,25 @@
 						<tr>
 							<th>No</th>
 							<th>가게이름</th>
-							<th>예약일시</th>
-							<th>예약인원</th>
-							<th>예약취소</th>
-							<th>후기작성</th>
+							<th>가게위치</th>
+							<th>삭제</th>
 						</tr>
 					</thead>
 					<tbody>
-					<c:if test="${ !empty rList }">
-					<c:forEach items="${rList }" var="reservation" varStatus="status">
-						<tr>
-							<td>${status.count }</td>
-							<td><a class="table-link-title" href="shopDetail.dz?shopNo=${reservation.shopNo }"><p>${reservation.shopName }</p></a></td>
-							<td>${reservation.reserveDate }</td>
-							<td>${reservation.reserveCount }명</td>
-							
-							<c:if test="${reservation.rState eq 'O' }">
-							<td><a id="cancle-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }&mainPage=Y">예약취소</a></td>
-							<td><a id="review-btn">후기작성</a></td>
-							</c:if>
-							
-							<c:if test="${reservation.rState eq 'X' }">
-							<td><a id="cancle-complete">취소완료</a></td>
-							<td><a id="review-btn">후기작성</a></td>
-							</c:if>
-							
-							
-							<c:if test="${reservation.rState eq 'Y' }">
-							<td><a class="confirm-btn" >예약확정</a></td>
-							<td><a id="review-btn">후기작성</a></td>
-							</c:if>
-							
-								
-							<c:if test="${reservation.rState eq 'C' }">
-							<td><a class="confirm-btn" >방문완료</a></td>
-							<td><a id="visiti-comfirm" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
-							</c:if>
-							
-							<c:if test="${reservation.rState eq 'H' }">
-							<td><a class="confirm-btn" >방문완료</a></td>
-							<td><a>후기작성완료</a></td>
-							</c:if>
-						</tr>
-					</c:forEach>
+					<c:if test="${ !empty pList }">
+							<c:forEach items="${pList }" var="pick" varStatus="status">
+								<tr>
+									<td>${status.count }</td>
+									<td><a class="table-link-title" href="#"><p>${pick.shopName }</p></a></td>
+									<td>${ pick.shopShortAddr}</td>
+									<td><a class="delete-btn" href="#">삭제</a></td>
+								</tr>
+							</c:forEach>
 						<!-- 페이징 처리 -->
 						<tr align="center" height="20">
 							<td colspan="5">
 								<!-- 이전 -->
-								<c:url var="before" value="allRListDetailByDream.dz">
+								<c:url var="before" value="pickListByDream.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -84,7 +55,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="allRListDetailByDream.dz">
+									<c:url var="pagination" value="pickListByDream.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -95,7 +66,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="allRListDetailByDream.dz">
+								<c:url var="after" value="pickListByDream.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">
@@ -107,13 +78,14 @@
 							</td>
 						</tr>
 						</c:if>
-						<c:if test="${ empty rList }">
+						<c:if test="${ empty pList }">
 							<tr>
-								<td colspan="6">${ msg }</td>
+								<td colspan="4">${msg }</td>
 							</tr>
 						</c:if>
 					</tbody>
 				</table>
+				<!-- 왜 안먹히냐 -->
 			</div>
 		</div>
 	</main>
