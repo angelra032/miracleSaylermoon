@@ -82,21 +82,23 @@
 								<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
 								<td>${reservation.reserveCount }</td>
 								<td>${reservation.reserveDate }</td>
-								<td><c:choose>
+								<td>
+									<c:choose>
 										<c:when test="${reservation.rState eq 'O'}">
 											<select name="rState" class="select-rstate" id="rState">
-												<option value="O" selected disabled>대기</option>
+												<option value="O" selected disabled>예약대기</option>
 												<option value="Y"
-													${reservation.rState eq 'Y' ? 'selected="selected"' : '' }>승인</option>
+													${reservation.rState eq 'Y' ? 'selected="selected"' : '' }>예약승인</option>
 												<!-- reservation.rState eq 'Y' 결과값이 true일때 실행되는 구간 : false일때 실행되는 구간(false일때는 아무 액션도 없기때문에 빈칸) -->
 												<option value="X"
-													${reservation.rState eq 'X' ? 'selected="selected"' : '' }>거부</option>
+													${reservation.rState eq 'X' ? 'selected="selected"' : '' }>예약거부</option>
 											</select>
 										</c:when>
 										<c:otherwise>
 										${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : '' }
 									</c:otherwise>
-									</c:choose></td>
+									</c:choose>
+								</td>
 
 								<c:if test="${reservation.rState eq 'O'}">
 									<td>예약대기</td>
@@ -144,7 +146,7 @@
 							<c:forEach items="${qList }" var="qna" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}</p></a></td>
+									<td><a class="table-link-title" href="qaDetail.dz?qnaNo=${qna.qnaNo }"><p>${ qna.qnaTitle}</p></a></td>
 									<td>${ qna.qanCreateDate }</td>
 									<td><a class="modify-btn"
 										href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
@@ -187,7 +189,7 @@
 							location.reload();
 						},
 						error : function() {
-							alert('예약 상태 변경이 실패하였습니다...');
+							alert('예약 상태 변경이 실패하였습니다.');
 
 						}
 					});

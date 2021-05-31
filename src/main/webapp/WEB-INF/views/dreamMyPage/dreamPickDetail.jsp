@@ -35,9 +35,9 @@
 							<c:forEach items="${pList }" var="pick" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${pick.shopName }</p></a></td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }"><p>${pick.shopName }</p></a></td>
 									<td>${ pick.shopShortAddr}</td>
-									<td><a class="delete-btn" href="#">삭제</a></td>
+									<td><a class="delete-btn" href="removePick.dz?shopNo=${pick.shopNo }">삭제</a></td>
 								</tr>
 							</c:forEach>
 						<!-- 페이징 처리 -->

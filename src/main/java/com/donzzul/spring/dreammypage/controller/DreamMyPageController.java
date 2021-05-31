@@ -42,10 +42,7 @@ public class DreamMyPageController {
 	@RequestMapping(value = "dreamMyPage.dz")
 	public String DreamMyPageView(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
-
 		int userNo = user.getUserNo();
-		
-		
 		try {
 			ArrayList<Reservation> rList = rService.listByDreamUpToThree(userNo);
 			ArrayList<DreamReview> drList = drService.drmRwUptoThree(userNo);
@@ -59,7 +56,7 @@ public class DreamMyPageController {
 			model.addAttribute("DRmsg","후기 데이터가 없습니다.");
 			model.addAttribute("Qmsg","문의 데이터가 없습니다.");
 			model.addAttribute("Pmsg","찜 데이터가 없습니다.");
-			return "dreamMyPage/DreamMyPage";
+			return "dreamMyPage/dreamMyPage";
 		}catch(Exception e) {
 			model.addAttribute("msg", "내역을 출력하는데 실패했습니다.");
 			return "common/errorPage";
@@ -83,8 +80,6 @@ public class DreamMyPageController {
 			reservation.setUserNo(userNo);
 			reservation.setReservationNo(reservationNo);
 			int cancleResult = rService.cancleReservation(reservation);
-
-			System.out.println("이 값 가져왔니" + mainPage);
 			
 			if (result > 0 && cancleResult > 0) {
 				if(mainPage.equals("N")) {
@@ -119,10 +114,10 @@ public class DreamMyPageController {
 		if (!rList.isEmpty()) {
 			mv.addObject("rList", rList);
 			mv.addObject("pi", pi);
-			mv.setViewName("dreamMyPage/DreamReservationDetail");
+			mv.setViewName("dreamMyPage/dreamReservationDetail");
 		} else {
 			mv.addObject("msg", "불러올 예약 데이터가 없습니다.");
-			mv.setViewName("dreamMyPage/DreamReservationDetail");
+			mv.setViewName("dreamMyPage/dreamReservationDetail");
 		}
 		return mv;
 	}
@@ -130,7 +125,7 @@ public class DreamMyPageController {
 	// 꿈나무 회원 리뷰 페이지 들어가기
 	@RequestMapping(value = "dreamReviewDetail.dz", method = RequestMethod.GET)
 	public String dreamReviewDetail() {
-		return "dreamMyPage/DreamReviewDetail";
+		return "dreamMyPage/dreamReviewDetail";
 	}
 
 	
@@ -149,10 +144,10 @@ public class DreamMyPageController {
 		if (!drReviewList.isEmpty()) {
 			mv.addObject("drReviewList", drReviewList);
 			mv.addObject("pi", pi);
-			mv.setViewName("dreamMyPage/DreamReviewDetail");
+			mv.setViewName("dreamMyPage/dreamReviewDetail");
 		} else {
 			mv.addObject("msg", "불러올 후기 데이터가 없습니다.");
-			mv.setViewName("dreamMyPage/DreamReviewDetail");
+			mv.setViewName("dreamMyPage/dreamReviewDetail");
 		} 
 		return mv;
 	}
@@ -174,10 +169,10 @@ public class DreamMyPageController {
 		if(!qList.isEmpty()) {
 			mv.addObject("qList",qList);
 			mv.addObject("pi",pi);
-			mv.setViewName("dreamMyPage/DreamQnaDetail");
+			mv.setViewName("dreamMyPage/dreamQnaDetail");
 		}else {
 			mv.addObject("msg","불러올 문의 데이터가 없습니다.");
-			mv.setViewName("dreamMyPage/DreamQnaDetail");
+			mv.setViewName("dreamMyPage/dreamQnaDetail");
 		}
 		return mv;
 	}
