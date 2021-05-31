@@ -144,28 +144,38 @@ main {
 	width: 60px;
 }
 .reserv-list table thead th:nth-child(3) {
-	width: 200px;
+	width: 220px;
 }
 .reserv-list table thead th:nth-child(4) {
-	width: 150px;
+	width: 80px;
 }
 .reserv-list table thead th:nth-child(5) {
+	width: 150px;
+}
+.reserv-list table thead th:nth-child(6) {
 	width: 150px;
 }
 .reserv-btn {
 	display: block;
 	width: 120px;
 	height: 40px;
-	background-color: #888888;
+	background-color: #888;
 	margin: 0 auto;
 	line-height: 40px;
 	color:#fff;
 	border-radius: 3px;
 	font-size: 16px;
-	
 }
-
-#visiti-comfirm{
+.reserv-cancle {
+	color: #888;
+}
+.reserv-confirm {
+	color: #0160ff;
+}
+.disable-btn {
+	background-color: #bbb;
+}
+.review-btn {
 	display: block;
 	width: 120px;
 	height: 40px;
@@ -217,13 +227,8 @@ main {
 	color: #0160ff;
 }
 
-/* **********가고싶다********** */
-.wish-list table thead th:nth-child(4) {
-	width: 150px;
-}
 
-
-.delete-btn {
+#visiti-comfirm{
 	display: block;
 	width: 120px;
 	height: 40px;
@@ -234,44 +239,5 @@ main {
 	border-radius: 3px;
 	font-size: 16px;
 }
-/* ***************돈쭐******************* */
-.review-list table thead th:nth-child(5) {
-	width: 150px;
-}
-.review-list table thead th:nth-child(6) {
-	width: 150px;
-}
-
-.modify-btn {
-	display: block;
-	width: 120px;
-	height: 40px;
-	background-color: #0160ff;
-	margin: 0 auto;
-	line-height: 40px;
-	color:#fff;
-	border-radius: 3px;
-	font-size: 16px;
-}
-
-/* **********추천목록************* */
-.recommend-list table thead th:nth-child(4) {
-	width: 150px;
-}
-.recommend-list table thead th:nth-child(5) {
-	width: 150px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 

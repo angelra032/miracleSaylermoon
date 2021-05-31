@@ -17,6 +17,14 @@
 	left: 30%;
 }
 
+#startDiv{
+	background-color: yellow;
+	width: 260px;
+  	height: 57px;
+  	border-radius: 5px;
+  	box-shadow: 0 0 2.8px 0.2px rgba(0, 0, 0, 0.1);
+}
+
 #header {
 	width: 100%;
 	background-color: #fdb504;

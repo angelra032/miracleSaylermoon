@@ -113,7 +113,6 @@
 					<td></td>
 					<td><input type="text" name="userName"
 						value="${sessionScope.loginUser.userName }" id="userName"></td>
-					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
 				</tr>
 			</table>
 		</div>
@@ -131,9 +130,17 @@
 </body>
 <script type="text/javascript">
 	$("#modal").on("click", function() {
+		var userName = $("#userName").val();	
+		$("#chating").append("<div id='startDiv'>" + "안녕하세요 돈쭐 고객센터입니다." + "</div>");
 		chatName();
 	});
 
+	function chatName() {
+		
+		wsOpen();
+		$("#yourName").hide();
+		$("#yourMsg").show();
+	}
 	var ws;
 
 	function wsOpen() {
@@ -149,7 +156,7 @@
 		ws.onmessage = function(data) {
 			var msg = data.data;
 			if (msg != null && msg.trim() != '') {
-				$("#chating").append("<p>" + msg + "</p>");
+				$("#chating").append("<div>" + msg + "<div>");
 			}
 		}
 
@@ -160,12 +167,6 @@
 		});
 	}
 
-	function chatName() {
-		var userName = $("#userName").val();
-		wsOpen();
-		$("#yourName").hide();
-		$("#yourMsg").show();
-	}
 
 	function send() {
 		var uN = $("#userName").val();

@@ -36,7 +36,7 @@
 					<c:forEach items="${qList }" var="qna" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${qna.qnaTitle }</p></a></td>
+							<td><a class="table-link-title" href="qaDetail.dz?qnaNo=${qna.qnaNo }"><p>${qna.qnaTitle }</p></a></td>
 							<td>${qna.qanCreateDate }</td>
 							
 							
