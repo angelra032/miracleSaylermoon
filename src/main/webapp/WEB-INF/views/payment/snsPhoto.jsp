@@ -28,10 +28,31 @@
 	
 	<main>
 		<div class="header-background-area">
-	        <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+	        <img src="/resources/images/payment/donjjulmainbanner.jpg" alt="뒷배경이미지">
 	    </div>
-		
 		<div id="main-title">인증샷&nbsp;&nbsp;<span id="main-title-shop">${shopName }</span></div>
+
+		<c:if test="${ empty loginUser }">
+			<script>
+				alert("잘못된 접근입니다. \n로그인 이후 사용 가능합니다.");
+				location.href="loginView.dz";
+			</script>
+		</c:if>
+		<c:if test="${ ! empty loginUser }">
+			<c:if test="${loginUser.userType == 1 }">
+				<script>
+					alert("잘못된 접근입니다. \n일반 회원만 사용가능한 돈쭐 페이지입니다.");
+					location.href="/";
+				</script>
+			</c:if>
+			<c:if test="${loginUser.userType == 3 }">
+				<script>
+					alert("잘못된 접근입니다. \n일반 회원만 사용가능한 돈쭐 페이지입니다.");
+					location.href="/";
+				</script>
+			</c:if>
+		</c:if>
+		
 		<div class="frame">
 		
 			<div class="sns">
