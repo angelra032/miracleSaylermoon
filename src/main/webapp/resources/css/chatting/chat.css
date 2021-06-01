@@ -8,8 +8,8 @@
 .container {
 	width: 383px;
 	border-radius: 12px;
-	height: 582px;
-	max-height: 582px;
+	height: 600px;
+	max-height: 600px;
 	radius: 7px;
 	padding:0px !important;
 	position: fixed;
@@ -18,11 +18,68 @@
 }
 
 #startDiv{
-	background-color: yellow;
-	width: 260px;
-  	height: 57px;
-  	border-radius: 5px;
-  	box-shadow: 0 0 2.8px 0.2px rgba(0, 0, 0, 0.1);
+	width: 400px;
+  	height: 90px;
+  	margin-top: 10px;
+  	margin-left: 15px;
+}
+
+p{
+	font-size: 20px;
+	font-weight: 500;
+	color: #333333;
+}
+
+#requestBtn{
+	padding: 8px 8px;
+	font-size: 16px;
+	margin-top: 20px;
+	margin-left: 160px;
+	background-color: #fdb504;
+	border-radius: 6px;
+	border-color: #fdb504;
+	color:#ffffff;
+}
+
+#imgDiv{
+	width: 60px;
+  	height: 60px;
+  	margin-top: 20px;
+  	float: left;
+}
+
+#imgDiv img{
+	width: 50px;
+  	height: 50px;
+  	margin-top: 20px;
+  	margin-left: 10px;
+}
+
+#sendBtn{
+	padding: 7px 6px;
+    font-size: 16px;
+    border-color: #fdb504;
+    color: #ffffff;
+    background-color: #fdb504;
+    border-radius: 6px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+#chatting-text{
+	height: 33px;
+	width: 370px;
+	margin-top: 7px;
+	margin-left: 20px;
+}
+
+#msgBox{
+	background-color: #ffffff;
+	width: 80%;
+	height: 100%;
+	margin-left: 80px;
+	border-radius: 5px;
+	box-shadow: 0 0 2.8px 0.2px rgba(0, 0, 0, 0.1);
 }
 
 #header {
@@ -62,7 +119,7 @@
 
 #chating{
 	background-color: #f7f7f7;
-	height: 482px;
+	height: 485px;
 	border-radius: 0 0 7px 7px;
 	overflow: auto;
 }
@@ -80,4 +137,5 @@
 
 #yourMsg {
 	display: none;
+	height: 50px;
 }

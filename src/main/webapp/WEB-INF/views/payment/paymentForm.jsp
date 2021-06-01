@@ -172,16 +172,17 @@
 				alert("사용 가능한 포인트가 없습니다.");
 				return false;
 			} */
-			/* if(usePoint > 5000 || usePoint < 0){
-				alert("사용 가능한 포인트가 없습니다.");
+			if(usePoint > 5000 || usePoint <= -1){ // 먹히고
+				alert("5000보다 크거나 0보다 작음(-)사용 가능한 포인트가 없습니다.");
 				return false;
-			} else if(usePoint > 0 && usePoint < 500){
-				alert("사용 가능한 포인트가 없습니다.");
+			} else if(usePoint >= 1){ 
+				alert("500보다 작거나 0보다 큼사용 가능한 포인트가 없습니다.");
 				return false;
-			} else if(usePoint == 0){
+			} else if(usePoint == 0) {
 				alert("왜. 리턴 트루인데..");
 				return true;
 			} 
+			/* 
 			if(usePoint > 5000){
 				alert("포인트는 5000원까지 사용 가능합니다!");
 				return false;
@@ -192,7 +193,7 @@
 				alert("500원부터 사용 가능합니다!");
 				return false;
 			}
-			*/
+			 */
 		}else if($("#useablePoint").val() != 0) {
 			if(usePoint > 5000){
 				alert("포인트는 5000원까지 사용 가능합니다!");
