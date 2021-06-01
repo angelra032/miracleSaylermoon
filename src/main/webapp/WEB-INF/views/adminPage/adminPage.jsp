@@ -146,7 +146,7 @@
 									<c:if test="${ user.userType eq '3' }">
 										<td>사업자</td>
 									</c:if>
-									<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+									<td><div class="btn btn-secondary reserv-btn" onclick="deleteUser('${user.userNo}')">탈퇴</div></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -182,27 +182,22 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${ !empty nList }">
+							<c:forEach items="${ nList }" var="notice" varStatus="status">
+								<tr>
+									<td>${ status.count }</td>
+									<td><a class="table-link-title" href="noticeDetail.dz?noticeNo=${notice.noticeNo }"><span>${ notice.noticeTitle }</span></a></td>
+									<td>관리자</td>
+									<td>${ notice.noticeCreateDate }</td>
+									<td><div class="btn btn-secondary reserv-btn" onclick="deleteNotice('${notice.noticeNo}')">삭제</div></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty nList }">
 							<tr>
-								<td>1</td>
-								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
-								<td>papapa01</td>
-								<td>123457-456-7897</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+								<td colspan="5">${ Nmsg }</td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
-								<td>papapa01</td>
-								<td>123457-456-7897</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td><a class="table-link-title" href="#"><span>감자맛집</span></a></td>
-								<td>papapa01</td>
-								<td>123457-456-7897</td>
-								<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
-							</tr>
+						</c:if>
 							
 						</tbody>
 					</table>
@@ -264,6 +259,26 @@
 			},
 		}
 	});
+	
+	function deleteUser(data) {
+		var result = confirm('회원을 탈퇴시킵니다.');
+		if(Result) {
+			location.href = 'adminUserDelete.dz?userNo=' + data;
+			location.href='adminPage.dz';
+		} else {
+			location.href='adminPage.dz';
+		}
+	}
+	
+	function deleteNotice(data) {
+		var result = confirm('공지사항을 삭제합니다.');
+		if(result) {
+			location.href="qaDelete.dz?qnaNo=" + data;
+			location.href='adminPage.dz';
+		} else {
+			location.href='adminPage.dz';
+		}
+	}
 
 </script>
 </html>

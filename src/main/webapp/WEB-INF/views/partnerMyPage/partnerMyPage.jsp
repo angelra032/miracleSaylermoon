@@ -185,7 +185,7 @@
 					console.log(rState)
 					$.ajax({
 						url : "updateReservation.dz",
-						type : "POST",
+						type : "GET",
 						data : {
 							"rState" : rState,
 							"reservationNo" : reservationNo,
@@ -221,7 +221,7 @@
 					events : function(info, successCallback, failureCallback) {
 						$.ajax({
 							url : "reservationStatue.dz",
-							type : 'POST',
+							type : 'GET',
 							dataType : 'json',
 							data : { "shopNo" : "${shop.shopNo }", "rState" : "O"},
 							success : function(data) {
@@ -271,7 +271,7 @@
 					events : function(info, successCallback, failureCallback) {
 						$.ajax({
 							url : "reservationStatue.dz",
-							type : 'POST',
+							type : 'GET',
 							dataType : 'json',
 							data : { "shopNo" : "${shop.shopNo }", "rState" : val},
 							success : function(data) {

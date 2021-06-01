@@ -64,7 +64,6 @@ public class PartnerMyPageController {
 			return "partnerMyPage/partnerMyPage";
 			
 		} catch (Exception e) {
-			model.addAttribute("msg", "에러발생");
 			model.addAttribute("Rmsg","데이터가 없습니다.");
 			model.addAttribute("Qmsg","문의 데이터가 없습니다.");
 			return "partnerMyPage/partnerMyPage";
@@ -158,7 +157,7 @@ public class PartnerMyPageController {
 		mv.addObject("shop",myShop);	
 		
 		int currentPage = (page != null) ? page : 1;
-		int listCount = qService.dreamListCount(myShop.getShopNo());
+		int listCount = qService.dreamListCount(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Qna> qList = qService.qnaListByPartner(myShop.getShopNo(), pi);
@@ -168,7 +167,7 @@ public class PartnerMyPageController {
 			mv.addObject("pi",pi);
 			mv.setViewName("partnerMyPage/partnerQnaDetail");
 		}else {
-			mv.addObject("msg","불로올 문의 데이터가 없습니다.");
+			mv.addObject("msg","불러올 문의 데이터가 없습니다.");
 			mv.setViewName("partnerMyPage/partnerQnaDetail");
 		}
 		return mv;
@@ -232,7 +231,7 @@ public class PartnerMyPageController {
 	
 	// 버튼별 예약 현황 다르게 보여주기
 	@ResponseBody
-	@RequestMapping(value="reservationStatue.dz", method=RequestMethod.POST)
+	@RequestMapping(value="reservationStatue.dz", method=RequestMethod.GET)
 	public ArrayList<HashMap<String, String>> reservationStatue(@RequestParam("shopNo") int shopNo,
 																@RequestParam("rState") String rState){
 		System.out.println(shopNo);

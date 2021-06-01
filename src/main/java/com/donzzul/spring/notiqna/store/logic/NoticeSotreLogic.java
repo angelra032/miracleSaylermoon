@@ -56,5 +56,10 @@ public class NoticeSotreLogic implements NoticeStore {
 		return (ArrayList)sqlSession.selectList("notiQnaMapper.selectNoticeAllList", null, rowBounds);
 	}
 
+	@Override
+	public ArrayList<Notice> selectAdminNoticeThree() {
+		return (ArrayList)sqlSession.selectList("notiQnaMapper.selectAdminNoticeThree");
+	}
+
 
 }

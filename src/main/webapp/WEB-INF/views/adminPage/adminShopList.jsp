@@ -33,6 +33,7 @@
 							<th width=130px>업체등록번호</th>
 							<th width=130px>전화번호</th>
 							<th width=120px>공개상태</th>
+							<th width=120px>환급</th>
 							<th width=120px>탈퇴</th>
 						</tr>
 					</thead>
@@ -51,6 +52,12 @@
 							</c:if>
 							<c:if test="${ shop.showShopYN eq 'N' or shop.showShopYN eq 'n' }">
 								<td><a class="delete-btn" href="#">승인</a></td>
+							</c:if>
+							<c:if test="${ shop.shopPointYn eq 'y' or shop.shopPointYn eq 'Y' }">
+								<td><a class="delete-btn" href="#">환급</a></td>
+							</c:if>
+							<c:if test="${ shop.shopPointYn eq 'n' or shop.shopPointYn eq 'N' }">
+								<td><div class="done-btn">환급</div></td>
 							</c:if>
 							<c:if test="${ shop.partnerWithdraw eq 'Y' or shop.partnerWithdraw eq 'y' }">
 								<td><a class="delete-btn" href="#">탈퇴</a></td>

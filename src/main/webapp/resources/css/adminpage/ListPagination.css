@@ -36,3 +36,17 @@
 		background-color: #0160ff;
 		color: #ffffff;
 	}
+	
+	
+/* 메뉴 셀렉트 옵션 */
+.menu-selected {
+	color : #ffffff;
+	background : #0160ff;
+} 
+           
+/* 페이징 셀렉트 옵션 */
+.page-selected {
+	color : #ffffff;
+	background : #0160ff;
+}
+	
