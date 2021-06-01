@@ -12,6 +12,7 @@
 		<result property="recommendImg" column="RECOMMEND_IMG"/>
 		<result property="userType" column="USER_TYPE"/>
 		<result property="userNo" column="USER_NO"/>
+		<result property="recommendCount" column="RECOMMEND_COUNT"/>
 	</resultMap>
 	
 	
@@ -45,11 +46,15 @@
 	</select>
 
  	<insert id="insertRecommend" useGeneratedKeys="true" keyProperty="recommendNo" keyColumn="RECOMMEND_NO">
-		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, #{recommendWriter}, DEFAULT, DEFAULT, NULL, #{userType}, #{userNo})
+		INSERT INTO RECOMMEND_BOARD VALUES(SEQ_RECOMMEND_BOARD.NEXTVAL, #{recommendTitle}, #{recommendContent}, #{recommendWriter}, DEFAULT, DEFAULT, NULL, #{userType}, #{userNo}, DEFAULT)
 	</insert>
 	
 	<update id="updateRecommend">
 		UPDATE RECOMMEND_BOARD SET RECOMMEND_TITLE= #{recommendTitle}, RECOMMEND_CONTENT= #{recommendContent} WHERE RECOMMEND_NO = #{recommendNo}
+	</update>
+	
+	<update id="updateCount">
+		UPDATE RECOMMEND_BOARD SET RECOMMEND_COUNT = RECOMMEND_COUNT + 1 WHERE RECOMMEND_NO = #{recommendNo}
 	</update>
 	
 	<delete id="deleteRecommend">

@@ -72,6 +72,12 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 	public int deleteBeforePhoto(int recommendNo) {
 		return sqlSession.delete("recommendMapper.deleteBeforePhoto", recommendNo);
 	}
+	
+	// 조회수 증가
+	@Override
+	public int updateCount(int recommendNo) {
+		return sqlSession.update("recommendMapper.updateCount", recommendNo);
+	}
 
 
 

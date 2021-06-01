@@ -16,13 +16,14 @@
 	   	</div>
 		<div id="main-title">
 			<span class="top-sub-title">${ recommendBoard.recommendTitle }</span>
-			<span class="top-sub-shopName">가게이름</span>
+			<span class="top-sub-shopName">가게추천</span>
 		</div>
         <div class="frame">
             <div class="title-nick-date-area">
                 <div class="title-bottom-area">
                     <div class="title-bottom-nick-area">
                         <span class="userNick">${ recommendBoard.recommendWriter }</span>
+                        <h1>${ recommendBoard.recommendCount }</h1>
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ recommendBoard.recommendCreateDate }</span>
@@ -32,6 +33,7 @@
             <div class="content-area">
                 ${ recommendBoard.recommendContent }
             </div>
+            
 			
 			
 			<div class="bottom-btn-area">

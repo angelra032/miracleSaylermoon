@@ -72,51 +72,57 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${rList }" var="reservation" varStatus="status">
+						<c:if test="${ !empty rList }">
+							<c:forEach items="${rList }" var="reservation" varStatus="status">
+								<tr>
+									<td>${status.count }</td>
+									<input type="hidden" name="reservationNo"
+										value="${reservation.reservationNo }">
+									<input type="hidden" name="shopNo"
+										value="${reservation.shopNo }">
+									<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+									<td>${reservation.reserveCount }</td>
+									<td>${reservation.reserveDate }</td>
+									<td>
+										<c:choose>
+											<c:when test="${reservation.rState eq 'O'}">
+												<select name="rState" class="select-rstate" id="rState">
+													<option value="O" selected disabled>예약대기</option>
+													<option value="Y"
+														${reservation.rState eq 'Y' ? 'selected="selected"' : '' }>예약승인</option>
+													<!-- reservation.rState eq 'Y' 결과값이 true일때 실행되는 구간 : false일때 실행되는 구간(false일때는 아무 액션도 없기때문에 빈칸) -->
+													<option value="X"
+														${reservation.rState eq 'X' ? 'selected="selected"' : '' }>예약거부</option>
+												</select>
+											</c:when>
+											<c:otherwise>
+											${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : '' }
+										</c:otherwise>
+										</c:choose>
+									</td>
+	
+									<c:if test="${reservation.rState eq 'O'}">
+										<td>예약대기</td>
+									</c:if>
+									<c:if test="${reservation.rState eq 'X'}">
+										<td>취소된예약</td>
+									</c:if>
+									<c:if test="${reservation.rState eq 'Y'}">
+										<td><a class="reserv-btn"
+											href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }">방문완료</a></td>
+									</c:if>
+									<c:if test="${reservation.rState eq 'C'}">
+										<td>완료된 예약</td>
+									</c:if>
+	
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty rList }">
 							<tr>
-								<td>${status.count }</td>
-								<input type="hidden" name="reservationNo"
-									value="${reservation.reservationNo }">
-								<input type="hidden" name="shopNo"
-									value="${reservation.shopNo }">
-								<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
-								<td>${reservation.reserveCount }</td>
-								<td>${reservation.reserveDate }</td>
-								<td>
-									<c:choose>
-										<c:when test="${reservation.rState eq 'O'}">
-											<select name="rState" class="select-rstate" id="rState">
-												<option value="O" selected disabled>예약대기</option>
-												<option value="Y"
-													${reservation.rState eq 'Y' ? 'selected="selected"' : '' }>예약승인</option>
-												<!-- reservation.rState eq 'Y' 결과값이 true일때 실행되는 구간 : false일때 실행되는 구간(false일때는 아무 액션도 없기때문에 빈칸) -->
-												<option value="X"
-													${reservation.rState eq 'X' ? 'selected="selected"' : '' }>예약거부</option>
-											</select>
-										</c:when>
-										<c:otherwise>
-										${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : '' }
-									</c:otherwise>
-									</c:choose>
-								</td>
-
-								<c:if test="${reservation.rState eq 'O'}">
-									<td>예약대기</td>
-								</c:if>
-								<c:if test="${reservation.rState eq 'X'}">
-									<td>취소된예약</td>
-								</c:if>
-								<c:if test="${reservation.rState eq 'Y'}">
-									<td><a class="reserv-btn"
-										href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }">방문완료</a></td>
-								</c:if>
-								<c:if test="${reservation.rState eq 'C'}">
-									<td>완료된 예약</td>
-								</c:if>
-
+								<td colspan="6">${Rmsg }</td>
 							</tr>
-						</c:forEach>
-
+						</c:if>
 
 					</tbody>
 				</table>

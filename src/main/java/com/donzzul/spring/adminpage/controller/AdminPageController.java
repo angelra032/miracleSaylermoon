@@ -218,6 +218,20 @@ public class AdminPageController {
 		return mv;
 	}
 	
+	// 회원관리 디테일결과
+	@RequestMapping(value="adminShopInfo.dz")
+	public ModelAndView InfoInfoView (ModelAndView mv, @RequestParam("userNo") int userNo) {
+		User user = uService.selectOneUserByNo(userNo);
+		if(user != null) {
+			mv.addObject("user", user).setViewName("adminPage/adminUserInfo");
+			
+		} else {
+			mv.addObject("msg", "유저정보 못불러왔음").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+
+	
 	// 회원관리 더보기
 	@RequestMapping(value="adminUserList.dz")
 	public ModelAndView userListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
