@@ -102,7 +102,15 @@
 		// 삭제 aJax
 		$('.delete-btn').on('click', function() {
 			var pickNo = $(this).next().val();
-			alert(pickNo);
+			$.ajax({
+				url : "removePick.dz",
+				data : {"pickNo" : pickNo},
+				success : function(result) {
+					if(result == "success"){
+						alert("pickNo");
+					}
+				}//end of success
+			});
 		});
 	});
 </script>

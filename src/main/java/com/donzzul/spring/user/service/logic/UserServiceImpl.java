@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.user.domain.CustomUserDetails;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.service.UserService;
 import com.donzzul.spring.user.store.UserStore;
@@ -191,7 +192,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUsersByID(String userId) {
+	public CustomUserDetails getUsersByID(String userId) {
 		return store.getUsersByID(userId);
 	}
 
