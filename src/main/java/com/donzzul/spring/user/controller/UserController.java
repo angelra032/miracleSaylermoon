@@ -43,6 +43,8 @@ public class UserController {
 	@Autowired
 	private final static String TAG = "KakaoController : ";
 	
+	
+	
 	// 회원가입폼
 	@RequestMapping(value = "enrollView.dz", method = RequestMethod.GET) 
 	public String enrollView() {
@@ -144,6 +146,12 @@ public class UserController {
 	@RequestMapping(value = "loginView.dz", method = RequestMethod.GET) 
 	public String loginView() {
 		return "user/userLogin";
+	} // end of loginView
+	
+	//로그인 폼을 띄우는 부분@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@RequestMapping(value = "/login", method = RequestMethod.GET) 
+	public String securityLoginView() {
+		return "user/userSecurityLogin";
 	} // end of loginView
 	
 	//로그인 유효성 검사

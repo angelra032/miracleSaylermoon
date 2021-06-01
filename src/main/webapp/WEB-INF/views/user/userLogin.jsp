@@ -27,8 +27,7 @@
 				<h2>회원로그인</h2>
 				<h4>꿈나무, 일반, 사업자 회원</h4>
 				<div class="left-inner-box">
-					<form action="login.dz" method="POST"> 
-					<!--<form action="j_spring_security_check" method="POST"> -->
+					<form action="login.dz" method="POST">
 						<div class="input-box"> 
 							<input id="userid" type="text" name="userId" placeholder="아이디"> 
 							<label for="userid">아이디</label> 
