@@ -158,6 +158,7 @@ public class ShopController {
 		hashMap.put("mapMarkers", mapMarkers);
 		hashMap.put("center", mapList.get(0).getShopAddr());
 		hashMap.put("searchKeyword", searchKeyword);
+		
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());
 	}

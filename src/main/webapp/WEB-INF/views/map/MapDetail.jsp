@@ -49,8 +49,10 @@
 										<br>
 									</div>
 									<div class="content-shop right bottom">
-										<input type="hidden" name="shopNo" value="${ shop.shopNo }">
-										<button type="button" class="btn btn-primary btn-sm">예약하기</button>
+										<c:url var="goDetail" value="shopDetail.dz">
+											<c:param name="shopNo" value="${ shop.shopNo }"></c:param>
+										</c:url>
+										<button type="button" class="btn btn-primary btn-sm" onclick="location.href=goDetail">예약하기</button>
 									</div>
 								</div>
 							</div>
@@ -114,6 +116,7 @@
 	
 	<!-- 맵 js -->
 	<script>
+	(function mapJs() {
 		var positions = [];
 		
 		<c:forEach var="shop" items="${mapMarkers}" >
@@ -307,7 +310,7 @@
 			});
 			
 		});
-		
+	}());
 	    
 
 		/* $(function() { */
@@ -332,7 +335,6 @@
 						success: function(data) {
 							var contentList = $(".content-list");
 							var contentListNavi = $(".content-list-navi");
-							/* var contentListNavi = $("<div class='content-list navi'>"); */
 							$("#center-value").val(data.center);
 							if(data.mList.length > 0) { 
 								$(".content-list").empty();
@@ -365,27 +367,26 @@
 									
 						 	 	}
 								
+								
 								/* 네비 */
 								contentListNavi.append("<hr>");
 								if(data.pi.currentPage > 1) {
-									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+(data.pi.currentPage-1)+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
-									/* contentListNavi.append("<img src='/resources/images/navi-left.png' alt='이전' onclick='searhLogic();'/>&nbsp;&nbsp;"); */
+									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+(data.pi.currentPage-1)+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
 								}
 								for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
 									if(i == data.pi.currentPage) {
 										contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
-										/* contentListNavi.append("<span id='currentPage'>"+i+"</span>"); */	
 									}else if(i != data.pi.currentPage) {
-										contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+data.pi.currentPage+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
-										/* contentListNavi.append("<span id='otherPage' onclick='searhLogic();'>"+i+"</span>&nbsp;&nbsp;"); */
+										contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+ data.pi.currentPage+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
 									}
 								}
 								if(data.pi.currentPage < data.pi.maxPage) {
-									contentListNavi.append("<a href='#'  onclick='searchLogic1("+data.searchKeyword+(data.pi.currentPage+1)+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
-									/* contentListNavi.append("<img src='/resources/images/navi-right.png' alt='다음' onclick='searhLogic();'/>"); */
+									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+(data.pi.currentPage+1)+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
 								}
+								
+								/* mapJs(); */
 	
-								var map = new kakao.maps.Map(mapContainer, mapOption);
+								/* var map = new kakao.maps.Map(mapContainer, mapOption); */
 								
 								
 								/* <hr>
@@ -449,22 +450,23 @@
 		});
 		
 		function shopDetail() {
-			location.href='shopDetail.dz';
+			location.href='shopDetail.dz?shopNo='+data.mList[i].shopNo;
 		}
-		function searchLogic1() {
+		
+		function searchLogic1(searchKeyword, page) {
+		
 			$(".content-list").empty();
 			$(".content-list-navi").empty();
 
 				$.ajax({
 					url: "mapSearchKey.dz",
 					type: "get",
-					data: { "searchKeyword": '제주', "page" :  2}, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+					data: { "searchKeyword": searchKeyword, "page" :  page}, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
 					/* async: false, */
 					dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
 					success: function(data) {
 						var contentList = $(".content-list");
 						var contentListNavi = $(".content-list-navi");
-						/* var contentListNavi = $("<div class='content-list navi'>"); */
 						$("#center-value").val(data.center);
 						if(data.mList.length > 0) { 
 							$(".content-list").empty();
@@ -472,9 +474,6 @@
 							
 							/* 검색 리스트 */
 							for( var i in data.mList) {
-								/* console.log(data.mList.length);
-								console.log(data.mList);
-								console.log(data.pi); */
 								
 								var contentShop = $("<div class='content-shop'>");
 								var contentShopLeft = $("<div class='content-shop left'>");
@@ -514,7 +513,7 @@
 								contentListNavi.append("<a href='#'  onclick='searchLogic1();'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
 							}
 
-							var map = new kakao.maps.Map(mapContainer, mapOption);
+							/* mapJs(); */
 							
 					}else {
 						$(".content-list").empty();
