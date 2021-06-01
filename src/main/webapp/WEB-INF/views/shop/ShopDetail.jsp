@@ -208,22 +208,22 @@
 					
 					<div id="review-tab">
 						<ul>
-							<li><a href="javascript:void(0);" onclick="shopReviewAll()">전체후기</a></li>
-							<li><a href="javascript:void(0);" onclick="drReviewAll()">감사후기</a></li>
-							<li><a href="javascript:void(0);" onclick="mzReviewAll()">맛집후기</a></li>
+							<li><a href="javascript:void(0);" onclick="shopReviewAll(1)">전체후기</a></li>
+							<li><a href="javascript:void(0);" onclick="drReviewAll(1)">감사후기</a></li>
+							<li><a href="javascript:void(0);" onclick="mzReviewAll(1)">맛집후기</a></li>
 						</ul>
 					</div>
 				</div>
 	
-		    <div class="frame">
+		    <div class="frame-review">
 					
 			
 		    	<div id="list-body" class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
 	 		 		
 	 		 		
-	 		 		<c:if test="${ empty rList }">
-			 			<span class="review-yet">등록된 후기가 없습니다.</span>
-			 		</c:if> 
+			 		<span class="review-yet"></span>
+	 		 		<%-- <c:if test="${ empty rList }">
+			 		</c:if> --%> 
 			 		<c:if test="${ !empty rList }">
 					 	<c:forEach items="${ rList }" var="reviewAll">
 							 <div id="list" class="review-list rContent">
@@ -243,97 +243,7 @@
 						</div>
 			 		</c:if> 
 			 		
-			 		<script>
 			 		
-			 			$(function(){
-			 				
-			 				// 조회 인덱스
-			 				var startNum = 1; // 인덱스 초기값
-			 				var countNum = 5; // 5개씩 로딩
-			 				
-			 				// 페이지 로딩 시 첫 실행
-			 				moreList(startNum);
-			 				
-			 				// 더보기 클릭시
-			 				$("#moreReply").click(function(){
-			 					startNum += countNum; // 누적
-			 					moreReply(startNum); // 초기값 - 위에서 바뀜(누적)
-			 				});
-			 				
-			 				
-			 				// 더보기 실행함수
-				 			function moreList(index){
-				 				
-			 					var endNum = index + countNum - 1; // 끝값 설정 (초기~끝 검색)
-			 					console.log(startNum);console.log(endNum);
-			 					
-			 					$.ajax({
-			 						url: "moreAllReview.dz",
-			 						type: "post",
-			 						dataType: "json",
-			 						data: {		// hashMap 으로 
-			 							shopNo: '${shopNo}',
-			 							startNum: index, // 쿼리문에서 초기값
-			 							endNum: endNum
-			 						},
-			 						success: function(data){ // textStatus -?
-			 								console.log("띠용!")
-			 							var addListHtml = "";
-			 							for(i=0; i<data.length; i++){
-			 								// += html
-			 								//let newListHtml
-			 							}
-			 							$(addListHtml).appendTo($("#붙일 곳")).slideDown();
-			 							
-			 							// 더보기 버튼 삭제
-			 							//if(startNum + countNum > ){} // 뭐보다 작으면 버튼 삭제...
-			 						}
-			 					});
-			 					
-			 					
-			 					
-				 				// 변수 - 시작 번호(tr)
-				 			/*	var startNum = $(".review-title").length; // 마지막 리스트 번호 알아내기 위해 (div 넣어야하는데 title로 대체,, 안 나옴ㅠ)
-				 				var addListHtml = ""; // 이건 뭔지 모르겠는데
-				 				console.log("startNum", startNum);
-				 				
-				 				// ajax
-				 				 $.ajax({
-				 					url: "shopDetail.dz",
-				 					type: "post",
-				 					dataType: "json", // 객체?로 변환
-				 					data: { // 컨트롤로 보낼 데이터
-				 						"startNum" : startNum
-				 					},
-				 					success: function(data){
-				 						if(data.length < 5){ // 5보다 작으면
-				 							$("#moreReply").remove(); // 왜 없애?..
-				 							  // 더보기 버튼을 div 클래스로 줘야 할 수도 있음 - 뭔솔
-				 						}else{
-				 							var addListHtml = ""; // 이거 뭔데요.
-				 							if(data.length > 5){ // 5보다 크면
-				 								for(var i=0; i<data.length; i++){
-				 									var index = Number(startNum) + Number(i) + 1;
-				 									// 글번호 : startNum 이  10단위로 증가되기 때문에 startNum +i (+1은 i는 0부터 시작하므로 )
-				 									addListHtml += "<div>";
-				 									addListHtml += "<div>";
-				 									addListHtml += "<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>"; // 이미지 내용
-				 									addListHtml += "</div>";
-				 									addListHtml += "<div>";
-				 									addListHtml += "<span>" + data[i].mReviewTitle + "</span>";
-				 									addListHtml += "<span>" + data[i].mReviewContent + "</span>";
-				 									addListHtml += "</div>";
-				 									addListHtml += "</div>";
-				 								}
-				 								$("#list-body").append(addListHtml);
-				 							}
-				 						}
-				 					}
-				 				}); */
-				 			}
-			 			});
-			 		
-			 		</script>
 			 		
 	 		 		
 	 		 		
@@ -371,6 +281,7 @@
 	
 	<!-- 맵 js -->
 	<script>
+	
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = { 
 		        center: new kakao.maps.LatLng(37.55021, 126.92327), // 지도의 중심좌표
@@ -437,9 +348,240 @@
 			});
 			
 			
-			function goLogin() {
-				location.href='loginView.dz';
-			}
-	</script>
+	function goLogin() {
+		location.href='loginView.dz';
+	}
+			 		
+	
+		// 조회 인덱스
+		var startNum = 1; // 인덱스 초기값
+		var countNum = 5; // 5개씩 로딩
+		
+		// 페이지 로딩 시 첫 실행
+		shopReviewAll(startNum);
+		//drReviewAll(startNum);
+		
+		/* // 더보기 클릭시
+		$("#moreReply").on("click", function(){
+			console.log("좋은말로 할때 돼라");
+			startNum += countNum; // 누적
+			shopReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
+		});
+		 */
+		
+		// 더보기 전체 실행함수
+		function shopReviewAll(index){
+			
+			var endNum = index + countNum - 1; // 끝값 설정 (초기~끝 검색)
+			console.log(startNum);console.log(endNum);
+			
+			$.ajax({
+				url: "moreAllReview.dz",
+				type: "GET",
+				dataType: "json",
+				data: {		// hashMap 으로 - x
+					shopNo: '${shop.shopNo}',
+					startNum: index, // 쿼리문에서 초기값
+					endNum: endNum
+				},
+				success: function(data){ // textStatus -?
+					//$("#list-body").empty(); // 비우기?
+				if(data == null){
+					$(".review-yet").html("등록된 후기가 없습니다.");
+				} else{
+					console.log(data);
+					console.log(data.dataCnt);
+					//var addListHtml = ""; 	// list-body
+						var contentList = $("#list-body");
+						//$("#list-body").empty();
+						
+						for(i=0; i<data.rList.length; i++){
+							
+							// += html
+							var contentReview = $("<div id='list' class='review-list rContent'>");
+							var contentReviewLeft = $("<div class='rContent left'>");
+							var contentReviewRight = $("<div class='rContent right'>");
+							
+							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
+							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
+												.append("<span class='review-type'>감사후기</span><br>")
+												.append("<span>" + data.rList[i].drmReviewContent + "</span><br>");
+							contentReview.append(contentReviewLeft);
+							contentReview.append(contentReviewRight);
+							contentList.append(contentReview);
+							
+						}
+						//$(addListHtml).appendTo($("#list-body")).slideDown();
+						
+						// 더보기 버튼 삭제
+						if(startNum + countNum > data.dataCnt){
+							moreBtnDiv.remove();
+						} else{
+							// 더보기 버튼 그려보자!
+							var moreBtnDiv = $("<div class='review-list showMoreReply'>");
+							//var moreBtnInput = "<input type='button' id='moreReply' value='더보기'>";
+								moreBtnDiv.append("<input type='button' id='moreReply' value='더보기'>");
+							
+							contentList.append(moreBtnDiv);
+						} // 뭐보다 작으면 버튼 삭제...
+						
+						
+						
+						
+						// 더보기 클릭시
+						// 가져올 후기가 더이상 없으면 버튼을 없앤다.
+						$("#moreReply").on("click", function(){
+							console.log("좋은말로 할때 돼라");
+							startNum += countNum; // 누적
+							shopReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
+							moreBtnDiv.remove();
+						});
+					}
+				},
+				error: function(){
+					console.log("실패");
+				}
+			});
+		}
+		
+		
+		// 더보기 - 감사후기 5개
+		function drReviewAll(index){
+			var endNum = index + countNum - 1;
+			
+			$.ajax({
+				url: "moreDreamReview.dz",
+				type: "GET",
+				dataType: "json",
+				data: {
+					shopNo: '${shop.shopNo}',
+					startNum: index,
+					endNum: endNum
+				},
+				success: function(data){
+				$("#list-body").empty(); // 비우기
+					
+				if(data == null){
+						$(".review-yet").html("등록된 후기가 없습니다.");
+				} else{
+					var contentList = $("#list-body");
+					
+					for(i=0; i<data.drList.length; i++){
+						var contentReview = $("<div id='list' class='review-list rContent'>");
+							var contentReviewLeft = $("<div class='rContent left'>");
+							var contentReviewRight = $("<div class='rContent right'>");
+							
+							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
+							contentReviewRight.append("<span class='review-title'>" + data.drList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
+												.append("<span class='review-type'>감사후기</span><br>")
+												.append("<span>" + data.drList[i].drmReviewContent + "</span><br>");
+							contentReview.append(contentReviewLeft);
+							contentReview.append(contentReviewRight);
+							contentList.append(contentReview);
+					}
+					/* // 더보기 버튼 그려보자!
+						var moreBtnDiv = $("<div class='review-list showMoreReply'>");
+						//var moreBtnInput = "<input type='button' id='moreReply' value='더보기'>";
+							moreBtnDiv.append("<input type='button' id='moreReply' value='더보기'>");
+						
+						contentList.append(moreBtnDiv); */
+						
+
+						// 더보기 버튼 삭제
+						if(startNum + countNum > data.dataCnt){
+							moreBtnDiv.remove();
+						} else{
+							// 더보기 버튼 그려보자!
+							var moreBtnDiv = $("<div class='review-list showMoreReply'>");
+								moreBtnDiv.append("<input type='button' id='moreReply' value='더보기'>");
+							
+							contentList.append(moreBtnDiv);
+						} // startNum+countNum(페이징 수) 이 데이터 수보다 크면 버튼 삭제
+						
+					
+						// 더보기 클릭시
+		 				$("#moreReply").on("click", function(){
+		 					console.log("좋은말로 할때 돼라");
+		 					startNum += countNum; // 누적
+		 					drReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
+		 					moreBtnDiv.remove();
+		 				});
+					}
+				}, 
+				error: function(){
+					console.log("실패");
+				}
+			});
+		}
+		
+		
+
+		// 더보기 - 맛집후기 5개
+		function mzReviewAll(index){
+			
+			var endNum = index + countNum - 1;
+			
+			$.ajax({
+				url: "moreMzReview.dz",
+				type: "GET",
+				dataType: "json",
+				data: {
+					shopNo: '${shop.shopNo}',
+					startNum: index,
+					endNum: endNum
+				},
+				success: function(data){
+				$("#list-body").empty(); // 비우기
+					
+				if(data == null){
+						$(".review-yet").html("등록된 후기가 없습니다.");
+				} else{
+					var contentList = $("#list-body");
+					
+					for(i=0; i<data.mzList.length; i++){
+						var contentReview = $("<div id='list' class='review-list rContent'>");
+							var contentReviewLeft = $("<div class='rContent left'>");
+							var contentReviewRight = $("<div class='rContent right'>");
+							
+							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
+							contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
+												.append("<span class='review-type'>감사후기</span><br>")
+												.append("<span>" + data.mzList[i].mReviewContent + "</span><br>");
+							contentReview.append(contentReviewLeft);
+							contentReview.append(contentReviewRight);
+							contentList.append(contentReview);
+					}
+						// 더보기 버튼 삭제
+						if(startNum + countNum > data.dataCnt){
+							moreBtnDiv.remove();
+						} else{
+							// 더보기 버튼 그려보자!
+							var moreBtnDiv = $("<div class='review-list showMoreReply'>");
+								moreBtnDiv.append("<input type='button' id='moreReply' value='더보기'>");
+							
+							contentList.append(moreBtnDiv);
+						} /// startNum+countNum(페이징 수) 이 데이터 수보다 크면 버튼 삭제
+						
+						
+						// 더보기 클릭시
+		 				$("#moreReply").on("click", function(){
+		 					console.log("좋은말로 할때 돼라");
+		 					startNum += countNum; // 누적
+		 					mzReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
+		 					moreBtnDiv.remove();
+		 				});
+					}
+				}, 
+				error: function(){
+					console.log("실패");
+				}
+			});
+			
+		}
+		
+		
+		
+
+</script>
 </body>
 </html>

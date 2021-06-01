@@ -1,6 +1,7 @@
 package com.donzzul.spring.mzreview.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,19 @@ public class MzReviewServiceImpl implements MzReviewService {
 	@Override
 	public int deleteBeforePhoto(int mzReviewNo) {
 		return mStore.deleteBeforePhoto(mzReviewNo);
+	}
+
+	
+	// 더보기 - 가게 상세 맛집후기
+	@Override
+	public ArrayList<MzReview> selectAllMzReview(HashMap<String, Object> searchParam) {
+		return mStore.selectAllMzReview(searchParam);
+	}
+
+	// 더보기 - 가게 상세 맛집후기 갯수
+	@Override
+	public int selectMzReviewCount(int shopNo) {
+		return mStore.selectMzReviewCount(shopNo);
 	}
 
 
