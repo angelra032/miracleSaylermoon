@@ -119,19 +119,24 @@ public class AdminPageController {
 		try {
 			ArrayList<User> userList = uService.selectUserListThree(); // *** 회원출력
 			ArrayList<Shop> shopList = sService.selectAllShopListThree(); // *** 사업자출력
+			ArrayList<Notice> nList = nService.selectAdminNoticeThree();
 			mv.addObject("YearDon", YearDon);
 			mv.addObject("monthSum", monthSum);
 			mv.addObject("userList", userList);
 			mv.addObject("shopList", shopList);
+			mv.addObject("nList", nList);
 			
 			mv.addObject("Smsg", "사업자 데이터가 없습니다.");
 			mv.addObject("Umsg", "유저 데이터가 없습니다.");
-			mv.addObject("Smsg", "사업자 데이터가 없습니다.");
+			mv.addObject("Nmsg", "게시판 데이터가 없습니다.");
 			
 			mv.setViewName("adminPage/adminPage");
 		} catch (Exception e) {
-			mv.addObject("msg", "내역을 출력하는데 실패했습니다.");
-			mv.setViewName("common/errorPage");
+			mv.addObject("Smsg", "사업자 데이터가 없습니다.");
+			mv.addObject("Umsg", "유저 데이터가 없습니다.");
+			mv.addObject("Nmsg", "게시판 데이터가 없습니다.");
+			
+			mv.setViewName("adminPage/adminPage");
 		}
 		
 		
@@ -145,22 +150,46 @@ public class AdminPageController {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH)+2; // 이번달주소
+		int lastMonth = cal.get(Calendar.MONTH); // 지난달주소
 		
 		// *** 달별 포인트 출력
 		ArrayList<DonCount> monthSumList = null;
 		HashMap<String, String> monthSum = new HashMap<String, String>();
 		for(int i = 2; i <= month; i++) {
+			// 이전달
+			String lastMonthString = Integer.toString(year);
+			if(lastMonth < 10) {
+				lastMonthString += "0" + Integer.toString(i-1) + "01"; 
+			} else {
+				lastMonthString += Integer.toString(i-1) + "01";
+			}
+			// 현재달
 			String thisMonth = Integer.toString(year);
-			thisMonth += "0" + Integer.toString(i) + "01";
+			if(month < 10) {
+				thisMonth += "0" + Integer.toString(i) + "01";
+			} else {
+				thisMonth += 	Integer.toString(i) + "01";
+			}
 			HashMap<String, String> dateMap = new HashMap<String, String>();
-			dateMap.put("date1", "20210101");
+			dateMap.put("date1", lastMonthString);
 			dateMap.put("date2", thisMonth);
-			System.out.println("테스트 *** : " + thisMonth);
+			System.out.println("테스트 ******* : " + lastMonth);
 			monthSumList = pService.selectAllDonListSum(dateMap);
 			int monthPriceSum = monthSumList.get(0).getDonPriceSum();
-			System.out.println("확인가능한가 *************** : " + monthSumList.get(0).toString());
 			monthSum.put(Integer.toString(i-1), monthSumList.get(0).toString());
 		}
+//		for(int i = 2; i <= month; i++) {
+//			String thisMonth = Integer.toString(year);
+//			thisMonth += "0" + Integer.toString(i) + "01";
+//			HashMap<String, String> dateMap = new HashMap<String, String>();
+//			dateMap.put("date1", "20210101");
+//			dateMap.put("date2", thisMonth);
+//			System.out.println("테스트 *** : " + thisMonth);
+//			monthSumList = pService.selectAllDonListSum(dateMap);
+//			int monthPriceSum = monthSumList.get(0).getDonPriceSum();
+//			System.out.println("확인가능한가 *************** : " + monthSumList.get(0).toString());
+//			monthSum.put(Integer.toString(i-1), monthSumList.get(0).toString());
+//		}
 		
 		// *** 총 포인트 출력
 		String monthDate = Integer.toString(year);
@@ -191,15 +220,6 @@ public class AdminPageController {
 		return mv;
 	}
 	
-	public void test(String monthDate) {
-//		HashMap<String, String> dateMap = new HashMap<String, String>();
-//		dateMap.put("date1", "20210101");
-//		dateMap.put("date2", "20210601");
-//		ArrayList<Don> don = pService.selectAllDonList(dateMap);
-//		ArrayList<DonCount> donCount = pService.selectAllDonListSum(dateMap);
-//		System.out.println(don.toString());
-//		System.out.println(donCount.toString());
-	}
 	
 	// 사업자관리 더보기
 	@RequestMapping(value="adminShopList.dz")

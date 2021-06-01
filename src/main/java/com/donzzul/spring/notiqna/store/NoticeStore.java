@@ -13,5 +13,6 @@ public interface NoticeStore {
 	public int updateNotice(Notice notice); // 공지사항 수정
 	public int deleteNotice(int noticeNo); // 공지사항 삭제
 	public int getListCount();
-	public ArrayList<Notice> selectAllNotice(PageInfo pi); 
+	public ArrayList<Notice> selectAllNotice(PageInfo pi);
+	public ArrayList<Notice> selectAdminNoticeThree(); 
 }

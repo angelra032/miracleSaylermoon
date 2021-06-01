@@ -58,7 +58,13 @@
 							<td style="cursor: pointer;" onclick="location.href='adminUserInfo.dz?userNo=${user.userNo}'">${user.userId }</td>
 							<td>${user.userPhone }</td>
 							<td>${user.userEmail }</td>
-							<td><div class="delete-btn" onclick="deleteResult('${user.userNo}')">탈퇴</div></td>
+							<c:if test="${ user.userType eq '3'  }">
+								<td><div class="done-btn" onclick="deleteShopUser()">탈퇴</div></td>
+							
+							</c:if>
+							<c:if test="${ user.userType eq '1' || user.userType eq '2' }">
+								<td><div class="delete-btn" onclick="deleteResult('${user.userNo}')">탈퇴</div></td>
+							</c:if>
 							
 						</tr>
 					</c:forEach>
@@ -127,5 +133,9 @@
 			location.href='adminUserList.dz';
         }
     }
+	
+	function deleteShopUser() {
+		alert('사업자 회원은 사업자 관리페이지에서 탈퇴 가능합니다.');
+	}
 </script>
 </html>

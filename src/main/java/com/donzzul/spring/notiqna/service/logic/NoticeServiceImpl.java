@@ -51,6 +51,12 @@ public class NoticeServiceImpl implements NoticeService {
 	public int getListCount() {
 		return nStore.getListCount();
 	}
+	
+	// 어드민페이지
+	@Override
+	public ArrayList<Notice> selectAdminNoticeThree() {
+		return nStore.selectAdminNoticeThree();
+	}
 
 
 }

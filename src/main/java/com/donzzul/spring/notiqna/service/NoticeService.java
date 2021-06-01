@@ -14,4 +14,5 @@ public interface NoticeService {
 	public int deleteNotice(int noticeNo); // 공지사항 삭제
 	public ArrayList<Notice> selectAllNotice(PageInfo pi);
 	public int getListCount();
+	public ArrayList<Notice> selectAdminNoticeThree();
 }

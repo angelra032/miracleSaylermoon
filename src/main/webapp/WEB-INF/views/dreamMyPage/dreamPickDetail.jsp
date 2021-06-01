@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/dreammypage/dreampickdetail.css">
+<link rel="stylesheet" href="/resources/css/adminpage/ListPagination.css">
 <title>꿈나무회원 찜목록 페이지</title>
 </head>
 <body>
@@ -21,7 +22,7 @@
 		</div>
 		<div class="my-list reserv-list">
 			<div class="frame">
-				<table>
+				<table class="list-table">
 					<thead>
 						<tr>
 							<th>No</th>
@@ -40,48 +41,52 @@
 									<td><a class="delete-btn" href="removePick.dz?shopNo=${pick.shopNo }">삭제</a></td>
 								</tr>
 							</c:forEach>
-						<!-- 페이징 처리 -->
-						<tr align="center" height="20">
-							<td colspan="5">
-								<!-- 이전 -->
-								<c:url var="before" value="pickListByDream.dz">
-									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
-								</c:url>
-								<c:if test="${pi.currentPage <= 1 }">
-									[이전]&nbsp;
-								</c:if>
-								<c:if test = "${pi.currentPage > 1 }">
-									<a href="${before }">[이전]</a>&nbsp;
-								</c:if>
-								<!-- 페이지 -->
-								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="pickListByDream.dz">
-										<c:param name="page" value="${p }"></c:param>
-									</c:url>
-									<c:if test="${p eq pi.currentPage }">
-										<font color="red" size="4">[${p }]</font>								
-									</c:if>
-									<c:if test="${p ne pi.currentPage }">
-										<a href="${pagination }">${p }</a>&nbsp;
-									</c:if>
-								</c:forEach>
-								<!-- 다음 -->
-								<c:url var="after" value="pickListByDream.dz">
-									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
-								</c:url>
-								<c:if  test="${pi.currentPage >= pi.maxPage }">
-									[다음]&nbsp;
-								</c:if>
-								<c:if test="${pi.currentPage < pi.maxPage }">
-									<a href="${after }">[다음]</a>&nbsp;
-								</c:if>
-							</td>
-						</tr>
 						</c:if>
 						<c:if test="${ empty pList }">
 							<tr>
 								<td colspan="4">${msg }</td>
 							</tr>
+						</c:if>
+						<c:if test="${ !empty pList }">
+						
+							<table class="page-table">
+							<tbody>
+								<tr>
+								<!-- 이전 -->
+									<c:url value="pickListByDream.dz" var="before">
+										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
+									</c:url>
+									<c:if test="${ pi.currentPage <= 1 }">
+									</c:if>
+									<c:if test="${ pi.currentPage > 1 }">
+										<td class="page-td" width=35px><a href="${ before }">&lt;</a></td>
+									</c:if>
+									<!-- 이전끝 -->
+									<!-- 페이징 -->
+									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			                    		<c:url var="pagination" value="pickListByDream.dz">
+			                    			<c:param name="page" value="${ p }"></c:param>
+			                    		</c:url>
+			                    		<c:if test="${ p eq pi.currentPage }">
+					                        <td class="page-td page-selected" width=35px>${ p }</td>
+			                    		</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+					                        <td class="page-td" width=35px><a href="${ pagination }">${ p }</a></td>
+										</c:if>	                    	
+			                    	</c:forEach>
+									<!-- 페이징 끝 -->
+									<c:url var="after" value="pickListByDream.dz">
+			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+			                    	</c:url>
+			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
+			                    	</c:if>
+			                    	<c:if test="${ pi.currentPage < pi.maxPage }">
+			                    		<td class="page-td" width=35px><a href="${ after }">&gt;</a></td>
+			                    	</c:if>
+									<!-- 다음 끝 -->
+								</tr>
+							</tbody>
+						</table>
 						</c:if>
 					</tbody>
 				</table>
