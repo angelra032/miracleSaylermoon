@@ -30,9 +30,8 @@ public class PickServiceImpl implements PickService {
 	}
 
 	@Override
-	public List<Pick> selectAllPick(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Pick> selectAllPick(int userNo, PageInfo pi) {
+		return store.selectAllPick(userNo, pi);
 	}
 
 	// 드림 마이페이지

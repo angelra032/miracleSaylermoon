@@ -31,9 +31,10 @@ public class PickStoreLogic implements PickStore{
 	}
 
 	@Override
-	public List<Pick> selectAllPick(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Pick> selectAllPick(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("pickMapper.selectAllList",userNo);
 	}
 	
 	

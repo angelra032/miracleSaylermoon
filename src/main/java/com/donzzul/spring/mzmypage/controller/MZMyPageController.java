@@ -1,6 +1,7 @@
 package com.donzzul.spring.mzmypage.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,8 @@ import com.donzzul.spring.common.Pagination;
 
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.service.PaymentService;
-
+import com.donzzul.spring.pick.domain.Pick;
+import com.donzzul.spring.pick.service.PickService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
@@ -31,8 +34,11 @@ public class MZMyPageController {
 	@Autowired
 	private PaymentService pService;
 	
-  @Autowired
+    @Autowired
 	private ReservationService rService;
+    
+    @Autowired
+	private PickService pkService;
 	
 	// (민애) mz마이페이지 메인뷰
   	@RequestMapping(value = "mzMyPage.dz")
@@ -43,29 +49,33 @@ public class MZMyPageController {
 
 		// userPoint 조회
 		User userPoint = pService.selectUserPoint(userNo);
-		
 		// 예약 목록
 		ArrayList<Reservation> rList = rService.listByMZToThree(userNo);
+		// 가고싶다 목록
+		ArrayList<Pick> pList = pkService.dreamPickUpToThree(userNo);
 		// 돈쭐 목록
 		ArrayList<Don> dList = pService.selectDonListThree(userNo);
 		
-		if(userPoint != null || !rList.isEmpty() || !dList.isEmpty()) {
+		if(userPoint != null || !rList.isEmpty() || !pList.isEmpty() || !dList.isEmpty()) {
 			model.addAttribute("userPoint", userPoint.getUserPoint());
 			model.addAttribute("rList", rList);
+			model.addAttribute("pList", pList);
 			model.addAttribute("dList", dList);
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
+			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
+			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}
   	} // end of MZMyPageView
   	
- // (민애) 구글구글 mz마이페이지 메인뷰
+  	// 구글mz마이페이지 메인뷰
    	@RequestMapping(value = "GoogleMyPage.dz")
  	public String GoogleMZMyPageView(HttpSession session, Model model) {
  		
@@ -93,7 +103,7 @@ public class MZMyPageController {
  		//}
    	}
    	
- // (민애) 카카오 mz마이페이지 메인뷰
+ // 카카오 mz마이페이지 메인뷰
    	@RequestMapping(value = "KakaoMyPage.dz")
  	public String KakaoMZMyPageView(HttpSession session, Model model) {
  		
@@ -121,7 +131,33 @@ public class MZMyPageController {
  		//}
    	}
 	
-   	// 예약 취소
+	// 예약 전체 목록보기
+	@RequestMapping(value = "mzReservationList.dz", method = RequestMethod.GET)
+	public ModelAndView MZReservationListView(HttpSession session,
+										Model model,
+										ModelAndView mv,
+										@RequestParam(value="page", required=false) Integer page) {
+		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = rService.getListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Reservation> rList = rService.reservationListByMZ(userNo, pi);
+		
+		if(!rList.isEmpty()) {
+			mv.addObject("rList",rList);
+			mv.addObject("pi",pi);
+			mv.setViewName("mzMyPage/MZReservationList");
+		}else {
+			mv.addObject("msg","예약목록을 불러오는데 실패하였습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	// 예약 취소
    	@ResponseBody
  	@RequestMapping(value = "cancelMZReservation.dz")
  	public String cancelMZReservation(@RequestParam("reservationNo") int reservationNo, Model model, HttpSession session) {
@@ -148,7 +184,31 @@ public class MZMyPageController {
  		}
  	} //end of cancelMZReservation
    	
-	// 돈쭐 내역 출력
+   	//후기작성 메소드는 - MzReviewController.java
+	
+	// 찜(가고싶다) 전체 목록보기
+	@RequestMapping(value="mzPickList.dz", method=RequestMethod.GET)
+	public ModelAndView listPick(HttpSession session, Model model, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = rService.getListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		List<Pick> pList = pkService.selectAllPick(userNo, pi);
+		if(!pList.isEmpty()) {
+			mv.addObject("pList",pList);
+			mv.addObject("pi",pi);
+			mv.setViewName("mzMyPage/MZPickList");
+		}else {
+			mv.addObject("msg","찜목록을 불러오는데 실패하였습니다.");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+
+	// 돈쭐 전체 목록보기
 	@RequestMapping(value ="printDonAllList.dz", method = RequestMethod.GET)
 	public ModelAndView printDonAllList(HttpSession session, ModelAndView mv, Model model, @RequestParam(value="page", required = false) Integer page) {
 		// 결제 후 반환정보 파라미터로
@@ -173,37 +233,5 @@ public class MZMyPageController {
 		}
 		return mv;
 	}
-	
-	
-	
-	
-	// 예약 전체 페이지보기
-	@RequestMapping(value = "mzReservationList.dz", method = RequestMethod.GET)
-	public ModelAndView MZReservationListView(HttpSession session,
-										Model model,
-										ModelAndView mv,
-										@RequestParam(value="page", required=false) Integer page) {
-		User user = (User)session.getAttribute("loginUser");
-		int userNo = user.getUserNo();
-		
-		int currentPage = (page != null) ? page : 1;
-		int listCount = rService.getListCount(userNo);
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Reservation> rList = rService.reservationListByMZ(userNo, pi);
-		
-		if(!rList.isEmpty()) {
-			mv.addObject("rList",rList);
-			mv.addObject("pi",pi);
-			mv.setViewName("mzMyPage/MZReservationList");
-		}else {
-			mv.addObject("msg","예약목록 전체 불러오는데 실패하였습니다.");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
-	}
-	
-
-
 	
 }
