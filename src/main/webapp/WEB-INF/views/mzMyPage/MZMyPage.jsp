@@ -99,7 +99,7 @@
 				<div class="my-title">
 					<span>가고싶다 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<a class="more-btn b-btn" href="mzPickList.dz">더보기</a>
 					</div>
 				</div>
 				<table>
@@ -112,24 +112,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>서울시 종로구</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>서울시 종로구</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타</p></a></td>
-							<td>서울시 종로구</td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+						<c:if test="${ !empty pList }">
+						<c:forEach items="${ pList }" var="pick" varStatus="status">
+							<tr>
+								<td>${ status.count }</td>
+								<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }"><p>${ pick.shopName }</p></a></td>
+								<td>${ pick.shopShortAddr }</td>
+								<td><a class="delete-btn" href="#">삭제</a></td>
+							</tr>
+						</c:forEach>
+						</c:if>
+						<c:if test="${ empty pList }">
+							<tr>
+								<td colspan="4">${ Pmsg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>

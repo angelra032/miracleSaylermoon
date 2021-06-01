@@ -60,10 +60,5 @@ public class PickController {
 		}
 	}
 	
-	//A 찜 목록
-	@RequestMapping(value="listPick.dz", method=RequestMethod.GET)
-	public String listPick(@ModelAttribute User user) {
-		List<Pick> list = service.selectAllPick(user);
-			return "";
-	}
+	
 }
