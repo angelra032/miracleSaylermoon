@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
 import com.donzzul.spring.shop.domain.Shop;
 
@@ -48,8 +49,7 @@ public class MzReviewStoreLogic implements MzReviewStore {
 
 	@Override
 	public int updateMzReview(MzReview mzReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("mzReviewMapper.updateMzReview", mzReview);
 	}
 
 	@Override
@@ -67,6 +67,21 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	@Override
 	public ArrayList<MzReview> selectThreeReview() {
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectThreeReview");
+	}
+
+	@Override
+	public int insertPhoto(MzReviewPhoto mzReviewPhoto) {
+		return sqlSession.insert("mzReviewMapper.insertMZPhoto", mzReviewPhoto);
+	}
+
+	@Override
+	public ArrayList<MzReviewPhoto> selectPhoto(int mzReviewNo) {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectMZPhoto", mzReviewNo);
+	}
+
+	@Override
+	public int deleteBeforePhoto(int mzReviewNo) {
+		return sqlSession.delete("mzReviewMapper.deleteBeforeMZPhoto", mzReviewNo);
 	}
 
 }

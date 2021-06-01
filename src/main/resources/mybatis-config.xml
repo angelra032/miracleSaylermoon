@@ -9,6 +9,7 @@
 		<typeAlias type="com.donzzul.spring.reservation.domain.Reservation" alias="Reservation"/>
 		<typeAlias type="com.donzzul.spring.dreamreview.domain.DreamReview" alias="DreamReview"/>
 		<typeAlias type="com.donzzul.spring.mzreview.domain.MzReview" alias="MzReview"/>
+		<typeAlias type="com.donzzul.spring.mzreview.domain.MzReviewPhoto" alias="MzReviewPhoto"/>
 		<typeAlias type="com.donzzul.spring.notiqna.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.donzzul.spring.notiqna.domain.Qna" alias="Qna"/>
 		<typeAlias type="com.donzzul.spring.recommendboard.domain.RecommendBoard" alias="RecommendBoard"/>

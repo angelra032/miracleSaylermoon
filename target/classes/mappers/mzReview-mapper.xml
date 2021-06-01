@@ -16,8 +16,19 @@
 		<result property="userType" column="USER_TYPE"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="shopNo" column="SHOP_NO"/>
+		<result property="shopName" column="SHOP_NAME"/>
 	</resultMap>
-
+	
+ 	<resultMap type="MzReviewPhoto" id="mzPhotoResultMap">
+		<id property="mzReviewFileNo" column="MZREVIEW_FILENO"/>
+		<result property="mzReviewOriginalFileName" column="MZREVIEW_ORIGINAL_FILENAME"/>
+		<result property="mzReviewRenameFileName" column="MZREVIEW_RENAME_FILENAME"/>
+		<result property="mzReviewFilePath" column="MZREVIEW_FILEPATH"/>
+		<result property="mzReviewFileSize" column="MZREVIEW_FILESIZE"/>
+		<result property="mzReviewFileTime" column="MZREVIEW_FILETIME"/>
+		<result property="mzReviewNo" column="MZREVIEW_NO"/>
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM MZ_REVIEW
 	</select>
@@ -27,19 +38,40 @@
 	</select>
 	
 	<select id="selectOneDetail" resultMap="mzReviewResultMap">
-		SELECT * FROM MZ_REVIEW WHERE MZREVIEW_NO = #{mReviewNo}
+		SELECT MZ_REVIEW.*, "SHOP".SHOP_NAME FROM MZ_REVIEW JOIN SHOP ON MZ_REVIEW.SHOP_NO = SHOP.SHOP_NO WHERE MZREVIEW_NO = #{mReviewNo} ORDER BY MZREVIEW_NO DESC
 	</select>
 	
 	<select id="selectListShopNo"  resultMap="mzReviewResultMap">
-		SELECT * FROM MZ_REVIEW WHERE SHOP_NO = #{shopNo}
+		SELECT MZREVIEW_TITLE, MZREVIEW_CONTENT, MZREVIEW_UPLOAD_DATE, MZREVIEW_FILENAME FROM MZ_REVIEW WHERE SHOP_NO = #{shopNo}
+	</select>
+	
+	<select id="selectThreeReview"  resultMap="mzReviewResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY MZREVIEW_UPLOAD_DATE DESC) AS NUM, MZREVIEW_CONTENT, MZREVIEW_UPLOAD_DATE FROM MZ_REVIEW) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
 	<insert id="insertMzReview" parameterType="MzReview">
-		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, '1')
+		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, #{shopNo})
 	</insert>
+	
+	<update id="updateMzReview">
+		UPDATE MZ_REVIEW SET MZREVIEW_TITLE = #{mReviewTitle}, MZREVIEW_CONTENT = #{mReviewContent} WHERE MZREVIEW_NO = #{mReviewNo}
+	</update>
 
 	<delete id="deleteMzReview">
 		DELETE FROM MZ_REVIEW WHERE MZREVIEW_NO=#{mzReviewNo}
+	</delete>
+	
+	<!-- 사진 -->
+	<select id="selectMZPhoto">
+		SELECT * FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
+	</select>
+	
+	<insert id="insertMZPhoto">
+		INSERT INTO MZ_REVIEW_PHOTO VALUES(SEQ_MZREVIEW_PHOTO.NEXTVAL, #{mzReviewOriginalFileName}, #{mzReviewRenameFileName}, #{mzReviewFilePath}, #{mzReviewFileSize}, #{mzReviewFileTime}, #{mzReviewNo});
+	</insert>
+	
+	<delete id="deleteBeforeMZPhoto">
+		DELETE FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
 	</delete>
 
 

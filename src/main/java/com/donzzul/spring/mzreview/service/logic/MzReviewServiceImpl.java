@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
 import com.donzzul.spring.reservation.domain.Reservation;
@@ -49,8 +50,7 @@ public class MzReviewServiceImpl implements MzReviewService {
 
 	@Override
 	public int updateMzReview(MzReview mzReview) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mStore.updateMzReview(mzReview);
 	}
 
     
@@ -68,6 +68,22 @@ public class MzReviewServiceImpl implements MzReviewService {
 	@Override
 	public ArrayList<MzReview> selectThreeReview() {
 		return mStore.selectThreeReview();
+	}
+	
+	// 사진
+	@Override
+	public int insertPhoto(MzReviewPhoto mzReviewPhoto) {
+		return mStore.insertPhoto(mzReviewPhoto);
+	}
+
+	@Override
+	public ArrayList<MzReviewPhoto> selectPhoto(int mzReviewNo) {
+		return mStore.selectPhoto(mzReviewNo);
+	}
+
+	@Override
+	public int deleteBeforePhoto(int mzReviewNo) {
+		return mStore.deleteBeforePhoto(mzReviewNo);
 	}
 
 
