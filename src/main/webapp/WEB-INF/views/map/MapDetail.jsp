@@ -42,17 +42,14 @@
 								</div>
 								<div class="content-shop right">
 									<div class="content-shop right top">
-										<span id=shop-title><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
+										<span id="shop-title"><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
 										<span>${ shop.shopType }</span><br>
 										<span>${ shop.shopAddr }</span><br>
-										<span>${ shop.shopContent }</span><br>
+										<span id="shop-content">${ shop.shopContent }</span><br>
 										<br>
 									</div>
 									<div class="content-shop right bottom">
-										<c:url var="goDetail" value="shopDetail.dz">
-											<c:param name="shopNo" value="${ shop.shopNo }"></c:param>
-										</c:url>
-										<button type="button" class="btn btn-primary btn-sm" onclick="location.href=goDetail">예약하기</button>
+										<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">예약하기</button>
 									</div>
 								</div>
 							</div>
@@ -116,7 +113,9 @@
 	
 	<!-- 맵 js -->
 	<script>
-	(function mapJs() {
+	mapJs();
+	
+	function mapJs() {
 		var positions = [];
 		
 		<c:forEach var="shop" items="${mapMarkers}" >
@@ -172,19 +171,7 @@
 					map.setCenter(coords);
 			     }
 			});
-	 	/* 지도상세 - 지역 검색시 */
-		/*} else if ( searchedCenter ) {
-			geocoder.addressSearch(searchedCenter, function(result, status) {
-				
-				// 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			    	var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-					map.setCenter(coords);
-			     }
-			});
-		}
- */			
+
 		
 		// 주소로 좌표를 검색합니다
 		positions.forEach(function(shop, index){ 
@@ -265,10 +252,11 @@
 				            '           </div>' +  */
 				            '            <div class="desc">' + 
 				            '                <div class="ellipsis">제공대상 : '+shop.shopTarget+'</div>' + 
-				            '                <div class="ellipsis">제공품목 : '+shop.shopProduct+'</div>' + 
+				            '                <div class="ellipsis product">제공품목 : '+shop.shopProduct+'</div>' + 
 				            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
-				            '                <div><input type="hidden" name="shopNo" value="'+shop.shopNo+'">' +
-							'				 <button type="button" class="btn btn-primary btn-sm" onclick="goDetail(shopNo)">예약하기</button></div>' + 
+				            '            </div>' + 
+				            '            <div class="btnShop">' + 
+							'				 <button type="button" class="btn btn-primary btn-sm" onclick="shopDetail('+shop.shopNo+')">예약하기</button></div>' + 
 				            '            </div>' + 
 				            '        </div>' + 
 				            '    </div>' +    
@@ -284,8 +272,7 @@
 						    zIndex: 999
 						});	
 						
-						selectedOverlay = null;
-						
+					
 						
 						// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 						function closeOverlay() {
@@ -293,6 +280,7 @@
 						}
 						
 				    });
+					 
 					
 				  	// 마커에 마우스아웃 이벤트를 등록합니다
 					kakao.maps.event.addListener(marker, 'mouseout', function() {
@@ -310,7 +298,7 @@
 			});
 			
 		});
-	}());
+	}
 	    
 
 		/* $(function() { */
@@ -357,8 +345,7 @@
 													   .append("<span>"+data.mList[i].shopType+"</span><br>")
 													   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
 													   .append("<span>"+data.mList[i].shopContent+"</span><br>");
-									contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-														  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+									contentShopRightBottom.append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail("+data.mList[i].shopNo+")'>예약하기</button>");
 									contentShop.append(contentShopLeft);
 									contentShopRight.append(contentShopRightTop);
 									contentShopRight.append(contentShopRightBottom);
@@ -384,53 +371,10 @@
 									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+(data.pi.currentPage+1)+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
 								}
 								
-								/* mapJs(); */
-	
-								/* var map = new kakao.maps.Map(mapContainer, mapOption); */
-								
-								
-								/* <hr>
-								<c:url var="before" value="mapSearchShop.dz">
-									<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-									<c:if test="${ !empty location }">
-										<c:param name="location" value="${ location }"></c:param>
-									</c:if>
-								</c:url>
-								<c:if test="${ pi.currentPage > 1 }">
-									<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
-								</c:if>
-								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-									<c:url var="pagination" value="mapSearchShop.dz">
-										<c:param name="page" value="${ p }"></c:param>
-										<c:if test="${ !empty location }">
-											<c:param name="location" value="${ location }"></c:param>
-										</c:if>
-									</c:url>
-									<c:if test="${ p eq pi.currentPage }">
-										<span id="currentPage">${ p }</span>
-									</c:if>
-									<c:if test="${ p ne pi.currentPage }">
-										<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
-									</c:if>
-								</c:forEach>
-								<c:url var="after" value="mapSearchShop.dz">
-									<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-									<c:if test="${ !empty location }">
-										<c:param name="location" value="${ location }"></c:param>
-									</c:if>
-								</c:url>
-								<c:if test="${ pi.currentPage >= pi.maxPage }">
-								</c:if>
-								<c:if test="${ pi.currentPage < pi.maxPage }">
-									<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
-								</c:if> */
-											
-								/* $.getScript("map-ajax.js"); */
-
-
-							
-										
-							
+								var mapMarkers = data.mapMarkers;
+									
+								/* 맵 js */
+								mapJs(mapMarkers);
 								
 						}else {
 							$(".content-list").empty();
@@ -449,11 +393,11 @@
 			}
 		});
 		
-		function shopDetail() {
-			location.href='shopDetail.dz?shopNo='+data.mList[i].shopNo;
+		function shopDetail(shopNo) {
+			location.href='shopDetail.dz?shopNo='+shopNo;
 		}
 		
-		function searchLogic1(searchKeyword, page) {
+		function searchLogic1(page) {
 		
 			$(".content-list").empty();
 			$(".content-list-navi").empty();
@@ -498,22 +442,41 @@
 							
 							/* 네비 */
 							contentListNavi.append("<hr>");
-							if(data.pi.currentPage > 1) {
-								contentListNavi.append("<a href='#' onclick='searchLogic1();'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
-								/* contentListNavi.append("<img src='/resources/images/navi-left.png' alt='이전' onclick='searhLogic();'/>&nbsp;&nbsp;"); */
-							}
-							for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
-								if(i == data.pi.currentPage) {
-									contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
-								}else if(i != data.pi.currentPage) {
-									contentListNavi.append("<a href='#' onclick='searchLogic1();'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+								if(data.pi.currentPage > 1) {
+									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+(data.pi.currentPage-1)+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
 								}
-							}
-							if(data.pi.currentPage < data.pi.maxPage) {
-								contentListNavi.append("<a href='#'  onclick='searchLogic1();'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
-							}
+								for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
+									if(i == data.pi.currentPage) {
+										contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+									}else if(i != data.pi.currentPage) {
+										contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+ data.pi.currentPage+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+									}
+								}
+								if(data.pi.currentPage < data.pi.maxPage) {
+									contentListNavi.append("<a href='#' onclick='searchLogic1("+data.searchKeyword+", "+(data.pi.currentPage+1)+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+								}
 
-							/* mapJs(); */
+								var mapMarkers = data.mapMarkers;
+								
+								/* var positions = [];
+								
+								for( var i = 0; i < data.mapMarkers.size(); i++) {
+									var shopMap = new Object();
+									shopMap.shopNo = data.mapMarkers[i].shopNo;
+									shopMap.shopName = data.mapMarkers[i].shopName;
+									shopMap.shopShortAddr = data.mapMarkers[i].shopShortAddr;
+									shopMap.shopAddr = data.mapMarkers[i].shopAddr;
+									shopMap.startTime = data.mapMarkers[i].startTime;
+									shopMap.endTime = data.mapMarkers[i].endTime;
+									shopMap.businessDay = data.mapMarkers[i].businessDay;
+									shopMap.shopTarget = data.mapMarkers[i].shopTarget;
+									shopMap.shopProduct = data.mapMarkers[i].shopProduct;
+									
+									positions.push(shopMap);
+								} */
+									
+								/* 맵 js */
+								mapJs(mapMarkers);
 							
 					}else {
 						$(".content-list").empty();
