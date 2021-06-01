@@ -121,6 +121,10 @@ main {
 						.content-shop > #shop-title {
 							font-size: 18px;
 						}
+						
+						.content-shop > #shop-content {
+							color: #888;
+						}
 					
 					.content-shop > .right > .bottom {
 						width: inherit;
@@ -268,19 +272,21 @@ main {
 		}
 		
 .wrap * {padding: 0;margin: 0;}
-	.wrap {position:absolute; top: -309px; left: -144px;z-index: 999;}
-    .wrap .info {width: 259px;height: 260px;margin-bottom: 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+	.wrap {position:absolute; top: -235px; left: -144px;z-index: 999;width: 259px;height: 197px;}
+    .wrap .info {width: 259px;height: 185px;margin-bottom: 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 36px;background-color: #fdb504;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .title {padding: 5px 7px;height: 36px;background-color: #fdb504;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #fff;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;height: 220px;}
-    .info .desc {position: relative;margin: 5px 0 0 7px;height: 75px;}
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .body {position: relative;overflow: hidden;height: 170px;}
+    .info .desc {position: relative;width: 245px; height: 100px;margin: 5px 7px;}
+    .product {white-space: initial;}
+    .desc .jibun {font-size: 14px;color: #888;margin-top: -2px;}
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}		
+    .info .link {color: #5085BB;}	
+    .btnShop {width: 245px;height:30px;margin: 5px 7px;}	
+    .btn-sm {float: right;}	
 
  		
 /*     .wrap {position: absolute;left: 20;bottom: 40px;width: 255px;height: 200px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
