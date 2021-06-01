@@ -12,5 +12,6 @@ public class ChatController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("chatting/chat");
 		return mv;	
+		
 	}
 }

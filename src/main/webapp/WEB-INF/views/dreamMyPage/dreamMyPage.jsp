@@ -148,14 +148,15 @@
 							<c:forEach items="${drList }" var="dreamreview"
 								varStatus="status">
 								<tr>
-									<td>${status.count }</td>
-									<td><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
+									<td class="count">${status.count }</td>
+									<td class="drmReviewTitle"><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
 									<td>${dreamreview.shopName }</td>
 									<td>${dreamreview.drmReviewUploadDate }</td>
 									<td><a class="modify-btn"
 										href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
-									<td><a class="delete-btn"
-										href="dReviewDelete.dz?drmRviewNo=${dreamreview.drmRviewNo }">삭제</a></td>
+									<td>
+										<input type="hidden" value="${ dreamreview.drmRviewNo}">
+										<a class="delete-btn dreview-btn" href="#">삭제${ dreamreview.drmRviewNo}</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -213,4 +214,18 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+
+<script type="text/javascript">
+	/* $('.dreview-btn').on('click',function(){
+		var drmRviewNo = $(this).prev().val();
+		
+		$('.count').html("");
+		$('.drmReviewTitle').html("");
+		
+		
+		
+		return false;
+	}); */
+
+</script>
 </html>

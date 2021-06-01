@@ -33,7 +33,7 @@ p{
 #requestBtn{
 	padding: 8px 8px;
 	font-size: 16px;
-	margin-top: 20px;
+	margin-top: 45px;
 	margin-left: 70px;
 	background-color: #fdb504;
 	border-radius: 6px;
@@ -73,13 +73,24 @@ p{
 	margin-left: 20px;
 }
 
-#msgBox{
+.msgBox{
 	background-color: #ffffff;
 	width: 80%;
 	height: 60%;
 	margin-left: 80px;
 	border-radius: 5px;
 	box-shadow: 0 0 2.8px 0.2px rgba(0, 0, 0, 0.1);
+}
+
+.msgBox span{
+	margin-top:20px;
+	color: black;
+    font-family: NotoSansKR;
+    line-height: 1.13;
+    letter-spacing: -0.16px;
+    text-align: right;
+    font-size: 18px;
+    padding: 5px;
 }
 
 #header {
@@ -162,7 +173,6 @@ p{
     padding: 5px;
 }
 
-
 .sendDivBox{
 	max-width: 300px;
     width: auto;
@@ -170,5 +180,48 @@ p{
     display: block;
     height: auto;
     margin-bottom: 50px;
-    
+}
+
+
+/* 받는 채팅창 */
+.reciveDivBox{
+	float: left;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 2.8px 0.2px rgb(0 0 0 / 10%);
+    width: 200px;
+    height: 30px;
+    margin-left: 5px;
+    padding: 10px;
+}
+
+
+.reciveDiv span{
+	color: black;
+    font-family: NotoSansKR;
+    line-height: 1.13;
+    letter-spacing: -0.16px;
+    text-align: right;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.reciveDiv{
+	max-width: 300px;
+    width: auto;
+    display: block;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.imgDiv{
+	width: 60px;
+  	height: 60px;
+  	float: left;
+  	margin-left: 30px;
+}
+
+.imgDiv img{
+	width: 50px;
+    height: 50px;
 }

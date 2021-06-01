@@ -9,7 +9,9 @@
 	content="415085927923-rlk2denkpna85ffki391opn4br9792f1.apps.googleusercontent.com">
 <!-- css -->
 <link rel="stylesheet" href="/resources/css/header.css">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap"
+	rel="stylesheet">
 <!-- chatting css -->
 <link rel="stylesheet" href="/resources/css/chatting/chat.css">
 <!-- JS -->
@@ -88,7 +90,8 @@
 		</div>
 	</header>
 	<!-- chatting button-->
-	<c:if test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
+	<c:if
+		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
 		<div id="chatting">
 			<a id="modal" href="#container" rel="modal:open"> <img
 				alt="chattingIcon" src="/resources/images/chatting/chat.png">
@@ -108,29 +111,32 @@
 		<div id="chating" class="chating">
 			<div id='startDiv'>
 				<div id='imgDiv'>
-					<img src='/resources/images/chatting/operator-1.png' >
+					<img src='/resources/images/chatting/operator-1.png'>
 				</div>
-				<div id="msgBox">
-					<p>안녕하십니까? <br>
-					돈쭐 고객센터 담당자입니다.<br>
-					무엇을 도와드릴까요?</p>
+				<div class="msgBox">
+					<span>안녕하십니까? <br> 돈쭐 고객센터 담당자입니다.<br> 무엇을 도와드릴까요?
+					</span>>
 					<button id="requestBtn">실시간 상담하기</button>
 				</div>
 			</div>
-			
-			
-			 <!-- 유저  1,2,3 채팅창 -->
-			 <div class="sendDivBox">
-				 <div class="sendDiv">
-				 	<span>안녕하세요</span>>
-				 </div>
-			 </div>
-			 
-			 <!-- 관리자 채팅창 -->
-			 <div class="reciveDivBox">
-			 
-			 </div>
-			 
+
+
+			<!-- 유저  1,2,3 채팅창 -->
+			<div class="sendDivBox">
+				<div class="sendDiv">
+					<span>안녕하세요</span>>
+				</div>
+			</div>
+
+			<!-- 관리자 채팅창 -->
+			<div class='imgDiv'>
+				<img src='/resources/images/chatting/operator-1.png'>
+			</div>
+			<div class="reciveDivBox">
+				<div class="reciveDiv">
+					<span>네!안녕하세요!</span>
+				</div>
+			</div>
 		</div>
 
 		<div id="yourName">
@@ -142,7 +148,7 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
@@ -156,18 +162,16 @@
 
 </body>
 <script type="text/javascript">
-	$("#modal").on("click", function() {
-		var userName = $("#userName").val();	
+	$("#requestBtn").on("click", function() {
+		var userName = $("#userName").val();
 		$("#yourName").hide();
 		$("#yourMsg").show();
 		chatName();
 		var userType = '${loginUser.userType }';
-		console.log(userType);
-		
 	});
 
 	function chatName() {
-		wsOpen();	
+		wsOpen();
 	}
 	var ws;
 
@@ -184,7 +188,23 @@
 		ws.onmessage = function(data) {
 			var msg = data.data;
 			if (msg != null && msg.trim() != '') {
-				$("#chating").append("<div class='sendDivBox'><div class='sendDiv'><span>" + msg + "</span><div></div>");
+				var d = JSON.parse(msg);
+				if(d.type == "getId"){
+					var si = d.sessionId != null ? d.sessionId : "";
+					if( si != ""){
+						$("#sessionId").val(si);
+					}
+				}else if(d.type == "message"){
+					if(d.sessionId == $("#sessionId").val()){
+						$("#chating").append("<div class='sendDivBox'><div class='sendDiv'><span>"
+								+ d.msg + "</span><div></div>");
+					}else{
+						$("#chating").append("<div class='sendDivBox'><div class='sendDiv'><span>"
+								+ d.userName + ":" + d.msg + "</span><div></div>");
+					}
+				}else{
+					console.log("unknown type!")
+				}
 			}
 		}
 
@@ -196,9 +216,13 @@
 	}
 
 	function send() {
-		var uN = $("#userName").val();
-		var msg = $("#chatting-text").val();
-		ws.send(uN + " : " + msg);
+		var option = {
+			type : "message",
+			sessonId : $("#sessionId").val(),
+			userName : $("#userName").val(),
+			msg : $("chatting").val();
+		}
+		ws.send(JSON.stringify(option));
 		$('#chatting-text').val("");
 	}
 </script>
