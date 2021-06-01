@@ -114,12 +114,23 @@
 					<p>안녕하십니까? <br>
 					돈쭐 고객센터 담당자입니다.<br>
 					무엇을 도와드릴까요?</p>
-				</div>
-				<div>
 					<button id="requestBtn">실시간 상담하기</button>
 				</div>
-				
 			</div>
+			
+			
+			 <!-- 유저  1,2,3 채팅창 -->
+			 <div class="sendDivBox">
+				 <div class="sendDiv">
+				 	<span>안녕하세요</span>>
+				 </div>
+			 </div>
+			 
+			 <!-- 관리자 채팅창 -->
+			 <div class="reciveDivBox">
+			 
+			 </div>
+			 
 		</div>
 
 		<div id="yourName">
@@ -131,6 +142,7 @@
 				</tr>
 			</table>
 		</div>
+		
 		<div id="yourMsg">
 			<table class="inputTable">
 				<tr>
@@ -146,16 +158,16 @@
 <script type="text/javascript">
 	$("#modal").on("click", function() {
 		var userName = $("#userName").val();	
-		/* $("#chating").append("<div id='startDiv'><div id='imgDiv'>");
-		$("#chating").append("<img src='/resources/images/chatting/operator-1.png'>"); */
+		$("#yourName").hide();
+		$("#yourMsg").show();
 		chatName();
+		var userType = '${loginUser.userType }';
+		console.log(userType);
+		
 	});
 
 	function chatName() {
-		
-		wsOpen();
-		$("#yourName").hide();
-		$("#yourMsg").show();
+		wsOpen();	
 	}
 	var ws;
 
@@ -172,7 +184,7 @@
 		ws.onmessage = function(data) {
 			var msg = data.data;
 			if (msg != null && msg.trim() != '') {
-				$("#chating").append("<div>" + msg + "<div>");
+				$("#chating").append("<div class='sendDivBox'><div class='sendDiv'><span>" + msg + "</span><div></div>");
 			}
 		}
 
@@ -182,7 +194,6 @@
 			}
 		});
 	}
-
 
 	function send() {
 		var uN = $("#userName").val();
