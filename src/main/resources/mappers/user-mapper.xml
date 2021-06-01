@@ -22,9 +22,9 @@
 		WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
 	</select>
 
-	<select id="getUsersByID" resultMap="userResultMap">
+	<!-- <select id="getUsersByID" resultMap="com.donzzul.spring.user.domain.CustomUserDetails">
 		SELECT * FROM "USER" WHERE USER_ID = #{userId}
-	</select>
+	</select> -->
 
 	<select id="selectOneUserByNo" parameterType="_int" resultMap="userResultMap">
 		SELECT * FROM "USER" WHERE USER_NO = #{userNo}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.user.domain.CustomUserDetails;
 import com.donzzul.spring.user.domain.User;
 
 public interface UserStore {
@@ -36,5 +37,5 @@ public interface UserStore {
 	public ArrayList<User> selectUserListThree();
 	public int getListCount();
 	public ArrayList<User> selectAllUserList(PageInfo pi);
-	public User getUsersByID(String userId);
+	public CustomUserDetails getUsersByID(String userId);
 }

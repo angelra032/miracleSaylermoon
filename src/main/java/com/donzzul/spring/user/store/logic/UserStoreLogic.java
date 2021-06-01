@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.user.domain.CustomUserDetails;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.store.UserStore;
 
@@ -190,8 +191,8 @@ public class UserStoreLogic implements UserStore {
 	}
 
 	@Override
-	public User getUsersByID(String userId) {
-		return sqlSession.selectOne("userMapper.getUsersByID");
+	public CustomUserDetails getUsersByID(String userId) {
+		return sqlSession.selectOne("userMapper.getUsersByID", userId);
 	}
 
 	

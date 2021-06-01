@@ -112,6 +112,7 @@
 								<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력">
 							</div>
 							<button class="submit-btn" type="submit">가입하기</button>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</div>
 					
@@ -184,6 +185,7 @@
 								<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력">
 							</div>
 							<button class="submit-btn" type="submit">가입하기</button>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</div>
 					
@@ -267,6 +269,7 @@
 								<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력">
 							</div>
 							<button class="submit-btn" type="submit">가입하기</button>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</div>
 				</div>
