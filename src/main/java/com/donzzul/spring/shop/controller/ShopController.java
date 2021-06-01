@@ -259,8 +259,8 @@ public class ShopController {
 	
 	//D 가게 상세 페이지 출력
 	@ResponseBody
-	@RequestMapping(value="shopDetail.dz", method=RequestMethod.GET)
-	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo) {
+	@RequestMapping(value="shopDetail.dz")
+	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
 		// 파라미터 - 가게 번호 (쿼리스트링)
 		// 가게 상세정보 가져오기
 		Shop shop = sService.selectShopOne(shopNo);
@@ -270,8 +270,8 @@ public class ShopController {
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
 		// 전체 후기 가져오기
-		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
-		System.out.println("전체 후기 : " + rList.toString());
+//		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
+//		
 		// 감사 후기 가져오기
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
 		System.out.println("감사후기 : " + drList.toString());
@@ -279,15 +279,61 @@ public class ShopController {
 		ArrayList<MzReview> mzList = mService.selectAllMzReview(shopNo);
 		System.out.println("맛집후기 : " + mzList.toString());
 		
+//		
+//
+//		HashMap<String, String> searchParam = new HashMap<String, String>(); // 파라미터 생성
+//		searchParam.put("startNum", param.get("startNum"));
+//		searchParam.put("endNum", param.get("endNum"));
+//		searchParam.put("shopNo", param.get("shopNo"));
+//		
+//		// startNum ~ endNum 범위에 해당하는 전체 review 조회
+//		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
+//		System.out.println("더보기 후기 - "+rList.toString());
+//		 
+//		response.setContentType("application/json"); // 
+//		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환
+//		
+//		Gson gson = new Gson();
+//		gson.toJson(rList, response.getWriter()); // 조회한 전체 리뷰 보내주기,,
+//		
+//		System.out.println("전체 후기 : " + rList.toString());
+		
 		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);
 		mv.addObject("mPhoto", mPhoto);
-		mv.addObject("rList", rList);
+//		mv.addObject("rList", rList);
 		mv.addObject("drList", drList); // 확인용
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
 	}
+	
+	// 가게 전체 후기 더보기
+	@ResponseBody
+	@RequestMapping(value="moreAllReview.dz", method=RequestMethod.POST)
+	public void moreAllReview(HttpServletResponse response, @RequestParam("startNum") int startNum, @RequestParam("endNum") int endNum, @RequestParam("shopNo") int shopNo ) throws Exception, IOException {
+														// @RequestParam HashMap<String, String> param,
+		System.out.println("1. 받음");
+		HashMap<String, Object> searchParam = new HashMap<String, Object>(); // 파라미터 생성
+		searchParam.put("startNum", startNum);
+		searchParam.put("endNum", endNum);
+		searchParam.put("shopNo", shopNo);
+		
+		System.out.println("2. 해쉬 담음");
+		// startNum ~ endNum 범위에 해당하는 전체 review 조회
+		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
+		System.out.println("더보기 후기 - "+rList.toString());
+		
+		System.out.println("3. 후기 가져옴");
+		response.setContentType("application/json"); // 
+		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환
+		
+		Gson gson = new Gson();
+		gson.toJson(rList, response.getWriter()); // 조회한 전체 리뷰 보내주기,,
+		
+		
+	}
+	
 	
 }

@@ -1,6 +1,7 @@
 package com.donzzul.spring.dreamreview.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
@@ -18,6 +19,8 @@ public interface DreamReviewService {
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
+	
+	public ArrayList<DreamReview> selectDMReviewAll(HashMap<String, Object> searchParam); // 더보기 - 가게 전체 후기 가져오기
 	
 	// 꿈나무 마이페이지
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo);

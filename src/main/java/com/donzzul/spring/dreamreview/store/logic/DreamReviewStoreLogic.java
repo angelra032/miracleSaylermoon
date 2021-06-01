@@ -1,6 +1,8 @@
 package com.donzzul.spring.dreamreview.store.logic;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -93,5 +95,13 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	@Override
 	public ArrayList<Integer> selectReviewRanking() {
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectReviewRanking");
+	}
+
+	
+	// 더보기 - 전체 후기 가져오기
+	@Override
+	public ArrayList<DreamReview> selectDMReviewAll(HashMap<String, Object> searchParam) {
+		System.out.println("스토어"+searchParam);
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectMoreAllReview", searchParam);
 	}
 }

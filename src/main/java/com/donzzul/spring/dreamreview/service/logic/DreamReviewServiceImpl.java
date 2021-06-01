@@ -1,6 +1,7 @@
 package com.donzzul.spring.dreamreview.service.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,6 +89,14 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	@Override //D 가게 후기 랭킹 가져오기
 	public ArrayList<Integer> selectReviewRanking() {
 		return drStore.selectReviewRanking();
+	}
+
+	
+	// 더보기 - 전체 후기 가져오기
+	@Override
+	public ArrayList<DreamReview> selectDMReviewAll(HashMap<String, Object> searchParam) {
+		System.out.println("서비스"+searchParam);
+		return drStore.selectDMReviewAll(searchParam);
 	}
 
 
