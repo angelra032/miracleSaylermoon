@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +47,13 @@ public class RecommendBoardController {
 	
 	// 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="recommendMain.dz", method=RequestMethod.GET)
-	public ModelAndView recommendMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView recommendMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page, HttpServletResponse response) {
+		Cookie cookie = new Cookie("view", null);
+		cookie.setComment("맛집추천 조회 확인");
+		cookie.setMaxAge(60*60*25*365);
+		response.addCookie(cookie);
+//		return "root.index";
+		
 		int currentPage = (page != null) ? page : 1;
 		int listCount = reService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
@@ -62,10 +70,12 @@ public class RecommendBoardController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="recommendDetail.dz", method=RequestMethod.GET)
-	public ModelAndView recommendDetailView(ModelAndView mv, @RequestParam("recommendNo") int recommendNo) {
+	public ModelAndView recommendDetailView(ModelAndView mv, @RequestParam("recommendNo") int recommendNo, @CookieValue(name="view") String cookie, HttpServletResponse response) {
 		
+		
+		int result = reService.updateCount(recommendNo);
 		RecommendBoard recommendBoard = reService.selectOneRecommend(recommendNo);
-		if(recommendBoard != null) {
+		if(result > 0 && recommendBoard != null) {
 			mv.addObject("recommendBoard", recommendBoard).setViewName("board/recommend/recommendDetailView");
 		} else {
 			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");

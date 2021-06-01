@@ -88,7 +88,21 @@
 				               ['height', ['height']],
 				               ['insert', ['picture', 'link', 'hr']],
 				               ['view', ['codeview']],
-				             ]
+				             ],
+				             callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+									onImageUpload : function(files) {
+										uploadSummernoteImageFile(files[0],this);
+									},
+									onPaste: function (e) {
+										var clipboardData = e.originalEvent.clipboardData;
+										if (clipboardData && clipboardData.items && clipboardData.items.length) {
+											var item = clipboardData.items[0];
+											if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+												e.preventDefault();
+											}
+										}
+									}
+								}
 				         });
 				   
 				   $('#saveBtn').on('click', function() {
@@ -102,8 +116,15 @@
 							   url : "mReviewInsertForm.dz",
 							   type : "POST",
 							   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent, "shopNo" : shopNo, "reservationNo" : reservationNo},
-							   success : function(){
-								   	location.href='mReviewMain.dz';						   
+							   success : function(data){
+								   if(data == "success") {
+									   alert('게시글을 올렸습니다');
+									   location.href="recommendMain.dz";
+								   } else if (data == 'fail') {
+									   alert('게시글 올리기 실패');
+									   location.href="recommendMain.dz";
+								   }
+								   	//location.href='mReviewMain.dz';						   
 							   },
 							   error : function() {
 									alert('게시글 올리기 실패');							   
@@ -134,7 +155,7 @@
 			$.ajax({
 				data : data,
 				type : "POST",
-				url : "uploadSummernoteImageFile",
+				url : "uploadMZReviewImageFile",
 				contentType : false,
 				enctype : 'multipart/form-data',
 				processData : false,

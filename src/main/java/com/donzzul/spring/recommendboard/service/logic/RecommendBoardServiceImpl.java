@@ -72,6 +72,12 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 		return reStore.deleteBeforePhoto(recommendNo);
 	}
 
+	// 조회수 증가
+	@Override
+	public int updateCount(int recommendNo) {
+		return reStore.updateCount(recommendNo);
+	}
+
 
 
 

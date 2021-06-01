@@ -12,20 +12,15 @@ public class RecommendBoard {
 	private String recommendImg;
 	private String userType;
 	private int userNo;
+	private int recommendCount; // 조회수
 	
 	
 	public RecommendBoard() {}
 
 
-	public RecommendBoard(String recommendTitle, String recommendContent) {
-		super();
-		this.recommendTitle = recommendTitle;
-		this.recommendContent = recommendContent;
-	}
-
-
 	public RecommendBoard(int recommendNo, String recommendTitle, String recommendContent, String recommendWriter,
-			Date recommendCreateDate, Date recommendUploadDate, String recommendImg, String userType, int userNo) {
+			Date recommendCreateDate, Date recommendUploadDate, String recommendImg, String userType, int userNo,
+			int recommendCount) {
 		super();
 		this.recommendNo = recommendNo;
 		this.recommendTitle = recommendTitle;
@@ -36,6 +31,7 @@ public class RecommendBoard {
 		this.recommendImg = recommendImg;
 		this.userType = userType;
 		this.userNo = userNo;
+		this.recommendCount = recommendCount;
 	}
 
 
@@ -129,15 +125,24 @@ public class RecommendBoard {
 	}
 
 
-	@Override
-	public String toString() {
-		return "MzRecommendation [recommendNo=" + recommendNo + ", recommendTitle=" + recommendTitle
-				+ ", recommendContent=" + recommendContent + ", recommendWriter=" + recommendWriter
-				+ ", recommendCreateDate=" + recommendCreateDate + ", recommendUploadDate=" + recommendUploadDate
-				+ ", recommendImg=" + recommendImg + ", userType=" + userType + ", userNo=" + userNo + "]";
+	public int getRecommendCount() {
+		return recommendCount;
 	}
 
-	
-	
+
+	public void setRecommendCount(int recommendCount) {
+		this.recommendCount = recommendCount;
+	}
+
+
+	@Override
+	public String toString() {
+		return "RecommendBoard [recommendNo=" + recommendNo + ", recommendTitle=" + recommendTitle
+				+ ", recommendContent=" + recommendContent + ", recommendWriter=" + recommendWriter
+				+ ", recommendCreateDate=" + recommendCreateDate + ", recommendUploadDate=" + recommendUploadDate
+				+ ", recommendImg=" + recommendImg + ", userType=" + userType + ", userNo=" + userNo
+				+ ", recommendCount=" + recommendCount + "]";
+	}
+
 	
 }

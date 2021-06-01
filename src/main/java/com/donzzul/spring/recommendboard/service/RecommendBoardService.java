@@ -18,5 +18,5 @@ public interface RecommendBoardService {
 	public int insertPhoto(RecommendPhoto recoPhoto);
 	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo);
 	public int deleteBeforePhoto(int recommendNo);
-	
+	public int updateCount(int recommendNo); // 조회수증가
 }

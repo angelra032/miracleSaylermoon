@@ -47,18 +47,30 @@ public class PartnerMyPageController {
 		User loginUser = (User)session.getAttribute("loginUser"); // 로그인세션(사업자)
 		int userNo = loginUser.getUserNo();
 	
-		Shop myShop = pService.selectMyShop(userNo);
-		model.addAttribute("shop", myShop);
-			
+		
+		try {
+			Shop myShop = pService.selectMyShop(userNo);
 			// 예약 목록 3개
 			ArrayList<Reservation> rList = rService.listByShopToThree(myShop.getShopNo());
-			// 문의글 3개
 			ArrayList<Qna> qList = qService.shopQnaUpToThree(myShop.getShopNo());	
-			
 				model.addAttribute("rList", rList);
+				model.addAttribute("Rmsg","데이터가 없습니다.");
+			// 문의글 3개
 				model.addAttribute("qList", qList);
 				model.addAttribute("Qmsg","문의 데이터가 없습니다.");
-				return "partnerMyPage/partnerMyPage";
+				
+			model.addAttribute("shop", myShop);
+			
+			return "partnerMyPage/partnerMyPage";
+			
+		} catch (Exception e) {
+			model.addAttribute("msg", "에러발생");
+			model.addAttribute("Rmsg","데이터가 없습니다.");
+			model.addAttribute("Qmsg","문의 데이터가 없습니다.");
+			return "partnerMyPage/partnerMyPage";
+		}
+			
+			
 
 	}
 	
