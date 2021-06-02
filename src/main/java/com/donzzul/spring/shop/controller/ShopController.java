@@ -122,16 +122,18 @@ public class ShopController {
 		int listCount = sService.selectListCount(selectedLocation); // 전체 게시글 갯수
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
 
-		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
+//		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
 		ArrayList<Shop> mapMarkers = sService.selectShopMap(selectedLocation);
 		
 		mv.addObject("pi",	pi);
-		mv.addObject("mList", mapList);
+		mv.addObject("mList", null);
 		mv.addObject("mapMarkers", mapMarkers);
 		mv.addObject("location", location);
 		mv.addObject("center", qLocation);
 		mv.setViewName("map/MapDetail");
-		System.out.println(location);
+		
+		System.out.println(location); // 확인용
+		
 		return mv;
 	}
 	

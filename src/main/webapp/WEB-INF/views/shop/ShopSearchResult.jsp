@@ -87,11 +87,9 @@
 									</div>
 									<div class="shopShortInfo right">
 										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
-										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
+										<span id="shop-type">${ reviewShop.shopType }</span><br><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
-										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00</span><br>
-										<span>매주 일요일</span>&nbsp;
-										<span>휴무</span><br>
+										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
 										<span>${ reviewShop.shopContent }</span> <!-- 글자수 줄이기 -->
 									</div>
 								</div>
@@ -110,9 +108,7 @@
 										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
-										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00</span><br>
-										<span>매주 일요일</span>&nbsp;
-										<span>휴무</span><br>
+										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
 										<span>${ newShop.shopContent }</span> <!-- 글자수 줄이기 -->
 									</div>
 								</div>
@@ -128,9 +124,7 @@
 										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
-										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00</span><br>
-										<span>매주 일요일</span>&nbsp;
-										<span>휴무</span><br>
+										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
 										<span>${ themeShop.shopContent }</span> <!-- 글자수 줄이기 -->
 									</div>
 								</div>
@@ -138,44 +132,46 @@
 	 					</c:otherwise>
 	 				</c:choose>
 				</div>
-				<c:choose>
-					<c:when test="${ themeNo ne 1 || themeNo ne 3 }">
-						<c:if test="${empty pi }"></c:if>
-						<c:if test="${!empty pi }">
-							<div class="searchResult navi">
-								<c:url var="before" value="searchTheme.dz">
-									<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-									<c:param name="themeNo" value="${ themeNo }"></c:param>
-								</c:url>
-								<c:if test="${ pi.currentPage > 1 }">
-									<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
-								</c:if>
-								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-									<c:url var="pagination" value="searchTheme.dz">
-										<c:param name="page" value="${ p }"></c:param>
+				<div class="result-list-navi">
+					<c:choose>
+						<c:when test="${ themeNo ne 1 || themeNo ne 3 }">
+							<c:if test="${empty pi }"></c:if>
+							<c:if test="${!empty pi }">
+								<div class="searchResult navi">
+									<c:url var="before" value="searchTheme.dz">
+										<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
 										<c:param name="themeNo" value="${ themeNo }"></c:param>
 									</c:url>
-									<c:if test="${ p eq pi.currentPage }">
-										<span id="currentPage">${ p }</span>
+									<c:if test="${ pi.currentPage > 1 }">
+										<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
 									</c:if>
-									<c:if test="${ p ne pi.currentPage }">
-										<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+										<c:url var="pagination" value="searchTheme.dz">
+											<c:param name="page" value="${ p }"></c:param>
+											<c:param name="themeNo" value="${ themeNo }"></c:param>
+										</c:url>
+										<c:if test="${ p eq pi.currentPage }">
+											<span id="currentPage">${ p }</span>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+										</c:if>
+									</c:forEach>
+									<c:url var="after" value="searchTheme.dz">
+										<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+										<c:param name="themeNo" value="${ themeNo }"></c:param>
+									</c:url>
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
 									</c:if>
-								</c:forEach>
-								<c:url var="after" value="searchTheme.dz">
-									<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-									<c:param name="themeNo" value="${ themeNo }"></c:param>
-								</c:url>
-								<c:if test="${ pi.currentPage >= pi.maxPage }">
-								</c:if>
-								<c:if test="${ pi.currentPage < pi.maxPage }">
-									<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
-								</c:if>
-							</div>
-						</c:if>
-					</c:when>
-					<c:otherwise></c:otherwise>
-				</c:choose>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+									</c:if>
+								</div>
+							</c:if>
+						</c:when>
+						<c:otherwise></c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 		</div> 
 	</main>
