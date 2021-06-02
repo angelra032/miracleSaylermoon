@@ -24,29 +24,28 @@
 		 	<!-- 가게 메인 이미지 가져오기 -->
 		 	<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
 	   	</div>
-		<div id="shop-header">
+	   	<div id="shop-header">
 			<div id="shop-main-title">
 				<span>${ shop.shopName }</span>
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			
-				<!-- 사업자 회원 제외 찜버튼 활성화 -->
-				<!-- <div id="pick-zone"> -->
-	 				<c:if test="${ loginUser.userType != 3 }">
-		 				<c:if test="${ empty pick }">		
-		 					<a href="enrollPick.dz" id="pick-button"><!-- <img src="/resources/images/zzimButton-before.png" alt="pick-button"> --></a>
-		 				</c:if>
-	 					<c:if test="${ !empty pick }">		
-							<!-- 세션 체크 하여 동작 -->
-							<!-- 세션 없을시 로그인 연결 -->
-							<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 -->
-							<c:url var="reservation" value="reservationView.dz">
-								<c:param name="shopNo" value="${ shop.shopNo }"/>
-							</c:url>
-							<a href="removePick.dz" id="pick-button"><img src="/resources/images/zzimButton-after.png" alt="pick-button"></a>
-						</c:if> 
-					</c:if>
-				<!-- </div> -->
+				<!— 찜버튼 —>
+				<!— 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 —>
+				<!— 꿈나무, MZ —>		
+ 				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 }">
+ 					<c:if test="${ empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
+						<a href="enrollPick.dz?shopNo=${shop.shopNo}" id="pick-button-off"></a>
+	 				</c:if>
+ 					<c:if test="${ !empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
+						<a href="removePick.dz?shopNo=${shop.shopNo}" id="pick-button-on"></a>
+	 				</c:if>
+ 				</c:if>
+				<!— 세션 없을시 로그인 연결 —>
+ 				<c:if test="${ loginUser.userType == null }">
+					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-off"></a>
+ 				</c:if>
+ 				<c:if test="${ loginUser.userType == 3 }"></c:if>
 			</div>
 		</div>
 		
@@ -74,33 +73,35 @@
 							</c:if>
 							
 							<!-- modal test 중.. -->
-							<div id="menu-img" title="클릭하면 창이 닫힙니다.">
+							<!-- <div id="menu-img" title="클릭하면 창이 닫힙니다.">
 								<div>
 									<img src="/resources/images/snsPhoto.png" alt="menuImg" width="300px" >
 								</div>
 							</div>
+							 -->
+							<!-- <img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
+							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
+							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
+							 -->
 
-							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
-							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
-							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
-							
-							<script>
-								$(function(){
-									$(".menu-img-thumb").click(function() {
-										$("#menu-img").fadeIn();
-									});
-									$("#menu-img").click(function() {
-										$("#menu-img").fadeOut();
-									});
-								});
-							</script>
-							
+							<div id="menu-img" title="클릭하면 창이 닫힙니다." class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+								<c:forEach items="${mPhoto }" var="photo">
+									<!-- <script>
+										console.log("각각", photo[i]);
+									</script> -->
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" alt="menuImg"  width="300px">
+								</c:forEach>
+							</div> 
 						</div>
+						
 						<c:if test="${ !empty mPhoto }">
 							<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-								<img src="" alt="menuImg">
+								<c:forEach items="${mPhoto }" var="photo">
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" class="menu-img-thumb" alt="menuImg" width="120px">
+								</c:forEach>
 							</div> 
 						</c:if>
+
 					</div>
 				</div>
 				
@@ -220,10 +221,9 @@
 			
 		    	<div id="list-body" class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
 	 		 		
-	 		 		
-			 		<span class="review-yet"></span>
 	 		 		<%-- <c:if test="${ empty rList }">
-			 		</c:if> --%> 
+				 		<span class="review-yet"></span>
+			 		</c:if>
 			 		<c:if test="${ !empty rList }">
 					 	<c:forEach items="${ rList }" var="reviewAll">
 							 <div id="list" class="review-list rContent">
@@ -242,11 +242,8 @@
 							<input type="button" id="moreReply" value="더보기"> <!-- onclick="moreList()" -->
 						</div>
 			 		</c:if> 
-			 		
-			 		
-			 		
-	 		 		
-	 		 		
+			 		 --%>
+
 	 		 		<%-- <c:if test="${ empty drList }">
 			 			<span class="review-yet">등록된 후기가 없습니다.</span>
 			 		</c:if> 
@@ -268,7 +265,6 @@
 							<input type="button" id="moreReply" onclick="" value="더보기">
 						</div>
 			 		</c:if> --%> 
-			 		
 			 		
 				</div>
 		    </div>
@@ -348,13 +344,26 @@
 			});
 			
 			
-	function goLogin() {
-		location.href='loginView.dz';
-	}
+		function goLogin() {
+			location.href='loginView.dz';
+		}
 	
-	// 아예 쿼리문 다시 짜기 - 데이터 전부 조회해서 5개만 보여주기,, 어떻게?
-			 		
 	
+		
+		/* 메뉴 사진 modal창 */
+		$(function(){
+			$(".menu-img-thumb").click(function() {
+				$("#menu-img").fadeIn();
+			});
+			$("#menu-img").click(function() {
+				$("#menu-img").fadeOut();
+			});
+		});
+
+	
+	
+		/* 후기 띄우기(전체/감사/맛집) */
+		
 		// 조회 인덱스
 		var startNum = 1; // 인덱스 초기값
 		var countNum = 5; // 5개씩 로딩
@@ -363,21 +372,8 @@
 		shopReviewAll(startNum);
 		//drReviewAll(startNum);
 		
-		/* // 더보기 클릭시
-		$("#moreReply").on("click", function(){
-			console.log("좋은말로 할때 돼라");
-			startNum += countNum; // 누적
-			shopReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
-		});
-		 */
-		
 		// 더보기 전체 실행함수
 		function shopReviewAll(index){
-			
-			// 조회 인덱스 (다시 초기화)
-// 			var startNum = 1; // 인덱스 초기값
-// 			var countNum = 5; // 5개씩 로딩
-			
 			
 			// 인덱스 초기화(다시 실행할 때 누적)
 			// 중복(전체 - 리스트 초기화)
@@ -392,8 +388,7 @@
 			// 이제 남은 건
 			// 호출하면 list 싹다 비우기 - 한번만 비우고 싶음.. 근데 더보기 할 때마다 비워짐
 				// 버튼 클릭을 밖으로 빼보기, 버튼 전역변수로 선언
-			// + 후기 없을 때 처리 + 전체에서 감사, 맛집 나누기
-			
+			// + 후기 없을 때 처리 완료 + 전체에서 감사, 맛집 나누기 완료
 			
 			
 			startNum = index;
@@ -420,10 +415,9 @@
 					
 					if(data.dataCnt == 0){
 						console.log("data는 0");
-						
 						var contentList = $("#list-body");
-						
-						
+						var contentReview = $("<span class='review-yet'>");
+						contentList.append(contentReview);
 						$(".review-yet").html("등록된 후기가 없습니다.");
 					}
 					
@@ -439,9 +433,14 @@
 							var contentReviewRight = $("<div class='rContent right'>");
 							
 							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
-							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
-												.append("<span class='review-type'>감사후기</span><br>")
-												.append("<span>" + data.rList[i].drmReviewContent + "</span><br>");
+							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
+							
+								if(data.rList[i].drmReviewPublicYN == "MZ"){
+									contentReviewRight.append("<span class='review-type'>맛집후기</span><br>");
+								}else{
+									contentReviewRight.append("<span class='review-type'>감사후기</span><br>");
+								}
+									contentReviewRight.append("<span>" + data.rList[i].drmReviewContent + "</span><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
 							contentList.append(contentReview);
@@ -488,7 +487,9 @@
 			// 조회 인덱스 (다시 초기화)
 			//var startNum = 1; // 인덱스 초기값
 			//var countNum = 5; // 5개씩 로딩
-			
+			if(index == 1) {
+				$("#list-body").empty(); // 비우기
+			}
 			startNum = index;
 			var endNum = index + countNum - 1;
 			console.log(startNum);console.log(endNum);
@@ -503,7 +504,7 @@
 					endNum: endNum
 				},
 				success: function(data){
-				$("#list-body").empty(); // 비우기
+				//$("#list-body").empty(); // 비우기
 					
 				if(data == null){
 						$(".review-yet").html("등록된 후기가 없습니다.");
@@ -511,6 +512,14 @@
 					console.log(startNum); console.log(endNum); 
 					console.log(data);
 					console.log(data.dataCnt);
+					
+					if(data.dataCnt == 0){
+						console.log("data는 0");
+						var contentList = $("#list-body");
+						var contentReview = $("<span class='review-yet'>");
+						contentList.append(contentReview);
+						$(".review-yet").html("등록된 후기가 없습니다.");
+					}
 					
 					var contentList = $("#list-body");
 					
@@ -571,7 +580,9 @@
 			/* // 조회 인덱스 (다시 초기화)
 			var startNum = 1; // 인덱스 초기값
 			var countNum = 5; // 5개씩 로딩 */
-			
+			if(index == 1) {
+				$("#list-body").empty(); // 비우기
+			}
 			startNum = index;
 			var endNum = index + countNum - 1;
 			console.log(startNum); console.log(endNum); 
@@ -586,7 +597,6 @@
 					endNum: endNum
 				},
 				success: function(data){
-				$("#list-body").empty(); // 비우기
 					
 				if(data == null){
 						$(".review-yet").html("등록된 후기가 없습니다.");
@@ -595,20 +605,29 @@
 					console.log(data);
 					console.log("맛집 dataNum ", data.dataCnt);
 					
+					if(data.dataCnt == 0){
+						console.log("data는 0");
+						var contentList = $("#list-body");
+						var contentReview = $("<span class='review-yet'>");
+						contentList.append(contentReview);
+						$(".review-yet").html("등록된 후기가 없습니다.");
+					}
+					
 					var contentList = $("#list-body");
 					
 					for(i=0; i<data.mzList.length; i++){
+						
 						var contentReview = $("<div id='list' class='review-list rContent'>");
-							var contentReviewLeft = $("<div class='rContent left'>");
-							var contentReviewRight = $("<div class='rContent right'>");
-							
-							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
-							contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
-												.append("<span class='review-type'>맛집후기</span><br>")
-												.append("<span>" + data.mzList[i].mReviewContent + "</span><br>");
-							contentReview.append(contentReviewLeft);
-							contentReview.append(contentReviewRight);
-							contentList.append(contentReview);
+						var contentReviewLeft = $("<div class='rContent left'>");
+						var contentReviewRight = $("<div class='rContent right'>");
+						
+						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
+						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
+											.append("<span class='review-type'>맛집후기</span><br>")
+											.append("<span>" + data.mzList[i].mReviewContent + "</span><br>");
+						contentReview.append(contentReviewLeft);
+						contentReview.append(contentReviewRight);
+						contentList.append(contentReview);
 					}
 						// 더보기 버튼 삭제
 						if(startNum + countNum > data.dataCnt){
@@ -629,7 +648,7 @@
 		 					mzReviewAll(startNum); // 초기값 - 위에서 바뀜(누적) - 다시 실행 - 계속 누적
 		 					console.log("더보기 클릭시 startNum", startNum);
 		 					moreBtnDiv.remove();
-		 				});
+		 				}); 
 					}
 				}, 
 				error: function(){

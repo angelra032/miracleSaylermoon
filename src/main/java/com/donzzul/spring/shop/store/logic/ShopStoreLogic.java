@@ -81,8 +81,7 @@ public class ShopStoreLogic implements ShopStore {
 
 	@Override
 	public ArrayList<MenuPhoto> selectMenuPhoto(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList)sqlSession.selectList("shopMapper.selectMenuPhoto", shopNo);
 	}
 
 	@Override

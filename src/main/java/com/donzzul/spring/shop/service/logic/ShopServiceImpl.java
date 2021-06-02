@@ -81,8 +81,7 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public ArrayList<MenuPhoto> selectMenuPhoto(int shopNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sStore.selectMenuPhoto(shopNo);
 	}
 
 	@Override
