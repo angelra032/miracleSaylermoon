@@ -351,6 +351,8 @@
 	function goLogin() {
 		location.href='loginView.dz';
 	}
+	
+	// 아예 쿼리문 다시 짜기 - 데이터 전부 조회해서 5개만 보여주기,, 어떻게?
 			 		
 	
 		// 조회 인덱스
@@ -372,6 +374,29 @@
 		// 더보기 전체 실행함수
 		function shopReviewAll(index){
 			
+			// 조회 인덱스 (다시 초기화)
+// 			var startNum = 1; // 인덱스 초기값
+// 			var countNum = 5; // 5개씩 로딩
+			
+			
+			// 인덱스 초기화(다시 실행할 때 누적)
+			// 중복(전체 - 리스트 초기화)
+			// 리스트 초기화하면 페이징처리처럼 됨.
+			// 안 하면 계속 누적...
+			
+			// 각 함수 호출할 때마다 리스트 비우고 그 이후론 누적(처음 호출할 때 한 번만 비워야 함)
+			// 더보기 버튼은 데이터가 페이징(시작 + 끝)보다 적으면 사라짐.
+			// 함수 호출할 때 인덱스(시작, 끝)값도 초기화해줘야 함
+			
+			// 시작값 초기화 완료
+			// 이제 남은 건
+			// 호출하면 list 싹다 비우기 - 한번만 비우고 싶음.. 근데 더보기 할 때마다 비워짐
+				// 버튼 클릭을 밖으로 빼보기, 버튼 전역변수로 선언
+			// + 후기 없을 때 처리 + 전체에서 감사, 맛집 나누기
+			
+			
+			
+			startNum = index;
 			var endNum = index + countNum - 1; // 끝값 설정 (초기~끝 검색)
 			console.log(startNum);console.log(endNum);
 			
@@ -385,12 +410,23 @@
 					endNum: endNum
 				},
 				success: function(data){ // textStatus -?
-					//$("#list-body").empty(); // 비우기?
+					$("#list-body").empty(); // 비우기?
 				if(data == null){
+					console.log("data는 null");
 					$(".review-yet").html("등록된 후기가 없습니다.");
 				} else{
 					console.log(data);
 					console.log(data.dataCnt);
+					
+					if(data.dataCnt == 0){
+						console.log("data는 0");
+						
+						var contentList = $("#list-body");
+						
+						
+						$(".review-yet").html("등록된 후기가 없습니다.");
+					}
+					
 					//var addListHtml = ""; 	// list-body
 						var contentList = $("#list-body");
 						//$("#list-body").empty();
@@ -416,12 +452,13 @@
 						// 더보기 버튼 삭제
 						if(startNum + countNum > data.dataCnt){
 							moreBtnDiv.remove();
+							//$("#list-body").empty(); // 다 끝나서 버튼 지우면서 비우..면 안되지 않나? 마지막거가 사라짐 - 안사라짐.. 호출할 때 비워야함
 						} else{
 							// 더보기 버튼 그려보자!
 							var moreBtnDiv = $("<div class='review-list showMoreReply'>");
 							//var moreBtnInput = "<input type='button' id='moreReply' value='더보기'>";
 								moreBtnDiv.append("<input type='button' id='moreReply' value='더보기'>");
-							
+							console.log("다시 그렸나요?");
 							contentList.append(moreBtnDiv);
 						} // 뭐보다 작으면 버튼 삭제...
 						
@@ -434,7 +471,7 @@
 							console.log("좋은말로 할때 돼라");
 							startNum += countNum; // 누적
 							shopReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
-							moreBtnDiv.remove();
+							moreBtnDiv.remove(); // 지워도 상관 없는 듯 - 아님..
 						});
 					}
 				},
@@ -447,7 +484,14 @@
 		
 		// 더보기 - 감사후기 5개
 		function drReviewAll(index){
+
+			// 조회 인덱스 (다시 초기화)
+			//var startNum = 1; // 인덱스 초기값
+			//var countNum = 5; // 5개씩 로딩
+			
+			startNum = index;
 			var endNum = index + countNum - 1;
+			console.log(startNum);console.log(endNum);
 			
 			$.ajax({
 				url: "moreDreamReview.dz",
@@ -464,6 +508,10 @@
 				if(data == null){
 						$(".review-yet").html("등록된 후기가 없습니다.");
 				} else{
+					console.log(startNum); console.log(endNum); 
+					console.log(data);
+					console.log(data.dataCnt);
+					
 					var contentList = $("#list-body");
 					
 					for(i=0; i<data.drList.length; i++){
@@ -490,6 +538,7 @@
 						// 더보기 버튼 삭제
 						if(startNum + countNum > data.dataCnt){
 							moreBtnDiv.remove();
+							//$("#list-body").empty();
 						} else{
 							// 더보기 버튼 그려보자!
 							var moreBtnDiv = $("<div class='review-list showMoreReply'>");
@@ -518,8 +567,14 @@
 
 		// 더보기 - 맛집후기 5개
 		function mzReviewAll(index){
+
+			/* // 조회 인덱스 (다시 초기화)
+			var startNum = 1; // 인덱스 초기값
+			var countNum = 5; // 5개씩 로딩 */
 			
+			startNum = index;
 			var endNum = index + countNum - 1;
+			console.log(startNum); console.log(endNum); 
 			
 			$.ajax({
 				url: "moreMzReview.dz",
@@ -536,6 +591,10 @@
 				if(data == null){
 						$(".review-yet").html("등록된 후기가 없습니다.");
 				} else{
+					console.log("맛집시작no ", startNum); console.log("맛집끝no ", endNum); 
+					console.log(data);
+					console.log("맛집 dataNum ", data.dataCnt);
+					
 					var contentList = $("#list-body");
 					
 					for(i=0; i<data.mzList.length; i++){
@@ -545,7 +604,7 @@
 							
 							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
-												.append("<span class='review-type'>감사후기</span><br>")
+												.append("<span class='review-type'>맛집후기</span><br>")
 												.append("<span>" + data.mzList[i].mReviewContent + "</span><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
@@ -567,7 +626,8 @@
 		 				$("#moreReply").on("click", function(){
 		 					console.log("좋은말로 할때 돼라");
 		 					startNum += countNum; // 누적
-		 					mzReviewAll(startNum); // 초기값 - 위에서 바뀜(누적)
+		 					mzReviewAll(startNum); // 초기값 - 위에서 바뀜(누적) - 다시 실행 - 계속 누적
+		 					console.log("더보기 클릭시 startNum", startNum);
 		 					moreBtnDiv.remove();
 		 				});
 					}
