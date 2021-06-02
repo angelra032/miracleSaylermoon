@@ -264,6 +264,12 @@
 							 
 						});
 	 				 	
+						// 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
+						var mOverHandler = function(event) {
+							titleOverlay.setMap(null);
+							}
+						}
+	 				 	
 						 // 마커에 클릭이벤트를 등록합니다
 					    kakao.maps.event.addListener(marker, 'click', function() {
 								
@@ -308,10 +314,12 @@
 							    }
 							 	overlay.setMap(map);
 							    clickedOverlay = overlay;
+							    
+							    
 							
-							// 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기    
+							// 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
 						    /* if(clickedMarker) {
-						    	kakao.maps.event.removeListener(map, 'mouseover', handler);
+						    	kakao.maps.event.removeListener(map, 'mouseover', mOverHandler);
 					    	} */
 					    	
 					    });
