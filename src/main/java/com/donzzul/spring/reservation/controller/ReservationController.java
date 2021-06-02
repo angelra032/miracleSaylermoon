@@ -82,7 +82,7 @@ public class ReservationController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="rCountCheck.dz", method=RequestMethod.POST)
+	@RequestMapping(value="rCountCheck.dz", method=RequestMethod.GET)
 	public String rCountCheck(@ModelAttribute Reservation reservation) {
 		int result = service.confirmRCount(reservation);
 		return ""+result;
@@ -90,7 +90,7 @@ public class ReservationController {
 	
 	
 	  @ResponseBody
-	  @RequestMapping(value="printReservation.dz", method=RequestMethod.POST)
+	  @RequestMapping(value="printReservation.dz", method=RequestMethod.GET)
 	  public ArrayList<HashMap<String, String>> printReservation(@RequestParam("shopNo") int shopNo) {
 	  System.out.println(shopNo); 
 	  //HashMap<String, String>

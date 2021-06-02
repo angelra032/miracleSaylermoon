@@ -99,7 +99,7 @@
          }
          $.ajax({
         	 url : 'rCountCheck.dz',
-        	 type : "post",
+        	 type : "GET",
         	 data : {"reserveDate":reserveDate,"reserveTime":reserveTime,"shopNo":shopNo},
         	 success : function(data) {
         		 if(data < 1){
