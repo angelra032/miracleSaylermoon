@@ -179,8 +179,7 @@
 				alert("500보다 작거나 0보다 큼사용 가능한 포인트가 없습니다.");
 				return false;
 			} else if(usePoint == 0) {
-				alert("왜. 리턴 트루인데..");
-				return true;
+				
 			} 
 			/* 
 			if(usePoint > 5000){
