@@ -26,7 +26,8 @@
 	                        <td width=110>No</td>
 	                        <td width=450 style="word-break: break-all;">제목</td>
 	                        <td width=160>작성자</td>
-	                        <td width=180>날짜</td>
+	                        <td width=160>날짜</td>
+	                        <td width=100>조회수</td>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -38,6 +39,7 @@
 		                        <td>${ drmReview.drmReviewTitle }</td>
 		                        <td>${ drmReview.drmReviewWriter }</td>
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
+	                        	<%-- <td>${ drmReview.drmRviewHit }</td> --%>
 	                    	</tr>
 		                </c:if>
 		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n'}">
@@ -47,11 +49,12 @@
 			                        <td>비공개글입니다</td>
 			                        <td>비공개</td>
 		                        </c:if>
-		                        <c:if test="${ drmReview.userNo == sessionScope.loginUser.userNo || drmReview.shopName == sessionScope.loginUser.partnerName }">
+		                        <c:if test="${ drmReview.userNo == sessionScope.loginUser.userNo || drmReview.shopName == sessionScope.loginUser.partnerName || sessionScope.loginUser.userType eq '4' }">
 			                         <td>${ drmReview.drmReviewTitle } (사장님만 공개)</td>
 			                         <td>${ drmReview.drmReviewWriter }</td>
 		                        </c:if>
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
+	                        	<%-- <td>${ drmReview.drmRviewHit }</td> --%>
 	                    	</tr>
 		                </c:if>
 		                </c:forEach>

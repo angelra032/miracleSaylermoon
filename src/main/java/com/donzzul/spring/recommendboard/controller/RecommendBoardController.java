@@ -43,6 +43,8 @@ import com.google.gson.JsonObject;
 @Controller
 public class RecommendBoardController {
 	
+	private static final int HashMap = 0;
+	private static final int String = 0;
 	@Autowired
 	private RecommendBoardService reService;
 	
@@ -71,30 +73,41 @@ public class RecommendBoardController {
 											HttpServletResponse response,
 											HttpServletRequest request) {
 		
-		// 쿠키
+		
+		
+		
+		RecommendBoard recommendBoard = reService.selectOneRecommend(recommendNo);
+		if(recommendBoard != null) {
+			updateRecommendHit(response, request, recommendNo); // 조회수
+			mv.addObject("recommendBoard", recommendBoard).setViewName("board/recommend/recommendDetailView");
+		} else {
+			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	public void updateRecommendHit(HttpServletResponse response, HttpServletRequest request, int recommendNo) {
 		User user = (User)request.getAttribute("loginUser");
 		Cookie[] reqCookie = request.getCookies(); // 기존존재 쿠키가져옴
 		Cookie nullCookie = null; // null 비교쿠키
 		
 		if(reqCookie != null && reqCookie.length > 0  && user != null) { // 로그인 되어있는 경우
 			for(int i = 0; i < reqCookie.length; i++) {
-				if(reqCookie[i].getName().equals("cookie" + user.getUserNo() + recommendNo)) {
+				if(reqCookie[i].getName().equals("recommend" + user.getUserNo() + recommendNo)) {
 					nullCookie = reqCookie[i];
 				}
 			}
 		}
 		if(reqCookie != null && reqCookie.length > 0 && user == null) { // 비로그인
 			for(int i = 0; i < reqCookie.length; i++) {
-				if(reqCookie[i].getName().equals("cookie"+recommendNo)) {
+				if(reqCookie[i].getName().equals("recommend"+recommendNo)) {
 					nullCookie = reqCookie[i];
 				}
 			}
 		}
 		if(user != null && nullCookie == null) { // 로그인되어있는데 쿠키가 비어있음
-			Cookie cookie = new Cookie("cookie"+user.getUserNo() + recommendNo, "cookie"+user.getUserNo() + recommendNo);
+			Cookie cookie = new Cookie("recommend"+user.getUserNo() + recommendNo, "recommend"+user.getUserNo() + recommendNo);
 			cookie.setMaxAge(60*60*24*365);
-			response.setHeader("Set-Cookie", "Test1=TestCookieValue1; Secure; SameSite=None");
-			response.addHeader("Set-Cookie", "Test2=TestCookieValue1; Secure; SameSite=None");
 			response.addCookie(cookie);
 			
 			int result = reService.updateHit(recommendNo);
@@ -107,7 +120,7 @@ public class RecommendBoardController {
 		}
 		
 		if(user == null && nullCookie == null) { // 로그인X
-			Cookie cookie = new Cookie("cookie" + recommendNo, "cookie" + recommendNo);
+			Cookie cookie = new Cookie("recommend" + recommendNo, "recommend" + recommendNo);
 			cookie.setMaxAge(60*60*24*365);
 			response.addCookie(cookie);
 			int result = reService.updateHit(recommendNo);
@@ -118,16 +131,6 @@ public class RecommendBoardController {
 				System.out.println("조회수 증가 실패");
 			}
 		}
-		
-		
-		
-		RecommendBoard recommendBoard = reService.selectOneRecommend(recommendNo);
-		if(recommendBoard != null) {
-			mv.addObject("recommendBoard", recommendBoard).setViewName("board/recommend/recommendDetailView");
-		} else {
-			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
-		}
-		return mv;
 	}
 	
 	// 감사후기 글쓰기버튼으로 들어옴 

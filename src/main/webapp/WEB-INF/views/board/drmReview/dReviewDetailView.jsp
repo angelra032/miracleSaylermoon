@@ -17,6 +17,7 @@
 		<div id="main-title">
 			<span class="top-sub-title">${ drmReview.drmReviewTitle }</span>
 			<span class="top-sub-shopName">${ drmReview.shopName } 후기</span>
+			<%-- <span class="top-sub-hit">조회수 ${ drmReview.drmRviewHit }</span> --%>
 		</div>
 		
         <div class="frame">
@@ -27,6 +28,7 @@
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ drmReview.drmReviewCreateDate }</span>
+                        <%-- <span class="boardHit">조회수 ${ drmReview.drmRviewHit }</span> --%>
                     </div>
                 </div>
             </div>

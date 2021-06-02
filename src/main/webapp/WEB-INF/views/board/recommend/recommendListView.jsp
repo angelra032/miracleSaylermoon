@@ -25,7 +25,8 @@
 	                        <td width=110>No</td>
 	                        <td width=450>제목</td>
 	                        <td width=160>작성자</td>
-	                        <td width=180>날짜</td>
+	                        <td width=160>날짜</td>
+	                        <td width=100>조회수</td>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -36,6 +37,7 @@
 		                        <td>${ recommend.recommendTitle }</td>
 		                        <td>${ recommend.recommendWriter }</td>
 		                        <td>${ recommend.recommendCreateDate }</td>
+		                        <td>${ recommend.recommendHit }</td>
 		                    </tr>
 	                	</c:forEach>
 	                </tbody>

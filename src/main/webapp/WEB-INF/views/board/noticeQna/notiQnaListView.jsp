@@ -25,7 +25,8 @@
 	                        <td width=110>구분</td>
 	                        <td width=450>제목</td>
 	                        <td width=160>작성자</td>
-	                        <td width=180>날짜</td>
+	                        <td width=160>날짜</td>
+                         	<td width=100>조회수</td>
 	                    </tr>
 	                   <c:forEach items="${ nList }" var="notice" varStatus="status">
 	                    	<c:set var="num" value="${ status.index }"/>
@@ -35,6 +36,7 @@
 		                        <td>${ notice.noticeTitle }</td>
 		                        <td>관리자</td>
 		                        <td>${ notice.noticeCreateDate }</td>
+		                        <td>${ notice.noticeHit }</td>
 		                    </tr>
 	                    </c:forEach>
 	                </thead>
@@ -58,6 +60,7 @@
 		                        <td>${ qna.qnaTitle }</td>
 		                        <td>${ qna.qnaWriter }</td>
 		                        <td>${ qna.qanCreateDate }</td>
+		                        <td>${ qna.qnaHit }</td>
 		                    </tr>
 	                		
 	                	</c:forEach>

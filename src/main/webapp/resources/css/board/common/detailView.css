@@ -13,13 +13,21 @@
    
 }
 	.top-sub-title {
- 	    max-width: 1450px;
+ 	    max-width: 1000px;
 	    font-size: 60px;
 	    display: inline-block;
 	    height: 190px;
 	    float: left;
 	}
 	.top-sub-shopName {
+		font-size: 16px;
+	    display: inline-block;
+	    float: left;
+	    margin-top: 120px;
+	    margin-left: 10px;
+	}
+	/* 조회수 */
+	.top-sub-hit {
 		font-size: 16px;
 	    display: inline-block;
 	    float: left;
@@ -50,7 +58,13 @@
                     float: right;
                 }
                     .createDate{
-                    	float: right;
+                    	float: left;
+                    	color: #888888;
+                    }
+                    /* 조회수 */
+                    .boardHit{
+                    	float: left;
+                    	margin-left: 10px;
                     	color: #888888;
                     }
                 .title-bottom-nick-area {
@@ -69,6 +83,10 @@
             border: solid 1px #fdb504;
             padding: 15px;
         }
+        	.content-area img {
+        		max-width : 975px;
+        		object-fit: cover;
+        	}
         .reply-area {
          	width: 975px;
             height: auto;
