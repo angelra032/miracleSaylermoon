@@ -224,14 +224,14 @@
 </body>
 
 <script type="text/javascript">
-	 $('.dreview-btn').on('click',function(){
-		var drmRviewNo = $(this).prev().val();
-		$.ajax({
+	$(document).on("click", ".delete-btn", function(){ 
+		var drmRviewNo = $(this).prev().val(); 
+		$.ajax({ 
 			url : "drmMyPageDelete2.dz",
 			type : "GET",
 			data : { "drmRviewNo" : drmRviewNo},
 			success : function(data) {
-				$('.tbody'+drmRviewNo).empty();
+				$('.tbody').empty();
 				for(var i in data) {
 					var tr = $("<tr id='tr' class='tr'>");
 					var count = $("<td id='count'>").html(Number(i)+1);
@@ -239,23 +239,22 @@
 					var shopName = $("<td class='shopName'>").html(data[i].shopName);
 					var drmReviewUploadDate = $("<td class='drmReviewUploadDate'>").html(data[i].drmReviewUploadDate);
 					var drmodifyBtn = $("<td id='modify-btn'>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
-					var dreviewBtn = $("<td id='delete-btn'>").append("<a class='delete-btn dreview-btn' href='#'>삭제</a>");
+					var dreviewBtn = $("<td id='delete-btn'>")
+					dreviewBtn.append("<input type='hidden' value='"+data[i].drmRviewNo +"'>");
+					dreviewBtn.append("<a class='delete-btn dreview-btn' href='#'>삭제"+data[i].drmRviewNo +"</a>");
 					tr.append(count);
-					tr.append(drmReviewTitle)
-					tr.append(shopName)
-					tr.append(drmReviewUploadDate)
-					tr.append(drmodifyBtn)
+					tr.append(drmReviewTitle);
+					tr.append(shopName);
+					tr.append(drmReviewUploadDate);
+					tr.append(drmodifyBtn);
 					tr.append(dreviewBtn);
-					$('.tbody'+drmRviewNo).append(tr);
+					$('.tbody').append(tr);
 				}
 			},
 			error : function() {
 				console.log("전송실패");
 			}
 		});
-		
-		
-	}); 
-
+	});	
 </script>
 </html>
