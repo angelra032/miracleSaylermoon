@@ -26,6 +26,7 @@ public class PickController {
 	@Autowired
 	private PickService service;
 	
+	
 	//D 찜 등록
 	@RequestMapping(value="enrollPick.dz", method=RequestMethod.GET)
 	public String enrollPick(@RequestParam int shopNo, HttpServletRequest request) {

@@ -16,6 +16,7 @@
 		<result property="shopName" column="SHOP_NAME"/>
 	</resultMap>
 
+
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM DREAM_REVIEW
 	</select>

@@ -253,6 +253,7 @@
 						drmodifyBtn.append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data.list[i].drmRviewNo +">수정</a>");
 						dreviewBtn.append("<input type='hidden' value="+data.list[i].drmRviewNo+"> <a class='delete-btn dreview-btn' href='#'>삭제${ dreamreview.drmRviewNo}</a>"); */
 						
+						
 						tr.append(count);
 						tr.append(drmReviewTitle)
 						tr.append(shopName)
