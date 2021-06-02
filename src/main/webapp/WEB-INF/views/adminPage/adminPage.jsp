@@ -90,7 +90,7 @@
 										<td>미승인</td>
 									</c:if>
 									<c:if test="${ shop.partnerWithdraw eq 'y' or shop.partnerWithdraw eq 'Y' }">
-										<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+										<td><div class="btn btn-secondary reserv-btn" onclick="deleteUser(${shop.userNo})">탈퇴</div></td>
 									</c:if>		
 									<c:if test="${ shop.partnerWithdraw eq 'n' or shop.partnerWithdraw eq 'N' }">
 										<td><div class="done-btn">탈퇴</div></td>
@@ -263,6 +263,7 @@
 			},
 		}
 	});
+	
 	
 	function deleteUser(data) {
 		var result = confirm('회원을 탈퇴시킵니다.');

@@ -60,7 +60,7 @@
 								<td><div class="done-btn">환급</div></td>
 							</c:if>
 							<c:if test="${ shop.partnerWithdraw eq 'Y' or shop.partnerWithdraw eq 'y' }">
-								<td><a class="delete-btn" href="#">탈퇴</a></td>
+								<td><div class="delete-btn" onclick="deleteShop('${shop.userNo}')">탈퇴</div></td>
 							</c:if>
 							<c:if test="${ shop.partnerWithdraw eq 'N' or shop.partnerWithdraw eq 'n' }">
 								<td><div class="done-btn">탈퇴</div></td>
@@ -123,5 +123,15 @@
 </body>
 <script type="text/javascript">
 	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
+	
+	function deleteShop(data) {
+        var result = confirm('회원을 탈퇴시킵니다.');
+        if(result) {
+            location.href='adminUserDelete.dz?userNo=' + data;
+			location.href='adminShopList.dz';
+        } else {
+			location.href='adminShopList.dz';
+        }
+    }
 </script>
 </html>
