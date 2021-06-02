@@ -148,11 +148,7 @@ public class UserController {
 		return "user/userLogin";
 	} // end of loginView
 	
-	//로그인 폼을 띄우는 부분@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@RequestMapping(value = "/login", method = RequestMethod.GET) 
-	public String securityLoginView() {
-		return "user/userSecurityLogin";
-	} // end of loginView
+	
 	
 	//로그인 유효성 검사
 	@ResponseBody 
@@ -172,6 +168,29 @@ public class UserController {
 	//로그인 처리하는 부분@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "login.dz", method = RequestMethod.POST)
 	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model, HttpSession session) {
+		String returnURL = "";
+		if (session.getAttribute("loginUser") != null) { // 기존에 login이란 세션값이 존재한다면
+			session.removeAttribute("loginUser"); // 기존값을 제거해준다.
+		}
+		
+		User uOne = new User(user.getUserId(), user.getUserPw());
+		// 로그인이 성공하면 User객체를 반환함
+		User loginUser = service.loginUser(uOne);
+		
+		if (loginUser != null) { // 로그인 성공
+			session = request.getSession();
+			session.setAttribute("loginUser", loginUser); // 세션에 loginUser란 이름으로 User객체를 저장해논다.
+			returnURL = "redirect:/"; // 로그인 성공시 메인페이지로 바로 이동하도록 함
+		}else { // 로그인이 실패한 경우
+			returnURL = "redirect:loginView.dz"; // 로그인 폼으로 다시 가도록 함
+		}
+		return returnURL; // 위에서 설정한 returnURL을 반환해서 이동시킴
+	}
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String userSecurityLogin(HttpServletRequest request, 
+									@RequestParam(value = "userId") String id,
+									@RequestParam(value = "userPw") String pw,
+									@ModelAttribute User user, Model model, HttpSession session) {
 		String returnURL = "";
 		if (session.getAttribute("loginUser") != null) { // 기존에 login이란 세션값이 존재한다면
 			session.removeAttribute("loginUser"); // 기존값을 제거해준다.

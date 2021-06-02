@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public CustomUserDetails getUsersByID(String userId) {
+	public User getUsersByID(String userId) {
 		return store.getUsersByID(userId);
 	}
 
