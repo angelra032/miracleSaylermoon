@@ -17,6 +17,7 @@
 <script src='/resources/css/partnermypage/ko.js'></script>
 </head>
 <body>
+
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
 		<div id="main-title">${ loginUser.userName }님안녕하세요!</div>
