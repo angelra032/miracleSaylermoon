@@ -191,7 +191,7 @@ public class UserStoreLogic implements UserStore {
 	}
 
 	@Override
-	public CustomUserDetails getUsersByID(String userId) {
+	public User getUsersByID(String userId) {
 		return sqlSession.selectOne("userMapper.getUsersByID", userId);
 	}
 

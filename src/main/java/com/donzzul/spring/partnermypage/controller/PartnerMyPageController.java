@@ -231,7 +231,7 @@ public class PartnerMyPageController {
 	
 	// 버튼별 예약 현황 다르게 보여주기
 	@ResponseBody
-	@RequestMapping(value="reservationStatue.dz", method=RequestMethod.GET)
+	@RequestMapping(value="reservationStatue.dz", method= {RequestMethod.GET, RequestMethod.POST})
 	public ArrayList<HashMap<String, String>> reservationStatue(@RequestParam("shopNo") int shopNo,
 																@RequestParam("rState") String rState){
 		System.out.println(shopNo);
