@@ -90,8 +90,8 @@ a {
 		}
 	
 		#btn-search {
-			width: 61px;
-			height: 61px;
+			width: 55px;
+			height: 55px;
 			border-style: none;
 			background-color: #fdb504;
 		}
@@ -182,7 +182,7 @@ a {
 	
 	
 		/* 검색 리스트 페이지 네비 */
-		.navi {
+		.result-list-navi {
 			width: 260px;
 			height: 40px;
 			padding-top: 40px;
@@ -190,6 +190,11 @@ a {
 			text-align: center;
 			line-height: 2.3em;
 		}
+		
+			.result-list-navi img {
+					width: 10px;
+					height: 10px;
+				}
 					
 			#currentPage {
 				display: inline-block;
