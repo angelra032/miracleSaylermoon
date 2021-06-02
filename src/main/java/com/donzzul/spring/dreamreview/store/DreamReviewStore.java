@@ -21,6 +21,9 @@ public interface DreamReviewStore {
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
 
 	public ArrayList<DreamReview> selectDMReviewAll(HashMap<String, Object> searchParam); // 더보기 - 가게 전체 후기 가져오기
+	public ArrayList<DreamReview> selectAllDreamReview(HashMap<String, Object> searchParam); // 더보기 - 가게 감사 후기
+	public int selectDMReviewCount(int shopNo); // 더보기 - 가게 전체 후기 갯수 (count)
+	public int selectDreamReviewCount(int shopNo); // 더보기 - 가게 감사 후기 갯수 (count)
 	
 	// 꿈나무 마이페이지
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo);

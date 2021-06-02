@@ -104,4 +104,23 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 		System.out.println("스토어"+searchParam);
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectMoreAllReview", searchParam);
 	}
+
+	// 더보기 - 감사 후기 가져오기
+	@Override
+	public ArrayList<DreamReview> selectAllDreamReview(HashMap<String, Object> searchParam) {
+		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectMoreDreamReview", searchParam);
+	}
+
+	// 더보기 - 전체 후기 갯수 가져오기
+	@Override
+	public int selectDMReviewCount(int shopNo) {
+		return sqlSession.selectOne("drmReviewMapper.selectDMReviewCount", shopNo);
+	}
+
+	// 더보기 - 감사 후기 갯수 가져오기
+	@Override
+	public int selectDreamReviewCount(int shopNo) {
+		return sqlSession.selectOne("drmReviewMapper.selectDreamReviewCount", shopNo);
+	}
+	
 }

@@ -99,5 +99,23 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		return drStore.selectDMReviewAll(searchParam);
 	}
 
+	// 더보기 - 감사 후기 가져오기
+	@Override
+	public ArrayList<DreamReview> selectAllDreamReview(HashMap<String, Object> searchParam) {
+		return drStore.selectAllDreamReview(searchParam);
+	}
+
+	// 더보기 - 전체 후기 갯수 가져오기
+	@Override
+	public int selectDMReviewCount(int shopNo) {
+		return drStore.selectDMReviewCount(shopNo);
+	}
+
+	// 더보기 - 감사 후기 갯수 가져오기
+	@Override
+	public int selectDreamReviewCount(int shopNo) {
+		return drStore.selectDreamReviewCount(shopNo);
+	}
+
 
 }

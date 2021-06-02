@@ -273,11 +273,11 @@ public class ShopController {
 //		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
 //		
 		// 감사 후기 가져오기
-		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
-		System.out.println("감사후기 : " + drList.toString());
+//		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
+//		System.out.println("감사후기 : " + drList.toString());
 		// 맛집 후기 가져오기
-		ArrayList<MzReview> mzList = mService.selectAllMzReview(shopNo);
-		System.out.println("맛집후기 : " + mzList.toString());
+//		ArrayList<MzReview> mzList = mService.selectAllMzReview(shopNo);
+//		System.out.println("맛집후기 : " + mzList.toString());
 		
 //		
 //
@@ -303,17 +303,59 @@ public class ShopController {
 		mv.addObject("mainMenu", mainMenu);
 		mv.addObject("mPhoto", mPhoto);
 //		mv.addObject("rList", rList);
-		mv.addObject("drList", drList); // 확인용
+//		mv.addObject("drList", drList); // 확인용
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
 	}
 	
+	
+	
 	// 가게 전체 후기 더보기
 	@ResponseBody
-	@RequestMapping(value="moreAllReview.dz", method=RequestMethod.POST)
+	@RequestMapping(value="moreAllReview.dz", method=RequestMethod.GET)
 	public void moreAllReview(HttpServletResponse response, @RequestParam("startNum") int startNum, @RequestParam("endNum") int endNum, @RequestParam("shopNo") int shopNo ) throws Exception, IOException {
 														// @RequestParam HashMap<String, String> param,
+		// 전체 후기 갯수
+		int dataCnt = drService.selectDMReviewCount(shopNo);
+		System.out.println("전체후기 갯수"+dataCnt);
+		
+		System.out.println("1. 받음");
+		HashMap<String, Object> searchParam = new HashMap<String, Object>(); // 파라미터 생성
+		searchParam.put("startNum", startNum);
+		searchParam.put("endNum", endNum);
+		searchParam.put("shopNo", shopNo);
+		
+		//searchParam.put("dataCnt", dataCnt); // list 말고 따로 model로?
+		
+		System.out.println("2. 해쉬 담음");
+		// startNum ~ endNum 범위에 해당하는 전체 review 조회
+		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
+		System.out.println("더보기 후기 - "+rList.toString());
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
+		resultMap.put("rList", rList);
+		resultMap.put("dataCnt", dataCnt);
+		
+		System.out.println("3. 후기 가져옴");
+		response.setContentType("application/json"); // 
+		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환
+		
+		Gson gson = new Gson();
+//		gson.toJson(rList, response.getWriter()); // 조회한 전체 리뷰 보내주기,,
+		gson.toJson(resultMap, response.getWriter());
+		
+	}
+	
+	// 가게 감사 후기 더보기
+	@ResponseBody
+	@RequestMapping(value="moreDreamReview.dz", method=RequestMethod.GET)
+	public void moreDreamReview(HttpServletResponse response, @RequestParam("startNum") int startNum, @RequestParam("endNum") int endNum, @RequestParam("shopNo") int shopNo ) throws Exception, IOException {
+														// @RequestParam HashMap<String, String> param,
+		// 감사 후기 갯수
+		int dataCnt = drService.selectDreamReviewCount(shopNo);
+		System.out.println("감사후기 갯수"+dataCnt);
+		
 		System.out.println("1. 받음");
 		HashMap<String, Object> searchParam = new HashMap<String, Object>(); // 파라미터 생성
 		searchParam.put("startNum", startNum);
@@ -321,19 +363,55 @@ public class ShopController {
 		searchParam.put("shopNo", shopNo);
 		
 		System.out.println("2. 해쉬 담음");
-		// startNum ~ endNum 범위에 해당하는 전체 review 조회
-		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
-		System.out.println("더보기 후기 - "+rList.toString());
+		// startNum ~ endNum 범위에 해당하는 감사 review 조회
+		ArrayList<DreamReview> drList = drService.selectAllDreamReview(searchParam);
+		System.out.println("더보기 감사 후기 - "+drList.toString());
+		
+		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
+		resultMap.put("drList", drList);
+		resultMap.put("dataCnt", dataCnt);
 		
 		System.out.println("3. 후기 가져옴");
 		response.setContentType("application/json"); // 
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환
 		
 		Gson gson = new Gson();
-		gson.toJson(rList, response.getWriter()); // 조회한 전체 리뷰 보내주기,,
-		
+		gson.toJson(resultMap, response.getWriter()); // 조회한 감사리뷰 보내주기,,
 		
 	}
 	
+	// 가게 맛집 후기 더보기
+		@ResponseBody
+		@RequestMapping(value="moreMzReview.dz", method=RequestMethod.GET)
+		public void moreMzReview(HttpServletResponse response, @RequestParam("startNum") int startNum, @RequestParam("endNum") int endNum, @RequestParam("shopNo") int shopNo ) throws Exception, IOException {
+															// @RequestParam HashMap<String, String> param,
+			// 맛집 후기 갯수
+			int dataCnt = mService.selectMzReviewCount(shopNo);
+			System.out.println("맛집후기 갯수"+dataCnt);
+			
+			System.out.println("1. 받음");
+			HashMap<String, Object> searchParam = new HashMap<String, Object>(); // 파라미터 생성
+			searchParam.put("startNum", startNum);
+			searchParam.put("endNum", endNum);
+			searchParam.put("shopNo", shopNo);
+			
+			System.out.println("2. 해쉬 담음");
+			// startNum ~ endNum 범위에 해당하는 감사 review 조회
+			ArrayList<MzReview> mzList = mService.selectAllMzReview(searchParam);
+			System.out.println("더보기 감사 후기 - "+mzList.toString());
+			
+			HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
+			resultMap.put("mzList", mzList);
+			resultMap.put("dataCnt", dataCnt);
+			
+			System.out.println("3. 후기 가져옴");
+			response.setContentType("application/json"); // 
+			response.setCharacterEncoding("utf-8"); // 데이터 한글 변환
+			
+			Gson gson = new Gson();
+			gson.toJson(resultMap, response.getWriter()); // 조회한 감사리뷰 보내주기,,
+			
+			
+		}
 	
 }

@@ -1,6 +1,7 @@
 package com.donzzul.spring.mzreview.store.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -82,6 +83,19 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	@Override
 	public int deleteBeforePhoto(int mzReviewNo) {
 		return sqlSession.delete("mzReviewMapper.deleteBeforeMZPhoto", mzReviewNo);
+	}
+
+	
+	// 더보기 - 가게 상세 맛집후기
+	@Override
+	public ArrayList<MzReview> selectAllMzReview(HashMap<String, Object> searchParam) {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectMoreMzReview", searchParam);
+	}
+
+	// 더보기 - 가게 상세 맛집후기 갯수
+	@Override
+	public int selectMzReviewCount(int shopNo) {
+		return sqlSession.selectOne("mzReviewMapper.selectMzReviewCount", shopNo);
 	}
 
 }
