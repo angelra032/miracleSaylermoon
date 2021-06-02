@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,14 +70,62 @@ public class MzReviewController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="mReviewDetail.dz", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView mReviewDetailView(ModelAndView mv, @RequestParam("mzReviewNo") int mzReviewNo) {
+	public ModelAndView mReviewDetailView(ModelAndView mv, @RequestParam("mzReviewNo") int mzReviewNo, HttpServletResponse response, HttpServletRequest request) {
 		MzReview mReview = mService.selectOneReview(mzReviewNo);
 		if(mReview != null) {
+			updateMzHit(response, request, mzReviewNo);
 			mv.addObject("mReview", mReview).setViewName("board/mzReview/mReviewDetailView");
 		} else {
 			mv.addObject("msg", "맛집후기 게시글 상세 조회 실패").setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	public void updateMzHit(HttpServletResponse response, HttpServletRequest request, int mzReviewNo) {
+		User user = (User)request.getAttribute("loginUser");
+		Cookie[] reqCookie = request.getCookies(); // 기존존재 쿠키가져옴
+		Cookie nullCookie = null; // null 비교쿠키
+		
+		if(reqCookie != null && reqCookie.length > 0  && user != null) { // 로그인 되어있는 경우
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("mReview" + user.getUserNo() + mzReviewNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(reqCookie != null && reqCookie.length > 0 && user == null) { // 비로그인
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("mReview"+mzReviewNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(user != null && nullCookie == null) { // 로그인되어있는데 쿠키가 비어있음
+			Cookie cookie = new Cookie("mReview"+user.getUserNo() + mzReviewNo, "mReview"+user.getUserNo() + mzReviewNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			
+			int result = mService.updateHit(mzReviewNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
+		
+		if(user == null && nullCookie == null) { // 로그인X
+			Cookie cookie = new Cookie("mReview" + mzReviewNo, "mReview" + mzReviewNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			int result = mService.updateHit(mzReviewNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
 	}
 	
 	// 맛집후기 작성페이지 - 글쓰기버튼으로 들어옴 *****

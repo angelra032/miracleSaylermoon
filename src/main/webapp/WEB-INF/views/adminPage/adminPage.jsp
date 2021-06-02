@@ -71,7 +71,6 @@
 								<th>사업자아이디</th>
 								<th>업체등록번호</th>
 								<th>승인상태</th>
-								<th>탈퇴요청</th>
 								<th>탈퇴</th>
 							</tr>
 						</thead>
@@ -90,8 +89,13 @@
 									<c:if test="${ shop.showShopYN eq 'N' or shop.showShopYN eq 'n' }">
 										<td>미승인</td>
 									</c:if>
-									<td>${ shop.partnerWithdraw }</td>										
-									<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+									<c:if test="${ shop.partnerWithdraw eq 'y' or shop.partnerWithdraw eq 'Y' }">
+										<td><a class="btn btn-secondary reserv-btn">탈퇴</a></td>
+									</c:if>		
+									<c:if test="${ shop.partnerWithdraw eq 'n' or shop.partnerWithdraw eq 'N' }">
+										<td><div class="done-btn">탈퇴</div></td>
+									</c:if>		
+									<!-- 사업자 탈퇴는 사업자 상세페이지에서 이루어지도록 하자.... 사업자는 중요한데... -->
 								</tr>
 							</c:forEach>
 						</c:if>

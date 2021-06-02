@@ -3,6 +3,7 @@ package com.donzzul.spring.notiqna.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -66,6 +67,7 @@ public class NotiQnaController {
 		
 		if(qna != null) {
 			if(qna.getBoardPublicYN().equals("Y")) { // qna 퍼블릭(없는경우임)
+				updatQnaeHit(response, request, qaNo);
 				mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
 				//mv.addObject("msg", "자신이 쓴 글만 확인할 수 있습니다.").setViewName("common/errorPage");
 			} else {
@@ -76,13 +78,15 @@ public class NotiQnaController {
 					//qna.getGroupLayer() == 1 && qna.getUserNo() != user.getUserNo() && qna.getUserType().equals("4")
 						Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
 						if(reply != null)
+							updatQnaeHit(response, request, qaNo);
 							mv.addObject("reply", reply);
-					mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
+							mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
 				} else if(user.getUserId() == qna.getQnaId() ) {
 					Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
 					if(reply != null)
+						updatQnaeHit(response, request, qaNo);
 						mv.addObject("reply", reply);
-					mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
+						mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
 				}else {
 					//mv.addObject("msg", "다른사람글 확인불가").setViewName("common/errorPage");
 					mv.setViewName("redirect:/notiQnaMain.dz");
@@ -91,6 +95,56 @@ public class NotiQnaController {
 			
 		}
 		return mv; 
+	}
+	
+	public void updatQnaeHit(HttpServletResponse response,
+							HttpServletRequest request,
+							int qaNo) {
+		// 쿠키
+		User user = (User)request.getAttribute("loginUser");
+		Cookie[] reqCookie = request.getCookies(); // 기존존재 쿠키가져옴
+		Cookie nullCookie = null; // null 비교쿠키
+		
+		if(reqCookie != null && reqCookie.length > 0  && user != null) { // 로그인 되어있는 경우
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("qna" + user.getUserNo() + qaNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(reqCookie != null && reqCookie.length > 0 && user == null) { // 비로그인
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("qna"+qaNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(user != null && nullCookie == null) { // 로그인되어있는데 쿠키가 비어있음
+			Cookie cookie = new Cookie("qna"+user.getUserNo() + qaNo, "qna"+user.getUserNo() + qaNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			
+			int result = qnaService.updateQnaHit(qaNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
+		
+		if(user == null && nullCookie == null) { // 로그인X
+			Cookie cookie = new Cookie("qna" + qaNo, "qna" + qaNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			int result = qnaService.updateQnaHit(qaNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
 	}
 	
 	// 글쓰기버튼으로 들어옴 
@@ -165,16 +219,64 @@ public class NotiQnaController {
 	
 	// 디테일 selectOne
 		@RequestMapping(value="noticeDetail.dz", method=RequestMethod.GET)
-		public ModelAndView noticeDetailView(ModelAndView mv, @RequestParam("noticeNo") int noticeNo) {
+		public ModelAndView noticeDetailView(ModelAndView mv, @RequestParam("noticeNo") int noticeNo, HttpServletRequest request, HttpServletResponse response) {
 			
 			Notice notice = nService.selectOneNotice(noticeNo);
 			if(notice != null) {
+				updateNoticeHit(response, request, noticeNo);
 				mv.addObject("notice", notice).setViewName("board/noticeQna/notice/noticeDetailView");
 			} else {
 				mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
 			}
 			
 			return mv;
+		}
+		
+		public void updateNoticeHit(HttpServletResponse response, HttpServletRequest request, int noticeNo) {
+			User user = (User)request.getAttribute("loginUser");
+			Cookie[] reqCookie = request.getCookies(); // 기존존재 쿠키가져옴
+			Cookie nullCookie = null; // null 비교쿠키
+			
+			if(reqCookie != null && reqCookie.length > 0  && user != null) { // 로그인 되어있는 경우
+				for(int i = 0; i < reqCookie.length; i++) {
+					if(reqCookie[i].getName().equals("notice" + user.getUserNo() + noticeNo)) {
+						nullCookie = reqCookie[i];
+					}
+				}
+			}
+			if(reqCookie != null && reqCookie.length > 0 && user == null) { // 비로그인
+				for(int i = 0; i < reqCookie.length; i++) {
+					if(reqCookie[i].getName().equals("notice"+noticeNo)) {
+						nullCookie = reqCookie[i];
+					}
+				}
+			}
+			if(user != null && nullCookie == null) { // 로그인되어있는데 쿠키가 비어있음
+				Cookie cookie = new Cookie("notice"+user.getUserNo() + noticeNo, "notice"+user.getUserNo() + noticeNo);
+				cookie.setMaxAge(60*60*24*365);
+				response.addCookie(cookie);
+				
+				int result = nService.updateNoticeHit(noticeNo);
+				
+				if(result > 0 ) {
+					System.out.println("조회수 증가 성공");
+				} else if(result <= 0) {
+					System.out.println("조회수 증가 실패");
+				}
+			}
+			
+			if(user == null && nullCookie == null) { // 로그인X
+				Cookie cookie = new Cookie("notice" + noticeNo, "notice" + noticeNo);
+				cookie.setMaxAge(60*60*24*365);
+				response.addCookie(cookie);
+				int result = nService.updateNoticeHit(noticeNo);
+				
+				if(result > 0 ) {
+					System.out.println("조회수 증가 성공");
+				} else if(result <= 0) {
+					System.out.println("조회수 증가 실패");
+				}
+			}
 		}
 		
 		

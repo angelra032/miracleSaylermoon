@@ -26,6 +26,7 @@
                   </div>
                   <div class="title-bottom-date-area">
                       <span class="createDate">${ qna.qanCreateDate }</span>
+                      <span class="boardHit">조회수 ${ qna.qnaHit }</span>
                   </div>
             </div>
             </div>

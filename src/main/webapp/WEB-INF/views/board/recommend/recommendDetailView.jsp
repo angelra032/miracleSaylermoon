@@ -23,10 +23,10 @@
                 <div class="title-bottom-area">
                     <div class="title-bottom-nick-area">
                         <span class="userNick">${ recommendBoard.recommendWriter }</span>
-                        <h1>${ recommendBoard.recommendHit }</h1>
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ recommendBoard.recommendCreateDate }</span>
+                        <span class="boardHit">조회수 ${ recommendBoard.recommendHit }</span>
                     </div>
                 </div>
             </div>

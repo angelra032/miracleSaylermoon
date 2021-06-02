@@ -73,7 +73,7 @@
             border-top: 1px solid #E1E1E1;
         }
         .board-list-table > tbody > tr:hover {
-            background-color: pink;
+            background-color: rgba(1,96,255,0.2);
         }
             .board-list-table tr {
                     height: 43px;

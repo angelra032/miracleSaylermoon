@@ -18,7 +18,6 @@
 			<span class="top-sub-title">${ notice.noticeTitle }</span>
 			<span class="top-sub-shopName">공지사항</span>
 		</div>
-		
         <div class="frame">
             <div class="title-nick-date-area">
                     <div class="title-bottom-nick-area">
@@ -26,6 +25,7 @@
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ notice.noticeCreateDate }</span>
+                        <span class="boardHit">조회수 ${ notice.noticeHit }</span>
                     </div>
                 </div>
             </div>
@@ -54,5 +54,7 @@
         </div>
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+      
+ 
 </body>
 </html>

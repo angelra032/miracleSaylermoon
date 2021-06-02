@@ -26,7 +26,8 @@
                         <td width=110>No</td>
                         <td width=450 style="word-break: break-all;">제목</td>
                         <td width=160>작성자</td>
-                        <td width=180>날짜</td>
+                        <td width=160>날짜</td>
+                        <td width=100>조회수</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
 	                        <td>${ mReview.mReviewTitle }</td>
 	                        <td>${ mReview.mReviewWriter }</td>
 	                        <td>${ mReview.mReviewCreateDate }</td>
+	                        <td>${ mReview.mzReviewHit }</td>
 	                    </tr>
                 	</c:forEach>
                 </tbody>

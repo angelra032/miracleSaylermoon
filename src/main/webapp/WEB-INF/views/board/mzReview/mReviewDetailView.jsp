@@ -27,6 +27,7 @@
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ mReview.mReviewCreateDate }</span>
+                        <span class="boardHit">조회수 ${ mReview.mzReviewHit }</span>
                     </div>
                 </div>
             </div>
