@@ -18,13 +18,14 @@ public class MzReview {
 	private int userNo;
 	private int shopNo;
 	private String shopName;
+	private int mzReviewHit; // 조회수
 	
 	public MzReview() {}
 
 	public MzReview(int mReviewNo, String mReviewTitle, String mReviewContent, String mReviewWriter,
 			Date mReviewCreateDate, Date mReviewUploadDate, String mFileName, long mReviewFileSize,
-			String mReviewFilePath, Timestamp mReviewFileTime, String userType, int userNo, int shopNo,
-			String shopName) {
+			String mReviewFilePath, Timestamp mReviewFileTime, String userType, int userNo, int shopNo, String shopName,
+			int mzReviewHit) {
 		super();
 		this.mReviewNo = mReviewNo;
 		this.mReviewTitle = mReviewTitle;
@@ -40,6 +41,7 @@ public class MzReview {
 		this.userNo = userNo;
 		this.shopNo = shopNo;
 		this.shopName = shopName;
+		this.mzReviewHit = mzReviewHit;
 	}
 
 	public int getmReviewNo() {
@@ -154,6 +156,14 @@ public class MzReview {
 		this.shopName = shopName;
 	}
 
+	public int getMzReviewHit() {
+		return mzReviewHit;
+	}
+
+	public void setMzReviewHit(int mzReviewHit) {
+		this.mzReviewHit = mzReviewHit;
+	}
+
 	@Override
 	public String toString() {
 		return "MzReview [mReviewNo=" + mReviewNo + ", mReviewTitle=" + mReviewTitle + ", mReviewContent="
@@ -161,8 +171,8 @@ public class MzReview {
 				+ ", mReviewUploadDate=" + mReviewUploadDate + ", mFileName=" + mFileName + ", mReviewFileSize="
 				+ mReviewFileSize + ", mReviewFilePath=" + mReviewFilePath + ", mReviewFileTime=" + mReviewFileTime
 				+ ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo + ", shopName=" + shopName
-				+ "]";
+				+ ", mzReviewHit=" + mzReviewHit + "]";
 	}
-	
+
 	
 }

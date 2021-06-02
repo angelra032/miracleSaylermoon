@@ -55,6 +55,11 @@ public class QnaServiceImpl implements QnaService{
 	public int deleteQna(int qaNo) {
 		return qnaStore.deleteQna(qaNo);
 	}
+	
+	@Override
+	public int updateQnaHit(int qaNo) {
+		return qnaStore.updateQnaHit(qaNo);
+	}
 
 	// 꿈나무 마이페이지
 	@Override
@@ -110,4 +115,6 @@ public class QnaServiceImpl implements QnaService{
 	public Qna selectOneReply(int qnaNo) {
 		return qnaStore.selectOneReply(qnaNo);
 	}
+
+
 }

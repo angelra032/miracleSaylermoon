@@ -17,6 +17,7 @@
 		<result property="userNo" column="USER_NO"/>
 		<result property="shopNo" column="SHOP_NO"/>
 		<result property="shopName" column="SHOP_NAME"/>
+		<result property="mzReviewHit" column="MZREVIEW_HIT"/>
 	</resultMap>
 	
  	<resultMap type="MzReviewPhoto" id="mzPhotoResultMap">
@@ -50,11 +51,15 @@
 	</select>
 	
 	<insert id="insertMzReview" parameterType="MzReview">
-		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, #{shopNo})
+		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, #{shopNo}, DEFAULT)
 	</insert>
 	
 	<update id="updateMzReview">
 		UPDATE MZ_REVIEW SET MZREVIEW_TITLE = #{mReviewTitle}, MZREVIEW_CONTENT = #{mReviewContent} WHERE MZREVIEW_NO = #{mReviewNo}
+	</update>
+	
+	<update id="updateHit">
+		UPDATE MZ_REVIEW SET MZREVIEW_HIT = MZREVIEW_HIT + 1 WHERE  MZREVIEW_NO = #{mReviewNo}
 	</update>
 
 	<delete id="deleteMzReview">

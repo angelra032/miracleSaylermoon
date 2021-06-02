@@ -16,6 +16,7 @@ public interface QnaStore {
 	public int deleteQna(int qaNo);
 	public int getListCount();
 	public int updateGroup(Qna qna);
+	public int updateQnaHit(int qaNo);
 	
 	// 꿈나무 마이페이지
 	public ArrayList<Qna> dreamQnaUpToThree(int userNo);

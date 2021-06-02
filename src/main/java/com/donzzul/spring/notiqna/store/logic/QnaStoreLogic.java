@@ -60,7 +60,12 @@ public class QnaStoreLogic implements QnaStore {
 
 	@Override
 	public int deleteQna(int qaNo) {
-		return sqlSession.delete("notiQnaMapper.deleteQna", qaNo);
+		return sqlSession.delete("notiQnaMapper.updateQnaHit", qaNo);
+	}
+	
+	@Override
+	public int updateQnaHit(int qaNo) {
+		return 0;
 	}
 
 	

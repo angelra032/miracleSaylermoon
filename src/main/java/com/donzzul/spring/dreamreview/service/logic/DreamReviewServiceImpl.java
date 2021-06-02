@@ -116,6 +116,12 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	public int selectDreamReviewCount(int shopNo) {
 		return drStore.selectDreamReviewCount(shopNo);
 	}
+	
+	// 조회수
+	@Override
+	public int updateHit(int drmReviewNo) {
+		return drStore.updateHit(drmReviewNo);
+	}
 
 
 }

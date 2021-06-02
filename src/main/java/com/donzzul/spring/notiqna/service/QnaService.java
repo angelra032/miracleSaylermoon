@@ -16,6 +16,7 @@ public interface QnaService {
 	public int deleteQna(int qaNo);
 	public int getListCount();
 	public int updateGroup(Qna qna); // 답글번호 수정
+	public int updateQnaHit(int qaNo);
 	
 	// qna
 	

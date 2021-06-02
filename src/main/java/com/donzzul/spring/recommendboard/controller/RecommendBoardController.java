@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.CookieGenerator;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
@@ -47,12 +48,7 @@ public class RecommendBoardController {
 	
 	// 주소로 들어옴 (리스트출력할곳) selectAll
 	@RequestMapping(value="recommendMain.dz", method=RequestMethod.GET)
-	public ModelAndView recommendMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page, HttpServletResponse response) {
-		Cookie cookie = new Cookie("view", null);
-		cookie.setComment("맛집추천 조회 확인");
-		cookie.setMaxAge(60*60*25*365);
-		response.addCookie(cookie);
-//		return "root.index";
+	public ModelAndView recommendMainView(ModelAndView mv, @RequestParam(value="page", required=false) Integer page, HttpServletResponse response, HttpServletRequest request) {
 		
 		int currentPage = (page != null) ? page : 1;
 		int listCount = reService.getListCount();
@@ -70,12 +66,63 @@ public class RecommendBoardController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="recommendDetail.dz", method=RequestMethod.GET)
-	public ModelAndView recommendDetailView(ModelAndView mv, @RequestParam("recommendNo") int recommendNo, @CookieValue(name="view") String cookie, HttpServletResponse response) {
+	public ModelAndView recommendDetailView(ModelAndView mv, 
+											@RequestParam("recommendNo") int recommendNo, 
+											HttpServletResponse response,
+											HttpServletRequest request) {
+		
+		// 쿠키
+		User user = (User)request.getAttribute("loginUser");
+		Cookie[] reqCookie = request.getCookies(); // 기존존재 쿠키가져옴
+		Cookie nullCookie = null; // null 비교쿠키
+		
+		if(reqCookie != null && reqCookie.length > 0  && user != null) { // 로그인 되어있는 경우
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("cookie" + user.getUserNo() + recommendNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(reqCookie != null && reqCookie.length > 0 && user == null) { // 비로그인
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("cookie"+recommendNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(user != null && nullCookie == null) { // 로그인되어있는데 쿠키가 비어있음
+			Cookie cookie = new Cookie("cookie"+user.getUserNo() + recommendNo, "cookie"+user.getUserNo() + recommendNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.setHeader("Set-Cookie", "Test1=TestCookieValue1; Secure; SameSite=None");
+			response.addHeader("Set-Cookie", "Test2=TestCookieValue1; Secure; SameSite=None");
+			response.addCookie(cookie);
+			
+			int result = reService.updateHit(recommendNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
+		
+		if(user == null && nullCookie == null) { // 로그인X
+			Cookie cookie = new Cookie("cookie" + recommendNo, "cookie" + recommendNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			int result = reService.updateHit(recommendNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
 		
 		
-		int result = reService.updateCount(recommendNo);
+		
 		RecommendBoard recommendBoard = reService.selectOneRecommend(recommendNo);
-		if(result > 0 && recommendBoard != null) {
+		if(recommendBoard != null) {
 			mv.addObject("recommendBoard", recommendBoard).setViewName("board/recommend/recommendDetailView");
 		} else {
 			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");

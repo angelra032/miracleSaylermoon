@@ -13,12 +13,13 @@ public interface DreamReviewService {
 	public DreamReview selectOneDreamReview(int drmRviewNo);
 	public int insertDreamReview(DreamReview dreamReview);
 	public int updateDreamReview(DreamReview dreamReview);
-	public int deleteDreamReview(int drmRviewNo);
+	public int deleteDreamReview(int drmReviewNo);
 	public int getListCount();
 	public DreamReview selectOneDreamReview(); //메인페이지에서 한개만 불러오기(오버라이딩)
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
+	public int updateHit(int drmReviewNo);
 	
 	public ArrayList<DreamReview> selectDMReviewAll(HashMap<String, Object> searchParam); // 더보기 - 가게 전체 후기 가져오기
 	public ArrayList<DreamReview> selectAllDreamReview(HashMap<String, Object> searchParam); // 더보기 - 가게 감사 후기

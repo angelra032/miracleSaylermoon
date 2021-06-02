@@ -10,6 +10,7 @@
 		<result property="noticeUploadDate" column="NOTICE_UPLOAD_DATE"/>
 		<result property="userType" column="USER_TYPE"/>
 		<result property="noticePublicYN" column="NOTICE_PUBLIC_YN"/>
+		<result property="noticeHit" column="NOTICE_HIT"/>
 	</resultMap>
 	
  	<resultMap type="Qna" id="qnaResultMap">
@@ -26,6 +27,7 @@
 		<result property="groupOrder" column="GROUP_ORDER"/>
 		<result property="groupLayer" column="GROUP_LAYER"/>
 		<result property="qnaId" column="QNA_ID"/>
+		<result property="qnaHit" column="QNA_HIT"/>
 	</resultMap>
 
 	<!-- 공지사항******* -->
@@ -46,7 +48,7 @@
 	</select>
 	
 	<insert id="insertNotice">
-		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, #{userType}, 'Y')
+		INSERT INTO "NOTICE" VALUES(SEQ_NOTICE.NEXTVAL, #{noticeTitle}, #{noticeContent}, DEFAULT, DEFAULT, #{userType}, 'Y', DEFAULT)
 	</insert>
 	
 	<delete id="deleteNotice">
@@ -55,6 +57,10 @@
 	
 	<update id="updateNotice">
 		UPDATE NOTICE SET NOTICE_TITLE=#{noticeTitle}, NOTICE_CONTENT=#{noticeContent}, NOTICE_UPLOAD_DATE=SYSDATE  WHERE  NOTICE_NO = #{noticeNo}
+	</update>
+	
+	<update id="updateNoticeHit">
+		UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT + 1 WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
 	
@@ -74,7 +80,7 @@
 	</select>
 	
 	<insert id="inserQna" parameterType="Qna">
-		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, '[문의]'||#{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, SEQ_QNA.CURRVAL, 0, 0, #{qnaId})
+		INSERT INTO "QNA_BOARD" VALUES(SEQ_QNA.NEXTVAL, '[문의]'||#{qnaTitle}, #{qnaContent}, #{qnaWriter}, DEFAULT, DEFAULT, 'N', #{userType}, #{userNo}, SEQ_QNA.CURRVAL, 0, 0, #{qnaId}, DEFAULT)
 	</insert>
 	
 	<delete id="deleteQna">
@@ -93,6 +99,10 @@
 	
 	<update id="updateQnA">
 		UPDATE QNA_BOARD SET QNA_TITLE = #{qnaTitle}, QNA_CONTENT = #{qnaContent}, QNA_UPLOAD_DATE = SYSDATE WHERE QNA_NO = #{qnaNo}
+	</update>
+	
+	<update id="updateQnaHit">
+		UPDATE QNA_BOARD SET QNA_HIT = QNA_HIT + 1 WHERE QNA_NO = #{qnaNo}
 	</update>
 	
 

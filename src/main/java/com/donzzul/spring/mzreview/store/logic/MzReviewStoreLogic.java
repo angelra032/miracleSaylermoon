@@ -98,4 +98,9 @@ public class MzReviewStoreLogic implements MzReviewStore {
 		return sqlSession.selectOne("mzReviewMapper.selectMzReviewCount", shopNo);
 	}
 
+	@Override
+	public int updateHit(int mzReviewNo) {
+		return sqlSession.update("mzReviewMapper.updateHit", mzReviewNo);
+	}
+
 }

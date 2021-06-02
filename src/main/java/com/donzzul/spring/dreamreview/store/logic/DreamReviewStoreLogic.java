@@ -123,4 +123,10 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 		return sqlSession.selectOne("drmReviewMapper.selectDreamReviewCount", shopNo);
 	}
 	
+	// 조회수 증가
+	@Override
+	public int updateHit(int drmReviewNo) {
+		return sqlSession.update("drmReviewMapper.updateHit", drmReviewNo);
+	}
+	
 }

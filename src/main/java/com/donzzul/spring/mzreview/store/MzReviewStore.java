@@ -18,6 +18,7 @@ public interface MzReviewStore {
 	public ArrayList<MzReview> selectAllMzReview(int shopNo);
 	public int getListCount();
 	public ArrayList<MzReview> selectThreeReview();
+	public int updateHit(int mzReviewNo);
 	
 	public ArrayList<MzReview> selectAllMzReview(HashMap<String, Object> searchParam); // 더보기 - 가게 상세 맛집후기
 	public int selectMzReviewCount(int shopNo); // 더보기 - 가게 맛집 후기 갯수 (count)

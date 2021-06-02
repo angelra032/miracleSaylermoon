@@ -15,4 +15,5 @@ public interface NoticeStore {
 	public int getListCount();
 	public ArrayList<Notice> selectAllNotice(PageInfo pi);
 	public ArrayList<Notice> selectAdminNoticeThree(); 
+	public int updateNoticeHit(int noticeNo);
 }
