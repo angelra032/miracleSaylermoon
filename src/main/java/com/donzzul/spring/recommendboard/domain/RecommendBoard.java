@@ -12,7 +12,7 @@ public class RecommendBoard {
 	private String recommendImg;
 	private String userType;
 	private int userNo;
-	private int recommendCount; // 조회수
+	private int recommendHit; // 조회수
 	
 	
 	public RecommendBoard() {}
@@ -20,7 +20,7 @@ public class RecommendBoard {
 
 	public RecommendBoard(int recommendNo, String recommendTitle, String recommendContent, String recommendWriter,
 			Date recommendCreateDate, Date recommendUploadDate, String recommendImg, String userType, int userNo,
-			int recommendCount) {
+			int recommendHit) {
 		super();
 		this.recommendNo = recommendNo;
 		this.recommendTitle = recommendTitle;
@@ -31,7 +31,7 @@ public class RecommendBoard {
 		this.recommendImg = recommendImg;
 		this.userType = userType;
 		this.userNo = userNo;
-		this.recommendCount = recommendCount;
+		this.recommendHit = recommendHit;
 	}
 
 
@@ -125,13 +125,13 @@ public class RecommendBoard {
 	}
 
 
-	public int getRecommendCount() {
-		return recommendCount;
+	public int getRecommendHit() {
+		return recommendHit;
 	}
 
 
-	public void setRecommendCount(int recommendCount) {
-		this.recommendCount = recommendCount;
+	public void setRecommendHit(int recommendHit) {
+		this.recommendHit = recommendHit;
 	}
 
 
@@ -140,9 +140,10 @@ public class RecommendBoard {
 		return "RecommendBoard [recommendNo=" + recommendNo + ", recommendTitle=" + recommendTitle
 				+ ", recommendContent=" + recommendContent + ", recommendWriter=" + recommendWriter
 				+ ", recommendCreateDate=" + recommendCreateDate + ", recommendUploadDate=" + recommendUploadDate
-				+ ", recommendImg=" + recommendImg + ", userType=" + userType + ", userNo=" + userNo
-				+ ", recommendCount=" + recommendCount + "]";
+				+ ", recommendImg=" + recommendImg + ", userType=" + userType + ", userNo=" + userNo + ", recommendHit="
+				+ recommendHit + "]";
 	}
+
 
 	
 }

@@ -75,8 +75,8 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 	
 	// 조회수 증가
 	@Override
-	public int updateCount(int recommendNo) {
-		return sqlSession.update("recommendMapper.updateCount", recommendNo);
+	public int updateHit(int recommendNo) {
+		return sqlSession.update("recommendMapper.updateHit", recommendNo);
 	}
 
 

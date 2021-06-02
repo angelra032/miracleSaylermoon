@@ -18,5 +18,5 @@ public interface RecommendBoardStore {
 	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo);
 	public int insertPhoto(RecommendPhoto recoPhoto);
 	public int deleteBeforePhoto(int recommendNo);
-	public int updateCount(int recommendNo);
+	public int updateHit(int recommendNo);
 }

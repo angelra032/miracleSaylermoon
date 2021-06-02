@@ -16,12 +16,13 @@ public class Qna {
 	private int groupOrder;
 	private int groupLayer;
 	private String qnaId;
+	private int qnaHit;
 	
 	public Qna() {}
 
 	public Qna(int qnaNo, String qnaTitle, String qnaContent, String qnaWriter, Date qanCreateDate, Date qanUploadDate,
 			String boardPublicYN, String userType, int userNo, int originNo, int groupOrder, int groupLayer,
-			String qnaId) {
+			String qnaId, int qnaHit) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaTitle = qnaTitle;
@@ -36,6 +37,7 @@ public class Qna {
 		this.groupOrder = groupOrder;
 		this.groupLayer = groupLayer;
 		this.qnaId = qnaId;
+		this.qnaHit = qnaHit;
 	}
 
 	public int getQnaNo() {
@@ -142,12 +144,22 @@ public class Qna {
 		this.qnaId = qnaId;
 	}
 
+	public int getQnaHit() {
+		return qnaHit;
+	}
+
+	public void setQnaHit(int qnaHit) {
+		this.qnaHit = qnaHit;
+	}
+
 	@Override
 	public String toString() {
 		return "Qna [qnaNo=" + qnaNo + ", qnaTitle=" + qnaTitle + ", qnaContent=" + qnaContent + ", qnaWriter="
 				+ qnaWriter + ", qanCreateDate=" + qanCreateDate + ", qanUploadDate=" + qanUploadDate
 				+ ", boardPublicYN=" + boardPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", originNo="
-				+ originNo + ", groupOrder=" + groupOrder + ", groupLayer=" + groupLayer + ", qnaId=" + qnaId + "]";
+				+ originNo + ", groupOrder=" + groupOrder + ", groupLayer=" + groupLayer + ", qnaId=" + qnaId
+				+ ", qnaHit=" + qnaHit + "]";
 	}
+
 	
 }

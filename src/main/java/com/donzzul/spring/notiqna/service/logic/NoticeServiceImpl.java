@@ -58,5 +58,10 @@ public class NoticeServiceImpl implements NoticeService {
 		return nStore.selectAdminNoticeThree();
 	}
 
+	@Override
+	public int updateNoticeHit(int noticeNo) {
+		return nStore.updateNoticeHit(noticeNo);
+	}
+
 
 }

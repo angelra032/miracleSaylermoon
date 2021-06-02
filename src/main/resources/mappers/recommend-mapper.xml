@@ -12,7 +12,7 @@
 		<result property="recommendImg" column="RECOMMEND_IMG"/>
 		<result property="userType" column="USER_TYPE"/>
 		<result property="userNo" column="USER_NO"/>
-		<result property="recommendCount" column="RECOMMEND_COUNT"/>
+		<result property="recommendHit" column="RECOMMEND_HIT"/>
 	</resultMap>
 	
 	
@@ -53,8 +53,8 @@
 		UPDATE RECOMMEND_BOARD SET RECOMMEND_TITLE= #{recommendTitle}, RECOMMEND_CONTENT= #{recommendContent} WHERE RECOMMEND_NO = #{recommendNo}
 	</update>
 	
-	<update id="updateCount">
-		UPDATE RECOMMEND_BOARD SET RECOMMEND_COUNT = RECOMMEND_COUNT + 1 WHERE RECOMMEND_NO = #{recommendNo}
+	<update id="updateHit">
+		UPDATE RECOMMEND_BOARD SET RECOMMEND_HIT = RECOMMEND_HIT + 1 WHERE RECOMMEND_NO = #{recommendNo}
 	</update>
 	
 	<delete id="deleteRecommend">

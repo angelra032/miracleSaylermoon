@@ -99,6 +99,12 @@ public class MzReviewServiceImpl implements MzReviewService {
 	public int selectMzReviewCount(int shopNo) {
 		return mStore.selectMzReviewCount(shopNo);
 	}
+	
+	// 조회수 증가
+	@Override
+	public int updateHit(int mzReviewNo) {
+		return mStore.updateHit(mzReviewNo);
+	}
 
 
 	

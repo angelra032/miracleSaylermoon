@@ -19,6 +19,7 @@ public interface DreamReviewStore {
 	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
+	public int updateHit(int drmReviewNo);
 
 	public ArrayList<DreamReview> selectDMReviewAll(HashMap<String, Object> searchParam); // 더보기 - 가게 전체 후기 가져오기
 	public ArrayList<DreamReview> selectAllDreamReview(HashMap<String, Object> searchParam); // 더보기 - 가게 감사 후기
@@ -29,5 +30,6 @@ public interface DreamReviewStore {
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo);
 	public int dreamGetListCount(int userNo);
 	public ArrayList<DreamReview> reviewListByDream(int userNo, PageInfo pi);
+
 	
 }

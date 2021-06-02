@@ -10,11 +10,12 @@ public class Notice {
 	private Date noticeUploadDate;
 	private String userType; // char
 	private String noticePublicYN;
+	private int noticeHit;
 	
 	public Notice() {}
 
 	public Notice(int noticeNo, String noticeTitle, String noticeContent, Date noticeCreateDate, Date noticeUploadDate,
-			String userType, String noticePublicYN) {
+			String userType, String noticePublicYN, int noticeHit) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTitle = noticeTitle;
@@ -23,6 +24,7 @@ public class Notice {
 		this.noticeUploadDate = noticeUploadDate;
 		this.userType = userType;
 		this.noticePublicYN = noticePublicYN;
+		this.noticeHit = noticeHit;
 	}
 
 	public int getNoticeNo() {
@@ -81,11 +83,20 @@ public class Notice {
 		this.noticePublicYN = noticePublicYN;
 	}
 
+	public int getNoticeHit() {
+		return noticeHit;
+	}
+
+	public void setNoticeHit(int noticeHit) {
+		this.noticeHit = noticeHit;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
 				+ ", noticeCreateDate=" + noticeCreateDate + ", noticeUploadDate=" + noticeUploadDate + ", userType="
-				+ userType + ", noticePublicYN=" + noticePublicYN + "]";
+				+ userType + ", noticePublicYN=" + noticePublicYN + ", noticeHit=" + noticeHit + "]";
 	}
+
 	
 }

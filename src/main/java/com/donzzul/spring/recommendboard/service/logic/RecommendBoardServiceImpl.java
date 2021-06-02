@@ -74,8 +74,8 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 
 	// 조회수 증가
 	@Override
-	public int updateCount(int recommendNo) {
-		return reStore.updateCount(recommendNo);
+	public int updateHit(int recommendNo) {
+		return reStore.updateHit(recommendNo);
 	}
 
 

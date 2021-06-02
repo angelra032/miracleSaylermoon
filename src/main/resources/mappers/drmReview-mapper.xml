@@ -14,6 +14,7 @@
 		<result property="userNo" column="USER_NO"/>
 		<result property="shopNo" column="SHOP_NO"/>
 		<result property="shopName" column="SHOP_NAME"/>
+		<result property="drmRviewHit" column="DRMREVIEW_HIT"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -81,7 +82,7 @@
 	
 	<insert id="insertDrmReview">
 		INSERT INTO DREAM_REVIEW
-		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo})
+		VALUES(SEQ_DREAM_REVIEW.NEXTVAL, #{drmReviewTitle}, #{drmReviewContent}, #{drmReviewWriter}, DEFAULT, DEFAULT, #{drmReviewPublicYN}, '1', #{userNo}, #{shopNo}, DEFAULT)
 	</insert>
 	
 	<delete id="deleteDrmReview">
@@ -90,6 +91,10 @@
 	
 	<update id="updateDrmReview">
 		UPDATE DREAM_REVIEW SET DRMREVIEW_TITLE=#{drmReviewTitle}, DRMREVIEW_CONTENT=#{drmReviewContent}, DRMREVIEW_UPLOAD_DATE=SYSDATE, DRMREVIEW_PUBLIC_YN=#{drmReviewPublicYN} WHERE DRMREVIEW_NO = #{drmRviewNo}
+	</update>
+	
+	<update id="updateHit">
+		UPDATE DREAM_REVIEW SET DRMREVIEW_HIT = DRMREVIEW_HIT + 1 WHERE DRMREVIEW_NO = #{drmRviewNo}
 	</update>
 	
 	

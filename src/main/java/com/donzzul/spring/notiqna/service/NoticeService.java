@@ -15,4 +15,5 @@ public interface NoticeService {
 	public ArrayList<Notice> selectAllNotice(PageInfo pi);
 	public int getListCount();
 	public ArrayList<Notice> selectAdminNoticeThree();
+	public int updateNoticeHit(int noticeNo); // 조회수
 }
