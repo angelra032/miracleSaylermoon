@@ -25,8 +25,8 @@ public class PickServiceImpl implements PickService {
 	}
 
 	@Override
-	public int deletePick(HashMap<String, Integer> hash) {
-		return store.deletePick(hash);
+	public int deletePick(int pickNo) {
+		return store.deletePick(pickNo);
 	}
 
 	@Override

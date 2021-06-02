@@ -11,7 +11,7 @@ import com.donzzul.spring.user.domain.User;
 public interface PickStore {
 
 	public int insertPick(HashMap<String, Integer> hash); // 찜 등록
-	public int deletePick(HashMap<String, Integer> hash); // 찜 해제
+	public int deletePick(int pickNo); // 찜 해제
 	public List<Pick> selectAllPick(int userNo, PageInfo pi); // 찜 목록
 	
 	// 드림 마이페이지

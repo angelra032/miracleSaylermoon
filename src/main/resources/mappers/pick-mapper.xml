@@ -19,8 +19,8 @@
 		INSERT INTO PICK VALUES (SEQ_PICK.NEXTVAL, #{ shopNo }, #{ userNo })
 	</insert>
 	
-	<delete id="deletePick" parameterType="HashMap">
-		DELETE FROM PICK WHERE USER_NO = #{ userNo } AND SHOP_NO = #{ shopNo }
+	<delete id="deletePick" parameterType="_int">
+		DELETE FROM PICK WHERE PICK_NO = #{ pickNo } 
 	</delete>
 	
 	<resultMap type="Shop" id="shopResultMap">

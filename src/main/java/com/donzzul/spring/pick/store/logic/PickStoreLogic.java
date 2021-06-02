@@ -26,8 +26,8 @@ public class PickStoreLogic implements PickStore{
 	}
 
 	@Override
-	public int deletePick(HashMap<String, Integer> hash) {
-		return sqlSession.delete("pickMapper.deletePick", hash);
+	public int deletePick(int pickNo) {
+		return sqlSession.delete("pickMapper.deletePick", pickNo);
 	}
 
 	@Override

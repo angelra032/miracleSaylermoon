@@ -45,14 +45,9 @@ public class PickController {
 	
 	//D 찜 해제
 	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
-	public String removePick(@RequestParam int shopNo, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("loginUser");
+	public String removePick(@RequestParam int pickNo, HttpServletRequest request) {
 		
-		HashMap<String, Integer> hash = new HashMap<String, Integer>();
-		hash.put("userNo", user.getUserNo());
-		hash.put("shopNo", shopNo);
-		int result = service.deletePick(hash);
+		int result = service.deletePick(pickNo);
 		if(result > 0) {
 			return "success";
 		}else {
