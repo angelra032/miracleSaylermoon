@@ -222,17 +222,18 @@ public class MZMyPageController {
 		
 		// 페이징
 		int currentPage = (page != null) ? page : 1;
-		int listCount = rService.getListCount(userNo);
+		int listCount = pService.getListCount(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Don> dList = pService.selectDonList(userNo, pi);
+		System.out.println(dList.toString());
 		if(!dList.isEmpty()) {
 			mv.addObject("dList", dList);
 			mv.addObject("pi", pi);
-			mv.setViewName("mzMyPage/mzDonAllListDetail"); // 마이페이지
+			mv.setViewName("mzMyPage/MZPaymentList"); // 마이페이지
 		}else {
-			mv.addObject("msg", "돈쭐 전체 내역을 출력하는데 실패하였습니다!");
-			mv.setViewName("common/errorPage");
+			mv.addObject("msg", "돈쭐 내역이 없습니다.");
+			mv.setViewName("mzMyPage/MZPaymentList");
 		}
 		return mv;
 	}

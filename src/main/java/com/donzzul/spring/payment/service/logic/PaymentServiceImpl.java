@@ -126,7 +126,14 @@ public class PaymentServiceImpl implements PaymentService {
 	public Don selectMoneyTotal() {
 		return pStore.selectMoneyTotal();
 	}
+	
+	// 리스트 카운트
+	@Override
+	public int getListCount(int userNo) {
+		return pStore.getListCount(userNo);
+	}
 
+	
 
 
 	

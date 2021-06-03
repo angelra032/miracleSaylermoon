@@ -45,6 +45,10 @@ public class PaymentStoreLogic implements PaymentStore{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("paymentMapper.selectDonAllList", userNo, rowBounds);
 	}
+	@Override
+	public int getListCount(int userNo) {
+		return sqlSession.selectOne("paymentMapper.selectListCount", userNo);
+	}
 
 	
 
@@ -130,6 +134,7 @@ public class PaymentStoreLogic implements PaymentStore{
 	public Don selectMoneyTotal() {
 		return sqlSession.selectOne("paymentMapper.selectMoneyTotal");
 	}
+	
 	
 
 	

@@ -24,6 +24,7 @@ public interface PaymentStore {
 	//// 돈쭐내역 출력 - mz ////
 	public ArrayList<Don> selectDonListThree(int userNo); // 돈쭐내역 출력(상위3개)
 	public ArrayList<Don> selectDonList(int userNo, PageInfo pi); // 돈쭐내역 출력
+	public int getListCount(int userNo);
 
 	
 	//// 포인트 적립(룰렛,리뷰) ////

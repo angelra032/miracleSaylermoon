@@ -37,8 +37,9 @@
 									<td>${ status.count }</td>
 									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${ pick.shopNo }"><p>${ pick.shopName }</p></a></td>
 									<td>${ pick.shopShortAddr }</td>
-									<td><a class="delete-btn" href="#">삭제</a>
-									<input type="hidden" class="pickNo" value="${ pick.pickNo }">
+									<td>
+										<a class="delete-btn" href="#">삭제</a>
+										<input type="hidden" class="pickNo" value="${ pick.pickNo }">
 									</td>
 								</tr>
 							</c:forEach>
@@ -102,52 +103,51 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-	$(document).ready(function() {
 		// a href='#' 클릭 무시 스크립트
-		$('a[href="#"]').on('click', function(ignore) {
-            ignore.preventDefault();
-        });
+		
 		
 		// 삭제 aJax
-		$('.delete-btn').on('click', function() {
-			var pickNo = $(this).next().val();
-			var pickThis = $(this);
-			$.ajax({
-				url : "removeMyPagePick.dz",
-				data : {"pickNo" : pickNo},
-				type : 'POST',
-				success : function(data) {
-					if(data != null){
-						pickThis.parent().parent().remove();
-						$('.tbody').empty();
-						for(var i in data){
-							var tr = $("<tr>");
-							var count = $("<td>").html(Number(i)+1);
-							var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"'>"+data[i].shopName+"</a>");
-							var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
-							var td = $("<td>");
-							var deleteBtn = $("<a class='delete-btn' href='#'>삭제</a>");
-							var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data[i].pickNo+"'>");
-							
-							tr.append(count);
-							tr.append(shopName);
-							tr.append(shopShortAddr);
-							td.append(deleteBtn);
-							td.append(hiddenNo);
-							tr.append(td);
-							
-							$('.tbody').append(tr);
-						}
-					}else {
-						console.log("전송실패1");
+	$(document).on('click','.delete-btn', function() {
+		var pickNo = $(this).next().val();
+		var pickThis = $(this);
+		$.ajax({
+			url : "removeMyPagePick.dz",
+			data : {"pickNo" : pickNo},
+			type : 'POST',
+			success : function(data) {
+				if(data != null){
+					pickThis.parent().parent().remove();
+					$('.tbody').empty();
+					for(var i in data){
+						var tr = $("<tr>");
+						var count = $("<td>").html(Number(i)+1);
+						var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"'>"+data[i].shopName+"</a>");
+						var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
+						var td = $("<td>");
+						var deleteBtn = $("<a class='delete-btn' href='#'>삭제</a>");
+						var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data[i].pickNo+"'>");
+						
+						tr.append(count);
+						tr.append(shopName);
+						tr.append(shopShortAddr);
+						td.append(deleteBtn);
+						td.append(hiddenNo);
+						tr.append(td);
+						
+						$('.tbody').append(tr);
 					}
-					
-				},//end of success
-				error : function() {
-					console.log("전송실패");
+				}else {
+					console.log("전송실패1");
 				}
-			});
+				
+			},//end of success
+			error : function() {
+				console.log("전송실패");
+			}
 		});
 	});
+	$(document).on('click','a[href="#"]', function(ignore) {
+        ignore.preventDefault();
+    });
 </script>
 </html>

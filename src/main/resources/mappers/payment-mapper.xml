@@ -36,11 +36,15 @@
 	
 	<!-- 돈쭐내역 출력(mz 마이페이지) -->
 	<select id="selectDonListThree" resultMap="paymentResultMap"> <!-- 돈쭐내역 3개 출력 -->
-		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY PAYMENT_DATE DESC) AS NUM, SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo }) WHERE NUM BETWEEN 1 AND 3
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY PAYMENT_DATE DESC) AS NUM, SHOP_NAME, SHOP_NO, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo }) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
 	<select id="selectDonAllList" resultMap="paymentResultMap">
-		SELECT SHOP_NAME, PAYMENT_DATE, DON_PRICE FROM DON WHERE USER_NO = #{userNo } ORDER BY PAYMENT_DATE DESC
+		SELECT SHOP_NAME, PAYMENT_DATE, SHOP_NO, DON_PRICE FROM DON WHERE USER_NO = #{userNo } ORDER BY PAYMENT_DATE DESC
+	</select>
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM DON WHERE USER_NO = #{userNo }
 	</select>
 	
 	<!-- 포인트 출력(마이페이지) -->

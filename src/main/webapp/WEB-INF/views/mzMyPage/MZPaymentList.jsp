@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/dreammypage/drmreservationdetail.css">
+<link rel="stylesheet" href="/resources/css/mzmypage/mzpaymentlist.css">
 <title>일반회원 마이페이지</title>
 </head>
 <body>
@@ -15,11 +15,11 @@
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
-					<a class="info-btn" href="javascript:history.back();">돌아가기</a>
+					<a class="info-btn" href="mzMyPage.dz">돌아가기</a>
 				</div>
 			</div>
 		</div>
-		<div class="my-list reserv-list">
+		<div class="my-list reserv-list w-list">
 			<div class="frame">
 				<table>
 					<thead>
@@ -31,21 +31,21 @@
 							<th>사용포인트</th>
 						</tr>
 					</thead>
-					<tbody>
+					<c:if test="${ !empty dList }">
+					<tbody class="don-tbody">
 					<c:forEach items="${dList }" var="donList" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${donList.shopName }</p></a></td> <!-- 가게 상세페이지 -->
+							<td><a class="table-link-title" href="shopDetail.dz?shopNo=${donList.shopNo }"><p>${donList.shopName }</p></a></td> <!-- 가게 상세페이지 -->
 							<td>${donList.paymentDate }</td>
 							<td>${donList.donPrice }</td>
 							<td>${donList.usePoint }</td>
 						</tr>
 					</c:forEach>
 					</tbody>
-				</table>
+				
 				
 						<!-- 페이징 처리 -->
-						<table>
 							<tbody>
 							
 						<tr align="center" height="20">
@@ -85,9 +85,15 @@
 							</td>
 						</tr> 
 							</tbody>
+						</c:if>
+						<c:if test="${ empty dList }">
+							<tbody>
+								<tr>
+									<td colspan="6">${ msg }</td>
+								</tr>
+							</tbody>
+						</c:if>
 						</table>
-						
-						
 						
 			<%-- <!-- 페이징 -->
             <table class="board-page-table">

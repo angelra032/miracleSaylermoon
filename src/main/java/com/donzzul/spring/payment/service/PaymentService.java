@@ -24,7 +24,8 @@ public interface PaymentService {
 	//// 돈쭐내역 출력 - mz ////
 	public ArrayList<Don> selectDonListThree(int userNo); // 돈쭐내역 출력(상위3개)
 	public ArrayList<Don> selectDonList(int userNo, PageInfo pi); // 돈쭐내역 출력
-
+	//리스트카운트
+	public int getListCount(int userNo);
 	
 	//// 포인트 적립(룰렛,리뷰) ////
 	public User selectUserPoint(int userNo); // 포인트 조회(마이페이지)
@@ -55,6 +56,8 @@ public interface PaymentService {
 	public ArrayList<Don> selectAllDonList(HashMap<String, String> dateMap); // 어드민
 	public ArrayList<DonCount> selectAllDonListSum(HashMap<String, String> dateMap);
 	public Don selectMoneyTotal();
+	
+	
 
 	
 	
