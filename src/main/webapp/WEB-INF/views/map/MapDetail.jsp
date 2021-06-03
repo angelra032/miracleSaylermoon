@@ -33,7 +33,7 @@
 				<hr>
 				<div class="content-list">
 					<c:if test="${empty mList}">
-						<span>등록된 가게가 없습니다.</span>
+						<span id="shopReady">등록된 가게가 없습니다.</span>
 					</c:if>
 					<c:if test="${!empty mList}">
 						<c:forEach items="${ mList }" var="shop">
@@ -56,7 +56,12 @@
 										<br>
 									</div>
 									<div class="content-shop right bottom">
-										<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">예약하기</button>
+										<%-- <c:if test="${ !empty loginUser }">
+											<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo }, ${loginUser.userNo })">예약하기</button>
+										</c:if>
+										<c:if test="${ empty loginUser }"> --%>
+											<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">예약하기</button>
+										<%-- </c:if> --%>
 									</div>
 								</div>
 							</div>
@@ -175,6 +180,12 @@
 	}
 	
     // 가게 상세 페이지 이동
+    
+    function shopDetailsession(shopNo, userNo) {
+        location.href='shopDetail.dz?shopNo='+shopNo+'&userNo='+userNo;
+        
+    }
+    
     function shopDetail(shopNo) {
         location.href='shopDetail.dz?shopNo='+shopNo;
         

@@ -71,6 +71,10 @@ main {
 					width: 25px;
 					height: auto; /* width 조정, height auto 로 두면 비율에 맞게 줄어듬 */
 				}
+				
+			.shopReady {
+				color: #888;
+			}
 			
 			/* 가게 리스트 */
 			.content-shop {
