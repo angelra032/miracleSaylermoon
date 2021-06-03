@@ -107,16 +107,15 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="pTbody${pick.pickNo }">
 						<c:if test="${ !empty pList }">
 							<c:forEach items="${pList }" var="pick" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title"
-										href="shopDetail.dz?shopNo=${pick.shopNo }"><p>${pick.shopName }</p></a></td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }&userNo=${pick.userNo }"><p>${pick.shopName }${pick.pickNo }</p></a></td>
 									<td>${ pick.shopShortAddr}</td>
-									<td><a class="delete-btn"
-										href="removePick.dz?pickNo=${pick.pickNo }">삭제</a></td>
+									<td><input type = hidden value="${pick.pickNo }"><a class="pDelete-btn delete-btn" href="#">
+									삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -156,15 +155,12 @@
 									<td id="count">${status.count }</td>
 									<td id="drmReviewTitle"><a class="table-link-title"
 										href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
-									<td id="shopName">${dreamreview.shopName }</td>
+									<td id="shopName">${dreamreview.shopName }${ dreamreview.drmRviewNo}</td>
 									<td id="drmReviewUploadDate">${dreamreview.drmReviewUploadDate }</td>
 									<td id="modify-btn"><a class="modify-btn drmodify-btn"
 										id="drmodify-btn"
 										href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
-									<td id="delete-btn"><input type="hidden"
-										value="${ dreamreview.drmRviewNo}"> <a
-										class="delete-btn dreview-btn" 
-										id="dreview-btn" href="#">삭제${ dreamreview.drmRviewNo}</a></td>
+									<td id="delete-btn"><input type="hidden" value="${ dreamreview.drmRviewNo}"> <a class="dreview-btn delete-btn"  id="dreview-btn" href="#">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -224,10 +220,10 @@
 </body>
 
 <script type="text/javascript">
-	$(document).on("click", ".delete-btn", function(){ 
+	$(document).on("click", ".dreview-btn", function(){ 
 		var drmRviewNo = $(this).prev().val(); 
 		$.ajax({ 
-			url : "drmMyPageDelete2.dz",
+			url : "drmMpMainReviewDelete.dz",
 			type : "GET",
 			data : { "drmRviewNo" : drmRviewNo},
 			success : function(data) {
@@ -241,7 +237,7 @@
 					var drmodifyBtn = $("<td id='modify-btn'>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
 					var dreviewBtn = $("<td id='delete-btn'>")
 					dreviewBtn.append("<input type='hidden' value='"+data[i].drmRviewNo +"'>");
-					dreviewBtn.append("<a class='delete-btn dreview-btn' href='#'>삭제"+data[i].drmRviewNo +"</a>");
+					dreviewBtn.append("<a class='dreview-btn delete-btn' href='#'>삭제"+data[i].drmRviewNo +"</a>");
 					tr.append(count);
 					tr.append(drmReviewTitle);
 					tr.append(shopName);
@@ -256,5 +252,43 @@
 			}
 		});
 	});	
+	
+	$(document).on("click", ".pDelete-btn", function(){
+		var pickNo = $(this).prev().val();
+		 $.ajax({
+			url:"drmMpMainPickDelete.dz",
+			type:"GET",
+			data : { "pickNo" : pickNo },
+			success : function(data){ 
+				//console.log("data",data);
+				$(".pTbody").empty();
+				for(var i in data){
+					var tr = $("<tr>");
+					var count = $("<td>").html(Number(i)+1);
+					var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"&userNo="+data[i].userNo+"'>"+data[i].shopName+data[i].pickNo+"</a>");
+					var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
+					//var pDelete-btn = $("<td>").append("<input type = hidden value="+data[i].pickNo+"><a class='pDelete-btn delete-btn' href='#'>"+data[i].pickNo+"</a>");
+					
+					tr.append(count);
+					tr.append(shopName);
+					tr.append(shopShortAddr);
+					//tr.append(pDelete-btn);
+					
+					$(".pTbody").append(tr);
+					return false;
+					
+				}
+		 	}
+		}); 
+	});
+	
+	
+	/* <tr>
+	<td>${status.count }</td>
+	<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }&userNo=${pick.userNo }"><p>${pick.shopName }${pick.pickNo }</p></a></td>
+	<td>${ pick.shopShortAddr}</td>
+	<td><input type = hidden value="${pick.pickNo }"><a class="pDelete-btn delete-btn" href="#">
+	삭제</a></td>
+	</tr> */
 </script>
 </html>

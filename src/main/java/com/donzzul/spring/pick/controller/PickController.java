@@ -1,6 +1,7 @@
 package com.donzzul.spring.pick.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class PickController {
 	
 	//D 찜 해제
 	@ResponseBody
-	@RequestMapping(value="removePick.dz", method=RequestMethod.POST)
+	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
 	public String removePick(@RequestParam int pickNo, HttpServletRequest request) {
 		
 		int result = service.deletePick(pickNo);
@@ -56,5 +57,17 @@ public class PickController {
 		}
 	}
 	
-	
+	// 드림 마이페이지에서 삭제했다가 다시 탑 3 불러오기
+	@ResponseBody
+	@RequestMapping(value="drmMpMainPickDelete.dz", method = RequestMethod.GET)
+	public ArrayList<Pick> drmMpMainPickDelete(@RequestParam int pickNo,
+												HttpSession session){
+		int result = service.deletePick(pickNo);
+		
+		User user = (User)session.getAttribute("loginUser");
+		ArrayList<Pick> list= service.dreamPickUpToThree(user.getUserNo());
+		
+		System.out.println(list);
+		return list;
+	}
 }
