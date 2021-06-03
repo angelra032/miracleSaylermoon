@@ -25,10 +25,8 @@
 		<div class=frame>
 			<div class=map-left>
 				<div class="searchBar">
-					<!-- <form action="#"> -->
-						<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
-						<button id="btn-search"><img src="/resources/images/undo.png"></button>
-					<!-- </form> -->
+					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
+					<button id="btn-search"><img src="/resources/images/undo.png"></button>
 				</div>
 				<hr>
 				<div class="content-list">
@@ -46,13 +44,15 @@
 									<div class="content-shop right top">
 										<span id="shop-title"><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
 										<span id="shop-type">${ shop.shopType }</span><br>
-										<span>${ shop.shopAddr }</span><br>
-										<c:if test="${!empty shop.shopContent }">
-											<span id="shop-content">${ shop.shopContent }</span><br>
-										</c:if>
-										<c:if test="${!empty shop.shopContent }">
-											<span id="shop-content"></span><br>
-										</c:if>
+										<div id="shop-info"> <!-- 2줄 이상 말줄임 처리 -->
+											<span>${ shop.shopAddr }</span><br>
+											<c:if test="${!empty shop.shopContent }">
+												<span id="shop-content">${ shop.shopContent }</span><br>
+											</c:if>
+											<c:if test="${!empty shop.shopContent }">
+												<span id="shop-content"></span><br>
+											</c:if>
+										</div>
 										<br>
 									</div>
 									<div class="content-shop right bottom">
@@ -124,7 +124,7 @@
 		</div>
 	</main>
 	
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> --%>
 	
 	<!-- 맵 js -->
 	<script>
@@ -159,7 +159,6 @@
 	function zoomOut() {
 		mapObj.setLevel(mapObj.getLevel() + 1);
 	}
-	
 	
     // 가게 상세 페이지 이동
     // 세션 있을 경우

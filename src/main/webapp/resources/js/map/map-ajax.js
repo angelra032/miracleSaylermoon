@@ -1,5 +1,4 @@
 function showMap() {
-    /* var searchedCenter = "${searchedCenter}"; */
     
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
          mapOption = { 
@@ -11,9 +10,12 @@ function showMap() {
     
     // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
     map.setZoomable(false); 
+    
     return map;
 }
 
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function mapJs(map, positions) {
 		
 	var selectedCenter = $("#center-value").val();
@@ -32,6 +34,8 @@ function mapJs(map, positions) {
          }
     });
 
+
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // 마커 클릭시 기존에 열려있는 인포 윈도우 닫고 새로운 인포 윈도우 띄우기 위해
     // 커스텀 오버레이 전역변수 선언
     var selectedMarker = null;
@@ -39,6 +43,8 @@ function mapJs(map, positions) {
     var clickedMarker = null;
     var clickedOverlay = null;
     
+    
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // 주소로 좌표를 검색합니다
     positions.forEach(function(shop, index){ 
         
@@ -64,6 +70,8 @@ function mapJs(map, positions) {
                 // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
                 
+                
+                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
                 /// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 				var content = '<div class="customoverlay">' +
 					 '  <div class="tail">' + 
@@ -79,21 +87,22 @@ function mapJs(map, positions) {
 				});  
 				
 				
-				var mOverHandler;
-				
+				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
 			 	// 마커에 마우스오버 이벤트를 등록합니다
 				kakao.maps.event.addListener(marker, 'mouseover', function() {
 					
-				    // 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
-				    if(clickedMarker) {
-				    	kakao.maps.event.addListener(clickedMarker, 'mouseover', function(event) {
-							titleOverlay.setMap(null);
+			    	if (clickedOverlay) {
+				        kakao.maps.event.removeListener(marker, 'mouseover', function(event) {
+							titleOverlay.setMap(map);
 						});
-			    	}
-			    	
+				    }
+				    
 					if(clickedMarker != null && clickedOverlay != null) {
 						selectedOverlay.setMap(null);
 						selectedMarker.setZIndex(0);
+						kakao.maps.event.addListener(marker, 'mouseover', function(event) {
+							titleOverlay.setMap(null);
+						});
 					}
 				
 					selectedMarker = marker;
@@ -108,6 +117,8 @@ function mapJs(map, positions) {
 				    
 				});
 				
+				
+				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
 				// 마커에 마우스아웃 이벤트를 등록합니다
 				kakao.maps.event.addListener(marker, 'mouseout', function() {
 				    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
@@ -116,7 +127,7 @@ function mapJs(map, positions) {
 				});
 				
 				
-				
+				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
 				 // 마커에 클릭이벤트를 등록합니다
 			    kakao.maps.event.addListener(marker, 'click', function() {
 						
@@ -172,7 +183,15 @@ function mapJs(map, positions) {
 				    clickedOverlay = overlay;
 			    	
 			    });
-						
+			    
+			    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
+			    // 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
+				//if(titleOverlay) {
+			    	//kakao.maps.event.addListener(marker, 'mouseover', function(event) {
+						//titleOverlay.setMap(null);
+					//});
+		    	//}
+		    	    	
              }
         });
     });
