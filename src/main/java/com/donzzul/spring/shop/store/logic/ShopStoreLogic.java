@@ -130,5 +130,22 @@ public class ShopStoreLogic implements ShopStore {
     public ArrayList<Shop> selectAllShopListThree() {
        return (ArrayList)sqlSession.selectList("shopMapper.selectThreeShop");
     }
+    
+    // 사업자파트너
+	@Override
+	public int insertPartnerShop(Shop shop) {
+		return sqlSession.insert("shopMapper.insertPartnerShop", shop);
+	}
+
+	@Override
+	public int updatePartnerShop(Shop shop) {
+		return sqlSession.update("shopMapper.updatePartnerShop", shop);
+	}
+
+	@Override
+	public Shop selectShopOneUserNo(int userNo) {
+		return sqlSession.selectOne("shopMapper.selectOneUserNo", userNo);
+	}
+	
 
 }

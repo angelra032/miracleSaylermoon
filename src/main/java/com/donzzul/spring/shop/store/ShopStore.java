@@ -31,4 +31,9 @@ public interface ShopStore {
     public int getListCount();
     public ArrayList<Shop> selectAllShopList(PageInfo pi);
     public ArrayList<Shop> selectAllShopListThree();
+    
+    // 파트너사업자
+    public int insertPartnerShop(Shop shop);
+    public int updatePartnerShop(Shop shop);
+    public Shop selectShopOneUserNo(int userNo); 
 }

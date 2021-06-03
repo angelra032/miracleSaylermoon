@@ -127,6 +127,22 @@ public class ShopServiceImpl implements ShopService {
     public ArrayList<Shop> selectAllShopListThree() {
        return sStore.selectAllShopListThree();
     }
+    
+    // 파트너사업자
+	@Override
+	public int insertPartnerShop(Shop shop) {
+		return sStore.insertPartnerShop(shop);
+	}
+
+	@Override
+	public int updatePartnerShop(Shop shop) {
+		return sStore.updatePartnerShop(shop);
+	}
+
+	@Override
+	public Shop selectShopOneUserNo(int userNo) {
+		return sStore.selectShopOneUserNo(userNo);
+	}
 
 
 

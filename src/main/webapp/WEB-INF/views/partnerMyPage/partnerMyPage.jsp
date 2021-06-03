@@ -23,11 +23,13 @@
 		<div id="main-title">${ loginUser.userName }님안녕하세요!</div>
 		<div class="frame">
 			<div class="my-info">
-				<span>보유포인트 : <b>${shop.shopPoint }</b>원
-				</span> <a class="refund-btn" href="refundsPartnerPoint.dz">환급신청</a>
+				<span>보유포인트 : <b>${shop.shopPoint }</b>원</span> 
+				<c:if test="${ !empty shop }">
+					<a class="refund-btn" href="refundsPartnerPoint.dz">환급신청</a>
+				</c:if>
 				<div class="info-btn-frame">
 					<c:if test="${ !empty shop }">
-						<a class="info-btn" href="#">가게 수정</a>
+						<a class="info-btn" href="shopUpdateView.dz">가게 수정</a>
 					</c:if>
 					<c:if test="${ empty shop }">
 						<a class="info-btn" href="shopRegisterView.dz">가게 등록</a>
