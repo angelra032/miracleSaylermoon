@@ -155,8 +155,8 @@ public class ShopController {
 		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
 		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
 		
-		System.out.println("테스트 확인 :" + mapList);
-		System.out.println("로케이션 테스트 확인 :" + mapList.get(0).getShopAddr());
+//		System.out.println("테스트 확인 :" + mapList);
+//		System.out.println("로케이션 테스트 확인 :" + mapList.get(0).getShopAddr());
 
 		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
@@ -291,42 +291,10 @@ public class ShopController {
 		// 메뉴 사진 가져오기 
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
 		
-		// 전체 후기 가져오기
-//		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
-//		
-		// 감사 후기 가져오기
-//		ArrayList<DreamReview> drList = drService.selectAllDreamReview(shopNo);
-//		System.out.println("감사후기 : " + drList.toString());
-		// 맛집 후기 가져오기
-//		ArrayList<MzReview> mzList = mService.selectAllMzReview(shopNo);
-//		System.out.println("맛집후기 : " + mzList.toString());
-		
-//		
-//
-//		HashMap<String, String> searchParam = new HashMap<String, String>(); // 파라미터 생성
-//		searchParam.put("startNum", param.get("startNum"));
-//		searchParam.put("endNum", param.get("endNum"));
-//		searchParam.put("shopNo", param.get("shopNo"));
-//		
-//		// startNum ~ endNum 범위에 해당하는 전체 review 조회
-//		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
-//		System.out.println("더보기 후기 - "+rList.toString());
-//		 
-//		response.setContentType("application/json"); // 
-//		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환
-//		
-//		Gson gson = new Gson();
-//		gson.toJson(rList, response.getWriter()); // 조회한 전체 리뷰 보내주기,,
-//		
-//		System.out.println("전체 후기 : " + rList.toString());
-		
-		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);
 		mv.addObject("mPhoto", mPhoto);
 		mv.addObject("pick", pick);
-//		mv.addObject("rList", rList);
-//		mv.addObject("drList", drList); // 확인용
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
