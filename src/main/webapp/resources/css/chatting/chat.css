@@ -234,3 +234,8 @@ p{
 	color: #FFE400;
 	text-align: left;
 }
+
+
+#yourName{
+	display:none;
+}

@@ -191,7 +191,7 @@
          var paymentPoint = parseInt($("#pointText").val());
          var userPoint = parseInt("${loginUser.userPoint}");
          if(paymentPoint < userPoint){
-        	 if(paymentPoint > 500 && paymentPoint < 50000 && paymentPoint > 0){
+        	 if(paymentPoint >= 500 && paymentPoint <= 50000 && paymentPoint > 0){
         		$("#paymentPoint").html(paymentPoint);
 	         	$("input[name='paymentPoint']").val(paymentPoint);
 	         	$("#paymentSpan").text(paymentPoint);
