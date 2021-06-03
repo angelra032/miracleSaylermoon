@@ -1,15 +1,15 @@
 package com.donzzul.spring.chatting.domain;
 
-public class chat {
+public class Chat {
 	private int chatRoomNo;
 	private int chatBoxNo;
 	private int userNo;
 	private String messageContent;
 	private String messageTime;
 	
-	public chat() {}
+	public Chat() {}
 
-	public chat(int chatRoomNo, int chatBoxNo, int userNo, String messageContent, String messageTime) {
+	public Chat(int chatRoomNo, int chatBoxNo, int userNo, String messageContent, String messageTime) {
 		super();
 		this.chatRoomNo = chatRoomNo;
 		this.chatBoxNo = chatBoxNo;
