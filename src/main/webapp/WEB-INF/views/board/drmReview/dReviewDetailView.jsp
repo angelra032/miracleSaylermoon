@@ -28,7 +28,7 @@
                     </div>
                     <div class="title-bottom-date-area">
                         <span class="createDate">${ drmReview.drmReviewCreateDate }</span>
-                        <%-- <span class="boardHit">조회수 ${ drmReview.drmRviewHit }</span> --%>
+                        <span class="boardHit">조회수 ${ drmReview.drmRviewHit }</span>
                     </div>
                 </div>
             </div>

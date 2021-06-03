@@ -54,7 +54,7 @@
 			                         <td>${ drmReview.drmReviewWriter }</td>
 		                        </c:if>
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
-	                        	<%-- <td>${ drmReview.drmRviewHit }</td> --%>
+	                        	<td>${ drmReview.drmRviewHit }</td>
 	                    	</tr>
 		                </c:if>
 		                </c:forEach>
