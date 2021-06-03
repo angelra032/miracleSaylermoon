@@ -99,7 +99,7 @@
 								<div title="클릭하면 창이 닫힙니다." class="detail-right menu-img menu-img-detail-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
 									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  >
 								</div> 
-								<div class="detail-right menu-img menu-img-thumb-div" style="float:left;"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+								<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
 									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
 								</div> 
 							</c:forEach>
@@ -419,8 +419,9 @@
 		/* 메뉴 사진 modal창 */
 		$(function(){
 			$(".menu-img-thumb").click(function() {
-				//$(".menu-img-big").fadeIn();
 				$(this).parent().prev().fadeIn(); 
+				//$(this).parent().prev().find("img").fadeIn(); 
+				//$(".menu-img-big").fadeIn();
 			});
 			$(".menu-img-detail").click(function() {
 				//$(this).parent().find("img").fadeOut();
