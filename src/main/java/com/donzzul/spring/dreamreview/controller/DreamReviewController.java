@@ -272,7 +272,7 @@ public class DreamReviewController {
 	
 	// 드림 마이페이지에서 삭제 후 다시 그리기
 	@ResponseBody
-	@RequestMapping(value = "drmMpMainReviewDelete.dz", method = RequestMethod.GET)
+	@RequestMapping(value = "myPageMainReviewDelete.dz", method = RequestMethod.GET)
 	public ArrayList<DreamReview> drmMpMainReviewDelete(@RequestParam("drmRviewNo") int drmRviewNo, HttpSession session) {
 		int result = drService.deleteDreamReview(drmRviewNo);
 

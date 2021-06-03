@@ -9,4 +9,8 @@
 		<result property="messageTime" column="MESSAGE_TIME"></result>
 	</resultMap>
 
+
+	<insert id="insertChatContents">
+		INSERT INTO CHAT VALUES( CHAT_BOX_NO.NEXTVAL, CHAT_ROOM_NO.NEXTVAL, #{userNo}, #{messageContent}, #{messageTime})
+	</insert>
 </mapper>
