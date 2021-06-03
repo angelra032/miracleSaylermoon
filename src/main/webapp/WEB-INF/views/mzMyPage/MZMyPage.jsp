@@ -99,7 +99,9 @@
 				<div class="my-title">
 					<span>가고싶다 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="mzPickList.dz">더보기</a>
+						<c:if test="${ !empty pList }">
+							<a class="more-btn b-btn" href="mzPickList.dz">더보기</a>
+						</c:if>
 					</div>
 				</div>
 				<table>

@@ -19,4 +19,6 @@ public interface PickService {
 	public ArrayList<Pick> dreamPickUpToThree(int userNo);
 	public ArrayList<Pick> pickListByDream(int userNo, PageInfo pi);
 	public int pickListCount(int userNo);
+	// 마이페이지 가고싶다 삭제하고 리스트 재출력
+	public List<Pick> deleteAndSelectPick(int pickNo, int userNo, PageInfo pi);
 }

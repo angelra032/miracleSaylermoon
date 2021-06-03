@@ -30,23 +30,32 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="tbody">
 					<c:if test="${ !empty pList }">
 							<c:forEach items="${ pList }" var="pick" varStatus="status">
 								<tr>
-									<td>${status.count }</td>
-									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }"><p>${pick.shopName }</p></a></td>
+									<td>${ status.count }</td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${ pick.shopNo }"><p>${ pick.shopName }</p></a></td>
 									<td>${ pick.shopShortAddr }</td>
 									<td><a class="delete-btn" href="#">삭제</a>
 									<input type="hidden" class="pickNo" value="${ pick.pickNo }">
 									</td>
 								</tr>
 							</c:forEach>
+						</c:if>
+						<c:if test="${ empty pList }">
+							<tr>
+								<td colspan="4">${msg }</td>
+							</tr>
+						</c:if>
+						</tbody>
 						<!-- 페이징 처리 -->
+						<tbody>
+						<c:if test="${ !empty pList }">
 						<tr align="center" height="20">
 							<td colspan="4">
 								<!-- 이전 -->
-								<c:url var="before" value="pickListByDream.dz">
+								<c:url var="before" value="mzPickList.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -57,7 +66,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="pickListByDream.dz">
+									<c:url var="pagination" value="mzPickList.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -68,21 +77,21 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="pickListByDream.dz">
+								<c:url var="after" value="mzPickList.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">
 									[다음]&nbsp;
 								</c:if>
 								<c:if test="${pi.currentPage < pi.maxPage }">
-									<a href="${after }">[다음]</a>&nbsp;
+									<a href="${ after }">[다음]</a>&nbsp;
 								</c:if>
 							</td>
 						</tr>
 						</c:if>
 						<c:if test="${ empty pList }">
 							<tr>
-								<td colspan="4">${msg }</td>
+								<td colspan="4">${ msg }</td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -95,20 +104,44 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// a href='#' 클릭 무시 스크립트
-		$('a[href="#"]').click(function(ignore) {
+		$('a[href="#"]').on('click', function(ignore) {
             ignore.preventDefault();
         });
 		
 		// 삭제 aJax
 		$('.delete-btn').on('click', function() {
 			var pickNo = $(this).next().val();
+			var pickThis = $(this);
 			$.ajax({
-				url : "removePick.dz",
+				url : "removeMyPagePick.dz",
 				data : {"pickNo" : pickNo},
-				success : function(result) {
-					if(result == 'success'){
-						location.replace('.frame');
+				type : 'POST',
+				success : function(data) {
+					if(data != null){
+						pickThis.parent().parent().remove();
+						$('.tbody').empty();
+						for(var i in data){
+							var tr = $("<tr>");
+							var count = $("<td>").html(Number(i)+1);
+							var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"'>"+data[i].shopName+"</a>");
+							var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
+							var td = $("<td>");
+							var deleteBtn = $("<a class='delete-btn' href='#'>삭제</a>");
+							var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data[i].pickNo+"'>");
+							
+							tr.append(count);
+							tr.append(shopName);
+							tr.append(shopShortAddr);
+							td.append(deleteBtn);
+							td.append(hiddenNo);
+							tr.append(td);
+							
+							$('.tbody').append(tr);
+						}
+					}else {
+						console.log("전송실패1");
 					}
+					
 				},//end of success
 				error : function() {
 					console.log("전송실패");

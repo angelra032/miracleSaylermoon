@@ -188,12 +188,13 @@ public class MZMyPageController {
 	
 	// 찜(가고싶다) 전체 목록보기
 	@RequestMapping(value="mzPickList.dz", method=RequestMethod.GET)
-	public ModelAndView listPick(HttpSession session, Model model, ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView listPick(HttpSession session, Model model, ModelAndView mv, 
+								@RequestParam(value="page", required=false) Integer page) {
 		User user = (User)session.getAttribute("loginUser");
 		int userNo = user.getUserNo();
 		
 		int currentPage = (page != null) ? page : 1;
-		int listCount = rService.getListCount(userNo);
+		int listCount = pkService.pickListCount(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		List<Pick> pList = pkService.selectAllPick(userNo, pi);
@@ -202,11 +203,13 @@ public class MZMyPageController {
 			mv.addObject("pi",pi);
 			mv.setViewName("mzMyPage/MZPickList");
 		}else {
-			mv.addObject("msg","찜목록을 불러오는데 실패하였습니다.");
-			mv.setViewName("common/errorPage");
+			mv.addObject("msg","찜한 내역이 없습니다.");
+			mv.setViewName("mzMyPage/MZPickList");
 		}
 		return mv;
 	}
+	
+	// 가고싶다 삭제는 - PickController.java
 
 	// 돈쭐 전체 목록보기
 	@RequestMapping(value ="printDonAllList.dz", method = RequestMethod.GET)

@@ -243,7 +243,7 @@
 								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPhone" id="pphoneelem" class="form-elem phoneelem" type="tel" maxlength="12" placeholder="숫자만 입력">
+								<input name="userPhone" id="pphoneelem" class="form-elem phoneelem" type="tel" maxlength="13" placeholder="숫자만 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -711,7 +711,7 @@
 	
 			pphoneNum.onkeyup = function(){
 			  console.log(this.value);
-			  this.value = autoHypenPPhone( this.value ) ;  
+			  this.value = autoHypenPhone( this.value ) ;  
 			}
 			
 			/// 사업자번호@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
