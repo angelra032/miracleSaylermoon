@@ -30,20 +30,20 @@
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			
-				<!-- 찜버튼  --> 
-				<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기  --> 
-				<!-- 꿈나무, MZ  -->		
+				<!— 찜버튼 —>
+				<!— 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 —>
+				<!— 꿈나무, MZ —>		
  				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 }">
- 					<c:if test="${ empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
-						<a href="enrollPick.dz?shopNo=${shop.shopNo}&userNo=${ loginUser.userNo }" id="pick-button-off"></a>
+ 					<c:if test="${ empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
+						<a href="enrollPick.dz?shopNo=${shop.shopNo}" id="pick-button-off"></a>
 	 				</c:if>
- 					<c:if test="${ !empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
-						<a href="removePick.dz?pickNo=${ pick.pickNo }" id="pick-button-on"></a>
+ 					<c:if test="${ !empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
+						<a href="removePick.dz?shopNo=${shop.shopNo}" id="pick-button-on"></a>
 	 				</c:if>
  				</c:if>
-				<!-- 세션 없을시 로그인 연결 -->
+				<!— 세션 없을시 로그인 연결 —>
  				<c:if test="${ loginUser.userType == null }">
-					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-disabled"></a>
+					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-off"></a>
  				</c:if>
  				<c:if test="${ loginUser.userType == 3 }"></c:if>
 			</div>
@@ -72,6 +72,40 @@
 								</c:forEach>
 							</c:if>
 							
+							<%-- 
+							<!-- 모달창(big) -->
+							<div id="menu-img-div" title="클릭하면 창이 닫힙니다." class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+								<c:forEach items="${mPhoto }" var="photo">
+									<img src="${photo.menuFilePath }/${photo.menuFileName }"  id="menu-img-big" class="menu-img-big" alt="menuImg"  width="300px">
+								</c:forEach>
+							</div>
+							 
+							<c:forEach items="${mPhoto }" var="photo">
+								<img src="${photo.menuFilePath }/${photo.menuFileName }"   alt="menuImg"  width="300px">
+							</c:forEach>
+								
+							<!-- 미리보기(small) -->
+							<c:if test="${ !empty mPhoto }">
+								<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									<c:forEach items="${mPhoto }" var="photo">
+										<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg" width="120px">
+									</c:forEach>
+								</div> 
+							</c:if>
+							 --%>
+							
+							
+							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
+								<div title="클릭하면 창이 닫힙니다." class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" alt="menuImg"  width="300px">
+								</div> 
+								<div class="detail-right menu-img" style="float:left;"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg" width="120px">
+								</div> 
+							</c:forEach>
+							
+							
+								
 							<!-- modal test 중.. -->
 							<!-- <div id="menu-img" title="클릭하면 창이 닫힙니다.">
 								<div>
@@ -84,24 +118,8 @@
 							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
 							 -->
 
-							<div id="menu-img" title="클릭하면 창이 닫힙니다." class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-								<c:forEach items="${mPhoto }" var="photo">
-									<!-- <script>
-										console.log("각각", photo[i]);
-									</script> -->
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" alt="menuImg"  width="300px">
-								</c:forEach>
-							</div> 
 						</div>
 						
-						<c:if test="${ !empty mPhoto }">
-							<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-								<c:forEach items="${mPhoto }" var="photo">
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" class="menu-img-thumb" alt="menuImg" width="120px">
-								</c:forEach>
-							</div> 
-						</c:if>
-
 					</div>
 				</div>
 				
@@ -344,43 +362,25 @@
 			});
 			
 			
-		/* 세션 없을 시 로그인 페이지 이동 */
 		function goLogin() {
 			location.href='loginView.dz';
-		}		
-		
-		
-		/* 찜 등록, 해제 */
-		$("#pick-button-off").on("click", function() {
-			$.ajax({
-				url: "enrollPick.dz",
-				type: "post",
-				data: { "shopNo" : shopNo,
-						"userNo" : userNo },
-				success: function(msg) {
-					if(msg == "success") {
-						alert("'가고싶다' 목록에 추가되었습니다.");
-					}else {
-						alert("'가고싶다' 목록에서 삭제되었습니다.");
-					}
-				},
-				error: function() {
-					console.log("연결 실패하였습니다.");
-				}
-			});
-		});
-		
+		}
+	
 	
 		
 		/* 메뉴 사진 modal창 */
 		$(function(){
 			$(".menu-img-thumb").click(function() {
-				$("#menu-img").fadeIn();
+				$(".menu-img-big").fadeIn();
+				$(this).parent().prev().find("img").fadeIn(); 
 			});
-			$("#menu-img").click(function() {
+			$(".menu-img").click(function() {
 				$("#menu-img").fadeOut();
+				//$(this).find("img")fadeOut(); 
+				//$(this).parent().find("img")fadeOut(); 
 			});
 		});
+		
 
 	
 	
@@ -412,6 +412,9 @@
 				// 버튼 클릭을 밖으로 빼보기, 버튼 전역변수로 선언
 			// + 후기 없을 때 처리 완료 + 전체에서 감사, 맛집 나누기 완료
 			
+			if(index == 1) {
+				$("#list-body").empty(); // 비우기
+			}
 			
 			startNum = index;
 			var endNum = index + countNum - 1; // 끝값 설정 (초기~끝 검색)
@@ -427,7 +430,6 @@
 					endNum: endNum
 				},
 				success: function(data){ // textStatus -?
-					$("#list-body").empty(); // 비우기?
 				if(data == null){
 					console.log("data는 null");
 					$(".review-yet").html("등록된 후기가 없습니다.");
