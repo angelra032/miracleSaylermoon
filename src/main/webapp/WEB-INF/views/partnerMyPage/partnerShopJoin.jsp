@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/resources/css/user/join.css"> 
+<link rel="stylesheet" href="/resources/css/partnermypage/partnerShopJoin.css"> 
 <!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>돈쭐 회원가입</title>
@@ -31,7 +31,7 @@
 								<div class="form-noti pwnoti password_noti_2">비밀번호가 일치하지 않습니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="shopName" class="form-elem pwdelem" type="text" maxlength="30" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="shopName" class="form-elem shopName" type="text" maxlength="40" placeholder="간이사업자명 입력" readonly>
 							</div>
 							
 							<div class="form-head form-head2">
@@ -41,7 +41,7 @@
 								<div class="form-noti namenoti name_noti_1">한글 2자 이상 입력</div>
 							</div>
 							<div class="form-body">
-								<input name="shopShortAddr" class="form-elem nameelem" type="text" maxlength="20" placeholder="한글 2자 이상 입력">
+								<input name="shopShortAddr" class="form-elem shopShortAddr" type="text" maxlength="20" placeholder="한글 2자 이상 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -53,7 +53,14 @@
 								<div class="form-noti cardnoti card_suc">본인인증성공</div>
 							</div>
 							<div class="form-body">
-								<input name="shopAddr" id="cardelem" class="form-elem cardelem" type="text" maxlength="20" placeholder="숫자만 입력">
+								<input type="text" id="zip" name="zip" class="form-elem" placeholder="우편번호">
+                                <button id="addr-search-btn" type="button"  onclick="openZipSearch()">입력</button>
+                                <div id="aadr1-input" class="form-body">
+                                    <input type="text" name="addr1" id="addr1" class="form-elem" placeholder="기본주소" readonly>
+                                </div>
+                                <div id="addr2-input" class="form-body">
+                                    <input type="text" name="addr2" id="addr2" class="form-elem" placeholder="상세주소">
+                                </div>
 							</div>
 							
 							<div class="form-head form-head2">
@@ -64,17 +71,27 @@
 								<div class="form-noti nicknoti nick_noti_2">이미 사용중인 닉네임입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userNick" class="form-elem nickelem" type="text" maxlength="20" placeholder="한글 2자 이상 입력">
+								<input name="shopTarget" class="form-elem shopTarget" type="text" maxlength="20" placeholder="타켓 입력">
 							</div>
 							
 							<div class="form-head form-head2">
-								가게 메뉴&nbsp;
+								제공메뉴&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti phonenoti phone_noti_0">휴대폰번호를 입력해 주세요.</div>
 								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPhone" id="phoneelem" class="form-elem phoneelem" type="text" maxlength="13" placeholder="숫자만 입력">
+								<input name="shopProduct" id="shopProduct" class="form-elem shopProduct" type="text" maxlength="13" placeholder="무상제공하는 메뉴 입력">
+							</div>
+
+							<div class="form-head form-head2">
+								전화번호&nbsp;
+								<span class="required">*</span>&nbsp;&nbsp;
+								<div class="form-noti phonenoti phone_noti_0">휴대폰번호를 입력해 주세요.</div>
+								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
+							</div>
+							<div class="form-body">
+								<input name="shopPhone" id="shopPhone" class="form-elem shopPhone" type="text" maxlength="13" placeholder="숫자만 입력">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -84,15 +101,16 @@
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
-							<div class="form-body">
-								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<select>
-									<option>한식</option>
-									<option>분식</option>
-									<option>일식</option>
-									<option>중식</option>
-									<option>양식</option>
-									<option>기타</option>
+							<div class="form-body form-select-body">
+								<!-- <input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자"> -->
+								<select id="" name="" class="form-select">
+									<option value="0" selected disabled>선택</option>
+									<option value="1">한식</option>
+									<option value="2">분식</option>
+									<option value="3">일식</option>
+									<option value="4">중식</option>
+									<option value="5">양식</option>
+									<option value="6">기타</option>
 								</select>
 							</div>
 							
@@ -104,18 +122,25 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<div class="form-body form-select-body">
+									<!-- <input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자"> -->
+									<select id="" name="" class="form-select">
+										<option value="0" selected disabled>선택</option>
+										<option value="Y">가능</option>
+										<option value="N">불가능</option>
+									</select>
+								</div>
 							</div>
 							
 							<div class="form-head form-head2">
-								최대예약수&nbsp;
+								최대예약가능인원&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="최대 예약가능한">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -125,11 +150,66 @@
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
-							<div class="form-body">
-								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+							<div class="form-body form-select-body-2">
+								<select name="startTime" id="startTime" class="form-select-2">
+									<option value="0" selected disabled>여는시간</option>
+									<option value="1">1시</option>
+									<option value="2">2시</option>
+									<option value="3">3시</option>
+									<option value="4">4시</option>
+									<option value="5">5시</option>
+									<option value="6">6시</option>
+									<option value="7">7시</option>
+									<option value="8">8시</option>
+									<option value="9">9시</option>
+									<option value="10">10시</option>
+									<option value="11">11시</option>
+									<option value="12">12시</option>
+									<option value="13">13시</option>
+									<option value="14">14시</option>
+									<option value="15">15시</option>
+									<option value="16">16시</option>
+									<option value="17">17시</option>
+									<option value="18">18시</option>
+									<option value="19">19시</option>
+									<option value="20">20시</option>
+									<option value="21">21시</option>
+									<option value="22">22시</option>
+									<option value="23">23시</option>
+									<option value="24">24시</option>
+								</select>
+							</div>
+							<div class="form-body form-select-body-2 form-select-body-2-1">
+								<select name="startTime" id="startTime" class="form-select-2">
+									<option value="0" selected disabled>닫는시간</option>
+									<option value="1">1시</option>
+									<option value="2">2시</option>
+									<option value="3">3시</option>
+									<option value="4">4시</option>
+									<option value="5">5시</option>
+									<option value="6">6시</option>
+									<option value="7">7시</option>
+									<option value="8">8시</option>
+									<option value="9">9시</option>
+									<option value="10">10시</option>
+									<option value="11">11시</option>
+									<option value="12">12시</option>
+									<option value="13">13시</option>
+									<option value="14">14시</option>
+									<option value="15">15시</option>
+									<option value="16">16시</option>
+									<option value="17">17시</option>
+									<option value="18">18시</option>
+									<option value="19">19시</option>
+									<option value="20">20시</option>
+									<option value="21">21시</option>
+									<option value="22">22시</option>
+									<option value="23">23시</option>
+									<option value="24">24시</option>
+								</select>
 							</div>
 							
-							<div class="form-head form-head2">
+							<div class="form-head form-head2 form-business">
 								일하는날&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
@@ -140,6 +220,18 @@
 								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 							</div>
 							
+							
+							<div class="form-head form-head2">
+								가게소개&nbsp;
+								<span class="required">*</span>&nbsp;&nbsp;
+								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
+								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
+								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
+							</div>
+							<div class="form-body">
+								<textarea name="" id="" class="form-textarea" cols="30" rows="5" placeholder="소개 입력"></textarea>
+							</div>
+
 							<div class="form-head form-head2">
 								사진업로드&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
@@ -148,7 +240,7 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="userPw" class="form-elem pwdelem" type="password" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="userPw" class="form-elem pwdelem" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 							</div>
 							
 							<button class="submit-btn" type="submit">등록하기</button>

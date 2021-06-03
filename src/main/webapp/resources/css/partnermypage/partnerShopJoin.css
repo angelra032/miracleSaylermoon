@@ -1,0 +1,219 @@
+    @charset "UTF-8";
+*:focus { outline:none; }
+body {
+	font-family: 'Noto Sans KR';
+}
+/* 백그라운드 이미지 */
+.header-background-area {
+    width: 1903px;
+    margin: 0 auto;
+}
+.header-background-area > img {
+    position: absolute;
+    z-index: -5;
+    display: block;
+    top: 0;
+    width: 1903px;
+    align: center;
+    object-fit:cover; 
+    
+}
+
+#main-title {
+    width: 100%;
+    height: 278px;
+    font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+	top: 101px;
+    line-height: 4.7;
+    z-index: -2;
+}
+
+.frame {
+	width:1440px;
+	height:auto;
+	margin:0 auto;
+}
+
+h4 {
+	font-size:20px;
+	text-align:center;
+	margin-top:140px;
+	font-weight:400;
+	color:#333;
+}
+
+.tab {
+	list-style: none;
+	margin: 50px auto 0;
+	padding: 0;
+	overflow: hidden;
+	width:624px;
+}
+
+#tabcontent {
+	display: block;
+	padding: 6px 12px;
+}
+
+.tabmenu {
+	float: left;
+	display: inline-block;
+	color: #333;
+	text-align: center;
+	text-decoration: none;
+	font-size: 17px;
+	width: 208px;
+	height: 64px;
+	line-height: 64px;
+	cursor:pointer;
+}
+
+.tabcontent {
+	margin : 40px auto 140px;
+	width:624px;
+	height : auto;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f4f4f4;
+}
+
+.content-body {
+	margin:48px auto;
+	width: 416px;
+	height : auto;
+}
+
+.tab-content {
+	display: none;
+}
+.tab-content.current{
+	display: inherit;
+}
+
+.form-head {
+	color:#333;
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 8px;
+	display: flex;
+}
+.form-head2 {
+	margin-top:1.5em;
+}
+.form-id {
+	float: left;
+}
+.required {
+	color:#ff5442;
+}
+
+.form-elem {
+	color:#333;
+	border: 0;
+	border-radius: 3px;
+	height: 46px;
+	width: 370px;
+	padding-right: 44px;
+	text-indent: 1.25rem;
+	font-size: .875rem;
+}
+
+.form-select-body {
+	width: 415px;
+	background: white;
+}
+
+.form-select {
+	width: 410px;
+	color:#333;
+	border: 0;
+	border-radius: 3px;
+	height: 46px;
+	padding-right: 44px;
+	text-indent: 1.25rem;
+	font-size: .875rem;
+}
+
+.re_pwd {
+	margin-top:.75rem;
+}
+.form-noti {
+	color: #333;
+	font-size: .75rem;
+	letter-spacing: -.025em;
+	display: none; 
+	float:left;
+}
+
+.submit-btn {
+	margin-top: 50px;
+	color:#fff;
+	width: 100%;
+	height: 46px;
+	border: 0;
+	border-radius: 3px;
+	background-color: #0160ff;
+	font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.5;
+}
+.submit-btn:hover {
+	background-color: #0149c0;
+}
+
+/* 가게위치 주소 */
+#zip {
+	width: 250px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+#addr1 {
+	margin-bottom: 10px;
+}
+
+#addr-search-btn {
+	border: none;
+	background-color: #0160ff;
+	color: white;
+	border-radius: 5px;
+	width: 80px;
+	height: 36px;
+	cursor: pointer;
+}
+
+.form-textarea {
+	width: 385px;
+    border: none;
+    margin-top: 10px;
+    font-size: 15px;
+	font-family: 'Noto Sans KR';
+	padding : 15px;
+}
+.form-select-body-2 {
+	width: 180px;
+    background: white;
+	float: left;
+}
+
+.form-select-body-2-1 {
+    margin-left: 50px;
+}
+
+.form-select-2 {
+	color: #333;
+    border: 0;
+    border-radius: 3px;
+    height: 46px;
+    width: 160px;
+    padding-right: 44px;
+    text-indent: 1.25rem;
+    font-size: .875rem;
+}
+
+.form-business {
+	margin-top: 80px;
+}

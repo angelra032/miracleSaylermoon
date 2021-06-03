@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -71,7 +72,7 @@ public class DreamReviewController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo, HttpServletRequest request) {
+	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo, HttpServletRequest request, HttpServletResponse response) {
 		
 		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
 		HttpSession session = request.getSession();
@@ -86,11 +87,13 @@ public class DreamReviewController {
 //		System.out.println(shopName);
 		if(drmReview != null) {
 			if(drmReview.getDrmReviewPublicYN().equals("Y") || drmReview.getDrmReviewPublicYN().equals("y")) { // 게시글이 있고 공개상태
+				updateDrmHit(response, request, drmReviewNo);
 				mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 			} else {
 				if(user == null) { // 게시글 비공개 - 로그인 안함
 					mv.setViewName("redirect:/loginView.dz");
 				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4") || drmReview.getShopName() == user.getPartnerName()) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
+					updateDrmHit(response, request, drmReviewNo);
 					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 				} else {
 					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");
@@ -99,9 +102,56 @@ public class DreamReviewController {
 		} else {
 			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
 		}
-		
 		return mv;
 	}
+	
+	public void updateDrmHit(HttpServletResponse response, HttpServletRequest request, int drmReviewNo) {
+		User user = (User)request.getAttribute("loginUser");
+		Cookie[] reqCookie = request.getCookies(); // 기존존재 쿠키가져옴
+		Cookie nullCookie = null; // null 비교쿠키
+		
+		if(reqCookie != null && reqCookie.length > 0  && user != null) { // 로그인 되어있는 경우
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("dReview" + user.getUserNo() + drmReviewNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(reqCookie != null && reqCookie.length > 0 && user == null) { // 비로그인
+			for(int i = 0; i < reqCookie.length; i++) {
+				if(reqCookie[i].getName().equals("dReview"+drmReviewNo)) {
+					nullCookie = reqCookie[i];
+				}
+			}
+		}
+		if(user != null && nullCookie == null) { // 로그인되어있는데 쿠키가 비어있음
+			Cookie cookie = new Cookie("dReview"+user.getUserNo() + drmReviewNo, "dReview"+user.getUserNo() + drmReviewNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			
+			int result = drService.updateHit(drmReviewNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
+		
+		if(user == null && nullCookie == null) { // 로그인X
+			Cookie cookie = new Cookie("dReview" + drmReviewNo, "dReview" + drmReviewNo);
+			cookie.setMaxAge(60*60*24*365);
+			response.addCookie(cookie);
+			int result = drService.updateHit(drmReviewNo);
+			
+			if(result > 0 ) {
+				System.out.println("조회수 증가 성공");
+			} else if(result <= 0) {
+				System.out.println("조회수 증가 실패");
+			}
+		}
+	}
+	
 	
 	// 감사후기 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="dReviewWriteView.dz", method=RequestMethod.GET)
