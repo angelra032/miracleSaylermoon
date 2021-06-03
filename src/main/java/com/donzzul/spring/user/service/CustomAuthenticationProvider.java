@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 import com.donzzul.spring.user.domain.CustomUserDetails;
-
+ 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	private UserDetailsServiceImpl uServiceImpl;
