@@ -34,10 +34,10 @@ function mapJs(map, positions) {
 
     // 마커 클릭시 기존에 열려있는 인포 윈도우 닫고 새로운 인포 윈도우 띄우기 위해
     // 커스텀 오버레이 전역변수 선언
-     var selectedMarker = null;
+    var selectedMarker = null;
     var selectedOverlay = null;
-     var clickedMarker = null;
-     var clickedOverlay = null;
+    var clickedMarker = null;
+    var clickedOverlay = null;
     
     // 주소로 좌표를 검색합니다
     positions.forEach(function(shop, index){ 
@@ -65,111 +65,118 @@ function mapJs(map, positions) {
                 marker.setMap(map);
                 
                 /// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-						var content = '<div class="customoverlay">' +
-							 '  <div class="tail">' + 
-						    '    <span class="title" onclick="showShortInfo('+markerPosition+')">' + shop.shopName + '</span>' +
-						    '  </div>' +
-						    '</div>';
-						
-						// 커스텀 오버레이를 생성합니다
-						var titleOverlay = new kakao.maps.CustomOverlay({
-						    position: markerPosition,
-						    content: content,
-						    yAnchor: 2
-						});  
-						
-						
-	 				 	// 마커에 마우스오버 이벤트를 등록합니다
-						kakao.maps.event.addListener(marker, 'mouseover', function() {
-							
-							if(clickedMarker != null && clickedOverlay != null) {
-								selectedOverlay.setMap(null);
-								selectedMarker.setZIndex(1);
-							}
-						
-							selectedMarker = marker;
-							selectedOverlay = titleOverlay;
-							 
-							 // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-						    titleOverlay.setMap(map);
-						    
-						    selectedMarker.setZIndex(10);
-						    selectedOverlay.setZIndex(10);
-						    
-						    
-						    // 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
-							var mOverHandler = function(event) {
+				var content = '<div class="customoverlay">' +
+					 '  <div class="tail">' + 
+				    '    <span class="title" onclick="showShortInfo('+markerPosition+')">' + shop.shopName + '</span>' +
+				    '  </div>' +
+				    '</div>';
+				
+				// 커스텀 오버레이를 생성합니다
+				var titleOverlay = new kakao.maps.CustomOverlay({
+				    position: markerPosition,
+				    content: content,
+				    yAnchor: 2
+				});  
+				
+				
+				var mOverHandler;
+				
+			 	// 마커에 마우스오버 이벤트를 등록합니다
+				kakao.maps.event.addListener(marker, 'mouseover', function() {
+					
+				    // 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
+				    if(clickedMarker) {
+				    	kakao.maps.event.addListener(clickedMarker, 'mouseover', function(event) {
 							titleOverlay.setMap(null);
-							}
-							 
 						});
+			    	}
+			    	
+					if(clickedMarker != null && clickedOverlay != null) {
+						selectedOverlay.setMap(null);
+						selectedMarker.setZIndex(0);
+					}
+				
+					selectedMarker = marker;
+					selectedOverlay = titleOverlay;
+					 
+				    
+					 // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+				    titleOverlay.setMap(map);
+				    
+				    selectedMarker.setZIndex(10);
+				    selectedOverlay.setZIndex(10);
+				    
+				});
+				
+				// 마커에 마우스아웃 이벤트를 등록합니다
+				kakao.maps.event.addListener(marker, 'mouseout', function() {
+				    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+				    titleOverlay.setMap(null);
+				    
+				});
+				
+				
+				
+				 // 마커에 클릭이벤트를 등록합니다
+			    kakao.maps.event.addListener(marker, 'click', function() {
 						
-						// 마커에 마우스아웃 이벤트를 등록합니다
-						kakao.maps.event.addListener(marker, 'mouseout', function() {
-						    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-						    titleOverlay.setMap(null);
-						    
-						});
+			    	// 선택된 마커
+			    	clickedMarker = marker;
+			    	clickedMarkerindex = index;
+			    	console.log('index : ' + clickedMarkerindex);
+			    		
+					var content = '<div class="wrap">' + 
+			            '    <div class="info">' + 
+			            '        <div class="title">' + shop.shopName + 
+			            '            <div id="close" class="close" title="닫기"></div>' + 
+			            '        </div>' + 
+			            '        <div class="body">' + 
+			         /*    '            <div class="img">' +
+			            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+			            '           </div>' +  */
+			            '            <div class="desc">' + 
+			            '                <div class="ellipsis">제공대상</div>' + 
+			            '                <div class="ellipsis target">'+shop.shopTarget+'</div>' + 
+			            '                <div class="ellipsis product">제공품목</div>' + 
+			            '                <div class="ellipsis productCon">'+shop.shopProduct+'</div>' + 
+			            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+			            '            </div>' + 
+			            '            <div class="btnShop">' + 
+						'				 <button type="button" class="btn btn-primary btn-sm" onclick="shopDetail('+shop.shopNo+')">예약하기</button></div>' + 
+			            '            </div>' + 
+			            '        </div>' + 
+			            '    </div>' +    
+			            '</div>';
+			        
+					
+					
+					// 마커 위에 커스텀오버레이를 표시합니다
+					// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+					var overlay = new kakao.maps.CustomOverlay({
+					    content: content,
+					    map: map,
+					    position: markerPosition,
+					    zIndex: 10
+					});
 						
-						
-						
-						 // 마커에 클릭이벤트를 등록합니다
-					    kakao.maps.event.addListener(marker, 'click', function() {
-								
-					    	// 선택된 마커
-					    	clickedMarker = marker;
-					    		
-							var content = '<div class="wrap">' + 
-					            '    <div class="info">' + 
-					            '        <div class="title">' + shop.shopName + 
-					            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-					            '        </div>' + 
-					            '        <div class="body">' + 
-					         /*    '            <div class="img">' +
-					            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-					            '           </div>' +  */
-					            '            <div class="desc">' + 
-					            '                <div class="ellipsis">제공대상 : '+shop.shopTarget+'</div>' + 
-					            '                <div class="ellipsis product">제공품목 : '+shop.shopProduct+'</div>' + 
-					            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
-					            '            </div>' + 
-					            '            <div class="btnShop">' + 
-								'				 <button type="button" class="btn btn-primary btn-sm" onclick="shopDetail('+shop.shopNo+')">예약하기</button></div>' + 
-					            '            </div>' + 
-					            '        </div>' + 
-					            '    </div>' +    
-					            '</div>';
-					        
-							
-							// 마커 위에 커스텀오버레이를 표시합니다
-							// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-							var overlay = new kakao.maps.CustomOverlay({
-							    content: content,
-							    map: map,
-							    position: markerPosition,
-							    zIndex: 10
-							});	
-							
-							
-							// 마커 클릭시 기존에 열려있는 인포 윈도우 닫고 새로운 인포 윈도우 띄우기
-							if (clickedOverlay) {
-							        clickedOverlay.setMap(null);
-							    }
-							 	overlay.setMap(map);
-							    clickedOverlay = overlay;
-							    
-							    
-							
-							// 클릭한 마커 존재할 경우 해당 마커 마우스오버 막기
-						    if(clickedMarker) {
-						    	kakao.maps.event.addListener(map, 'mouseover', mOverHandler);
-					    	}
-					    	
-					    });
+				    // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+					$(document).on("click","#close", function() {
+				    	overlay.setMap(null);     
+					});							
+					
+					// 마커 클릭시 기존에 열려있는 인포 윈도우 닫고 새로운 인포 윈도우 띄우기
+					if (clickedOverlay) {
+				        clickedOverlay.setMap(null);
+				    }
+				 	overlay.setMap(map);
+				    clickedOverlay = overlay;
+			    	
+			    });
 						
              }
         });
     });
+
     
 
 
