@@ -21,7 +21,7 @@
 		<!-- 해당 url에 접근하기 위한 접근권한 설정 -->
 		<intercept-url pattern="/" access="permitAll" /><!-- permitAll : 모두 허용 -->
 		<intercept-url pattern="/loginView.dz" access="permitAll" />
-		<intercept-url pattern="/mReviewMain.dz" access="permitAll" /> 
+		<!-- <intercept-url pattern="/mReviewMain.dz" access="hasRole('ROLE_MZ')" />  -->
 		<intercept-url pattern="/resources/**" access="permitAll" />
 
 		<intercept-url pattern="/**" access="permitAll" /><!-- /**나머지는 ROLE_USER권한을 가진 사람만 허용 -->
@@ -29,41 +29,49 @@
 		
 		<form-login 
 		login-page="/loginView.dz"                  
-		default-target-url="/"        
-		username-parameter="userId"    
-		password-parameter="userPw"  
+		username-parameter="username"    
+		password-parameter="password"  
 		always-use-default-target='false' 
-		authentication-failure-url="/common/errorPage"
 		login-processing-url="/login"
+		authentication-failure-url="/loginView.dz"
+		authentication-success-handler-ref="loginSuccessHandler"
 		/>
+<!-- 		authentication-success-handler-ref="loginSuccessHandler" default-target-url="/"-->
+		<!-- authentication-failure-handler-ref="loginFailureHandler" -->
 		
+		<access-denied-handler
+    		error-page="/access_denied_page"
+		/>
+
 		<logout 
 		invalidate-session="true" 
 		logout-url="/logout.dz"   
-		logout-success-url="/home" 
+		logout-success-url="/" 
 		/>  
 
 		<!-- enable csrf protection 해킹막기 -->
 		<csrf disabled="true"/>  
+		
 	</http>
 	
 	<!-- 인증처리를 위한 최상위 태그 -->
 	<authentication-manager> 
 		<!-- <authentication-provider ref="userAuthProvider"/> -->
 
-		<!-- 사용자 이름, 비밀번호를 제공해줄 서비스 등록 -->
-	    <authentication-provider user-service-ref="UserDetailsServiceImpl"/>
 	    
 	    <!-- 여기서 직접 주기 -->
-	    <authentication-provider> 
+	    <!-- <authentication-provider> 
 		    <user-service> 
 		    	<user name="admin" password="admin" authorities="ROLE_ADMIN" /> 
 		    </user-service> 
-	    </authentication-provider> 
+	    </authentication-provider>  -->
+		<!-- 사용자 이름, 비밀번호를 제공해줄 서비스 등록 -->
+	    <authentication-provider user-service-ref="UserDetailsServiceImpl"/>
 
 	</authentication-manager>	
 
 	<!-- userService 빈등록 -->
-	<beans:bean id="UserDetailsServiceImpl" class="com.donzzul.spring.user.service.UserDetailsServiceImpl"/> 
-	<!-- <beans:bean id="userAuthProvider" class="com.donzzul.spring.user.service.CustomAuthenticationProvider"/> -->
+	<beans:bean id="UserDetailsServiceImpl" class="com.donzzul.spring.user.service.UserDetailsServiceImpl"/>
+	<beans:bean id="userAuthProvider" class="com.donzzul.spring.user.service.CustomAuthenticationProvider"/>
+	
 </beans:beans>

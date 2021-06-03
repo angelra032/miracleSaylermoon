@@ -26,17 +26,32 @@
 	</beans:bean>
 	
 	<!-- 인터셉터 객체생성 -->
-	<beans:bean id="authenticationInterceptor" class="com.donzzul.spring.interceptor.AuthenticationInterceptor">
-	</beans:bean>
+	<!-- <beans:bean id="authenticationInterceptor" class="com.donzzul.spring.interceptor.AuthenticationInterceptor">
+	</beans:bean> -->
+	<beans:bean class="com.donzzul.spring.interceptor.AuthenticationInterceptor" id="AuthenticationInterceptor"></beans:bean>
+	<beans:bean class="com.donzzul.spring.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
 	<!-- Interceptor 설정 -->
-	<interceptors>
+	<!-- <interceptors>
 		<interceptor>
 			<mapping path="/dreamMyPage.dz"/>
 			<mapping path="/mzMyPage.dz"/>
 			<mapping path="/partnerMyPage.dz"/>
 			<beans:ref bean="authenticationInterceptor"/>
 		</interceptor>
-	</interceptors>
+	</interceptors> -->
+	<!-- <interceptors>
+		<interceptor>
+			interceptor가 가로채서 처리해 주세요.
+			<mapping path="/login.dz" />
+
+			<beans:ref bean="AuthenticationInterceptor" />
+		</interceptor>
+
+		<interceptor>
+			<mapping path="/login.dz" />
+			<beans:ref bean="LoginInterceptor" />
+		</interceptor>
+	</interceptors> -->
 	
 	<context:component-scan base-package="com.donzzul.spring" />
 	
