@@ -17,6 +17,7 @@
 		<result property="drmRviewHit" column="DRMREVIEW_HIT"/>
 	</resultMap>
 
+
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM DREAM_REVIEW
 	</select>

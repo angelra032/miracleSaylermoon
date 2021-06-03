@@ -78,13 +78,6 @@ public class DreamReviewController {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		int shopNo = sService.selectShopOne(drmReview.getShopNo()).getShopNo();
-//		int shopNo = drmReview.getShopNo();
-//		Shop shop = new ShopServiceImpl().selectShopOne(shopNo);
-//		String shopName = shop.getShopName();
-//		System.out.println(shopName);
-//		System.out.println(shopNo);
-//		String shopName = new ShopServiceImpl().selectShopOne(shopNo).getShopName();
-//		System.out.println(shopName);
 		if(drmReview != null) {
 			if(drmReview.getDrmReviewPublicYN().equals("Y") || drmReview.getDrmReviewPublicYN().equals("y")) { // 게시글이 있고 공개상태
 				updateDrmHit(response, request, drmReviewNo);
@@ -279,9 +272,8 @@ public class DreamReviewController {
 	
 	// 드림 마이페이지에서 삭제 후 다시 그리기
 	@ResponseBody
-	@RequestMapping(value = "drmMyPageDelete.dz", method = RequestMethod.GET)
-	public ArrayList<DreamReview> drmMyPageDelete(@RequestParam("drmRviewNo") int drmRviewNo, HttpSession session) {
-		System.out.println(drmRviewNo);
+	@RequestMapping(value = "drmMpMainReviewDelete.dz", method = RequestMethod.GET)
+	public ArrayList<DreamReview> drmMpMainReviewDelete(@RequestParam("drmRviewNo") int drmRviewNo, HttpSession session) {
 		int result = drService.deleteDreamReview(drmRviewNo);
 
 		User user = (User) session.getAttribute("loginUser");
