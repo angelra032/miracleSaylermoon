@@ -270,14 +270,19 @@ public class ShopController {
 	//D 가게 상세 페이지 출력
 	@ResponseBody
 	@RequestMapping(value="shopDetail.dz")
-	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, @RequestParam("userNo") int userNo, HttpSession session, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
+	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, HttpSession session, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
 		// 파라미터 - 가게 번호 (쿼리스트링), 세션 userNo
 		
-		// 출력 페이지에서 찜 상태 변경
-		HashMap<String, Integer> pickParam = new HashMap<String, Integer>();
-		pickParam.put("userNo", userNo);
-		pickParam.put("shopNo", shopNo);
-		Pick pick = pService.checkPick(pickParam);
+		User user = (User) session.getAttribute("loginUser");
+		Pick pick = new Pick();
+		if(user != null) {
+			// 출력 페이지에서 찜 상태 변경
+			HashMap<String, Integer> pickParam = new HashMap<String, Integer>();
+			pickParam.put("userNo", user.getUserNo());
+			pickParam.put("shopNo", shopNo);
+			pick = pService.checkPick(pickParam);
+		}
+		
 		
 		// 가게 상세정보 가져오기
 		Shop shop = sService.selectShopOne(shopNo);

@@ -88,12 +88,12 @@
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<c:if test="${ !empty loginUser }">
+										<%-- <c:if test="${ !empty loginUser }">
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }&userNo=${ loginUser.userNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
 										</c:if>
-										<c:if test="${ empty loginUser }">
+										<c:if test="${ empty loginUser }"> --%>
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
+										<%-- </c:if> --%>
 										<span id="shop-type">${ search.shopType }</span><br><br>
 										<span>${ search.shopShortAddr }</span><br>
 										<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
@@ -112,12 +112,12 @@
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<c:if test="${ !empty loginUser }">
+										<%-- <c:if test="${ !empty loginUser }">
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }&userNo=${ loginUser.userNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
 										</c:if>
-										<c:if test="${ empty loginUser }">
+										<c:if test="${ empty loginUser }"> --%>
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
+										<%-- </c:if> --%>
 										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
 										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
@@ -136,12 +136,12 @@
 										<!-- <img src="/resources/images/shopMainImg/${newShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<c:if test="${ !empty loginUser }">
+										<%-- <c:if test="${ !empty loginUser }">
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }&userNo=${ loginUser.userNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
-										<c:if test="${ empty loginUser }">
+										</c:if> --%>
+										<%-- <c:if test="${ empty loginUser }"> --%>
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
+										<%-- </c:if> --%>
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
 										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
@@ -157,12 +157,12 @@
 										<!-- <img src="/resources/images/shopMainImg/${themeShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<c:if test="${ !empty loginUser }">
+										<%-- <c:if test="${ !empty loginUser }">
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }&userNo=${ loginUser.userNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
 										</c:if>
-										<c:if test="${ empty loginUser }">
+										<c:if test="${ empty loginUser }"> --%>
 											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
+										<%-- </c:if> --%>
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
 										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
