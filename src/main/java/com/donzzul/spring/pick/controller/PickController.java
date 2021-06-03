@@ -45,7 +45,7 @@ public class PickController {
 	
 	//D 찜 해제
 	@ResponseBody
-	@RequestMapping(value="removePick.dz", method=RequestMethod.POST)
+	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
 	public String removePick(@RequestParam int pickNo, HttpServletRequest request) {
 		
 		int result = service.deletePick(pickNo);

@@ -19,11 +19,39 @@
 	 -->
 	<http auto-config="true"  use-expressions="true">
 		<!-- 해당 url에 접근하기 위한 접근권한 설정 -->
-		<intercept-url pattern="/" access="permitAll" /><!-- permitAll : 모두 허용 -->
-		<intercept-url pattern="/loginView.dz" access="permitAll" />
-		<!-- <intercept-url pattern="/mReviewMain.dz" access="hasRole('ROLE_MZ')" />  -->
+		<!-- 모두 허용 -->
+		<intercept-url pattern="/" access="permitAll" /><!-- 메인 -->
+		<!-- 꿈나무회원만 -->
+		<intercept-url pattern="/dreamMyPage.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무마이페이지 -->
+		<intercept-url pattern="/allRListDetailByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무예약목록 -->
+		<intercept-url pattern="/pickListByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무가고싶다목록 -->
+		<intercept-url pattern="/allReviewListByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무감사후기목록 -->
+		<intercept-url pattern="/allQnaListByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무문의글목록 -->
+		<!-- 일반회원만 -->
+		<intercept-url pattern="/mzMyPage.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원마이페이지 -->
+		<intercept-url pattern="/mzReservationList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원예약목록 -->
+		<intercept-url pattern="/mzPickList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원가고싶다 목록 -->
+		<intercept-url pattern="/printDonAllList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원가고싶다 목록 -->
+		<!-- 사업자회원만 -->
+		<intercept-url pattern="/partnerMyPage.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
+		<intercept-url pattern="/refundsPartnerPoint.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
+		<intercept-url pattern="/partnerReserveList.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
+		<intercept-url pattern="/allQnaListByPartner.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
+		<!-- 회원만 -->
+		<intercept-url pattern="/userWritePwView.dz" access="hasAnyRole('ROLE_DREAM', 'ROLE_MZ', 'ROLE_PARTNER')" /> <!-- 회원탈퇴전 비밀번호 입력페이지 -->
+		<!-- 모두 비허용 -->
+		<!-- 
+		<intercept-url pattern="/shopDetail.dz" access="denyAll" /> 
+		<intercept-url pattern="/cancelReservation.dz" access="denyAll" /> 
+		<intercept-url pattern="/dReviewDetail.dz" access="denyAll" /> 
+		<intercept-url pattern="/qaUpdateForm.dz" access="denyAll" /> 
+		<intercept-url pattern="/qaDelete.dz" access="denyAll" /> 
+		<intercept-url pattern="/mReviewWriteView.dz" access="denyAll" /> 
+		<intercept-url pattern="/cancelMZReservation.dz" access="denyAll" /> 
+		<intercept-url pattern="/drmMyPageDelete2.dz" access="denyAll" /> 
+		 -->
+		<!-- 나머지는 모두 허용 -->
 		<intercept-url pattern="/resources/**" access="permitAll" />
-
 		<intercept-url pattern="/**" access="permitAll" /><!-- /**나머지는 ROLE_USER권한을 가진 사람만 허용 -->
 		<!-- hasRole('ROLE_ADMIN')  hasRole('ROLE_USER')-->
 		
