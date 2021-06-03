@@ -178,6 +178,7 @@ public class DreamMyPageController {
 		return mv;
 	}
 	
+	
 	// 꿈나무 회원 찜목록 전체 불러오기
 	@RequestMapping(value="pickListByDream.dz", method = RequestMethod.GET)
 	public ModelAndView pickListByDream(HttpSession session,

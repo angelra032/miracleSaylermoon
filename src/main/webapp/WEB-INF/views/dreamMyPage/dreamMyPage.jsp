@@ -114,7 +114,7 @@
 									<td>${status.count }</td>
 									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }&userNo=${pick.userNo }"><p>${pick.shopName }${pick.pickNo }</p></a></td>
 									<td>${ pick.shopShortAddr}</td>
-									<td><input type = hidden value="${pick.pickNo }"><a class="pDelete-btn delete-btn" href="#">
+									<td><input type = hidden value="${pick.pickNo }"><a class="pDeleteBtn delete-btn" href="#">
 									삭제</a></td>
 								</tr>
 							</c:forEach>
@@ -151,16 +151,16 @@
 						<c:if test="${ !empty drList }">
 							<c:forEach items="${drList }" var="dreamreview"
 								varStatus="status">
-								<tr id="tr" class="tr">
-									<td id="count">${status.count }</td>
-									<td id="drmReviewTitle"><a class="table-link-title"
+								<tr class="tr">
+									<td>${status.count }</td>
+									<td><a class="table-link-title"
 										href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
-									<td id="shopName">${dreamreview.shopName }${ dreamreview.drmRviewNo}</td>
-									<td id="drmReviewUploadDate">${dreamreview.drmReviewUploadDate }</td>
-									<td id="modify-btn"><a class="modify-btn drmodify-btn"
+									<td>${dreamreview.shopName }${ dreamreview.drmRviewNo}</td>
+									<td>${dreamreview.drmReviewUploadDate }</td>
+									<td><a class="modify-btn drmodify-btn"
 										id="drmodify-btn"
 										href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
-									<td id="delete-btn"><input type="hidden" value="${ dreamreview.drmRviewNo}"> <a class="dreview-btn delete-btn"  id="dreview-btn" href="#">삭제</a></td>
+									<td><input type="hidden" value="${ dreamreview.drmRviewNo}"> <a class="dreview-btn delete-btn"  id="dreview-btn" href="#">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -196,12 +196,10 @@
 							<c:forEach items="${ qList}" var="qna" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}</p></a></td>
+									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}${qna.qnaNo }</p></a></td>
 									<td>${ qna.qanCreateDate }</td>
-									<td><a class="modify-btn"
-										href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
-									<td><a class="delete-btn"
-										href="qaDelete.dz?qnaNo=${qna.qnaNo }">삭제</a></td>
+									<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
+									<td><input type="hidden" value="${qna.qnaNo }"><a class="qDeleteBtn delete-btn" href="#">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -229,13 +227,13 @@
 			success : function(data) {
 				$('.tbody').empty();
 				for(var i in data) {
-					var tr = $("<tr id='tr' class='tr'>");
-					var count = $("<td id='count'>").html(Number(i)+1);
+					var tr = $("<tr class='tr'>");
+					var count = $("<td>").html(Number(i)+1);
 					var drmReviewTitle = $("<td class='drmReviewTitle'>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+data[i].drmRviewNo +"'>"+data[i].drmReviewTitle+"</a>");
 					var shopName = $("<td class='shopName'>").html(data[i].shopName);
 					var drmReviewUploadDate = $("<td class='drmReviewUploadDate'>").html(data[i].drmReviewUploadDate);
-					var drmodifyBtn = $("<td id='modify-btn'>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
-					var dreviewBtn = $("<td id='delete-btn'>")
+					var drmodifyBtn = $("<td>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
+					var dreviewBtn = $("<td>")
 					dreviewBtn.append("<input type='hidden' value='"+data[i].drmRviewNo +"'>");
 					dreviewBtn.append("<a class='dreview-btn delete-btn' href='#'>삭제"+data[i].drmRviewNo +"</a>");
 					tr.append(count);
@@ -253,7 +251,7 @@
 		});
 	});	
 	
-	$(document).on("click", ".pDelete-btn", function(){
+	$(document).on("click", ".pDeleteBtn", function(){
 		var pickNo = $(this).prev().val();
 		 $.ajax({
 			url:"drmMpMainPickDelete.dz",
@@ -267,28 +265,29 @@
 					var count = $("<td>").html(Number(i)+1);
 					var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"&userNo="+data[i].userNo+"'>"+data[i].shopName+data[i].pickNo+"</a>");
 					var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
-					//var pDelete-btn = $("<td>").append("<input type = hidden value="+data[i].pickNo+"><a class='pDelete-btn delete-btn' href='#'>"+data[i].pickNo+"</a>");
+					var pDeleteBtn = $("<td>").append("<input type = hidden value="+data[i].pickNo+"><a class='pDeleteBtn delete-btn' href='#'>삭제"+data[i].pickNo+"</a>");
 					
 					tr.append(count);
 					tr.append(shopName);
 					tr.append(shopShortAddr);
-					//tr.append(pDelete-btn);
-					
+					tr.append(pDeleteBtn);
+
 					$(".pTbody").append(tr);
-					return false;
-					
 				}
+		 	},
+		 	error : function(){
+		 		console.log("전송실패");
 		 	}
 		}); 
 	});
 	
 	
-	/* <tr>
-	<td>${status.count }</td>
-	<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }&userNo=${pick.userNo }"><p>${pick.shopName }${pick.pickNo }</p></a></td>
-	<td>${ pick.shopShortAddr}</td>
-	<td><input type = hidden value="${pick.pickNo }"><a class="pDelete-btn delete-btn" href="#">
-	삭제</a></td>
-	</tr> */
+	$(document).on("click",".qDeleteBtn", function(){
+		var qnaNo = $(this).prev().val();
+		console.log(qnaNo);
+		return false;
+	});
+	
+	
 </script>
 </html>

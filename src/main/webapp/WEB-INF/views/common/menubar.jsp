@@ -115,7 +115,9 @@
 					<img src='/resources/images/chatting/operator-1.png'>
 				</div>
 				<div class="msgBox">
-					<span>안녕하십니까? <br> 돈쭐 고객센터 담당자입니다.<br> 무엇을 도와드릴까요?
+					<input type="hidden" class="userNo"
+						value="${sessionScope.loginUser.userNo }""> <span>안녕하십니까?
+						<br> 돈쭐 고객센터 담당자입니다.<br> 무엇을 도와드릴까요?
 					</span>>
 					<button id="requestBtn">실시간 상담하기</button>
 				</div>
@@ -154,7 +156,7 @@
 			<table class="inputTable">
 				<tr>
 					<th></th>
-					<th><input id="chatting-text" placeholder="보내실 메시지를 입력하세요"></th>
+					<th><input id="chatting-text" class="chattingText" placeholder="보내실 메시지를 입력하세요"></th>
 					<th><button onclick="send()" id="sendBtn">보내기</button></th>
 				</tr>
 			</table>
@@ -188,22 +190,23 @@
 
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			console.log("msg"+msg);
 			if (msg != null && msg.trim() != '') {
 				var d = JSON.parse(msg);
-				if(d.type == "getId"){
+				if (d.type == "getId") {
 					var si = d.sessionId != null ? d.sessionId : "";
-					if( si != ""){
+					if (si != "") {
 						$("#sessionId").val(si);
 					}
-				}else if(d.type == "message"){
-					if(d.sessionId == $("#sessionId").val()){
-						console.log($("#sessionId").val());
-						$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
-					}else{
-						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+				} else if (d.type == "message") {
+					if (d.sessionId == $("#sessionId").val()) {
+						$("#chating").append(
+								"<p class='me'>나 :" + d.msg + "</p>");
+					} else {
+						$("#chating").append(
+								"<p class='others'>" + d.userName + " :"
+										+ d.msg + "</p>");
 					}
-				}else{
+				} else {
 					console.log("unknown type!")
 				}
 			}
@@ -216,6 +219,7 @@
 		});
 	}
 
+	var sendmsg = "";
 	function send() {
 		var option = {
 			type : "message",
@@ -223,9 +227,23 @@
 			userName : $("#userName").val(),
 			msg : $("#chatting-text").val()
 		}
-		ws.send(JSON.stringify(option));
-		$('#chatting-text').val("");
+		$("#chatting-text").val();
+		sendmsg = ws.send(JSON.stringify(option));
 	}
+	
+	/* $(document).on("click", "#sendBtn", function() {
+		var userNo = Number($('input[class=userNo]').val());
+		var chattingText =  $("#chatting-text").val();
+		var now = new Date();
+		$('#chatting-text').val("");
+		$.ajax({
+			url:"",
+			type:"",
+			data:{ : },
+			success : 
+		});
+		return false;
+	}); */
 </script>
 
 
@@ -298,6 +316,7 @@
 					}
 				}
 			});
+
 </script>
 </body>
 </html>

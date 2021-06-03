@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatMapper">
+	<resultMap type="Chat" id="chatResultMap">
+		<id property="chatRoomNo" column="CHAT_ROOM_NO"></id>
+		<result property="chatBoxNo" column="CHAT_BOX_NO"></result>
+		<result property="userNo" column="USER_NO"></result>
+		<result property="messageContent" column="MESSAGE_CONTENT"></result>
+		<result property="messageTime" column="MESSAGE_TIME"></result>
+	</resultMap>
+
+</mapper>
