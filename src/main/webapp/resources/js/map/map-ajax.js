@@ -172,9 +172,5 @@ function mapJs(map, positions) {
     });
     
 
-    // 가게 상세 페이지 이동
-    function shopDetail(shopNo) {
-        location.href='shopDetail.dz';
-        
-    }
+
 }

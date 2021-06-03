@@ -12,6 +12,7 @@ public interface PickStore {
 
 	public int insertPick(HashMap<String, Integer> hash); // 찜 등록
 	public int deletePick(int pickNo); // 찜 해제
+	public Pick checkPick(HashMap<String, Integer> pickParam); // 찜 조회
 	public List<Pick> selectAllPick(int userNo, PageInfo pi); // 찜 목록
 	
 	// 드림 마이페이지

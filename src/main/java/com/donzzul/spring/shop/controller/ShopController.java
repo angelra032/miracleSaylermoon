@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,14 @@ import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
+import com.donzzul.spring.pick.domain.Pick;
+import com.donzzul.spring.pick.service.PickService;
 import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.MapPagination;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
+import com.donzzul.spring.user.domain.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
@@ -41,6 +45,9 @@ public class ShopController {
 	
 	@Autowired
 	private DreamReviewService drService;
+	
+	@Autowired
+	private PickService pService;
 	
 	//D 지도 - 지역별 화면단 출력 +++
 	@RequestMapping(value="mapSearchList.dz", method=RequestMethod.GET)
@@ -122,11 +129,11 @@ public class ShopController {
 		int listCount = sService.selectListCount(selectedLocation); // 전체 게시글 갯수
 		PageInfo pi = MapPagination.getMapPageInfo(currentPage, listCount); // 페이징에 필요한 값을 구하기 위한 메소드
 
-//		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
+		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
 		ArrayList<Shop> mapMarkers = sService.selectShopMap(selectedLocation);
 		
 		mv.addObject("pi",	pi);
-		mv.addObject("mList", null);
+		mv.addObject("mList", mapList);
 		mv.addObject("mapMarkers", mapMarkers);
 		mv.addObject("location", location);
 		mv.addObject("center", qLocation);
@@ -250,10 +257,11 @@ public class ShopController {
 		int currentPage = (page != null) ? page : 1; 
 		int listCount = sService.searchShopCount(searchedKey); 
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
-		ArrayList<Shop> sList = sService.searchShop(pi, searchedKey);
+		ArrayList<Shop> searchList = sService.searchShop(pi, searchedKey);
 		
 		mv.addObject("pi", pi);
-		mv.addObject("sList", sList);
+		mv.addObject("sList", searchList);
+		mv.addObject("searchKeyword", searchKeyword);
 		mv.setViewName("shop/ShopSearchResult");
 		
 		return mv;
@@ -262,8 +270,15 @@ public class ShopController {
 	//D 가게 상세 페이지 출력
 	@ResponseBody
 	@RequestMapping(value="shopDetail.dz")
-	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
-		// 파라미터 - 가게 번호 (쿼리스트링)
+	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, @RequestParam("userNo") int userNo, HttpSession session, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
+		// 파라미터 - 가게 번호 (쿼리스트링), 세션 userNo
+		
+		// 출력 페이지에서 찜 상태 변경
+		HashMap<String, Integer> pickParam = new HashMap<String, Integer>();
+		pickParam.put("userNo", userNo);
+		pickParam.put("shopNo", shopNo);
+		Pick pick = pService.checkPick(pickParam);
+		
 		// 가게 상세정보 가져오기
 		Shop shop = sService.selectShopOne(shopNo);
 		// 가게 메인메뉴 가져오기
@@ -304,6 +319,7 @@ public class ShopController {
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);
 		mv.addObject("mPhoto", mPhoto);
+		mv.addObject("pick", pick);
 //		mv.addObject("rList", rList);
 //		mv.addObject("drList", drList); // 확인용
 		mv.setViewName("shop/ShopDetail");

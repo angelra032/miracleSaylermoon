@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.donzzul.spring.pick.domain.Pick;
 import com.donzzul.spring.pick.service.PickService;
@@ -27,13 +28,12 @@ public class PickController {
 	private PickService service;
 	
 	//D 찜 등록
-	@RequestMapping(value="enrollPick.dz", method=RequestMethod.GET)
-	public String enrollPick(@RequestParam int shopNo, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("loginUser");
+	@ResponseBody
+	@RequestMapping(value="enrollPick.dz", method=RequestMethod.POST)
+	public String enrollPick(@RequestParam int shopNo, @RequestParam int userNo) {
 		
 		HashMap<String, Integer> hash = new HashMap<String, Integer>();
-		hash.put("userNo", user.getUserNo());
+		hash.put("userNo", userNo);
 		hash.put("shopNo", shopNo);
 		int result = service.insertPick(hash);
 		if(result > 0) {
@@ -44,7 +44,8 @@ public class PickController {
 	}
 	
 	//D 찜 해제
-	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value="removePick.dz", method=RequestMethod.POST)
 	public String removePick(@RequestParam int pickNo, HttpServletRequest request) {
 		
 		int result = service.deletePick(pickNo);

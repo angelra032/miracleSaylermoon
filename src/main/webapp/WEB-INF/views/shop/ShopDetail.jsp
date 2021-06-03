@@ -30,20 +30,20 @@
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			
-				<!— 찜버튼 —>
-				<!— 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 —>
-				<!— 꿈나무, MZ —>		
+				<!-- 찜버튼  --> 
+				<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기  --> 
+				<!-- 꿈나무, MZ  -->		
  				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 }">
- 					<c:if test="${ empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
-						<a href="enrollPick.dz?shopNo=${shop.shopNo}" id="pick-button-off"></a>
+ 					<c:if test="${ empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
+						<a href="enrollPick.dz?shopNo=${shop.shopNo}&userNo=${ loginUser.userNo }" id="pick-button-off"></a>
 	 				</c:if>
- 					<c:if test="${ !empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
-						<a href="removePick.dz?shopNo=${shop.shopNo}" id="pick-button-on"></a>
+ 					<c:if test="${ !empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
+						<a href="removePick.dz?pickNo=${ pick.pickNo }" id="pick-button-on"></a>
 	 				</c:if>
  				</c:if>
-				<!— 세션 없을시 로그인 연결 —>
+				<!-- 세션 없을시 로그인 연결 -->
  				<c:if test="${ loginUser.userType == null }">
-					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-off"></a>
+					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-disabled"></a>
  				</c:if>
  				<c:if test="${ loginUser.userType == 3 }"></c:if>
 			</div>
@@ -344,10 +344,32 @@
 			});
 			
 			
+		/* 세션 없을 시 로그인 페이지 이동 */
 		function goLogin() {
 			location.href='loginView.dz';
-		}
-	
+		}		
+		
+		
+		/* 찜 등록, 해제 */
+		$("#pick-button-off").on("click", function() {
+			$.ajax({
+				url: "enrollPick.dz",
+				type: "post",
+				data: { "shopNo" : shopNo,
+						"userNo" : userNo },
+				success: function(msg) {
+					if(msg == "success") {
+						alert("'가고싶다' 목록에 추가되었습니다.");
+					}else {
+						alert("'가고싶다' 목록에서 삭제되었습니다.");
+					}
+				},
+				error: function() {
+					console.log("연결 실패하였습니다.");
+				}
+			});
+		});
+		
 	
 		
 		/* 메뉴 사진 modal창 */

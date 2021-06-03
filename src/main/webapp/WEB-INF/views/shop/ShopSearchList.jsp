@@ -105,32 +105,18 @@
 
 
 	<script>
- 		$(function() {
+		$(function() {
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
-					alert("검색어를 입력해주세요.");
+					alert("검색하실 식당명, 음식 종류를 입력해주세요.");
 					return false;
+				}else {
+					location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
 				}
-				/* }else {
-					$.ajax({
-						url: "",
-						type: "get",
-						data: "",
-						dataType: "json",
-						success: function(data) {
-							
-								
-						},
-						error: function() {
-							consloe.log("서버에 연결할 수 없습니다.");
-							return false;
-						}
-					});
-				}
-			});  */
-			/* 
-			 $(".theme1").on("click", function(e) {
+			});
+				
+			/* $(".theme1").on("click", function(e) {
 				console.log(e.target);
 				console.log($(e.target).prev().val());
 				var themeNo = $(e.target).prev().val();
@@ -146,8 +132,8 @@
 						console.log("서버에 연결할 수 없습니다.");
 						return false;
 					}
-				}); */
-			});
+				});
+			});*/
 		});
 	</script>
 </body>

@@ -303,6 +303,11 @@
     <select id="selectShopMenu" resultMap="mainMenuResultMap">
        SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo }
     </select>
+    
+    <!-- 가게 메뉴 사진 출력 -->
+    <select id="selectMenuPhoto" resultMap="menuPhotoResultMap">
+       SELECT * FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
+    </select>
 	
 	<!-- 관리자페이지 shop조회 -->
       <select id="selectAllShopDESC" resultMap="shopResultMap">

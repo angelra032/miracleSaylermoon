@@ -26,7 +26,12 @@
 					<p>식당명, 음식 종류를 검색하세요</p>
 				</div>
 				<div class="searchBar">
-					<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
+					<c:if test="${ !empty searchKeyword }">
+						<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요" value="${ searchKeyword }">
+					</c:if>
+					<c:if test="${ empty searchKeyword }">
+						<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
+					</c:if>
 					<button id="btn-search"><img src="/resources/images/search.png"></button>
 				</div>
 				
@@ -76,6 +81,27 @@
 				</div>
 				<div class="searchResult">
 					<c:choose>
+	 					<c:when test="${ !empty searchKeyword }">
+	 						<c:forEach var="search" items="${ sList }" varStatus="status">
+								<div class="shopShortInfo">
+									<div class="shopShortInfo left">
+										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
+									</div>
+									<div class="shopShortInfo right">
+										<c:if test="${ !empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }&userNo=${ loginUser.userNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
+										<c:if test="${ empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
+										<span id="shop-type">${ search.shopType }</span><br><br>
+										<span>${ search.shopShortAddr }</span><br>
+										<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+										<span>${ search.shopContent }</span> <!-- 글자수 줄이기 -->
+									</div>
+								</div>
+							</c:forEach>
+	 					</c:when>
 	 					<c:when test="${ themeNo eq 1 }">
 		 					<c:forEach var="reviewShop" items="${ rankList }" varStatus="status">
 								<div class="shopShortInfo">
@@ -86,10 +112,15 @@
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
-										<span id="shop-type">${ reviewShop.shopType }</span><br><br><br>
+										<c:if test="${ !empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }&userNo=${ loginUser.userNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
+										<c:if test="${ empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
+										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
-										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
 										<span>${ reviewShop.shopContent }</span> <!-- 글자수 줄이기 -->
 									</div>
 								</div>
@@ -105,10 +136,15 @@
 										<!-- <img src="/resources/images/shopMainImg/${newShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
+										<c:if test="${ !empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }&userNo=${ loginUser.userNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
+										<c:if test="${ empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
-										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
 										<span>${ newShop.shopContent }</span> <!-- 글자수 줄이기 -->
 									</div>
 								</div>
@@ -121,7 +157,12 @@
 										<!-- <img src="/resources/images/shopMainImg/${themeShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
+										<c:if test="${ !empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }&userNo=${ loginUser.userNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
+										<c:if test="${ empty loginUser }">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
+										</c:if>
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
 										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
@@ -134,9 +175,40 @@
 				</div>
 				<div class="result-list-navi">
 					<c:choose>
-						<c:when test="${ themeNo ne 1 || themeNo ne 3 }">
-							<c:if test="${empty pi }"></c:if>
-							<c:if test="${!empty pi }">
+						<c:when test="${ !empty searchKeyword }">
+								<div class="searchResult navi">
+									<c:url var="before" value="searchShop.dz">
+										<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+										<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+									</c:url>
+									<c:if test="${ pi.currentPage > 1 }">
+										<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+									</c:if>
+									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+										<c:url var="pagination" value="searchShop.dz">
+											<c:param name="page" value="${ p }"></c:param>
+											<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+										</c:url>
+										<c:if test="${ p eq pi.currentPage }">
+											<span id="currentPage">${ p }</span>
+										</c:if>
+										<c:if test="${ p ne pi.currentPage }">
+											<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+										</c:if>
+									</c:forEach>
+									<c:url var="after" value="searchShop.dz">
+										<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+										<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+									</c:url>
+									<c:if test="${ pi.currentPage >= pi.maxPage }">
+									</c:if>
+									<c:if test="${ pi.currentPage < pi.maxPage }">
+										<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+									</c:if>
+								</div>
+						</c:when>
+						<c:when test="${ themeNo eq 1 || themeNo eq 3 }"></c:when>
+						<c:when test="${ themeNo ne 1 && themeNo ne 3 }">
 								<div class="searchResult navi">
 									<c:url var="before" value="searchTheme.dz">
 										<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
@@ -167,9 +239,7 @@
 										<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
 									</c:if>
 								</div>
-							</c:if>
 						</c:when>
-						<c:otherwise></c:otherwise>
 					</c:choose>
 				</div>
 			</div>
@@ -180,49 +250,17 @@
 
 
 	<script>
-/* 		$(function() {
-			$("#btn-search").on("click", function() {
-				var searchKeyword = $("#searchBox").val();
-				if(searchKeyword == "") {
-					alert("검색어를 입력해주세요.");
-					return false;
-				}else {
-					$.ajax({
-						url: "",
-						type: "get",
-						data: "",
-						dataType: "json",
-						success: function(data) {
-							
-								
-						},
-						error: function() {
-							consloe.log("서버에 연결할 수 없습니다.");
-							return false;
-						}
-					});
-				}
-			});
-			
-			$(".theme1").on("click", function(e) {
-				console.log(e.target);
-				console.log($(e.target).prev().val());
-				var themeNo = $(e.target).prev().val();
- 				$.ajax({
-					url: "searchTheme.dz",
-					type: "get",
-					data: { "themeNo" : themeNo },
-					dataType: "json",
-					success: function(data) {
-						console.log(data.sList);
-					},
-					error: function() {
-						console.log("서버에 연결할 수 없습니다.");
-						return false;
-					}
-				});
-			});
-		}); */
+	$(function() {
+		$("#btn-search").on("click", function() {
+			var searchKeyword = $("#searchBox").val();
+			if(searchKeyword == "") {
+				alert("검색하실 식당명, 음식 종류를 입력해주세요.");
+				return false;
+			}else {
+				location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
+			}
+		});
+	});
 	</script>
 </body>
 </html>

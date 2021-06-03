@@ -28,6 +28,11 @@ public class PickServiceImpl implements PickService {
 	public int deletePick(int pickNo) {
 		return store.deletePick(pickNo);
 	}
+	
+	@Override
+	public Pick checkPick(HashMap<String, Integer> pickParam) {
+		return store.checkPick(pickParam);
+	}
 
 	@Override
 	public List<Pick> selectAllPick(int userNo, PageInfo pi) {
@@ -51,5 +56,6 @@ public class PickServiceImpl implements PickService {
 	public int pickListCount(int userNo) {
 		return store.pickListCount(userNo);
 	}
+
 
 }
