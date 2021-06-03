@@ -84,7 +84,7 @@
 				             ],
 			             callbacks: {	//여기 부분이 이미지를 첨부하는 부분
 								onImageUpload : function(files) {
-									uploadSummernoteImageFile(files[0],this);
+									uploadImage(files[0],this);
 								},
 								onPaste: function (e) {
 									var clipboardData = e.originalEvent.clipboardData;
@@ -132,7 +132,7 @@
 	 /**
 		* 이미지 파일 업로드
 		*/
-		function uploadSummernoteImageFile(file, editor) {
+		function uploadImage(file, editor) {
 			var data = new FormData();
 			data.append("file", file);
 			
@@ -142,7 +142,7 @@
 				contentType : false,
 				processData : false,
 				enctype : "multipart/form-data",
-				url : "/uploadSummernoteImageFile",
+				url : "/uploadRecommendImg",
 				success : function(data) {
 	            	//항상 업로드된 파일의 url이 있어야 한다.
 					$(editor).summernote('insertImage', data.url);
