@@ -34,6 +34,20 @@
 		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
 	</resultMap>
 	
+	<insert id="insertPartnerShop">
+		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, 
+			#{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, 
+			#{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, 
+			#{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, 
+			#{businessDay}, NULL, #{shopPhone}, DEFAULT)
+	</insert>
+	
+	<update id="updatePartnerShop">
+		UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_PRODUCT=#{shopProduct}, 
+			SHOP_FILENAME=#{shopFileName}, SHOP_FILEPATH=#{shopFilePath}, SHOP_FILESIZE=#{shopFileSize}, SHOP_UPLOADTIME=#{shopUploadTime}, 
+			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, SHOP_PARKING_YN=#{shopParking}, START_TIME=#{startTime}, END_TIME= #{endTime} 
+	</update>
+	
 		<!-- 메인 메뉴 테이블 -->
 	<resultMap type="MainMenu" id="mainMenuResultMap">
 		<id property="mainMenuNo" column="MAIN_MENU_NO"/>
@@ -179,6 +193,10 @@
 	<!-- 특정 가게 정보 출력 -->
 	<select id="selectOne" resultMap="shopResultMap">
     	SELECT * FROM SHOP WHERE SHOP_NO = #{shopNo} 
+    </select>
+    
+    <select id="selectOneUserNo" resultMap="shopResultMap">
+    	SELECT * FROM SHOP WHERE USER_NO = #{userNo}
     </select>
 	
 	
