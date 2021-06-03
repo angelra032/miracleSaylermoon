@@ -139,7 +139,6 @@ p{
 
 .chating p {
 	color: black;
-	text-align: left;
 }
 
 #chatting-input {
@@ -154,17 +153,17 @@ p{
 
 /* 유저가 보내는 창 css */
 .sendDiv{
-	float: right;
+	/* float: right;
     background-color: #2f63ba;
     border-radius: 5px;
     box-shadow: 0 0 2.8px 0.2px rgb(0 0 0 / 10%);
     width: auto;
     height: auto;
-    padding: 10px;
+    padding: 10px; */
 }
 
 .sendDiv span{
-	color: #ffffff;
+	color: black;
     font-family: NotoSansKR;
     line-height: 1.13;
     letter-spacing: -0.16px;
@@ -224,4 +223,14 @@ p{
 .imgDiv img{
 	width: 50px;
     height: 50px;
+}
+
+.me{
+	color: #F6F6F6;
+	text-align: right;
+}
+
+.others{
+	color: #FFE400;
+	text-align: left;
 }

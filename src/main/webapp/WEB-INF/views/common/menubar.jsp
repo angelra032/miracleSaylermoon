@@ -106,6 +106,7 @@
 			</div>
 			<div class="header-text">
 				<h4>실시간 상담</h4>
+				<input type="hidden" id="sessionId" value="">
 			</div>
 		</div>
 		<div id="chating" class="chating">
@@ -182,11 +183,12 @@
 
 	function wsEvt() {
 		ws.onopen = function(data) {
-			//소켓이 열리면 초기화 세팅하기
+			//소켓이 열리면 동작!
 		}
 
 		ws.onmessage = function(data) {
 			var msg = data.data;
+			console.log("msg"+msg);
 			if (msg != null && msg.trim() != '') {
 				var d = JSON.parse(msg);
 				if(d.type == "getId"){
@@ -196,11 +198,10 @@
 					}
 				}else if(d.type == "message"){
 					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append("<div class='sendDivBox'><div class='sendDiv'><span>"
-								+ d.msg + "</span><div></div>");
+						console.log($("#sessionId").val());
+						$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
 					}else{
-						$("#chating").append("<div class='sendDivBox'><div class='sendDiv'><span>"
-								+ d.userName + ":" + d.msg + "</span><div></div>");
+						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
 					}
 				}else{
 					console.log("unknown type!")
@@ -218,9 +219,9 @@
 	function send() {
 		var option = {
 			type : "message",
-			sessonId : $("#sessionId").val(),
+			sessionId : $("#sessionId").val(),
 			userName : $("#userName").val(),
-			msg : $("chatting").val();
+			msg : $("#chatting-text").val()
 		}
 		ws.send(JSON.stringify(option));
 		$('#chatting-text').val("");

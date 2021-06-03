@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
@@ -201,5 +202,18 @@ public class DreamMyPageController {
 		}
 		return mv;
 	}
+	
+	   // 드림 마이페이지에서 삭제 후 다시 그리기
+	   @ResponseBody
+	   @RequestMapping(value = "drmMyPageDelete.dz", method = RequestMethod.GET)
+	   public ArrayList<DreamReview> drmMyPageDelete(@RequestParam("drmRviewNo") int drmRviewNo, HttpSession session) {
+	      System.out.println(drmRviewNo);
+	      int result = drService.deleteDreamReview(drmRviewNo);
 
-}
+	      User user = (User) session.getAttribute("loginUser");
+	      ArrayList<DreamReview> list = drService.drmRwUptoThree(user.getUserNo());
+
+	         return list;
+	   }
+	}
+
