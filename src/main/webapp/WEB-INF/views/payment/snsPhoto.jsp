@@ -17,7 +17,7 @@
 <meta property="og:image"              content="/resources/images/snsPhoto.png" />
 <!-- 트위터 공유 메타태그 -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:url" content="http://localhost:8521/snsPhotoView.dz/" />
+<meta name="twitter:url" content="http://localhost:8521/" />
 <meta name="twitter:description" content="누구나 마음편히 밥먹는 세상을 위해, 돈쭐내기에 참여하세요!" />
 <meta name="twitter:image" content="/resources/images/snsPhoto.png" />
 
@@ -105,9 +105,9 @@
 		}
 		// 페이스북
 		function shareFacebook() {
-		    var sendUrl = "http://localhost:8521/snsPhotoView.dz/"; // 전달할 URL
+		    var sendUrl = "http://localhost:8521/"; // 전달할 URL
 		    var sendText = $('meta[property="og:title"]').attr("content"); // 전달할 텍스트
-		    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+		    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl + "&text" + sendText);			// 맞나??
 		}
 		// 카카오톡
 		function shareKakao() {
@@ -120,17 +120,17 @@
 		    content: {
 		      title: "돈쭐 인증!", // 보여질 제목
 		      description: "누구나 마음편히 밥먹는 세상을 위해, 돈쭐내기에 참여하세요!", // 보여질 설명
-		      imageUrl: "http://localhost:8521/snsPhotoView.dz/", // 콘텐츠 URL
+		      imageUrl: "http://localhost:8521/", // 콘텐츠 URL
 		      link: {
-		         mobileWebUrl: "http://localhost:8521/snsPhotoView.dz/",
-		         webUrl: "http://localhost:8521/snsPhotoView.dz/"
+		         mobileWebUrl: "http://localhost:8521/",
+		         webUrl: "http://localhost:8521/"
 		      }
 		    }
 		  });
 		}
 		// 네이버
 		function shareNaver() {
-	      var url = encodeURI(encodeURIComponent('http://localhost:8521/snsPhotoView.dz/'));
+	      var url = encodeURI(encodeURIComponent('http://localhost:8521/'));
 	      var title = encodeURI('돈쭐 인증!');
 	      var shareURL = "https://share.naver.com/web/shareView?url=" + url + "&title=" + title;
 		  window.open(shareURL);
