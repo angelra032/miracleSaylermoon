@@ -3,14 +3,18 @@ package com.donzzul.spring.partnermypage.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +31,7 @@ import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.user.domain.User;
+import com.donzzul.spring.user.service.UserService;
 
 @Controller
 public class PartnerMyPageController {
@@ -39,6 +44,9 @@ public class PartnerMyPageController {
 	
 	@Autowired
 	private QnaService qService;
+	
+	@Autowired
+	private UserService uService;
 	
 	// 사업자 마이페이지 출력
 	@RequestMapping(value="partnerMyPage.dz", method=RequestMethod.GET)
@@ -216,16 +224,50 @@ public class PartnerMyPageController {
 	
 	// 가게정보 등록 화면(view)
 	@RequestMapping(value="shopRegisterView.dz", method=RequestMethod.GET)
-	public String shopRegisterView() {
-		return "";
+	public String shopRegisterView(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		String partnerName = user.getPartnerName();
+		String userPhone = user.getUserPhone();
+		model.addAttribute("partnerName", partnerName).addAttribute("userPhone", userPhone);
+		return "partnerMyPage/partnerShopJoin";
 	}
 	
 	// 가게정보 등록
 	@RequestMapping(value="shopRegister.dz", method=RequestMethod.POST )
-	public String shopRegister() {
-		
+	public String shopRegister(@ModelAttribute Shop shop, @RequestParam("zip") String zip,
+								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
+								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) Integer[] businessnum) {
+		switch (shopTypeNum) {
+			case 1:
+				shop.setShopType("한식");
+				break;
+			case 2:
+				shop.setShopType("분식");
+				break;
+			case 3:
+				shop.setShopType("일식");
+				break;
+			case 4:
+				shop.setShopType("중식");
+				break;
+			case 5:
+				shop.setShopType("양식");
+				break;
+			case 6:
+				shop.setShopType("기타");
+				break;
+			default:
+				shop.setShopType("기타");
+				break;
+		}
+		shop.setShopLat(null);
+		shop.setShopLng(null);
+		shop.setShopAddr(addr1+addr2);
+		System.out.println("*** 체크박스값 확인 : "+  Arrays.toString(businessnum));
+		System.out.println("값들어오는거 테스트....... : " + shop.toString());
 		// 가게 파일 저장(서버, 디비)
-		return "";
+		return  "partnerMyPage/partnerShopJoin";
 	}
 	
 	
@@ -251,6 +293,41 @@ public class PartnerMyPageController {
 			list.add(map);
 		}
 		return list;
+	}
+	
+	//회원탈퇴 요청전 비밀번호 입력뷰
+	@RequestMapping(value = "partnerWritePwView.dz", method = RequestMethod.GET)
+	public String partnerWritePwView() {
+		return "partnerMyPage/partnerWritePw";
+	}
+	
+// 비밀번호 유효성 검사
+	@ResponseBody 
+	@RequestMapping(value = "partnerdupPw.dz", method = RequestMethod.GET)
+	public String pwDuplicateCheck(@RequestParam("userNo") String userNo, @RequestParam("userPw") String userPw) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userNo", userNo);
+		map.put("userPw", userPw);
+		int duplicateCheck = uService.checkPwDup(map);
+		if(duplicateCheck == 0){
+			return 0+"";
+		}else {
+			return 1+"";
+		}
+	}
+	
+	//회원탈퇴
+	@RequestMapping(value = "partnerDelete.dz", method = RequestMethod.GET)
+	public String partnerDelete(@RequestParam("userNo") int userNo, Model model) {
+		// 탈퇴신청하고 user 상태 바꿔줌
+//		int result = uService.updatePartnerWithdraw(userNo); // 수정하기
+		int result = -2;
+		if (result>0) {
+			return "redirect:logout.dz";
+		}else {
+			model.addAttribute("msg", "회원탈퇴 실패");
+			return "common/errorPage";
+		}
 	}
 
 }

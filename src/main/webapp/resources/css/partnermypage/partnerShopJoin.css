@@ -191,6 +191,7 @@ h4 {
     margin-top: 10px;
     font-size: 15px;
 	font-family: 'Noto Sans KR';
+	font-weight: 300;
 	padding : 15px;
 }
 .form-select-body-2 {
@@ -216,4 +217,8 @@ h4 {
 
 .form-business {
 	margin-top: 80px;
+}
+
+.label-business {
+    margin-left: 15px;
 }
