@@ -163,7 +163,6 @@
     mapObj = showMap();
 	
     
-	/* test1(); */
 	mapJs(mapObj, positions);
 	
 	// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
@@ -175,7 +174,11 @@
 		mapObj.setLevel(mapObj.getLevel() + 1);
 	}
 	
-	 		
+    // 가게 상세 페이지 이동
+    function shopDetail(shopNo) {
+        location.href='shopDetail.dz?shopNo='+shopNo;
+        
+    } 		
 			
 
 	   

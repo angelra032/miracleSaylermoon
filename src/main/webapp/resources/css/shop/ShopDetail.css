@@ -74,12 +74,20 @@ a {
     	line-height: 2.4;
 	}
 
- 	 #pick-button-off {
+ 	 #pick-button-off, #pick-button-disabled {
  	 	width: 69px;
  	 	height: 69px;
 		float: right;
 		margin-top: -80px;
 		background-image: url("/resources/images/zzimButton-before.png");
+	}
+	
+	#pick-button-on {
+		width: 69px;
+ 	 	height: 69px;
+		float: right;
+		margin-top: -80px;
+		background-image: url("/resources/images/zzimButton-after.png");
 	}  
 		
 		#pick-button a {

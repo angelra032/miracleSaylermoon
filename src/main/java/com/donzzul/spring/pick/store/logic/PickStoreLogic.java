@@ -31,6 +31,11 @@ public class PickStoreLogic implements PickStore{
 	}
 
 	@Override
+	public Pick checkPick(HashMap<String, Integer> pickParam) {
+		return sqlSession.selectOne("pickMapper.checkPick", pickParam);
+	}
+	
+	@Override
 	public List<Pick> selectAllPick(int userNo, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -55,5 +60,6 @@ public class PickStoreLogic implements PickStore{
 	public int pickListCount(int userNo) {
 		return sqlSession.selectOne("pickMapper.pickListCount",userNo);
 	}
+
 
 }
