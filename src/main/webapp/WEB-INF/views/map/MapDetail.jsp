@@ -45,7 +45,7 @@
 								<div class="content-shop right">
 									<div class="content-shop right top">
 										<span id="shop-title"><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
-										<span>${ shop.shopType }</span><br>
+										<span id="shop-type">${ shop.shopType }</span><br>
 										<span>${ shop.shopAddr }</span><br>
 										<c:if test="${!empty shop.shopContent }">
 											<span id="shop-content">${ shop.shopContent }</span><br>
@@ -129,44 +129,25 @@
 	<!-- 맵 js -->
 	<script>
 	
-		var positions = [];
-		
-			<c:forEach var="shop" items="${mapMarkers}" >
-				var shopMap = new Object();
-				
-				shopMap.shopNo = "${shop.shopNo}";
-				shopMap.shopName = "${shop.shopName}";
-				shopMap.shopShortAddr = "${shop.shopShortAddr}";
-				shopMap.shopAddr = "${shop.shopAddr}";
-				shopMap.startTime = "${shop.startTime}";
-				shopMap.endTime = "${shop.endTime}";
-				shopMap.businessDay = "${shop.businessDay}";
-				shopMap.shopTarget = "${shop.shopTarget}";
-				shopMap.shopProduct = "${shop.shopProduct}";
-				
-				positions.push(shopMap);
-			</c:forEach>
-		
- 	/* var positions = [];
-	var mapObj;
-	<c:forEach var="shop" items="${mapMarkers}" >
-	var shopMap = new Object();
+	var positions = [];
 	
-	shopMap.shopNo = "${shop.shopNo}";
-	shopMap.shopName = "${shop.shopName}";
-	shopMap.shopShortAddr = "${shop.shopShortAddr}";
-	shopMap.shopAddr = "${shop.shopAddr}";
-	shopMap.startTime = "${shop.startTime}";
-	shopMap.endTime = "${shop.endTime}";
-	shopMap.businessDay = "${shop.businessDay}";
-	shopMap.shopTarget = "${shop.shopTarget}";
-	shopMap.shopProduct = "${shop.shopProduct}";
-	
-	positions.push(shopMap);
-	</c:forEach> */
-	
+		<c:forEach var="shop" items="${mapMarkers}" >
+			var shopMap = new Object();
+			
+			shopMap.shopNo = "${shop.shopNo}";
+			shopMap.shopName = "${shop.shopName}";
+			shopMap.shopShortAddr = "${shop.shopShortAddr}";
+			shopMap.shopAddr = "${shop.shopAddr}";
+			shopMap.startTime = "${shop.startTime}";
+			shopMap.endTime = "${shop.endTime}";
+			shopMap.businessDay = "${shop.businessDay}";
+			shopMap.shopTarget = "${shop.shopTarget}";
+			shopMap.shopProduct = "${shop.shopProduct}";
+			
+			positions.push(shopMap);
+		</c:forEach>
+
     mapObj = showMap();
-	
     
 	mapJs(mapObj, positions);
 	
@@ -179,185 +160,206 @@
 		mapObj.setLevel(mapObj.getLevel() + 1);
 	}
 	
+	
     // 가게 상세 페이지 이동
-    
+    // 세션 있을 경우
     function shopDetailsession(shopNo, userNo) {
         location.href='shopDetail.dz?shopNo='+shopNo+'&userNo='+userNo;
         
     }
     
+    // 가게 상세 페이지 이동
+    // 세션 있을 경우
     function shopDetail(shopNo) {
         location.href='shopDetail.dz?shopNo='+shopNo;
         
     } 		
 			
 
-	   
 	
-			$("#btn-search").on("click", function() {
-				/* var result = true; */
-				
-				var searchKeyword = $("#searchBox").val();
-				if(searchKeyword == "") {
-					alert("검색하실 지역을 입력해주세요.");
-					/* result = false; */
-					return false;
+	$("#btn-search").on("click", function() {
+		/* var result = true; */
+		
+		var searchKeyword = $("#searchBox").val();
+		if(searchKeyword == "") {
+			alert("검색하실 지역을 입력해주세요.");
+			/* result = false; */
+			return false;
+		}else {
+			$(".content-list").empty();
+			$(".content-list-navi").empty();
+
+				$.ajax({
+					url: "mapSearchKey.dz",
+					type: "get",
+					data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+					/* async: false, */
+					dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
+					success: function(data) {
+						var contentList = $(".content-list");
+						var contentListNavi = $(".content-list-navi");
+						$("#center-value").val(data.center);
+						if(data.mList.length > 0) { 
+							$(".content-list").empty();
+							$(".content-list-navi").empty();
+							
+							/* 검색 리스트 */
+							for( var i in data.mList) {
+								
+								var contentShop = $("<div class='content-shop'>");
+								var contentShopLeft = $("<div class='content-shop left'>");
+								var contentShopRight = $("<div class='content-shop right'>");
+								var contentShopRightTop = $("<div class='content-shop right top'>");
+								var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+								
+								contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+								contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
+												   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
+												   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
+								if(data.mList[i].shopContent != null) {
+									contentShopRightTop.append("<span id='shop-content'>"+data.mList[i].shopContent+"</span><br>");
+								}else {
+									contentShopRightTop.append("<span id='shop-content'></span><br>");
+								}
+								contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
+													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+								contentShop.append(contentShopLeft);
+								contentShopRight.append(contentShopRightTop);
+								contentShopRight.append(contentShopRightBottom);
+								contentShop.append(contentShopRight);
+								contentList.append(contentShop); 
+					 	 	}
+							
+							
+							/* 네비 */
+							contentListNavi.append("<hr>");
+							if(data.pi.currentPage > 1) {
+								var prev = Number(data.pi.currentPage)-1;
+								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+							}
+							for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
+								if(i == data.pi.currentPage) {
+									contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+								}else if(i != data.pi.currentPage) {
+									contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+								}
+							}
+							if(data.pi.currentPage < data.pi.maxPage) {
+								var next = Number(data.pi.currentPage)+1;
+								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+							}
+							
+							positions = data.mapMarkers;
+							
+							/* 맵 js */
+							mapObj = showMap();
+							mapJs(mapObj, positions);
+							zoomIn();
+							zoomOut();
+							
+							
+							
+					}else {
+						$(".content-list").empty();
+						$(".content-list-navi").empty();
+						contentList.append("<span>등록된 가게가 없습니다.</span>");
+						/* result = false; */
+					}  
+				},
+				error: function() {
+					console.log("서버에 연결할 수 없습니다.");
+				}
+			});
+				/* result = true; */
+		}
+	});
+
+	
+	
+	function searchLogic1(searchKeyword, page) {
+	
+		$(".content-list").empty();
+		$(".content-list-navi").empty();
+
+			$.ajax({
+				url: "mapSearchKey.dz",
+				type: "get",
+				data: { "searchKeyword": searchKeyword, "page" :  page}, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
+				/* async: false, */
+				dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
+				success: function(data) {
+					var contentList = $(".content-list");
+					var contentListNavi = $(".content-list-navi");
+					$("#center-value").val(data.center);
+					if(data.mList.length > 0) { 
+						$(".content-list").empty();
+						$(".content-list-navi").empty();
+						
+						/* 검색 리스트 */
+						for( var i in data.mList) {
+							
+							var contentShop = $("<div class='content-shop'>");
+							var contentShopLeft = $("<div class='content-shop left'>");
+							var contentShopRight = $("<div class='content-shop right'>");
+							var contentShopRightTop = $("<div class='content-shop right top'>");
+							var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+							
+							contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+							contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
+											   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
+											   .append("<span>"+data.mList[i].shopAddr+"</span><br>");
+							if(data.mList[i].shopContent != null) {
+								contentShopRightTop.append("<span id='shop-content'>"+data.mList[i].shopContent+"</span><br>");
+							}else {
+								contentShopRightTop.append("<span id='shop-content'></span><br>");
+							}
+							contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
+												  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+							contentShop.append(contentShopLeft);
+							contentShopRight.append(contentShopRightTop);
+							contentShopRight.append(contentShopRightBottom);
+							contentShop.append(contentShopRight);
+							contentList.append(contentShop); 
+				 	 	}
+							
+						
+						/* 네비 */
+						contentListNavi.append("<hr>");
+						if(data.pi.currentPage > 1) {
+							var prev = Number(data.pi.currentPage)-1;
+							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+						}
+						for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
+							if(i == data.pi.currentPage) {
+								contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
+							}else if(i != data.pi.currentPage) {
+								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+							}
+						}
+						if(data.pi.currentPage < data.pi.maxPage) {
+							var next = Number(data.pi.currentPage)+1;
+							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+						}
+
+						var mapMarkers = data.mapMarkers;
+							
+						/* 맵 js */
+						mapObj = showMap();
+						mapJs(mapObj, positions);
+						zoomIn();
+						zoomOut();
+						
 				}else {
 					$(".content-list").empty();
 					$(".content-list-navi").empty();
-	
-						$.ajax({
-							url: "mapSearchKey.dz",
-							type: "get",
-							data: { "searchKeyword": searchKeyword }, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
-							/* async: false, */
-							dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
-							success: function(data) {
-								var contentList = $(".content-list");
-								var contentListNavi = $(".content-list-navi");
-								$("#center-value").val(data.center);
-								if(data.mList.length > 0) { 
-									$(".content-list").empty();
-									$(".content-list-navi").empty();
-									
-									/* 검색 리스트 */
-									for( var i in data.mList) {
-										
-										var contentShop = $("<div class='content-shop'>");
-										var contentShopLeft = $("<div class='content-shop left'>");
-										var contentShopRight = $("<div class='content-shop right'>");
-										var contentShopRightTop = $("<div class='content-shop right top'>");
-										var contentShopRightBottom = $("<div class='content-shop right bottom'>");
-										
-										contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
-										contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
-														   .append("<span>"+data.mList[i].shopType+"</span><br>")
-														   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
-														   .append("<span>"+data.mList[i].shopContent+"</span><br>");
-										contentShopRightBottom.append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail("+data.mList[i].shopNo+")'>예약하기</button>");
-										contentShop.append(contentShopLeft);
-										contentShopRight.append(contentShopRightTop);
-										contentShopRight.append(contentShopRightBottom);
-										contentShop.append(contentShopRight);
-										contentList.append(contentShop); 
-							 	 	}
-									
-									
-									/* 네비 */
-									contentListNavi.append("<hr>");
-									if(data.pi.currentPage > 1) {
-										var prev = Number(data.pi.currentPage)-1;
-										contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
-									}
-									for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
-										if(i == data.pi.currentPage) {
-											contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
-										}else if(i != data.pi.currentPage) {
-											contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
-										}
-									}
-									if(data.pi.currentPage < data.pi.maxPage) {
-										var next = Number(data.pi.currentPage)+1;
-										contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
-									}
-									
-									/* 맵 js */
-									mapJs(mapMarkers);
-									
-							}else {
-								$(".content-list").empty();
-								$(".content-list-navi").empty();
-								contentList.append("<span>등록된 가게가 없습니다.</span>");
-								/* result = false; */
-							}  
-						},
-						error: function() {
-							console.log("서버에 연결할 수 없습니다.");
-						}
-					});
-	 				/* result = true; */
-				}
-			});
-		
-			
-			
-			function searchLogic1(searchKeyword, page) {
-			
-				$(".content-list").empty();
-				$(".content-list-navi").empty();
-	
-					$.ajax({
-						url: "mapSearchKey.dz",
-						type: "get",
-						data: { "searchKeyword": searchKeyword, "page" :  page}, // ""따옴표 안의 값이 키 값, vo 클래스 변수명과 일치해야 한다.
-						/* async: false, */
-						dataType: "json", // 중요!! 안 적으면 데이터 안 가져옴
-						success: function(data) {
-							var contentList = $(".content-list");
-							var contentListNavi = $(".content-list-navi");
-							$("#center-value").val(data.center);
-							if(data.mList.length > 0) { 
-								$(".content-list").empty();
-								$(".content-list-navi").empty();
-								
-								/* 검색 리스트 */
-								for( var i in data.mList) {
-									
-									var contentShop = $("<div class='content-shop'>");
-									var contentShopLeft = $("<div class='content-shop left'>");
-									var contentShopRight = $("<div class='content-shop right'>");
-									var contentShopRightTop = $("<div class='content-shop right top'>");
-									var contentShopRightBottom = $("<div class='content-shop right bottom'>");
-									
-									contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
-									contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
-													   .append("<span>"+data.mList[i].shopType+"</span><br>")
-													   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
-													   .append("<span>"+data.mList[i].shopContent+"</span><br>");
-									contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-														  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
-									contentShop.append(contentShopLeft);
-									contentShopRight.append(contentShopRightTop);
-									contentShopRight.append(contentShopRightBottom);
-									contentShop.append(contentShopRight);
-									contentList.append(contentShop); 
-						 	 	}
-									
-								
-								/* 네비 */
-								contentListNavi.append("<hr>");
-								if(data.pi.currentPage > 1) {
-									var prev = Number(data.pi.currentPage)-1;
-									contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
-								}
-								for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
-									if(i == data.pi.currentPage) {
-										contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
-									}else if(i != data.pi.currentPage) {
-										contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
-									}
-								}
-								if(data.pi.currentPage < data.pi.maxPage) {
-									var next = Number(data.pi.currentPage)+1;
-									contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
-								}
-
-								var mapMarkers = data.mapMarkers;
-									
-								/* 맵 js */
-								mapJs(mapMarkers);
-								
-						}else {
-							$(".content-list").empty();
-							$(".content-list-navi").empty();
-							contentList.append("<span>등록된 가게가 없습니다.</span>");
-						}  
-					},
-					error: function() {
-						console.log("서버에 연결할 수 없습니다.");
-					}
-				});
+					contentList.append("<span>등록된 가게가 없습니다.</span>");
+				}  
+			},
+			error: function() {
+				console.log("서버에 연결할 수 없습니다.");
 			}
+		});
+	}
 	</script>
 	
 	

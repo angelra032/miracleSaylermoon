@@ -56,8 +56,8 @@ a {
     
 .frame {
 	width: 1280px;
-	height: 3250px;
-	margin: 0 auto;
+	height: inherit;
+	margin: 140px auto;
 	/* background-color: yellow; */
 }
 
