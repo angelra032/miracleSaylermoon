@@ -32,4 +32,8 @@ public interface ShopService {
     public ArrayList<Shop> selectAllShopList(PageInfo pi);
     public ArrayList<Shop> selectAllShopListThree();
 	
+    // 파트너사업자
+    public int insertPartnerShop(Shop shop); // 가게등록
+    public int updatePartnerShop(Shop shop); // 가게수정
+    public Shop selectShopOneUserNo(int userNo); // 유저번호로 가게상세 출력
 }

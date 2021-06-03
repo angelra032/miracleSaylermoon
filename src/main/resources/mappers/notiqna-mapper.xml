@@ -177,14 +177,13 @@
 	</select>
 
 	<insert id="insertReplyAdmin">
-		INSERT INTO QNA_BOARD VALUES(SEQ_QNA.NEXTVAL, '┕[답변]'||#{qnaTitle}, #{qnaContent}, '관리자', SYSDATE, SYSDATE, 'N', '4', '2', #{originNo}, '1', '1', #{qnaId})
+		INSERT INTO QNA_BOARD VALUES(SEQ_QNA.NEXTVAL, '[답변]'||#{qnaTitle}, #{qnaContent}, '관리자', SYSDATE, SYSDATE, 'N', '4', '2', #{originNo}, '1', '1', #{qnaId})
 	</insert>
 	
 	<update id="updateOriginQna">
 		UPDATE QNA_BOARD SET GROUP_LAYER = '1' WHERE QNA_NO LIKE #{qnaNo}
 	</update>
 	
-	<!-- 어드민페이지 -->
 	<select id="selectAdminNoticeThree" resultMap="noticeResultMap">
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY NOTICE_UPLOAD_DATE DESC) AS NUM, NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CREATE_DATE, NOTICE_UPLOAD_DATE, USER_TYPE, NOTICE_PUBLIC_YN FROM NOTICE) WHERE NUM BETWEEN 1 AND 3
 	</select>

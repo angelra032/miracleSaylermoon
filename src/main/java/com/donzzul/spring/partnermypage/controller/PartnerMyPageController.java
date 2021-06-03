@@ -1,7 +1,11 @@
 package com.donzzul.spring.partnermypage.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
@@ -30,6 +35,7 @@ import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.shop.service.ShopService;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.service.UserService;
 
@@ -48,6 +54,9 @@ public class PartnerMyPageController {
 	@Autowired
 	private UserService uService;
 	
+	@Autowired
+	private ShopService sService;
+	
 	// 사업자 마이페이지 출력
 	@RequestMapping(value="partnerMyPage.dz", method=RequestMethod.GET)
 	public String partnerMyPageView(HttpSession session, Model model) { //@RequestParam("userNo") int userNo, Model model, requestParam("userNo") int userNo
@@ -55,12 +64,17 @@ public class PartnerMyPageController {
 		User loginUser = (User)session.getAttribute("loginUser"); // 로그인세션(사업자)
 		int userNo = loginUser.getUserNo();
 	
-		
+		ArrayList<Reservation> rList = null;
+		ArrayList<Qna> qList = null;
+		Shop myShop = pService.selectMyShop(userNo);
+		// 예약 목록 3개
+		if(myShop != null) {
+			rList = rService.listByShopToThree(myShop.getShopNo());
+			qList = qService.shopQnaUpToThree(myShop.getShopNo());	
+		} else {
+			qList = qService.dreamQnaUpToThree(userNo);	
+		}
 		try {
-			Shop myShop = pService.selectMyShop(userNo);
-			// 예약 목록 3개
-			ArrayList<Reservation> rList = rService.listByShopToThree(myShop.getShopNo());
-			ArrayList<Qna> qList = qService.shopQnaUpToThree(myShop.getShopNo());	
 				model.addAttribute("rList", rList);
 				model.addAttribute("Rmsg","데이터가 없습니다.");
 			// 문의글 3개
@@ -133,22 +147,30 @@ public class PartnerMyPageController {
 		// loginUser, shop 가져오기
 		User loginUser = (User)session.getAttribute("loginUser");
 		Shop myShop = pService.selectMyShop(loginUser.getUserNo());
-		System.out.println("getShopNo" + myShop.getShopNo());
-
-		// 페이징 pi
-		int currentPage = (page != null) ? page : 1;
-		int listCount = rService.selectShopListCount(myShop.getShopNo());
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Reservation> rList = null;
+		PageInfo pi = null;
+		if(myShop != null) {
+			// 페이징 pi
+			int currentPage = (page != null) ? page : 1;
+			int listCount = rService.selectShopListCount(myShop.getShopNo());
+			pi = Pagination.getPageInfo(currentPage, listCount);
+			rList = rService.reservaionListByShop(myShop.getShopNo(), pi);
+		}
+		
+//		if(!rList.isEmpty()) {
+//		}else {
+//		}
 		
 		// 예약 전체 리스트 가져오기
-		ArrayList<Reservation> rList = rService.reservaionListByShop(myShop.getShopNo(), pi);
-		if(!rList.isEmpty()) {
-			mv.addObject("rList", rList);
-			mv.addObject("pi", pi);
+		try {
+				mv.addObject("rList", rList);
+				mv.addObject("pi", pi);
+				mv.addObject("msg", "불러올 데이터가 없습니다.");
+				mv.setViewName("partnerMyPage/partnerReservationDetail"); // 전체 예약페이지로 가기!!!(바꾸기)
+			
+		} catch (Exception e) {
+			mv.addObject("msg", "불러올 데이터가 없습니다.");
 			mv.setViewName("partnerMyPage/partnerReservationDetail"); // 전체 예약페이지로 가기!!!(바꾸기)
-		}else {
-			mv.addObject("msg", "사업자 예약 더보기 조회 실패");
-			mv.setViewName("common/errorPage");
 		}
 		return mv;
 	}
@@ -162,19 +184,26 @@ public class PartnerMyPageController {
 		int userNo = loginUser.getUserNo();
 	
 		Shop myShop = pService.selectMyShop(userNo);
-		mv.addObject("shop",myShop);	
+		
 		
 		int currentPage = (page != null) ? page : 1;
 		int listCount = qService.dreamListCount(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		ArrayList<Qna> qList = qService.qnaListByPartner(myShop.getShopNo(), pi);
-		
-		if(!qList.isEmpty()) {
+		ArrayList<Qna> qList = null;
+		if(myShop != null ) {
+			qList = qService.qnaListByPartner(myShop.getShopNo(), pi);
+		} else {
+			qList = qService.qnaListBydream(userNo, pi);
+		}
+//		if(!qList.isEmpty()) {
+//		}else {
+//		}
+		try {
+			mv.addObject("shop",myShop);	
 			mv.addObject("qList",qList);
 			mv.addObject("pi",pi);
 			mv.setViewName("partnerMyPage/partnerQnaDetail");
-		}else {
+		} catch (Exception e) {
 			mv.addObject("msg","불러올 문의 데이터가 없습니다.");
 			mv.setViewName("partnerMyPage/partnerQnaDetail");
 		}
@@ -206,7 +235,7 @@ public class PartnerMyPageController {
 					out.println("<script>alert('환급신청이 완료되었습니다. \\n2-3일 내에 포인트가 환급됩니다.');location.href='partnerMyPage.dz';</script>");
 					out.flush();
 				}else {
-					out.println("<script>alert('포인트 환급신청에 실패하였습니다.');location.href='/index.jsp';</script>");
+					out.println("<script>alert('포인트 환급신청에 실패하였습니다.');location.href='/';</script>");
 					out.flush();
 				}
 			}else {
@@ -216,7 +245,7 @@ public class PartnerMyPageController {
 				out.flush();
 			}
 		}else {
-			out.println("<script>alert('내 가게 조회에 실패하였습니다.');location.href='/index.jsp';</script>");
+			out.println("<script>alert('내 가게 조회에 실패하였습니다.');location.href='/';</script>");
 			out.flush();
 		}
 	}
@@ -227,48 +256,104 @@ public class PartnerMyPageController {
 	public String shopRegisterView(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
 		String partnerName = user.getPartnerName();
 		String userPhone = user.getUserPhone();
-		model.addAttribute("partnerName", partnerName).addAttribute("userPhone", userPhone);
+		model.addAttribute("partnerName", partnerName).addAttribute("userPhone", userPhone).addAttribute("userNo", userNo);
 		return "partnerMyPage/partnerShopJoin";
 	}
 	
 	// 가게정보 등록
 	@RequestMapping(value="shopRegister.dz", method=RequestMethod.POST )
-	public String shopRegister(@ModelAttribute Shop shop, @RequestParam("zip") String zip,
+	public String shopRegister(@ModelAttribute Shop shop, @RequestParam("zip") String zip, HttpServletRequest request,
 								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
-								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) Integer[] businessnum) {
-		switch (shopTypeNum) {
-			case 1:
-				shop.setShopType("한식");
-				break;
-			case 2:
-				shop.setShopType("분식");
-				break;
-			case 3:
-				shop.setShopType("일식");
-				break;
-			case 4:
-				shop.setShopType("중식");
-				break;
-			case 5:
-				shop.setShopType("양식");
-				break;
-			case 6:
-				shop.setShopType("기타");
-				break;
-			default:
-				shop.setShopType("기타");
-				break;
+								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
+								@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, Model model, @RequestParam("userNo") int userNo) {
+		// 서버에 파일 저장하는 작업
+		if(!uploadFile.getOriginalFilename().equals("")) {
+			Shop shopFile = saveFile(uploadFile, request);
+			if(shopFile != null) {
+				shop.setShopFileName(shopFile.getShopFileName());
+				shop.setShopFilePath(shopFile.getShopFilePath());
+				shop.setShopFileSize(shopFile.getShopFileSize());
+				shop.setShopUploadTime(shopFile.getShopUploadTime());
+			}
 		}
+		String businessday = "";
+		for (String bs : businessnum) {
+			businessday += bs;
+		}
+		String shopType = switchShopType(shopTypeNum);
+		shop.setShopType(shopType);
 		shop.setShopLat(null);
 		shop.setShopLng(null);
 		shop.setShopAddr(addr1+addr2);
-		System.out.println("*** 체크박스값 확인 : "+  Arrays.toString(businessnum));
-		System.out.println("값들어오는거 테스트....... : " + shop.toString());
+		shop.setBusinessDay(Integer.parseInt(businessday));
+		shop.setShowShopYN("N");
+		
 		// 가게 파일 저장(서버, 디비)
-		return  "partnerMyPage/partnerShopJoin";
+		int result = sService.insertPartnerShop(shop);
+		if(result > 0) {
+			return  "redirect:partnerMyPage.dz";
+		} else {
+			model.addAttribute("msg", "Shop등록실패");
+			return "common/errorPage";
+		}
 	}
+	
+	// 가게정보 수정 화면(view)
+	@RequestMapping(value="shopUpdateView.dz", method=RequestMethod.GET)
+	public String shopUpdateView(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		Shop shop = sService.selectShopOneUserNo(userNo);
+		String partnerName = user.getPartnerName();
+		String userPhone = user.getUserPhone();
+		model.addAttribute("partnerName", partnerName).addAttribute("userPhone", userPhone).addAttribute("userNo", userNo);
+		model.addAttribute("shop", shop);
+		return "partnerMyPage/partnerShopInfo";
+	}
+	
+	// 가게정보 등록
+	@RequestMapping(value="shopUpdate.dz", method=RequestMethod.POST )
+	public String shopUpdate(@ModelAttribute Shop shop, @RequestParam("zip") String zip, HttpServletRequest request,
+								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
+								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
+								@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, Model model, @RequestParam("userNo") int userNo) {
+		// 서버에 파일 저장하는 작업
+		if(!uploadFile.getOriginalFilename().equals("")) {
+			Shop shopFile = saveFile(uploadFile, request);
+			if(shopFile != null) {
+				shop.setShopFileName(shopFile.getShopFileName());
+				shop.setShopFilePath(shopFile.getShopFilePath());
+				shop.setShopFileSize(shopFile.getShopFileSize());
+				shop.setShopUploadTime(shopFile.getShopUploadTime());
+			}
+		}
+		String businessday = "";
+		for (String bs : businessnum) {
+			businessday += bs;
+		}
+		String shopType = switchShopType(shopTypeNum);
+		shop.setShopType(shopType);
+		shop.setShopLat(null);
+		shop.setShopLng(null);
+		shop.setShopAddr(addr1+addr2);
+		shop.setBusinessDay(Integer.parseInt(businessday));
+		shop.setShowShopYN("N");
+		
+		// 가게 파일 저장(서버, 디비)
+		int result = sService.insertPartnerShop(shop);
+		if(result > 0) {
+			return  "redirect:partnerMyPage.dz";
+		} else {
+			model.addAttribute("msg", "Shop등록실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
 	
 	
 	// 버튼별 예약 현황 다르게 보여주기
@@ -329,6 +414,69 @@ public class PartnerMyPageController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	
+	// 파일저장
+			public Shop saveFile(MultipartFile file, HttpServletRequest request) {
+				// 파일 저장 경로 설정
+				String root = request.getSession().getServletContext().getRealPath("resources");
+				String savePath = root + "\\partnerUploadFiles";
+				// 저장 폴더 선택
+				File folder = new File(savePath);
+				
+				// 폴더 없으면 자동생성
+				if(!folder.exists()) {
+					folder.mkdir();
+				}
+				
+				// 파일명 변경하기
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+				String originalFileName = file.getOriginalFilename();
+				String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+																															// abc.jpg 중의 확장자명을 가져오기위해
+																															// a.bc.jpg의 경우 오른쪽만 가져오게하기위해
+				String filePath = folder + "\\" + renameFileName;
+				int fileSize = 0;
+				// 파일저장
+				try {
+					file.transferTo(new File(filePath));
+					fileSize = (int) file.getSize();
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				Shop fileShop = new Shop();
+				fileShop.setShopFileName(renameFileName);
+				fileShop.setShopFilePath(savePath);
+				fileShop.setShopFileSize(fileSize);
+				fileShop.setShopUploadTime(timestamp);
+				
+				// 리턴
+				return fileShop;
+				
+			}
+		
+		public String switchShopType(int shopTypeNum) {
+			switch (shopTypeNum) {
+			case 1:
+				return "한식";
+			case 2:
+				return "분식";
+			case 3:
+				return "일식";
+			case 4:
+				return "중식";
+			case 5:
+				return "양식";
+			case 6:
+				return "기타";
+			default:
+				return "기타";
+			}
+		}
 
 }
 

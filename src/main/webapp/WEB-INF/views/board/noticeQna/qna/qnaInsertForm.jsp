@@ -29,7 +29,12 @@
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ loginUser.userNick }</div>
+				<c:if test="${loginUser.userType eq '1' or loginUser.userType eq '2' }">
+					<div class="user-nick-area">${ loginUser.userNick }</div>
+				</c:if>
+				<c:if test="${ loginUser.userType eq '3' }">
+					<div class="user-nick-area">${ loginUser.userName }</div>
+				</c:if>
 			</div>
 			<br>
 			<div class="editor-area">
