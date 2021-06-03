@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">찜 목록</div>
+		<div id="main-title">가고싶다 목록</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -106,10 +106,13 @@
 				url : "removePick.dz",
 				data : {"pickNo" : pickNo},
 				success : function(result) {
-					if(result == "success"){
-						alert("pickNo");
+					if(result == 'success'){
+						location.replace('.frame');
 					}
-				}//end of success
+				},//end of success
+				error : function() {
+					console.log("전송실패");
+				}
 			});
 		});
 	});
