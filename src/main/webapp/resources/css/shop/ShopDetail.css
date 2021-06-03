@@ -98,9 +98,11 @@ a {
 .frame {
 	width: 1280px;
 	height: 1150px;
-	margin: 0 auto;
-	margin-top: 100px;
-	margin-bottom: 150px;
+	
+	margin: 100px auto;
+	--margin-top: 100px;
+	
+	--margin-bottom: 150px;
 }
 
 	.shop-detail {
@@ -407,14 +409,14 @@ a {
 				}
 			
 			.rContent .right {
-				width: 655px;
-				height: 200px;
-				float: left;
-				padding: 30px 20px 30px 20px;
-				margin: 0;
-				border-style: none;
-				font-size: 15px;
-				line-height: 1.8em;
+			    width: auto;
+			    height: 180px;
+			    float: left;
+			    padding: 40px 30px;
+			    margin: 0;
+			    border-style: none;
+			    font-size: 15px;
+			    line-height: 1.8em;
 			}
 			
 				.review-title {
@@ -424,6 +426,19 @@ a {
 				.review-type {
 					font-size: 14px;
 					color: #fdb504;
+				}
+				
+				.review-content {
+					overflow: hidden;
+				    text-overflow: ellipsis;
+				    display: -webkit-box;
+				    width: 630px;
+				    height: 100px;
+				    -webkit-line-clamp: 4;
+				    -webkit-box-orient: vertical;
+				    word-break: break-all;
+				    line-height: 1.7em;
+				    margin: 20px 0 0;
 				}
 				
 			.showMoreReply {
@@ -457,9 +472,12 @@ a {
 	margin-top: 10px;
 	margin-right: 5px;
 	cursor: pointer;
+	width: 100%;
+    object-fit: cover;
 }
-#menu-img {
-	display: none;
+}
+.menu-img-detail {
+	--display: none;
 	position: fixed;
     z-index: 5; 
     padding-top: 250px; 
@@ -467,8 +485,36 @@ a {
     top: 0; 
     left: 300;
 	cursor: pointer;
+	width: 100%;
+    --object-fit: cover;
+	
 }
-
-
+.menu-img-thumb-div {
+	--display: none;
+	/* width: 380px;
+	height: 200px; */
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	float: left;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.menu-img-detail-div {
+	/* width: 950px;
+	height: 300px; */
+	display: none;
+	width: 300px;
+	height: 100px;
+	float: left;
+    --object-fit: cover;
+    float: left;
+}
+.menu-img-frame {
+	display: block;
+	width: 100%;
+	height: auto;
+	
+}
 
 

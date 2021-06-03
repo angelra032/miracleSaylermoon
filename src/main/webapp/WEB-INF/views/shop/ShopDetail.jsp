@@ -30,20 +30,20 @@
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			
-				<!— 찜버튼 —>
-				<!— 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 —>
-				<!— 꿈나무, MZ —>		
+				<!— 찜버튼  —> 
+				<!— 컨트롤러에서 세션 체크해서 userNo 같이 가져가기  —> 
+				<!— 꿈나무, MZ  —>		
  				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 }">
  					<c:if test="${ empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
-						<a href="enrollPick.dz?shopNo=${shop.shopNo}" id="pick-button-off"></a>
+						<a href="#" id="pick-button-off"></a>
 	 				</c:if>
  					<c:if test="${ !empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
-						<a href="removePick.dz?shopNo=${shop.shopNo}" id="pick-button-on"></a>
+						<a href="#" id="pick-button-on"></a>
 	 				</c:if>
  				</c:if>
 				<!— 세션 없을시 로그인 연결 —>
  				<c:if test="${ loginUser.userType == null }">
-					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-off"></a>
+					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-disabled"></a>
  				</c:if>
  				<c:if test="${ loginUser.userType == 3 }"></c:if>
 			</div>
@@ -94,16 +94,16 @@
 							</c:if>
 							 --%>
 							
-							
+						<div class="menu-img-frame">
 							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
-								<div title="클릭하면 창이 닫힙니다." class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" alt="menuImg"  width="300px">
+								<div title="클릭하면 창이 닫힙니다." class="detail-right menu-img menu-img-detail-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  >
 								</div> 
-								<div class="detail-right menu-img" style="float:left;"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg" width="120px">
+								<div class="detail-right menu-img menu-img-thumb-div" style="float:left;"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
 								</div> 
 							</c:forEach>
-							
+						</div>
 							
 								
 							<!-- modal test 중.. -->
@@ -251,7 +251,7 @@
 								<div class="rContent right">
 									<span class="review-title">${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;
 									<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
-									<span>${ reviewAll.drmReviewContent }</span><br>
+									<span class="review-content">${ reviewAll.drmReviewContent }</span><br>
 								</div>
 							</div>
 						</c:forEach> 
@@ -366,16 +366,68 @@
 			location.href='loginView.dz';
 		}
 	
+		
+		
+		var shopNo = '${ shop.shopNo }';
+		var userNo = '${ loginUser.userNo }';
+		var pickNo = '${ pick.pickNo }';
+		
+		/* 찜 등록 */
+		$("#pick-button-off").on("click", function() {
+			$.ajax({
+				url: "enrollPick.dz",
+				type: "post",
+				data: { "shopNo" : shopNo,
+						"userNo" : userNo },
+				success: function(data) {
+					if(data == "success") {
+						alert("'가고싶다' 목록에 추가되었습니다.");
+					}else {
+						alert("'가고싶다' 목록 추가 실패하였습니다.");
+					}
+					location.href="/shopDetail.dz?shopNo="+shopNo;
+				},
+				error: function() {
+					console.log("연결 실패하였습니다.");
+				}
+			});
+		});
+		
+		/* 찜 해제 */
+		$("#pick-button-on").on("click", function() {
+			$.ajax({
+				url: "removePick.dz",
+				type: "post",
+				data: { "pickNo" : pickNo },
+				success: function(data) {
+					if(data == "success") {
+						alert("'가고싶다' 목록에서 삭제되었습니다.");
+					}else {
+						alert("'가고싶다' 목록 삭제 실패하였습니다.");
+					}
+					location.href="/shopDetail.dz?shopNo="+shopNo;
+				},
+				error: function() {
+					console.log("연결 실패하였습니다.");
+				}
+			});
+		});
+		
+		
 	
 		
 		/* 메뉴 사진 modal창 */
 		$(function(){
 			$(".menu-img-thumb").click(function() {
-				$(".menu-img-big").fadeIn();
-				$(this).parent().prev().find("img").fadeIn(); 
+				//$(".menu-img-big").fadeIn();
+				$(this).parent().prev().fadeIn(); 
 			});
-			$(".menu-img").click(function() {
-				$("#menu-img").fadeOut();
+			$(".menu-img-detail").click(function() {
+				//$(this).parent().find("img").fadeOut();
+				$(this).parent().fadeOut();
+				
+				
+
 				//$(this).find("img")fadeOut(); 
 				//$(this).parent().find("img")fadeOut(); 
 			});
@@ -392,25 +444,9 @@
 		
 		// 페이지 로딩 시 첫 실행
 		shopReviewAll(startNum);
-		//drReviewAll(startNum);
 		
 		// 더보기 전체 실행함수
 		function shopReviewAll(index){
-			
-			// 인덱스 초기화(다시 실행할 때 누적)
-			// 중복(전체 - 리스트 초기화)
-			// 리스트 초기화하면 페이징처리처럼 됨.
-			// 안 하면 계속 누적...
-			
-			// 각 함수 호출할 때마다 리스트 비우고 그 이후론 누적(처음 호출할 때 한 번만 비워야 함)
-			// 더보기 버튼은 데이터가 페이징(시작 + 끝)보다 적으면 사라짐.
-			// 함수 호출할 때 인덱스(시작, 끝)값도 초기화해줘야 함
-			
-			// 시작값 초기화 완료
-			// 이제 남은 건
-			// 호출하면 list 싹다 비우기 - 한번만 비우고 싶음.. 근데 더보기 할 때마다 비워짐
-				// 버튼 클릭을 밖으로 빼보기, 버튼 전역변수로 선언
-			// + 후기 없을 때 처리 완료 + 전체에서 감사, 맛집 나누기 완료
 			
 			if(index == 1) {
 				$("#list-body").empty(); // 비우기
@@ -447,7 +483,6 @@
 					
 					//var addListHtml = ""; 	// list-body
 						var contentList = $("#list-body");
-						//$("#list-body").empty();
 						
 						for(i=0; i<data.rList.length; i++){
 							
@@ -464,7 +499,7 @@
 								}else{
 									contentReviewRight.append("<span class='review-type'>감사후기</span><br>");
 								}
-									contentReviewRight.append("<span>" + data.rList[i].drmReviewContent + "</span><br>");
+									contentReviewRight.append("<div class='review-content'>" + data.rList[i].drmReviewContent + "</div><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
 							contentList.append(contentReview);
@@ -508,9 +543,6 @@
 		// 더보기 - 감사후기 5개
 		function drReviewAll(index){
 
-			// 조회 인덱스 (다시 초기화)
-			//var startNum = 1; // 인덱스 초기값
-			//var countNum = 5; // 5개씩 로딩
 			if(index == 1) {
 				$("#list-body").empty(); // 비우기
 			}
@@ -528,7 +560,6 @@
 					endNum: endNum
 				},
 				success: function(data){
-				//$("#list-body").empty(); // 비우기
 					
 				if(data == null){
 						$(".review-yet").html("등록된 후기가 없습니다.");
@@ -555,23 +586,16 @@
 							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.drList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
 												.append("<span class='review-type'>감사후기</span><br>")
-												.append("<span>" + data.drList[i].drmReviewContent + "</span><br>");
+												.append("<div class='review-content'>" + data.drList[i].drmReviewContent + "</div><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
 							contentList.append(contentReview);
 					}
-					/* // 더보기 버튼 그려보자!
-						var moreBtnDiv = $("<div class='review-list showMoreReply'>");
-						//var moreBtnInput = "<input type='button' id='moreReply' value='더보기'>";
-							moreBtnDiv.append("<input type='button' id='moreReply' value='더보기'>");
-						
-						contentList.append(moreBtnDiv); */
 						
 
 						// 더보기 버튼 삭제
 						if(startNum + countNum > data.dataCnt){
 							moreBtnDiv.remove();
-							//$("#list-body").empty();
 						} else{
 							// 더보기 버튼 그려보자!
 							var moreBtnDiv = $("<div class='review-list showMoreReply'>");
@@ -601,9 +625,6 @@
 		// 더보기 - 맛집후기 5개
 		function mzReviewAll(index){
 
-			/* // 조회 인덱스 (다시 초기화)
-			var startNum = 1; // 인덱스 초기값
-			var countNum = 5; // 5개씩 로딩 */
 			if(index == 1) {
 				$("#list-body").empty(); // 비우기
 			}
@@ -648,7 +669,7 @@
 						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
 											.append("<span class='review-type'>맛집후기</span><br>")
-											.append("<span>" + data.mzList[i].mReviewContent + "</span><br>");
+											.append("<div class='review-content'>" + data.mzList[i].mReviewContent + "</div><br>");
 						contentReview.append(contentReviewLeft);
 						contentReview.append(contentReviewRight);
 						contentList.append(contentReview);
