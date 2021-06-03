@@ -68,7 +68,7 @@
 						<tr align="center" height="20">
 							<td colspan="6">
 								<!-- 이전 -->
-								<c:url var="before" value="rListDetailAllByDream.dz">
+								<c:url var="before" value="mzReservationList.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -79,7 +79,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="rListDetailAllByDream.dz">
+									<c:url var="pagination" value="mzReservationList.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -90,7 +90,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="rListDetailAllByDream.dz">
+								<c:url var="after" value="mzReservationList.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">

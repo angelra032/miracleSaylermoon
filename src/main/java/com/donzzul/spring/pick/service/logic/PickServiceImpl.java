@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +57,17 @@ public class PickServiceImpl implements PickService {
 	@Override
 	public int pickListCount(int userNo) {
 		return store.pickListCount(userNo);
+	}
+
+	// 마이페이지 가고싶다 삭제후 목록 재출력
+	@Override
+	public List<Pick> deleteAndSelectPick(int pickNo, int userNo, PageInfo pi) {
+		int deleteResult = store.deletePick(pickNo);
+		List<Pick> result = null;
+		if(deleteResult>0) {
+			result = store.selectAllPick(userNo, pi);
+		}
+		return result;
 	}
 
 

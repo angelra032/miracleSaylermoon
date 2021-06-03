@@ -209,7 +209,7 @@
 									<div class="form-noti pphonenoti phone_noti_2">이미 등록된 번호입니다.</div>
 								</div>
 								<div class="form-body">
-									<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="12" placeholder="숫자만 입력" value="${ user.userPhone }">
+									<input name="userPhone" id="pphoneelem" class="form-elem pphoneelem" type="tel" maxlength="13" placeholder="숫자만 입력" value="${ user.userPhone }">
 								</div>
 								
 								<div class="form-head form-head2">
@@ -459,7 +459,7 @@
 			var userPPhone = $(".pphoneelem");
 			$(".pphoneelem").on("keyup", function() {
 				console.log(userPhone.val());
-				$(this).val(autoHypenPPhone($(this).val())) ;  
+				$(this).val(autoHypenPhone($(this).val())) ;  
 				$('.pphonenoti').css('display', 'none');
 				$.ajax({
 					url : "dupPhoneNotMe.dz",

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.pick.domain.Pick;
 import com.donzzul.spring.pick.service.PickService;
 import com.donzzul.spring.shop.domain.Shop;
@@ -46,7 +48,7 @@ public class PickController {
 	
 	//D 찜 해제
 	@ResponseBody
-	@RequestMapping(value="removePick.dz", method=RequestMethod.GET)
+	@RequestMapping(value="removePick.dz", method=RequestMethod.POST)
 	public String removePick(@RequestParam int pickNo, HttpServletRequest request) {
 		
 		int result = service.deletePick(pickNo);
@@ -69,5 +71,26 @@ public class PickController {
 		
 		System.out.println(list);
 		return list;
+	}
+	
+	// 삭제 후 목록 가져오기
+	@ResponseBody
+	@RequestMapping(value="removeMyPagePick.dz", method=RequestMethod.POST)
+	public List<Pick> removeMyPagePick(@RequestParam int pickNo, HttpSession session, 
+									@RequestParam(value="page", required=false) Integer page) {
+		
+		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		int currentPage = (page != null) ? page : 1;
+		int listCount = service.pickListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		List<Pick> list = service.deleteAndSelectPick(pickNo, userNo, pi);
+		if(!list.isEmpty()) {
+			System.out.println(list.toString());
+			return list;
+		}else {
+			return null;
+		}
 	}
 }
