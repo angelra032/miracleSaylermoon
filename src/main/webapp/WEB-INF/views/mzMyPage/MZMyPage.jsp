@@ -113,14 +113,17 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="pick-tbody">
 						<c:if test="${ !empty pList }">
 						<c:forEach items="${ pList }" var="pick" varStatus="status">
 							<tr>
 								<td>${ status.count }</td>
 								<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }"><p>${ pick.shopName }</p></a></td>
 								<td>${ pick.shopShortAddr }</td>
-								<td><a class="delete-btn" href="#">삭제</a></td>
+								<td>
+									<a class="delete-btn delete-btn-pick" href="#">삭제</a>
+									<input type="hidden" class="pickNo" value="${ pick.pickNo }">
+								</td>
 							</tr>
 						</c:forEach>
 						</c:if>
@@ -155,7 +158,7 @@
 						<c:forEach items="${dList }" var="donList" varStatus="status">
 							<tr>
 								<td>${status.count }</td>
-								<td><a class="table-link-title" href="#"><p>${donList.shopName }</p></a></td>
+								<td><a class="table-link-title" href="shopDetail.dz?shopNo=${donList.shopNo }"><p>${donList.shopName }</p></a></td>
 								<td>${donList.paymentDate }</td>
 								<td>${donList.donPrice }</td>
 							</tr>
@@ -311,14 +314,12 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-	$(document).ready(function() {
-		// a href='#' 클릭 무시 스크립트
-		$('a[href="#"]').click(function(ignore) {
-            ignore.preventDefault();
-        });
+	$(document).on('click','a[href="#"]', function(ignore) {
+	    ignore.preventDefault();
+	});
 		
 		// 예약취소 aJax
-		$('.reserv-btn').on('click', function() {
+		$(document).on('click','.reserv-btn', function() {
 			var reservationNo = $(this).parent().next().val();
 			$.ajax({
 				url : "cancelMZReservation.dz",
@@ -336,10 +337,48 @@
 		}); //end of $('.reserv-btn').click
 		
 		// 후기작성버튼 비활성화 되어있을때 누르면 alert창 띄우기
-		$('.disable-btn').on('click', function() {
+		$(document).on('click','.disable-btn', function() {
 			alert('작성 가능한 기간이 아닙니다.');
 		});
+		
+		// 가고싶다 삭제 aJax
+		$(document).on('click','.delete-btn-pick', function() {
+			var pickNo = $(this).next().val();
+			$.ajax({
+				url : "myPageMainPickDelete.dz",
+				data : { "pickNo" : pickNo },
+				success : function(data){ 
+					if(data != null){
+						$('.pick-tbody').empty();
+						for(var i in data){
+							var tr = $("<tr>");
+							var count = $("<td>").html(Number(i)+1);
+							var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"'><p>"+data[i].shopName+"</p></a>");
+							var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
+							var td = $("<td>");
+							var deleteBtn = $("<a class='delete-btn delete-btn-pick' href='#'>삭제</a>");
+							var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data[i].pickNo+"'>");
+							
+							tr.append(count);
+							tr.append(shopName);
+							tr.append(shopShortAddr);
+							td.append(deleteBtn);
+							td.append(hiddenNo);
+							tr.append(td);
+							
+							$('.pick-tbody').append(tr);
+						}
+					}else {
+						console.log("전송실패1");
+					}
+					
+				},//end of success
+				error : function() {
+					console.log("전송실패");
+				}
+			});
+		});
 
-	});
+	
 </script>
 </html>

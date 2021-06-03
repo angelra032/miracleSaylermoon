@@ -61,7 +61,7 @@ public class PickController {
 	
 	// 드림 마이페이지에서 삭제했다가 다시 탑 3 불러오기
 	@ResponseBody
-	@RequestMapping(value="drmMpMainPickDelete.dz", method = RequestMethod.GET)
+	@RequestMapping(value="myPageMainPickDelete.dz", method = RequestMethod.GET)
 	public ArrayList<Pick> drmMpMainPickDelete(@RequestParam int pickNo,
 												HttpSession session){
 		int result = service.deletePick(pickNo);
@@ -87,10 +87,12 @@ public class PickController {
 		
 		List<Pick> list = service.deleteAndSelectPick(pickNo, userNo, pi);
 		if(!list.isEmpty()) {
-			System.out.println(list.toString());
 			return list;
 		}else {
 			return null;
 		}
 	}
+	
+	
+	
 }
