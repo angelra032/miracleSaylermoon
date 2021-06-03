@@ -25,7 +25,10 @@
 	        </bean> 
 	    </property> 
 	</bean>
-	
+	<bean id="loginSuccessHandler" class="com.donzzul.spring.user.handler.LoginSuccessHandler">
+		<property name="loginidname" value="userId"/>
+    	<property name="defaultUrl" value="/"/>
+	</bean> 
 		
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
