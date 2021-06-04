@@ -8,9 +8,10 @@
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
 	<link rel="stylesheet" href="resources/css/board/common/insertForm.css">
-	<!-- <link rel="stylesheet" href="resources/css/board/recommend/recommendInsertForm.css"> -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
 	<!--  -->
-	<title>가게추천</title>
+	<title>맛집후기</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
@@ -19,17 +20,24 @@
 		<div class="header-background-area">
         	<img src="/resources/images/board/board-banner.png" alt="뒷배경이미지">
 	   	</div>
-		<div id="main-title">가게추천</div>
+		<div id="main-title">
+			맛집후기
+			<div class="shop-name">
+				<span>${ shop.shopName }</span>
+			</div>
+			<input type="hidden" class="shopNo" value="${ shopNo }">
+		</div>
 		
-		<div class="form-group-area">
-			<!-- <input type="hidden"> -->
+		
+		
+	<div class="form-group-area">
 			<div class="title-area">
-				<label for="recommendTitle">제목</label>
-				<input type="text" name="recommendTitle" id="recommendTitle" class="form-control"" placeholder="제목" value="${ recommendBoard.recommendTitle}">
+				<label for="mReviewTitle">제목</label>
+				<input type="text" name="mReviewTitle" id="mReviewTitle" class="form-control" value="${ mzReview.mReviewTitle }" placeholder="제목" >
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ recommendBoard.recommendWriter }</div>
+				<div class="user-nick-area">${ loginUser.userNick }</div>
 			</div>
 			<br>
 			<div class="editor-area">
@@ -39,15 +47,16 @@
 				</div>
 			</div>
 			<div class="btn-area">
+					<div class="text-center col-sm-3">
+						<button class="btn btn-lg" id="saveBtn">등록하기</button>
+					</div>
+				<c:if test="${ !empty loginUser }">
+				</c:if>
 				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">등록하기</button>
-				</div>
-				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">목록보기</button>
+					<button class="btn btn-lg gotolist-btn">목록보기</button>
 				</div>
 			</div>
 		</div>
-		
 	  
 	</main>
 	
@@ -60,10 +69,10 @@
 	<script src="resources/js/summernote/summernote-lite.js"></script>
 	<script src="resources/js/summernote/lang/summernote-ko-KR.js"></script>
 	<script type="text/javascript">
-		 jQuery(function ($) {
+	jQuery(function ($) {
 			$(document).ready(function() { 
 				   $('#summernote').summernote({
-				         width: 1000,
+				         width: 930,
 				          height: 500,                // 에디터 높이
 				          minHeight: null,            // 최소 높이
 				          maxHeight: null,            // 최대 높이
@@ -78,46 +87,48 @@
 				               ['para', ['ul', 'ol', 'paragraph']],
 				               ['height', ['height']],
 				               ['insert', ['picture', 'link', 'hr']],
-				               ['view', ['codeview']]
+				               ['view', ['codeview']],
 				             ],
-			             callbacks: {	//여기 부분이 이미지를 첨부하는 부분
-								onImageUpload : function(files) {
-									uploadImage(files[0],this);
-								},
-								onPaste: function (e) {
-									var clipboardData = e.originalEvent.clipboardData;
-									if (clipboardData && clipboardData.items && clipboardData.items.length) {
-										var item = clipboardData.items[0];
-										if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-											e.preventDefault();
+				             callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+									onImageUpload : function(files) {
+										uploadSummernoteImageFile(files[0],this);
+									},
+									onPaste: function (e) {
+										var clipboardData = e.originalEvent.clipboardData;
+										if (clipboardData && clipboardData.items && clipboardData.items.length) {
+											var item = clipboardData.items[0];
+											if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+												e.preventDefault();
+											}
 										}
 									}
 								}
-							}
 				         });
 				   
-				   $('#summernote').summernote('code', '${ recommendBoard.recommendContent }');
+				   $('#summernote').summernote('code', '${ mzReview.mReviewContent }');
 				   
-				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
-					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
-						var recommendTitle = $("#recommendTitle").val();
-						var recommendNo = '${recommendBoard.recommendNo}';
-						alert(recommendNo);
-						if(recommendTitle != "" && recommendContent != "<p><br></p>") {
+					   	var mReviewContent = $("#summernote").summernote('code', mReviewContent);
+					   	var content = $('.note-editable').val();
+						var mReviewTitle = $("#mReviewTitle").val();
+						var mReviewNo = '${mzReview.mReviewNo}';
+						if(mReviewTitle != "" && mReviewContent != "<p><br></p>") {
 						    $.ajax({
-							   url : "recommendModify.dz",
+							   url : "mReviewModify.dz",
 							   type : "POST",
-							   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent, "recommendNo" : recommendNo},
+							   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent, "mReviewNo" : mReviewNo},
 							   success : function(data){
 								   if(data == "success") {
-									   location.href="recommendDetail.dz?recommendNo="+recommendNo;
-									} else {
-										alert('게시글 수정 실패');
-										location.href="recommendMain.dz";
-									}
+									   alert('게시글을 올렸습니다');
+									   location.href="mReviewMain.dz";
+								   } else if (data == 'fail') {
+									   alert('게시글 올리기 실패');
+									   location.href="mReviewMain.dz";
+								   }
 							   },
 							   error : function() {
+									alert('게시글 올리기 실패');							   
+									history.back();					   
 							   }
 						   });
 						} else {
@@ -126,32 +137,33 @@
 						}
 				   });
 				   
+				   // 목록으로 버튼 클릭시 '작성된 내용은 저장되지 않습니다. 계속하시겠습니까?'출력
+					$('.gotolist-btn').on('click', function() {
+						var result = confirm('작성된 내용은 저장되지 않습니다. 계속하시겠습니까?');
+						if(result) {
+							history.back();
+						}else {
+						};
+					}); //end of $('.gotolist-btn').on('click', function(){});
 				   
-				 }); 
-		}); 
-		 
-	 /**
-		* 이미지 파일 업로드
-		*/
-		function uploadImage(file, editor) {
-			var data = new FormData();
+				 });
+		});
+	
+	 function uploadSummernoteImageFile(file, editor) {
+			data = new FormData();
 			data.append("file", file);
-			
 			$.ajax({
 				data : data,
-				type : "post",
+				type : "POST",
+				url : "uploadMReviewImg",
 				contentType : false,
+				enctype : 'multipart/form-data',
 				processData : false,
-				enctype : "multipart/form-data",
-				url : "/uploadRecommendImg",
 				success : function(data) {
-	            	//항상 업로드된 파일의 url이 있어야 한다.
 					$(editor).summernote('insertImage', data.url);
 				}
 			});
 		}
-		 
-		 
-		 
+	 
 	</script>
 </html>

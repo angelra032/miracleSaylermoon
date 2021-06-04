@@ -21,7 +21,7 @@
 	   	</div>
 		<div id="main-title">가게추천</div>
 		
-		<div class="form-group">
+		<div class="form-group-area">
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="recommendTitle">제목</label>

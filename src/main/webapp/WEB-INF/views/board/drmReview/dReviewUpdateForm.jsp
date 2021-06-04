@@ -19,7 +19,7 @@
 	   	</div>
 		<div id="main-title">감사후기</div>
 		
-		<div class="form-group">
+		<div class="form-group-area">
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="drmReviewTitle">제목</label>

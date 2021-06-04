@@ -30,7 +30,7 @@
 		
 		
 		
-	<div class="form-group">
+	<div class="form-group-area">
 			<div class="title-area">
 				<label for="mReviewTitle">제목</label>
 				<input type="text" name="mReviewTitle" id="mReviewTitle" class="form-control" placeholder="제목" >
@@ -119,10 +119,10 @@
 							   success : function(data){
 								   if(data == "success") {
 									   alert('게시글을 올렸습니다');
-									   location.href="recommendMain.dz";
+									   location.href="mReviewMain.dz";
 								   } else if (data == 'fail') {
 									   alert('게시글 올리기 실패');
-									   location.href="recommendMain.dz";
+									   location.href="mReviewMain.dz";
 								   }
 								   	//location.href='mReviewMain.dz';						   
 							   },
@@ -155,7 +155,7 @@
 			$.ajax({
 				data : data,
 				type : "POST",
-				url : "uploadMZReviewImageFile",
+				url : "uploadMReviewImg",
 				contentType : false,
 				enctype : 'multipart/form-data',
 				processData : false,

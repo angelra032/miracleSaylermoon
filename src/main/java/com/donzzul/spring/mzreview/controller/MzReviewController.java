@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -34,7 +36,6 @@ import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.service.MzReviewService;
-import com.donzzul.spring.recommendboard.domain.RecommendPhoto;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
@@ -139,6 +140,7 @@ public class MzReviewController {
 	}
 	
 	// 글쓰기 올림 (사진파일추가) insert
+	@ResponseBody
 	@RequestMapping(value="mReviewInsertForm.dz", method=RequestMethod.POST)
 	public String mReviewRegister(@ModelAttribute MzReview mzReview, 
 										@RequestParam("reservationNo") int reservationNo, 
@@ -195,8 +197,14 @@ public class MzReviewController {
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="mReviewDelete.dz", method=RequestMethod.GET)
 	public String mReviewDelete(@RequestParam("mReviewNo") int mReviewNo, Model model) {
+		ArrayList<MzReviewPhoto> photoList = mService.selectPhoto(mReviewNo);
 		int result = mService.deleteMzReview(mReviewNo);
 		if(result > 0) {
+			for(int i = 0; i < photoList.size(); i++) {
+				String mzPhotoRename = photoList.get(i).getMzReviewRenameFileName();
+				String mzPhotoFilePath = photoList.get(i).getMzReviewFilePath();
+				fileDelete(mzPhotoRename, mzPhotoFilePath);
+			}
 			return "redirect:mReviewMain.dz";
 		} else {
 			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
@@ -219,20 +227,20 @@ public class MzReviewController {
 	
 	// 파일불러오기
 	ArrayList<MzReviewPhoto> mzPhotoList = new ArrayList<MzReviewPhoto>();
-	@RequestMapping(value="/uploadMZReviewImageFile", produces = "application/json; charset=utf8")
+	@RequestMapping(value="/uploadMReviewImg", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+		
+		HttpSession session = request.getSession(); // 세션
 		JsonObject jsonObject = new JsonObject();
 		// 내부경로로 저장
 		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
-		String fileRoot = contextRoot+"\\fileupload\\";
-//		String fileRoot = "C:/Users/dlwnd/git/donjjul/src/main/webapp/resources/fileupload/";	//저장될 외부 파일 경로
+		String fileRoot = contextRoot+"\\boardImg\\MzReview\\";
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 		String savedFileName = "M" + UUID.randomUUID() + extension;	//저장될 파일 명
 		MzReviewPhoto mzReviewPhoto = new MzReviewPhoto();
-		HttpSession session = request.getSession(); // 세션
 		session.removeAttribute("mzReviewPhoto");
 		
 		File targetFile = new File(fileRoot + savedFileName);	
@@ -240,7 +248,7 @@ public class MzReviewController {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			jsonObject.addProperty("url", "/mzReview/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("url", "/Mupload/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
 			mzReviewPhoto.setMzReviewOriginalFileName(originalFileName); // 사진원본이름
 			mzReviewPhoto.setMzReviewRenameFileName(savedFileName); // 사진 바뀐이름
@@ -248,9 +256,7 @@ public class MzReviewController {
 			mzReviewPhoto.setMzReviewFilePath(fileRoot);
 			mzReviewPhoto.setMzReviewFileTime(timestamp); // 사진 타임스탬프
 			
-			System.out.println("어쩌냐.. : " + mzReviewPhoto.toString());
 			mzPhotoList.add(mzReviewPhoto);
-			System.out.println("1차 어레이리스트 체크 :  " + mzPhotoList.toString());
 	        session.setAttribute("mzPhotoList", mzPhotoList);
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
@@ -261,14 +267,13 @@ public class MzReviewController {
 		return a;
 	}
 	
-	ArrayList<RecommendPhoto> rPhotoList = new ArrayList<RecommendPhoto>();
-	@RequestMapping(value="/mzReview/imageView.dz")
+	@RequestMapping(value="/Mupload/imageView.dz")
 	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		OutputStream out = response.getOutputStream();
         FileInputStream fis = null;
         
         String contextRoot = request.getSession().getServletContext().getRealPath("resources");
-		String fileRoot = contextRoot+"/fileupload/";
+		String fileRoot = contextRoot+"/boardImg/MzReview/";
         try {
             fis = new FileInputStream(fileRoot+imgName);
             FileCopyUtils.copy(fis, out);
@@ -287,16 +292,80 @@ public class MzReviewController {
         }
 	}
 	
-	// 수정버튼누름 (페이지)
-	@RequestMapping(value="mReviewUpdateForm.dz", method=RequestMethod.GET)
-	public String mReviewUpdateView() {
-		return "";
+	// 수정 주소
+	@RequestMapping(value="mReviewUpdateView.dz", method=RequestMethod.GET)
+	public ModelAndView mReviewUpdateView(@RequestParam("mReviewNo") int mReviewNo, ModelAndView mv, HttpServletResponse response) throws IOException {
+		MzReview mzReview = mService.selectOneReview(mReviewNo);
+		if(mzReview != null) {
+			mv.addObject("mzReview", mzReview);
+			mv.setViewName("board/mzReview/mReviewUpdateForm");
+		} else {
+			mv.addObject("msg", "수정페이지 불러오기 실패함");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 	// 수정함 update
+	@ResponseBody
 	@RequestMapping(value="mReviewModify.dz", method=RequestMethod.POST)
-	public String mReviewUpdate(@ModelAttribute MzReview mzReview) {
-		return "";
+	public String mReviewUpdate(@ModelAttribute MzReview mzReview, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int mzReviewNo = mzReview.getmReviewNo();
+		ArrayList<MzReviewPhoto> mzPhotoList = null;
+		ArrayList<MzReviewPhoto> beforemzPhotoList = mService.selectPhoto(mzReviewNo);
+		int beforePhotoResult = 0;
+		
+		// 사진을 업로드하면 기존 테이블에 있던 이미지 삭제
+		if(session.getAttribute("mzPhotoList") != null) {
+			mzPhotoList = (ArrayList<MzReviewPhoto>)session.getAttribute("mzPhotoList");
+			System.out.println("에디터 사진 : " + mzPhotoList.toString());
+			beforePhotoResult = mService.deleteBeforePhoto(mzReviewNo);
+			if(beforePhotoResult > 0) {
+				System.out.println("사진 삭제 성공");
+			} else {
+				System.out.println("사진 삭제 실패");
+			}
+		}
+		
+		String target = mzReview.getmReviewContent();
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\\\"']?([^>\\\"']+)[\\\"']?[^>]*>"); // 이미지 잘라내기
+		Matcher matcher = pattern.matcher(target);
+		String rtn = "false";
+		
+		mzPhotoList.addAll(beforemzPhotoList); // 세션에서 받은 사진, 이전에 있던 사진 합침
+		ArrayList<String> realList = new ArrayList<String>();
+		int result = mService.updateMzReview(mzReview);
+		if(result > 0) {
+			while(matcher.find()) {
+				String realName = matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1); 
+				realList.add(realName); // 게시글내용 코드에서 잘라온 img태그 이름들
+			}
+			for(int i = 0; i < mzPhotoList.size(); i++) {
+				String mzRename = mzPhotoList.get(i).getMzReviewRenameFileName();
+				if(!realList.contains(mzRename)) {
+					fileDelete(mzRename, mzPhotoList.get(i).getMzReviewFilePath());
+					beforePhotoResult = mService.deleteBeforePhoto(mzReviewNo);
+					if (beforePhotoResult > 0) {
+						System.out.println("사진 삭제 성공");
+					} else {
+						System.out.println("사진 삭제 실패");
+					}
+					continue;
+				}
+				
+				mzPhotoList.get(i).setMzReviewNo(mzReviewNo);
+				int photoResult = mService.insertPhoto(mzPhotoList.get(i));
+				if(photoResult > 0) {
+					rtn = "success";
+				}
+			}
+			rtn = "success";
+		} else {
+			rtn = "fail";
+		}
+		return rtn;
 	}
 	
 	//D 맛집후기 가져오기

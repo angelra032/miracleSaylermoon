@@ -9,10 +9,6 @@
 		<result property="mReviewWriter" column="MZREVIEW_WRITER"/>
 		<result property="mReviewCreateDate" column="MZREVIEW_CREATE_DATE"/>
 		<result property="mReviewUploadDate" column="MZREVIEW_UPLOAD_DATE"/>
-		<result property="mFileName" column="MZREVIEW_FILENAME"/>
-		<result property="mReviewFilePath" column="MZREVIEW_FILEPATH"/>
-		<result property="mReviewFileSize" column="MZREVIEW_FILESIZE"/>
-		<result property="mReviewFileTime" column="MZREVIEW_FILETIME"/>
 		<result property="userType" column="USER_TYPE"/>
 		<result property="userNo" column="USER_NO"/>
 		<result property="shopNo" column="SHOP_NO"/>
@@ -51,7 +47,7 @@
 	</select>
 	
 	<insert id="insertMzReview" parameterType="MzReview">
-		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, NULL, NULL, NULL, NULL, #{userType}, #{userNo}, #{shopNo}, DEFAULT)
+		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, #{userType}, #{userNo}, #{shopNo}, DEFAULT)
 	</insert>
 	
 	<update id="updateMzReview">
@@ -67,7 +63,7 @@
 	</delete>
 	
 	<!-- 사진 -->
-	<select id="selectMZPhoto">
+	<select id="selectMZPhoto" resultMap="mzPhotoResultMap">
 		SELECT * FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
 	</select>
 	
