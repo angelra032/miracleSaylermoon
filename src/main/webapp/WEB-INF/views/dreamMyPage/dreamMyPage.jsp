@@ -149,12 +149,10 @@
 					</thead>
 					<tbody class="tbody${ dreamreview.drmRviewNo}">
 						<c:if test="${ !empty drList }">
-							<c:forEach items="${drList }" var="dreamreview"
-								varStatus="status">
+							<c:forEach items="${drList }" var="dreamreview" varStatus="status">
 								<tr class="tr">
 									<td>${status.count }</td>
-									<td><a class="table-link-title"
-										href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
+									<td><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
 									<td>${dreamreview.shopName }${ dreamreview.drmRviewNo}</td>
 									<td class="drmDate1">${dreamreview.drmReviewUploadDate }</td>
 									<td><a class="modify-btn drmodify-btn"

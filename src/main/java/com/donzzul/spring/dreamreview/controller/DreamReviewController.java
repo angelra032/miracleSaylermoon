@@ -3,6 +3,7 @@ package com.donzzul.spring.dreamreview.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -72,21 +73,21 @@ public class DreamReviewController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmRviewNo") int drmRviewNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
+		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		int shopNo = sService.selectShopOne(drmReview.getShopNo()).getShopNo();
 		if(drmReview != null) {
 			if(drmReview.getDrmReviewPublicYN().equals("Y") || drmReview.getDrmReviewPublicYN().equals("y")) { // 게시글이 있고 공개상태
-				updateDrmHit(response, request, drmReviewNo);
+				updateDrmHit(response, request, drmRviewNo);
 				mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 			} else {
 				if(user == null) { // 게시글 비공개 - 로그인 안함
 					mv.setViewName("redirect:/loginView.dz");
 				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4") || drmReview.getShopName() == user.getPartnerName()) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
-					updateDrmHit(response, request, drmReviewNo);
+					updateDrmHit(response, request, drmRviewNo);
 					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 				} else {
 					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");
@@ -269,8 +270,7 @@ public class DreamReviewController {
 	}
 	
 	
-	
-	// 드림 마이페이지에서 삭제 후 다시 그리기
+	// 마이페이지에서 메인에서 삭제 후 다시 그리기
 	@ResponseBody
 	@RequestMapping(value = "myPageMainReviewDelete.dz", method = RequestMethod.GET)
 	public ArrayList<DreamReview> drmMpMainReviewDelete(@RequestParam("drmRviewNo") int drmRviewNo, HttpSession session) {
@@ -278,8 +278,30 @@ public class DreamReviewController {
 
 		User user = (User) session.getAttribute("loginUser");
 		ArrayList<DreamReview> list = drService.drmRwUptoThree(user.getUserNo());
-
+		System.out.println(list.toString());
 		return list;
+	}
+	
+	// 마이페이지 상세페이지에서 삭제 후 다시 그리기
+	
+	@ResponseBody
+	@RequestMapping(value="removeMyPageDrmReview.dz", method = RequestMethod.GET)
+	public HashMap<String, Object> removeMyPageDrmReview(@RequestParam("drmRviewNo") int drmRviewNo,
+														@RequestParam(value="page", required = false) Integer page,
+														HttpSession session){
+		User user = (User)session.getAttribute("loginUser");
+		int userNo = user.getUserNo();
+		int currentPage = (page != null) ? page : 1;
+		int listCount = drService.dreamGetListCount(userNo);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<DreamReview> list = drService.deleteAndSelectPick(drmRviewNo, userNo, pi);
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		hashMap.put("pi",pi);
+		hashMap.put("list", list);
+		System.out.println(list.toString());
+		
+		return hashMap;
 	}
 	
 }

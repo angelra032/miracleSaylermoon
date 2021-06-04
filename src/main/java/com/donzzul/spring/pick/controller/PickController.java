@@ -59,7 +59,7 @@ public class PickController {
 		}
 	}
 	
-	// 드림 마이페이지에서 삭제했다가 다시 탑 3 불러오기
+	// 마이페이지에서 삭제했다가 다시 탑 3 불러오기
 	@ResponseBody
 	@RequestMapping(value="myPageMainPickDelete.dz", method = RequestMethod.GET)
 	public ArrayList<Pick> drmMpMainPickDelete(@RequestParam int pickNo,

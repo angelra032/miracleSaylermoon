@@ -106,7 +106,7 @@ main {
 }
 
  
-.my-list .list-table {
+.my-list table {
 	width: 1000px;
 	height: auto;
 	border-top: 3px solid #0160ff;
@@ -115,22 +115,22 @@ main {
 	color:#333;
 	background-color: #fff;
 }
-.my-list .list-table thead{
+.my-list table thead{
 	position:relative;
 	border-bottom: 1px solid #0160ff;
 	font-size: 18px;
 }
-.my-list .list-table thead tr{
+.my-list table thead tr{
 	border-bottom: 1px solid #0160ff;
 	line-height: 60px;
 }
-.my-list .list-table tbody tr{
+.my-list table tbody tr{
 	width:100%;
 	height: 60px;
 	border-bottom: 1px solid #e3e4e5;
 	text-align: center;
 }
-.my-list .list-table tbody tr:not(:last-child):hover {
+.my-list table .tbody tr:hover {
 	background-color: rgba(1,96,255,0.2)
 }
 .table-link-title {
@@ -140,16 +140,16 @@ main {
 	color:#333;
 }
 /***예약테이블*************************************************/
-.reserv-list .list-table thead th:first-child {
+.reserv-list table thead th:first-child {
 	width: 60px;
 }
-.reserv-list .list-table thead th:nth-child(3) {
+.reserv-list table thead th:nth-child(3) {
 	width: 200px;
 }
-.reserv-list .list-table thead th:nth-child(4) {
+.reserv-list table thead th:nth-child(4) {
 	width: 150px;
 }
-.reserv-list .list-table thead th:nth-child(5) {
+.reserv-list table thead th:nth-child(5) {
 	width: 150px;
 }
 .reserv-btn {
@@ -170,7 +170,7 @@ main {
 }
 
 /* **********가고싶다********** */
-.wish-list .list-table thead th:nth-child(4) {
+.wish-list table thead th:nth-child(4) {
 	width: 150px;
 }
 
@@ -187,10 +187,10 @@ main {
 	font-size: 16px;
 }
 /* ***************돈쭐******************* */
-.review-list .list-table thead th:nth-child(5) {
+.review-list table thead th:nth-child(5) {
 	width: 150px;
 }
-.review-list .list-table thead th:nth-child(6) {
+.review-list table thead th:nth-child(6) {
 	width: 150px;
 }
 
@@ -207,10 +207,10 @@ main {
 }
 
 /* **********추천목록************* */
-.recommend-list .list-table thead th:nth-child(4) {
+.recommend-list table thead th:nth-child(4) {
 	width: 150px;
 }
-.recommend-list .list-table thead th:nth-child(5) {
+.recommend-list table thead th:nth-child(5) {
 	width: 150px;
 }
 

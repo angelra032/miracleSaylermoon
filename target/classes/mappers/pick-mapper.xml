@@ -58,12 +58,12 @@
 		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
 	</resultMap>
 	
-	<select id="dreamPickUpToThree" resultMap="shopResultMap">
+	<select id="dreamPickUpToThree" resultMap="pickResultMap">
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY PICK_NO DESC) AS NUM, PICK_NO, SHOP_NO, SHOP_SHORT_ADDR, SHOP_NAME, PICK.USER_NO FROM PICK JOIN SHOP USING (SHOP_NO) WHERE PICK.USER_NO = #{useNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
 	
-	<select id="pickListByDream" resultMap="shopResultMap">
+	<select id="pickListByDream" resultMap="pickResultMap">
 		SELECT ROW_NUMBER() OVER (ORDER BY PICK_NO DESC) AS NUM, PICK_NO, SHOP_NO, SHOP_SHORT_ADDR, SHOP_NAME, PICK.USER_NO FROM PICK JOIN SHOP USING (SHOP_NO) WHERE PICK.USER_NO = #{useNo}
 	</select>
 	

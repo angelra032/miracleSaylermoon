@@ -38,11 +38,11 @@
 					<c:forEach items="${qList }" var="qna" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="#"><p>${qna.qnaTitle }</p></a></td>
-							<td>${qna.qanCreateDate }</td>
+							<td><a class="table-link-title" href="qaDetail.dz?qnaNo=${qna.qnaNo }">${qna.qnaTitle }</a></td>
+							<td class="qnaDate">${qna.qanCreateDate }</td>
 							
 							
-							<td><a class="modify-btn" href="#">수정</a></td>
+							<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo}">수정</a></td>
 							<td><a class="delete-btn" href="#">삭제</a></td>
 						</tr>
 					</c:forEach>
@@ -96,8 +96,16 @@
 				</table>
 			</div>
 		</div>
-		
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	var qnaDate = document.querySelectorAll.('.qnaDate');
+	console.log("qnaDate"+qnaDate);
+
+	$(document).on('click','.delete-btn',function(){
+		console.log("여기 들어오니");
+		return false;
+	});
+</script>
 </html>

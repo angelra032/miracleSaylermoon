@@ -2,6 +2,7 @@ package com.donzzul.spring.dreamreview.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
@@ -32,4 +33,5 @@ public interface DreamReviewService {
 	public ArrayList<DreamReview> drmRwUptoThree(int userNo);
 	public int dreamGetListCount(int userNo);
 	public ArrayList<DreamReview> reviewListByDream(int userNo, PageInfo pi);
+	public ArrayList<DreamReview> deleteAndSelectPick(int drmRviewNo, int userNo, PageInfo pi);
 }
