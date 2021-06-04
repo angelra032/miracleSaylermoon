@@ -242,6 +242,10 @@ input[type=radio]{
 				text-align: center;
 				font-weight: bold;
 			}
+			#lay3-payment-result input[name='menuName']{
+				--size: 20px;
+				width: 180px;
+			}
 
 		/* 폼 전송버튼 */
 		#payment-btn {

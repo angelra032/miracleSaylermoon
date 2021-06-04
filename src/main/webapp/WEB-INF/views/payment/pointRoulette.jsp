@@ -162,7 +162,7 @@
 		};
 		
 		//새로고침 막기
-		function doNotReload(){
+		/* function doNotReload(){
 		    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
 		        event.keyCode = 0;
 		        event.cancelBubble = true;
@@ -172,7 +172,7 @@
 		    } 
 		}
 		document.onkeydown = doNotReload;
-		
+		 */
 
 		// 뒤로 가기 방지
 		window.history.forward();
