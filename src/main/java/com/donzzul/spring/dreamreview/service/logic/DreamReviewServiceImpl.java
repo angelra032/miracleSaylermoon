@@ -2,6 +2,7 @@ package com.donzzul.spring.dreamreview.service.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -138,6 +139,16 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	@Override
 	public int updateHit(int drmReviewNo) {
 		return drStore.updateHit(drmReviewNo);
+	}
+
+	@Override
+	public ArrayList<DreamReview> deleteAndSelectPick(int drmRviewNo, int userNo, PageInfo pi) {
+		int deleteResult = drStore.deleteDreamReview(drmRviewNo);
+		List<DreamReview> result = null;
+		if(deleteResult>0) {
+			result = drStore.reviewListByDream(userNo, pi);
+		}
+		return (ArrayList<DreamReview>)result;
 	}
 
 }
