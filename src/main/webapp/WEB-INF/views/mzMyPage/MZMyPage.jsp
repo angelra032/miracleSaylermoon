@@ -157,7 +157,7 @@
 						<c:if test="${ !empty dList }">
 						<c:forEach items="${dList }" var="donList" varStatus="status">
 							<tr>
-								<td>${status.count }</td>
+								<td>${status.count}</td>
 								<td><a class="table-link-title" href="shopDetail.dz?shopNo=${donList.shopNo }"><p>${donList.shopName }</p></a></td>
 								<td>${donList.paymentDate }</td>
 								<td>${donList.donPrice }</td>
@@ -192,31 +192,27 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타 짱맛있습니다</p></a></td>
-							<td>진짜파스타</td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타 짱맛있습니다</p></a></td>
-							<td>진짜파스타</td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>진짜파스타 짱맛있습니다</p></a></td>
-							<td>진짜파스타</td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+					<tbody class="mzreview-tbody">
+						<c:if test="${ !empty mList }">
+						<c:forEach items="${mList }" var="mzreviewList" varStatus="status">
+							<tr>
+								<td>${status.count}</td>
+								<td><a class="table-link-title" href="mReviewDetail.dz?mzReviewNo=${ mzreviewList.mReviewNo }"><p>${ mzreviewList.mReviewTitle }</p></a></td>
+								<td>${ mzreviewList.shopName }</td>
+								<td>${ mzreviewList.mReviewUploadDate }</td>
+								<td><a class="modify-btn modify-btn-mzreview" href="#">수정</a></td>
+								<td>
+									<a class="delete-btn delete-btn-mzreview" href="#">삭제</a>
+									<input type="hidden" class="mReviewNo" value="${ mzreviewList.mReviewNo }">
+								</td>
+							</tr>
+						</c:forEach>
+						</c:if>
+						<c:if test="${ empty mList }">
+							<tr>
+								<td colspan="6">${ Mmsg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -318,67 +314,107 @@
 	    ignore.preventDefault();
 	});
 		
-		// 예약취소 aJax
-		$(document).on('click','.reserv-btn', function() {
-			var reservationNo = $(this).parent().next().val();
-			$.ajax({
-				url : "cancelMZReservation.dz",
-				data : {"reservationNo" : reservationNo},
-				success : function(result) {
-					if(result == 'ok'){
-						$('.reserv-stay'+reservationNo).remove();
-						$('.reserv-membercount'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
-					}
-				},
-				error : function() {
-					console.log("전송실패");
+	// 예약취소 aJax
+	$(document).on('click','.reserv-btn', function() {
+		var reservationNo = $(this).parent().next().val();
+		$.ajax({
+			url : "cancelMZReservation.dz",
+			data : {"reservationNo" : reservationNo},
+			success : function(result) {
+				if(result == 'ok'){
+					$('.reserv-stay'+reservationNo).remove();
+					$('.reserv-membercount'+reservationNo).after('<td class="reserv-cancle">취소완료</td>');
 				}
-			});
-		}); //end of $('.reserv-btn').click
-		
-		// 후기작성버튼 비활성화 되어있을때 누르면 alert창 띄우기
-		$(document).on('click','.disable-btn', function() {
-			alert('작성 가능한 기간이 아닙니다.');
+			},
+			error : function() {
+				console.log("전송실패");
+			}
 		});
+	}); //end of $('.reserv-btn').click
+	
+	// 후기작성버튼 비활성화 되어있을때 누르면 alert창 띄우기
+	$(document).on('click','.disable-btn', function() {
+		alert('작성 가능한 기간이 아닙니다.');
+	});
 		
-		// 가고싶다 삭제 aJax
-		$(document).on('click','.delete-btn-pick', function() {
-			var pickNo = $(this).next().val();
-			$.ajax({
-				url : "myPageMainPickDelete.dz",
-				data : { "pickNo" : pickNo },
-				success : function(data){ 
-					if(data != null){
-						$('.pick-tbody').empty();
-						for(var i in data){
-							var tr = $("<tr>");
-							var count = $("<td>").html(Number(i)+1);
-							var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"'><p>"+data[i].shopName+"</p></a>");
-							var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
-							var td = $("<td>");
-							var deleteBtn = $("<a class='delete-btn delete-btn-pick' href='#'>삭제</a>");
-							var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data[i].pickNo+"'>");
-							
-							tr.append(count);
-							tr.append(shopName);
-							tr.append(shopShortAddr);
-							td.append(deleteBtn);
-							td.append(hiddenNo);
-							tr.append(td);
-							
-							$('.pick-tbody').append(tr);
-						}
-					}else {
-						console.log("전송실패1");
+	// 가고싶다 삭제 aJax
+	$(document).on('click','.delete-btn-pick', function() {
+		var pickNo = $(this).next().val();
+		$.ajax({
+			url : "myPageMainPickDelete.dz",
+			data : { "pickNo" : pickNo },
+			success : function(data){ 
+				if(data != null){
+					$('.pick-tbody').empty();
+					for(var i in data){
+						var tr = $("<tr>");
+						var count = $("<td>").html(Number(i)+1);
+						var shopName = $("<td>").append("<a class='table-link-title' href='shopDetail.dz?shopNo="+data[i].shopNo+"'><p>"+data[i].shopName+"</p></a>");
+						var shopShortAddr = $("<td>").html(data[i].shopShortAddr);
+						var td = $("<td>");
+						var deleteBtn = $("<a class='delete-btn delete-btn-pick' href='#'>삭제</a>");
+						var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data[i].pickNo+"'>");
+						
+						tr.append(count);
+						tr.append(shopName);
+						tr.append(shopShortAddr);
+						td.append(deleteBtn);
+						td.append(hiddenNo);
+						tr.append(td);
+						
+						$('.pick-tbody').append(tr);
 					}
-					
-				},//end of success
-				error : function() {
-					console.log("전송실패");
+				}else {
+					console.log("전송실패1");
 				}
-			});
+				
+			},//end of success
+			error : function() {
+				console.log("전송실패");
+			}
 		});
+	});
 
+	// 내가쓴후기 삭제 aJax
+	$(document).on('click','.delete-btn-mzreview', function() {
+		var mReviewNo = $(this).next().val();
+		$.ajax({
+			url : "mReviewDeleteAndSelectThree.dz",
+			data : { "mReviewNo" : mReviewNo },
+			success : function(data){ 
+				if(data != null){
+					$('.mzreview-tbody').empty();
+					for(var i in data){
+						var tr = $("<tr>");
+						var count = $("<td>").html(Number(i)+1);
+						var reviewTitle = $("<td>").append("<a class='table-link-title' href='mReviewDetail.dz?mzReviewNo="+data[i].mReviewNo+"'><p>"+data[i].mReviewTitle+"</p></a>");
+						var shopName = $("<td>").html(data[i].shopName);
+						var uploadDate = $("<td>").html(data[i].mReviewUploadDate);
+						var modifyBtn = $("<td><a class='modify-btn modify-btn-mzreview' href='#'>수정</a></td>");
+						var td = $("<td>");
+						var deleteBtn = $("<a class='delete-btn delete-btn-mzreview' href='#'>삭제</a>");
+						var hiddenNo = $("<input type='hidden' class='mReviewNo' value='"+data[i].mReviewNo+"'>");
+						
+						tr.append(count);
+						tr.append(reviewTitle);
+						tr.append(shopName);
+						tr.append(uploadDate);
+						tr.append(modifyBtn);
+						td.append(deleteBtn);
+						td.append(hiddenNo);
+						tr.append(td);
+						
+						$('.mzreview-tbody').append(tr);
+					}
+				}else { // 남은 데이터 없을때
+					console.log("전송실패1");
+				}
+			}, //end of success
+			error : function() {
+				console.log("전송실패");
+			}
+		});//end of ajax
+	});
 	
 </script>
 </html>
