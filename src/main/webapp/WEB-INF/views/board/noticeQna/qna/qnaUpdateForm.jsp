@@ -20,7 +20,7 @@
 	   	</div>
 		<div id="main-title">QnA</div>
 		
-		<div class="form-group">
+		<div class="form-group-area">
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="qnaTitle">제목</label>

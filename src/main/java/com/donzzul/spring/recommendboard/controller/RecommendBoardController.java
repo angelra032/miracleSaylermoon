@@ -227,13 +227,13 @@ public class RecommendBoardController {
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/summernote/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			jsonObject.addProperty("url", "/Rupload/imageView.dz?imgName="+savedFileName); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
 			recommendPhoto.setRecommendOriginalFileName(originalFileName); // 사진원본이름
 			recommendPhoto.setRecommendRenameFileName(savedFileName); // 사진 바뀐이름
 			recommendPhoto.setRecommendFileSize(targetFile.length()); // 사진 사이즈
 			recommendPhoto.setRecommendFilePath(fileRoot);
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			recommendPhoto.setRecommendFileTime(timestamp); // 사진 타임스탬프
 			
 			rPhotoList.add(recommendPhoto);
@@ -249,7 +249,7 @@ public class RecommendBoardController {
 	
 	
 	ArrayList<RecommendPhoto> rPhotoList = new ArrayList<RecommendPhoto>();
-	@RequestMapping(value="/summernote/imageView.dz")
+	@RequestMapping(value="/Rupload/imageView.dz")
 	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		OutputStream out = response.getOutputStream();
         FileInputStream fis = null;

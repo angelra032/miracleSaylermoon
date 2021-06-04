@@ -38,7 +38,7 @@
             <div class="bottom-btn-area">
 			<c:if test="${ mReview.userNo eq loginUser.userNo}">
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='mReviewMain.dz'" style="cursor: pointer;">수정하기</button>
+	                <button onclick="location.href='mReviewUpdateView.dz?mReviewNo=${ mReview.mReviewNo }'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
 	                <button onclick="location.href='mReviewDelete.dz?mReviewNo=${ mReview.mReviewNo }'" style="cursor: pointer;">삭제하기</button>
