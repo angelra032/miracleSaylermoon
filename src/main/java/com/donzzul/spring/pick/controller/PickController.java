@@ -76,7 +76,7 @@ public class PickController {
 	// 삭제 후 목록 가져오기
 	@ResponseBody
 	@RequestMapping(value="removeMyPagePick.dz", method=RequestMethod.POST)
-	public List<Pick> removeMyPagePick(@RequestParam int pickNo, HttpSession session, 
+	public HashMap<String, Object> removeMyPagePick(@RequestParam("pickNo") int pickNo, HttpSession session, 
 									@RequestParam(value="page", required=false) Integer page) {
 		
 		User user = (User)session.getAttribute("loginUser");
@@ -86,8 +86,13 @@ public class PickController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		List<Pick> list = service.deleteAndSelectPick(pickNo, userNo, pi);
-		if(!list.isEmpty()) {
-			return list;
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		System.out.println(pi.getCurrentPage());
+		hashMap.put("pi", pi);
+		hashMap.put("list", list);
+		
+		if(!hashMap.isEmpty()) {
+			return hashMap;
 		}else {
 			return null;
 		}
