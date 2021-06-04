@@ -8,6 +8,7 @@
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopDetail.css">
 
+<!-- 모달 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
@@ -96,16 +97,22 @@
 							
 						<div class="menu-img-frame">
 							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
-								<div title="클릭하면 창이 닫힙니다." class="detail-right menu-img menu-img-detail-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  >
+								<div title="클릭하면 창이 닫힙니다." id="ex1" class="detail-right menu-img menu-img-detail-div modal"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									 <a href="#" rel="modal:close"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  ></a>
 								</div> 
 								<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
+									<a href="#ex1" rel="modal:open"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg"></a>
 								</div> 
 							</c:forEach>
 						</div>
-							
-								
+						<!-- 
+							<div id="ex1" class="modal">
+							  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
+							  <a href="#" rel="modal:close">닫기</a>
+							</div>
+							 
+							<p><a href="#ex1" rel="modal:open">모달창띄우기</a></p>
+								 -->
 							<!-- modal test 중.. -->
 							<!-- <div id="menu-img" title="클릭하면 창이 닫힙니다.">
 								<div>

@@ -470,63 +470,50 @@ a {
 /* 모달창 테스트 */
 
 .menu-img-frame {
-	background-color: beige;
-	width: 120px;
-	height: 120px;
-	--overflow: hidden;
-	
+	--background-color: beige;
+    display: block;
+    width: 640px;
+    height: 120px;
 }
 
-.menu-img-thumb-div {
-	/* width: 380px;
-	height: 200px;
-	width: 120px;
-	height: 50px; */
-	
-	
-	display: inline-block;
-	width: 120px;
-	height: 120px;
-	float: left;
-	
-	
-	
-}
-	.menu-img-thumb {
-		width: 100%;
-		--height: 120px;
-		--float:left;
-		margin-top: 10px;
-		margin-right: 5px;
-		cursor: pointer;
-		
-		/*width: 100%;
-		height: 30px;
-		float: left; */
+	.menu-img-thumb-div {
+		display: inline-block;
+	    width: 150px;
+	    height: 120px;
+	    float: left;
+	    overflow: hidden;
+	    margin-right: 10px;
 	}
+		.menu-img-thumb {
+			width: 100%;
+			margin-top: 10px;
+			margin-right: 5px;
+			cursor: pointer;
+		    object-fit: cover;
+		}
 	
-.menu-img-detail-div {
-	/* width: 950px;
-	height: 300px; 
-	width: 300px;
-	height: 100px;*/
-	
-	display: none;
-	--width: 300px;
-	
-}
-	.menu-img-detail {
+	.menu-img-detail-div {
+		/* width: 950px;
+		height: 300px; 
 		width: 300px;
-		--width: 100%;
-		--display: none;
-		position: fixed;
-	    z-index: 5; 
-	    padding-top: 250px; 
-	    overflow: auto; 
-	    top: 0; 
-	    left: 300;
-		cursor: pointer;
+		height: 100px;*/
+		
+		display: none;
+		--width: 300px;
+		
 	}
+		.menu-img-detail {
+			width: 300px;
+			--width: 100%;
+			--display: none;
+			position: fixed;
+		    z-index: 5; 
+		    padding-top: 250px; 
+		    overflow: auto; 
+		    top: 0; 
+		    left: 300;
+			cursor: pointer;
+		}
 
 
 
