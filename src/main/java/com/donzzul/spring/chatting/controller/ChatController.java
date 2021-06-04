@@ -16,6 +16,7 @@ import com.donzzul.spring.chatting.service.ChatService;
 @Controller
 public class ChatController {
 
+	
 	@Autowired
 	private ChatService service;
 	
