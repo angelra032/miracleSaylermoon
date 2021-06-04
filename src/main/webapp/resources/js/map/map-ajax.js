@@ -73,36 +73,36 @@ function mapJs(map, positions) {
                 
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
                 /// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				var content = '<div class="customoverlay">' +
-					 '  <div class="tail">' + 
-				    '    <span class="title" onclick="showShortInfo('+markerPosition+')">' + shop.shopName + '</span>' +
-				    '  </div>' +
-				    '</div>';
+				//var content = '<div class="customoverlay">' +
+				//	 '  <div class="tail">' + 
+				//    '    <span class="title" onclick="showShortInfo('+markerPosition+')">' + shop.shopName + '</span>' +
+				//    '  </div>' +
+				//    '</div>';
 				
 				// 커스텀 오버레이를 생성합니다
-				var titleOverlay = new kakao.maps.CustomOverlay({
-				    position: markerPosition,
-				    content: content,
-				    yAnchor: 2
-				});  
+				//var titleOverlay = new kakao.maps.CustomOverlay({
+				//    position: markerPosition,
+				//    content: content,
+				//    yAnchor: 2
+				//});  
 				
 				
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
 			 	// 마커에 마우스오버 이벤트를 등록합니다
 				kakao.maps.event.addListener(marker, 'mouseover', function() {
 					
-			    	if (clickedOverlay) {
-				        kakao.maps.event.removeListener(marker, 'mouseover', function(event) {
-							titleOverlay.setMap(map);
-						});
-				    }
+			    	//if (clickedOverlay) {
+				    //    kakao.maps.event.removeListener(marker, 'mouseover', function(event) {
+					//		titleOverlay.setMap(map);
+					//	});
+				    //}
 				    
 					if(clickedMarker != null && clickedOverlay != null) {
 						selectedOverlay.setMap(null);
 						selectedMarker.setZIndex(0);
-						kakao.maps.event.addListener(marker, 'mouseover', function(event) {
-							titleOverlay.setMap(null);
-						});
+						//kakao.maps.event.addListener(marker, 'mouseover', function(event) {
+						//	titleOverlay.setMap(null);
+						//});
 					}
 				
 					selectedMarker = marker;
@@ -146,11 +146,17 @@ function mapJs(map, positions) {
 			            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
 			            '           </div>' +  */
 			            '            <div class="desc">' + 
-			            '                <div class="ellipsis">제공대상</div>' + 
-			            '                <div class="ellipsis target">'+shop.shopTarget+'</div>' + 
-			            '                <div class="ellipsis product">제공품목</div>' + 
-			            '                <div class="ellipsis productCon">'+shop.shopProduct+'</div>' + 
-			            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+			            '                <div class="shopTitle">' + 
+			            '                	<div class="targetTitle">제공대상</div>' + 
+			            '                	<div class="targetCon">'+shop.shopTarget+'</div>' + 
+			            '                </div>' + 
+			            '                <div class="shopCon">' +
+				            '                <div class="shopProduct">제공품목</div>' + 
+				            '                <div class="shopProductCon">'+shop.shopProduct+'</div>' + 
+			            '                </div>' + 
+			            '                <div class="shopTime">' +
+				            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+			            '                </div>' + 
 			            '            </div>' + 
 			            '            <div class="btnShop">' + 
 						'				 <button type="button" class="btn btn-primary btn-sm" onclick="shopDetail('+shop.shopNo+')">예약하기</button></div>' + 
