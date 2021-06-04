@@ -88,16 +88,25 @@
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<%-- <c:if test="${ !empty loginUser }">
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }&userNo=${ loginUser.userNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
-										<c:if test="${ empty loginUser }"> --%>
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
-										<%-- </c:if> --%>
+										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ search.shopType }</span><br><br>
 										<span>${ search.shopShortAddr }</span><br>
 										<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<span>${ search.shopContent }</span> <!-- 글자수 줄이기 -->
+										<c:choose>
+											<c:when test="${ search.shopContent != null }">
+												<span class="shopContent">${ search.shopContent }</span> 
+											</c:when>
+											<c:when test="${ search.shopContent == null }">
+												<c:forEach var="reviewOne" items="${ reviewOneList }">
+													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+													</c:if>
+													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+														<span class="shopContent">${ search.shopName }</span> 
+													</c:if>
+												</c:forEach>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
@@ -112,16 +121,25 @@
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<%-- <c:if test="${ !empty loginUser }">
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }&userNo=${ loginUser.userNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
-										<c:if test="${ empty loginUser }"> --%>
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
-										<%-- </c:if> --%>
+										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
 										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<span>${ reviewShop.shopContent }</span> <!-- 글자수 줄이기 -->
+										<c:choose>
+											<c:when test="${ reviewShop.shopContent != null }">
+												<span class="shopContent">${ reviewShop.shopContent }</span> 
+											</c:when>
+											<c:when test="${ reviewShop.shopContent == null }">
+												<c:forEach var="reviewOne" items="${ reviewOneList }">
+													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+													</c:if>
+													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+														<span class="shopContent">${ reviewShop.shopName }</span> 
+													</c:if>
+												</c:forEach>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
@@ -136,16 +154,25 @@
 										<!-- <img src="/resources/images/shopMainImg/${newShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<%-- <c:if test="${ !empty loginUser }">
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }&userNo=${ loginUser.userNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if> --%>
-										<%-- <c:if test="${ empty loginUser }"> --%>
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
-										<%-- </c:if> --%>
+										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
 										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<span>${ newShop.shopContent }</span> <!-- 글자수 줄이기 -->
+										<c:choose>
+											<c:when test="${ newShop.shopContent != null }">
+												<span class="shopContent">${ newShop.shopContent }</span> 
+											</c:when>
+											<c:when test="${ newShop.shopContent == null }">
+												<c:forEach var="reviewOne" items="${ reviewOneList }">
+													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+													</c:if>
+													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+														<span class="shopContent">${ newShop.shopName }</span> 
+													</c:if>
+												</c:forEach>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
@@ -157,22 +184,33 @@
 										<!-- <img src="/resources/images/shopMainImg/${themeShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<%-- <c:if test="${ !empty loginUser }">
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }&userNo=${ loginUser.userNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
-										</c:if>
-										<c:if test="${ empty loginUser }"> --%>
-											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
-										<%-- </c:if> --%>
+										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
 										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<span>${ themeShop.shopContent }</span> <!-- 글자수 줄이기 -->
+										<c:choose>
+											<c:when test="${ themeShop.shopContent != null }">
+												<span class="shopContent">${ themeShop.shopContent }</span> 
+											</c:when>
+											<c:when test="${ themeShop.shopContent == null }">
+												<c:forEach var="reviewOne" items="${ reviewOneList }">
+													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+													</c:if>
+													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+														<span class="shopContent">${ themeShop.shopName }</span> 
+													</c:if>
+												</c:forEach>
+											</c:when>
+										</c:choose>
 									</div>
 								</div>
 							</c:forEach>
 	 					</c:otherwise>
 	 				</c:choose>
 				</div>
+				
+				<!-- 네비 -->
 				<div class="result-list-navi">
 					<c:choose>
 						<c:when test="${ !empty searchKeyword }">

@@ -11,6 +11,7 @@ import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.shop.domain.Shop;
 
 @Service
 public class DreamReviewServiceImpl implements DreamReviewService {
@@ -86,6 +87,22 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		return drStore.selectDMReviewAll(shopNo);
 	}
 	
+
+	@Override //D 가게 전체 후기 중 한 개 가져오기
+	public ArrayList<DreamReview> selectDMReviewOne(ArrayList<Shop> themeList) {
+		ArrayList<DreamReview> reviewOneList = new ArrayList<DreamReview>();
+		for(int i = 0; i < themeList.size(); i++) {
+			DreamReview recentReview = new DreamReview();
+			int shopNo = themeList.get(i).getShopNo();
+			System.out.println("shopNo : " + shopNo); // 확인용
+			recentReview = drStore.selectDMReviewOne(shopNo);
+			System.out.println("최근후기 : " +recentReview);
+			
+			reviewOneList.add(recentReview);
+		}
+		return reviewOneList;
+	}
+	
 	@Override //D 가게 후기 랭킹 가져오기
 	public ArrayList<Integer> selectReviewRanking() {
 		return drStore.selectReviewRanking();
@@ -122,6 +139,5 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 	public int updateHit(int drmReviewNo) {
 		return drStore.updateHit(drmReviewNo);
 	}
-
 
 }

@@ -13,6 +13,7 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.store.DreamReviewStore;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.shop.domain.Shop;
 
 @Repository
 public class DreamReviewStoreLogic implements DreamReviewStore {
@@ -93,6 +94,11 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	}
 	
 	@Override
+	public DreamReview selectDMReviewOne(int shopNo) {
+		return sqlSession.selectOne("drmReviewMapper.DMReviewOne", shopNo);
+	}
+	
+	@Override
 	public ArrayList<Integer> selectReviewRanking() {
 		return (ArrayList)sqlSession.selectList("drmReviewMapper.selectReviewRanking");
 	}
@@ -128,5 +134,5 @@ public class DreamReviewStoreLogic implements DreamReviewStore {
 	public int updateHit(int drmReviewNo) {
 		return sqlSession.update("drmReviewMapper.updateHit", drmReviewNo);
 	}
-	
+
 }
