@@ -179,6 +179,7 @@
 	var ws;
 
 	function wsOpen() {
+		debugger;
 		ws = new WebSocket("ws://" + location.host + "/chatting");
 		wsEvt();
 	}
@@ -211,14 +212,23 @@
 				}
 			}
 		}
-
-		document.addEventListener("keypress", function(e) {
-			if (e.keyCode == 13) { //enter press
-				send();
-			}
-		});
 	}
-
+	var sendmsg = "";
+	function send() {
+		var option = {
+			type : "message",
+			sessionId : $("#sessionId").val(),
+			userName : $("#userName").val(),
+			msg : $("#chatting-text").val()
+		}
+		$("#chatting-text").val();
+		sendmsg = ws.send(JSON.stringify(option));
+	}
+	$(document).on("keypress", function(e) {
+		if (e.keyCode == 13) { //enter press
+			e.preventDefault();
+		}
+	});
 	var sendmsg = "";
 	function send() {
 		var option = {
@@ -231,19 +241,20 @@
 		sendmsg = ws.send(JSON.stringify(option));
 	}
 	
-	/* $(document).on("click", "#sendBtn", function() {
-		var userNo = Number($('input[class=userNo]').val());
-		var chattingText =  $("#chatting-text").val();
-		var now = new Date();
+ 	 $(document).on("click", "#sendBtn", function() {
+		var userNo = $('input[class=userNo]').val();
+		var messageContent =  $("#chatting-text").val();
+		var messageTime = new Date();
 		$('#chatting-text').val("");
 		$.ajax({
-			url:"",
-			type:"",
-			data:{ : },
-			success : 
+			url:"insertChatContents.dz",
+			type:"GET",
+			data:{ "userNo" : userNo, "messageContent" : messageContent, "messageTime" : messageTime },
+			success : function(){
+				console.log("성공했다...")
+			}
 		});
-		return false;
-	}); */
+	});  
 </script>
 
 

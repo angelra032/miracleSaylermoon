@@ -61,7 +61,7 @@
 								
 							<c:if test="${reservation.rState eq 'C' }">
 							<td><a class="confirm-btn" >방문완료</a></td>
-							<td><a id="visiti-comfirm" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }">후기작성</a></td>
+							<td><a id="visiti-comfirm" href="dReviewWriteView.dz?shopNo=${ reservation.shopNo }&reservationNo=${ reservation.reservationNo }">후기작성</a></td>
 							</c:if>
 							
 							<c:if test="${reservation.rState eq 'H' }">
