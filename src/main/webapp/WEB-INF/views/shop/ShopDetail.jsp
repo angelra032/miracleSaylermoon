@@ -117,8 +117,8 @@
 									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
 								</div> 
 								
-								<div id="img-modal" title="X를 클릭하면 창이 닫힙니다." class="detail-right menu-img menu-img-detail-div modal">
-								   <span onclick="imgModalClose();">X</span>
+								<div id="img-modal" title="X를 클릭하면 창이 닫힙니다." onclick="imgModalClose();" class="detail-right menu-img menu-img-detail-div modal">
+								   <span >X</span>
 								   <img src="${photo.menuFilePath }/${photo.menuFileName }" id="img-modal-content" class="menu-img-detail" alt="menuImg"  width="300">
 								    <!-- <img id="img-modal-content" src="/resources/images/snsPhoto.png" alt="텍스트 예제 1" width="300"> -->
 								</div>

@@ -106,7 +106,7 @@
 					</div>
 					<div>
 						<div id="lay3-payment-result">
-							메 &nbsp; 뉴&nbsp; &nbsp; 명 : &nbsp; &nbsp;<input type="text" name="menuName" value="" readonly/><!-- <input type="text" name="menu-name" read/> --><br>
+							메 &nbsp; 뉴&nbsp; &nbsp; 명 :<input type="text" name="menuName" value="" readonly/>
 							수 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 량 : <input type="text" name="amount" value="" readonly/>개<br>
 							메뉴 &nbsp; &nbsp;총액 : <input type="text" name="menu-fin-price" value="0" readonly/> 원<br>
 							포인트 사용 : <input type="text" name="use-point" value="0" readonly/> 원<br>
@@ -365,31 +365,31 @@
         }); */
         
         // api 떼고 test
-//         $.ajax({
-//         	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
-// 			// data 보낼 url
-// 	        type: 'POST',
-// 	        data: {
-// 	            //imp_uid : rsp.imp_uid,
-// 	            //기타 필요한 데이터가 있으면 추가 전달
-// 	            // 가게 이름, 날짜, 내역(얼마)
-// 	            "donPrice" : donPrice,
-// 	            "menuName" : menuName,
-// 	            "amount" : amount,
-// 	            "shopNo" : shopNo,
-// 	            "shopName" : shopName,
-// 	            "usePoint" : usePoint
-// 	        },
-// 	        success : function(data) {
-// 	        	console.log(data);
-// 	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
-// 	        }
-//         });
+         $.ajax({
+         	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
+ 			// data 보낼 url
+ 	        type: 'POST',
+ 	        data: {
+ 	            //imp_uid : rsp.imp_uid,
+ 	            //기타 필요한 데이터가 있으면 추가 전달
+ 	            // 가게 이름, 날짜, 내역(얼마)
+ 	            "donPrice" : donPrice,
+ 	            "menuName" : menuName,
+ 	            "amount" : amount,
+ 	            "shopNo" : shopNo,
+ 	            "shopName" : shopName,
+ 	            "usePoint" : usePoint
+ 	        },
+ 	        success : function(data) {
+ 	        	console.log(data);
+ 	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
+ 	        }
+         });
         
         
         
         // 카카오 페이 api
-	    
+	    /* 
         IMP.request_pay({
 	        pg : 'kakaopay',
 	        pay_method : 'card',
@@ -433,9 +433,9 @@
 	            msg += '에러내용 : ' + rsp.error_msg;
 	            //실패시 이동할 페이지
 	            alert(msg);
-	            location.href="paymentFormView.dz"; 
+	            location.href="paymentFormView.dz?shopNo="+shopNo+"&shopName="+shopName; 
 	        }
-	    });
+	    }); */
 	}
 	
 	

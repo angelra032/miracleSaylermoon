@@ -257,7 +257,7 @@ a {
 					}
 					
 					.detail-right > .buttons > ul > li > a:hover {
-						color: #e3e4e5;
+						color: #ffffff;
 					}
 					
 					
@@ -279,7 +279,7 @@ a {
 					}
 					
 					.detail-right > .two-buttons a:hover {
-						color: #e3e4e5;
+						color: #ffffff;
 					}
 					
 				 .detail-right > .one-button {
@@ -540,13 +540,13 @@ a {
 #img-modal>img {
 	margin: auto;
 	display: block;
-	width: 100%;
+	width: 50%;
 }
 
 #img-modal>span {
 	position: absolute;
-	top: 15px;
-	right: 35px;
+	top: 35px;
+	right: 45px;
 	color: #f1f1f1;
 	font-size: 40px;
 	font-weight: bold;
