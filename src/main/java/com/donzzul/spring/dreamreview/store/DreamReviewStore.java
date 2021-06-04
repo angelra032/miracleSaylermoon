@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.shop.domain.Shop;
 
 public interface DreamReviewStore {
 	public ArrayList<DreamReview> selectAllDreamReview();
@@ -18,6 +19,7 @@ public interface DreamReviewStore {
 	public DreamReview selectOneDreamReview();
 	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
 	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
+	public DreamReview selectDMReviewOne(int shopNo); // 가게 후기 한개 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
 	public int updateHit(int drmReviewNo);
 

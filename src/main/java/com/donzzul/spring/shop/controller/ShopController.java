@@ -182,27 +182,27 @@ public class ShopController {
 	@RequestMapping(value="searchTheme.dz", method=RequestMethod.GET)
 	public ModelAndView searchTheme(ModelAndView mv, @RequestParam("themeNo") int themeNo, @RequestParam(value="page", required=false) Integer page) {
 		// 파라미터 - 메뉴 클릭시 넘버
-		System.out.println(themeNo); // 확인용
-		
 		String themeWord = "";	
 		
 		if(themeNo == 1) {
+			
 			ArrayList<Integer> sRank = drService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
-//			System.out.println("sRank 확인 : " + sRank.toString());
 			
 			ArrayList<Shop> rankList = sService.selectShopRank(sRank); // 가게번호 이용하여 가게 정보 가져오기 
-//			System.out.println("rankList 확인 : " + rankList.toString());
 			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
 			mv.setViewName("shop/ShopSearchResult");
+			
 		} else if(themeNo == 3) {
+			
 			ArrayList<Shop> newSList = sService.selectNewShop();
 			System.out.println("신규가게 : " + newSList); // 확인용
 			
 			mv.addObject("newSList", newSList);
 			mv.addObject("themeNo", themeNo);
 			mv.setViewName("shop/ShopSearchResult");
+			
 		} else {
 			if(themeNo == 2) {
 				themeWord = "천안";
@@ -225,7 +225,6 @@ public class ShopController {
 			}else if (themeNo == 12) {
 				themeWord = "초밥";
 			}
-				System.out.println(themeWord); // 확인용
 				
 				HashMap<String, String> selectedtheme = new HashMap<String, String>();
 				selectedtheme.put("themeWord", themeWord);
@@ -234,12 +233,19 @@ public class ShopController {
 				int listCount = sService.selectShopThemeCount(selectedtheme); 
 				PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
 				ArrayList<Shop> themeList = sService.selectShopTheme(pi, selectedtheme);
-				System.out.println("테마리스트 : " + themeList);
+				
+				// 최신후기 한 개 가져오기
+				ArrayList<DreamReview> reviewOneList = drService.selectDMReviewOne(themeList);
+				System.out.println("가게별 후기 : " + reviewOneList.toString()); // 가게별 후기 한 개씩
+				
+				System.out.println("테마리스트 : " + themeList); // 확인용
 				
 				mv.addObject("pi", pi);
 				mv.addObject("themeNo", themeNo);
 				mv.addObject("themeList", themeList);
+				mv.addObject("reviewOneList", reviewOneList);
 				mv.setViewName("shop/ShopSearchResult");
+				
 		}
 		
 		return mv;
