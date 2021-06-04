@@ -156,7 +156,7 @@
 									<td><a class="table-link-title"
 										href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
 									<td>${dreamreview.shopName }${ dreamreview.drmRviewNo}</td>
-									<td>${dreamreview.drmReviewUploadDate }</td>
+									<td class="drmDate1">${dreamreview.drmReviewUploadDate }</td>
 									<td><a class="modify-btn drmodify-btn"
 										id="drmodify-btn"
 										href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
@@ -218,28 +218,39 @@
 </body>
 
 <script type="text/javascript">
+	var drmDate= document.querySelectorAll('.drmDate1')
+	for(var i = 0; i < drmDate.length; i++){
+		var drmDateResult = drmDate[i].innerHTML.substr(0,10);
+		console.log(drmDateResult);
+		drmDate[i].innerHTML = drmDateResult;
+	}
+	
+	
 	$(document).on("click", ".dreview-btn", function(){ 
 		var drmRviewNo = $(this).prev().val(); 
 		$.ajax({ 
-			url : "drmMpMainReviewDelete.dz",
+			url : "myPageMainReviewDelete.dz",
 			type : "GET",
 			data : { "drmRviewNo" : drmRviewNo},
 			success : function(data) {
 				$('.tbody').empty();
 				for(var i in data) {
+					var dateResult = data[i].drmReviewUploadDate.substr(0,10);
+					
 					var tr = $("<tr class='tr'>");
 					var count = $("<td>").html(Number(i)+1);
 					var drmReviewTitle = $("<td class='drmReviewTitle'>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+data[i].drmRviewNo +"'>"+data[i].drmReviewTitle+"</a>");
 					var shopName = $("<td class='shopName'>").html(data[i].shopName);
-					var drmReviewUploadDate = $("<td class='drmReviewUploadDate'>").html(data[i].drmReviewUploadDate);
+					var dateResult = $("<td>").html(dateResult);
 					var drmodifyBtn = $("<td>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
 					var dreviewBtn = $("<td>")
 					dreviewBtn.append("<input type='hidden' value='"+data[i].drmRviewNo +"'>");
 					dreviewBtn.append("<a class='dreview-btn delete-btn' href='#'>삭제"+data[i].drmRviewNo +"</a>");
+					
 					tr.append(count);
 					tr.append(drmReviewTitle);
 					tr.append(shopName);
-					tr.append(drmReviewUploadDate);
+					tr.append(dateResult);
 					tr.append(drmodifyBtn);
 					tr.append(dreviewBtn);
 					$('.tbody').append(tr);
@@ -251,14 +262,14 @@
 		});
 	});	
 	
+	
 	$(document).on("click", ".pDeleteBtn", function(){
 		var pickNo = $(this).prev().val();
 		 $.ajax({
-			url:"drmMpMainPickDelete.dz",
+			url:"myPageMainPickDelete.dz",
 			type:"GET",
 			data : { "pickNo" : pickNo },
 			success : function(data){ 
-				//console.log("data",data);
 				$(".pTbody").empty();
 				for(var i in data){
 					var tr = $("<tr>");
@@ -284,9 +295,39 @@
 	
 	$(document).on("click",".qDeleteBtn", function(){
 		var qnaNo = $(this).prev().val();
-		console.log(qnaNo);
-		return false;
+		console.log("큐앤에이넘버"+qnaNo);
+		$.ajax({
+			url:"myPageMainQnakDelete.dz",
+			type:"GET",
+			data :{"qnaNo":qnaNo},
+			success : function(data){
+				console.log("data",data);
+				$(".qTbody").empty();
+				for(var i in data){
+					console.log(data);
+					var tr = $("<tr>");
+					var count = $("<td>").html(Number(i)+1);
+					var qnaTitle = $("<td>").append("<a class='table-link-title' href='qaDetail.dz?qnaNo="+data[i].qnaNo+"'><p>"+data[i].qnaTitle+data[i].qnaNo+"</p></a>");
+					var qanCreateDate = $("<td>").html(data[i].qanCreateDate);
+					var modifyBtn = $("<td>").append("<a class='modify-btn' href='qaUpdateForm.dz?qnaNo='"+data[i].qnaNo+">수정</a>");
+					var qDeleteBtn = $("<td>").append("<input type='hidden' value="+data[i].qnaNo+"><a class='qDeleteBtn delete-btn' href='#'>삭제</a>");
+					
+					tr.append(count);
+					tr.append(qnaTitle);
+					tr.append(qanCreateDate);
+					tr.append(modifyBtn);
+					tr.append(qDeleteBtn);
+					
+					$(".qTbody").append(tr);
+				}
+			},
+			error : function(){
+				console.log("전송실패");
+			}
+		});
 	});
+	
+	
 	
 	
 </script>

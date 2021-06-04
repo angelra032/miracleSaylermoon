@@ -351,5 +351,20 @@ public class NotiQnaController {
 				return "fail";
 			}
 		}
+		
+		// 마이페이지 상위 3개 삭제 후 다시 출력
+		@ResponseBody
+		@RequestMapping(value="myPageMainQnakDelete.dz", method=RequestMethod.GET)
+		public ArrayList<Qna> myPageMainQnakDelete(@RequestParam("qnaNo") int qaNo,
+											HttpSession session) {
+			System.out.println("여기들어왔니!?");
+			int result = qnaService.deleteQna(qaNo);
+			
+			User user = (User)session.getAttribute("loginUser");
+			int userNo = user.getUserNo();
+			ArrayList<Qna> list = qnaService.dreamQnaUpToThree(userNo);
+			System.out.println(list);
+			return list;
+		}
 	
 }

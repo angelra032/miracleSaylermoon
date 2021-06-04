@@ -63,6 +63,7 @@ public class DreamMyPageController {
 			return "common/errorPage";
 		}
 	}
+	
 
 	// 예약 취소
 	@RequestMapping(value = "cancelReservation.dz")
