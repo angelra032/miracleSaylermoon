@@ -5,8 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- css -->
 <link rel="stylesheet" href="/resources/css/payment/paymentForm.css">
+<!-- js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<!-- modal -->
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<!-- modal -->
 <title>돈쭐내기</title>
 </head>
 <body>
@@ -114,11 +121,17 @@
 						<input type="submit" id="payment-btn" value="돈쭐내러 가기">
 					</div>
 				</div>
-				
 			</form>
 		</div>
 		
-		
+		<!-- 모달창 -->
+	<!-- <a id="modal" href="#paymentModal" rel="modal:open"></a> -->
+	<div id="paymentModal" class="paymentModal modal">
+		<div class="modal-link-area" onclick="kakaoPayment()" style="cursor:pointer;">카카오</div>
+		<div class="modal-link-area" onclick="KGinicisPayment()" style="cursor:pointer;">이니시스</div>
+	</div>
+	
+		<!-- 모달창 -->
 		
 		
 	</main>
@@ -126,6 +139,17 @@
 <script type="text/javascript">
 
 	$(function() {
+		
+		// 돈쭐내기 버튼
+		$("#payment-btn").on("click", function(e){
+			e.preventDefault();	// form submit 이벤트 막음
+			$('div#paymentModal').modal({ // 모달창 출력
+		    	fadeDuration: 250
+		    })
+		});
+		
+		
+		/* 모달창 */
 
 		//$("#userPoint").val(12);
 		console.log($("#usePoint").val());
@@ -144,9 +168,101 @@
 		
 	});
 
-	// 돈쭐내기 버튼
-	$("#payment-btn").on("click", function(e){
-	    e.preventDefault();
+	
+	
+	function KGinicisPayment() {
+		var donPrice = $("input[name='menu-fin-price']").val();
+	    var finPrice = $("input[name='donPrice']").val();
+	    var menuName = $("input[name='menuName']").val();
+	    var amount = $("input[name='amount']").val();
+	    var usePoint = $("input[name='use-point']").val();
+	    var shopNo = '${shop.shopNo }';
+	    var shopName = '${shop.shopName }';
+		 var IMP = window.IMP; // 생략가능
+	        IMP.init('imp87350976'); 
+	        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+	        IMP.request_pay({
+	            pg: 'html5_inicis', // version 1.1.0부터 지원.
+	            /* 
+	                'kakao':카카오페이, 
+	                html5_inicis':이니시스(웹표준결제)
+	                    'nice':나이스페이
+	                    'jtnet':제이티넷
+	                    'uplus':LG유플러스
+	                    'danal':다날
+	                    'payco':페이코
+	                    'syrup':시럽페이
+	                    'paypal':페이팔
+	                */
+	            pay_method: 'card',
+	            /* 
+	                'samsung':삼성페이, 
+	                'card':신용카드, 
+	                'trans':실시간계좌이체,
+	                'vbank':가상계좌,
+	                'phone':휴대폰소액결제 
+	            */
+	            merchant_uid: 'merchant_' + new Date().getTime(),
+	            /* 
+	                merchant_uid에 경우 
+	                https://docs.iamport.kr/implementation/payment
+	                위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+	                참고하세요. 
+	                나중에 포스팅 해볼게요.
+	             */
+	            name: '돈쭐내기 결제 : ${shop.shopName }',
+	            //결제창에서 보여질 이름 
+	            amount: 100, 
+	            //가격 // finPrice
+	            buyer_email: '${loginUser.userEmail }',
+	            buyer_name: '${loginUser.userName }',
+	            buyer_tel: '${loginUser.userPhone }',
+	            buyer_addr: '주소컬럼 없음',
+	            buyer_postcode: '123-456',
+	            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+	            /*  
+	                모바일 결제시,
+	                결제가 끝나고 랜딩되는 URL을 지정 
+	                (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐) 
+	                */
+	        }, function (rsp) {
+	            console.log(rsp);
+	            if (rsp.success) {
+// 	                var msg = '결제가 완료되었습니다.';
+// 	                msg += '고유ID : ' + rsp.imp_uid;
+// 	                msg += '상점 거래ID : ' + rsp.merchant_uid;
+// 	                msg += '결제 금액 : ' + rsp.paid_amount;
+// 	                msg += '카드 승인번호 : ' + rsp.apply_num;
+					$.ajax({
+						url : "insertDonList.dz",
+						type : 'POST',
+						data : {
+							"donPrice" : donPrice,
+				            "menuName" : menuName,
+				            "amount" : amount,
+				            "shopNo" : shopNo,
+				            "shopName" : shopName,
+				            "usePoint" : usePoint
+						},
+						success : function(data) {
+							console.log(data);
+				        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
+						},
+					});
+	            } else {
+// 	                msg = '결제에 실패하였습니다.';
+		            msg += '에러내용 : ' + rsp.error_msg;
+		            //실패시 이동할 페이지
+		            alert(msg);
+		            location.href="paymentFormView.dz"; 
+	            }
+	        });
+	}
+	
+	
+	function kakaoPayment() {
+// 		e.preventDefault();
 	    var usePoint = $("#usePoint").val();
 		var userPoint = $("#userPoint").val();
 		usePoint = Number(usePoint);
@@ -249,28 +365,31 @@
         }); */
         
         // api 떼고 test
-        $.ajax({
-        	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
-			// data 보낼 url
-	        type: 'POST',
-	        data: {
-	            //imp_uid : rsp.imp_uid,
-	            //기타 필요한 데이터가 있으면 추가 전달
-	            // 가게 이름, 날짜, 내역(얼마)
-	            "donPrice" : donPrice,
-	            "menuName" : menuName,
-	            "amount" : amount,
-	            "shopNo" : shopNo,
-	            "shopName" : shopName,
-	            "usePoint" : usePoint
-	        },
-	        success : function(data) {
-	        	console.log(data);
-	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
-	        }
-        });
+//         $.ajax({
+//         	url: "insertDonList.dz", //cross-domain error가 발생하지 않도록 주의해주세요
+// 			// data 보낼 url
+// 	        type: 'POST',
+// 	        data: {
+// 	            //imp_uid : rsp.imp_uid,
+// 	            //기타 필요한 데이터가 있으면 추가 전달
+// 	            // 가게 이름, 날짜, 내역(얼마)
+// 	            "donPrice" : donPrice,
+// 	            "menuName" : menuName,
+// 	            "amount" : amount,
+// 	            "shopNo" : shopNo,
+// 	            "shopName" : shopName,
+// 	            "usePoint" : usePoint
+// 	        },
+// 	        success : function(data) {
+// 	        	console.log(data);
+// 	        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
+// 	        }
+//         });
+        
+        
+        
         // 카카오 페이 api
-	    /* 
+	    
         IMP.request_pay({
 	        pg : 'kakaopay',
 	        pay_method : 'card',
@@ -317,8 +436,9 @@
 	            location.href="paymentFormView.dz"; 
 	        }
 	    });
-	     */
-	});
+	}
+	
+	
 
 	// 메뉴 선택하면
 	function menuChoice(menu){
@@ -338,7 +458,7 @@
 		$(menu).prev().val(menuPrice); // lay3-메뉴총액
 		console.log("hidden"+$("input[name='menu-price']").val());
 		
-	}
+	};
 
 	// 수량 선택하면
 	function amountChoice(amount){
