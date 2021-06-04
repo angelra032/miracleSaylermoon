@@ -98,11 +98,12 @@ a {
 .frame {
 	width: 1280px;
 	height: 1150px;
+	margin: 0 auto;
+	margin-top: 100px;
 	
-	margin: 100px auto;
+	/* margin: 100px auto;
 	--margin-top: 100px;
-	
-	--margin-bottom: 150px;
+	--margin-bottom: 150px; */
 }
 
 	.shop-detail {
@@ -472,7 +473,7 @@ a {
 .menu-img-frame {
 	--background-color: beige;
     display: block;
-    width: 640px;
+    width: 100%;
     height: 120px;
 }
 
@@ -492,11 +493,11 @@ a {
 		    object-fit: cover;
 		}
 	
-	.menu-img-detail-div {
-		/* width: 950px;
+	/* .menu-img-detail-div {
+		width: 950px;
 		height: 300px; 
 		width: 300px;
-		height: 100px;*/
+		height: 100px;
 		
 		display: none;
 		--width: 300px;
@@ -513,7 +514,53 @@ a {
 		    top: 0; 
 		    left: 300;
 			cursor: pointer;
-		}
+		} */
 
+
+
+/* 모달 테스트 */
+
+/* 모달창 */
+#img-modal {
+	display: none;
+	position: fixed;
+	z-index: 150;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	--background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.7);
+	max-width: 100%;
+	/* 로 주면 되는데..너무 커짐 */
+}
+
+#img-modal>img {
+	margin: auto;
+	display: block;
+	width: 100%;
+}
+
+#img-modal>span {
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+#img-modal>span:hover {
+	color: #bbb;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 썸네일 */
+.menu-img-thumb-div img:hover {
+	opacity: 0.7;
+}
 
 
