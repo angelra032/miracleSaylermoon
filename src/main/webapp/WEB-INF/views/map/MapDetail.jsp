@@ -44,7 +44,7 @@
 									<div class="content-shop right top">
 										<span id="shop-title"><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
 										<span id="shop-type">${ shop.shopType }</span><br>
-										<div id="shop-info"> <!-- 2줄 이상 말줄임 처리 -->
+										<div id="shop-info"> <!-- 2줄 이상 말줄임표 처리 -->
 											<span>${ shop.shopAddr }</span><br>
 											<c:if test="${!empty shop.shopContent }">
 												<span id="shop-content">${ shop.shopContent }</span><br>
@@ -56,12 +56,7 @@
 										<br>
 									</div>
 									<div class="content-shop right bottom">
-										<%-- <c:if test="${ !empty loginUser }">
-											<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo }, ${loginUser.userNo })">예약하기</button>
-										</c:if>
-										<c:if test="${ empty loginUser }"> --%>
-											<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">예약하기</button>
-										<%-- </c:if> --%>
+										<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">예약하기</button>
 									</div>
 								</div>
 							</div>
