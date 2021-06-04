@@ -40,6 +40,7 @@
 									<td>
 										<a class="delete-btn" href="#">삭제</a>
 										<input type="hidden" class="pickNo" value="${ pick.pickNo }">
+										<input type="hidden" class="page-ajax" value="${ pi.currentPage }">
 									</td>
 								</tr>
 							</c:forEach>
@@ -109,10 +110,12 @@
 		// 삭제 aJax
 	$(document).on('click','.delete-btn', function() {
 		var pickNo = $(this).next().val();
+		var page = $(this).next().next().val();
+		console.log(page);
 		//var pickThis = $(this);
 		$.ajax({
 			url : "removeMyPagePick.dz",
-			data : {"pickNo" : pickNo},
+			data : {"pickNo" : pickNo, "page" : page },
 			type : 'POST',
 			success : function(data) {
 				if(data != null){
@@ -128,12 +131,14 @@
 						var td = $("<td>");
 						var deleteBtn = $("<a class='delete-btn' href='#'>삭제</a>");
 						var hiddenNo = $("<input type='hidden' class='pickNo' value='"+data.list[i].pickNo+"'>");
+						var page = $("<input type='hidden' class='page-ajax' value='"+data.pi.currentPage+"'>");
 						
 						tr.append(count);
 						tr.append(shopName);
 						tr.append(shopShortAddr);
 						td.append(deleteBtn);
 						td.append(hiddenNo);
+						td.append(page);
 						tr.append(td);
 						
 						$('.tbody').append(tr);
@@ -144,7 +149,7 @@
 					var tdNavi = $("<td colspan='4'>");
 					if(data.pi.currentPage > 1) { //현재페이지가 1보다 크면 (2, 3, 4...)- 이전버튼 활성화
 						var prev = Number(data.pi.currentPage)-1;
-						tdNavi.append("<a href='mzPickList?page="+prev+"'>[이전]</a>&nbsp;");
+						tdNavi.append("<a href='mzPickList.dz?page="+prev+"'>[이전]</a>&nbsp;");
 					}else {
 						tdNavi.append("[이전]&nbsp;");
 					}
@@ -157,7 +162,7 @@
 					}//end of for()
 					if(data.pi.currentPage < data.pi.maxPage) {//현재페이지가 마지막페이지번호보다 작으면 - 다음버튼 활성화
 						var next = Number(data.pi.currentPage)+1;
-						tdNavi.append("<a href='mzPickList?page="+next+"'>[다음]</a>&nbsp;");
+						tdNavi.append("<a href='mzPickList.dz?page="+next+"'>[다음]</a>&nbsp;");
 					}else {
 						tdNavi.append("[다음]&nbsp;");
 					}

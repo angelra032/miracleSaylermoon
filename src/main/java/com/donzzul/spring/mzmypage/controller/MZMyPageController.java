@@ -19,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
-
+import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.pick.domain.Pick;
@@ -40,6 +41,9 @@ public class MZMyPageController {
     @Autowired
 	private PickService pkService;
 	
+    @Autowired
+    private MzReviewService mService;
+    
 	// (민애) mz마이페이지 메인뷰
   	@RequestMapping(value = "mzMyPage.dz")
 	public String MZMyPageView(HttpSession session, Model model) {
@@ -55,22 +59,27 @@ public class MZMyPageController {
 		ArrayList<Pick> pList = pkService.dreamPickUpToThree(userNo);
 		// 돈쭐 목록
 		ArrayList<Don> dList = pService.selectDonListThree(userNo);
+		// 내가 쓴 후기 목록
+		ArrayList<MzReview> mList = mService.selectThreeReviewToMyPage(userNo);
 		
-		if(userPoint != null || !rList.isEmpty() || !pList.isEmpty() || !dList.isEmpty()) {
+		if(userPoint != null || !rList.isEmpty() || !pList.isEmpty() || !dList.isEmpty() || !mList.isEmpty()) {
 			model.addAttribute("userPoint", userPoint.getUserPoint());
 			model.addAttribute("rList", rList);
 			model.addAttribute("pList", pList);
 			model.addAttribute("dList", dList);
+			model.addAttribute("mList", mList);
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
+			model.addAttribute("Mmsg", "후기 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
+			model.addAttribute("Mmsg", "후기 내역이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}
   	} // end of MZMyPageView
@@ -103,7 +112,7 @@ public class MZMyPageController {
  		//}
    	}
    	
- // 카카오 mz마이페이지 메인뷰
+   	// 카카오 mz마이페이지 메인뷰
    	@RequestMapping(value = "KakaoMyPage.dz")
  	public String KakaoMZMyPageView(HttpSession session, Model model) {
  		
@@ -237,5 +246,7 @@ public class MZMyPageController {
 		}
 		return mv;
 	}
+	
+	// 후기 삭제는 MzReviewController.java
 	
 }

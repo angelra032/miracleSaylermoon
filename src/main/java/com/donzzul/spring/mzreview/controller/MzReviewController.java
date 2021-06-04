@@ -36,6 +36,7 @@ import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.service.MzReviewService;
+import com.donzzul.spring.pick.domain.Pick;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
@@ -378,5 +379,26 @@ public class MzReviewController {
 		
 		Gson gson = new Gson();
 		gson.toJson(mzList, response.getWriter());
+	}
+	
+	// mz마이페이지에서 후기 삭제하고 새로 3개 리스트 뽑아오기
+	@ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
+	@RequestMapping(value="mReviewDeleteAndSelectThree.dz", method=RequestMethod.GET)
+	public ArrayList<MzReview> mReviewDeleteAndSelectThree(@RequestParam("mReviewNo") int mReviewNo, Model model, HttpSession session) {
+		ArrayList<MzReviewPhoto> photoList = mService.selectPhoto(mReviewNo);
+		int result = mService.deleteMzReview(mReviewNo);
+		if(result > 0) {
+			for(int i = 0; i < photoList.size(); i++) {
+				String mzPhotoRename = photoList.get(i).getMzReviewRenameFileName();
+				String mzPhotoFilePath = photoList.get(i).getMzReviewFilePath();
+				fileDelete(mzPhotoRename, mzPhotoFilePath);
+			}
+			User user = (User)session.getAttribute("loginUser");
+			ArrayList<MzReview> mList = mService.selectThreeReviewToMyPage(user.getUserNo());
+			
+			return mList;
+		} else {
+			return null;
+		}
 	}
 }

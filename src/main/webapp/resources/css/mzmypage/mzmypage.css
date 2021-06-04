@@ -202,7 +202,13 @@ main {
 	border-radius: 3px;
 	font-size: 16px;
 }
-/* ***************돈쭐******************* */
+/* ***************후기목록******************* */
+.review-list table thead th:nth-child(3) {
+	width: 150px;
+}
+.review-list table thead th:nth-child(4) {
+	width: 150px;
+}
 .review-list table thead th:nth-child(5) {
 	width: 150px;
 }

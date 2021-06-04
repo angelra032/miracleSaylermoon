@@ -70,6 +70,11 @@ public class MzReviewServiceImpl implements MzReviewService {
 	public ArrayList<MzReview> selectThreeReview() {
 		return mStore.selectThreeReview();
 	}
+	// 마이페이지용 세개 가져오기
+	@Override
+	public ArrayList<MzReview> selectThreeReviewToMyPage(int userNo) {
+		return mStore.selectThreeReviewToMyPage(userNo);
+	}
 	
 	// 사진
 	@Override

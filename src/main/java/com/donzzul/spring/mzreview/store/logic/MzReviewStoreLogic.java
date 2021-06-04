@@ -69,6 +69,11 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	public ArrayList<MzReview> selectThreeReview() {
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectThreeReview");
 	}
+	// 마이페이지에 최근글 세개 뿌리기
+	@Override
+	public ArrayList<MzReview> selectThreeReviewToMyPage(int userNo) {
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectThreeReviewToMyPage", userNo);
+	}
 
 	@Override
 	public int insertPhoto(MzReviewPhoto mzReviewPhoto) {
