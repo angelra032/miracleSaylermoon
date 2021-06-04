@@ -148,7 +148,7 @@
 	
 	<!-- 가게메뉴 출력 -->
 	<select id="selectShopMenu" resultMap="mainMenuResultMap">
-		SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo } 
+		SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo } ORDER BY MAIN_MENU_PRICE ASC
 	</select>
 
 

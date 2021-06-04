@@ -95,7 +95,7 @@
 							</c:if>
 							 --%>
 							
-						<div class="menu-img-frame">
+						<%-- <div class="menu-img-frame">
 							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
 								<div title="클릭하면 창이 닫힙니다." id="ex1" class="detail-right menu-img menu-img-detail-div modal"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
 									 <a href="#" rel="modal:close"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  ></a>
@@ -104,7 +104,30 @@
 									<a href="#ex1" rel="modal:open"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg"></a>
 								</div> 
 							</c:forEach>
+						</div> --%>
+						
+						
+						
+						<div class="menu-img-frame">
+							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
+								<%-- <div title="클릭하면 창이 닫힙니다." id="ex1" class="detail-right menu-img menu-img-detail-div modal"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									 <a href="#" rel="modal:close"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  ></a>
+								</div> --%> 
+								<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
+								</div> 
+								
+								<div id="img-modal" title="X를 클릭하면 창이 닫힙니다." class="detail-right menu-img menu-img-detail-div modal">
+								   <span onclick="imgModalClose();">X</span>
+								   <img src="${photo.menuFilePath }/${photo.menuFileName }" id="img-modal-content" class="menu-img-detail" alt="menuImg"  width="300">
+								    <!-- <img id="img-modal-content" src="/resources/images/snsPhoto.png" alt="텍스트 예제 1" width="300"> -->
+								</div>
+							</c:forEach>
 						</div>
+						
+						
+						
+						
 						<!-- 
 							<div id="ex1" class="modal">
 							  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
@@ -421,10 +444,36 @@
 		});
 		
 		
+		// test~~~~~~~~~~~~~~~
+		/* 이미지 클릭 시 */
+		var imageTagList = document.querySelectorAll(".menu-img-thumb-div img");
+		console.log("나오나"+imageTagList);
+
+		for (var i = 0; i < imageTagList.length; i++) {
+			imageTagList[i].addEventListener('click', function() {
+				var modal = document.getElementById('img-modal');
+				var content = document.getElementById('img-modal-content');
+				modal.style.display = 'block';
+				/* var modal = $('#img-modal');
+				var content = $('#img-modal-content');
+				modal.show(); */
+				content.src = this.src;
+			});
+		}
+
+		/* close 버튼 클릭시*/
+		function imgModalClose() {
+			var modal = document.getElementById('img-modal');
+			var content = document.getElementById('img-modal-content');
+			modal.style.display = "none";
+			content.src = '';
+			//content.src = '/resources/images/snsPhoto.png';
+		}	
 	
 		
+		
 		/* 메뉴 사진 modal창 */
-		$(function(){
+		/* $(function(){
 			$(".menu-img-thumb").click(function() {
 				$(this).parent().prev().fadeIn(); 
 				//$(this).parent().prev().find("img").fadeIn(); 
@@ -433,13 +482,10 @@
 			$(".menu-img-detail").click(function() {
 				//$(this).parent().find("img").fadeOut();
 				$(this).parent().fadeOut();
-				
-				
-
 				//$(this).find("img")fadeOut(); 
 				//$(this).parent().find("img")fadeOut(); 
 			});
-		});
+		}); */
 		
 
 	
