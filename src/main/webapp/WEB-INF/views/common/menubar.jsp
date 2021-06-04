@@ -118,7 +118,7 @@
 					<input type="hidden" class="userNo"
 						value="${sessionScope.loginUser.userNo }""> <span>안녕하십니까?
 						<br> 돈쭐 고객센터 담당자입니다.<br> 무엇을 도와드릴까요?
-					</span>>
+					</span>
 					<button id="requestBtn">실시간 상담하기</button>
 				</div>
 			</div>
@@ -127,7 +127,7 @@
 			<!-- 유저  1,2,3 채팅창 -->
 			<div class="sendDivBox">
 				<div class="sendDiv">
-					<span>안녕하세요</span>>
+					<span>안녕하세요!</span>>
 				</div>
 			</div>
 
@@ -135,12 +135,10 @@
 			<div class='imgDiv'>
 				<img src='/resources/images/chatting/operator-1.png'>
 			</div>
-			<div class="reciveDivBox">
 				<div class="reciveDiv">
 					<span>네!안녕하세요!</span>
 				</div>
 			</div>
-		</div>
 
 		<div id="yourName">
 			<table class="inputTable">
@@ -179,7 +177,6 @@
 	var ws;
 
 	function wsOpen() {
-		debugger;
 		ws = new WebSocket("ws://" + location.host + "/chatting");
 		wsEvt();
 	}
@@ -201,7 +198,7 @@
 				} else if (d.type == "message") {
 					if (d.sessionId == $("#sessionId").val()) {
 						$("#chating").append(
-								"<p class='me'>나 :" + d.msg + "</p>");
+								"<div class='sendDiv'><span>"+d.msg+"</span></div>");
 					} else {
 						$("#chating").append(
 								"<p class='others'>" + d.userName + " :"
@@ -246,6 +243,7 @@
 		var messageContent =  $("#chatting-text").val();
 		var messageTime = new Date();
 		$('#chatting-text').val("");
+		return false;
 		$.ajax({
 			url:"insertChatContents.dz",
 			type:"GET",

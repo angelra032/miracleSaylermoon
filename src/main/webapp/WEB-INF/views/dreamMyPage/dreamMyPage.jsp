@@ -191,13 +191,13 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="qTbody${qna.qnaNo }">
 						<c:if test="${ !empty qList}">
 							<c:forEach items="${ qList}" var="qna" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
 									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}${qna.qnaNo }</p></a></td>
-									<td>${ qna.qanCreateDate }</td>
+									<td class="qnaDate1">${ qna.qanCreateDate }</td>
 									<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
 									<td><input type="hidden" value="${qna.qnaNo }"><a class="qDeleteBtn delete-btn" href="#">삭제</a></td>
 								</tr>
@@ -225,6 +225,13 @@
 		drmDate[i].innerHTML = drmDateResult;
 	}
 	
+	var qnaDate = document.querySelectorAll('.qnaDate1')
+	for(var i = 0; i < qnaDate.length; i++){
+		var qnaDateResult = qnaDate[i].innerHTML.substr(0,10);
+		console.log(qnaDateResult);
+		qnaDate[i].innerHTML = qnaDateResult;
+	}
+	
 	
 	$(document).on("click", ".dreview-btn", function(){ 
 		var drmRviewNo = $(this).prev().val(); 
@@ -241,7 +248,7 @@
 					var count = $("<td>").html(Number(i)+1);
 					var drmReviewTitle = $("<td class='drmReviewTitle'>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+data[i].drmRviewNo +"'>"+data[i].drmReviewTitle+"</a>");
 					var shopName = $("<td class='shopName'>").html(data[i].shopName);
-					var dateResult = $("<td>").html(dateResult);
+					var dateResult = $("<td class='drmDate1'>").html(dateResult);
 					var drmodifyBtn = $("<td>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
 					var dreviewBtn = $("<td>")
 					dreviewBtn.append("<input type='hidden' value='"+data[i].drmRviewNo +"'>");
@@ -295,26 +302,26 @@
 	
 	$(document).on("click",".qDeleteBtn", function(){
 		var qnaNo = $(this).prev().val();
-		console.log("큐앤에이넘버"+qnaNo);
 		$.ajax({
 			url:"myPageMainQnakDelete.dz",
 			type:"GET",
 			data :{"qnaNo":qnaNo},
 			success : function(data){
-				console.log("data",data);
 				$(".qTbody").empty();
 				for(var i in data){
-					console.log(data);
+					var dateResult = data[i].qanCreateDate.substr(0,10);
+					
+					
 					var tr = $("<tr>");
 					var count = $("<td>").html(Number(i)+1);
 					var qnaTitle = $("<td>").append("<a class='table-link-title' href='qaDetail.dz?qnaNo="+data[i].qnaNo+"'><p>"+data[i].qnaTitle+data[i].qnaNo+"</p></a>");
-					var qanCreateDate = $("<td>").html(data[i].qanCreateDate);
+					var dateResult = $("<td class='qnaDate1'>").html(dateResult);
 					var modifyBtn = $("<td>").append("<a class='modify-btn' href='qaUpdateForm.dz?qnaNo='"+data[i].qnaNo+">수정</a>");
 					var qDeleteBtn = $("<td>").append("<input type='hidden' value="+data[i].qnaNo+"><a class='qDeleteBtn delete-btn' href='#'>삭제</a>");
 					
 					tr.append(count);
 					tr.append(qnaTitle);
-					tr.append(qanCreateDate);
+					tr.append(dateResult);
 					tr.append(modifyBtn);
 					tr.append(qDeleteBtn);
 					
@@ -326,8 +333,6 @@
 			}
 		});
 	});
-	
-	
 	
 	
 </script>

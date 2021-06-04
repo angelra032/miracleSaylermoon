@@ -7,8 +7,8 @@ public class Qna {
 	private String qnaTitle;
 	private String qnaContent;
 	private String qnaWriter;
-	private Date qanCreateDate;
-	private Date qanUploadDate;
+	private String qanCreateDate;
+	private String qanUploadDate;
 	private String boardPublicYN; // char
 	private String userType;
 	private int userNo; // char
@@ -20,9 +20,9 @@ public class Qna {
 	
 	public Qna() {}
 
-	public Qna(int qnaNo, String qnaTitle, String qnaContent, String qnaWriter, Date qanCreateDate, Date qanUploadDate,
-			String boardPublicYN, String userType, int userNo, int originNo, int groupOrder, int groupLayer,
-			String qnaId, int qnaHit) {
+	public Qna(int qnaNo, String qnaTitle, String qnaContent, String qnaWriter, String qanCreateDate,
+			String qanUploadDate, String boardPublicYN, String userType, int userNo, int originNo, int groupOrder,
+			int groupLayer, String qnaId, int qnaHit) {
 		super();
 		this.qnaNo = qnaNo;
 		this.qnaTitle = qnaTitle;
@@ -72,19 +72,19 @@ public class Qna {
 		this.qnaWriter = qnaWriter;
 	}
 
-	public Date getQanCreateDate() {
+	public String getQanCreateDate() {
 		return qanCreateDate;
 	}
 
-	public void setQanCreateDate(Date qanCreateDate) {
+	public void setQanCreateDate(String qanCreateDate) {
 		this.qanCreateDate = qanCreateDate;
 	}
 
-	public Date getQanUploadDate() {
+	public String getQanUploadDate() {
 		return qanUploadDate;
 	}
 
-	public void setQanUploadDate(Date qanUploadDate) {
+	public void setQanUploadDate(String qanUploadDate) {
 		this.qanUploadDate = qanUploadDate;
 	}
 
