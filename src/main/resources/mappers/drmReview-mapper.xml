@@ -55,7 +55,7 @@
 		SELECT * FROM
     (SELECT ROW_NUMBER() OVER (ORDER BY DRMREVIEW_UPLOAD_DATE DESC) AS NUM,
     DRMREVIEW_NO, DRMREVIEW_TITLE, DRMREVIEW_CONTENT FROM DREAM_REVIEW WHERE SHOP_NO = #{shopNo} AND DRMREVIEW_PUBLIC_YN = 'Y') WHERE NUM BETWEEN #{startNum} AND #{endNum}
-	</select>
+	</select> 
 	
 	<!-- 더보기 - 가게 전체 후기 갯수 -->
 	<select id="selectDMReviewCount" resultType="_int">

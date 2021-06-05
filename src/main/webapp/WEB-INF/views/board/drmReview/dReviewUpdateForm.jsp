@@ -105,7 +105,7 @@
 				   	var drmReviewContent = $("#summernote").summernote('code', drmReviewContent);
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
-					var drmReviewNo = '${drmReview.drmReviewNo}';
+					var drmReviewNo = '${drmReview.drmReviewNo}'; 
 					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") {
 					    $.ajax({
 						   url : "dReviewModify.dz",

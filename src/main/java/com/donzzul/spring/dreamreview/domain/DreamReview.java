@@ -3,7 +3,7 @@ package com.donzzul.spring.dreamreview.domain;
 import java.sql.Date;
 
 public class DreamReview {
-	private int drmReviewNo;
+	private int drmReviewNo; 
 	private String drmReviewTitle;
 	private String drmReviewContent;
 	private String drmReviewWriter;

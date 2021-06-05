@@ -125,7 +125,7 @@ input[type=radio]{
 			text-align: center;
 			background: rgba(253, 181, 4, 0.3);
 			font-weight: bold;
-		}
+		} 
 		/* 라벨 라스트 차일드 스판 보더 바텀 0 */
 		/* .menu-choice:last-child input[type=radio] + span{
 			border-bottom: 0;

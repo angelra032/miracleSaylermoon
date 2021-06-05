@@ -75,7 +75,7 @@
 		INSERT INTO MZ_REVIEW_PHOTO VALUES(SEQ_MZREVIEW_PHOTO.NEXTVAL, #{mzReviewOriginalFileName}, #{mzReviewRenameFileName}, #{mzReviewFilePath}, #{mzReviewFileSize}, #{mzReviewFileTime}, #{mzReviewNo});
 	</insert>
 	
-	<delete id="deleteBeforeMZPhoto">
+	<delete id="deleteBeforeMZPhoto"> 
 		DELETE FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
 	</delete>
 	

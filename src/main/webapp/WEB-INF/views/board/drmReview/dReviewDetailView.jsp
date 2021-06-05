@@ -23,7 +23,7 @@
         <div class="frame">
             <div class="title-nick-date-area">
                 <div class="title-bottom-area">
-                    <div class="title-bottom-nick-area">
+                    <div class="title-bottom-nick-area"> 
                         <span class="userNick">${ drmReview.drmReviewWriter }</span>
                     </div>
                     <div class="title-bottom-date-area">

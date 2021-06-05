@@ -726,7 +726,7 @@
 						var contentReview = $("<div id='list' class='review-list rContent'>");
 						var contentReviewLeft = $("<div class='rContent left'>");
 						var contentReviewRight = $("<div class='rContent right'>");
-						
+					 	
 						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
 											.append("<span class='review-type'>맛집후기</span>")
