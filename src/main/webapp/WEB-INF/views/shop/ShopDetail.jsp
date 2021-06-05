@@ -31,18 +31,18 @@
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>
 				<span id="shop-main-title-provide">${ shop.shopProduct }</span>
 			
-				<!— 찜버튼  —> 
-				<!— 컨트롤러에서 세션 체크해서 userNo 같이 가져가기  —> 
-				<!— 꿈나무, MZ  —>		
+				<!-- 찜버튼 --> 
+				<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 --> 
+				<!-- 꿈나무, MZ --> 		
  				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 }">
- 					<c:if test="${ empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
+ 					<c:if test="${ empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
 						<a href="#" id="pick-button-off"></a>
 	 				</c:if>
- 					<c:if test="${ !empty pick.pickNo }"> <!— 컨트롤러에서 세션 체크해서 찜 가져오기 —>
+ 					<c:if test="${ !empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
 						<a href="#" id="pick-button-on"></a>
 	 				</c:if>
  				</c:if>
-				<!— 세션 없을시 로그인 연결 —>
+				<!-- 세션 없을시 로그인 연결 -->
  				<c:if test="${ loginUser.userType == null }">
 					<a href="javascript:void(0);" onclick="goLogin()" id="pick-button-disabled"></a>
  				</c:if>
@@ -265,56 +265,7 @@
 				</div>
 	
 		    <div class="frame-review">
-					
-			
-		    	<div id="list-body" class="review-list"> <!-- 처음에 보여질 후기 갯수 / 작성날짜, 닉네임 안들어가도 되는지 확인 -->
-	 		 		
-	 		 		<%-- <c:if test="${ empty rList }">
-				 		<span class="review-yet"></span>
-			 		</c:if>
-			 		<c:if test="${ !empty rList }">
-					 	<c:forEach items="${ rList }" var="reviewAll">
-							 <div id="list" class="review-list rContent">
-								<div class="rContent left">
-									<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
-								</div>
-								<div class="rContent right">
-									<span class="review-title">${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;
-									<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
-									<span class="review-content">${ reviewAll.drmReviewContent }</span><br>
-								</div>
-							</div>
-						</c:forEach> 
-						<div class="review-list showMoreReply">
-							<!-- 클릭시 나올 후기 갯수?? -->
-							<input type="button" id="moreReply" value="더보기"> <!-- onclick="moreList()" -->
-						</div>
-			 		</c:if> 
-			 		 --%>
-
-	 		 		<%-- <c:if test="${ empty drList }">
-			 			<span class="review-yet">등록된 후기가 없습니다.</span>
-			 		</c:if> 
-			 		<c:if test="${ !empty drList }">
-					 	<c:forEach items="${ drList }" var="reviewAll">
-							 <div class="review-list rContent">
-								<div class="rContent left">
-									<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
-								</div>
-								<div class="rContent right">
-									<span class="review-title">${ reviewAll.drmReviewTitle }</span>&nbsp;&nbsp;
-									<span class="review-type">감사후기</span><br> <!-- 감사후기 공개 여부 확인해서 가져오기 -->
-									<span>${ reviewAll.drmReviewContent }</span><br>
-								</div>
-							</div>
-						</c:forEach> 
-						<div class="review-list showMoreReply">
-							<!-- 클릭시 나올 후기 갯수?? -->
-							<input type="button" id="moreReply" onclick="" value="더보기">
-						</div>
-			 		</c:if> --%> 
-			 		
-				</div>
+		    	<div id="list-body" class="review-list"></div>
 		    </div>
 		</div>
 	
