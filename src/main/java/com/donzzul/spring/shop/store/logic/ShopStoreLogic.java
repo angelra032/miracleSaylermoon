@@ -150,13 +150,19 @@ public class ShopStoreLogic implements ShopStore {
 	// 관리자 - 사업자
 	@Override
 	public int updatePartnerShopShow(int shopNo) {
-		return sqlSession.update("shopMapper.partnerUpdateShow", shopNo);
+		return sqlSession.update("shopMapper.updatePartnerShow", shopNo);
 	}
 
 	@Override
-	public int updatePartnerPointZero(int shopNo) {
-		return sqlSession.update("shopMapper.partnerUpdatePoint", shopNo);
+	public int updatePartnerPointChange(int shopNo) {
+		return sqlSession.update("shopMapper.updatepAdminPrtnerPointChange", shopNo);
 	}
+
+	@Override
+	public int updatePartnerPointView(int shopNo) {
+		return sqlSession.update("shopMapper.updatePartnerPointView", shopNo);
+	}
+
 	
 
 }

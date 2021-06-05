@@ -177,10 +177,12 @@ public class MzReviewController {
 				String realName = matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);
 				realList.add(realName);
 			}
-			for(int i = 0; i < mzPhotoList.size(); i++) {
-				String mzPhotoRename = mzPhotoList.get(i).getMzReviewRenameFileName();
-				if(!realList.contains(mzPhotoRename)) {
-					fileDelete(mzPhotoRename, mzPhotoList.get(i).getMzReviewFilePath());
+			if(mzPhotoList != null) {
+				for(int i = 0; i < mzPhotoList.size(); i++) {
+					String mzPhotoRename = mzPhotoList.get(i).getMzReviewRenameFileName();
+					if(!realList.contains(mzPhotoRename)) {
+						fileDelete(mzPhotoRename, mzPhotoList.get(i).getMzReviewFilePath());
+					}
 				}
 			}
 			rtn = "success";

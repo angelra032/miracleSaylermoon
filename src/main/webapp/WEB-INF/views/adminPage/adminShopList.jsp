@@ -54,7 +54,7 @@
 								<td><div class="delete-btn" onclick="showShop(${shop.shopNo})">승인</div></td>
 							</c:if>
 							<c:if test="${ shop.shopPointYn eq 'y' or shop.shopPointYn eq 'Y' }">
-								<td><a class="delete-btn" href="#">환급</a></td>
+								<td><div class="delete-btn" onclick="changePoint(${shop.shopNo})">환급</div></td>
 							</c:if>
 							<c:if test="${ shop.shopPointYn eq 'n' or shop.shopPointYn eq 'N' }">
 								<td><div class="done-btn">환급</div></td>
@@ -143,11 +143,10 @@
 				url : 'adminShopShow.dz',
 				data : {"shopNo" : shopNo},
 				type : "GET",
-				success : function(result) {
-					if(result == "success") {
+				success : function(data) {
+					if(data == "success") {
 						alert('성공');
-						shopListReload();
-					} else if(result == "fail") {
+					} else if(data == "fail") {
 						alert('실패');
 					}
 				},
@@ -156,13 +155,41 @@
 				}
 			})
 		} else {
-			location.href='adminShopList.dz';
 		}
+		shopListReload();
 	}
+	
+	// 환급해줄 때 // 나중에 사업자 개인정보페이지로 이동수정
+	function changePoint(shopNo) {
+		console.log(shopNo);
+		var result = confirm('사업자 포인트를 환급합니다');
+		if(result) {
+			$.ajax({
+				url : "adminShopChangeP.dz" ,
+				data : {"shopNo" : shopNo} ,
+				type : "GET",
+				success : function(data) {
+					if(data == "success") {
+						alert('포인트 환급 신청이 완료되었습니다');
+					}	else if(data == "fail") {
+						alert('포인트 환급 신청이 실패했습니다');
+					}				
+				},
+				error : function() {
+					alert('포인트 환급 에러')
+				}
+			});
+		} else {
+			
+		}
+		shopListReload();
+	}
+	
 	
 	// 리스트 리로드
 	function shopListReload() {
-		$("#list-table").load("adminShopList.dz #list-table");
+		var page = document.location.href.split("?")[1];
+		$("#list-table").load("adminShopList.dz?"+page+" #list-table");
 	}
 </script>
 </html>

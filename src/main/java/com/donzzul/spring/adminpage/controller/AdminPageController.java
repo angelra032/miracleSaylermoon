@@ -65,7 +65,7 @@ public class AdminPageController {
 	private RecommendBoardService rService;
 	
 	// 관리자 페이지 출력
-	@SuppressWarnings("null")
+	// @SuppressWarnings("null")
 	@RequestMapping(value="adminPage.dz")
 	public ModelAndView adminPageView(ModelAndView mv) {
 		DecimalFormat formatter = new DecimalFormat("###,###.##");
@@ -418,8 +418,6 @@ public class AdminPageController {
 	@ResponseBody
 	@RequestMapping(value="adminShopShow.dz",  method = RequestMethod.GET)
 	public String adminShopShow(@RequestParam("shopNo") int shopNo) {
-		System.out.println("넘어오나요");
-		System.out.println("샵넘버" + shopNo);
 		int result = sService.updatePartnerShopShow(shopNo);
 		if(result > 0) {
 			return "success";
@@ -427,6 +425,17 @@ public class AdminPageController {
 			return "fail";
 		}
 	}
-		
+	
+	// 사업자 환급버튼
+	@ResponseBody
+	@RequestMapping(value="adminShopChangeP.dz",  method = RequestMethod.GET)
+	public String adminShopChangePoint(@RequestParam("shopNo") int shopNo) {
+		int result = sService.updatePartnerPointChange(shopNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 	
 }
