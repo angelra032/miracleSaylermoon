@@ -42,16 +42,25 @@
 								</div>
 								<div class="content-shop right">
 									<div class="content-shop right top">
-										<span id="shop-title"><b>${ shop.shopName }</b>&nbsp;&nbsp;</span>
-										<span id="shop-type">${ shop.shopType }</span><br>
-										<div id="shop-info"> <!-- 2줄 이상 말줄임표 처리 -->
-											<span>${ shop.shopAddr }</span><br>
-											<c:if test="${!empty shop.shopContent }">
-												<span id="shop-content">${ shop.shopContent }</span><br>
-											</c:if>
-											<c:if test="${!empty shop.shopContent }">
-												<span id="shop-content"></span><br>
-											</c:if>
+										<div id="shop-title"><span><b>${ shop.shopName }</b></span></div>
+										<div id="shop-type"><span>${ shop.shopType }</span></div>
+										<div id="shop-info">
+											<div id="shop-addr"><span>${ shop.shopAddr }</span></div>
+											<div id="shop-con">
+												<c:choose>
+													<c:when test="${ shop.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ shop.drmReviewContent }</span> 
+													</c:when>
+													<c:when test="${ shop.drmReviewContent eq 'EMPTY' }">
+														<c:if test="${ !empty shop.shopContent }">
+															<span class="shopContent">${ shop.shopContent }</span> 
+														</c:if>
+														<c:if test="${ empty shop.shopContent }">
+															<span class="shopContent">${ shop.shopName }</span> 
+														</c:if>
+													</c:when>
+												</c:choose>
+											</div>
 										</div>
 										<br>
 									</div>
@@ -118,11 +127,10 @@
 		</div>
 	</main>
 	
-	<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> --%>
-	
-	<!-- 맵 js -->
+
 	<script>
 	
+	<!-- 맵 js -->
 	var positions = [];
 	
 		<c:forEach var="shop" items="${mapMarkers}" >
@@ -162,11 +170,25 @@
     }
     
     // 가게 상세 페이지 이동
-    // 세션 있을 경우
+    // 세션 없을 경우
     function shopDetail(shopNo) {
         location.href='shopDetail.dz?shopNo='+shopNo;
         
     } 		
+    
+	var count = 0;
+	//스크롤 바닥 감지
+	window.onscroll = function(e) {
+	    //추가되는 임시 콘텐츠
+	    //window height + window scrollY 값이 document height보다 클 경우,
+	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+	    	//실행할 로직 (콘텐츠 추가)
+	        count++;
+	        var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
+	        //article에 추가되는 콘텐츠를 append
+	        $('article').append(addContent);
+	    }
+	};
 			
 
 	
@@ -215,7 +237,7 @@
 									contentShopRightTop.append("<span id='shop-content'></span><br>");
 								}
 								contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>자세히 보기</button>");
 								contentShop.append(contentShopLeft);
 								contentShopRight.append(contentShopRightTop);
 								contentShopRight.append(contentShopRightBottom);
@@ -307,7 +329,7 @@
 								contentShopRightTop.append("<span id='shop-content'></span><br>");
 							}
 							contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-												  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>예약하기</button>");
+												  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>자세히 보기</button>");
 							contentShop.append(contentShopLeft);
 							contentShopRight.append(contentShopRightTop);
 							contentShopRight.append(contentShopRightBottom);

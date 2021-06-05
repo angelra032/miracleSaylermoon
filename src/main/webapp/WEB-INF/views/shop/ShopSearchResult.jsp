@@ -164,10 +164,10 @@
 													<span class="shopContent">${ newShop.drmReviewContent }</span> 
 												</c:when>
 												<c:when test="${ newShop.drmReviewContent eq 'EMPTY' }">
-													<c:if test="${ !empty newShop.drmReviewContent }">
+													<c:if test="${ !empty newShop.shopContent }">
 														<span class="shopContent">${ newShop.shopContent }</span> 
 													</c:if>
-													<c:if test="${ empty newShop.drmReviewContent }">
+													<c:if test="${ empty newShop.shopContent }">
 														<span class="shopContent">${ newShop.shopName }</span> 
 													</c:if>
 												</c:when>

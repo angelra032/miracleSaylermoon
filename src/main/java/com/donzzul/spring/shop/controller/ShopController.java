@@ -132,6 +132,14 @@ public class ShopController {
 		ArrayList<Shop> mapList = sService.selectShopMap(pi, selectedLocation);
 		ArrayList<Shop> mapMarkers = sService.selectShopMap(selectedLocation);
 		
+		ArrayList<DreamReview> reviewOneList = recentReviewOne(mapList);
+		
+		for(int i = 0; i < reviewOneList.size(); i++) {
+			String reviewContent = reviewOneList.get(i).getDrmReviewContent();
+			String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			mapList.get(i).setDrmReviewContent(changeCon);
+		}
+		
 		mv.addObject("pi",	pi);
 		mv.addObject("mList", mapList);
 		mv.addObject("mapMarkers", mapMarkers);
