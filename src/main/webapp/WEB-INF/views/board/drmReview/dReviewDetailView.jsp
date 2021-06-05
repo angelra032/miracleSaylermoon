@@ -39,10 +39,10 @@
             <div class="bottom-btn-area">
 			<c:if test="${ drmReview.userNo eq loginUser.userNo}">
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='dReviewUpdateForm.dz?drmRviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">수정하기</button>
+	                <button onclick="location.href='dReviewUpdateForm.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='dReviewDelete.dz?drmRviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">삭제하기</button>
+	                <button onclick="location.href='dReviewDelete.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">삭제하기</button>
 	            </div>
 	            <div class="user-back-btn-area">
 	                <button onclick="location.href='recommendMain.dz'" style="cursor: pointer;">목록으로</button>

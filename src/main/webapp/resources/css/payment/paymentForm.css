@@ -58,11 +58,12 @@ input[type=radio]{
 	#lay1 {
 		float: left;
 		width: 410px;
-		--height: 566px;
-		height: auto;
+		height: 566px;
+		--height: auto;
 		border: solid 1px #fdb504;
 		background-color: #ffffff;
 		margin-right: 20px;
+		--overflow: scroll;
 	}
 		.lay-title {
 			width: 410px;
@@ -74,7 +75,18 @@ input[type=radio]{
 			color: #fff;
 			line-height: 60px;
 			font-weight: 600;
-		}/* 
+		}
+		.lay1-content {
+			overflow: scroll;
+		    width: 100%;
+		    height: 506px;
+		}
+		
+		::-webkit-scrollbar {
+		  display: none;
+		}
+		
+		/* 
 	.title-span {
 		font-size:28px;
 		text-align:center;
@@ -114,6 +126,13 @@ input[type=radio]{
 			background: rgba(253, 181, 4, 0.3);
 			font-weight: bold;
 		}
+		/* 라벨 라스트 차일드 스판 보더 바텀 0 */
+		/* .menu-choice:last-child input[type=radio] + span{
+			border-bottom: 0;
+		}
+		.menu-choice input[type=radio] + span:last-child {
+			border-bottom: 0;
+		} */
 	
 	.lay2{
 		--border: 1px solid black; 

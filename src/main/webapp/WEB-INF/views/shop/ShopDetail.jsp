@@ -213,17 +213,17 @@
 								</ul>
 							</c:if>
 						
-							<!-- 회원 -->
+							<!— 회원 —>
 							<c:if test="${ !empty loginUser }">
-								<!-- 꿈나무회원 -->
+								<!— 꿈나무회원 —>
 								<c:if test="${ loginUser.userType == 1 }">
-									<ul>
+									<ul class="two-buttons-all">
 										<li><a href="${ reservation }" class="two-buttons">예약하기</a></li>
 										<li><a href="javascript:history.back();" class="two-buttons">목록으로</a></li>
 									</ul>
 								</c:if>
 								
-								<!-- mz -->
+								<!— mz —>
 								<c:if test="${ loginUser.userType == 2 }">
 									<ul>
 										<li><a href="${ reservation }">예약하기</a></li>
@@ -232,13 +232,14 @@
 									</ul>
 								</c:if>
 								
-								<!-- 사업자 -->
+								<!— 사업자 —>
 								<c:if test="${ loginUser.userType == 3 }">
-									<ul>
+									<ul class="one-button-all">
 										<li><a href="javascript:history.back();" class="one-button">목록으로</a></li>
 									</ul>
 								</c:if>
 							</c:if>
+
 						</div>
 					</div>
 				</div>
@@ -549,10 +550,15 @@
 							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
 							
 								if(data.rList[i].drmReviewPublicYN == "MZ"){
-									contentReviewRight.append("<span class='review-type'>맛집후기</span><br>");
+									contentReviewRight.append("<span class='review-type'>맛집후기</span>")
+									.append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 								}else{
-									contentReviewRight.append("<span class='review-type'>감사후기</span><br>");
+									contentReviewRight.append("<span class='review-type'>감사후기</span>")
+									.append("<a href='dReviewDetail.dz?drmReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 								}
+									/* if mz면 mReviewDetail.dz?mzReviewNo=103 | dream이면 dReviewDetail.dz?drmReviewNo=198 */
+									/* contentReviewRight.append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewTitle + "' class='review-detail'>더보기</a><br>"); */
+									
 									contentReviewRight.append("<div class='review-content'>" + data.rList[i].drmReviewContent + "</div><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
@@ -640,6 +646,7 @@
 							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.drList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
 												.append("<span class='review-type'>감사후기</span><br>")
+												.append("<a href='dReviewDetail.dz?drmReviewNo=" + data.drList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>")
 												.append("<div class='review-content'>" + data.drList[i].drmReviewContent + "</div><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
@@ -722,7 +729,8 @@
 						
 						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
-											.append("<span class='review-type'>맛집후기</span><br>")
+											.append("<span class='review-type'>맛집후기</span>")
+											.append("<a href='mReviewDetail.dz?mzReviewNo=" + data.mzList[i].mReviewNo + "' class='review-detail'>더보기</a><br>")
 											.append("<div class='review-content'>" + data.mzList[i].mReviewContent + "</div><br>");
 						contentReview.append(contentReviewLeft);
 						contentReview.append(contentReviewRight);

@@ -328,7 +328,7 @@ public class ShopController {
 		System.out.println("2. 해쉬 담음");
 		// startNum ~ endNum 범위에 해당하는 전체 review 조회
 		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
-		System.out.println("더보기 후기 - "+rList.toString());
+		System.out.println("더보기 전체 후기 - "+rList.toString());
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 		resultMap.put("rList", rList);
@@ -395,7 +395,7 @@ public class ShopController {
 			System.out.println("2. 해쉬 담음");
 			// startNum ~ endNum 범위에 해당하는 감사 review 조회
 			ArrayList<MzReview> mzList = mService.selectAllMzReview(searchParam);
-			System.out.println("더보기 감사 후기 - "+mzList.toString());
+			System.out.println("더보기 맛집 후기 - "+mzList.toString());
 			
 			HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 			resultMap.put("mzList", mzList);

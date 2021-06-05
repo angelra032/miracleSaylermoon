@@ -3,7 +3,7 @@ package com.donzzul.spring.dreamreview.domain;
 import java.sql.Date;
 
 public class DreamReview {
-	private int drmRviewNo;
+	private int drmReviewNo;
 	private String drmReviewTitle;
 	private String drmReviewContent;
 	private String drmReviewWriter;
@@ -24,11 +24,11 @@ public class DreamReview {
 		this.drmReviewContent = drmReviewContent;
 	}
 
-	public DreamReview(int drmRviewNo, String drmReviewTitle, String drmReviewContent, String drmReviewWriter,
+	public DreamReview(int drmReviewNo, String drmReviewTitle, String drmReviewContent, String drmReviewWriter,
 			Date drmReviewCreateDate, Date drmReviewUploadDate, String drmReviewPublicYN, String userType, int userNo,
 			int shopNo, String shopName, int drmRviewHit) {
 		super();
-		this.drmRviewNo = drmRviewNo;
+		this.drmReviewNo = drmReviewNo;
 		this.drmReviewTitle = drmReviewTitle;
 		this.drmReviewContent = drmReviewContent;
 		this.drmReviewWriter = drmReviewWriter;
@@ -42,12 +42,12 @@ public class DreamReview {
 		this.drmRviewHit = drmRviewHit;
 	}
 
-	public int getDrmRviewNo() {
-		return drmRviewNo;
+	public int getdrmReviewNo() {
+		return drmReviewNo;
 	}
 
-	public void setDrmRviewNo(int drmRviewNo) {
-		this.drmRviewNo = drmRviewNo;
+	public void setdrmReviewNo(int drmReviewNo) {
+		this.drmReviewNo = drmReviewNo;
 	}
 
 	public String getDrmReviewTitle() {
@@ -140,7 +140,7 @@ public class DreamReview {
 
 	@Override
 	public String toString() {
-		return "DreamReview [drmRviewNo=" + drmRviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent="
+		return "DreamReview [drmReviewNo=" + drmReviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent="
 				+ drmReviewContent + ", drmReviewWriter=" + drmReviewWriter + ", drmReviewCreateDate="
 				+ drmReviewCreateDate + ", drmReviewUploadDate=" + drmReviewUploadDate + ", drmReviewPublicYN="
 				+ drmReviewPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo

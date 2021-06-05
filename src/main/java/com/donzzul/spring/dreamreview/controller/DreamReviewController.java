@@ -73,21 +73,21 @@ public class DreamReviewController {
 	
 	// 디테일 selectOne
 	@RequestMapping(value="dReviewDetail.dz", method=RequestMethod.GET)
-	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmRviewNo") int drmRviewNo, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView dReviewDetailView(ModelAndView mv,@RequestParam("drmReviewNo") int drmReviewNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
+		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		int shopNo = sService.selectShopOne(drmReview.getShopNo()).getShopNo();
 		if(drmReview != null) {
 			if(drmReview.getDrmReviewPublicYN().equals("Y") || drmReview.getDrmReviewPublicYN().equals("y")) { // 게시글이 있고 공개상태
-				updateDrmHit(response, request, drmRviewNo);
+				updateDrmHit(response, request, drmReviewNo);
 				mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 			} else {
 				if(user == null) { // 게시글 비공개 - 로그인 안함
 					mv.setViewName("redirect:/loginView.dz");
 				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4") || drmReview.getShopName() == user.getPartnerName()) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
-					updateDrmHit(response, request, drmRviewNo);
+					updateDrmHit(response, request, drmReviewNo);
 					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 				} else {
 					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");
@@ -207,8 +207,8 @@ public class DreamReviewController {
 	// 삭제 delete
 	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="dReviewDelete.dz", method=RequestMethod.GET)
-	public String dReviewDelete(@RequestParam("drmRviewNo") int drmRviewNo, Model model) {
-		int result = drService.deleteDreamReview(drmRviewNo);
+	public String dReviewDelete(@RequestParam("drmReviewNo") int drmReviewNo, Model model) {
+		int result = drService.deleteDreamReview(drmReviewNo);
 		if(result > 0) {
 			return "redirect:dReviewMain.dz";
 		} else {
@@ -221,8 +221,8 @@ public class DreamReviewController {
 	
 	// 수정버튼누름
 	@RequestMapping(value="dReviewUpdateForm.dz", method=RequestMethod.GET)
-	public ModelAndView dReviewUpdateView(@RequestParam("drmRviewNo") int drmRviewNo, ModelAndView mv) {
-		DreamReview drmReview = drService.selectOneDreamReview(drmRviewNo);
+	public ModelAndView dReviewUpdateView(@RequestParam("drmReviewNo") int drmReviewNo, ModelAndView mv) {
+		DreamReview drmReview = drService.selectOneDreamReview(drmReviewNo);
 		System.out.println(drmReview.toString());
 		if(drmReview != null) {
 			mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewUpdateForm");
@@ -273,8 +273,8 @@ public class DreamReviewController {
 	// 마이페이지에서 메인에서 삭제 후 다시 그리기
 	@ResponseBody
 	@RequestMapping(value = "myPageMainReviewDelete.dz", method = RequestMethod.GET)
-	public ArrayList<DreamReview> drmMpMainReviewDelete(@RequestParam("drmRviewNo") int drmRviewNo, HttpSession session) {
-		int result = drService.deleteDreamReview(drmRviewNo);
+	public ArrayList<DreamReview> drmMpMainReviewDelete(@RequestParam("drmReviewNo") int drmReviewNo, HttpSession session) {
+		int result = drService.deleteDreamReview(drmReviewNo);
 
 		User user = (User) session.getAttribute("loginUser");
 		ArrayList<DreamReview> list = drService.drmRwUptoThree(user.getUserNo());
@@ -286,7 +286,7 @@ public class DreamReviewController {
 	
 	@ResponseBody
 	@RequestMapping(value="removeMyPageDrmReview.dz", method = RequestMethod.GET)
-	public HashMap<String, Object> removeMyPageDrmReview(@RequestParam("drmRviewNo") int drmRviewNo,
+	public HashMap<String, Object> removeMyPageDrmReview(@RequestParam("drmReviewNo") int drmReviewNo,
 														@RequestParam(value="page", required = false) Integer page,
 														HttpSession session){
 		User user = (User)session.getAttribute("loginUser");
@@ -295,7 +295,7 @@ public class DreamReviewController {
 		int listCount = drService.dreamGetListCount(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<DreamReview> list = drService.deleteAndSelectPick(drmRviewNo, userNo, pi);
+		ArrayList<DreamReview> list = drService.deleteAndSelectPick(drmReviewNo, userNo, pi);
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("pi",pi);
 		hashMap.put("list", list);

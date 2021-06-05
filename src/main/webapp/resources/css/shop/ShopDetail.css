@@ -97,7 +97,7 @@ a {
     
 .frame {
 	width: 1280px;
-	height: 1150px;
+	height: auto;
 	margin: 0 auto;
 	margin-top: 100px;
 	
@@ -260,9 +260,13 @@ a {
 						color: #ffffff;
 					}
 					
+				.two-buttons-all {
+					width: 420px;
+					display: block;
+					margin: 0 auto;
+				}
 					
 				.detail-right > .two-buttons {
-					width: 262px;
 					margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
 					border: solid 1px #e3e4e5;
 					float: left;
@@ -281,11 +285,17 @@ a {
 					.detail-right > .two-buttons a:hover {
 						color: #ffffff;
 					}
+				
+				.one-button-all {
+					width: 208px;
+					display: block;
+					margin: 0 auto;
+				}
 					
-				 .detail-right > .one-button {
+				/*  .detail-right > .one-button {
 				 	display: block;
 				 	align: center;
-				 }
+				 } */
 		
 		
 /* 예약후기 */					
@@ -429,6 +439,13 @@ a {
 					color: #fdb504;
 				}
 				
+				.review-detail {
+					width: auto;
+					float: right;
+					font-size: 14px;
+    				color: #888888;
+				}
+				
 				.review-content {
 					overflow: hidden;
 				    text-overflow: ellipsis;
@@ -540,7 +557,8 @@ a {
 #img-modal>img {
 	margin: auto;
 	display: block;
-	width: 50%;
+	width: auto;
+    max-height: 90%;
 }
 
 #img-modal>span {

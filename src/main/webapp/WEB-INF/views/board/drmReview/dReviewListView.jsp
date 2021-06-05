@@ -34,7 +34,7 @@
 		                <c:forEach items="${ drList }" var="drmReview" varStatus="status">
 		                <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 		                <c:if test="${ drmReview.drmReviewPublicYN eq 'y' or drmReview.drmReviewPublicYN eq 'Y' }">
-		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
+		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
 		                        <td>${ drmReview.drmReviewTitle }</td>
 		                        <td>${ drmReview.drmReviewWriter }</td>
@@ -43,7 +43,7 @@
 	                    	</tr>
 		                </c:if>
 		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n'}">
-		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmRviewNo}'" style="cursor: pointer;">
+		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
 		                        <c:if test="${ drmReview.userNo != sessionScope.loginUser.userNo && drmReview.shopName != sessionScope.loginUser.partnerName }">
 			                        <td>비공개글입니다</td>
