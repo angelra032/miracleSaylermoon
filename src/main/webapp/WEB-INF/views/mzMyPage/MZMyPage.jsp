@@ -200,7 +200,7 @@
 								<td><a class="table-link-title" href="mReviewDetail.dz?mzReviewNo=${ mzreviewList.mReviewNo }"><p>${ mzreviewList.mReviewTitle }</p></a></td>
 								<td>${ mzreviewList.shopName }</td>
 								<td>${ mzreviewList.mReviewUploadDate }</td>
-								<td><a class="modify-btn modify-btn-mzreview" href="#">수정</a></td>
+								<td><a class="modify-btn modify-btn-mzreview" href="mReviewUpdateView.dz?mReviewNo=${ mzreviewList.mReviewNo }">수정</a></td>
 								<td>
 									<a class="delete-btn delete-btn-mzreview" href="#">삭제</a>
 									<input type="hidden" class="mReviewNo" value="${ mzreviewList.mReviewNo }">
@@ -365,7 +365,8 @@
 						$('.pick-tbody').append(tr);
 					}
 				}else {
-					console.log("전송실패1");
+					console.log("전송실패");
+					
 				}
 				
 			},//end of success
@@ -390,7 +391,7 @@
 						var reviewTitle = $("<td>").append("<a class='table-link-title' href='mReviewDetail.dz?mzReviewNo="+data[i].mReviewNo+"'><p>"+data[i].mReviewTitle+"</p></a>");
 						var shopName = $("<td>").html(data[i].shopName);
 						var uploadDate = $("<td>").html(data[i].mReviewUploadDate);
-						var modifyBtn = $("<td><a class='modify-btn modify-btn-mzreview' href='#'>수정</a></td>");
+						var modifyBtn = $("<td><a class='modify-btn modify-btn-mzreview' href='mReviewUpdateView.dz?mReviewNo="+data[i].mReviewNo+"'>수정</a></td>");
 						var td = $("<td>");
 						var deleteBtn = $("<a class='delete-btn delete-btn-mzreview' href='#'>삭제</a>");
 						var hiddenNo = $("<input type='hidden' class='mReviewNo' value='"+data[i].mReviewNo+"'>");
@@ -407,7 +408,10 @@
 						$('.mzreview-tbody').append(tr);
 					}
 				}else { // 남은 데이터 없을때
-					console.log("전송실패1");
+					$('.mzreview-tbody').empty();
+					var tr = $("<tr>");
+					var td = $("<td colspan='6'>후기 내역이 없습니다.</td>");
+					tr.append(td);
 				}
 			}, //end of success
 			error : function() {

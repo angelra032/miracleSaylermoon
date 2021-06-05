@@ -11,6 +11,7 @@ import com.donzzul.spring.shop.domain.Shop;
 public interface MzReviewStore {
 	public ArrayList<MzReview> selectAllReview();
 	public ArrayList<MzReview> selectAllReview(PageInfo pi);
+	public ArrayList<MzReview> selectAllReviewToMyPage(int userNo, PageInfo pi);
 	public MzReview selectOneReview(int mzReviewNo);
 	public int insertMzReview(MzReview mzReview);
 	public int updateMzReview(MzReview mzReview);

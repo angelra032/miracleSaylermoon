@@ -249,4 +249,28 @@ public class MZMyPageController {
 	
 	// 후기 삭제는 MzReviewController.java
 	
+	
+	// 후기 전체 목록 보기
+	@RequestMapping(value ="printMZReviewAllListToMyPage.dz", method = RequestMethod.GET)
+	public ModelAndView printMZReviewAllListToMyPage(HttpSession session, ModelAndView mv, Model model, @RequestParam(value="page", required = false) Integer page) {
+		
+		User loginUser = (User)session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
+		
+		int currentPage = (page != null) ? page : 1;
+		int listCount = mService.getListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+
+		ArrayList<MzReview> mList = mService.selectAllReviewToMyPage(userNo, pi);
+		System.out.println(mList.toString());
+		if(!mList.isEmpty()) {
+			mv.addObject("mList", mList).addObject("pi", pi);
+		} else {
+			mv.addObject("msg", "게시글이 없습니다");
+		}
+		mv.setViewName("board/mzMyPage/MZReviewList");
+		return mv;
+		
+	}
+	
 }

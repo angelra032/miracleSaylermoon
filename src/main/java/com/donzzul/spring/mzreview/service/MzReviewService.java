@@ -13,6 +13,7 @@ public interface MzReviewService {
 	// 리스트, 디테일, 추가, 수정, 삭제 (이후 페이징)
 	public ArrayList<MzReview> selectAllReview();
 	public ArrayList<MzReview> selectAllReview(PageInfo pi);
+	public ArrayList<MzReview> selectAllReviewToMyPage(int userNo, PageInfo pi);
 	public MzReview selectOneReview(int mzReviewNo);
 	public int insertMzReview(MzReview mzReview, Reservation reservation);
 	public int updateMzReview(MzReview mzReview);
