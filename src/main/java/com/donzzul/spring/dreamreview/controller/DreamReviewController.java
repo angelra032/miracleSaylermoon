@@ -283,12 +283,12 @@ public class DreamReviewController {
 	}
 	
 	// 마이페이지 상세페이지에서 삭제 후 다시 그리기
-	
 	@ResponseBody
 	@RequestMapping(value="removeMyPageDrmReview.dz", method = RequestMethod.GET)
 	public HashMap<String, Object> removeMyPageDrmReview(@RequestParam("drmRviewNo") int drmRviewNo,
 														@RequestParam(value="page", required = false) Integer page,
 														HttpSession session){
+		System.out.println("컨트롤러에는 들어왔니?!");
 		User user = (User)session.getAttribute("loginUser");
 		int userNo = user.getUserNo();
 		int currentPage = (page != null) ? page : 1;
@@ -299,8 +299,8 @@ public class DreamReviewController {
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		hashMap.put("pi",pi);
 		hashMap.put("list", list);
-		System.out.println(list.toString());
 		
+		System.out.println(list.toString());
 		return hashMap;
 	}
 	

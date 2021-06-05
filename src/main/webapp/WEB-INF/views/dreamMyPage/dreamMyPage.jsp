@@ -195,7 +195,7 @@
 								<tr>
 									<td>${status.count }</td>
 									<td><a class="table-link-title" href="#"><p>${ qna.qnaTitle}${qna.qnaNo }</p></a></td>
-									<td class="qnaDate1">${ qna.qanCreateDate }</td>
+									<td class="qnaDate1">${ qna.qanUploadDate }</td>
 									<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
 									<td><input type="hidden" value="${qna.qnaNo }"><a class="qDeleteBtn delete-btn" href="#">삭제</a></td>
 								</tr>
@@ -307,19 +307,18 @@
 			success : function(data){
 				$(".qTbody").empty();
 				for(var i in data){
-					var dateResult = data[i].qanCreateDate.substr(0,10);
-					
+					var dateResult = data[i].qanUploadDate.substr(0,10);
 					
 					var tr = $("<tr>");
 					var count = $("<td>").html(Number(i)+1);
 					var qnaTitle = $("<td>").append("<a class='table-link-title' href='qaDetail.dz?qnaNo="+data[i].qnaNo+"'><p>"+data[i].qnaTitle+data[i].qnaNo+"</p></a>");
-					var dateResult = $("<td class='qnaDate1'>").html(dateResult);
+					var date = $("<td class='qnaDate1'>").html(dateResult);
 					var modifyBtn = $("<td>").append("<a class='modify-btn' href='qaUpdateForm.dz?qnaNo='"+data[i].qnaNo+">수정</a>");
 					var qDeleteBtn = $("<td>").append("<input type='hidden' value="+data[i].qnaNo+"><a class='qDeleteBtn delete-btn' href='#'>삭제</a>");
 					
 					tr.append(count);
 					tr.append(qnaTitle);
-					tr.append(dateResult);
+					tr.append(date);
 					tr.append(modifyBtn);
 					tr.append(qDeleteBtn);
 					

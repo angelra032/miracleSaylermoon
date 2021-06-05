@@ -46,7 +46,7 @@
 							<td><a class="modify-btn" href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
 							<td><a class="delete-btn" href="#">삭제</a>
 							<input type="hidden" class="drmRviewNo" value="${ dreamreview.drmRviewNo}">
-							<input type="hidden" class="page-ajax" vlaue="${ pi.currentPage }">
+							<input type="hidden" class="page-ajax" value="${ pi.currentPage }">
 							</td>
 						</tr>
 					</c:forEach>
@@ -124,23 +124,24 @@
 		$.ajax({
 			url : "removeMyPageDrmReview.dz",
 			data : {"drmRviewNo" : drmRviewNo , "page" : page},
-			type : 'GET',
+			type : "GET",
 			success : function(data){
 				if(data != null){
+					console.log(data);
 					$('tbody').empty();
 					$('paging-navi').empty();
 					for(var i in data.list){
-						var dateResult = list[i].drmReviewUploadDate.substr(0,10);
+						var dateResult = data.list[i].drmReviewUploadDate.substr(0,10);
 						
 						var tr = $("<tr>");
 						var count = $("<td>").html(Number(i)+1);
-						var drmReviewTitle = $("<td>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+list[i].drmRviewNo+"'><p>"+data[i].drmReviewTitle+"</p></a>");
-						var shopName = $("<td>").html(list[i].shopName);
+						var drmReviewTitle = $("<td>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+data.list[i].drmRviewNo+"'><p>"+data.list[i].drmReviewTitle+"</p></a>");
+						var shopName = $("<td>").html(data.list[i].shopName);
 						var date = $("<td class='drmDate'>").html(dateResult);
-						var modifybtn = $("<td>").append("<a class='modify-btn' href='dReviewUpdateForm.dz?drmRviewNo"+list[i].drmRviewNo+">수정</a>");
+						var modifybtn = $("<td>").append("<a class='modify-btn' href='dReviewUpdateForm.dz?drmRviewNo"+data.list[i].drmRviewNo+"'>수정</a>");
 						var deletebtn = $("<td>").append("<a class='delete-btn' href=''#'>삭제</a>");
-						var hiddenNo = $("<input type='hidden' class='drmRviewNo' value='"+list[i].drmRviewNo+"'>");
-						var page = $("<input type='hidden' class='page-ajax' vlaue='"+ list.pi.currentPage + "'>");
+						var hiddenNo = $("<input type='hidden' class='drmRviewNo' value='"+data.list[i].drmRviewNo+"'>");
+						var page = $("<input type='hidden' class='page-ajax' vlaue='"+ data.pi.currentPage + "'>");
 						var td = $("</td>")
 						
 						tr.append(count);
