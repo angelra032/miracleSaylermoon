@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <link rel="stylesheet" href="resources/css/board/common/detailView.css">
 <title>감사후기</title>
 </head>
