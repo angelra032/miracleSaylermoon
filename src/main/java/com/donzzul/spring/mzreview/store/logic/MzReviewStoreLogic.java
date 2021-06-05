@@ -108,4 +108,12 @@ public class MzReviewStoreLogic implements MzReviewStore {
 		return sqlSession.update("mzReviewMapper.updateHit", mzReviewNo);
 	}
 
+	// mz마이페이지에 전체목록 출력 
+	@Override
+	public ArrayList<MzReview> selectAllReviewToMyPage(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectAllReviewToMyPage", userNo, rowBounds);
+	}
+
 }

@@ -111,6 +111,12 @@ public class MzReviewServiceImpl implements MzReviewService {
 		return mStore.updateHit(mzReviewNo);
 	}
 
+	// mz마이페이지에 전체목록 출력 
+	@Override
+	public ArrayList<MzReview> selectAllReviewToMyPage(int userNo, PageInfo pi) {
+		return mStore.selectAllReviewToMyPage(userNo, pi);
+	}
+
 
 	
 }
