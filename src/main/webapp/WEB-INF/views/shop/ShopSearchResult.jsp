@@ -92,21 +92,21 @@
 										<span id="shop-type">${ search.shopType }</span><br><br>
 										<span>${ search.shopShortAddr }</span><br>
 										<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<c:choose>
-											<c:when test="${ search.shopContent != null }">
-												<span class="shopContent">${ search.shopContent }</span> 
-											</c:when>
-											<c:when test="${ search.shopContent == null }">
-												<c:forEach var="reviewOne" items="${ reviewOneList }">
-													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
-														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+										<div class="shopDetailShort">
+											<c:choose>
+												<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
+													<span class="shopContent">${ search.drmReviewContent }</span> 
+												</c:when>
+												<c:when test="${ search.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ !empty search.shopContent }">
+														<span class="shopContent">${ search.shopContent }</span> 
 													</c:if>
-													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ empty search.shopContent }">
 														<span class="shopContent">${ search.shopName }</span> 
 													</c:if>
-												</c:forEach>
-											</c:when>
-										</c:choose>
+												</c:when>
+											</c:choose>
+										</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -125,21 +125,21 @@
 										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
 										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<c:choose>
-											<c:when test="${ reviewShop.shopContent != null }">
-												<span class="shopContent">${ reviewShop.shopContent }</span> 
-											</c:when>
-											<c:when test="${ reviewShop.shopContent == null }">
-												<c:forEach var="reviewOne" items="${ reviewOneList }">
-													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
-														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+										<div class="shopDetailShort">
+											<c:choose>
+												<c:when test="${ reviewShop.drmReviewContent ne 'EMPTY' }">
+													<span class="shopContent">${ reviewShop.drmReviewContent }</span> 
+												</c:when>
+												<c:when test="${ reviewShop.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ !empty reviewShop.drmReviewContent }">
+														<span class="shopContent">${ reviewShop.shopContent }</span> 
 													</c:if>
-													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ empty reviewShop.drmReviewContent }">
 														<span class="shopContent">${ reviewShop.shopName }</span> 
 													</c:if>
-												</c:forEach>
-											</c:when>
-										</c:choose>
+												</c:when>
+											</c:choose>
+										</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -158,21 +158,21 @@
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
 										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<c:choose>
-											<c:when test="${ newShop.shopContent != null }">
-												<span class="shopContent">${ newShop.shopContent }</span> 
-											</c:when>
-											<c:when test="${ newShop.shopContent == null }">
-												<c:forEach var="reviewOne" items="${ reviewOneList }">
-													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
-														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+										<div class="shopDetailShort">
+											<c:choose>
+												<c:when test="${ newShop.drmReviewContent ne 'EMPTY' }">
+													<span class="shopContent">${ newShop.drmReviewContent }</span> 
+												</c:when>
+												<c:when test="${ newShop.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ !empty newShop.drmReviewContent }">
+														<span class="shopContent">${ newShop.shopContent }</span> 
 													</c:if>
-													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ empty newShop.drmReviewContent }">
 														<span class="shopContent">${ newShop.shopName }</span> 
 													</c:if>
-												</c:forEach>
-											</c:when>
-										</c:choose>
+												</c:when>
+											</c:choose>
+										</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -188,21 +188,21 @@
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
 										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<c:choose>
-											<c:when test="${ themeShop.shopContent != null }">
-												<span class="shopContent">${ themeShop.shopContent }</span> 
-											</c:when>
-											<c:when test="${ themeShop.shopContent == null }">
-												<c:forEach var="reviewOne" items="${ reviewOneList }">
-													<c:if test="${ reviewOne.drmReviewContent ne 'EMPTY' }">
-														<span class="shopContent">${ reviewOne.drmReviewContent }</span> 
+										<div class="shopDetailShort">
+											<c:choose>
+												<c:when test="${ themeShop.drmReviewContent ne 'EMPTY' }">
+													<span class="shopContent">${ themeShop.drmReviewContent }</span> 
+												</c:when>
+												<c:when test="${ themeShop.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ !empty themeShop.shopContent }">
+														<span class="shopContent">${ themeShop.shopContent }</span> 
 													</c:if>
-													<c:if test="${ reviewOne.drmReviewContent eq 'EMPTY' }">
+													<c:if test="${ empty themeShop.shopContent }">
 														<span class="shopContent">${ themeShop.shopName }</span> 
 													</c:if>
-												</c:forEach>
-											</c:when>
-										</c:choose>
+												</c:when>
+											</c:choose>
+										</div>
 									</div>
 								</div>
 							</c:forEach>

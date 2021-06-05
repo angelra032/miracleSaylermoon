@@ -187,8 +187,16 @@ public class ShopController {
 		if(themeNo == 1) {
 			
 			ArrayList<Integer> sRank = drService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
-			
 			ArrayList<Shop> rankList = sService.selectShopRank(sRank); // 가게번호 이용하여 가게 정보 가져오기 
+			System.out.println("rankList = " + rankList);
+			ArrayList<DreamReview> reviewOneList = recentReviewOne(rankList); // 최신후기 한 개 가져오기
+			
+			// 최신후기 shopList 에 담기
+			for(int i = 0; i < reviewOneList.size(); i++) {
+				String reviewContent = reviewOneList.get(i).getDrmReviewContent();
+				String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+				rankList.get(i).setDrmReviewContent(changeCon);
+			}
 			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
@@ -197,7 +205,16 @@ public class ShopController {
 		} else if(themeNo == 3) {
 			
 			ArrayList<Shop> newSList = sService.selectNewShop();
-			System.out.println("신규가게 : " + newSList); // 확인용
+			ArrayList<DreamReview> reviewOneList = recentReviewOne(newSList); // 최신후기 한 개 가져오기
+			
+			// 최신후기 shopList 에 담기
+			for(int i = 0; i < reviewOneList.size(); i++) {
+				String reviewContent = reviewOneList.get(i).getDrmReviewContent();
+				String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+				newSList.get(i).setDrmReviewContent(changeCon);
+			}
+			
+			System.out.println("신규가게 : " + newSList.toString()); // 확인용
 			
 			mv.addObject("newSList", newSList);
 			mv.addObject("themeNo", themeNo);
@@ -234,23 +251,26 @@ public class ShopController {
 				PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
 				ArrayList<Shop> themeList = sService.selectShopTheme(pi, selectedtheme);
 				
-				// 최신후기 한 개 가져오기
-				ArrayList<DreamReview> reviewOneList = drService.selectDMReviewOne(themeList);
-				System.out.println("가게별 후기 : " + reviewOneList.toString()); // 가게별 후기 한 개씩
+				ArrayList<DreamReview> reviewOneList = recentReviewOne(themeList); // 최신후기 한 개 가져오기
 				
-				System.out.println("테마리스트 : " + themeList); // 확인용
+				// 최신후기 shopList 에 담기
+				for(int i = 0; i < reviewOneList.size(); i++) {
+					String reviewContent = reviewOneList.get(i).getDrmReviewContent();
+					String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+					themeList.get(i).setDrmReviewContent(changeCon);
+				}
+				
+				System.out.println("테마리스트 : " + themeList.toString()); // 확인용
 				
 				mv.addObject("pi", pi);
 				mv.addObject("themeNo", themeNo);
 				mv.addObject("themeList", themeList);
-				mv.addObject("reviewOneList", reviewOneList);
 				mv.setViewName("shop/ShopSearchResult");
 				
 		}
 		
 		return mv;
 	}
-	
 	
 	//D 가게검색 - 키워드 
 	@RequestMapping(value="searchShop.dz", method=RequestMethod.GET)
@@ -265,12 +285,31 @@ public class ShopController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
 		ArrayList<Shop> searchList = sService.searchShop(pi, searchedKey);
 		
+		ArrayList<DreamReview> reviewOneList = recentReviewOne(searchList);
+		
+		for(int i = 0; i < reviewOneList.size(); i++) {
+			String reviewContent = reviewOneList.get(i).getDrmReviewContent();
+			String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			searchList.get(i).setDrmReviewContent(changeCon);
+		}
+		
+		System.out.println("테마리스트 : " + searchList.toString()); // 확인용
+		
+		
 		mv.addObject("pi", pi);
 		mv.addObject("sList", searchList);
 		mv.addObject("searchKeyword", searchKeyword);
 		mv.setViewName("shop/ShopSearchResult");
 		
 		return mv;
+	}
+	
+	// 최신후기 한 개 가져오기
+	public ArrayList<DreamReview> recentReviewOne(ArrayList<Shop> themeList) {
+		ArrayList<DreamReview> reviewOneList = drService.selectDMReviewOne(themeList);
+		System.out.println("가게별 후기 : " + reviewOneList.toString()); // 가게별 후기 한 개씩
+		
+		return reviewOneList;
 	}
 	
 	//D 가게 상세 페이지 출력
