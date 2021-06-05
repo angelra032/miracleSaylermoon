@@ -29,9 +29,21 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM RECOMMEND_BOARD
 	</select>
+
+	<select id="selectListCountToMyPage" resultType="_int">
+		SELECT COUNT(*) FROM RECOMMEND_BOARD WHERE USER_NO = #{ userNo }
+	</select>
 	
 	<select id="selectAllList" resultMap="recommendResultMap">
 		SELECT * FROM RECOMMEND_BOARD ORDER BY RECOMMEND_NO DESC
+	</select>
+
+	<select id="selectAllRecommendToMyPage" resultMap="recommendResultMap">
+		SELECT ROW_NUMBER() OVER (ORDER BY RECOMMEND_UPLOAD_DATE DESC) AS NUM, RECOMMEND_NO, RECOMMEND_TITLE, RECOMMEND_UPLOAD_DATE FROM RECOMMEND_BOARD WHERE USER_NO = #{userNo} ORDER BY RECOMMEND_UPLOAD_DATE DESC
+	</select>
+
+	<select id="selectThreeRecommendToMyPage" resultMap="recommendResultMap">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RECOMMEND_UPLOAD_DATE DESC) AS NUM, RECOMMEND_NO, RECOMMEND_TITLE, RECOMMEND_UPLOAD_DATE FROM RECOMMEND_BOARD WHERE USER_NO = #{userNo} ORDER BY RECOMMEND_UPLOAD_DATE DESC) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
 	<select id="selectOneDetail" resultMap="recommendResultMap">

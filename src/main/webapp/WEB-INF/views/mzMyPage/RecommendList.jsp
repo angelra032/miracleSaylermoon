@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">내가 쓴 후기</div>
+		<div id="main-title">내가 쓴 추천</div>
 		<div class="frame">
 			<div class="my-info">
 				<div class="info-btn-frame">
@@ -19,45 +19,43 @@
 				</div>
 			</div>
 		</div>
-		<div class="my-list review-list w-list">
+		<div class="my-list recommend-list w-list">
 			<div class="frame">
-				<table id="review-list-table">
+				<table id="recommend-list-table">
 					<thead>
 						<tr>
 							<th>No</th>
 							<th>제목</th>
-							<th>가게이름</th>
 							<th>작성날짜</th>
 							<th>수정</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<c:if test="${ !empty mList }">
-					<tbody class="mzreview-tbody">
-					<c:forEach items="${mList }" var="mzreviewList" varStatus="status">
+					<tbody class="recommend-tbody">
+					<c:if test="${ !empty reList }">
+					<c:forEach items="${reList }" var="recommendList" varStatus="status">
 						<tr>
 							<td>${status.count}</td>
-								<td><a class="table-link-title" href="mReviewDetail.dz?mzReviewNo=${ mzreviewList.mReviewNo }"><p>${ mzreviewList.mReviewTitle }</p></a></td>
-								<td>${ mzreviewList.shopName }</td>
-								<td>${ mzreviewList.mReviewUploadDate }</td>
-								<td><a class="modify-btn modify-btn-mzreview" href="mReviewUpdateView.dz?mReviewNo=${ mzreviewList.mReviewNo }">수정</a></td>
-								<td>
-									<a class="delete-btn delete-btn-mzreview" href="#">삭제</a>
-									<input type="hidden" class="mReviewNo" value="${ mzreviewList.mReviewNo }">
-									<input type="hidden" class="page-ajax" value="${ pi.currentPage }">
-								</td>
+							<td><a class="table-link-title" href="recommendDetail.dz?recommendNo=${ recommendList.recommendNo }"><p>${ recommendList.recommendTitle }</p></a></td>
+							<td>${ recommendList.recommendUploadDate }</td>
+							<td><a class="modify-btn" href="recommendUpdateForm.dz?recommendNo=${ recommendList.recommendNo }">수정</a></td>
+							<td>
+								<a class="delete-btn delete-btn-recommend" href="#">삭제</a>
+								<input type="hidden" class="recommendNo" value="${ recommendList.recommendNo }">
+								<input type="hidden" class="page-ajax" value="${ pi.currentPage }">
+							</td>
 						</tr>
 					</c:forEach>
+				</c:if>
 					</tbody>
-				
 				
 						<!-- 페이징 처리 -->
 						<tbody class="paging-navi">
-							
+						<c:if test="${ !empty reList }">	
 						<tr align="center" height="20">
-							<td colspan="6">
+							<td colspan="5">
 								<!-- 이전 -->
-								<c:url var="before" value="printMZReviewAllListToMyPage.dz">
+								<c:url var="before" value="printRecommendAllListToMyPage.dz">
 									<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								</c:url>
 								<c:if test="${pi.currentPage <= 1 }">
@@ -68,7 +66,7 @@
 								</c:if>
 								<!-- 페이지 -->
 								<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-									<c:url var="pagination" value="printMZReviewAllListToMyPage.dz">
+									<c:url var="pagination" value="printRecommendAllListToMyPage.dz">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<c:if test="${p eq pi.currentPage }">
@@ -79,7 +77,7 @@
 									</c:if>
 								</c:forEach>
 								<!-- 다음 -->
-								<c:url var="after" value="printMZReviewAllListToMyPage.dz">
+								<c:url var="after" value="printRecommendAllListToMyPage.dz">
 									<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								</c:url>
 								<c:if  test="${pi.currentPage >= pi.maxPage }">
@@ -90,6 +88,11 @@
 								</c:if>
 							</td>
 						</tr> 
+						</c:if>
+						<c:if test="${ empty reList }">
+							<tr>
+								<td colspan="5">${ REmsg }</td>
+							</tr>
 						</c:if>
 					</tbody>
 				</table>
@@ -103,27 +106,28 @@
 	    ignore.preventDefault();
 	});
 	
-	// 내가쓴후기 삭제 aJax
-	$(document).on('click','.delete-btn-mzreview', function() {
-		var mReviewNo = $(this).next().val();
+	// 내가쓴추천 삭제 aJax
+	$(document).on('click','.delete-btn-recommend', function() {
+		var recommendNo = $(this).next().val();
 		var page = $(this).next().next().val();
 		$.ajax({
-			url : "mReviewDelete.dz",
-			data : { "mReviewNo" : mReviewNo },
+			url : "recommendDelete.dz",
+			data : { "recommendNo" : recommendNo },
 			success : function(data){ 
 				if(data == "success"){
-					reloadReviewList();
-				}else { // 남은 데이터 없을때
-					alert("삭제 실패했습니다");
+					reloadRecommendList();
+				} else if(result == "fail") {
+					alert('추천삭제가 실패했습니다');
 				}
-			}, //end of success
+			},//end of success
 			error : function() {
 				console.log("전송실패");
 			}
-		});//end of ajax
+		});
 		
-		function reloadReviewList() {
-			$("#review-list-table").load("printMZReviewAllListToMyPage.dz?page="+page+" #review-list-table");
+		// 리로드
+		function reloadRecommendList() {
+			$("#recommend-list-table").load("printRecommendAllListToMyPage.dz?page="+page+" #recommend-list-table");
 			// $("특정 #id").load("해당페이지주소  특정#id") 
 		}
 	});

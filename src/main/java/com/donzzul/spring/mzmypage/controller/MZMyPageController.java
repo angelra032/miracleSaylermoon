@@ -21,10 +21,14 @@ import com.donzzul.spring.common.PageInfo;
 import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.service.MzReviewService;
+import com.donzzul.spring.notiqna.domain.Qna;
+import com.donzzul.spring.notiqna.service.QnaService;
 import com.donzzul.spring.payment.domain.Don;
 import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.pick.domain.Pick;
 import com.donzzul.spring.pick.service.PickService;
+import com.donzzul.spring.recommendboard.domain.RecommendBoard;
+import com.donzzul.spring.recommendboard.service.RecommendBoardService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
 import com.donzzul.spring.user.domain.User;
@@ -43,6 +47,12 @@ public class MZMyPageController {
 	
     @Autowired
     private MzReviewService mService;
+
+    @Autowired
+    private RecommendBoardService reService;
+
+    @Autowired
+    private QnaService qService;
     
 	// (민애) mz마이페이지 메인뷰
   	@RequestMapping(value = "mzMyPage.dz")
@@ -61,6 +71,11 @@ public class MZMyPageController {
 		ArrayList<Don> dList = pService.selectDonListThree(userNo);
 		// 내가 쓴 후기 목록
 		ArrayList<MzReview> mList = mService.selectThreeReviewToMyPage(userNo);
+		// 내가 쓴 추천 목록
+		ArrayList<RecommendBoard> reList = reService.selectThreeRecommendToMyPage(userNo);
+		// 내가 쓴 문의글 목록
+		//ArrayList<Qna> qList = qService.selectThreeRecommendToMyPage(userNo);
+		
 		
 		if(userPoint != null || !rList.isEmpty() || !pList.isEmpty() || !dList.isEmpty() || !mList.isEmpty()) {
 			model.addAttribute("userPoint", userPoint.getUserPoint());
@@ -68,18 +83,21 @@ public class MZMyPageController {
 			model.addAttribute("pList", pList);
 			model.addAttribute("dList", dList);
 			model.addAttribute("mList", mList);
+			model.addAttribute("reList", reList);
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
-			model.addAttribute("Mmsg", "후기 내역이 없습니다.");
+			model.addAttribute("Mmsg", "후기글이 없습니다.");
+			model.addAttribute("REmsg", "추천글이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
-			model.addAttribute("Mmsg", "후기 내역이 없습니다.");
+			model.addAttribute("Mmsg", "후기글이 없습니다.");
+			model.addAttribute("REmsg", "추천글이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}
   	} // end of MZMyPageView
@@ -258,9 +276,9 @@ public class MZMyPageController {
 		int userNo = loginUser.getUserNo();
 		
 		int currentPage = (page != null) ? page : 1;
-		int listCount = mService.getListCount();
+		int listCount = mService.getListCountToMyPage(userNo);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-
+		System.out.println(pi.getEndPage());
 		ArrayList<MzReview> mList = mService.selectAllReviewToMyPage(userNo, pi);
 		System.out.println(mList.toString());
 		if(!mList.isEmpty()) {
@@ -268,9 +286,31 @@ public class MZMyPageController {
 		} else {
 			mv.addObject("msg", "게시글이 없습니다");
 		}
-		mv.setViewName("board/mzMyPage/MZReviewList");
+		mv.setViewName("mzMyPage/MZReviewList");
 		return mv;
 		
 	}
+	
+	// 추천 전체 목록 보기
+		@RequestMapping(value ="printRecommendAllListToMyPage.dz", method = RequestMethod.GET)
+		public ModelAndView printRecommendAllListToMyPage(HttpSession session, ModelAndView mv, Model model, @RequestParam(value="page", required = false) Integer page) {
+			
+			User loginUser = (User)session.getAttribute("loginUser");
+			int userNo = loginUser.getUserNo();
+			
+			int currentPage = (page != null) ? page : 1;
+			int listCount = reService.getListCountToMyPage(userNo);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			System.out.println(pi.getEndPage());
+			ArrayList<RecommendBoard> reList = reService.selectAllRecommendToMyPage(userNo, pi);
+			if(!reList.isEmpty()) {
+				mv.addObject("reList", reList).addObject("pi", pi);
+			} else {
+				mv.addObject("msg", "게시글이 없습니다");
+			}
+			mv.setViewName("mzMyPage/RecommendList");
+			return mv;
+			
+		}
 	
 }

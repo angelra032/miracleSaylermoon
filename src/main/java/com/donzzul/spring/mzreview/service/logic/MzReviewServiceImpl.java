@@ -117,6 +117,12 @@ public class MzReviewServiceImpl implements MzReviewService {
 		return mStore.selectAllReviewToMyPage(userNo, pi);
 	}
 
+	// MZ마이페이지 페이징
+	@Override
+	public int getListCountToMyPage(int userNo) {
+		return mStore.getListCountToMyPage(userNo);
+	}
+
 
 	
 }

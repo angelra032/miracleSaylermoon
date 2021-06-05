@@ -134,7 +134,7 @@ public class RecommendBoardController {
 		}
 	}
 	
-	// 감사후기 글쓰기버튼으로 들어옴 
+	// 글쓰기버튼으로 들어옴 
 	@RequestMapping(value="recommendWriteView.dz", method=RequestMethod.GET)
 	public String recommendWriteView() {
 		return "board/recommend/recommendInsertForm";
@@ -280,7 +280,7 @@ public class RecommendBoardController {
 	}
 
 	// 삭제 delete
-	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
+	@ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="recommendDelete.dz", method=RequestMethod.GET)
 	public String recommendDelete(@RequestParam("recommendNo") int recommendNo, Model model) {
 		ArrayList<RecommendPhoto> PhotoList = reService.selectPhoto(recommendNo);
@@ -291,10 +291,9 @@ public class RecommendBoardController {
 				String recommendFilePath = PhotoList.get(i).getRecommendFilePath();
 				fileDelete(recommendRename, recommendFilePath);
 			}
-			return "redirect:recommendMain.dz";
+			return "success";
 		} else {
-			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
-			return "common/errorPage";
+			return "fail";
 		}
 	}
 	

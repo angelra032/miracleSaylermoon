@@ -18,6 +18,7 @@ public interface MzReviewStore {
 	public int deleteMzReview(int mzReviewNo);
 	public ArrayList<MzReview> selectAllMzReview(int shopNo);
 	public int getListCount();
+	public int getListCountToMyPage(int userNo);
 	public ArrayList<MzReview> selectThreeReview();
 	public ArrayList<MzReview> selectThreeReviewToMyPage(int userNo);
 	public int updateHit(int mzReviewNo);

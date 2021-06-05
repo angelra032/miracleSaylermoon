@@ -29,10 +29,29 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("recommendMapper.selectAllList", null, rowBounds);
 	}
+	
+	// mz마이페이지에 세개 출력
+	@Override
+	public ArrayList<RecommendBoard> selectThreeRecommendToMyPage(int userNo) {
+		ArrayList<RecommendBoard> result = (ArrayList)sqlSession.selectList("recommendMapper.selectThreeRecommendToMyPage", userNo);
+		return result;
+	}
+	@Override
+	public ArrayList<RecommendBoard> selectAllRecommendToMyPage(int userNo, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("recommendMapper.selectAllRecommendToMyPage", userNo, rowBounds);
+	}
 
 	@Override
 	public int getListCount() {
 		return sqlSession.selectOne("recommendMapper.selectListCount");
+	}
+	
+	// 마이페이지용
+	@Override
+	public int getListCountToMyPage(int userNo) {
+		return sqlSession.selectOne("recommendMapper.selectListCountToMyPage", userNo);
 	}
 
 	@Override
@@ -79,6 +98,9 @@ public class RecommendBoardStoreLogic implements RecommendBoardStore {
 		return sqlSession.update("recommendMapper.updateHit", recommendNo);
 	}
 
+	
+
+	
 
 
 

@@ -29,6 +29,10 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM MZ_REVIEW
 	</select>
+
+	<select id="selectListCountToMyPage" resultType="_int">
+		SELECT COUNT(*) FROM MZ_REVIEW WHERE USER_NO = #{userNo}
+	</select>
 	
 	<select id="selectAllList" resultMap="mzReviewResultMap">
 		SELECT * FROM MZ_REVIEW ORDER BY MZREVIEW_NO DESC

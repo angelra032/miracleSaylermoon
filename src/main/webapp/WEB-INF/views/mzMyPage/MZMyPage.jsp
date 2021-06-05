@@ -141,7 +141,9 @@
 				<div class="my-title">
 					<span>돈쭐 목록</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="printDonAllList.dz">더보기</a>
+						<c:if test="${ !empty dList }">
+							<a class="more-btn b-btn" href="printDonAllList.dz">더보기</a>
+						</c:if>
 					</div>
 				</div>
 				<table>
@@ -178,7 +180,9 @@
 				<div class="my-title">
 					<span>내가 쓴 후기</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<c:if test="${ !empty mList }">
+							<a class="more-btn b-btn" href="printMZReviewAllListToMyPage.dz">더보기</a>
+						</c:if>
 					</div>
 				</div>
 				<table>
@@ -222,10 +226,12 @@
 				<div class="my-title">
 					<span>내가 쓴 추천</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<c:if test="${ !empty reList }">
+							<a class="more-btn b-btn" href="printRecommendAllListToMyPage.dz">더보기</a>
+						</c:if>
 					</div>
 				</div>
-				<table>
+				<table id="recommend-list-table">
 					<thead>
 						<tr>
 							<th>No</th>
@@ -235,28 +241,26 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>여기 추천해요</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>여기 추천해요</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>여기 추천해요</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+					<tbody class="recommend-tbody">
+						<c:if test="${ !empty reList }">
+							<c:forEach items="${reList }" var="recommendList" varStatus="status">
+								<tr>
+									<td>${status.count}</td>
+									<td><a class="table-link-title" href="recommendDetail.dz?recommendNo=${ recommendList.recommendNo }"><p>${ recommendList.recommendTitle }</p></a></td>
+									<td>${ recommendList.recommendUploadDate }</td>
+									<td><a class="modify-btn" href="recommendUpdateForm.dz?recommendNo=${ recommendList.recommendNo }">수정</a></td>
+									<td>
+										<a class="delete-btn delete-btn-recommend" href="#">삭제</a>
+										<input type="hidden" class="recommendNo" value="${ recommendList.recommendNo }">
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${ empty reList }">
+							<tr>
+								<td colspan="5">${ REmsg }</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -418,6 +422,31 @@
 				console.log("전송실패");
 			}
 		});//end of ajax
+	});
+	
+	// 내가쓴추천 삭제 aJax
+	$(document).on('click','.delete-btn-recommend', function() {
+		var recommendNo = $(this).next().val();
+		$.ajax({
+			url : "recommendDelete.dz",
+			data : { "recommendNo" : recommendNo },
+			success : function(data){ 
+				if(data == "success"){
+					reloadRecommendList();
+				} else if(result == "fail") {
+					alert('추천삭제가 실패했습니다');
+				}
+			},//end of success
+			error : function() {
+				console.log("전송실패");
+			}
+		});
+		
+		// 리로드
+		function reloadRecommendList() {
+			$("#recommend-list-table").load("mzMyPage.dz #recommend-list-table");
+			// $("특정 #id").load("해당페이지주소  특정#id") 
+		}
 	});
 	
 </script>
