@@ -23,7 +23,8 @@ public interface QnaService {
 	// 꿈나무 마이페이지
 	public ArrayList<Qna> dreamQnaUpToThree(int userNo);
 	public ArrayList<Qna> qnaListBydream(int userNo, PageInfo pi);
-	public int dreamListCount(int userNo); 
+	public int dreamListCount(int userNo);
+	public ArrayList<Qna> deleteAndSelectPick(int qnaNo, int userNo, PageInfo pi);
 	
 	// 사업자 마이페이지
 	public ArrayList<Qna> shopQnaUpToThree(int shopNo);

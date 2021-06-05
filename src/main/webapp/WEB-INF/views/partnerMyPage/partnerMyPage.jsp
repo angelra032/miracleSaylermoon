@@ -8,17 +8,17 @@
 <title>사업자 마이페이지</title>
 <link rel="stylesheet"
 	href="/resources/css/partnermypage/partnerMyPage.css">
-<!-- <link rel="stylesheet" href="/resources/css/mzmypage/mzmypage.css">  -->
-<!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
 
-<!-- fullcander -->
+<!-- fullcalender -->
 <link href='/resources/css/partnermypage/main.css' rel='stylesheet' />
 <script src='/resources/css/partnermypage/main.js'></script>
 <script src='/resources/css/partnermypage/ko.js'></script>
-<!-- modal -->
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+<!-- fullcalendar tooltip -->
+<script src="js/main.js"></script>
+<script src="js/locales-all.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 </head>
 <body>
 
@@ -223,20 +223,11 @@
 				businessHours : true,
 				locale : "ko",
 				dayMaxEvents : 2,
-				eventClick : function(info){
-					alert('Event: ' + info.event.title);
-					/* $(".ex1").modal({
-						fadeDuration: 250
-					}) */
-				   
-				},
-				dayRender: function (date, cell) {
-			       var check = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
-			                    var today = $.fullCalendar.formatDate(new Date(),'yyyy-MM-dd');
-			                    if (check < today) {
-			                        cell.css("background-color", "red");
-			                    }
-			    },
+				eventDidMount: function(info) {
+					tippy(info.el, {
+						   content: info.event.title,
+		            	});
+				    },
 				eventSources : [ {
 					events : function(info, successCallback, failureCallback) {
 						$.ajax({
@@ -278,15 +269,11 @@
 				businessHours : true,
 				locale : "ko",
 				dayMaxEvents : 2,
-				//themeSystem:'bootstrap3',
-				//contentHeight: "auto",
-				dayRender: function (date, cell) {
-			       var check = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
-			                    var today = $.fullCalendar.formatDate(new Date(),'yyyy-MM-dd');
-			                    if (check < today) {
-			                        cell.css("background-color", "red");
-			                    }
-			    },
+				eventDidMount: function(info) {
+					tippy(info.el, {
+						   content: info.event.title,
+		            	});
+				    },
 				eventSources : [ {
 					events : function(info, successCallback, failureCallback) {
 						$.ajax({
@@ -310,11 +297,6 @@
 		$("#reserve-default").on("click",function(){
 			reserveDefault();
 		});
-		
-		//예약관리 모달창 열기
-		function eventClick(arg){
-			console.log(arg);
-		}
 		
 		
 		

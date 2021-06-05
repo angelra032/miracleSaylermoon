@@ -116,29 +116,16 @@
 				</div>
 				<div class="msgBox">
 					<input type="hidden" class="userNo"
-						value="${sessionScope.loginUser.userNo }""> <span>안녕하십니까?
-						<br> 돈쭐 고객센터 담당자입니다.<br> 무엇을 도와드릴까요?
-					</span>
+						value="${sessionScope.loginUser.userNo }"> 
+						<span>안녕하십니까?
+							<br> 돈쭐 고객센터 담당자입니다.
+							<br> 무엇을 도와드릴까요?
+						</span>
 					<button id="requestBtn">실시간 상담하기</button>
 				</div>
 			</div>
 
-
-			<!-- 유저  1,2,3 채팅창 -->
-			<div class="sendDivBox">
-				<div class="sendDiv">
-					<span>안녕하세요!</span>>
-				</div>
-			</div>
-
-			<!-- 관리자 채팅창 -->
-			<div class='imgDiv'>
-				<img src='/resources/images/chatting/operator-1.png'>
-			</div>
-				<div class="reciveDiv">
-					<span>네!안녕하세요!</span>
-				</div>
-			</div>
+		</div>
 
 		<div id="yourName">
 			<table class="inputTable">
@@ -163,13 +150,24 @@
 
 </body>
 <script type="text/javascript">
+	var click = true;
 	$("#requestBtn").on("click", function() {
-		var userName = $("#userName").val();
-		$("#yourName").hide();
-		$("#yourMsg").show();
-		chatName();
-		var userType = '${loginUser.userType }';
+		if(click){
+			var userName = $("#userName").val();
+			$("#yourName").hide();
+			$("#yourMsg").show();
+			chatName();
+			var userType = '${loginUser.userType }';
+			click = !click
+		}else{
+			alert("상담원과 연결중입니다.")
+		}
 	});
+	
+	function clickSubmit(){
+		if(submitCheck()){return;}
+		    //폼서밋
+	}
 
 	function chatName() {
 		wsOpen();
@@ -201,8 +199,8 @@
 								"<div class='sendDiv'><span>"+d.msg+"</span></div>");
 					} else {
 						$("#chating").append(
-								"<p class='others'>" + d.userName + " :"
-										+ d.msg + "</p>");
+								"<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + d.userName + " :"
+								+ d.msg + "</span></div>");
 					}
 				} else {
 					console.log("unknown type!")
@@ -218,7 +216,6 @@
 			userName : $("#userName").val(),
 			msg : $("#chatting-text").val()
 		}
-		$("#chatting-text").val();
 		sendmsg = ws.send(JSON.stringify(option));
 	}
 	$(document).on("keypress", function(e) {
@@ -227,29 +224,22 @@
 		}
 	});
 	var sendmsg = "";
-	function send() {
-		var option = {
-			type : "message",
-			sessionId : $("#sessionId").val(),
-			userName : $("#userName").val(),
-			msg : $("#chatting-text").val()
-		}
-		$("#chatting-text").val();
-		sendmsg = ws.send(JSON.stringify(option));
-	}
+
 	
  	 $(document).on("click", "#sendBtn", function() {
 		var userNo = $('input[class=userNo]').val();
 		var messageContent =  $("#chatting-text").val();
 		var messageTime = new Date();
+		if(messageContent == ""){
+			alert("내용을 입력해주세요");
+			return false;
+		}
 		$('#chatting-text').val("");
-		return false;
 		$.ajax({
 			url:"insertChatContents.dz",
 			type:"GET",
 			data:{ "userNo" : userNo, "messageContent" : messageContent, "messageTime" : messageTime },
 			success : function(){
-				console.log("성공했다...")
 			}
 		});
 	});  
