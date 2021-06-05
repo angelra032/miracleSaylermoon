@@ -2,6 +2,7 @@ package com.donzzul.spring.notiqna.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -357,14 +358,44 @@ public class NotiQnaController {
 		@RequestMapping(value="myPageMainQnakDelete.dz", method=RequestMethod.GET)
 		public ArrayList<Qna> myPageMainQnakDelete(@RequestParam("qnaNo") int qaNo,
 											HttpSession session) {
-			System.out.println("여기들어왔니!?");
 			int result = qnaService.deleteQna(qaNo);
 			
 			User user = (User)session.getAttribute("loginUser");
 			int userNo = user.getUserNo();
 			ArrayList<Qna> list = qnaService.dreamQnaUpToThree(userNo);
-			System.out.println(list);
 			return list;
 		}
-	
+		
+		
+		// 마이페이지 상세페이지에서 삭제 후 다시 그리
+		@ResponseBody
+		@RequestMapping(value="removeMyPageQnalist.dz", method = RequestMethod.GET)
+		public HashMap<String, Object> removeMyPageQnalist(@RequestParam("qnaNo") int qnaNo,
+														@RequestParam(value="page", required = false) Integer page,
+														HttpSession session){
+			User user = (User)session.getAttribute("loginUser");
+			int userNo = user.getUserNo();
+			int currentPage = (page != null) ? page : 1;
+			int listCount = qnaService.dreamListCount(userNo);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Qna> list = qnaService.deleteAndSelectPick(qnaNo, userNo, pi);
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("pi", pi);
+			hashMap.put("list", list);
+			return hashMap;
+		}
+		
+		// 파트너 마이페이지 상위 3개 삭제 후 출력 
+		@ResponseBody
+		@RequestMapping(value="partnerMainQnaDelete.dz", method = RequestMethod.GET)
+		public ArrayList<Qna> partnerMainQnaDelete(@RequestParam("qnaNo") int qnaNo,
+													HttpSession session){
+			int result = qnaService.deleteQna(qnaNo);
+			
+			User user = (User)session.getAttribute("loginUser");
+			int userNo = user.getUserNo();
+			ArrayList<Qna> list = qnaService.dreamQnaUpToThree(userNo);
+			return list;
+		}
 }

@@ -15,6 +15,10 @@
 <link href='/resources/css/partnermypage/main.css' rel='stylesheet' />
 <script src='/resources/css/partnermypage/main.js'></script>
 <script src='/resources/css/partnermypage/ko.js'></script>
+<!-- modal -->
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 </head>
 <body>
 
@@ -84,12 +88,10 @@
 							<c:forEach items="${rList }" var="reservation" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<input type="hidden" name="reservationNo"
-										value="${reservation.reservationNo }">
-									<input type="hidden" name="shopNo"
-										value="${reservation.shopNo }">
+									<input type="hidden" name="reservationNo" value="${reservation.reservationNo }">
+									<input type="hidden" name="shopNo" value="${reservation.shopNo }">
 									<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
-									<td>${reservation.reserveCount }</td>
+									<td>${reservation.reserveCount }명</td>
 									<td>${reservation.reserveDate }</td>
 									<td>
 										<c:choose>
@@ -155,17 +157,16 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="qTbody">
 						<c:if test="${ !empty qList }">
 							<c:forEach items="${qList }" var="qna" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="qaDetail.dz?qnaNo=${qna.qnaNo }"><p>${ qna.qnaTitle}</p></a></td>
-									<td>${ qna.qanCreateDate }</td>
+									<td><a class="table-link-title" href="qaDetail.dz?qnaNo=${qna.qnaNo }"><p>${ qna.qnaTitle}${qna.qnaNo }</p></a></td>
+									<td class="qnaDate">${ qna.qanUploadDate }</td>
 									<td><a class="modify-btn"
 										href="qaUpdateForm.dz?qnaNo=${qna.qnaNo }">수정</a></td>
-									<td><a class="delete-btn"
-										href="qaDelete.dz?qnaNo=${qna.qnaNo }">삭제</a></td>
+									<td><input type="hidden" value="${qna.qnaNo }"><a class="delete-btn" href="#">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -178,6 +179,12 @@
 				</table>
 			</div>
 		</div>
+		
+		<!-- modal section -->
+		<!-- <div id="ex1" class="ex1 modal">
+		  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
+		  <a href="#" rel="modal:close">닫기</a>
+		</div> -->
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
@@ -216,8 +223,13 @@
 				businessHours : true,
 				locale : "ko",
 				dayMaxEvents : 2,
-				//themeSystem:'bootstrap3',
-				//contentHeight: "auto",
+				eventClick : function(info){
+					alert('Event: ' + info.event.title);
+					/* $(".ex1").modal({
+						fadeDuration: 250
+					}) */
+				   
+				},
 				dayRender: function (date, cell) {
 			       var check = $.fullCalendar.formatDate(date,'yyyy-MM-dd');
 			                    var today = $.fullCalendar.formatDate(new Date(),'yyyy-MM-dd');
@@ -297,6 +309,54 @@
 		
 		$("#reserve-default").on("click",function(){
 			reserveDefault();
+		});
+		
+		//예약관리 모달창 열기
+		function eventClick(arg){
+			console.log(arg);
+		}
+		
+		
+		
+		///// 어펜드 작업 시작
+		var qnaDate = document.querySelectorAll('.qnaDate');
+		for(var i = 0; i < qnaDate.length; i++){
+			var qnaDateResult = qnaDate[i].innerHTML.substr(0,10);
+			qnaDate[i].innerHTML = qnaDateResult;
+		}
+		
+		
+		$(document).on("click",".delete-btn",function(){
+			var qnaNo =$(this).prev().val();
+			$.ajax({
+				url : "partnerMainQnaDelete.dz",
+				type : "GET",
+				data : {"qnaNo" : qnaNo},
+				success : function(data){
+					$('.qTbody').empty();
+					for(var i in data){
+						var dateResult = data[i].qanUploadDate.substr(0,10);
+						
+						var tr = $("<tr>");
+						var count = $("<td>").html(Number(i)+1);
+						var qnaTitle = $("<td>").append("<a class='table-link-title' href='qaDetail.dz?qnaNo="+data[i].qnaNo+"'><p>"+data[i].qnaTitle+data[i].qnaNo+"</p></a>");
+						var date = $("<td class='qnaDate'>").html(dateResult);
+						var modifybtn = $("<td>").append("<a class='modify-btn' href='qaUpdateForm.dz?qnaNo="+data[i].qnaNo+"'>수정</a>");
+						var hiddenNo = $("<td>").append("<input type='hidden' value="+data[i].qnaNo+"'><a class='delete-btn' href='#'>삭제</a>");		
+						
+						tr.append(count);
+						tr.append(qnaTitle);
+						tr.append(date);
+						tr.append(modifybtn);
+						tr.append(hiddenNo);
+						
+						$(".qTbody").append(tr);
+					}
+				},
+				error : function(){
+					console.log("전송실패");
+				}
+			});
 		});
 		
 	</script>
