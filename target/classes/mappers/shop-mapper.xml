@@ -161,7 +161,7 @@
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_TYPE LIKE '%' || #{ themeWord } ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('명동')">
-			SELECT COUNT(*) FROM SHOP
+			SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('버거')">

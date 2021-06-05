@@ -58,7 +58,9 @@ public class ShopController {
 	//D 지도 - 지역별 가게 검색
 	@RequestMapping(value="mapSearchShop.dz", method=RequestMethod.GET)
 	public ModelAndView searchShopMap(ModelAndView mv, @RequestParam("location") String location, @RequestParam(value="page", required=false) Integer page) {
-		String qLocation = "";	
+		
+		String qLocation = "";
+		
 		switch(location) {
 			case "All" : 
 				qLocation = "전체";
@@ -118,11 +120,9 @@ public class ShopController {
 				qLocation = "서울";
 				break;
 		}
-		System.out.println(qLocation);
 		
 		HashMap<String, String> selectedLocation = new HashMap<String, String>();
 		selectedLocation.put("location", qLocation);
-		System.out.println("로케이션 값" + selectedLocation); // 확인용
 		
 		// PageInfo 만들기 위해 필요한 데이터
 		int currentPage = (page != null) ? page : 1; // 삼항연산자
@@ -139,9 +139,8 @@ public class ShopController {
 		mv.addObject("center", qLocation);
 		mv.setViewName("map/MapDetail");
 		
-		System.out.println(location); // 확인용
-		
 		return mv;
+		
 	}
 	
 	//D 지도 - 지역별 가게 키워드 검색
@@ -155,9 +154,6 @@ public class ShopController {
 		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
 		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
 		
-//		System.out.println("테스트 확인 :" + mapList);
-//		System.out.println("로케이션 테스트 확인 :" + mapList.get(0).getShopAddr());
-
 		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
 		
@@ -170,12 +166,15 @@ public class ShopController {
 		
 		Gson gson = new Gson();
 		gson.toJson(hashMap, response.getWriter());
+		
 	}
 	
 	//D 가게검색 - 화면 출력 +++
 	@RequestMapping(value="searchShopView.dz", method=RequestMethod.GET)
 	public String searchShopView() {
+		
 		return "shop/ShopSearchList";
+
 	}
 	
 	//D 가게검색 - 테마
@@ -188,7 +187,6 @@ public class ShopController {
 			
 			ArrayList<Integer> sRank = drService.selectReviewRanking(); // 리뷰 랭킹 가져오기 
 			ArrayList<Shop> rankList = sService.selectShopRank(sRank); // 가게번호 이용하여 가게 정보 가져오기 
-			System.out.println("rankList = " + rankList);
 			ArrayList<DreamReview> reviewOneList = recentReviewOne(rankList); // 최신후기 한 개 가져오기
 			
 			// 최신후기 shopList 에 담기
@@ -213,8 +211,6 @@ public class ShopController {
 				String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
 				newSList.get(i).setDrmReviewContent(changeCon);
 			}
-			
-			System.out.println("신규가게 : " + newSList.toString()); // 확인용
 			
 			mv.addObject("newSList", newSList);
 			mv.addObject("themeNo", themeNo);
@@ -260,8 +256,6 @@ public class ShopController {
 					themeList.get(i).setDrmReviewContent(changeCon);
 				}
 				
-				System.out.println("테마리스트 : " + themeList.toString()); // 확인용
-				
 				mv.addObject("pi", pi);
 				mv.addObject("themeNo", themeNo);
 				mv.addObject("themeList", themeList);
@@ -270,13 +264,13 @@ public class ShopController {
 		}
 		
 		return mv;
+		
 	}
 	
 	//D 가게검색 - 키워드 
 	@RequestMapping(value="searchShop.dz", method=RequestMethod.GET)
 	public ModelAndView searchShop(ModelAndView mv, @RequestParam("searchKeyword") String searchKeyword, @RequestParam(value="page", required=false)Integer page) {
 		// 파라미터 - 유저 입력값
-		
 		HashMap<String, String> searchedKey = new HashMap<String, String>();
 		searchedKey.put("searchKeyword", searchKeyword);
 		
@@ -293,23 +287,23 @@ public class ShopController {
 			searchList.get(i).setDrmReviewContent(changeCon);
 		}
 		
-		System.out.println("테마리스트 : " + searchList.toString()); // 확인용
-		
-		
 		mv.addObject("pi", pi);
 		mv.addObject("sList", searchList);
 		mv.addObject("searchKeyword", searchKeyword);
 		mv.setViewName("shop/ShopSearchResult");
 		
 		return mv;
+		
 	}
 	
 	// 최신후기 한 개 가져오기
 	public ArrayList<DreamReview> recentReviewOne(ArrayList<Shop> themeList) {
+		
 		ArrayList<DreamReview> reviewOneList = drService.selectDMReviewOne(themeList);
 		System.out.println("가게별 후기 : " + reviewOneList.toString()); // 가게별 후기 한 개씩
 		
 		return reviewOneList;
+		
 	}
 	
 	//D 가게 상세 페이지 출력
@@ -317,7 +311,6 @@ public class ShopController {
 	@RequestMapping(value="shopDetail.dz")
 	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, HttpSession session, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
 		// 파라미터 - 가게 번호 (쿼리스트링), 세션 userNo
-		
 		User user = (User) session.getAttribute("loginUser");
 		Pick pick = new Pick();
 		if(user != null) {
@@ -328,13 +321,9 @@ public class ShopController {
 			pick = pService.checkPick(pickParam);
 		}
 		
-		
-		// 가게 상세정보 가져오기
-		Shop shop = sService.selectShopOne(shopNo);
-		// 가게 메인메뉴 가져오기
-		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo);
-		// 메뉴 사진 가져오기 
-		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo);
+		Shop shop = sService.selectShopOne(shopNo); // 가게 상세정보 가져오기
+		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo); // 가게 메인메뉴 가져오기
+		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo); // 메뉴 사진 가져오기 
 		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);
@@ -343,6 +332,7 @@ public class ShopController {
 		mv.setViewName("shop/ShopDetail");
 		
 		return mv;
+		
 	}
 	
 	
