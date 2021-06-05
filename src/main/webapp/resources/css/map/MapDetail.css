@@ -15,7 +15,7 @@
 
 body {
 	height:100%;
-	overflow:hidden;	
+	overflow:auto;	
 }
 
 main {
@@ -24,8 +24,8 @@ main {
 }
 
 .frame {
-	width: 1920px;
-	height: 100%;
+	width: 1903px;
+	height: 90%;
 	overflow: hidden; /* float: left 속성 때문에 넣음 */
 	position: absolute;
 }
@@ -34,7 +34,7 @@ main {
 		width: 420px;
 		height: 100%;
 		border: solid 1px #e3e4e5;		
-		padding: 15px;
+		/* padding: 15px; */
 		margin: 0 auto;
 		background-color: #ffffff;
 		text-align: center;
@@ -42,11 +42,8 @@ main {
 		overflow-y: auto; /* 넘치는 부분 내용 숨김. 필요시 스크롤바 나타남 */
 	}
 		
-			.map-left > hr {
-				margin: 70px 10px 20px;
-				display: block;
-				color: #333333;
-				align: center;
+			.searchBar {
+				padding: 15px;
 			}
 			
 			#searchBox {
@@ -76,6 +73,17 @@ main {
 					width: 25px;
 					height: auto; /* width 조정, height auto 로 두면 비율에 맞게 줄어듬 */
 				}
+				
+			.map-left > hr {
+				margin: 55px 10px 8px;
+				display: block;
+				color: #333333;
+				align: center;
+			}
+			
+			.content-list {
+				padding: 15px;
+			}
 				
 			#shopReady {
 				color: #888;
@@ -157,18 +165,18 @@ main {
 			.content-list-navi {
 					width: 260px;
 					height: 40px;
-					border-style: none;
+					border: solid 1px #e3e4e5;
 					text-align: center;
-					margin-bottom: 50px;
-					position: fixed;
+					margin: 0 auto;
+					/* position: fixed; */
 				}
 				
-				.content-list-navi > hr {
+				/* .content-list-navi > hr {
 					margin: 20px 10px 20px;
 					display: block;
 					color: #333333;
 					align: center;
-				}
+				} */
 				
 				.content-list-navi > a {
 					color: #333333; 
@@ -205,8 +213,8 @@ main {
 		
 	/* 지도 영역 시작 */	
 	.map-right {
-		width: 100%;
-		height: 100vh;
+		width: 1483px;
+		height: 100%;
 		float: left;
 		position: relative;
 	}	
@@ -251,49 +259,49 @@ main {
 		
 		#map {
 			width: 100%;
-			height: 940px;
+			height: 100%;
 		}
 			
 
-		.customoverlay {
-			position:relative;
-			bottom:5px;
-			border-radius:6px;
-			border: 1px solid #ccc;
-			border-bottom:2px solid #ddd;
-			float:left;
-			left: -13px;
-		}
-		
-		.customover	lay:nth-of-type(n) {
-			border:0;
-			box-shadow:0px 1px 2px #888;
-		}
-
-		.tail {
-			background-color: #fdb504;
-		}
-		
-		.customoverlay .title {
-			display:block;
-			text-align:center;
-			background:#fff;
-			margin-right:35px;
-			padding:10px 15px;
-			font-size:14px;
-			font-weight:bold;
-		}
+			.customoverlay {
+				position:relative;
+				bottom:5px;
+				border-radius:6px;
+				border: 1px solid #ccc;
+				border-bottom:2px solid #ddd;
+				float:left;
+				left: -13px;
+			}
+			
+			.customover	lay:nth-of-type(n) {
+				border:0;
+				box-shadow:0px 1px 2px #888;
+			}
 	
-		.customoverlay:after {
-			content:'';
-			position:absolute;
-			margin-left:-12px;
-			left:50%;
-			bottom:-12px;
-			width:22px;
-			height:12px;
-			background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
-		}
+			.tail {
+				background-color: #fdb504;
+			}
+			
+			.customoverlay .title {
+				display:block;
+				text-align:center;
+				background:#fff;
+				margin-right:35px;
+				padding:10px 15px;
+				font-size:14px;
+				font-weight:bold;
+			}
+		
+			.customoverlay:after {
+				content:'';
+				position:absolute;
+				margin-left:-12px;
+				left:50%;
+				bottom:-12px;
+				width:22px;
+				height:12px;
+				background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+			}
 		
 	.wrap * {padding: 0;margin: 0;}
 	.wrap {position:absolute; top: -266px; left: -152px;z-index: 999;width: 280px;height: 227px;}

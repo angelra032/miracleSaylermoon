@@ -56,7 +56,7 @@
 										<br>
 									</div>
 									<div class="content-shop right bottom">
-										<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">예약하기</button>
+										<button type="button" class="btn btn-primary btn-sm" onclick="shopDetail(${shop.shopNo })">자세히 보기</button>
 									</div>
 								</div>
 							</div>
@@ -66,7 +66,6 @@
 				<div class="content-list-navi">
 					<c:if test="${empty mList}"></c:if>
 					<c:if test="${!empty mList}">
-						<hr>
 						<c:url var="before" value="mapSearchShop.dz">
 							<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
 							<c:if test="${ !empty location }">
