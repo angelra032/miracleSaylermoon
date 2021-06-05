@@ -247,7 +247,7 @@
 			
 				
 	<!-- 예약후기 -->
-		<div class="review">
+		<div class="review"> 
 				<div class="review-background-area">
 				 	<img src="/resources/images/review-title.png" alt="shopMain">
 				</div>

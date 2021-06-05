@@ -27,7 +27,7 @@
 	                        <td width=450 style="word-break: break-all;">제목</td>
 	                        <td width=160>작성자</td>
 	                        <td width=160>날짜</td>
-	                        <td width=100>조회수</td>
+	                        <td width=100>조회수</td> 
 	                    </tr>
 	                </thead>
 	                <tbody>

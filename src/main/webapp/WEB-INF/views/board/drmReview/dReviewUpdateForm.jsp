@@ -106,7 +106,7 @@
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
 					var drmRviewNo = '${drmReview.drmRviewNo}';
-					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") {
+					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") { 
 					    $.ajax({
 						   url : "dReviewModify.dz",
 						   type : "POST",

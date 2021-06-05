@@ -266,7 +266,7 @@ a {
 					margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
 					border: solid 1px #e3e4e5;
 					float: left;
-					color: #333333;
+					color: #333333; 
 				}
 				
 				.detail-right > .two-buttons:hover {
