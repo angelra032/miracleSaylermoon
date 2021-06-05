@@ -284,14 +284,15 @@ public class AdminPageController {
 	}
 	
 	// 유저리스트 회원탈퇴
+	@ResponseBody
 	@RequestMapping(value = "adminUserDelete.dz", method = RequestMethod.GET)
 	public String userDelete(@RequestParam("userNo") int userNo, Model model) {
 		int result = uService.deleteUser(userNo);
 		if (result>0) {
-			return "redirect:adminUserList.dz";
+			return "success";
 		}else {
-			model.addAttribute("msg", "회원탈퇴 실패");
-			return "common/errorPage";
+//			model.addAttribute("msg", "회원탈퇴 실패");
+			return "fail";
 		}
 	}
 	
@@ -413,6 +414,19 @@ public class AdminPageController {
 		}
 	}
 
-	
+	// 사업자 승인등록 shop 업데이트
+	@ResponseBody
+	@RequestMapping(value="adminShopShow.dz",  method = RequestMethod.GET)
+	public String adminShopShow(@RequestParam("shopNo") int shopNo) {
+		System.out.println("넘어오나요");
+		System.out.println("샵넘버" + shopNo);
+		int result = sService.updatePartnerShopShow(shopNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+		
 	
 }

@@ -24,7 +24,7 @@
 		</div>
 		<div class="my-list reserv-list">
 			<div class="frame">
-				<table class="list-table">
+				<table class="list-table" id="list-table">
 					<thead>
 						<tr>
 							<th width=60>No</th>
@@ -51,7 +51,7 @@
 								<td>승인완료</td>
 							</c:if>
 							<c:if test="${ shop.showShopYN eq 'N' or shop.showShopYN eq 'n' }">
-								<td><a class="delete-btn" href="#">승인</a></td>
+								<td><div class="delete-btn" onclick="showShop(${shop.shopNo})">승인</div></td>
 							</c:if>
 							<c:if test="${ shop.shopPointYn eq 'y' or shop.shopPointYn eq 'Y' }">
 								<td><a class="delete-btn" href="#">환급</a></td>
@@ -124,6 +124,7 @@
 <script type="text/javascript">
 	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
 	
+	// 탈퇴
 	function deleteShop(data) {
         var result = confirm('회원을 탈퇴시킵니다.');
         if(result) {
@@ -133,5 +134,35 @@
 			location.href='adminShopList.dz';
         }
     }
+	
+	// 승인OK
+	function showShop(shopNo) {
+		var result = confirm('선택한 가게를 목록에 노출시킵니다.')
+		if(result) {
+			$.ajax({
+				url : 'adminShopShow.dz',
+				data : {"shopNo" : shopNo},
+				type : "GET",
+				success : function(result) {
+					if(result == "success") {
+						alert('성공');
+						shopListReload();
+					} else if(result == "fail") {
+						alert('실패');
+					}
+				},
+				error : function() {
+					alert('왜에러지')
+				}
+			})
+		} else {
+			location.href='adminShopList.dz';
+		}
+	}
+	
+	// 리스트 리로드
+	function shopListReload() {
+		$("#list-table").load("adminShopList.dz #list-table");
+	}
 </script>
 </html>

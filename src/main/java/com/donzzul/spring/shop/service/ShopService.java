@@ -26,11 +26,17 @@ public interface ShopService {
 	public int selectKeyListCount(String searchKeyword); // 지도 검색시 전체 게시글 갯수
 	public int selectShopThemeCount(HashMap<String, String> selectedtheme); // 가게 테마 전체 게시글 갯수
 	public int searchShopCount(HashMap<String, String> searchedKey); // 가게 키워드 검색 전체 게시글 갯수
+	
+	// 관리자페이지
     public ArrayList<Shop> selectAllShopListDESC();
     public ArrayList<Shop> selectAllShopListASC();	
     public int getListCount();
     public ArrayList<Shop> selectAllShopList(PageInfo pi);
     public ArrayList<Shop> selectAllShopListThree();
+    
+    // 관리자-사업자
+    public int updatePartnerShopShow(int shopNo); // 사업자 공개승인
+    public int updatePartnerPointZero(int shopNo); // 환급하면서 포인트 0
 	
     // 파트너사업자
     public int insertPartnerShop(Shop shop); // 가게등록

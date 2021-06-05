@@ -62,7 +62,7 @@
 						<a class="more-btn b-btn" href="adminShopList.dz">더보기</a>
 					</div>
 				</div>
-				<div class="center-table-area">
+				<div class="center-table-area" id="shop-list-table">
 					<table>
 						<thead>
 							<tr>
@@ -120,7 +120,7 @@
 						<a class="more-btn b-btn" href="adminUserList.dz">더보기</a>
 					</div>
 				</div>
-				<div class="center-table-area">
+				<div class="center-table-area" id="user-list-table">
 					<table>
 						<thead>
 							<tr>
@@ -174,7 +174,7 @@
 						<a class="more-btn b-btn" href="adminMReviewList.dz">더보기</a>
 					</div>
 				</div>
-				<div class="center-table-area">
+				<div class="center-table-area"  id="board-list-table">
 					<table>
 						<thead>
 							<tr>
@@ -265,25 +265,70 @@
 	});
 	
 	
-	function deleteUser(data) {
+	// 회원관리 - 탈퇴
+	function deleteUser(userNo) {
 		var result = confirm('회원을 탈퇴시킵니다.');
-		if(Result) {
-			location.href = 'adminUserDelete.dz?userNo=' + data;
-			location.href='adminPage.dz';
+		if(result) {
+			$.ajax({
+				url : "adminUserDelete.dz",
+				data : {"userNo" : userNo},
+				type : "GET",
+				success : function(result) {
+					if(result == "success") {
+						alert('회원을 탈퇴시켰습니다');
+						reloadUserList();
+					} else if(result == "fail") {
+						alert('탈퇴 요청이 실패했습니다');
+					}
+				}, 
+				error : function() {
+					
+				}
+			});
+			
 		} else {
-			location.href='adminPage.dz';
+			reloadUserList();
 		}
 	}
 	
-	function deleteNotice(data) {
+	// 게시판관리 - 삭제
+	function deleteNotice(qnaNo) {
 		var result = confirm('공지사항을 삭제합니다.');
 		if(result) {
 			location.href="qaDelete.dz?qnaNo=" + data;
 			location.href='adminPage.dz';
 		} else {
-			location.href='adminPage.dz';
+			reloadBoardList();
 		}
 	}
+	
+// 	$.ajax({
+// 		url : "qaDelete.dz",
+// 		data : {"qnaNo" : qnaNo},
+// 		type : "GET",
+// 		success : function() {
+// 			reloadBoardList();
+// 		},
+// 		error : function() {
+			
+// 		}
+// 	});
+	
+	// 사업자관리 리로드
+	function reloadShopList() {
+	}
+	
+	// 회원관리 리로드
+	function reloadUserList() {
+		$("#shop-list-table").load("adminPage.dz #shop-list-table");		
+		$("#user-list-table").load("adminPage.dz #user-list-table");
+	}
+	
+	// 게시물관리 리로드
+	function reloadBoardList() {
+		$("#board-list-table").load("adminPage.dz #board-list-table");
+	}
+	
 
 </script>
 </html>

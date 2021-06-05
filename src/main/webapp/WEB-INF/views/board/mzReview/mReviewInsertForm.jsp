@@ -111,6 +111,7 @@
 						var mReviewTitle = $("#mReviewTitle").val();
 						var shopNo = '${shopNo}';
 						var reservationNo = '${reservationNo}';
+						
 						if(mReviewTitle != "" && mReviewContent != "<p><br></p>") {
 						    $.ajax({
 							   url : "mReviewInsertForm.dz",
@@ -127,7 +128,7 @@
 								   	//location.href='mReviewMain.dz';						   
 							   },
 							   error : function() {
-									alert('게시글 올리기 실패');							   
+									alert('게시글 올리기 에러');							   
 									history.back();					   
 							   }
 						   });
