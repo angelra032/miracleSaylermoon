@@ -10,11 +10,14 @@ public interface RecommendBoardService {
 	// 맛집추천 리스트 / 조회 / 등록 / 수정 / 삭제
 	public ArrayList<RecommendBoard> selectAllRecommend();
 	public ArrayList<RecommendBoard> selectAllRecommend(PageInfo pi);
+	public ArrayList<RecommendBoard> selectThreeRecommendToMyPage(int userNo);
+	public ArrayList<RecommendBoard> selectAllRecommendToMyPage(int userNo, PageInfo pi);
 	public RecommendBoard selectOneRecommend(int recommendNo);
 	public int insertRecommend(RecommendBoard recommendBoard);
 	public int updateRecommend(RecommendBoard recommendBoard);
 	public int deleteRecommend(int recommendNo);
 	public int getListCount();
+	public int getListCountToMyPage(int userNo);
 	public int insertPhoto(RecommendPhoto recoPhoto);
 	public ArrayList<RecommendPhoto> selectPhoto(int recommendNo);
 	public int deleteBeforePhoto(int recommendNo);

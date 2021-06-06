@@ -91,11 +91,7 @@
 								</td>
 							</tr>
 						</c:if>
-						<c:if test="${ empty pList }">
-							<tr>
-								<td colspan="4">${ msg }</td>
-							</tr>
-						</c:if>
+						
 					</tbody>
 				</table>
 			</div>

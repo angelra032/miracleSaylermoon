@@ -116,4 +116,10 @@ public class MzReviewStoreLogic implements MzReviewStore {
 		return (ArrayList)sqlSession.selectList("mzReviewMapper.selectAllReviewToMyPage", userNo, rowBounds);
 	}
 
+	// mz마이페이지 리스트 페이징
+	@Override
+	public int getListCountToMyPage(int userNo) {
+		return sqlSession.selectOne("mzReviewMapper.selectListCountToMyPage", userNo);
+	}
+
 }

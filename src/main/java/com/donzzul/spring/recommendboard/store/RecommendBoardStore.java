@@ -8,6 +8,8 @@ import com.donzzul.spring.recommendboard.domain.RecommendPhoto;
 
 public interface RecommendBoardStore {
 	public ArrayList<RecommendBoard> selectAllRecommend();
+	public ArrayList<RecommendBoard> selectThreeRecommendToMyPage(int userNo);
+	public ArrayList<RecommendBoard> selectAllRecommendToMyPage(int userNo, PageInfo pi);
 	public RecommendBoard selectOneRecommend(int recommendNo);
 	public int insertRecommend(RecommendBoard recommendBoard);
 	public int updateRecommend(RecommendBoard recommendBoard);
@@ -19,4 +21,5 @@ public interface RecommendBoardStore {
 	public int insertPhoto(RecommendPhoto recoPhoto);
 	public int deleteBeforePhoto(int recommendNo);
 	public int updateHit(int recommendNo);
+	public int getListCountToMyPage(int userNo);
 }

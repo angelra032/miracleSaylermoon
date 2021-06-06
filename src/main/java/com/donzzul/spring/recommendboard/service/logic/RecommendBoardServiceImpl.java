@@ -32,7 +32,25 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	public int getListCount() {
 		return reStore.getListCount();
 	}
+	
+	//마이페이지용
+	@Override
+	public int getListCountToMyPage(int userNo) {
+		return reStore.getListCountToMyPage(userNo);
+	}
 
+
+	// mz마이페이지에 세개 출력
+	@Override
+	public ArrayList<RecommendBoard> selectThreeRecommendToMyPage(int userNo) {
+		return reStore.selectThreeRecommendToMyPage(userNo);
+	}
+	@Override
+	public ArrayList<RecommendBoard> selectAllRecommendToMyPage(int userNo, PageInfo pi) {
+		return reStore.selectAllRecommendToMyPage(userNo, pi);
+	}
+
+	
 	@Override
 	public RecommendBoard selectOneRecommend(int recommendNo) {
 		return reStore.selectOneRecommend(recommendNo);
@@ -77,6 +95,10 @@ public class RecommendBoardServiceImpl implements RecommendBoardService {
 	public int updateHit(int recommendNo) {
 		return reStore.updateHit(recommendNo);
 	}
+
+
+	
+
 
 
 
