@@ -98,7 +98,7 @@ function mapJs(map, positions) {
 				    //}
 				    
 					if(clickedMarker != null && clickedOverlay != null) {
-						selectedOverlay.setMap(null);
+						//selectedOverlay.setMap(null);
 						selectedMarker.setZIndex(0);
 						//kakao.maps.event.addListener(marker, 'mouseover', function(event) {
 						//	titleOverlay.setMap(null);
@@ -106,25 +106,25 @@ function mapJs(map, positions) {
 					}
 				
 					selectedMarker = marker;
-					selectedOverlay = titleOverlay;
+					//selectedOverlay = titleOverlay;
 					 
 				    
 					 // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-				    titleOverlay.setMap(map);
+				    //titleOverlay.setMap(map);
 				    
 				    selectedMarker.setZIndex(10);
-				    selectedOverlay.setZIndex(10);
+				    //selectedOverlay.setZIndex(10);
 				    
 				});
 				
 				
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
 				// 마커에 마우스아웃 이벤트를 등록합니다
-				kakao.maps.event.addListener(marker, 'mouseout', function() {
+				//kakao.maps.event.addListener(marker, 'mouseout', function() {
 				    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-				    titleOverlay.setMap(null);
+				    //titleOverlay.setMap(null);
 				    
-				});
+				//});
 				
 				
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ---------------------
@@ -133,8 +133,6 @@ function mapJs(map, positions) {
 						
 			    	// 선택된 마커
 			    	clickedMarker = marker;
-			    	clickedMarkerindex = index;
-			    	console.log('index : ' + clickedMarkerindex);
 			    		
 					var content = '<div class="wrap">' + 
 			            '    <div class="info">' + 
@@ -142,20 +140,18 @@ function mapJs(map, positions) {
 			            '            <div id="close" class="close" title="닫기"></div>' + 
 			            '        </div>' + 
 			            '        <div class="body">' + 
-			         /*    '            <div class="img">' +
-			            '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-			            '           </div>' +  */
 			            '            <div class="desc">' + 
 			            '                <div class="shopTitle">' + 
-			            '                	<div class="targetTitle">제공대상</div>' + 
+			            '                	<div class="targetTitle"><b>제공대상</b></div>' + 
 			            '                	<div class="targetCon">'+shop.shopTarget+'</div>' + 
 			            '                </div>' + 
 			            '                <div class="shopCon">' +
-				            '                <div class="shopProduct">제공품목</div>' + 
-				            '                <div class="shopProductCon">'+shop.shopProduct+'</div>' + 
+				        '	                <div class="shopProduct"><b>제공품목</b></div>' + 
+				        '	                <div class="shopProductCon">'+shop.shopProduct+'</div>' + 
 			            '                </div>' + 
 			            '                <div class="shopTime">' +
-				            '                <div class="jibun ellipsis">영업시간 : '+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+				        '	                <div class="timeTitle"><b>영업시간</b></div>' + 
+				        '	                <div class="timeCon">&nbsp;'+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
 			            '                </div>' + 
 			            '            </div>' + 
 			            '            <div class="btnShop">' + 

@@ -96,19 +96,21 @@ a {
 		}
     
 .frame {
-	width: 1280px;
-	height: 1150px;
-	margin: 0 auto;
-	margin-top: 100px;
-	
-	/* margin: 100px auto;
-	--margin-top: 100px;
-	--margin-bottom: 150px; */
+   width: 1280px;
+   height: auto;
+   margin: 0 auto;
+   margin-top: 100px;
+   /* margin-bottom: 100px; */
+   
+   /* margin: 100px auto;
+   --margin-top: 100px;
+   --margin-bottom: 150px; */
 }
 
 	.shop-detail {
 		width: 1280px;
 		margin: 0 auto;
+		font-size: 18px;
 	}
 
 		.detailAll {
@@ -192,25 +194,19 @@ a {
 						.customoverlay:nth-of-type(n) {
 							border:0;
 							box-shadow:0px 1px 2px #888;
-							}
+						}
 							
-						.customoverlay a {
-							display:block;
-							text-decoration:none;
-							color:#000;
-							text-align:center;
+						.tail {
+							background-color: #fdb504;
 							border-radius:6px;
-							font-size:14px;
-							font-weight:bold;
-							overflow:hidden;
-							/* background: #fdb504; */
-							background: #fdb504 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
 						}
 						
 						.customoverlay .title {
 							display:block;
 							text-align:center;
 							background:#fff;
+							border-top-left-radius: 6px;
+							border-bottom-left-radius: 6px;
 							margin-right:35px;
 							padding:0 15px;
 							font-size:14px;
@@ -227,6 +223,10 @@ a {
 							height:12px;
 							background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 						}
+						
+				.detail-end {
+					margin-bottom: 140px;
+				}
 		
 		
 		.buttons {
@@ -260,13 +260,17 @@ a {
 						color: #ffffff;
 					}
 					
+				.two-buttons-all {
+					width: 420px;
+					display: block;
+					margin: 0 auto;
+				}
 					
 				.detail-right > .two-buttons {
-					width: 262px;
 					margin: 0 0 -1px -1px; /* border 겹치는 부분 라인 정리 */
 					border: solid 1px #e3e4e5;
 					float: left;
-					color: #333333; 
+					color: #333333;
 				}
 				
 				.detail-right > .two-buttons:hover {
@@ -281,11 +285,12 @@ a {
 					.detail-right > .two-buttons a:hover {
 						color: #ffffff;
 					}
-					
-				 .detail-right > .one-button {
-				 	display: block;
-				 	align: center;
-				 }
+				
+				.one-button-all {
+					width: 208px;
+					display: block;
+					margin: 0 auto;
+				}
 		
 		
 /* 예약후기 */					
@@ -386,6 +391,7 @@ a {
 		.review-yet {
 			font-size: 21px;
 			align: center;
+			color: #888;
 		}
 	
 		.review-list > .rContent {
@@ -429,6 +435,13 @@ a {
 					color: #fdb504;
 				}
 				
+				.review-detail {
+	               width: auto;
+	               float: right;
+	               font-size: 14px;
+	                color: #888888;
+	            }   
+				
 				.review-content {
 					overflow: hidden;
 				    text-overflow: ellipsis;
@@ -464,9 +477,7 @@ a {
 						color: #e3e4e5;
 					}
 	
-	
-	
-	
+
 
 /* 모달창 테스트 */
 
@@ -492,30 +503,6 @@ a {
 			cursor: pointer;
 		    object-fit: cover;
 		}
-	
-	/* .menu-img-detail-div {
-		width: 950px;
-		height: 300px; 
-		width: 300px;
-		height: 100px;
-		
-		display: none;
-		--width: 300px;
-		
-	}
-		.menu-img-detail {
-			width: 300px;
-			--width: 100%;
-			--display: none;
-			position: fixed;
-		    z-index: 5; 
-		    padding-top: 250px; 
-		    overflow: auto; 
-		    top: 0; 
-		    left: 300;
-			cursor: pointer;
-		} */
-
 
 
 /* 모달 테스트 */
@@ -558,9 +545,11 @@ a {
 	cursor: pointer;
 }
 
-/* 썸네일 */
-.menu-img-thumb-div img:hover {
-	opacity: 0.7;
+#img-modal>img {
+   margin: auto;
+   display: block;
+   width: auto;
+    max-height: 90%;
 }
 
 

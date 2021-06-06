@@ -53,6 +53,7 @@
 	<main>
 		<div class=frame>
 			<div class="shop-detail">
+			
 				<div class="detailAll line1">
 					<div class="detail-left">휴무일</div>
 					<div class="detail-right">${ shop.businessDay }</div>
@@ -72,84 +73,20 @@
 									${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }원 <br>
 								</c:forEach>
 							</c:if>
-							
-							<%-- 
-							<!-- 모달창(big) -->
-							<div id="menu-img-div" title="클릭하면 창이 닫힙니다." class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-								<c:forEach items="${mPhoto }" var="photo">
-									<img src="${photo.menuFilePath }/${photo.menuFileName }"  id="menu-img-big" class="menu-img-big" alt="menuImg"  width="300px">
+							<div class="menu-img-frame">
+								<c:forEach items="${mPhoto }" var="photo" varStatus="status">
+									<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
+										<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
+									</div> 
+									
+									<div id="img-modal" title="X를 클릭하면 창이 닫힙니다." onclick="imgModalClose();" class="detail-right menu-img menu-img-detail-div modal">
+									   <span>X</span>
+									   <img src="${photo.menuFilePath }/${photo.menuFileName }" id="img-modal-content" class="menu-img-detail" alt="menuImg"  width="300">
+									    <!-- <img id="img-modal-content" src="/resources/images/snsPhoto.png" alt="텍스트 예제 1" width="300"> -->
+									</div>
 								</c:forEach>
 							</div>
-							 
-							<c:forEach items="${mPhoto }" var="photo">
-								<img src="${photo.menuFilePath }/${photo.menuFileName }"   alt="menuImg"  width="300px">
-							</c:forEach>
-								
-							<!-- 미리보기(small) -->
-							<c:if test="${ !empty mPhoto }">
-								<div class="detail-right menu-img"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<c:forEach items="${mPhoto }" var="photo">
-										<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg" width="120px">
-									</c:forEach>
-								</div> 
-							</c:if>
-							 --%>
-							
-						<%-- <div class="menu-img-frame">
-							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
-								<div title="클릭하면 창이 닫힙니다." id="ex1" class="detail-right menu-img menu-img-detail-div modal"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									 <a href="#" rel="modal:close"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  ></a>
-								</div> 
-								<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<a href="#ex1" rel="modal:open"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg"></a>
-								</div> 
-							</c:forEach>
-						</div> --%>
-						
-						
-						
-						<div class="menu-img-frame">
-							<c:forEach items="${mPhoto }" var="photo" varStatus="status">
-								<%-- <div title="클릭하면 창이 닫힙니다." id="ex1" class="detail-right menu-img menu-img-detail-div modal"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									 <a href="#" rel="modal:close"><img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img" class="menu-img-detail" alt="menuImg"  ></a>
-								</div> --%> 
-								<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
-									<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
-								</div> 
-								
-								<div id="img-modal" title="X를 클릭하면 창이 닫힙니다." onclick="imgModalClose();" class="detail-right menu-img menu-img-detail-div modal">
-								   <span >X</span>
-								   <img src="${photo.menuFilePath }/${photo.menuFileName }" id="img-modal-content" class="menu-img-detail" alt="menuImg"  width="300">
-								    <!-- <img id="img-modal-content" src="/resources/images/snsPhoto.png" alt="텍스트 예제 1" width="300"> -->
-								</div>
-							</c:forEach>
 						</div>
-						
-						
-						
-						
-						<!-- 
-							<div id="ex1" class="modal">
-							  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
-							  <a href="#" rel="modal:close">닫기</a>
-							</div>
-							 
-							<p><a href="#ex1" rel="modal:open">모달창띄우기</a></p>
-								 -->
-							<!-- modal test 중.. -->
-							<!-- <div id="menu-img" title="클릭하면 창이 닫힙니다.">
-								<div>
-									<img src="/resources/images/snsPhoto.png" alt="menuImg" width="300px" >
-								</div>
-							</div>
-							 -->
-							<!-- <img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
-							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
-							<img src="/resources/images/snsPhoto.png" class="menu-img-thumb" alt="menuImg" width="90px">
-							 -->
-
-						</div>
-						
 					</div>
 				</div>
 				
@@ -186,7 +123,7 @@
 						<div class="detail-left middle"></div>
 						<div class="detail-left bottom"></div>
 					</div>
-					<div class="detail-right">
+					<div class="detail-right detail-end">
 						<div class="detail-right top">${ shop.shopAddr }</div>
 						<div id="map" class="detail-right bottom"></div>
 						<div class="detail-right buttons">
@@ -217,7 +154,7 @@
 							<c:if test="${ !empty loginUser }">
 								<!-- 꿈나무회원 -->
 								<c:if test="${ loginUser.userType == 1 }">
-									<ul>
+									<ul class="two-buttons-all">
 										<li><a href="${ reservation }" class="two-buttons">예약하기</a></li>
 										<li><a href="javascript:history.back();" class="two-buttons">목록으로</a></li>
 									</ul>
@@ -234,7 +171,7 @@
 								
 								<!-- 사업자 -->
 								<c:if test="${ loginUser.userType == 3 }">
-									<ul>
+									<ul class="one-button-all">
 										<li><a href="javascript:history.back();" class="one-button">목록으로</a></li>
 									</ul>
 								</c:if>
@@ -298,7 +235,6 @@
 			
 			    // 정상적으로 검색이 완료됐으면 
 			     if (status === kakao.maps.services.Status.OK) {
-			    	 
 			     
 			    	 var imageSrc = '/resources/images/map_marker_blue.png', // 마커이미지의 주소입니다    
 					    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
@@ -321,9 +257,9 @@
 					
 					/// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 					var content = '<div class="customoverlay">' +
-					    '  <a href="javascript:void(0);">' +
+						'   <div class="tail">' + 
 					    '    <span class="title">${shop.shopName}</span>' +
-					    '  </a>' +
+					    '	</div>' +
 					    '</div>';
 					
 					// 커스텀 오버레이가 표시될 위치입니다 
@@ -343,17 +279,17 @@
 			});
 			
 			
+		/* 로그인창 이동 */	
 		function goLogin() {
 			location.href='loginView.dz';
 		}
 	
 		
-		
+		/* 찜 등록 */
 		var shopNo = '${ shop.shopNo }';
 		var userNo = '${ loginUser.userNo }';
 		var pickNo = '${ pick.pickNo }';
 		
-		/* 찜 등록 */
 		$("#pick-button-off").on("click", function() {
 			$.ajax({
 				url: "enrollPick.dz",
@@ -422,24 +358,6 @@
 		}	
 	
 		
-		
-		/* 메뉴 사진 modal창 */
-		/* $(function(){
-			$(".menu-img-thumb").click(function() {
-				$(this).parent().prev().fadeIn(); 
-				//$(this).parent().prev().find("img").fadeIn(); 
-				//$(".menu-img-big").fadeIn();
-			});
-			$(".menu-img-detail").click(function() {
-				//$(this).parent().find("img").fadeOut();
-				$(this).parent().fadeOut();
-				//$(this).find("img")fadeOut(); 
-				//$(this).parent().find("img")fadeOut(); 
-			});
-		}); */
-		
-
-	
 	
 		/* 후기 띄우기(전체/감사/맛집) */
 		
@@ -498,13 +416,16 @@
 							
 							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
-							
-								if(data.rList[i].drmReviewPublicYN == "MZ"){
-									contentReviewRight.append("<span class='review-type'>맛집후기</span><br>");
-								}else{
-									contentReviewRight.append("<span class='review-type'>감사후기</span><br>");
-								}
-									contentReviewRight.append("<div class='review-content'>" + data.rList[i].drmReviewContent + "</div><br>");
+								
+							if(data.rList[i].drmReviewPublicYN == "MZ"){
+	                           contentReviewRight.append("<span class='review-type'>맛집후기</span>")
+	                           .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
+	                        }else{
+	                           contentReviewRight.append("<span class='review-type'>감사후기</span>")
+	                           .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
+	                        }
+
+							contentReviewRight.append("<div class='review-content'>" + data.rList[i].drmReviewContent + "</div><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
 							contentList.append(contentReview);
@@ -590,8 +511,9 @@
 							
 							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.drList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
-												.append("<span class='review-type'>감사후기</span><br>")
-												.append("<div class='review-content'>" + data.drList[i].drmReviewContent + "</div><br>");
+											  .append("<span class='review-type'>감사후기</span>")
+											  .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.drList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>")
+											  .append("<div class='review-content'>" + data.drList[i].drmReviewContent + "</div><br>");
 							contentReview.append(contentReviewLeft);
 							contentReview.append(contentReviewRight);
 							contentList.append(contentReview);
@@ -673,8 +595,9 @@
 						
 						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
-											.append("<span class='review-type'>맛집후기</span><br>")
-											.append("<div class='review-content'>" + data.mzList[i].mReviewContent + "</div><br>");
+										  .append("<span class='review-type'>맛집후기</span>")
+										  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.mzList[i].mReviewNo + "' class='review-detail'>더보기</a><br>")
+										  .append("<div class='review-content'>" + data.mzList[i].mReviewContent + "</div><br>");
 						contentReview.append(contentReviewLeft);
 						contentReview.append(contentReviewRight);
 						contentList.append(contentReview);
