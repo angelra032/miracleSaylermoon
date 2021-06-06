@@ -89,6 +89,9 @@
 			</c:if>
 		</div>
 	</header>
+	
+	
+	<!-- 채팅섹션 -->
 	<!-- chatting button-->
 	<c:if
 		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
@@ -98,56 +101,166 @@
 			</a>
 		</div>
 	</c:if>
+	
 	<!-- modal section -->
-	<div id="container" class="container modal">
-		<div id="header">
-			<div class="header-icon">
-				<img alt="" src="/resources/images/chatting/logo.png">
-			</div>
-			<div class="header-text">
-				<h4>실시간 상담</h4>
-				<input type="hidden" id="sessionId" value="">
-			</div>
-		</div>
-		<div id="chating" class="chating">
-			<div id='startDiv'>
-				<div id='imgDiv'>
-					<img src='/resources/images/chatting/operator-1.png'>
+	<c:choose>
+		<c:when test="${loginUser.userType eq '4'}">
+		<!--채팅 관리자용  -->
+			<script type="text/javascript">
+			$( document ).ready(function() {
+				$('#modal').click(function(){
+					getChatList();
+				});
+				
+				$("#backHistory").click(function(){
+					$(".chatList").show(); //채팅방 리스트숨기기
+					$(".userChat").hide();
+					getChatList();
+				});
+			});
+			
+			//채팅방 리스트 가져오기
+			function getChatList(){
+				$.ajax({
+					url: "/getChatList",
+					data: {},
+					type: "post",
+					success: function (data) {
+						if(data != null){
+							var tag = "<tr><th class='num'>번호</th><th class='room'>방 이름</th><th class='go'></th></tr>";
+							if(data.length > 0){
+								data.forEach(function(d, idx){
+									var userId = d.userId.trim();
+									tag += "<tr>"+
+												"<td class='num'>"+(idx+1)+"</td>"+
+												"<td class='room'>"+ userId +"</td>"+
+												"<td class='go'><button type='button' onclick='moveChating(\""+userId+"\")'>참여</button></td>" +
+											"</tr>";	
+								});
+							}else{
+								tag += "<tr><td colspan='3'>상담할 내용이 없습니다.</td></tr>";	
+							}
+							$("#roomList").empty().append(tag);
+						}
+					},
+					error : function(err){
+						console.log('error');
+					}
+				});
+			}
+			
+			//해당 채팅 연길하기
+			function moveChating(userId){
+				$.ajax({
+					url: "/moveChating",
+					data: {"userId":userId},
+					type: "post",
+					success: function (data) {
+						if(data != null){
+							if(data.status == 'success'){
+								$("#userId").val(data.userId);
+								wsOpen(data.userId);
+								$(".chatList").hide(); //채팅방 리스트숨기기
+								$(".userChat").show();
+							}else{
+								alert('채팅방 연결이 실패하였습니다.');
+								return false;
+							}
+						}else{
+							alert('채팅방 연결이 실패하였습니다.');
+							return false;
+						}
+					},
+					error : function(err){
+						console.log('error');
+					}
+				});
+			}
+			</script>
+			<div id="container" class="container modal">
+				<div id="header">
+					<div class="header-icon">
+						<img alt="" src="/resources/images/chatting/logo.png">
+					</div>
+					<div class="header-text">
+						<div class="hTextDid">관리자용 채팅방</div>
+						<input type="hidden" id="sessionId" value="">
+					</div>
 				</div>
-				<div class="msgBox">
-					<input type="hidden" class="userNo"
-						value="${sessionScope.loginUser.userNo }"> 
-						<span>안녕하십니까?
-							<br> 돈쭐 고객센터 담당자입니다.
-							<br> 무엇을 도와드릴까요?
-						</span>
-					<button id="requestBtn">실시간 상담하기</button>
+				<div class="chatList">
+					<div class="center-table-area" id="shop-list-table">
+						<table id="roomList" class="roomList"></table>
+					</div>
+					<button onclick="getChatList();">새로고침</button>
+				</div>
+				<div class="userChat" style="display: none">
+					<div id="chating" class="chating">
+					</div>
+					<div id="yourMsg2">
+						<input type="hidden" name="userName" value="관리자" id="userName">
+						<input type="hidden" id="userId" value="">
+						<table class="inputTable">
+							<tr>
+								<th><button id="backHistory">뒤로가기</button></th>
+								<th><input id="chatting-text" class="chattingText" placeholder="보내실 메시지를 입력하세요"></th>
+								<th><button onclick="send()" id="sendBtn">보내기</button></th>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
-
-		</div>
-
-		<div id="yourName">
-			<table class="inputTable">
-				<tr>
-					<td></td>
-					<td><input type="text" name="userName"
-						value="${sessionScope.loginUser.userName }" id="userName"></td>
-				</tr>
-			</table>
-		</div>
-
-		<div id="yourMsg">
-			<table class="inputTable">
-				<tr>
-					<th></th>
-					<th><input id="chatting-text" class="chattingText" placeholder="보내실 메시지를 입력하세요"></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-				</tr>
-			</table>
-		</div>
-	</div>
-
+		</c:when>
+		<c:otherwise>
+			<div id="container" class="container modal">
+				<div id="header">
+					<div class="header-icon">
+						<img alt="" src="/resources/images/chatting/logo.png">
+					</div>
+					<div class="header-text">
+						<h4>실시간 상담</h4>
+						<input type="hidden" id="sessionId" value="">
+						<input type="hidden" id="userId" value="${sessionScope.loginUser.userId }">
+					</div>
+				</div>
+				<div id="chating" class="chating">
+					<div id='startDiv'>
+						<div id='imgDiv'>
+							<img src='/resources/images/chatting/operator-1.png'>
+						</div>
+						<div class="msgBox">
+							<input type="hidden" class="userNo"
+								value="${sessionScope.loginUser.userNo }"> 
+								<span>안녕하십니까?
+									<br> 돈쭐 고객센터 담당자입니다.
+									<br> 무엇을 도와드릴까요?
+								</span>
+							<button id="requestBtn">실시간 상담하기</button>
+						</div>
+					</div>
+				</div>
+		
+				<div id="yourName">
+					<table class="inputTable">
+						<tr>
+							<td></td>
+							<td><input type="text" name="userName"
+								value="${sessionScope.loginUser.userName }" id="userName"></td>
+						</tr>
+					</table>
+				</div>
+		
+				<div id="yourMsg">
+					<table class="inputTable">
+						<tr>
+							<th></th>
+							<th><input id="chatting-text" class="chattingText" placeholder="보내실 메시지를 입력하세요"></th>
+							<th><button onclick="send()" id="sendBtn">보내기</button></th>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
 </body>
 <script type="text/javascript">
 	var click = true;
@@ -170,12 +283,29 @@
 	}
 
 	function chatName() {
-		wsOpen();
+		//1.방생성 후 소켓연결
+		createRoom();
 	}
+	
+	//유저 몰래 방생성하기
+	function createRoom(){
+		$.ajax({
+			url: "/createRoom",
+			data: {"userId":"${loginUser.userId }"},
+			type: "post",
+			success: function (data) {
+				wsOpen("${loginUser.userId }");
+			},
+			error : function(err){
+				console.log('error');
+			}
+		});
+	}
+	
 	var ws;
 
-	function wsOpen() {
-		ws = new WebSocket("ws://" + location.host + "/chatting");
+	function wsOpen(userId) {
+		ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
 		wsEvt();
 	}
 
@@ -194,13 +324,23 @@
 						$("#sessionId").val(si);
 					}
 				} else if (d.type == "message") {
-					if (d.sessionId == $("#sessionId").val()) {
-						$("#chating").append(
-								"<div class='sendDiv'><span>"+d.msg+"</span></div>");
-					} else {
-						$("#chating").append(
-								"<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + d.userName + " :"
-								+ d.msg + "</span></div>");
+					//관리자 일경우
+					if("${loginUser.userType}" == "4"){
+						if (d.sessionId == $("#sessionId").val()) {
+							$("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
+						} else {
+							$("#chating").append(
+									"<div class='reciveDiv'><span>" + d.userName + " :" + d.msg + "</span></div>");
+						}
+					//사용자 일경우
+					}else{
+						if (d.sessionId == $("#sessionId").val()) {
+							$("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
+						} else {
+							$("#chating").append(
+									"<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + d.userName + " :"
+									+ d.msg + "</span></div>");
+						}	
 					}
 				} else {
 					console.log("unknown type!")
@@ -214,7 +354,8 @@
 			type : "message",
 			sessionId : $("#sessionId").val(),
 			userName : $("#userName").val(),
-			msg : $("#chatting-text").val()
+			msg : $("#chatting-text").val(),
+			userId : $("#userId").val()
 		}
 		sendmsg = ws.send(JSON.stringify(option));
 	}
@@ -235,13 +376,13 @@
 			return false;
 		}
 		$('#chatting-text').val("");
-		$.ajax({
+		/* $.ajax({
 			url:"insertChatContents.dz",
 			type:"GET",
 			data:{ "userNo" : userNo, "messageContent" : messageContent, "messageTime" : messageTime },
 			success : function(){
 			}
-		});
+		}); */
 	});  
 </script>
 

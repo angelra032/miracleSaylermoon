@@ -222,3 +222,18 @@ p{
 #yourName{
 	display:none;
 }
+
+.header-text h4{
+	text-align: right;
+	width:150px;
+	font-size: 18px;
+}
+
+.hTextDid{
+    font-size: 20px;
+    color: #ffffff;
+    text-align: right;
+    font-family: NotoSansKR;
+    font-weight: 500;
+    padding-top: 11px;
+}
