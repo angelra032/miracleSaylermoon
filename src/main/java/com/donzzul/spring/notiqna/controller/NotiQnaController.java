@@ -180,12 +180,12 @@ public class NotiQnaController {
 	}
 	
 	// 삭제 delete
-	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
+	@ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="qaDelete.dz", method=RequestMethod.GET)
 	public String qaDelete(@RequestParam("qnaNo") int qaNo, Model model) {
 		int result = qnaService.deleteQna(qaNo);
 		if(result > 0) {
-			return "redirect:notiQnaMain.dz";
+			return "success";
 		} else {
 			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
 			return "common/errorPage";
@@ -379,10 +379,10 @@ public class NotiQnaController {
 			int listCount = qnaService.dreamListCount(userNo);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
-			ArrayList<Qna> list = qnaService.deleteAndSelectPick(qnaNo, userNo, pi);
+			//ArrayList<Qna> list = qnaService.deleteAndSelectPick(qnaNo, userNo, pi);
 			HashMap<String, Object> hashMap = new HashMap<String, Object>();
 			hashMap.put("pi", pi);
-			hashMap.put("list", list);
+			//hashMap.put("list", list);
 			return hashMap;
 		}
 		

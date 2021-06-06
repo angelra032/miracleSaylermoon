@@ -254,6 +254,10 @@ public class UserController {
     public String accessDeniedPage() throws Exception {
         return "user/access_denied_page";
     }
+	@RequestMapping(value="/oversession_denied_page")
+	public String oversessionDeniedPage() throws Exception {
+		return "user/oversession_denied_page";
+	}
 	
 	//회원정보조회@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@RequestMapping(value = "myINfo.dz", method = RequestMethod.GET)

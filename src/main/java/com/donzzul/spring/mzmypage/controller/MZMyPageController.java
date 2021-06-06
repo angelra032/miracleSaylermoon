@@ -74,7 +74,7 @@ public class MZMyPageController {
 		// 내가 쓴 추천 목록
 		ArrayList<RecommendBoard> reList = reService.selectThreeRecommendToMyPage(userNo);
 		// 내가 쓴 문의글 목록
-		//ArrayList<Qna> qList = qService.selectThreeRecommendToMyPage(userNo);
+		ArrayList<Qna> qList = qService.dreamQnaUpToThree(userNo);
 		
 		
 		if(userPoint != null || !rList.isEmpty() || !pList.isEmpty() || !dList.isEmpty() || !mList.isEmpty()) {
@@ -84,12 +84,14 @@ public class MZMyPageController {
 			model.addAttribute("dList", dList);
 			model.addAttribute("mList", mList);
 			model.addAttribute("reList", reList);
+			model.addAttribute("qList", qList);
 			model.addAttribute("msg", "0");
 			model.addAttribute("Rmsg", "예약 내역이 없습니다.");
 			model.addAttribute("Pmsg", "찜한 내역이 없습니다.");
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			model.addAttribute("Mmsg", "후기글이 없습니다.");
 			model.addAttribute("REmsg", "추천글이 없습니다.");
+			model.addAttribute("Qmsg", "문의글이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}else {
 			model.addAttribute("msg", "0");
@@ -98,6 +100,7 @@ public class MZMyPageController {
 			model.addAttribute("Dmsg", "돈쭐 내역이 없습니다.");
 			model.addAttribute("Mmsg", "후기글이 없습니다.");
 			model.addAttribute("REmsg", "추천글이 없습니다.");
+			model.addAttribute("Qmsg", "문의글이 없습니다.");
 			return "mzMyPage/MZMyPage";
 		}
   	} // end of MZMyPageView
@@ -308,7 +311,29 @@ public class MZMyPageController {
 			} else {
 				mv.addObject("msg", "게시글이 없습니다");
 			}
-			mv.setViewName("mzMyPage/RecommendList");
+			mv.setViewName("mzMyPage/MZRecommendList");
+			return mv;
+			
+		}
+		
+		// 문의글 전체 목록 보기
+		@RequestMapping(value ="printQnaAllListToMyPage.dz", method = RequestMethod.GET)
+		public ModelAndView printQnaAllListToMyPage(HttpSession session, ModelAndView mv, Model model, @RequestParam(value="page", required = false) Integer page) {
+			
+			User loginUser = (User)session.getAttribute("loginUser");
+			int userNo = loginUser.getUserNo();
+			
+			int currentPage = (page != null) ? page : 1;
+			int listCount = qService.dreamListCount(userNo);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			System.out.println(pi.getEndPage());
+			ArrayList<Qna> qList = qService.qnaListBydream(userNo, pi);
+			if(!qList.isEmpty()) {
+				mv.addObject("qList", qList).addObject("pi", pi);
+			} else {
+				mv.addObject("msg", "게시글이 없습니다");
+			}
+			mv.setViewName("mzMyPage/MZQnaList");
 			return mv;
 			
 		}

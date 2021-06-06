@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -185,7 +186,7 @@
 						</c:if>
 					</div>
 				</div>
-				<table>
+				<table id="review-list-table">
 					<thead>
 						<tr>
 							<th>No</th>
@@ -270,10 +271,12 @@
 				<div class="my-title">
 					<span>내가 쓴 문의글</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="#">더보기</a>
+						<c:if test="${ !empty qList }">
+							<a class="more-btn b-btn" href="printQnaAllListToMyPage.dz">더보기</a>
+						</c:if>
 					</div>
 				</div>
-				<table>
+				<table id="qna-list-table">
 					<thead>
 						<tr>
 							<th>No</th>
@@ -283,28 +286,22 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a class="table-link-title" href="#"><p>문의합니다</p></a></td>
-							<td>2021-01-01</td>
-							<td><a class="modify-btn" href="#">수정</a></td>
-							<td><a class="delete-btn" href="#">삭제</a></td>
-						</tr>
+					<tbody class="qna-tbody">
+						<c:if test="${ !empty qList }">
+							<c:forEach items="${qList }" var="qnaList" varStatus="status">
+								<tr>
+									<td>${status.count}</td>
+									<td><a class="table-link-title" href="qaDetail.dz?qnaNo=${ qnaList.qnaNo }"><p>${ qnaList.qnaTitle }</p></a></td>
+									<fmt:parseDate value="${ qnaList.qanUploadDate }" var="parseDateValue" pattern="yyy-MM-dd"/>
+									<td class="qnaDate1"><fmt:formatDate value="${parseDateValue}" pattern="yyyy-MM-dd"/></td>
+									<td><a class="modify-btn" href="qaUpdateForm.dz?qnaNo=${ qnaList.qnaNo }">수정</a></td>
+									<td>
+										<a class="delete-btn delete-btn-qna" href="#">삭제</a>
+										<input type="hidden" class="qnaNo" value="${ qnaList.qnaNo }">
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -314,6 +311,8 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
+	
+
 	$(document).on('click','a[href="#"]', function(ignore) {
 	    ignore.preventDefault();
 	});
@@ -384,44 +383,24 @@
 	$(document).on('click','.delete-btn-mzreview', function() {
 		var mReviewNo = $(this).next().val();
 		$.ajax({
-			url : "mReviewDeleteAndSelectThree.dz",
+			url : "mReviewDelete.dz",
 			data : { "mReviewNo" : mReviewNo },
 			success : function(data){ 
-				if(data != null){
-					$('.mzreview-tbody').empty();
-					for(var i in data){
-						var tr = $("<tr>");
-						var count = $("<td>").html(Number(i)+1);
-						var reviewTitle = $("<td>").append("<a class='table-link-title' href='mReviewDetail.dz?mzReviewNo="+data[i].mReviewNo+"'><p>"+data[i].mReviewTitle+"</p></a>");
-						var shopName = $("<td>").html(data[i].shopName);
-						var uploadDate = $("<td>").html(data[i].mReviewUploadDate);
-						var modifyBtn = $("<td><a class='modify-btn modify-btn-mzreview' href='mReviewUpdateView.dz?mReviewNo="+data[i].mReviewNo+"'>수정</a></td>");
-						var td = $("<td>");
-						var deleteBtn = $("<a class='delete-btn delete-btn-mzreview' href='#'>삭제</a>");
-						var hiddenNo = $("<input type='hidden' class='mReviewNo' value='"+data[i].mReviewNo+"'>");
-						
-						tr.append(count);
-						tr.append(reviewTitle);
-						tr.append(shopName);
-						tr.append(uploadDate);
-						tr.append(modifyBtn);
-						td.append(deleteBtn);
-						td.append(hiddenNo);
-						tr.append(td);
-						
-						$('.mzreview-tbody').append(tr);
-					}
+				if(data == "success"){
+					reloadReviewList();					
 				}else { // 남은 데이터 없을때
-					$('.mzreview-tbody').empty();
-					var tr = $("<tr>");
-					var td = $("<td colspan='6'>후기 내역이 없습니다.</td>");
-					tr.append(td);
+					alert("삭제 실패했습니다");
 				}
 			}, //end of success
 			error : function() {
 				console.log("전송실패");
 			}
 		});//end of ajax
+		
+		function reloadReviewList() {
+			$("#review-list-table").load("mzMyPage.dz #review-list-table");
+			// $("특정 #id").load("해당페이지주소  특정#id") 
+		}
 	});
 	
 	// 내가쓴추천 삭제 aJax
@@ -449,5 +428,30 @@
 		}
 	});
 	
+	// 내가쓴문의글 삭제 aJax
+	$(document).on('click','.delete-btn-qna', function() {
+		var qnaNo = $(this).next().val();
+		$.ajax({
+			url : "qaDelete.dz",
+			data : { "qnaNo" : qnaNo },
+			success : function(data){ 
+				if(data == "success"){
+					reloadQnaList();
+				} else {
+					alert('문의글삭제가 실패했습니다');
+				}
+			},//end of success
+			error : function() {
+				console.log("전송실패");
+			}
+		});
+		
+		// 리로드
+		function reloadQnaList() {
+			$("#qna-list-table").load("mzMyPage.dz #qna-list-table");
+			// $("특정 #id").load("해당페이지주소  특정#id") 
+		}
+		
+	});
 </script>
 </html>

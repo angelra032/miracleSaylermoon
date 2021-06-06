@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -197,7 +199,7 @@ public class MzReviewController {
 	
 	
 	// 삭제 delete
-	// @ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
+	@ResponseBody // 스프링에서 ajax를 사용하는데, 그 값을 받아서 쓰고싶을때 반드시 필요함
 	@RequestMapping(value="mReviewDelete.dz", method=RequestMethod.GET)
 	public String mReviewDelete(@RequestParam("mReviewNo") int mReviewNo, Model model) {
 		ArrayList<MzReviewPhoto> photoList = mService.selectPhoto(mReviewNo);
@@ -208,10 +210,10 @@ public class MzReviewController {
 				String mzPhotoFilePath = photoList.get(i).getMzReviewFilePath();
 				fileDelete(mzPhotoRename, mzPhotoFilePath);
 			}
-			return "redirect:mReviewMain.dz";
+			return "success";
 		} else {
-			model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
-			return "common/errorPage";
+			//model.addAttribute("msg", "게시글 삭제에 실패했습니다.");
+			return "fail";
 		}
 	}
 	
@@ -397,6 +399,10 @@ public class MzReviewController {
 			}
 			User user = (User)session.getAttribute("loginUser");
 			ArrayList<MzReview> mList = mService.selectThreeReviewToMyPage(user.getUserNo());
+			
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//			String dateformat = sdf.format(mList.get(0).getmReviewUploadDate());
+//			mList.get(0).setmReviewUploadDate(sdf.format(mList.get(0).getmReviewUploadDate()));
 			
 			return mList;
 		} else {
