@@ -28,10 +28,11 @@
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
 					<button id="btn-search"><img src="/resources/images/undo.png"></button>
 				</div>
-				<hr>
 				<div class="content-list">
 					<c:if test="${empty mList}">
-						<span id="shopReady">등록된 가게가 없습니다.</span>
+						<div class="notEnroll">
+							<span class="shopReady">등록된 가게가 없습니다.</span>
+						</div>
 					</c:if>
 					<c:if test="${!empty mList}">
 						<c:forEach items="${ mList }" var="shop">
@@ -174,23 +175,8 @@
     function shopDetail(shopNo) {
         location.href='shopDetail.dz?shopNo='+shopNo;
         
-    } 		
-    
-	var count = 0;
-	//스크롤 바닥 감지
-	window.onscroll = function(e) {
-	    //추가되는 임시 콘텐츠
-	    //window height + window scrollY 값이 document height보다 클 경우,
-	    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-	    	//실행할 로직 (콘텐츠 추가)
-	        count++;
-	        var addContent = '<div class="block"><p>'+ count +'번째로 추가된 콘텐츠</p></div>';
-	        //article에 추가되는 콘텐츠를 append
-	        $('article').append(addContent);
-	    }
-	};
+    } 	
 			
-
 	
 	$("#btn-search").on("click", function() {
 		/* var result = true; */
@@ -226,16 +212,24 @@
 								var contentShopRight = $("<div class='content-shop right'>");
 								var contentShopRightTop = $("<div class='content-shop right top'>");
 								var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+								var shopInfo = $("<div id='shop-info'>");
+								var shopCon = $("<div id='shop-con'>");
 								
 								contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
 								contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
 												   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
-												   .append("<span>"+data.mList[i].shopAddr+"</span><br>")
-								if(data.mList[i].shopContent != null) {
-									contentShopRightTop.append("<span id='shop-content'>"+data.mList[i].shopContent+"</span><br>");
+						   		shopInfo.append("<div id='shop-addr'><span>"+data.mList[i].shopAddr+"</span><div>");
+								if(data.mList[i].drmReviewContent != "EMPTY") {
+									shopCon.append("<span class='shopContent'>"+data.mList[i].drmReviewContent+"</span>");
 								}else {
-									contentShopRightTop.append("<span id='shop-content'></span><br>");
+									if(data.mList[i].shopContent != null) {
+										shopCon.append("<span class='shopContent'>"+data.mList[i].shopContent+"</span>");
+									}else {
+										shopCon.append("<span class='shopContent'>"+data.mList[i].shopName+"</span>");
+									}
 								}
+								shopInfo.append(shopCon);
+								contentShopRightTop.append(shopInfo);
 								contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
 													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>자세히 보기</button>");
 								contentShop.append(contentShopLeft);
@@ -243,11 +237,11 @@
 								contentShopRight.append(contentShopRightBottom);
 								contentShop.append(contentShopRight);
 								contentList.append(contentShop); 
+								
 					 	 	}
 							
 							
 							/* 네비 */
-							contentListNavi.append("<hr>");
 							if(data.pi.currentPage > 1) {
 								var prev = Number(data.pi.currentPage)-1;
 								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
@@ -277,7 +271,7 @@
 					}else {
 						$(".content-list").empty();
 						$(".content-list-navi").empty();
-						contentList.append("<span>등록된 가게가 없습니다.</span>");
+						contentList.append("<span id='shopReady'>등록된 가게가 없습니다.</span>");
 						/* result = false; */
 					}  
 				},
@@ -318,16 +312,24 @@
 							var contentShopRight = $("<div class='content-shop right'>");
 							var contentShopRightTop = $("<div class='content-shop right top'>");
 							var contentShopRightBottom = $("<div class='content-shop right bottom'>");
+							var shopInfo = $("<div id='shop-info'>");
+							var shopCon = $("<div id='shop-con'>");
 							
 							contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
 							contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
 											   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
-											   .append("<span>"+data.mList[i].shopAddr+"</span><br>");
-							if(data.mList[i].shopContent != null) {
-								contentShopRightTop.append("<span id='shop-content'>"+data.mList[i].shopContent+"</span><br>");
+					   		shopInfo.append("<div id='shop-addr'><span>"+data.mList[i].shopAddr+"</span><div>");
+							if(data.mList[i].drmReviewContent != "EMPTY") {
+								shopCon.append("<span class='shopContent'>"+data.mList[i].drmReviewContent+"</span>");
 							}else {
-								contentShopRightTop.append("<span id='shop-content'></span><br>");
+								if(data.mList[i].shopContent != null) {
+									shopCon.append("<span class='shopContent'>"+data.mList[i].shopContent+"</span>");
+								}else {
+									shopCon.append("<span class='shopContent'>"+data.mList[i].shopName+"</span>");
+								}
 							}
+							shopInfo.append(shopCon);
+							contentShopRightTop.append(shopInfo);
 							contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
 												  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>자세히 보기</button>");
 							contentShop.append(contentShopLeft);
@@ -339,7 +341,6 @@
 							
 						
 						/* 네비 */
-						contentListNavi.append("<hr>");
 						if(data.pi.currentPage > 1) {
 							var prev = Number(data.pi.currentPage)-1;
 							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
@@ -367,7 +368,7 @@
 				}else {
 					$(".content-list").empty();
 					$(".content-list-navi").empty();
-					contentList.append("<span>등록된 가게가 없습니다.</span>");
+					contentList.append("<span id='shopReady'>등록된 가게가 없습니다.</span>");
 				}  
 			},
 			error: function() {

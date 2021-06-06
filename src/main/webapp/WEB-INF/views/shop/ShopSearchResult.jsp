@@ -82,34 +82,41 @@
 				<div class="searchResult">
 					<c:choose>
 	 					<c:when test="${ !empty searchKeyword }">
-	 						<c:forEach var="search" items="${ sList }" varStatus="status">
-								<div class="shopShortInfo">
-									<div class="shopShortInfo left">
-										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
-									</div>
-									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
-										<span id="shop-type">${ search.shopType }</span><br><br>
-										<span>${ search.shopShortAddr }</span><br>
-										<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<div class="shopDetailShort">
-											<c:choose>
-												<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
-													<span class="shopContent">${ search.drmReviewContent }</span> 
-												</c:when>
-												<c:when test="${ search.drmReviewContent eq 'EMPTY' }">
-													<c:if test="${ !empty search.shopContent }">
-														<span class="shopContent">${ search.shopContent }</span> 
-													</c:if>
-													<c:if test="${ empty search.shopContent }">
-														<span class="shopContent">${ search.shopName }</span> 
-													</c:if>
-												</c:when>
-											</c:choose>
+	 						<c:if test="${ !empty sList }">
+		 						<c:forEach var="search" items="${ sList }" varStatus="status">
+									<div class="shopShortInfo">
+										<div class="shopShortInfo left">
+											<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
+										</div>
+										<div class="shopShortInfo right">
+											<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
+											<span id="shop-type">${ search.shopType }</span><br><br>
+											<span>${ search.shopShortAddr }</span><br>
+											<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+											<div class="shopDetailShort">
+												<c:choose>
+													<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ search.drmReviewContent }</span> 
+													</c:when>
+													<c:when test="${ search.drmReviewContent eq 'EMPTY' }">
+														<c:if test="${ !empty search.shopContent }">
+															<span class="shopContent">${ search.shopContent }</span> 
+														</c:if>
+														<c:if test="${ empty search.shopContent }">
+															<span class="shopContent">${ search.shopName }</span> 
+														</c:if>
+													</c:when>
+												</c:choose>
+											</div>
 										</div>
 									</div>
+								</c:forEach>
+							</c:if>
+							<c:if test='${ empty sList }'>
+								<div class="notFound">
+									<span>해당하는 검색 결과를 찾을 수 없습니다.</span>
 								</div>
-							</c:forEach>
+							</c:if>
 	 					</c:when>
 	 					<c:when test="${ themeNo eq 1 }">
 		 					<c:forEach var="reviewShop" items="${ rankList }" varStatus="status">

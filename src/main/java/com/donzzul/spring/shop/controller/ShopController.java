@@ -162,6 +162,14 @@ public class ShopController {
 		ArrayList<Shop> mapList = sService.searchMapKeyword(pi, searchKeyword);
 		ArrayList<Shop> mapMarkers = sService.searchMapKeyword(searchKeyword);
 		
+		ArrayList<DreamReview> reviewOneList = recentReviewOne(mapList);
+		
+		for(int i = 0; i < reviewOneList.size(); i++) {
+			String reviewContent = reviewOneList.get(i).getDrmReviewContent();
+			String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			mapList.get(i).setDrmReviewContent(changeCon);
+		}
+		
 		response.setContentType("application/json"); // json 객체로 전달시 파라미터 값 다름("text/html;charset=utf-8")
 		response.setCharacterEncoding("utf-8"); // 데이터 한글 변환 위해 필수 작성!!
 		
@@ -169,7 +177,9 @@ public class ShopController {
 		hashMap.put("pi", pi);
 		hashMap.put("mList", mapList);
 		hashMap.put("mapMarkers", mapMarkers);
-		hashMap.put("center", mapList.get(0).getShopAddr());
+		if(!mapList.isEmpty()) {
+			hashMap.put("center", mapList.get(0).getShopAddr());
+		}
 		hashMap.put("searchKeyword", searchKeyword);
 		
 		Gson gson = new Gson();

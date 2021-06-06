@@ -125,6 +125,13 @@ a {
 				text-decoration: none; 
 			}
 		
+		.notFound {
+			text-align: center;
+			font-size: 28px;
+			color: #888;
+			margin-top: 100px;
+		}
+		
 		.shopShortInfo {
 			width: 1280px;
 			height: 230px;

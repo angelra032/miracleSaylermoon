@@ -31,25 +31,28 @@ main {
 }
 
 	.map-left {
-		width: 420px;
+		width: 450px;
 		height: 100%;
 		border: solid 1px #e3e4e5;		
-		/* padding: 15px; */
 		margin: 0 auto;
 		background-color: #ffffff;
 		text-align: center;
 		float: left;
-		overflow-y: auto; /* 넘치는 부분 내용 숨김. 필요시 스크롤바 나타남 */
+		overflow-y: auto;
+		
 	}
 		
 			.searchBar {
-				padding: 15px;
+				width: 400px;
+				height: 50px;
+				display: inline-block;
+				margin: 20px auto;
 			}
 			
 			#searchBox {
-				width: 320px;
+				width: 349px;
+				height: 53px;
 				padding: 9px;
-				margin: 5px 0 0 10px;
 				border: solid 1px #e3e4e5;
 				font-size: 16px;
 				float: left;
@@ -60,9 +63,8 @@ main {
 			}
 		
 			#btn-search {
-				width: 2.5em;
-				height: 45px;
-				margin-top: 5px;
+				width: 3.1em;
+				height: 53px;
 				line-height: 3px;
 				border-style: none;
 				background-color: #fdb504;
@@ -74,32 +76,35 @@ main {
 					height: auto; /* width 조정, height auto 로 두면 비율에 맞게 줄어듬 */
 				}
 				
-			.map-left > hr {
-				margin: 55px 10px 8px;
-				display: block;
-				color: #333333;
-				align: center;
+			.content-list {
+				height: 1050px;
+				border-top: solid 1px #e3e4e5;
 			}
 			
-			.content-list {
-				padding: 15px;
+			.notEnroll {
+				width: 100%;
+				height: 50px;
+				margin-top: 30px;
 			}
-				
-			#shopReady {
-				color: #888;
-			}
+			
+				.shopReady {
+					color: #888;
+				}
 			
 			/* 가게 리스트 */
 			.content-shop {
-				width: 365px;
-				height: 180px;
-				border: solid 1px #e3e4e5;
-				padding: 5px;
-				margin: 0 0 10px 10px;
+				width: 450px;
+				height: 200px;
+				border-bottom: solid 1px #e3e4e5;
+				padding: 10px;
+			}
+			
+			.content-shop:nth-child(5) {
+				border-style: none;
 			}
 			
 				.content-shop > .left {
-					width: 97px;
+					width: 110px;
 					height: inherit;
 					border-style: none;
 					padding: 5px 0;
@@ -108,13 +113,13 @@ main {
 				}
 				
 					.content-shop > .left > img {
-						width: 90px;
-						height: 90px;
+						width: 110px;
+						height: auto;
 						object-fit: cover;
 					}
 				
 				.content-shop > .right {
-					width: 253px;
+					width: 320px;
 					height: inherit;
 					padding: 0;
 					margin: 0;
@@ -125,8 +130,8 @@ main {
 				
 					.content-shop > .right > .top {
 						width: inherit;
-						height: 129px;	
-						padding: 5px 7px;
+						height: 145px;	
+						padding: 10px;
 					}
 					
 				 		.content-shop > .right > span {
@@ -168,25 +173,19 @@ main {
 						width: inherit;
 						height: 35px;
 						text-align: right;	
-						padding-top: 5px;
+						padding: 3px;
 					}
 			
 			.content-list-navi {
-					width: 260px;
-					height: 40px;
+					width: 450px; /* div 하단 고정 */
+					height: 50px;
+					padding: 5px;
 					border: solid 1px #e3e4e5;
-					text-align: center;
 					margin: 0 auto;
-					/* position: fixed; */
-					/* z-index: 999; */
+					position: fixed; /* div 하단 고정 */
+					bottom: 0; /* div 하단 고정 */
+					background-color: #fff;
 				}
-				
-				/* .content-list-navi > hr {
-					margin: 20px 10px 20px;
-					display: block;
-					color: #333333;
-					align: center;
-				} */
 				
 				.content-list-navi > a {
 					color: #333333; 
@@ -223,7 +222,7 @@ main {
 		
 	/* 지도 영역 시작 */	
 	.map-right {
-		width: 1483px;
+		width: 1453px;
 		height: 100%;
 		float: left;
 		position: relative;
@@ -271,9 +270,34 @@ main {
 			width: 100%;
 			height: 100%;
 		}
+		
+			.wrap * {padding: 0;margin: 0;}
+			.wrap {position:absolute; top: -231px; left: -153px;z-index: 999;width: 280px;height: 193px;}
+		    .wrap .info {width: 280px;height: 181px;margin-bottom: 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+		    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+		    .info .title {padding: 5px 7px;height: 36px;background-color: #fdb504;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+		    .info .close {position: absolute;top: 10px;right: 9px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+		    .info .close:hover {cursor: pointer;}
+		    .info .body {position: relative;overflow: hidden;float: left;}
+		    .info .desc {position: relative;width: 260px; height: 97px;margin: 5px auto;}
+		   	.shopTitle{width: 260px;}
+		    .targetTitle {width: 60px;height: 25px;float: left;}
+		    .targetCon {width: 200px;font-size: 14px;padding: 2px;float: left;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+		    .shopCon {width: 260px;}
+		    .shopProduct {width: 60px;height: 25px;float: left;}
+		    .shopProductCon {width: 200px;font-size:14px;white-space: normal;padding: 2px;float: left;overflow:hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+		    .shopTime {width: 260px;}
+		    .timeTitle {font-size: 14px;color: #888;float: left;}
+		    .timeCon {font-size: 14px;color: #888;float: left;}
+		    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+		    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+		    .info .link {color: #5085BB;}	
+		    .btnShop {width: 270px;height:30px;margin: 5px 3px;}	
+		    .btn-sm {float: right;}	
+					
 			
 
-			.customoverlay {
+/* 			.customoverlay {
 				position:relative;
 				bottom:5px;
 				border-radius:6px;
@@ -311,28 +335,6 @@ main {
 				width:22px;
 				height:12px;
 				background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
-			}
+			} */
 		
-	.wrap * {padding: 0;margin: 0;}
-	.wrap {position:absolute; top: -231px; left: -153px;z-index: 999;width: 280px;height: 193px;}
-    .wrap .info {width: 280px;height: 181px;margin-bottom: 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 7px;height: 36px;background-color: #fdb504;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 9px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;float: left;}
-    .info .desc {position: relative;width: 260px; height: 97px;margin: 5px auto;}
-   	.shopTitle{width: 260px;}
-    .targetTitle {width: 60px;height: 25px;float: left;}
-    .targetCon {width: 200px;font-size: 14px;padding: 2px;float: left;}
-    .shopCon {width: 260px;}
-    .shopProduct {width: 60px;height: 25px;float: left;}
-    .shopProductCon {width: 200px;font-size:14px;white-space: initial;padding: 2px;float: left;}
-    .shopTime {width: 260px;}
-    .timeTitle {font-size: 14px;color: #888;float: left;}
-    .timeCon {font-size: 14px;color: #888;float: left;}
-    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}	
-    .btnShop {width: 270px;height:30px;margin: 5px 3px;}	
-    .btn-sm {float: right;}	
+	
