@@ -259,14 +259,16 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="uploadFile" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="uploadFile" class="form-elem uploadFile" multiple="multiple" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 							</div>
 							
 							<h1>유효성검사 필요, 메뉴사진(다중업로드) 추가, MAIN_MENU 테이블 입력필요</h1>
 							
 							<input type="hidden" name="userNo" value="${userNo}" />
-							<button class="submit-btn" type="submit">등록하기</button>
+							<!-- <button class="submit-btn" type="submit">등록하기</button> -->
+							<input type="submit" class="submit-btn" value="등록하기" />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+													<!-- 이건 뭐야 -->
 						</form>
 					</div>
 				</div>
@@ -277,6 +279,7 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script>
+
 	$(function() {
 		
 		///휴대폰번호@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -315,6 +318,9 @@
 		  console.log(this.value);
 		  this.value = autoHypenPhone( this.value ) ;  
 		}
+	
+	});
+	
 		
 		
 	// 주소검색 api
@@ -327,6 +333,18 @@
 			}
 		}).open();
 	}
-</script>
+	
+	
+	
+	////////// 등록 버튼 //////////
+	$("#submit-btn").click(function (){
+		console.log("등록버튼 클릭");
+		alert("하 ...");
+		return false;
+	});
+	
+	
+
+</script>	
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 </html>
