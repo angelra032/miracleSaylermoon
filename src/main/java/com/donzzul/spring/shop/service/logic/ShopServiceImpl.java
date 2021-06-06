@@ -144,20 +144,10 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.selectShopOneUserNo(userNo);
 	}
 	
-	// 관리자-파트너
+	// 관리자-파트너 공개승인
 	@Override
 	public int updatePartnerShopShow(int shopNo) {
 		return sStore.updatePartnerShopShow(shopNo);
-	}
-	
-	@Override
-	public int updatePartnerPointChange(int shopNo) {
-		return sStore.updatePartnerPointChange(shopNo);
-	}
-
-	@Override
-	public int updatePartnerPointView(int shopNo) {
-		return sStore.updatePartnerPointView(shopNo);
 	}
 
 

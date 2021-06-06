@@ -39,7 +39,7 @@
 		                        <td>${ drmReview.drmReviewTitle }</td>
 		                        <td>${ drmReview.drmReviewWriter }</td>
 	                        	<td>${ drmReview.drmReviewCreateDate }</td>
-	                        	<%-- <td>${ drmReview.drmRviewHit }</td> --%>
+	                        	<td>${ drmReview.drmRviewHit }</td>
 	                    	</tr>
 		                </c:if>
 		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n'}">

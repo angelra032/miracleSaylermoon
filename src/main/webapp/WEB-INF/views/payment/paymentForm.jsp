@@ -127,12 +127,33 @@
 		<!-- 모달창 -->
 	<!-- <a id="modal" href="#paymentModal" rel="modal:open"></a> -->
 	<div id="paymentModal" class="paymentModal modal">
-		<div class="modal-link-area" onclick="kakaoPayment()" style="cursor:pointer;">카카오</div>
-		<div class="modal-link-area" onclick="KGinicisPayment()" style="cursor:pointer;">이니시스</div>
+		<label class="modal-link-area" >
+			<input type="radio" name="paymentType" value="kakao">
+			<span>카카오페이</span>
+<!-- 		onclick="kakaoPayment()" -->
+		</label>
+		
+		<label class="modal-link-area" >
+			<input type="radio" name="paymentType" value="inicis">
+			<span>신용/체크카드</span>
+<!-- 		 onclick="KGinicisPayment()" -->
+		</label>
+		<div class="checkoutInformation">
+			<label class="modal-checkbox-area">
+				<input type="checkbox" class="checkbox-input">
+				상품 및 구매 조건을 확인하였으며, 결제 대행 서비스에 동의합니다(필수)
+			</label>
+			<p class="information-1">
+				결제대행 서비스 이용약관
+				<a href="https://www.inicis.com/terms">보기</a>
+			</p>
+			
+			<button>결제하기</button>
+		</div>
+		
 	</div>
 	
 		<!-- 모달창 -->
-		
 		
 	</main>
 

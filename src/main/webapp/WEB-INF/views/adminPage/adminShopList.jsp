@@ -135,17 +135,17 @@
         }
     }
 	
-	// 승인OK
+	// 가게목록노출 승인OK
 	function showShop(shopNo) {
-		var result = confirm('선택한 가게를 목록에 노출시킵니다.')
+		var result = confirm('선택한 가게를 목록에 노출시킵니다')
 		if(result) {
 			$.ajax({
-				url : 'adminShopShow.dz',
+				url : 'adminShopChangePoint.dz',
 				data : {"shopNo" : shopNo},
 				type : "GET",
 				success : function(data) {
 					if(data == "success") {
-						alert('성공');
+						alert('승인이 완료되었습니다');
 					} else if(data == "fail") {
 						alert('실패');
 					}
@@ -165,13 +165,17 @@
 		var result = confirm('사업자 포인트를 환급합니다');
 		if(result) {
 			$.ajax({
-				url : "adminShopChangeP.dz" ,
+				url : "adminShopChangePoint.dz" ,
 				data : {"shopNo" : shopNo} ,
 				type : "GET",
+				method : "POST",
 				success : function(data) {
-					if(data == "success") {
-						alert('포인트 환급 신청이 완료되었습니다');
-					}	else if(data == "fail") {
+					console.log('테스트' + data);
+					if(data["result"] == "success") {
+						var point = data["point"];
+						alert(point + '원 포인트 환급 신청이 완료되었습니다');
+						shopListReload();
+					}	else if(data["result"] == "fail") {
 						alert('포인트 환급 신청이 실패했습니다');
 					}				
 				},

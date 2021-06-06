@@ -221,6 +221,11 @@ public class PartnerMyPageController {
 		User loginUser = (User)session.getAttribute("loginUser");
 		Shop myShop = pService.selectMyShop(loginUser.getUserNo());
 		
+		// 유저 포인트 업데이트(환급금액 옮김)
+		User changePointUser = new User();
+		changePointUser.setUserNo(loginUser.getUserNo());
+		changePointUser.setUserPoint(myShop.getShopPoint());
+		
 		// 포인트 환급신청
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html; charset=UTF-8");
@@ -228,7 +233,7 @@ public class PartnerMyPageController {
 			// 환급할 포인트가 0보다 크면
 			if(myShop.getShopPoint() > 0) {
 				System.out.println("가게 포인트:"+myShop.toString());
-				int shopPointandYN = pService.applyRefundsShopPoint(myShop.getShopNo());
+				int shopPointandYN = pService.applyRefundsShopPoint(myShop.getShopNo(), changePointUser);
 				if(shopPointandYN > 0) {
 					System.out.println("환급신청 YN 업데이트");
 					// alert창으로 2-3일 내에 포인트가 환급됩니다 띄우기 - model

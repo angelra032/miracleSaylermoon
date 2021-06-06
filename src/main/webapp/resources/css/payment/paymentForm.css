@@ -276,4 +276,45 @@ input[type=radio]{
 			background-color: #fdb504;
 		}
 
+/* 카카오, 이니시스 모달창 */
+#paymentModal {
+	height : 400px;
+}
+	.modal-link-area input[type="radio"]{
+		display:none;
+	}
+	.modal-link-area input[type="radio"] + span {
+		cursor: pointer;
+	    width: 200px;
+	    height: 50px;
+	    line-height: 3;
+	    text-align: center;
+	    float: left;
+	    margin: 8px;
+	    border: 1px solid black;
+	}
+	.modal-link-area input[type="radio"]:checked + span {
+		border:1px solid #fdb504;
+		background:#fdb504;
+		color:#fff;
+	}
+	
+	.modal-checkbox-area input[type="checkbox"] {
+		width: 18px;
+		height : 18px;
+	}
+
+	/* 결제대행이용약관 */
+	.checkoutInformation {
+		margin-top : 60px;
+	}
+	.information-1 {
+		font-size : 16px;
+		color : #a0a0a0;
+	}
+	.information-1 a {
+		color: #a0a0a0;
+		border-bottom: 1px solid black;
+	}
+
 

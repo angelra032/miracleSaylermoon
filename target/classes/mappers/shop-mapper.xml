@@ -347,7 +347,4 @@
 		UPDATE SHOP SET SHOW_SHOP_YN = 'Y' WHERE SHOP_NO = #{shopNo }
 	</update>
 	
-	<update id="partnerUpdatePoint">
-		UPDATE SHOP SET SHOP_POINT = 0 WHERE SHOP_NO = #{shopNo }
-	</update>
 </mapper>

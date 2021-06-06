@@ -49,7 +49,12 @@ public interface PaymentService {
 	
 
 	//// 사업자 포인트 환급신청 ////
-	public int applyRefundsShopPoint(int shopNo);
+	public int applyRefundsShopPoint(int shopNo, User user);
+	public int updateBeforePoint(User user); // shop 포인트를 user 포인트로 옮겨 환급할때 관리자가 금액확인
+	
+	// 관리자의 사업자 포인트 환급
+	public int updateAdminPointViewNo(int shopNo, int userNo); // 환급버튼
+	public int updateAfterPointZero(int userNo); // 클릭 후 확인되었던 금액 0으로 바꿈
 
 	
 	//// 어드민 ////

@@ -152,17 +152,6 @@ public class ShopStoreLogic implements ShopStore {
 	public int updatePartnerShopShow(int shopNo) {
 		return sqlSession.update("shopMapper.updatePartnerShow", shopNo);
 	}
-
-	@Override
-	public int updatePartnerPointChange(int shopNo) {
-		return sqlSession.update("shopMapper.updatepAdminPrtnerPointChange", shopNo);
-	}
-
-	@Override
-	public int updatePartnerPointView(int shopNo) {
-		return sqlSession.update("shopMapper.updatePartnerPointView", shopNo);
-	}
-
 	
 
 }
