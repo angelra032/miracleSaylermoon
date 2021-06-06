@@ -3,7 +3,7 @@
 <mapper namespace="drmReviewMapper">
 
  	<resultMap type="DreamReview" id="drmReviewResultMap">
-		<id property="drmRviewNo" column="DRMREVIEW_NO"/>
+		<id property="drmReviewNo" column="DRMREVIEW_NO"/>
 		<result property="drmReviewTitle" column="DRMREVIEW_TITLE"/>
 		<result property="drmReviewContent" column="DRMREVIEW_CONTENT"/>
 		<result property="drmReviewWriter" column="DRMREVIEW_WRITER"/>
