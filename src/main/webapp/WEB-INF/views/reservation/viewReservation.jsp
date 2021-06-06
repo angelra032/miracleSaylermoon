@@ -22,6 +22,8 @@
          businessHours : true,
          locale : "ko",
          dayMaxEvents : false,
+         dayMaxEvents : 2,
+         contentHeight: "auto",
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
          },

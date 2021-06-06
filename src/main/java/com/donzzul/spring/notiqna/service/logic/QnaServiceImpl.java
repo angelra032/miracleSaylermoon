@@ -1,6 +1,7 @@
 package com.donzzul.spring.notiqna.service.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,6 +115,16 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public Qna selectOneReply(int qnaNo) {
 		return qnaStore.selectOneReply(qnaNo);
+	}
+
+	@Override
+	public ArrayList<Qna> deleteAndSelectPick(int qnaNo, int userNo, PageInfo pi) {
+		int deleteResult = qnaStore.deleteQna(qnaNo);
+		List<Qna> result = null;
+		if(deleteResult > 0) {
+			result = qnaStore.qnaListBydream(userNo, pi);
+		}
+		return (ArrayList<Qna>) result;
 	}
 
 
