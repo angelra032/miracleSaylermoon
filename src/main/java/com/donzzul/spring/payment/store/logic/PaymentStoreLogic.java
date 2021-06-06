@@ -116,7 +116,20 @@ public class PaymentStoreLogic implements PaymentStore{
 	public int updateShopPointYN(int shopNo) {
 		return sqlSession.update("paymentMapper.updateShopPointYN", shopNo);
 	}
+	@Override
+	public int updateBeforePoint(User user) {
+		return sqlSession.update("paymentMapper.updateShopChangeBeforePoint", user);
+	}
 	
+	// 관리자의 사업자 포인트 환급
+	@Override
+	public int updateAdminPointViewNo(int shopNo) {
+		return sqlSession.update("paymentMapper.updateAdminPointChange", shopNo);
+	}
+	@Override
+	public int updateAfterPointZero(int userNo) {
+		return sqlSession.update("paymentMapper.updateAdminChangeAfterPoint", userNo);
+	}
 	
 	
 	//// 어드민 ////
@@ -134,6 +147,7 @@ public class PaymentStoreLogic implements PaymentStore{
 	public Don selectMoneyTotal() {
 		return sqlSession.selectOne("paymentMapper.selectMoneyTotal");
 	}
+
 	
 	
 

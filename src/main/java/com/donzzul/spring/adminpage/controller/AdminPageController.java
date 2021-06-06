@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -425,16 +426,21 @@ public class AdminPageController {
 			return "fail";
 		}
 	}
-	
-	// 사업자 환급버튼
+	// 사업자리스트 환급버튼
 	@ResponseBody
-	@RequestMapping(value="adminShopChangeP.dz",  method = RequestMethod.GET)
-	public String adminShopChangePoint(@RequestParam("shopNo") int shopNo) {
-		int result = sService.updatePartnerPointChange(shopNo);
+	@RequestMapping(value="adminShopChangePoint.dz",  method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, String> adminShopChangePoint(@RequestParam("shopNo") int shopNo, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		int userNo = sService.selectShopOne(shopNo).getUserNo();
+		int point = uService.selectOneUserByNo(userNo).getUserPoint();
+		int result = pService.updateAdminPointViewNo(shopNo, userNo);
 		if(result > 0) {
-			return "success";
+			map.put("point", Integer.toString(point));
+			map.put("result", "success");
+			return map;
 		} else {
-			return "fail";
+			map.put("result", "fail");
+			return map;
 		}
 	}
 	

@@ -106,9 +106,26 @@ public class PaymentServiceImpl implements PaymentService {
 
 	//// 사업자 포인트 환급신청 ////
 	@Override
-	public int applyRefundsShopPoint(int shopNo) {
+	public int applyRefundsShopPoint(int shopNo, User user) {
+		// 트랜잭션
+		updateBeforePoint(user);
 		return pStore.updateShopPointYN(shopNo);
-	}	
+	}
+	@Override
+	public int updateBeforePoint(User user) {
+		return pStore.updateBeforePoint(user);
+	}
+	
+	// 관리자의 사업자 포인트 환급
+	@Override
+	public int updateAdminPointViewNo(int shopNo, int userNo) {
+		updateAfterPointZero(userNo);
+		return pStore.updateAdminPointViewNo(shopNo);
+	}
+	@Override
+	public int updateAfterPointZero(int userNo) {
+		return pStore.updateAfterPointZero(userNo);
+	}
 	
 	
 	
@@ -132,6 +149,8 @@ public class PaymentServiceImpl implements PaymentService {
 	public int getListCount(int userNo) {
 		return pStore.getListCount(userNo);
 	}
+
+
 
 	
 

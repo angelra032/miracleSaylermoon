@@ -156,6 +156,19 @@
 	<update id="updateShopPointYN">
 		UPDATE SHOP SET SHOP_POINT = 0, SHOP_POINT_YN = 'Y' WHERE SHOP_NO = #{shopNo }
 	</update>
+	
+	<update id="updateShopChangeBeforePoint">
+		UPDATE "USER" SET USER_POINT = #{userPoint} WHERE USER_NO= #{userNo}
+	</update>
+	
+	<!-- 관리자 포인트 환급 -->
+	<update id="updateAdminPointChange">
+		UPDATE SHOP SET SHOP_POINT_YN = 'N' WHERE SHOP_NO = #{shopNo }
+	</update>
+	
+	<update id="updateAdminChangeAfterPoint">
+		UPDATE "USER" SET USER_POINT = 0 WHERE USER_NO = #{userNo}
+	</update>
 
 
 	<!-- 어드민 -->

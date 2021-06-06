@@ -36,8 +36,6 @@ public interface ShopStore {
     
     // 관리자-사업자
     public int updatePartnerShopShow(int shopNo); // 사업자 공개승인
-    public int updatePartnerPointChange(int shopNo); // 환급하면서 포인트 0 (어드민 사용)
-    public int updatePartnerPointView(int shopNo); // 관리자페이지에 환급버튼이 활성화되도록 설정
     
     // 파트너사업자
     public int insertPartnerShop(Shop shop);

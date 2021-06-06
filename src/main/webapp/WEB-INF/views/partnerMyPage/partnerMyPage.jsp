@@ -28,8 +28,10 @@
 		<div class="frame">
 			<div class="my-info">
 				<span>보유포인트 : <b>${shop.shopPoint }</b>원</span> 
-				<c:if test="${ !empty shop }">
+				<c:if test="${ !empty shop || shop.shopPointYn eq 'N' || shop.shopPointYn eq 'n' }">
 					<a class="refund-btn" href="refundsPartnerPoint.dz">환급신청</a>
+				</c:if>
+				<c:if test="${ !empty shop || shop.shopPointYn eq 'Y' || shop.shopPointYn eq 'y' }">
 				</c:if>
 				<div class="info-btn-frame">
 					<c:if test="${ !empty shop }">
