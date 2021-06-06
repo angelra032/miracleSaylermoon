@@ -115,15 +115,12 @@ a {
 		margin: 0 auto;
 	}
 	
-		.searchResult a {
-			color: #333333; 
-			width: 30px;
-			height: 30px;
+		.notFound {
+			text-align: center;
+			font-size: 28px;
+			color: #888;
+			margin-top: 100px;
 		}
-		
-			.searchResult a:hover {
-				text-decoration: none; 
-			}
 		
 		.shopShortInfo {
 			width: 1280px;
@@ -131,7 +128,12 @@ a {
 			margin: 0 auto;
 			border: solid 1px #e3e4e5;
 			margin-bottom: 30px;
+			cursor: pointer;
 		}
+		
+			.shopShortInfo:hover {
+				background-color: #edf2fb;
+			}
 		
 			.shopShortInfo .rank {
 				width: 80px;

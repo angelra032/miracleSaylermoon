@@ -97,7 +97,7 @@ function mapJs(map, positions) {
 					//	});
 				    //}
 				    
-					if(clickedMarker != null && clickedOverlay != null) {
+					if(clickedMarker != null && clickedOverlay != null || selectedMarker != null) {
 						//selectedOverlay.setMap(null);
 						selectedMarker.setZIndex(0);
 						//kakao.maps.event.addListener(marker, 'mouseover', function(event) {

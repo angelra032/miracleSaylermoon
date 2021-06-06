@@ -82,38 +82,46 @@
 				<div class="searchResult">
 					<c:choose>
 	 					<c:when test="${ !empty searchKeyword }">
-	 						<c:forEach var="search" items="${ sList }" varStatus="status">
-								<div class="shopShortInfo">
-									<div class="shopShortInfo left">
-										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
-									</div>
-									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ search.shopNo }">${ search.shopName }</a></b></span>&nbsp;&nbsp;
-										<span id="shop-type">${ search.shopType }</span><br><br>
-										<span>${ search.shopShortAddr }</span><br>
-										<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
-										<div class="shopDetailShort">
-											<c:choose>
-												<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
-													<span class="shopContent">${ search.drmReviewContent }</span> 
-												</c:when>
-												<c:when test="${ search.drmReviewContent eq 'EMPTY' }">
-													<c:if test="${ !empty search.shopContent }">
-														<span class="shopContent">${ search.shopContent }</span> 
-													</c:if>
-													<c:if test="${ empty search.shopContent }">
-														<span class="shopContent">${ search.shopName }</span> 
-													</c:if>
-												</c:when>
-											</c:choose>
+	 						<c:if test="${ !empty sList }">
+		 						<c:forEach var="search" items="${ sList }" varStatus="status">
+									<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ search.shopNo }'">
+										<div class="shopShortInfo left">
+											<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
+											<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
+										</div>
+										<div class="shopShortInfo right">
+											<span id="shop-title"><b>${ search.shopName }</b></span>&nbsp;&nbsp;
+											<span id="shop-type">${ search.shopType }</span><br><br>
+											<span>${ search.shopShortAddr }</span><br>
+											<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+											<div class="shopDetailShort">
+												<c:choose>
+													<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
+														<span class="shopContent">${ search.drmReviewContent }</span> 
+													</c:when>
+													<c:when test="${ search.drmReviewContent eq 'EMPTY' }">
+														<c:if test="${ !empty search.shopContent }">
+															<span class="shopContent">${ search.shopContent }</span> 
+														</c:if>
+														<c:if test="${ empty search.shopContent }">
+															<span class="shopContent">${ search.shopName }</span> 
+														</c:if>
+													</c:when>
+												</c:choose>
+											</div>
 										</div>
 									</div>
+								</c:forEach>
+							</c:if>
+							<c:if test='${ empty sList }'>
+								<div class="notFound">
+									<span>해당하는 검색 결과를 찾을 수 없습니다.</span>
 								</div>
-							</c:forEach>
+							</c:if>
 	 					</c:when>
 	 					<c:when test="${ themeNo eq 1 }">
 		 					<c:forEach var="reviewShop" items="${ rankList }" varStatus="status">
-								<div class="shopShortInfo">
+								<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ reviewShop.shopNo }'">
 									<div class="shopShortInfo rank"> <!-- 1 부터 차례대로 인덱스 출력 -->
 										${ status.count }
 									</div>
@@ -121,7 +129,7 @@
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ reviewShop.shopNo }">${ reviewShop.shopName }</a></b></span>&nbsp;&nbsp;
+										<span id="shop-title"><b>${ reviewShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
 										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
@@ -146,7 +154,7 @@
 	 					</c:when>
 	 					<c:when test="${ themeNo eq 3 }">
 		 					<c:forEach var="newShop" items="${ newSList }" varStatus="status">
-								<div class="shopShortInfo">
+								<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ newShop.shopNo }'">
 									<div class="shopShortInfo rank">
 										${ status.count }
 									</div>
@@ -154,7 +162,7 @@
 										<!-- <img src="/resources/images/shopMainImg/${newShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ newShop.shopNo }">${ newShop.shopName }</a></b></span>&nbsp;&nbsp;
+										<span id="shop-title"><b>${ newShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
 										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
@@ -179,12 +187,12 @@
 	 					</c:when>
 	 					<c:otherwise>
 	 						<c:forEach var="themeShop" items="${ themeList }">
-								<div class="shopShortInfo">
+								<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ themeShop.shopNo }'">
 									<div class="shopShortInfo left">
 										<!-- <img src="/resources/images/shopMainImg/${themeShop.shopFileName}" alt="shopMain"> -->
 									</div>
 									<div class="shopShortInfo right">
-										<span id="shop-title"><b><a href="shopDetail.dz?shopNo=${ themeShop.shopNo }">${ themeShop.shopName }</a></b></span>&nbsp;&nbsp;
+										<span id="shop-title"><b>${ themeShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
 										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
