@@ -270,6 +270,7 @@
 		
 		//////////////////////////////////////////////////////////////////////////
 		
+	});
 	
 	// 주소검색 api
 	function openZipSearch() {
@@ -281,6 +282,7 @@
 			}
 		}).open();
 	}
+	
 </script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 </html>

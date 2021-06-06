@@ -105,15 +105,15 @@
 				   	var drmReviewContent = $("#summernote").summernote('code', drmReviewContent);
 					var drmReviewTitle = $("#drmReviewTitle").val();
 					var drmReviewPublicYN = $("input[name='drmReviewPublicYN']:checked").val();
-					var drmRviewNo = '${drmReview.drmRviewNo}';
-					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") { 
+					var drmReviewNo = '${drmReview.drmReviewNo}';
+					if(drmReviewTitle != "" && drmReviewContent != "<p><br></p>") {
 					    $.ajax({
 						   url : "dReviewModify.dz",
 						   type : "POST",
-						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "drmRviewNo" : drmRviewNo},
+						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "drmReviewNo" : drmReviewNo},
 						   success : function(data){
 							   if(data == "success") {
-								   location.href="dReviewDetail.dz?drmReviewNo="+drmRviewNo;
+								   location.href="dReviewDetail.dz?drmReviewNo="+drmReviewNo;
 								} else if(data == 'fail') {
 									alert('게시글 수정 실패');
 									location.href="dReviewMain.dz";
