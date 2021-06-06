@@ -24,7 +24,7 @@
 		</div>
 		<div class="my-list reserv-list">
 			<div class="frame">
-				<table class="list-table">
+				<table class="list-table" id="user-list-table">
 					<thead>
 						<tr>
 							<th>No</th>
@@ -124,18 +124,43 @@
 <script type="text/javascript">
 	$('.menu-btn').eq(0).css('background','#0160ff').css('color','white');
 	
-	function deleteResult(data) {
+	function deleteResult(userNo) {
         var result = confirm('회원을 탈퇴시킵니다.');
         if(result) {
-            location.href='adminUserDelete.dz?userNo=' + data;
-			location.href='adminUserList.dz';
+//             location.href='adminUserDelete.dz?userNo=' + data;
+        	$.ajax({
+        		url : "adminUserDelete.dz",
+        		data : {"userNo":userNo},
+        		type : "GET",
+        		success : function(data) {
+        			if(data == "success") {
+        				alert('회원을 탈퇴시켰습니다');
+        				reloadUserList();
+        			} else if(data == "fail") {
+        				alert('탈퇴 요청이 실패했습니다');
+        				reloadUserList();
+        			}
+        		},
+        		error : function() {
+        			alert('회원 삭제 오류');
+        		}
+        	});
         } else {
-			location.href='adminUserList.dz';
+        	reloadUserList();
         }
     }
 	
+
+	
+
+	
 	function deleteShopUser() {
 		alert('사업자 회원은 사업자 관리페이지에서 탈퇴 가능합니다.');
+	}
+	
+	function reloadUserList() {
+		var page = document.location.href.split("?")[1];
+		$("#user-list-table").load("adminUserList.dz"+page + " #user-list-table");
 	}
 </script>
 </html>

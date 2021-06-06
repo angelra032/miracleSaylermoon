@@ -149,11 +149,17 @@ public class ShopServiceImpl implements ShopService {
 	public int updatePartnerShopShow(int shopNo) {
 		return sStore.updatePartnerShopShow(shopNo);
 	}
+	
+	@Override
+	public int updatePartnerPointChange(int shopNo) {
+		return sStore.updatePartnerPointChange(shopNo);
+	}
 
 	@Override
-	public int updatePartnerPointZero(int shopNo) {
-		return sStore.updatePartnerPointZero(shopNo);
+	public int updatePartnerPointView(int shopNo) {
+		return sStore.updatePartnerPointView(shopNo);
 	}
+
 
 
 

@@ -56,14 +56,15 @@ input[type=radio]{
 	margin-bottom: 140px;
 }
 	#lay1 {
-		float: left;
-		width: 410px;
-		--height: 566px;
-		height: auto;
-		border: solid 1px #fdb504;
-		background-color: #ffffff;
-		margin-right: 20px;
-	}
+      float: left;
+      width: 410px;
+      height: 566px;
+      --height: auto;
+      border: solid 1px #fdb504;
+      background-color: #ffffff;
+      margin-right: 20px;
+      --overflow: scroll;
+   }
 		.lay-title {
 			width: 410px;
 			height: 60px;
@@ -74,7 +75,18 @@ input[type=radio]{
 			color: #fff;
 			line-height: 60px;
 			font-weight: 600;
-		}/* 
+		}
+		.lay1-content {
+         overflow: scroll;
+          width: 100%;
+          height: 506px;
+      }
+      
+      ::-webkit-scrollbar {
+        display: none;
+      }
+		
+		/* 
 	.title-span {
 		font-size:28px;
 		text-align:center;
