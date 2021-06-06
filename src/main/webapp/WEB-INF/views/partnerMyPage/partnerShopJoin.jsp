@@ -205,7 +205,8 @@
 							<h1>유효성검사 수정필요</h1>
 							
 							<input type="hidden" name="userNo" value="${userNo}" />
-							<button id="btn" class="submit-btn" onclick="waitJoin()">등록하기</button>
+							<!-- <button type="submit" id="btn" class="submit-btn" onclick="waitJoin()">등록하기</button> -->
+							<button type="submit" id="btn" class="submit-btn" >등록하기</button>
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</div>
@@ -217,17 +218,7 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script>
-	function waitJoin() {
-		var result = confirm('가게 등록 후 관리자의 확인 절차가 진행됩니다. 확인 절차동안 페이지에 노출되지 않습니다.');
-		if(result) {
-			//document.getElementById('btn').onclick = function() {
-				document.getElementById('frm').submit();
-				return false;
-			//}
-		} else {
-			
-		}
-	}
+
 
 	$(function() {
 		
@@ -272,6 +263,8 @@
 		
 	});
 	
+	
+	
 	// 주소검색 api
 	function openZipSearch() {
 		new daum.Postcode({
@@ -282,6 +275,238 @@
 			}
 		}).open();
 	}
+	
+	
+
+	/////// 등록하기 버튼 /////// 
+	/* $("#btn").click(function(){
+		var rtn = true;
+		
+		// 가게 위치
+		var zip = $("#zip"); // 우편번호	숫자야? string이야?
+		var addr1 = $("#addr1"); // 기본주소
+		var addr2 = $("#addr2"); // 상세주소
+		if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
+			alert("가게 위치를 입력하세요.");
+			return false;
+		}
+		
+		// 가게 간단 위치
+		var shopShortAddr = $("input[name='shopShortAddr']");
+		if(shopShortAddr.val()==""){
+			alert("가게 간단위치를 입력하세요.");
+			return false;
+		}
+		
+		// 가게 타겟층
+		var shopTarget = $("input[name='shopTarget']");
+		if(shopTarget.val()==""){
+			alert("가게 타겟층을 입력하세요.");
+			return false;
+		}
+
+		// 제공품목
+		var shopProduct = $("#shopProduct");
+		if(shopProduct.val()==""){
+			alert("제공품목을 입력하세요.");
+			return false;
+		}
+		
+		// 연락처
+		var shopPhone = $("#shopPhone");
+		if(shopPhone.val()==""){
+			alert("연락처를 입력하세요.");
+			return false;
+		}
+
+		// 가게 분류
+		var shopTypeNum = $("#shopTypeNum");
+		if(shopTypeNum.val()==0){
+			alert("가게 분류를 선택하세요.");
+			return false;
+		}
+		
+		// 주차유무
+		var shopParking = $("#shopParking");
+		if(shopParking.val()==0){
+			alert("주차유무를 선택하세요.");
+			return false;
+		}
+
+		// 최대예약가능인원
+		var shopMaxReserv = $("input[name='shopMaxReserv']");
+		if(shopMaxReserv.val()==0){
+			alert("최대 예약 가능한 인원을 입력하세요.");
+			return false;
+		}
+		
+		// 시작 시간
+		var startTime = $("#startTime");
+		if(startTime.val()==0){
+			alert("여는 시간을 선택하세요.");
+			return false;
+		}
+		
+		// 끝내는 시간
+		var endTime = $("#endTime");
+		if(startTime.val()==0){
+			alert("닫는 시간을 선택하세요.");
+			return false;
+		}
+
+		// 영업일	// 체크박스 비어있을 때 /////////////////////////
+		var startTime = $("#startTime");
+		if(startTime.val()==0){
+			alert("영업일을 체크하세요.");
+			return false;
+		}
+		
+		// 가게 소개
+		var shopContent = $("input[name='shopContent']");
+		if(shopContent.val()==""){		// val 아니면 html 혹은 text
+			alert("가게 소개를 입력하세요.");
+			return false;
+		}
+		
+		// 사진 업로드
+		var uploadFile = $("input[name='uploadFile']");
+		if(uploadFile.val()==""){		// 파일 - val 아니면 html 혹은 text
+			alert("사진을 업로드하세요.");
+			return false;
+		}
+		
+		
+		
+		/* 
+		var result = confirm('가게 등록 후 관리자의 확인 절차가 진행됩니다. 확인 절차동안 페이지에 노출되지 않습니다.');
+		if(result) {
+			//document.getElementById('btn').onclick = function() {
+				document.getElementById('frm').submit();
+				return false;
+			//}
+		} else {
+			
+		}
+		 
+		 
+	}); */
+	
+	
+	function waitJoin() {
+		
+		var rtn = true;
+		
+		// 가게 위치
+		var zip = $("#zip"); // 우편번호	숫자야? string이야?
+		var addr1 = $("#addr1"); // 기본주소
+		var addr2 = $("#addr2"); // 상세주소
+		if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
+			alert("가게 위치를 입력하세요.");
+			return false;
+		}
+		
+		// 가게 간단 위치
+		var shopShortAddr = $("input[name='shopShortAddr']");
+		if(shopShortAddr.val()==""){
+			alert("가게 간단위치를 입력하세요.");
+			return false;
+		}
+		
+		// 가게 타겟층
+		var shopTarget = $("input[name='shopTarget']");
+		if(shopTarget.val()==""){
+			alert("가게 타겟층을 입력하세요.");
+			return false;
+		}
+
+		// 제공품목
+		var shopProduct = $("#shopProduct");
+		if(shopProduct.val()==""){
+			alert("제공품목을 입력하세요.");
+			return false;
+		}
+		
+		// 연락처
+		var shopPhone = $("#shopPhone");
+		if(shopPhone.val()==""){
+			alert("연락처를 입력하세요.");
+			return false;
+		}
+
+		// 가게 분류
+		var shopTypeNum = $("#shopTypeNum");
+		if(shopTypeNum.val()==0){
+			alert("가게 분류를 선택하세요.");
+			return false;
+		}
+		
+		// 주차유무
+		var shopParking = $("#shopParking");
+		if(shopParking.val()==0){
+			alert("주차유무를 선택하세요.");
+			return false;
+		}
+
+		// 최대예약가능인원
+		var shopMaxReserv = $("input[name='shopMaxReserv']");
+		if(shopMaxReserv.val()==0){
+			alert("최대 예약 가능한 인원을 입력하세요.");
+			return false;
+		}
+		
+		// 시작 시간
+		var startTime = $("#startTime");
+		if(startTime.val()==0){
+			alert("여는 시간을 선택하세요.");
+			return false;
+		}
+		
+		// 끝내는 시간
+		var endTime = $("#endTime");
+		if(startTime.val()==0){
+			alert("닫는 시간을 선택하세요.");
+			return false;
+		}
+
+		// 영업일	// 체크박스 비어있을 때 /////////////////////////
+		var startTime = $("#startTime");
+		if(startTime.val()==0){
+			alert("영업일을 체크하세요.");
+			return false;
+		}
+		
+		// 가게 소개
+		var shopContent = $("input[name='shopContent']");
+		if(shopContent.val()==""){		// val 아니면 html 혹은 text
+			alert("가게 소개를 입력하세요.");
+			return false;
+		}
+		
+		// 사진 업로드
+		var uploadFile = $("input[name='uploadFile']");
+		if(uploadFile.val()==""){		// 파일 - val 아니면 html 혹은 text
+			alert("사진을 업로드하세요.");
+			return false;
+		}
+		
+		
+		
+		/* 
+		var result = confirm('가게 등록 후 관리자의 확인 절차가 진행됩니다. 확인 절차동안 페이지에 노출되지 않습니다.');
+		if(result) {
+			//document.getElementById('btn').onclick = function() {
+				document.getElementById('frm').submit();
+				return false;
+			//}
+		} else {
+			
+		}
+		 */
+		
+	}
+	 
+
+	
 	
 </script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
