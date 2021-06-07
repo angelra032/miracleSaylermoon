@@ -132,6 +132,7 @@ public class DreamReviewController {
 			}
 		}
 		
+		
 		if(user == null && nullCookie == null) { // 로그인X
 			Cookie cookie = new Cookie("dReview" + drmReviewNo, "dReview" + drmReviewNo);
 			cookie.setMaxAge(60*60*24*365);

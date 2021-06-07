@@ -23,7 +23,6 @@ import com.donzzul.spring.user.domain.User;
 @Controller
 public class ReservationController {
 
-	
 	@Autowired
 	private ReservationService service;
 	//@RequestParam -> 화면에서 가져오는 하나의 값
@@ -46,7 +45,7 @@ public class ReservationController {
 			model.addAttribute("shop", shop);
 			return "reservation/viewReservation";
 		}else {
-			model.addAttribute("msg","응 아니야 돌아가!!!");
+			model.addAttribute("msg","화면을 불러오는데 실패하였습니다.");
 			return "reservation/viewReservation";
 		}
 	}
@@ -62,6 +61,7 @@ public class ReservationController {
 									@RequestParam("userNo") int userNo,
 									 Model model
 									) {
+		System.out.println("여기는 들어왔니!?");
 		int paymentPoint = String.valueOf(reservation.getPaymentPoint()) != "" ? reservation.getPaymentPoint() : 0;
 		int rResult = service.insertReservation(reservation);
 		int pResult = 0;
@@ -72,12 +72,11 @@ public class ReservationController {
 			nReservation.setPaymentPoint(paymentPoint);
 			pResult = service.updateUserPoint(nReservation);
 		}
-		
 		if( rResult > 0) {
 			return "redirect:dreamMyPage.dz";
 		}else {
-			model.addAttribute("msg","어림도 없지!!!!!!");
-			return "redirect:dreamMyPage.dz";
+			model.addAttribute("msg","예약하는데 실패하였습니다.");
+			return "dreamMyPage/dreamMyPage";
 		}
 	}
 	

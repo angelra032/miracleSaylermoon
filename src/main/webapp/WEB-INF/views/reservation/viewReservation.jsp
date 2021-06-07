@@ -22,8 +22,6 @@
          businessHours : true,
          locale : "ko",
          dayMaxEvents : false,
-         dayMaxEvents : 2,
-         contentHeight: "auto",
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
          },
@@ -287,13 +285,10 @@
 		            
 		            <h2>소지한 포인트 : <span id="userPointDiv"></span></h2><br>
 		            <span id="paymentPoint"></span>
-                  	<input type="hidden" name="paymentPoint" value="${reservation.paymentPoint}">
-                  		<h2>포인트 사용 금액 : <span id="paymentSpan"></span></h2>
+                  	<input type="hidden" name="paymentPoint" value="0">
+                  		<h2>포인트 사용 금액 : <span id="paymentSpan">0</span></h2>
                   	</div>
 		        </div>    
-		            
-		            
-		
 				    <input type="hidden" name="shopName" value="${shop.shopName }"><br>
 		            <input type="hidden" name="shopNo" value="${shop.shopNo }"><br> 
 		                  

@@ -147,18 +147,18 @@
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody class="tbody${ dreamreview.drmRviewNo}">
+					<tbody class="tbody${ dreamreview.drmReviewNo}">
 						<c:if test="${ !empty drList }">
 							<c:forEach items="${drList }" var="dreamreview" varStatus="status">
 								<tr class="tr">
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
-									<td>${dreamreview.shopName }${ dreamreview.drmRviewNo}</td>
+									<td><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmReviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
+									<td>${dreamreview.shopName }${ dreamreview.drmReviewNo}</td>
 									<td class="drmDate1">${dreamreview.drmReviewUploadDate }</td>
 									<td><a class="modify-btn drmodify-btn"
 										id="drmodify-btn"
-										href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
-									<td><input type="hidden" value="${ dreamreview.drmRviewNo}"> <a class="dreview-btn delete-btn"  id="dreview-btn" href="#">삭제</a></td>
+										href="dReviewUpdateForm.dz?drmReviewNo=${ dreamreview.drmReviewNo}">수정</a></td>
+									<td><input type="hidden" value="${ dreamreview.drmReviewNo}"> <a class="dreview-btn delete-btn"  id="dreview-btn" href="#">삭제</a></td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -232,11 +232,11 @@
 	
 	
 	$(document).on("click", ".dreview-btn", function(){ 
-		var drmRviewNo = $(this).prev().val(); 
+		var drmReviewNo = $(this).prev().val(); 
 		$.ajax({ 
 			url : "myPageMainReviewDelete.dz",
 			type : "GET",
-			data : { "drmRviewNo" : drmRviewNo},
+			data : { "drmReviewNo" : drmReviewNo},
 			success : function(data) {
 				$('.tbody').empty();
 				for(var i in data) {
@@ -244,13 +244,13 @@
 					
 					var tr = $("<tr class='tr'>");
 					var count = $("<td>").html(Number(i)+1);
-					var drmReviewTitle = $("<td class='drmReviewTitle'>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+data[i].drmRviewNo +"'>"+data[i].drmReviewTitle+"</a>");
+					var drmReviewTitle = $("<td class='drmReviewTitle'>").append("<a class='table-link-title' href='dReviewDetail.dz?drmReviewNo="+data[i].drmReviewNo +"'>"+data[i].drmReviewTitle+"</a>");
 					var shopName = $("<td class='shopName'>").html(data[i].shopName);
 					var dateResult = $("<td class='drmDate1'>").html(dateResult);
-					var drmodifyBtn = $("<td>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmRviewNo="+data[i].drmRviewNo +"'>수정</a>");
+					var drmodifyBtn = $("<td>").append("<a class='modify-btn drmodify-btn' href='dReviewUpdateForm.dz?drmReviewNo="+data[i].drmReviewNo +"'>수정</a>");
 					var dreviewBtn = $("<td>")
-					dreviewBtn.append("<input type='hidden' value='"+data[i].drmRviewNo +"'>");
-					dreviewBtn.append("<a class='dreview-btn delete-btn' href='#'>삭제"+data[i].drmRviewNo +"</a>");
+					dreviewBtn.append("<input type='hidden' value='"+data[i].drmReviewNo +"'>");
+					dreviewBtn.append("<a class='dreview-btn delete-btn' href='#'>삭제"+data[i].drmReviewNo +"</a>");
 					
 					tr.append(count);
 					tr.append(drmReviewTitle);
