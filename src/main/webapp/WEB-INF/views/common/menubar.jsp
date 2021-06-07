@@ -91,21 +91,21 @@
 	</header>
 	
 	
-	<!-- 채팅섹션 -->
+	
 	<!-- chatting button-->
 	<c:if
 		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
 		<div id="chatting">
-			<a id="modal" href="#container" rel="modal:open"> <img alt="chattingIcon" src="/resources/images/chatting/chat.png">
+			<a id="modal" href="#container" rel="modal:open"> 
+			<img alt="chattingIcon" src="/resources/images/chatting/chat.png">
 			<p>문의하기</p>
 			</a>
 		</div>
 	</c:if>
-	
 	<!-- modal section -->
 	<c:choose>
 		<c:when test="${loginUser.userType eq '4'}">
-		<!--채팅 관리자용  -->
+		<!-- 관리자용  -->
 			<script type="text/javascript">
 			$( document ).ready(function() {
 				$('#modal').click(function(){
@@ -127,13 +127,15 @@
 					type: "post",
 					success: function (data) {
 						if(data != null){
-							var tag = "<tr><th></th><th></th></tr>";
+							var tag = "<div class=''></div>";
 							if(data.length > 0){
 								data.forEach(function(d, idx){
 									var userId = d.userId.trim();
-									tag += "<div class='room' onclick='moveChating(\""+userId+"\")'>"+
-												"<div class='room'>"+ userId +"</div>"+
-											"</div>>";	
+									tag += "<div class='roomList' onclick='moveChating(\""+userId+"\")'>"+
+												"<div class='num'>"+userId+"</div>"+
+												"<div class='room'>"+ "2021-06-07 14:34" +"</div>"+
+												"<div class='go'>"+ "상담원과 대화한 내용이 출력.."+"</div>" +
+											"</div>";	
 								});
 							}else{
 								tag += "<tr><td colspan='3'>상담할 내용이 없습니다.</td></tr>";	
@@ -147,7 +149,7 @@
 				});
 			}
 			
-			//해당 채팅 연결하기
+			//해당 채팅 연길하기
 			function moveChating(userId){
 				$.ajax({
 					url: "/moveChating",
@@ -178,10 +180,10 @@
 			<div id="container" class="container modal">
 				<div id="header">
 					<div class="header-icon">
-						<img alt="" src="/resources/images/chatting/logo.png">
+						<img alt="header-icon" src="/resources/images/chatting/logo.png">
 					</div>
 					<div class="header-text">
-						<div class="hTextDid">실시간 상담 리스트</div>
+						<h4>실시간 상담 리스트</h4>
 						<input type="hidden" id="sessionId" value="">
 					</div>
 				</div>
@@ -189,7 +191,9 @@
 					<div class="center-table-area" id="shop-list-table">
 						<div id="roomList" class="roomList"></div>
 					</div>
-					<button onclick="getChatList();">새로고침</button>
+					<div class="refreshIcon">
+						<img alt="refreshIcon" id="refreshBtn" src="/resources/images/chatting/refreshing@2x.png" onclick="getChatList();">
+					</div>
 				</div>
 				<div class="userChat" style="display: none">
 					<div id="chating" class="chating">
@@ -200,7 +204,7 @@
 						<table class="inputTable">
 							<tr>
 								<th><button id="backHistory">뒤로가기</button></th>
-								<th><input id="chatting-text" class="chattingText" placeholder="보내실 메시지를 입력하세요"></th>
+								<th><input id="chatting-text" class="chattingText sendingText" placeholder="보내실 메시지를 입력하세요"></th>
 								<th><button onclick="send()" id="sendBtn">보내기</button></th>
 							</tr>
 						</table>
@@ -212,7 +216,7 @@
 			<div id="container" class="container modal">
 				<div id="header">
 					<div class="header-icon">
-						<img alt="" src="/resources/images/chatting/logo.png">
+						<img alt="header-icon" src="/resources/images/chatting/logo.png">
 					</div>
 					<div class="header-text">
 						<h4>실시간 상담</h4>
