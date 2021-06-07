@@ -232,9 +232,23 @@ h4 {
 
 .menu-price {
 	float: right;
-	width: 100px;
+	width: 120px;
 }
 
 .img-upload {
 	clear: both;
+}
+
+.add-menu-btn {
+	margin-top: 10px;
+    color: #333;
+    width: 100%;
+    height: 46px;
+    border: 1px solid #0160ff;
+    border-radius: 3px;
+    --background-color: #ffffff;
+    --font-weight: 700;
+    font-size: 15px;
+    --font-size: 1.125rem;
+    line-height: 1.5;
 }

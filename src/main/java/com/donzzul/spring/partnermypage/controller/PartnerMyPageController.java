@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ import com.donzzul.spring.notiqna.service.QnaService;
 import com.donzzul.spring.payment.service.PaymentService;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
+import com.donzzul.spring.shop.domain.MainMenu;
 import com.donzzul.spring.shop.domain.MenuPhoto;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
@@ -273,20 +275,20 @@ public class PartnerMyPageController {
 	
 	// 가게정보 등록
 	@RequestMapping(value="shopRegister.dz", method=RequestMethod.POST )
-	public String shopRegister(@ModelAttribute Shop shop, @RequestParam("zip") String zip, HttpServletRequest request,
+	public String shopRegister(@ModelAttribute Shop shop, @ModelAttribute MainMenu mainMenu,
+								@RequestParam("zip") String zip, HttpServletRequest request,
 								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
 								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
-								@RequestParam(value="uploadFile", required=false) MultipartFile uploadFile, Model model, @RequestParam("userNo") int userNo) {
-		// 서버에 파일 저장하는 작업
-		if(!uploadFile.getOriginalFilename().equals("")) {
-			Shop shopFile = saveFile(uploadFile, request);
-			if(shopFile != null) {
-				shop.setShopFileName(shopFile.getShopFileName());
-				shop.setShopFilePath(shopFile.getShopFilePath());
-				shop.setShopFileSize(shopFile.getShopFileSize());
-				shop.setShopUploadTime(shopFile.getShopUploadTime());
-			}
-		}
+								@RequestParam(value="shopPhoto", required = false) MultipartFile shopPhoto,
+								@RequestParam(value="mainMenuPhoto", required=false) MultipartFile[] mainMenuPhoto, Model model, @RequestParam("userNo") int userNo) {
+
+		///////////// 샵 정보 저장, 메뉴 저장, 메뉴 사진 저장
+		
+		System.out.println("샵 정보 받아오나?"+shop.toString());		// 샵 저장해야 넘버 생성
+		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());		// 메뉴 저장해야 넘버 생성
+		
+
+		// 샵 정보 저장 먼저 insert
 		String businessday = "";
 		for (String bs : businessnum) {
 			businessday += bs;
@@ -296,15 +298,50 @@ public class PartnerMyPageController {
 		shop.setShopLat(null);
 		shop.setShopLng(null);
 		shop.setShopAddr(addr1+addr2);
-		shop.setShopLongAddr(zip+"/"+addr1+"/"+addr2);
+		shop.setShopLongAddr(zip + "/" + addr1 + "/" + addr2);
 		shop.setBusinessDay(Integer.parseInt(businessday));
 		shop.setShowShopYN("N");
-		
-		System.out.println("longAddr"+shop.getShopLongAddr());
-		
+		Shop fileShop = saveFile(shopPhoto, request);
+		if(fileShop != null) {
+			shop.setShopFileName(fileShop.getShopFileName());
+			shop.setShopFilePath(fileShop.getShopFilePath());
+			shop.setShopFileSize(fileShop.getShopFileSize());
+			shop.setShopUploadTime(fileShop.getShopUploadTime());
+		}
 		// 가게 파일 저장(서버, 디비)
+		/////// 샵 정보, 메뉴, 메뉴 사진 인서트 or 업데이트 
 		int result = sService.insertPartnerShop(shop);
-		if(result > 0) {
+		
+		System.out.println("샵 넘버 가져오기"+shop.getShopNo());
+		
+		MenuPhoto menuPhoto = new MenuPhoto();
+		
+		// 서버에 파일 저장하는 작업
+		for(int i=0; i<mainMenuPhoto.length; i++) {
+			if(!mainMenuPhoto[i].getOriginalFilename().equals("")) {
+				MenuPhoto photoFile = saveMultiFile(mainMenuPhoto[i], request);
+				System.out.println("이게 되나?"+photoFile.toString());
+				if(photoFile != null) {
+					menuPhoto.setMenuFileName(photoFile.getMenuFileName());
+					menuPhoto.setMenuFilePath(photoFile.getMenuFilePath());
+					menuPhoto.setMenuFileSize(photoFile.getMenuFileSize());
+					menuPhoto.setMenuUploadTime(photoFile.getMenuUploadTime());
+					menuPhoto.setShopNo(shop.getShopNo());
+					System.out.println("set 한 후"+menuPhoto.toString());
+					int insertMenuPhoto = sService.insertMenuPhoto(menuPhoto);
+					if(insertMenuPhoto < 0) {
+						break;
+					}
+				}
+			}
+		}
+		
+		// 메인메뉴 등록
+		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());
+		mainMenu.setShopNo(shop.getShopNo());
+		int insertMainMenu = sService.insertMainMenu(mainMenu);
+		
+		if(insertMainMenu > 0) {
 			return  "redirect:partnerMyPage.dz";
 		} else {
 			model.addAttribute("msg", "Shop등록실패");
@@ -328,7 +365,8 @@ public class PartnerMyPageController {
 	
 	// 가게정보 수정
 	@RequestMapping(value="shopUpdate.dz", method=RequestMethod.POST )
-	public String shopUpdate(@ModelAttribute Shop shop, @RequestParam("zip") String zip, HttpServletRequest request,
+	public String shopUpdate(@ModelAttribute Shop shop, @ModelAttribute MainMenu mainMenu,
+								@RequestParam("zip") String zip, HttpServletRequest request,
 								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
 								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
 								@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile, Model model, @RequestParam("userNo") int userNo,
@@ -376,6 +414,8 @@ public class PartnerMyPageController {
 		
 		
 		System.out.println("샵 정보 받아오나?"+shop.toString());
+		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());
+		
 		
 		MenuPhoto menuPhoto = new MenuPhoto();
 		
@@ -418,6 +458,7 @@ public class PartnerMyPageController {
 		/////// 샵 정보, 메뉴, 메뉴 사진 인서트 or 업데이트 
 		int result = sService.updatePartnerShop(shop);
 		int insertMenuPhoto = sService.insertMenuPhoto(menuPhoto);
+		int insertMainMenu = sService.insertMainMenu(mainMenu);
 		if(result > 0) {
 			return  "redirect:partnerMyPage.dz";
 		} else {
@@ -507,9 +548,10 @@ public class PartnerMyPageController {
 		
 		
 		// 파일명 변경하기
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		String originalFileName = "";
-		String renameFileName ="";
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originalFileName = multiFile.getOriginalFilename();
+//		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+		String renameFileName = UUID.randomUUID() + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
 		
 		// 파일저장
 		String filePath = folder + "\\" + renameFileName;
@@ -518,11 +560,11 @@ public class PartnerMyPageController {
 		
 			
 		// 파일명 변경하기
-		originalFileName = multiFile.getOriginalFilename();
-		renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+//		originalFileName = multiFile.getOriginalFilename();
+//		renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
 		
 		
-		String originalName = multiFile.getOriginalFilename();
+//		String originalName = multiFile.getOriginalFilename();
 //			String original
 //			String saveFileName = 
 	
@@ -577,8 +619,10 @@ public class PartnerMyPageController {
 			fileSize = (int) file.getSize();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
+			return null;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		Shop fileShop = new Shop();
@@ -589,9 +633,8 @@ public class PartnerMyPageController {
 		
 		// 리턴
 		return fileShop;
-		
 	}
-		
+	
 		public String switchShopType(int shopTypeNum) {
 			switch (shopTypeNum) {
 			case 1:

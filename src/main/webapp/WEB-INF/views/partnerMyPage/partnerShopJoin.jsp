@@ -39,7 +39,7 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="uploadFile0" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="shopPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -210,12 +210,12 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<a href="" onclick=""><span style="font-size: 13px; float:right;">메뉴추가</span></a>
-								<br>
 								<div >
-									<input type="text" class="form-elem menu-name" placeholder="메뉴 이름 입력" />
-									<input type="text" class="form-elem menu-price" placeholder="메뉴 가격 입력" />
+									<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" />
+									<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격 입력" />
 								</div>
+								<button type="button" onclick="" class="add-menu-btn" >메뉴추가</button>
+<!-- 								<a href="" onclick=""><span style="font-size: 13px; float:right;">메뉴추가</span></a> -->
 							</div>
 							<br>
 							<br>
@@ -228,9 +228,9 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="uploadFile1" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="uploadFile2" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="uploadFile3" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 							</div>
 							
 							<h1>유효성검사 수정필요</h1>

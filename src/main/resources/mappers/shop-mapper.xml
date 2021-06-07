@@ -35,18 +35,14 @@
 		<result property="shopLongAddr" column="SHOP_LONG_ADDR"/>
 	</resultMap>
 	
-	<insert id="insertPartnerShop">
-		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, 
-			#{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, 
-			#{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, 
-			#{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, 
-			#{businessDay}, NULL, #{shopPhone}, DEFAULT, #{shopLongAddr } )
+	<insert id="insertPartnerShop" useGeneratedKeys="true" keyProperty="shopNo" keyColumn="SHOP_NO">
+		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, #{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, #{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, #{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, NULL, #{shopPhone}, DEFAULT, #{shopLongAddr }, #{businessDay})
 	</insert>
 	
 	<update id="updatePartnerShop">
 		UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_PRODUCT=#{shopProduct}, 
 			SHOP_FILENAME=#{shopFileName}, SHOP_FILEPATH=#{shopFilePath}, SHOP_FILESIZE=#{shopFileSize}, SHOP_UPLOADTIME=#{shopUploadTime}, 
-			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, SHOP_PARKING_YN=#{shopParking}, START_TIME=#{startTime}, END_TIME= #{endTime} 
+			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime} 
 	</update>
 	
 		<!-- 메인 메뉴 테이블 -->
@@ -333,6 +329,13 @@
 		INSERT INTO MENU_PHOTO VALUES(
             SEQ_MENU_PHOTO.NEXTVAL, #{menuFileName }, #{menuFilePath }, #{menuFileSize },
             #{menuUploadTime }, #{shopNo }
+        )
+	</insert>
+	
+	<!-- 가게 메인 메뉴 등록 -->
+	<insert id="insertMainMenu">
+		INSERT INTO MAIN_MENU VALUES(
+            SEQ_MAIN_MENU.NEXTVAL, #{mainMenuName }, #{mainMenuPrice }, #{shopNo }
         )
 	</insert>
 	
