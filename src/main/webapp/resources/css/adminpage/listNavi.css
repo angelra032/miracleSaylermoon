@@ -101,8 +101,8 @@
 
 /* 메뉴 셀렉트 옵션 */
 .menu-selected {
-	color : #ffffff;
-	background : #0160ff;
+	background-color: #fdb504;
+	color: #ffffff;
 } 
            
 /* 페이징 셀렉트 옵션 */
