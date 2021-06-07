@@ -131,7 +131,7 @@
 									<div class="shopShortInfo left">
 										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
 									</div>
-									<div class="shopShortInfo right">
+									<div class="shopShortInfo rightRank">
 										<span id="shop-title"><b>${ reviewShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
@@ -164,7 +164,7 @@
 									<div class="shopShortInfo left">
 										<!-- <img src="/resources/images/shopMainImg/${newShop.shopFileName}" alt="shopMain"> -->
 									</div>
-									<div class="shopShortInfo right">
+									<div class="shopShortInfo rightRank">
 										<span id="shop-title"><b>${ newShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>

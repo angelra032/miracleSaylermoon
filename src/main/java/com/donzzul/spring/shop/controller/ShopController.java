@@ -214,12 +214,8 @@ public class ShopController {
 				rankList.get(i).setDrmReviewContent(changeCon);
 			}
 			
-			ArrayList<String> businessDays = new ArrayList<String>();
-			
-//			for(int i = 0; i < rankList.size(); i++) {
-//				open
-//				businessDays = (String.valueOf(rankList.get(i).getBusinessDay())).split("");
-//			}
+			// 휴무일 체크해서 가져오기
+			dayOffs(rankList);
 			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
@@ -329,6 +325,40 @@ public class ShopController {
 		
 		return reviewOneList;
 		
+	}
+	
+	// 영업일 가져오기
+	public ArrayList<String> dayOffs(ArrayList<Shop> shopList) {
+		
+		
+		for(int i = 0; i < shopList.size(); i++) {
+			String[] workingDays = shopList.get(i).getBusinessDay().split(",");
+//			for(int j = 0; j < workingDays.length; j++) {
+//				System.out.println("workingDays [" + i + "] : " + workingDays.toString()); // 확인용
+//				if(workingDays[j].equals("1")) {
+//					System.out.println("월");
+//				}else if(workingDays[j].equals("2")) {
+//					System.out.println("화");
+//					
+//				}else if(workingDays[j].equals("3")) {
+//					System.out.println("수");
+//					
+//				}else if(workingDays[j].equals("4")) {
+//					System.out.println("목");
+//					
+//				}else if(workingDays[j].equals("5")) {
+//					System.out.println("금");
+//					
+//				}else if(workingDays[j].equals("6")) {
+//					System.out.println("토");
+//					
+//				}else if(workingDays[j].equals("7")) {
+//					System.out.println("일");
+//				}
+//			}
+		}
+		
+		return null;
 	}
 	
 	//D 가게 상세 페이지 출력
