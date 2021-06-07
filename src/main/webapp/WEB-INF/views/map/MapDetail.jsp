@@ -17,7 +17,7 @@
 <title>지도 상세 페이지</title>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/views/map/MapDetailmenubar.jsp"></jsp:include> 
+    <jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include> 
 
 	<main>
 		<input type="hidden" id="center-value" value="${center }">
@@ -26,20 +26,19 @@
 			<div class=map-left>
 				<div class="searchBar">
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
-					<button id="btn-search"><img src="/resources/images/undo.png"></button>
+					<button id="btn-search"><img src="/resources/images/map/undo.png"></button>
 				</div>
 				<div class="content-list">
-					<c:if test="${empty mList}">
-						<div class="notEnroll">
-							<span class="shopReady">등록된 가게가 없습니다.</span>
-						</div>
-					</c:if>
 					<c:if test="${!empty mList}">
 						<c:forEach items="${ mList }" var="shop">
 							<div class="content-shop">
 								<div class="content-shop left">
-									<img src="/resources/images/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
-									<!-- <img src="/resources/images/shopMainImg/" alt="대표이미지" class="img-thumbnail"/> -->
+									<%-- <c:if test="${ !empty shop.originalFileName }">
+										<img src=${ shop.originalFileName }>
+									</c:if> --%>
+									<%-- <c:if test="${ empty shop.fileName }"> --%>
+										<img src="/resources/images/map/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
+									<%-- </c:if> --%>
 								</div>
 								<div class="content-shop right">
 									<div class="content-shop right top">
@@ -82,8 +81,11 @@
 								<c:param name="location" value="${ location }"></c:param>
 							</c:if>
 						</c:url>
+						<c:if test="${ pi.currentPage <= 1 }">
+							<img src="/resources/images/shop/navi-left.png" class="noShowArrow" alt="이전"/>
+						</c:if>
 						<c:if test="${ pi.currentPage > 1 }">
-							<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+							<a href="${ before }"><img src="/resources/images/shop/navi-left.png" alt="이전"/></a>
 						</c:if>
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 							<c:url var="pagination" value="mapSearchShop.dz">
@@ -96,7 +98,7 @@
 								<span id="currentPage">${ p }</span>
 							</c:if>
 							<c:if test="${ p ne pi.currentPage }">
-								<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+								<a href="${ pagination }"><span id="otherPage">${ p }</span></a>
 							</c:if>
 						</c:forEach>
 						<c:url var="after" value="mapSearchShop.dz">
@@ -106,9 +108,10 @@
 							</c:if>
 						</c:url>
 						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							<img src="/resources/images/shop/navi-right.png" class="noShowArrow" alt="다음"/>
 						</c:if>
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+							<a href="${ after }"><img src="/resources/images/shop/navi-right.png" alt="다음"/></a>
 						</c:if>
 					</c:if>
 				</div>
@@ -116,10 +119,10 @@
 			<div class=map-right>
 				<div class="mapZoom">
 					<div class="mapZoom in">
-						<span onclick="zoomIn()"><img src="/resources/images/plus-white.png" alt="zoom-in"></span>
+						<span onclick="zoomIn()"><img src="/resources/images/map/plus-white.png" alt="zoom-in"></span>
 					</div>
 					<div class="mapZoom out">
-						<span onclick="zoomOut()"><img src="/resources/images/minus-white.png" alt="zoom-out"></span>
+						<span onclick="zoomOut()"><img src="/resources/images/map/minus-white.png" alt="zoom-out"></span>
 					</div>
 				</div> 
 				<div id="map"> 
@@ -215,7 +218,7 @@
 								var shopInfo = $("<div id='shop-info'>");
 								var shopCon = $("<div id='shop-con'>");
 								
-								contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+								contentShopLeft.append("<img src='/resources/images/map/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
 								contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
 												   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
 						   		shopInfo.append("<div id='shop-addr'><span>"+data.mList[i].shopAddr+"</span><div>");
@@ -242,20 +245,27 @@
 							
 							
 							/* 네비 */
+							if(data.pi.currentPage <= 1) {
+								contentListNavi.append("<img src='/resources/images/shop/navi-left.png' class='noShowArrow' alt='이전'/>");
+							}
 							if(data.pi.currentPage > 1) {
 								var prev = Number(data.pi.currentPage)-1;
-								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/shop/navi-left.png' alt='이전'/></a>");
 							}
 							for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
 								if(i == data.pi.currentPage) {
 									contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
 								}else if(i != data.pi.currentPage) {
-									contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+									contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span></a>");
 								}
+							}
+							
+							if(data.pi.currentPage >= data.pi.maxPage) {
+								contentListNavi.append("<img src='/resources/images/shop/navi-right.png' class='noShowArrow' alt='다음'/>");
 							}
 							if(data.pi.currentPage < data.pi.maxPage) {
 								var next = Number(data.pi.currentPage)+1;
-								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/shop/navi-right.png' alt='다음'/></a>");
 							}
 							
 							positions = data.mapMarkers;
@@ -271,7 +281,10 @@
 					}else {
 						$(".content-list").empty();
 						$(".content-list-navi").empty();
-						contentList.append("<span id='shopReady'>등록된 가게가 없습니다.</span>");
+						
+						var notEnroll = $("<div id='notEnroll'>");
+						notEnroll.append("<span id='shopReady'>일치하는 검색 결과를 찾을 수 없습니다.</span>");
+						contentList.append(notEnroll);
 						/* result = false; */
 					}  
 				},
@@ -315,7 +328,7 @@
 							var shopInfo = $("<div id='shop-info'>");
 							var shopCon = $("<div id='shop-con'>");
 							
-							contentShopLeft.append("<img src='/resources/images/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+							contentShopLeft.append("<img src='/resources/images/map/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
 							contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
 											   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
 					   		shopInfo.append("<div id='shop-addr'><span>"+data.mList[i].shopAddr+"</span><div>");
@@ -341,20 +354,27 @@
 							
 						
 						/* 네비 */
+						if(data.pi.currentPage <= 1) {
+							contentListNavi.append("<img src='/resources/images/shop/navi-left.png' class='noShowArrow' alt='이전'/>");
+						}
 						if(data.pi.currentPage > 1) {
 							var prev = Number(data.pi.currentPage)-1;
-							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/navi-left.png' alt='이전'/>&nbsp;&nbsp;</a>");
+							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+prev+");'><img src='/resources/images/shop/navi-left.png' alt='이전'/></a>");
 						}
 						for(var i = data.pi.startPage; i <= data.pi.endPage; i++) {
 							if(i == data.pi.currentPage) {
 								contentListNavi.append("<span id='currentPage'>"+i+"</span>");	
 							}else if(i != data.pi.currentPage) {
-								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span>&nbsp;&nbsp;</a>");
+								contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+i+");'><span id='otherPage'>"+i+"</span></a>");
 							}
+						}
+						
+						if(data.pi.currentPage >= data.pi.maxPage) {
+							contentListNavi.append("<img src='/resources/images/shop/navi-right.png' class='noShowArrow' alt='다음'/>");
 						}
 						if(data.pi.currentPage < data.pi.maxPage) {
 							var next = Number(data.pi.currentPage)+1;
-							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/navi-right.png' alt='다음'/></a>");
+							contentListNavi.append("<a href='#' onclick='searchLogic1(\""+data.searchKeyword+"\", "+next+");'><img src='/resources/images/shop/navi-right.png' alt='다음'/></a>");
 						}
 
 						var mapMarkers = data.mapMarkers;
@@ -368,7 +388,10 @@
 				}else {
 					$(".content-list").empty();
 					$(".content-list-navi").empty();
-					contentList.append("<span id='shopReady'>등록된 가게가 없습니다.</span>");
+					
+					var notEnroll = $("<div id='notEnroll'>");
+					notEnroll.append("<span id='shopReady'>일치하는 검색 결과를 찾을 수 없습니다.</span>");
+					contentList.append(notEnroll);
 				}  
 			},
 			error: function() {

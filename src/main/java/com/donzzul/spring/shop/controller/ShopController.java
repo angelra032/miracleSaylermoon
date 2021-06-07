@@ -214,6 +214,13 @@ public class ShopController {
 				rankList.get(i).setDrmReviewContent(changeCon);
 			}
 			
+			ArrayList<String> businessDays = new ArrayList<String>();
+			
+//			for(int i = 0; i < rankList.size(); i++) {
+//				open
+//				businessDays = (String.valueOf(rankList.get(i).getBusinessDay())).split("");
+//			}
+			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
 			mv.setViewName("shop/ShopSearchResult");

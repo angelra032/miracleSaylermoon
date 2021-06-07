@@ -74,7 +74,7 @@ a {
 		width: 572px;
 		height: 60px;	
 		margin: 0 auto;
-		margin-bottom: 150px;
+		margin-bottom: 100px;
 	}
 	
 		#searchBox {
@@ -117,7 +117,7 @@ a {
 	
 		.notFound {
 			text-align: center;
-			font-size: 28px;
+			font-size: 20px;
 			color: #888;
 			margin-top: 100px;
 		}
@@ -196,13 +196,24 @@ a {
 	
 		/* 검색 리스트 페이지 네비 */
 		.result-list-navi {
-			width: 260px;
+			width: 1280px;
 			height: 40px;
 			padding-top: 40px;
 			border-style: none;
 			text-align: center;
-			line-height: 2.3em;
+			line-height: 1.7em;
 		}
+		
+			.result-list-navi > a {
+					color: #333; 
+					width: 30px;
+					height: 30px;
+				}
+				
+					.result-list-navi > a:hover {
+						text-decoration: none; 
+						color: #0160ff;
+					}
 		
 			.result-list-navi img {
 					width: 10px;
@@ -211,16 +222,22 @@ a {
 					
 			#currentPage {
 				display: inline-block;
-				width: 40px;
-				height: 40px;
+				width: 30px;
+				height: 30px;
 				background-color: #0160ff;
 				color: #ffffff;
 				text-align: center;
 			}
 			
 			#otherPage {
+				width: 30px;
+				height: 30px;
 				display: inline-block;
 				padding: 5px;
 				text-align: center;
+			}
+			
+			.noShowArrow {
+				opacity: 0;
 			}
 	

@@ -16,7 +16,7 @@
 
 	<main>
 		<div class="header-background-area">
-	       	<img src="/resources/images/searchShop-bg.png" alt="뒷배경이미지">
+	       	<img src="/resources/images/shop/searchShop-bg.png" alt="뒷배경이미지">
 	   	</div>
 		<div id="main-title">가게검색</div>
 		
@@ -93,7 +93,10 @@
 											<span id="shop-title"><b>${ search.shopName }</b></span>&nbsp;&nbsp;
 											<span id="shop-type">${ search.shopType }</span><br><br>
 											<span>${ search.shopShortAddr }</span><br>
-											<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+											<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;</span>
+											<c:if test="">
+											<span>매주 일요일&nbsp;휴무</span><br>
+											</c:if>
 											<div class="shopDetailShort">
 												<c:choose>
 													<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
@@ -115,7 +118,7 @@
 							</c:if>
 							<c:if test='${ empty sList }'>
 								<div class="notFound">
-									<span>해당하는 검색 결과를 찾을 수 없습니다.</span>
+									<span>일치하는 검색 결과를 찾을 수 없습니다.</span>
 								</div>
 							</c:if>
 	 					</c:when>
@@ -222,69 +225,69 @@
 				<div class="result-list-navi">
 					<c:choose>
 						<c:when test="${ !empty searchKeyword }">
-								<div class="searchResult navi">
-									<c:url var="before" value="searchShop.dz">
-										<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-										<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
-									</c:url>
-									<c:if test="${ pi.currentPage > 1 }">
-										<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
-									</c:if>
-									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-										<c:url var="pagination" value="searchShop.dz">
-											<c:param name="page" value="${ p }"></c:param>
-											<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
-										</c:url>
-										<c:if test="${ p eq pi.currentPage }">
-											<span id="currentPage">${ p }</span>
-										</c:if>
-										<c:if test="${ p ne pi.currentPage }">
-											<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
-										</c:if>
-									</c:forEach>
-									<c:url var="after" value="searchShop.dz">
-										<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-										<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
-									</c:url>
-									<c:if test="${ pi.currentPage >= pi.maxPage }">
-									</c:if>
-									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
-									</c:if>
-								</div>
+							<c:url var="before" value="searchShop.dz">
+								<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+								<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+							</c:url>
+							<c:if test="${ pi.currentPage <= 1 }">
+								<img src="/resources/images/navi-left.png" class="noShowArrow" alt="이전"/>
+							</c:if>
+							<c:if test="${ pi.currentPage > 1 }">
+								<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+							</c:if>
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+								<c:url var="pagination" value="searchShop.dz">
+									<c:param name="page" value="${ p }"></c:param>
+									<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+								</c:url>
+								<c:if test="${ p eq pi.currentPage }">
+									<span id="currentPage">${ p }</span>
+								</c:if>
+								<c:if test="${ p ne pi.currentPage }">
+									<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
+								</c:if>
+							</c:forEach>
+							<c:url var="after" value="searchShop.dz">
+								<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+								<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+							</c:url>
+							<c:if test="${ pi.currentPage >= pi.maxPage }">
+								<img src="/resources/images/navi-right.png" class="noShowArrow" alt="다음"/>
+							</c:if>
+							<c:if test="${ pi.currentPage < pi.maxPage }">
+								<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+							</c:if>
 						</c:when>
 						<c:when test="${ themeNo eq 1 || themeNo eq 3 }"></c:when>
 						<c:when test="${ themeNo ne 1 && themeNo ne 3 }">
-								<div class="searchResult navi">
-									<c:url var="before" value="searchTheme.dz">
-										<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
-										<c:param name="themeNo" value="${ themeNo }"></c:param>
-									</c:url>
-									<c:if test="${ pi.currentPage > 1 }">
-										<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
-									</c:if>
-									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-										<c:url var="pagination" value="searchTheme.dz">
-											<c:param name="page" value="${ p }"></c:param>
-											<c:param name="themeNo" value="${ themeNo }"></c:param>
-										</c:url>
-										<c:if test="${ p eq pi.currentPage }">
-											<span id="currentPage">${ p }</span>
-										</c:if>
-										<c:if test="${ p ne pi.currentPage }">
-											<a href="${ pagination }"><span id="otherPage">${ p }</span>&nbsp;&nbsp;</a>
-										</c:if>
-									</c:forEach>
-									<c:url var="after" value="searchTheme.dz">
-										<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
-										<c:param name="themeNo" value="${ themeNo }"></c:param>
-									</c:url>
-									<c:if test="${ pi.currentPage >= pi.maxPage }">
-									</c:if>
-									<c:if test="${ pi.currentPage < pi.maxPage }">
-										<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
-									</c:if>
-								</div>
+							<c:url var="before" value="searchTheme.dz">
+								<c:param name="page" value="${ pi.currentPage - 1 }"></c:param>
+								<c:param name="themeNo" value="${ themeNo }"></c:param>
+							</c:url>
+							<c:if test="${ pi.currentPage > 1 }">
+								<a href="${ before }"><img src="/resources/images/shop/navi-left.png" alt="이전"/></a>
+							</c:if>
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+								<c:url var="pagination" value="searchTheme.dz">
+									<c:param name="page" value="${ p }"></c:param>
+									<c:param name="themeNo" value="${ themeNo }"></c:param>
+								</c:url>
+								<c:if test="${ p eq pi.currentPage }">
+									<span id="currentPage">${ p }</span>
+								</c:if>
+								<c:if test="${ p ne pi.currentPage }">
+									<a href="${ pagination }"><span id="otherPage">${ p }</span></a>
+								</c:if>
+							</c:forEach>
+							<c:url var="after" value="searchTheme.dz">
+								<c:param name="page" value="${ pi.currentPage + 1 }"></c:param>
+								<c:param name="themeNo" value="${ themeNo }"></c:param>
+							</c:url>
+							<c:if test="${ pi.currentPage >= pi.maxPage }">
+							</c:if>
+							<c:if test="${ pi.currentPage < pi.maxPage }">
+								<a href="${ after }"><img src="/resources/images/shop/navi-right.png" alt="다음"/></a>
+							</c:if>	
 						</c:when>
 					</c:choose>
 				</div>

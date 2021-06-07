@@ -73,7 +73,7 @@ a {
 		width: 572px;
 		height: 60px;	
 		margin: 0 auto;
-		margin-bottom: 150px;
+		margin-bottom: 100px;
 	}
 	
 		#searchBox {
@@ -118,6 +118,7 @@ a {
 			margin: 0 auto;
 			margin-bottom: 30px;
 			position: relative;
+			overflow: hidden;
 		}
 		
 		.theme:nth-child(3n+2) {
@@ -194,5 +195,22 @@ a {
 				font-size: 14px;
 				color: #0160ff;
 			}
+			
+		/* 이미지 마우스 오버시 확대 */	
+		.scale {
+		  transform: scale(1);
+		  -webkit-transform: scale(1);
+		  -moz-transform: scale(1);
+		  -ms-transform: scale(1);
+		  -o-transform: scale(1);
+		  transition: all 0.3s ease-in-out;
+		}
+		.scale:hover {
+		  transform: scale(1.2);
+		  -webkit-transform: scale(1.2);
+		  -moz-transform: scale(1.2);
+		  -ms-transform: scale(1.2);
+		  -o-transform: scale(1.2);
+		}
 	
 	
