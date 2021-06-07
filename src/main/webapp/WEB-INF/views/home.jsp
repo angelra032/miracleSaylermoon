@@ -18,16 +18,16 @@
    		<div class="main-banner-subtitle">Meaningful consumption, valuable life.</div>
 		<div id="main-title">누구나 마음편히<br><span>밥먹는 세상</span>을 위해</div>
 		<div class="search-box">
-			<form action="">
-				<input type="text" placeholder="검색하고자 하는 식당명을 입력해주세요">
+			<form action="searchShop.dz">
+				<input type="text" name="searchKeyword" placeholder="검색하고자 하는 식당명을 입력해주세요">
 				<button type="submit"><img alt="검색" src="/resources/images/search.png"></button>
 			</form>
 		</div>
 		<div class="circle-btn-area">
-			<a href="#"><img alt="지도" src="/resources/images/main/main-bt-map.png"><p>지도조회</p></a>
-			<a href="#"><img alt="지도" src="/resources/images/main/main-bt-recommended.png"><p>테마추천</p></a>
-			<a href="#"><img alt="지도" src="/resources/images/main/main-bt-thankyou.png"><p>감사후기</p></a>
-			<a href="#"><img alt="지도" src="/resources/images/main/main-bt-review.png"><p>맛집후기</p></a>
+			<a href="/mapSearchList.dz"><div class="img-area"></div><p>지도조회</p></a>
+			<a href="/searchShopView.dz"><div class="img-area"></div><p>테마추천</p></a>
+			<a href="/dReviewMain.dz"><div class="img-area"></div><p>감사후기</p></a>
+			<a href="/mReviewMain.dz"><div class="img-area"></div><p>맛집후기</p></a>
 		</div>
 		<div class="review-area">
 			<div class="main-sub-title"><span>100% 솔직후기</span></div>
@@ -35,7 +35,11 @@
 			<div class="review-contents-area">
 				<c:if test="${ !empty mList }">
 					<c:forEach items="${ mList }" var="mReview" varStatus="status">
-						<div class="review-content">${ mReview.mReviewContent }</div>
+						<div class="review-content">
+							<span>${ mReview.mReviewTitle }</span><br>
+							<div><span class="left-span">${ mReview.mReviewWriter}</span><span class="right-span">${ mReview.mReviewUploadDate }</span></div>
+							${ mReview.mReviewContent }
+						</div>
 					</c:forEach>
 				</c:if>
 				<c:if test="${ empty mList }">
@@ -85,7 +89,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="insta-area">
+		<!-- <div class="insta-area">
 			<div class="main-sub-title more-paddingtop less-margintop-blue "><span>인스타그램</span></div>
 			<div class="main-content-title">프로 돈쭐러들의 인증샷을 확인해보세요!</div>
 			<div class= "insta-con-area">
@@ -95,7 +99,7 @@
 				<div class="insta-con"></div>
 				<div class="insta-con"></div>
 			</div>
-		</div>
+		</div> -->
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
@@ -105,5 +109,7 @@
 	const nn1 = n1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	console.log(nn1);
 	document.getElementById('donation-money').innerHTML = nn1;
+	
+	$(".circle-btn-area").children()
 </script>
 </html>
