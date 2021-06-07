@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <!-- css -->
     <link rel="stylesheet" href="/resources/css/mypageheader.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet">
-    <!-- JS -->
+   <!--  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet"> -->
+    <!-- JS --> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>헤더 </title>
 </head>

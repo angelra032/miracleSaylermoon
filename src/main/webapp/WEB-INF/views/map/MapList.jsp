@@ -16,7 +16,7 @@
 	
 	<main>
 	    <div class="header-background-area">
-        	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+        	<img src="/resources/images/map/mapListMain.png" alt="뒷배경이미지">
     	</div>
 		<div id="main-title">지도조회</div>
 		<div class="frame">

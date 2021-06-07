@@ -53,7 +53,7 @@ function mapJs(map, positions) {
             // 정상적으로 검색이 완료됐으면 
              if (status === kakao.maps.services.Status.OK) {
         
-                var imageSrc = '/resources/images/map_marker_blue_v2.png', // 마커이미지의 주소입니다    
+                var imageSrc = '/resources/images/map/map_marker_blue_v2.png', // 마커이미지의 주소입니다    
                     imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
                     imageOption = {offset: new kakao.maps.Point(27, 35)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
                       
@@ -142,16 +142,16 @@ function mapJs(map, positions) {
 			            '        <div class="body">' + 
 			            '            <div class="desc">' + 
 			            '                <div class="shopTitle">' + 
-			            '                	<div class="targetTitle"><b>제공대상</b></div>' + 
+			            '                	<div class="targetTitle">제공대상</div>' + 
 			            '                	<div class="targetCon">'+shop.shopTarget+'</div>' + 
 			            '                </div>' + 
 			            '                <div class="shopCon">' +
-				        '	                <div class="shopProduct"><b>제공품목</b></div>' + 
+				        '	                <div class="shopProduct">제공품목</div>' + 
 				        '	                <div class="shopProductCon">'+shop.shopProduct+'</div>' + 
 			            '                </div>' + 
 			            '                <div class="shopTime">' +
-				        '	                <div class="timeTitle"><b>영업시간</b></div>' + 
-				        '	                <div class="timeCon">&nbsp;'+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
+				        '	                <div class="timeTitle">영업시간</div>' + 
+				        '	                <div class="timeCon">'+shop.startTime+':00 - '+shop.endTime+':00</div>' + 
 			            '                </div>' + 
 			            '            </div>' + 
 			            '            <div class="btnShop">' + 
