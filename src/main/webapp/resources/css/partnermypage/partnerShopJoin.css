@@ -252,3 +252,8 @@ h4 {
     --font-size: 1.125rem;
     line-height: 1.5;
 }
+
+.first-main-menu {
+	height: 50px;
+	margin-bottom: 2px;
+}

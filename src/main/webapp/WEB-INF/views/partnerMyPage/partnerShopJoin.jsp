@@ -83,7 +83,7 @@
 							</div>
 							
 							<div class="form-head form-head2">
-								제공품목&nbsp;
+								제공메뉴&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti phonenoti phone_noti_0">휴대폰번호를 입력해 주세요.</div>
 								<div class="form-noti phonenoti phone_noti_2">이미 등록된 번호입니다.</div>
@@ -158,7 +158,7 @@
 							</div>
 							<div class="form-body form-select-body-2">
 								<select name="startTime" id="startTime" class="form-select-2">
-									<option value="0" selected disabled>여는시간</option>
+									<option value="0" selected disabled>여는 시간</option>
 									<c:forEach begin="1" end="24" varStatus="status">
 										<option value="${ status.count }">${ status.count }시</option>
 									</c:forEach>
@@ -166,7 +166,7 @@
 							</div>
 							<div class="form-body form-select-body-2 form-select-body-2-1">
 								<select name="endTime" id="endTime" class="form-select-2">
-									<option value="0" selected disabled>닫는시간</option>
+									<option value="0" selected disabled>닫는 시간</option>
 									<c:forEach begin="1" end="24" varStatus="status">
 										<option value="${ status.count }">${ status.count }시</option>
 									</c:forEach>
@@ -209,16 +209,13 @@
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
-							<div class="form-body">
-								<div >
+							<div class="form-body add-menu-div">
+								<div class="first-main-menu">
 									<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" />
 									<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격 입력" />
 								</div>
-								<button type="button" onclick="" class="add-menu-btn" >메뉴추가</button>
-<!-- 								<a href="" onclick=""><span style="font-size: 13px; float:right;">메뉴추가</span></a> -->
 							</div>
-							<br>
-							<br>
+								<button type="button" onclick="addMenu();" class="add-menu-btn" >메뉴추가</button>
 							
 							<div class="form-head form-head2 img-upload">
 								메뉴 이미지 업로드&nbsp;
@@ -307,131 +304,47 @@
 	}
 	
 	
-
-	/////// 등록하기 버튼 /////// 
-	/* $("#btn").click(function(){
-		var rtn = true;
+	var count = -1;
+	// 메뉴 추가 append 그리기
+	function addMenu(){
+		count++;
 		
-		// 가게 위치
-		var zip = $("#zip"); // 우편번호	숫자야? string이야?
-		var addr1 = $("#addr1"); // 기본주소
-		var addr2 = $("#addr2"); // 상세주소
-		if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
-			alert("가게 위치를 입력하세요.");
-			return false;
-		}
+		var menuDiv = $(".add-menu-div");
+		var firstDiv = $(".first-main-menu");
+		var addMenu = $("<div class='first-main-menu'>");
 		
-		// 가게 간단 위치
-		var shopShortAddr = $("input[name='shopShortAddr']");
-		if(shopShortAddr.val()==""){
-			alert("가게 간단위치를 입력하세요.");
-			return false;
-		}
+// 		for()
 		
-		// 가게 타겟층
-		var shopTarget = $("input[name='shopTarget']");
-		if(shopTarget.val()==""){
-			alert("가게 타겟층을 입력하세요.");
-			return false;
-		}
-
-		// 제공품목
-		var shopProduct = $("#shopProduct");
-		if(shopProduct.val()==""){
-			alert("제공품목을 입력하세요.");
-			return false;
-		}
-		
-		// 연락처
-		var shopPhone = $("#shopPhone");
-		if(shopPhone.val()==""){
-			alert("연락처를 입력하세요.");
-			return false;
-		}
-
-		// 가게 분류
-		var shopTypeNum = $("#shopTypeNum");
-		if(shopTypeNum.val()==0){
-			alert("가게 분류를 선택하세요.");
-			return false;
-		}
-		
-		// 주차유무
-		var shopParking = $("#shopParking");
-		if(shopParking.val()==0){
-			alert("주차유무를 선택하세요.");
-			return false;
-		}
-
-		// 최대예약가능인원
-		var shopMaxReserv = $("input[name='shopMaxReserv']");
-		if(shopMaxReserv.val()==0){
-			alert("최대 예약 가능한 인원을 입력하세요.");
-			return false;
-		}
-		
-		// 시작 시간
-		var startTime = $("#startTime");
-		if(startTime.val()==0){
-			alert("여는 시간을 선택하세요.");
-			return false;
-		}
-		
-		// 끝내는 시간
-		var endTime = $("#endTime");
-		if(startTime.val()==0){
-			alert("닫는 시간을 선택하세요.");
-			return false;
-		}
-
-		// 영업일	// 체크박스 비어있을 때 /////////////////////////
-		var startTime = $("#startTime");
-		if(startTime.val()==0){
-			alert("영업일을 체크하세요.");
-			return false;
-		}
-		
-		// 가게 소개
-		var shopContent = $("input[name='shopContent']");
-		if(shopContent.val()==""){		// val 아니면 html 혹은 text
-			alert("가게 소개를 입력하세요.");
-			return false;
-		}
-		
-		// 사진 업로드
-		var uploadFile = $("input[name='uploadFile']");
-		if(uploadFile.val()==""){		// 파일 - val 아니면 html 혹은 text
-			alert("사진을 업로드하세요.");
-			return false;
-		}
-		
-		
-		
-		/* 
-		var result = confirm('가게 등록 후 관리자의 확인 절차가 진행됩니다. 확인 절차동안 페이지에 노출되지 않습니다.');
-		if(result) {
-			//document.getElementById('btn').onclick = function() {
-				document.getElementById('frm').submit();
-				return false;
-			//}
-		} else {
-			
-		}
-		 
-		 
-	}); */
+// 		firstDiv.html();
+		addMenu.append("<input type='text' name='mainMenuName' class='form-elem menu-name' placeholder='메뉴 이름 입력' />")
+				.append("<input type='text' name='mainMenuPrice' class='form-elem menu-price' placeholder='메뉴 가격 입력' />");
+		menuDiv.append(addMenu);
+		console.log(count);
+		console.log($(".menu-name").val());
+		console.log($(".menu-price").val());
+	}
 	
 	
 	function waitJoin() {
 		
 		var rtn = true;
 		
+
+		// 메인 이미지 업로드
+		var shopPhoto = $("input[name='shopPhoto']");
+		if(shopPhoto.val()==""){
+			alert("메인 이미지를 업로드하세요.");
+			shopPhoto.focus();
+			return false;
+		}
+		
 		// 가게 위치
 		var zip = $("#zip"); // 우편번호	숫자야? string이야?
 		var addr1 = $("#addr1"); // 기본주소
 		var addr2 = $("#addr2"); // 상세주소
 		if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
 			alert("가게 위치를 입력하세요.");
+			zip.focus();
 			return false;
 		}
 		
@@ -439,6 +352,7 @@
 		var shopShortAddr = $("input[name='shopShortAddr']");
 		if(shopShortAddr.val()==""){
 			alert("가게 간단위치를 입력하세요.");
+			shopShortAddr.focus();
 			return false;
 		}
 		
@@ -446,6 +360,7 @@
 		var shopTarget = $("input[name='shopTarget']");
 		if(shopTarget.val()==""){
 			alert("가게 타겟층을 입력하세요.");
+			shopTarget.focus();
 			return false;
 		}
 
@@ -453,6 +368,7 @@
 		var shopProduct = $("#shopProduct");
 		if(shopProduct.val()==""){
 			alert("제공품목을 입력하세요.");
+			shopProduct.focus();
 			return false;
 		}
 		
@@ -460,6 +376,7 @@
 		var shopPhone = $("#shopPhone");
 		if(shopPhone.val()==""){
 			alert("연락처를 입력하세요.");
+			shopPhone.focus();
 			return false;
 		}
 
@@ -468,6 +385,7 @@
 			console.log(shopTypeNum.val());
 		if(shopTypeNum.val()==null){
 			alert("가게 분류를 선택하세요.");
+			shopShortAddr.focus();
 			return false;
 		}
 		
@@ -475,6 +393,7 @@
 		var shopParking = $("#shopParking");
 		if(shopParking.val()==null){
 			alert("주차유무를 선택하세요.");
+			shopParking.focus();
 			return false;
 		}
 
@@ -483,6 +402,7 @@
 		console.log("최대예약가능인원",shopMaxReserv.val());
 		if(shopMaxReserv.val()==""){
 			alert("최대 예약 가능한 인원을 입력하세요.");
+			shopMaxReserv.focus();
 			return false;
 		}
 		
@@ -491,6 +411,7 @@
 		console.log("시간",startTime.val());
 		if(startTime.val()==null){
 			alert("여는 시간을 선택하세요.");
+			startTime.focus();
 			return false;
 		}
 		
@@ -499,6 +420,7 @@
 		console.log("끝내는시간",endTime.val());
 		if(endTime.val()==null){
 			alert("닫는 시간을 선택하세요.");
+			endTime.focus();
 			return false;
 		}
 
@@ -507,6 +429,7 @@
 		console.log("영업일",businessNum.val());
 		if(businessNum.is(":checked")==false){
 			alert("영업일을 체크하세요.");
+			businessNum.focus();
 			return false;
 		}
 		
@@ -515,18 +438,28 @@
 		var shopContent = $("input[name='shopContent']");
 		if(shopContent.val()==""){		// val 아니면 html 혹은 text
 			alert("가게 소개를 입력하세요.");
+			shopContent.focus();
 			return false;
 		}
 		*/
 		
-		// 사진 업로드
-		var uploadFile = $("input[name='uploadFile']");
-		console.log("업로드",uploadFile.val());
-		if(uploadFile.val()==""){		// 파일 - val 아니면 html 혹은 text
-			alert("메뉴 이미지를 업로드하세요.");
+		// 메뉴 입력
+		var mainMenuName = $("input[name='mainMenuName']");
+		var mainMenuPrice = $("input[name='mainMenuPrice']");
+		if( mainMenuName.val()=="" || mainMenuPrice.val()=="" ){		// 파일 - val 아니면 html 혹은 text
+			alert("메뉴와 가격을 입력하세요.");
+			mainMenuName.focus();
 			return false;
 		}
 		
+		// 메뉴 사진 업로드
+		var mainMenuPhoto = $("input[name='mainMenuPhoto']");
+		console.log("업로드",mainMenuPhoto.val());
+		if(mainMenuPhoto.val()==""){		// 파일 - val 아니면 html 혹은 text
+			alert("메뉴 이미지를 업로드하세요.");
+			mainMenuPhoto.focus();
+			return false;
+		}
 		
 		
 		
