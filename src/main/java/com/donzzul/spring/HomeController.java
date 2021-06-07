@@ -46,6 +46,11 @@ public class HomeController {
 		// 맛집후기 세개
 		ArrayList<MzReview> mList = mService.selectThreeReview();
 		if(!mList.isEmpty()) {
+			for (int i = 0; i < mList.size(); i++) {
+				String reviewContent = mList.get(i).getmReviewContent();
+				reviewContent = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+				mList.get(i).setmReviewContent(reviewContent);
+			}
 			mv.addObject("mList", mList);
 		} else {
 			mv.addObject("msg", "게시글이 없습니다");

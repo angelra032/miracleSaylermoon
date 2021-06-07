@@ -67,6 +67,7 @@
 	background-color: #fdb504;
 	border: solid 1px #e3e4e5;
 	float: left;
+	cursor: pointer;
 }
 
 /* 원 버튼 */
@@ -86,19 +87,33 @@
 	text-align: center;
 	float: left;
 }
-.circle-btn-area a:not(:last-child) {
-	margin-right: 85px;
-}
-.circle-btn-area a img {
+.circle-btn-area a .img-area {
 	width: 63px;
 	height: 63px;
 	z-index: -2;
 	margin: 36px auto 0;
+	background-size: cover;
 }
-.circle-btn-area a:last-child img {
+.circle-btn-area a:first-child .img-area {
+	background-image: url("/resources/images/main/main-bt-map.png");
+}
+.circle-btn-area a:nth-child(2) .img-area {
+	background-image: url("/resources/images/main/main-bt-recommended.png");
+}
+.circle-btn-area a:nth-child(3) .img-area {
+	width: 67px;
+	background-image: url("/resources/images/main/main-bt-thankyou.png");
+	background-size: contain;
+}
+.circle-btn-area a:nth-child(4) .img-area {
 	width: 60px;
-	height: 56px;
-	padding-bottom: 5px;
+	height: 52px;
+	margin-bottom: 10px;
+	background-image: url("/resources/images/main/main-bt-review.png");
+	background-size: contain;
+}
+.circle-btn-area a:not(:last-child) {
+	margin-right: 85px;
 }
 .circle-btn-area a p {
 	margin-top: 5px;
@@ -109,7 +124,24 @@
 	text-align: center;
 	color: #333;
 }
-
+.circle-btn-area a:hover {
+	background-color: #fdb504;
+}
+.circle-btn-area a:hover p {
+	color: #fff;
+}
+.circle-btn-area a:first-child:hover .img-area {
+	background-image: url("/resources/images/main/main-bt-map-hover.png");
+}
+.circle-btn-area a:nth-child(2):hover .img-area {
+	background-image: url("/resources/images/main/main-recommended-hover.png");
+}
+.circle-btn-area a:nth-child(3):hover .img-area {
+	background-image: url("/resources/images/main/main-thankyou-hover.png");
+}
+.circle-btn-area a:nth-child(4):hover .img-area {
+	background-image: url("/resources/images/main/main-review-hover.png");
+}
 /* 리뷰영역 */
 .review-area {
 	width: 1440px;
@@ -158,12 +190,33 @@
 	text-align: center;
 	font-size: 16px;
 }
+
 .review-content:not(:last-child) {
 	border-right: solid 1px #e3e4e5;
 }
 .review-content:nth-child(2) {
 	background-color: #337fff;
 	color: #fff;
+}
+
+.review-content >span {
+	font-size: 20px;
+	font-weight: 600;
+}
+.review-content div {
+	width: 100%;
+	height: 40px;
+	margin-top: 30px;
+	color: #666;
+}
+.review-content:nth-child(2) div {
+	color: #fff;
+}
+.review-content div .left-span {
+	float:left;
+}
+.review-content div .right-span {
+	float:right;
 }
 /* 감사후기 */
 .thanks-area {
