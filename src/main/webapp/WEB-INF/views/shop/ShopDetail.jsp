@@ -142,16 +142,16 @@
 						
 						<!-- 회원별 버튼 생성 -->
 						<!-- 비회원 : 로그인 연결 -->
-							<c:if test="${ empty loginUser }">
+							<c:if test="${ empty loginUser && empty sessionScope.kakaoId && empty sessionScope.googleId }">
 								<ul>
-									<li><a href="javascript:void(0);" onclick="goLogin()">예약하기</a></li>
-									<li><a href="javascript:void(0);" onclick="goLogin()">돈쭐내기</a></li>
+									<li><a href="${ reservation }">예약하기</a></li>
+									<li><a href="${ donation }">돈쭐내기</a></li>
 									<li><a href="javascript:history.back();">목록으로</a></li>
 								</ul>
 							</c:if>
 						
 							<!-- 회원 -->
-							<c:if test="${ !empty loginUser }">
+							<c:if test="${ !empty loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
 								<!-- 꿈나무회원 -->
 								<c:if test="${ loginUser.userType == 1 }">
 									<ul class="two-buttons-all">
@@ -161,7 +161,7 @@
 								</c:if>
 								
 								<!-- mz -->
-								<c:if test="${ loginUser.userType == 2 }">
+								<c:if test="${ loginUser.userType == 2 || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
 									<ul>
 										<li><a href="${ reservation }">예약하기</a></li>
 										<li><a href="${ donation }">돈쭐내기</a></li>

@@ -21,6 +21,7 @@
 		<!-- 해당 url에 접근하기 위한 접근권한 설정 -->
 		<!-- 모두 허용 -->
 		<intercept-url pattern="/" access="permitAll" /><!-- 메인 -->
+		<intercept-url pattern="/resources/**" access="permitAll" />
 		<!-- 꿈나무회원만 -->
 		<intercept-url pattern="/dreamMyPage.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무마이페이지 -->
 		<intercept-url pattern="/allRListDetailByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무예약목록 -->
@@ -31,14 +32,16 @@
 		<intercept-url pattern="/mzMyPage.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원마이페이지 -->
 		<intercept-url pattern="/mzReservationList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원예약목록 -->
 		<intercept-url pattern="/mzPickList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원가고싶다 목록 -->
-		<intercept-url pattern="/printDonAllList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원가고싶다 목록 -->
+		<intercept-url pattern="/printDonAllList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반돈쭐리스트 목록 -->
+		<intercept-url pattern="/paymentFormView.dz" access="hasRole('ROLE_MZ')" /> <!-- 돈쭐내기 페이지 -->
 		<!-- 사업자회원만 -->
 		<intercept-url pattern="/partnerMyPage.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
 		<intercept-url pattern="/refundsPartnerPoint.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
 		<intercept-url pattern="/partnerReserveList.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
 		<intercept-url pattern="/allQnaListByPartner.dz" access="hasRole('ROLE_PARTNER')" /> <!-- 사업자마이페이지 -->
 		<!-- 회원만 -->
-		<intercept-url pattern="/userWritePwView.dz" access="hasAnyRole('ROLE_DREAM', 'ROLE_MZ', 'ROLE_PARTNER')" /> <!-- 회원탈퇴전 비밀번호 입력페이지 -->
+		<intercept-url pattern="/userWritePwView.dz" access="isAuthenticated()" /> <!-- 회원탈퇴전 비밀번호 입력페이지 -->
+		<intercept-url pattern="/reservationView.dz" access="hasAnyRole('ROLE_DREAM', 'ROLE_MZ')" /> <!-- 예약페이지-> 꿈나무, 일반 -->
 		<!-- 모두 비허용 -->
 		<!-- 
 		<intercept-url pattern="/shopDetail.dz" access="denyAll" /> 
@@ -51,7 +54,6 @@
 		<intercept-url pattern="/drmMyPageDelete2.dz" access="denyAll" /> 
 		 -->
 		<!-- 나머지는 모두 허용 -->
-		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/**" access="permitAll" /><!-- /**나머지는 ROLE_USER권한을 가진 사람만 허용 -->
 		<!-- hasRole('ROLE_ADMIN')  hasRole('ROLE_USER')-->
 		
@@ -74,11 +76,11 @@
 		<logout 
 		invalidate-session="true" 
 		logout-url="/logout.dz"  
-		delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE"
+		delete-cookies="true"
 		logout-success-url="/" 
 		/>  
 		
-		<remember-me key="wmoskey" token-validity-seconds="2419200" authentication-success-handler-ref="loginSuccessHandler"/> <!-- 4 주 -->
+		<!-- <remember-me key="wmoskey" token-validity-seconds="2419200" authentication-success-handler-ref="loginSuccessHandler"/> --> <!-- 4 주 -->
 
 		<!-- enable csrf protection 해킹막기 -->
 		<csrf disabled="true"/>  
@@ -109,5 +111,6 @@
 	<!-- userService 빈등록 -->
 	<beans:bean id="UserDetailsServiceImpl" class="com.donzzul.spring.user.service.UserDetailsServiceImpl"/>
 	<beans:bean id="userAuthProvider" class="com.donzzul.spring.user.service.CustomAuthenticationProvider"/>
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 </beans:beans>

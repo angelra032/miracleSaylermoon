@@ -115,11 +115,28 @@
 	function deleteResult(data) {
         var result = confirm('글을 삭제합니다.');
         if(result) {
-            location.href='qaDelete.dz?qnaNo=' + data;
-			location.href='adminQnaList.dz';
+        	$.ajax({
+        		url : "qaDelete.dz",
+    			data : { "qnaNo" : data },
+    			success : function(data){ 
+    				if(data == "success"){
+    					reloadQnaList();					
+    				}else { // 남은 데이터 없을때
+    					alert("삭제 실패했습니다");
+    				}
+    			}, //end of success
+    			error : function() {
+    				console.log("전송실패");
+    			}
+        	});
         } else {
 			location.href='adminQnaList.dz';
         }
     }
+	
+	function reloadQnaList() {
+		$(".reserv-list").load("adminQnaList.dz .reserv-list");
+		// $("특정 #id").load("해당페이지주소  특정#id") 
+	}
 </script>
 </html>
