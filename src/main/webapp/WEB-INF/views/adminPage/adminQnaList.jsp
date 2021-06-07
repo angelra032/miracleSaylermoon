@@ -110,7 +110,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script>
-	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	$('.board-menu-btn').eq(3).css('background','#0160ff').css('color','white');
 	
 	function deleteResult(data) {

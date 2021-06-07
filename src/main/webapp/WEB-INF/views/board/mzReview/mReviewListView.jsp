@@ -21,8 +21,8 @@
     
     	<c:if test="${ mList.size() > 0 }">
             <table class="board-list-table">
-                <thead>
-                    <tr>
+                <thead class="board-thead">
+                    <tr class="board-thead-tr">
                         <td width=110>No</td>
                         <td width=450 style="word-break: break-all;">제목</td>
                         <td width=160>작성자</td>
@@ -95,7 +95,4 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-<script type="text/javascript">
-	$('.menu-btn').eq(0).css('background','#0160ff').css('color','white');
-</script>
 </html>

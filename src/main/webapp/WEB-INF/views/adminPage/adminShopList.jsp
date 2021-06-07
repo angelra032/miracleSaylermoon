@@ -122,7 +122,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
 	
 	// 탈퇴
 	function deleteShop(data) {

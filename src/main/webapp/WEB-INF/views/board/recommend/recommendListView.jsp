@@ -20,8 +20,8 @@
     		
     		<c:if test="${ rList.size() > 0 }">
 	            <table class="board-list-table">
-	                <thead>
-	                    <tr>
+	                <thead class="board-thead">
+	                    <tr class="board-thead-tr">
 	                        <td width=110>No</td>
 	                        <td width=450>제목</td>
 	                        <td width=160>작성자</td>
@@ -101,10 +101,4 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-<script type="text/javascript">
-	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
-	$('#write-btn-area').on("click", function() {
-		location.href='recommendWriteView.dz'
-	});
-</script>
 </html>

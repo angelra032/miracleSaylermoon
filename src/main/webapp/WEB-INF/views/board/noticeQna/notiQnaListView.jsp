@@ -19,8 +19,8 @@
 			<jsp:include page="/WEB-INF/views/board/common/boardNavi.jsp"></jsp:include>
 			<c:if test="${ qList.size() > 0 }">
 	            <table class="board-list-table">
-	                <thead>
-	                    <tr>
+	                <thead class="board-thead">
+	                    <tr class="board-thead-tr">
 	                        <td width=110>No</td>
 	                        <td width=110>구분</td>
 	                        <td width=450>제목</td>
@@ -128,10 +128,4 @@
         </div>
 	</main>
 </body>
-<script type="text/javascript">
-	$('.menu-btn').eq(3).css('background','#0160ff').css('color','white');
-	$(document).ready(function() { 
-		
-	});
-</script>
 </html>

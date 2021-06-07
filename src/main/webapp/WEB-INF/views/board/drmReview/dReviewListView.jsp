@@ -21,8 +21,8 @@
 			
 			<c:if test="${ drList.size() > 0 }">
 	            <table class="board-list-table">
-	                <thead>
-	                    <tr>
+	                <thead class="board-thead">
+	                    <tr class="board-thead-tr">
 	                        <td width=110>No</td>
 	                        <td width=450 style="word-break: break-all;">제목</td>
 	                        <td width=160>작성자</td>
@@ -45,7 +45,7 @@
 		                <c:if test="${ drmReview.drmReviewPublicYN eq 'N' or drmReview.drmReviewPublicYN eq 'n'}">
 		                	<tr onclick="location.href='dReviewDetail.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">
 		                        <td>${ num }</td>
-		                        <c:if test="${ drmReview.userNo != sessionScope.loginUser.userNo && drmReview.shopName != sessionScope.loginUser.partnerName }">
+		                        <c:if test="${ drmReview.userNo != sessionScope.loginUser.userNo && drmReview.shopName != sessionScope.loginUser.partnerName &&  sessionScope.loginUser.userType ne '4' }">
 			                        <td>비공개글입니다</td>
 			                        <td>비공개</td>
 		                        </c:if>
@@ -114,8 +114,4 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-<script type="text/javascript">
-	$('.menu-btn').eq(1).css('background','#0160ff').css('color','white');
-	
-</script>
 </html>

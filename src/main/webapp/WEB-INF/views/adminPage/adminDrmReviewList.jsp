@@ -42,7 +42,7 @@
 					 <c:set var="num" value="${ pi.listCount - ((pi.currentPage - 1) * 10) - status.index }"/>
 						<tr>
 							<td>${ num }</td>
-							<td style="cursor: pointer;" onclick="location.href='dReviewDetail.dz?drmReviewNo=${drReview.drmRviewNo}'">${drReview.drmReviewTitle }</td>
+							<td style="cursor: pointer;" onclick="location.href='dReviewDetail.dz?drmReviewNo=${drReview.drmReviewNo}'">${drReview.drmReviewTitle }</td>
 							<td>${drReview.drmReviewWriter }</td>
 							<c:if test="${drReview.drmReviewPublicYN eq 'y' or drReview.drmReviewPublicYN eq 'Y' }">
 								<td>공개</td>
@@ -51,7 +51,7 @@
 								<td>비공개</td>
 							</c:if>
 							<td>${drReview.drmReviewCreateDate }</td>
-							<td><div class="delete-btn" onclick="deleteResult('${ drReview. drmRviewNo }')">삭제</div></td>
+							<td><div class="delete-btn" onclick="deleteResult('${ drReview. drmReviewNo }')">삭제</div></td>
 							
 						</tr>
 					</c:forEach>
@@ -109,13 +109,12 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script>
-	$('.menu-btn').eq(2).css('background','#0160ff').css('color','white');
 	$('.board-menu-btn').eq(1).css('background','#0160ff').css('color','white');
 	
 	function deleteResult(data) {
         var result = confirm('글을 삭제합니다.');
         if(result) {
-            location.href='dReviewDelete.dz?drmRviewNo=' + data;
+            location.href='dReviewDelete.dz?drmReviewNo=' + data;
 			location.href='adminDrmReviewList.dz';
         } else {
 			location.href='adminDrmReviewList.dz';

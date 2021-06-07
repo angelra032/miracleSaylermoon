@@ -18,19 +18,23 @@
             margin: 100px auto 50px 50px;
         }
         #top-list-menu {
+       	 	width: 1008px;
+		    height: 60px;
+		    margin: 0px auto;
         }
             #top-list-menu > li {
+                width: 250px;
+                height: 60px;
                 list-style: none;
-                background-color: #e3e4e5;
-                width: 140px;
-                height: 42px;
+                background-color: #ffffff;
                 text-align: center;
                 float: left;
-                line-height: 2.7;
-                margin: 0 15px;
+                line-height: 3.7;
+				margin: 0 0 -1px -1px;
+				border: solid 1px #e3e4e5;
             }
             #top-list-menu > li:nth-child(1) {
-                margin: 0 15px 0 25%;
+/*                 margin: 0 15px 0 25%; */
             }
             #top-list-menu > li > a {
                 text-decoration: none;

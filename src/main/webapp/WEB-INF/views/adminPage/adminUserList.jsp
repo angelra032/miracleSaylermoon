@@ -122,7 +122,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-	$('.menu-btn').eq(0).css('background','#0160ff').css('color','white');
 	
 	function deleteResult(userNo) {
         var result = confirm('회원을 탈퇴시킵니다.');
