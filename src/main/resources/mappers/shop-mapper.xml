@@ -32,6 +32,7 @@
  		<result property="userId" column="USER_ID"/>
 		<result property="partnerVerify" column="PARTNER_VERIFY"/>
 		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
+		<result property="shopLongAddr" column="SHOP_LONG_ADDR"/>
 	</resultMap>
 	
 	<insert id="insertPartnerShop">
@@ -39,7 +40,7 @@
 			#{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, 
 			#{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, 
 			#{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, 
-			#{businessDay}, NULL, #{shopPhone}, DEFAULT)
+			#{businessDay}, NULL, #{shopPhone}, DEFAULT, #{shopLongAddr } )
 	</insert>
 	
 	<update id="updatePartnerShop">
@@ -326,6 +327,15 @@
     <select id="selectMenuPhoto" resultMap="menuPhotoResultMap">
        SELECT * FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
     </select>
+    
+    <!-- 가게 메뉴사진 저장 -->
+	<insert id="insertMenuPhoto">
+		INSERT INTO MENU_PHOTO VALUES(
+            SEQ_MENU_PHOTO.NEXTVAL, #{menuFileName }, #{menuFilePath }, #{menuFileSize },
+            #{menuUploadTime }, #{shopNo }
+        )
+	</insert>
+	
 	
 	<!-- 관리자페이지 shop조회 -->
       <select id="selectAllShopDESC" resultMap="shopResultMap">
@@ -346,5 +356,8 @@
 	<update id="partnerUpdateShow">
 		UPDATE SHOP SET SHOW_SHOP_YN = 'Y' WHERE SHOP_NO = #{shopNo }
 	</update>
+	
+	
+	
 	
 </mapper>

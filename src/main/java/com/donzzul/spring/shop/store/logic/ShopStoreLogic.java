@@ -152,6 +152,12 @@ public class ShopStoreLogic implements ShopStore {
 	public int updatePartnerShopShow(int shopNo) {
 		return sqlSession.update("shopMapper.updatePartnerShow", shopNo);
 	}
+
+	// 파트너 - 가게 수정(다중파일 업로드)
+	@Override
+	public int insertMenuPhoto(MenuPhoto menuPhoto) {
+		return sqlSession.insert("shopMapper.insertMenuPhoto", menuPhoto);
+	}
 	
 
 }

@@ -150,6 +150,12 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.updatePartnerShopShow(shopNo);
 	}
 
+	// 파트너 - 가게 수정(다중파일 업로드)
+	@Override
+	public int insertMenuPhoto(MenuPhoto menuPhoto) {
+		return sStore.insertMenuPhoto(menuPhoto);
+	}
+
 
 
 
