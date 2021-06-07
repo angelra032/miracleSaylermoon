@@ -1,12 +1,16 @@
 $(document).ready(function(){
-	var link = document.location.href.split("/");
-	if(link[3] == "adminUserList.dz") {
+	var link = document.location.href.split('/');
+	var test = link[3].indexOf('?');
+	var splitLink = link[3].substring(0, test);
+	if(link[3] == "adminUserList.dz" || splitLink == "adminUserList.dz") {
 		$('.menu-btn').eq(0).css('background','#fdb504').css('color','white');
-	} else if(link[3] == "adminShopList.dz") {
+	} else if(link[3] == "adminShopList.dz" || splitLink == "adminShopList.dz") {
 		$('.menu-btn').eq(1).css('background','#fdb504').css('color','white');
 	} else if(link[3] == "adminMReviewList.dz" || link[3] == "adminDrmReviewList.dz" || link[3] == "adminRecommendList.dz" || link[3] == "adminQnaList.dz" || link[3] == "adminNoticeList.dz") {
 		$('.menu-btn').eq(2).css('background','#fdb504').css('color','white');
-	} else if(link[3] == "adminPointList.dz") {
+	} else if(splitLink == "adminMReviewList.dz" || splitLink == "adminDrmReviewList.dz" || splitLink == "adminRecommendList.dz" || splitLink == "adminQnaList.dz" || splitLink == "adminNoticeList.dz") {
+		$('.menu-btn').eq(2).css('background','#fdb504').css('color','white');
+	}else if(link[3] == "adminPointList.dz" || splitLink == "adminPointList.dz") {
 		$('.menu-btn').eq(3).css('background','#fdb504').css('color','white');
 	}
 });

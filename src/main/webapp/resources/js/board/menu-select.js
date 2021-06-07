@@ -15,13 +15,15 @@ function selectMenu(num) {
 
 $(document).ready(function(){
 	var link = document.location.href.split("/");
-	if(link[3] == "mReviewMain.dz") {
+	var test = link[3].indexOf('?');
+	var splitLink = link[3].substring(0, test);
+	if(link[3] == "mReviewMain.dz" || splitLink == "mReviewMain.dz") {
 		$('.menu-btn').eq(0).css('background','#fdb504').css('color','white');
-	} else if(link[3] == "dReviewMain.dz") {
+	} else if(link[3] == "dReviewMain.dz" || splitLink == "dReviewMain.dz") {
 		$('.menu-btn').eq(1).css('background','#fdb504').css('color','white');
-	} else if(link[3] == "recommendMain.dz") {
+	} else if(link[3] == "recommendMain.dz" || splitLink == "recommendMain.dz") {
 		$('.menu-btn').eq(2).css('background','#fdb504').css('color','white');
-	} else if(link[3] == "notiQnaMain.dz") {
+	} else if(link[3] == "notiQnaMain.dz" || splitLink == "notiQnaMain.dz") {
 		$('.menu-btn').eq(3).css('background','#fdb504').css('color','white');
 	}
 });
