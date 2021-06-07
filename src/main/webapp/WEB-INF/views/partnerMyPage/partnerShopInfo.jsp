@@ -22,7 +22,7 @@
 			<div class="tabcontent">
 				<div class="content-body">
 					<div id="dreamEnrollView" class="tab-content current">
-						<form action="shopRegister.dz" method="post"  enctype="multipart/form-data">
+						<form action="shopUpdate.dz" method="post"  enctype="multipart/form-data"> 
 							<div class="form-head form-head2">
 								가게이름&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
@@ -259,7 +259,8 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="uploadFile" class="form-elem uploadFile" multiple="multiple" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="uploadFile1" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="uploadFile2" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 							</div>
 							
 							<h1>유효성검사 필요, 메뉴사진(다중업로드) 추가, MAIN_MENU 테이블 입력필요</h1>

@@ -41,4 +41,5 @@ public interface ShopService {
     public int insertPartnerShop(Shop shop); // 가게등록
     public int updatePartnerShop(Shop shop); // 가게수정
     public Shop selectShopOneUserNo(int userNo); // 유저번호로 가게상세 출력
+	public int insertMenuPhoto(MenuPhoto menuPhoto); // 메뉴사진 저장(다중업로드)
 }

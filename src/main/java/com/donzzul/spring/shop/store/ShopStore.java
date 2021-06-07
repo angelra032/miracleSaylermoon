@@ -41,4 +41,5 @@ public interface ShopStore {
     public int insertPartnerShop(Shop shop);
     public int updatePartnerShop(Shop shop);
     public Shop selectShopOneUserNo(int userNo); 
+	public int insertMenuPhoto(MenuPhoto menuPhoto); // 메뉴사진 저장(다중업로드)
 }

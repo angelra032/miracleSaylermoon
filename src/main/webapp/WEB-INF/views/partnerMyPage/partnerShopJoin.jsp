@@ -31,6 +31,16 @@
 								<input name="shopName" class="form-elem shopName" type="text" maxlength="40" placeholder="간이사업자명 입력" value="${ partnerName }" readonly>
 							</div>
 							
+							<div class="form-head form-head2">
+								메인 이미지 업로드&nbsp;
+								<span class="required">*</span>&nbsp;&nbsp;
+								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
+								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
+								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
+							</div>
+							<div class="form-body">
+								<input name="uploadFile0" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+							</div>
 							
 							<div class="form-head form-head2">
 								가게 위치&nbsp;
@@ -140,7 +150,7 @@
 							</div>
 							
 							<div class="form-head form-head2">
-								시작시간-끝내는시간&nbsp;
+								영업시간&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti emailnoti email_noti_0">시간을 선택해 주세요.</div>
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
@@ -193,21 +203,41 @@
 							</div>
 
 							<div class="form-head form-head2">
-								사진업로드&nbsp;
+								메뉴 입력&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="uploadFile" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<a href="" onclick=""><span style="font-size: 13px; float:right;">메뉴추가</span></a>
+								<br>
+								<div >
+									<input type="text" class="form-elem menu-name" placeholder="메뉴 이름 입력" />
+									<input type="text" class="form-elem menu-price" placeholder="메뉴 가격 입력" />
+								</div>
 							</div>
+							<br>
+							<br>
+							
+							<div class="form-head form-head2 img-upload">
+								메뉴 이미지 업로드&nbsp;
+								<span class="required">*</span>&nbsp;&nbsp;
+								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
+								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
+								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
+							</div>
+							<div class="form-body">
+								<input name="uploadFile1" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="uploadFile2" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="uploadFile3" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+							</div>
+							
 							<h1>유효성검사 수정필요</h1>
 							
 							<input type="hidden" name="userNo" value="${userNo}" />
-							<!-- <button type="submit" id="btn" class="submit-btn" onclick="waitJoin()">등록하기</button> -->
-							<button type="submit" id="btn" class="submit-btn" >등록하기</button>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<button type="button" id="btn" class="submit-btn" onclick="waitJoin()">등록하기</button>
+							<!-- <button type="submit" id="btn" class="submit-btn" >등록하기</button> -->
 						</form>
 					</div>
 				</div>
@@ -435,63 +465,71 @@
 
 		// 가게 분류
 		var shopTypeNum = $("#shopTypeNum");
-		if(shopTypeNum.val()==0){
+			console.log(shopTypeNum.val());
+		if(shopTypeNum.val()==null){
 			alert("가게 분류를 선택하세요.");
 			return false;
 		}
 		
 		// 주차유무
 		var shopParking = $("#shopParking");
-		if(shopParking.val()==0){
+		if(shopParking.val()==null){
 			alert("주차유무를 선택하세요.");
 			return false;
 		}
 
 		// 최대예약가능인원
 		var shopMaxReserv = $("input[name='shopMaxReserv']");
-		if(shopMaxReserv.val()==0){
+		console.log("최대예약가능인원",shopMaxReserv.val());
+		if(shopMaxReserv.val()==""){
 			alert("최대 예약 가능한 인원을 입력하세요.");
 			return false;
 		}
 		
 		// 시작 시간
 		var startTime = $("#startTime");
-		if(startTime.val()==0){
+		console.log("시간",startTime.val());
+		if(startTime.val()==null){
 			alert("여는 시간을 선택하세요.");
 			return false;
 		}
 		
 		// 끝내는 시간
 		var endTime = $("#endTime");
-		if(startTime.val()==0){
+		console.log("끝내는시간",endTime.val());
+		if(endTime.val()==null){
 			alert("닫는 시간을 선택하세요.");
 			return false;
 		}
 
-		// 영업일	// 체크박스 비어있을 때 /////////////////////////
-		var startTime = $("#startTime");
-		if(startTime.val()==0){
+		// 영업일	// 체크박스 비어있을 때 ///////////////////////// 
+		var businessNum = $("input[name='businessNum']");
+		console.log("영업일",businessNum.val());
+		if(businessNum.is(":checked")==false){
 			alert("영업일을 체크하세요.");
 			return false;
 		}
 		
+		/* 
 		// 가게 소개
 		var shopContent = $("input[name='shopContent']");
 		if(shopContent.val()==""){		// val 아니면 html 혹은 text
 			alert("가게 소개를 입력하세요.");
 			return false;
 		}
+		*/
 		
 		// 사진 업로드
 		var uploadFile = $("input[name='uploadFile']");
+		console.log("업로드",uploadFile.val());
 		if(uploadFile.val()==""){		// 파일 - val 아니면 html 혹은 text
-			alert("사진을 업로드하세요.");
+			alert("메뉴 이미지를 업로드하세요.");
 			return false;
 		}
 		
 		
 		
-		/* 
+		
 		var result = confirm('가게 등록 후 관리자의 확인 절차가 진행됩니다. 확인 절차동안 페이지에 노출되지 않습니다.');
 		if(result) {
 			//document.getElementById('btn').onclick = function() {
@@ -501,7 +539,6 @@
 		} else {
 			
 		}
-		 */
 		
 	}
 	 

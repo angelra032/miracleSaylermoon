@@ -222,3 +222,19 @@ h4 {
 .label-business {
     margin-left: 15px;
 }
+
+
+/* 메뉴 입력 */
+.menu-name {
+	float: left;
+	width: 200px;
+}
+
+.menu-price {
+	float: right;
+	width: 100px;
+}
+
+.img-upload {
+	clear: both;
+}

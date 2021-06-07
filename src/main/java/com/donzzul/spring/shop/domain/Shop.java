@@ -32,6 +32,7 @@ public class Shop {
     private String partnerVerify;
     private String partnerWithdraw;
     private String drmReviewContent;
+    private String shopLongAddr;
 	
 	public Shop() {}
 
@@ -40,7 +41,7 @@ public class Shop {
 			Timestamp shopUploadTime, String shopPhone, String shopParking, int shopMaxReserv, String shopContent,
 			String shopLat, String shopLng, int shopPoint, String shopPointYn, int userNo, String startTime,
 			String endTime, int businessDay, String showShopYN, String userId, String partnerVerify,
-			String partnerWithdraw, String drmReviewContent) {
+			String partnerWithdraw, String drmReviewContent, String shopLongAddr) {
 		super();
 		this.shopNo = shopNo;
 		this.shopName = shopName;
@@ -70,6 +71,17 @@ public class Shop {
 		this.partnerVerify = partnerVerify;
 		this.partnerWithdraw = partnerWithdraw;
 		this.drmReviewContent = drmReviewContent;
+		this.shopLongAddr = shopLongAddr;
+	}
+
+
+
+	public String getShopLongAddr() {
+		return shopLongAddr;
+	}
+
+	public void setShopLongAddr(String shopLongAddr) {
+		this.shopLongAddr = shopLongAddr;
 	}
 
 	public int getShopNo() {
@@ -306,7 +318,11 @@ public class Shop {
 				+ ", shopLng=" + shopLng + ", shopPoint=" + shopPoint + ", shopPointYn=" + shopPointYn + ", userNo="
 				+ userNo + ", startTime=" + startTime + ", endTime=" + endTime + ", businessDay=" + businessDay
 				+ ", showShopYN=" + showShopYN + ", userId=" + userId + ", partnerVerify=" + partnerVerify
-				+ ", partnerWithdraw=" + partnerWithdraw + ", drmReviewContent=" + drmReviewContent + "]";
+				+ ", partnerWithdraw=" + partnerWithdraw + ", drmReviewContent=" + drmReviewContent + ", shopLongAddr="
+				+ shopLongAddr + "]";
 	}
+
+
+	
 
 }
