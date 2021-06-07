@@ -156,6 +156,12 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.insertMenuPhoto(menuPhoto);
 	}
 
+	 // 파트너 - 메인 메뉴 등록
+	@Override
+	public int insertMainMenu(MainMenu mainMenu) {
+		return sStore.insertMainMenu(mainMenu);
+	}
+
 
 
 

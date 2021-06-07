@@ -158,6 +158,12 @@ public class ShopStoreLogic implements ShopStore {
 	public int insertMenuPhoto(MenuPhoto menuPhoto) {
 		return sqlSession.insert("shopMapper.insertMenuPhoto", menuPhoto);
 	}
+
+	// 파트너 - 메인 메뉴 등록
+	@Override
+	public int insertMainMenu(MainMenu mainMenu) {
+		return sqlSession.insert("shopMapper.insertMainMenu", mainMenu);
+	}
 	
 
 }
