@@ -108,11 +108,28 @@
 	function deleteResult(data) {
         var result = confirm('글을 삭제합니다.');
         if(result) {
-            location.href='recommendDelete.dz?recommendNo=' + data;
-			location.href='adminRecommendList.dz';
+        	$.ajax({
+        		url : "recommendDelete.dz",
+    			data : { "recommendNo" : data },
+    			success : function(data){ 
+    				if(data == "success"){
+    					reloadRecommendList();					
+    				}else { // 남은 데이터 없을때
+    					alert("삭제 실패했습니다");
+    				}
+    			}, //end of success
+    			error : function() {
+    				console.log("전송실패");
+    			}
+        	});
         } else {
 			location.href='adminRecommendList.dz';
         }
     }
+	
+	function reloadRecommendList() {
+		$(".reserv-list").load("adminRecommendList.dz .reserv-list");
+		// $("특정 #id").load("해당페이지주소  특정#id") 
+	}
 </script>
 </html>

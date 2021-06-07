@@ -110,6 +110,5 @@
 	console.log(nn1);
 	document.getElementById('donation-money').innerHTML = nn1;
 	
-	$(".circle-btn-area").children()
 </script>
 </html>

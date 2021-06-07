@@ -211,7 +211,7 @@
    <main align="center">
       <form action="reservationInsert.dz" method="post">
          <div class="header-background-area">
-            <img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
+            <img src="/resources/images/resrvmainbanner.png" alt="뒷배경이미지">
          </div>
          
          <div id="main-title">예약하기&nbsp;&nbsp;<span id="main-title-font">${shop.shopName }</span></div>
