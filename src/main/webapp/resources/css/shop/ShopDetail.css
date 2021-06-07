@@ -77,7 +77,7 @@ header {
  	 	height: 69px;
 		float: right;
 		margin-top: -80px;
-		background-image: url("/resources/images/zzimButton-before.png");
+		background-image: url("/resources/images/shop/zzimButton-before.png");
 	}
 	
 	#pick-button-on {
@@ -85,7 +85,7 @@ header {
  	 	height: 69px;
 		float: right;
 		margin-top: -80px;
-		background-image: url("/resources/images/zzimButton-after.png");
+		background-image: url("/resources/images/shop/zzimButton-after.png");
 	}  
 		
 		#pick-button a {
@@ -98,11 +98,6 @@ header {
    height: auto;
    margin: 0 auto;
    margin-top: 100px;
-   /* margin-bottom: 100px; */
-   
-   /* margin: 100px auto;
-   --margin-top: 100px;
-   --margin-bottom: 150px; */
 }
 
 	.shop-detail {
@@ -152,6 +147,23 @@ header {
 							padding-top: 10px;
 							line-height: 1.5em;
 						}
+			
+			
+			.menuCon {
+				min-width: 230px;
+				line-height: 1.7;
+			}
+						
+			.menuName {
+				min-width: 100px;
+				text-align: left;
+				font-weight: normal;
+			}
+			
+			.menuPrice {
+				min-width: 130px;
+				text-align: right;
+			}
 						
 			.detailAll > .line7 {
 				width: inherit;

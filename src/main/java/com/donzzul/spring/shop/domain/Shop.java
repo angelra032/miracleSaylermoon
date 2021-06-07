@@ -26,7 +26,7 @@ public class Shop {
 	private int userNo;
 	private String startTime;
 	private String endTime;
-	private String businessDay;
+	private String businessDay; 
     private String showShopYN;
     private String userId;
     private String partnerVerify;

@@ -214,8 +214,10 @@ public class ShopController {
 				rankList.get(i).setDrmReviewContent(changeCon);
 			}
 			
+			
+			
 			// 휴무일 체크해서 가져오기
-			dayOffs(rankList);
+//			dayOffs(rankList);
 			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
@@ -328,11 +330,25 @@ public class ShopController {
 	}
 	
 	// 영업일 가져오기
-	public ArrayList<String> dayOffs(ArrayList<Shop> shopList) {
-		
-		
-		for(int i = 0; i < shopList.size(); i++) {
-			String[] workingDays = shopList.get(i).getBusinessDay().split(",");
+//	public ArrayList<String> dayOffs(Shop shop) {
+//		
+//		ArrayList<String> breakDay = null;
+//		String[] oneWeek = {"1","2", "3", "4", "5", "6"};
+//		
+//		for(int i = 1; i < 8; i++) {
+//			for(String j : oneWeek) {
+//				if("i" == j) {
+//					i++;
+//				}else {
+//					breakDay.add("i");
+//				}
+//			}
+//			
+//			System.out.println("breakDay : " + breakDay.toString());
+//			String[] workingDays = shop.getBusinessDay().split(",");
+			
+			
+			
 //			for(int j = 0; j < workingDays.length; j++) {
 //				System.out.println("workingDays [" + i + "] : " + workingDays.toString()); // 확인용
 //				if(workingDays[j].equals("1")) {
@@ -355,11 +371,11 @@ public class ShopController {
 //				}else if(workingDays[j].equals("7")) {
 //					System.out.println("일");
 //				}
-//			}
-		}
-		
-		return null;
-	}
+////			}
+//		}
+//		
+//		return null;
+//	}
 	
 	//D 가게 상세 페이지 출력
 	@ResponseBody
@@ -376,9 +392,13 @@ public class ShopController {
 			pick = pService.checkPick(pickParam);
 		}
 		
+		
+		
 		Shop shop = sService.selectShopOne(shopNo); // 가게 상세정보 가져오기
 		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo); // 가게 메인메뉴 가져오기
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo); // 메뉴 사진 가져오기 
+		
+//		dayOffs(shop);
 		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);

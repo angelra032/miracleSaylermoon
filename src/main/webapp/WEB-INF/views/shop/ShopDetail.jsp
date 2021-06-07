@@ -69,9 +69,16 @@
 					<div class="detail-right">
 						<div class="detail-right menu-list">
 							<c:if test="${ !empty mainMenu }">
-								<c:forEach items="${mainMenu }" var="mainMenu">
-									${ mainMenu.mainMenuName }&nbsp;&nbsp;${ mainMenu.mainMenuPrice }원 <br>
-								</c:forEach>
+								<table class="menuCon">
+									<tbody>
+										<c:forEach items="${mainMenu }" var="mainMenu">
+											<tr>
+												<th class="menuName">${ mainMenu.mainMenuName }</th>
+												<td class="menuPrice">${ mainMenu.mainMenuPrice }원</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</c:if>
 							<div class="menu-img-frame">
 								<c:forEach items="${mPhoto }" var="photo" varStatus="status">
@@ -236,7 +243,7 @@
 			    // 정상적으로 검색이 완료됐으면 
 			     if (status === kakao.maps.services.Status.OK) {
 			     
-			    	 var imageSrc = '/resources/images/map_marker_blue.png', // 마커이미지의 주소입니다    
+			    	 var imageSrc = '/resources/images/map/map_marker_blue.png', // 마커이미지의 주소입니다    
 					    imageSize = new kakao.maps.Size(27, 35); // 마커이미지의 크기입니다
 					      
 					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -414,15 +421,16 @@
 							var contentReviewLeft = $("<div class='rContent left'>");
 							var contentReviewRight = $("<div class='rContent right'>");
 							
-							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
 								
 							if(data.rList[i].drmReviewPublicYN == "MZ"){
-	                           contentReviewRight.append("<span class='review-type'>맛집후기</span>")
-	                           .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
+								contentReviewLeft.append("<img src='/resources/fileupload/' alt='shopMain'>");
+	                            contentReviewRight.append("<span class='review-type'>맛집후기</span>")
+	                          					  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }else{
-	                           contentReviewRight.append("<span class='review-type'>감사후기</span>")
-	                           .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
+	                        	contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");	
+	                            contentReviewRight.append("<span class='review-type'>감사후기</span>")
+	                          					  .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }
 
 							contentReviewRight.append("<div class='review-content'>" + data.rList[i].drmReviewContent + "</div><br>");
@@ -509,7 +517,7 @@
 							var contentReviewLeft = $("<div class='rContent left'>");
 							var contentReviewRight = $("<div class='rContent right'>");
 							
-							contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
+							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
 							contentReviewRight.append("<span class='review-title'>" + data.drList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
 											  .append("<span class='review-type'>감사후기</span>")
 											  .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.drList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>")
@@ -592,6 +600,9 @@
 						var contentReview = $("<div id='list' class='review-list rContent'>");
 						var contentReviewLeft = $("<div class='rContent left'>");
 						var contentReviewRight = $("<div class='rContent right'>");
+						
+						/* 맛집 후기 사진 없을 때 */
+						/* contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>"); */
 						
 						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
