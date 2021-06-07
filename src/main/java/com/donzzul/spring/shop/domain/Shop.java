@@ -26,7 +26,7 @@ public class Shop {
 	private int userNo;
 	private String startTime;
 	private String endTime;
-	private int businessDay;
+	private String businessDay;
     private String showShopYN;
     private String userId;
     private String partnerVerify;
@@ -40,7 +40,7 @@ public class Shop {
 			String shopProduct, String shopType, String shopFileName, String shopFilePath, long shopFileSize,
 			Timestamp shopUploadTime, String shopPhone, String shopParking, int shopMaxReserv, String shopContent,
 			String shopLat, String shopLng, int shopPoint, String shopPointYn, int userNo, String startTime,
-			String endTime, int businessDay, String showShopYN, String userId, String partnerVerify,
+			String endTime, String businessDay, String showShopYN, String userId, String partnerVerify,
 			String partnerWithdraw, String drmReviewContent, String shopLongAddr) {
 		super();
 		this.shopNo = shopNo;
@@ -260,11 +260,11 @@ public class Shop {
 		this.endTime = endTime;
 	}
 
-	public int getBusinessDay() {
+	public String getBusinessDay() {
 		return businessDay;
 	}
 
-	public void setBusinessDay(int businessDay) {
+	public void setBusinessDay(String businessDay) {
 		this.businessDay = businessDay;
 	}
 
