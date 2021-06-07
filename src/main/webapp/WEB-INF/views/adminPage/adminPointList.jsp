@@ -62,7 +62,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-	$('.menu-btn').eq(3).css('background','#0160ff').css('color','white');
 	
 	console.log('테스트 : ' + '${monthSum}');
 	var donPriceSum = [];
