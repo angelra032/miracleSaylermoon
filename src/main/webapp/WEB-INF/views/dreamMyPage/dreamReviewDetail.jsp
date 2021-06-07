@@ -40,12 +40,12 @@
 					<c:forEach items="${drReviewList }" var="dreamreview" varStatus="status">
 						<tr>
 							<td>${status.count }</td>
-							<td><a class="table-link-title" href="dReviewDetail.dz?drmRviewNo=${ dreamreview.drmRviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
+							<td><a class="table-link-title" href="dReviewDetail.dz?drmReviewNo=${ dreamreview.drmReviewNo}"><p>${dreamreview.drmReviewTitle }</p></a></td>
 							<td>${dreamreview.shopName }</td>
 							<td class="drmDate">${dreamreview.drmReviewUploadDate }</td>
-							<td><a class="modify-btn" href="dReviewUpdateForm.dz?drmRviewNo=${ dreamreview.drmRviewNo}">수정</a></td>
+							<td><a class="modify-btn" href="dReviewUpdateForm.dz?drmReviewNo=${ dreamreview.drmReviewNo}">수정</a></td>
 							<td><a class="delete-btn" href="#">삭제</a>
-							<input type="hidden" class="drmRviewNo" value="${ dreamreview.drmRviewNo}">
+							<input type="hidden" class="drmReviewNo" value="${ dreamreview.drmReviewNo}">
 							<input type="hidden" class="page-ajax" value="${ pi.currentPage }">
 							</td>
 						</tr>
@@ -99,7 +99,7 @@
 						</c:if>
 						<c:if test="${ empty drReviewList }">
 							<tr>
-								<td colspan="6">${ msg }</td>
+								<td colspan="6"></td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -135,12 +135,12 @@
 						
 						var tr = $("<tr>");
 						var count = $("<td>").html(Number(i)+1);
-						var drmReviewTitle = $("<td>").append("<a class='table-link-title' href='dReviewDetail.dz?drmRviewNo="+data.list[i].drmRviewNo+"'><p>"+data.list[i].drmReviewTitle+"</p></a>");
+						var drmReviewTitle = $("<td>").append("<a class='table-link-title' href='dReviewDetail.dz?drmReviewNo="+data.list[i].drmReviewNo+"'><p>"+data.list[i].drmReviewTitle+"</p></a>");
 						var shopName = $("<td>").html(data.list[i].shopName);
 						var date = $("<td class='drmDate'>").html(dateResult);
-						var modifybtn = $("<td>").append("<a class='modify-btn' href='dReviewUpdateForm.dz?drmRviewNo"+data.list[i].drmRviewNo+"'>수정</a>");
+						var modifybtn = $("<td>").append("<a class='modify-btn' href='dReviewUpdateForm.dz?drmReviewNo"+data.list[i].drmReviewNo+"'>수정</a>");
 						var deletebtn = $("<td>").append("<a class='delete-btn' href=''#'>삭제</a>");
-						var hiddenNo = $("<input type='hidden' class='drmRviewNo' value='"+data.list[i].drmRviewNo+"'>");
+						var hiddenNo = $("<input type='hidden' class='drmReviewNo' value='"+data.list[i].drmReviewNo+"'>");
 						var page = $("<input type='hidden' class='page-ajax' vlaue='"+ data.pi.currentPage + "'>");
 						var td = $("</td>")
 						

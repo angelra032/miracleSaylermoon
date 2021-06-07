@@ -96,8 +96,8 @@
 	<c:if
 		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
 		<div id="chatting">
-			<a id="modal" href="#container" rel="modal:open"> <img
-				alt="chattingIcon" src="/resources/images/chatting/chat.png">
+			<a id="modal" href="#container" rel="modal:open"> <img alt="chattingIcon" src="/resources/images/chatting/chat.png">
+			<p>문의하기</p>
 			</a>
 		</div>
 	</c:if>
@@ -127,15 +127,13 @@
 					type: "post",
 					success: function (data) {
 						if(data != null){
-							var tag = "<tr><th class='num'>번호</th><th class='room'>방 이름</th><th class='go'></th></tr>";
+							var tag = "<tr><th></th><th></th></tr>";
 							if(data.length > 0){
 								data.forEach(function(d, idx){
 									var userId = d.userId.trim();
-									tag += "<tr>"+
-												"<td class='num'>"+(idx+1)+"</td>"+
-												"<td class='room'>"+ userId +"</td>"+
-												"<td class='go'><button type='button' onclick='moveChating(\""+userId+"\")'>참여</button></td>" +
-											"</tr>";	
+									tag += "<div class='room' onclick='moveChating(\""+userId+"\")'>"+
+												"<div class='room'>"+ userId +"</div>"+
+											"</div>>";	
 								});
 							}else{
 								tag += "<tr><td colspan='3'>상담할 내용이 없습니다.</td></tr>";	
@@ -149,7 +147,7 @@
 				});
 			}
 			
-			//해당 채팅 연길하기
+			//해당 채팅 연결하기
 			function moveChating(userId){
 				$.ajax({
 					url: "/moveChating",
@@ -183,13 +181,13 @@
 						<img alt="" src="/resources/images/chatting/logo.png">
 					</div>
 					<div class="header-text">
-						<div class="hTextDid">관리자용 채팅방</div>
+						<div class="hTextDid">실시간 상담 리스트</div>
 						<input type="hidden" id="sessionId" value="">
 					</div>
 				</div>
 				<div class="chatList">
 					<div class="center-table-area" id="shop-list-table">
-						<table id="roomList" class="roomList"></table>
+						<div id="roomList" class="roomList"></div>
 					</div>
 					<button onclick="getChatList();">새로고침</button>
 				</div>
