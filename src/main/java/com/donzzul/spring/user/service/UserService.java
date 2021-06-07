@@ -35,7 +35,7 @@ public interface UserService {
 	public int checkEmailDupNotMe(User user);
 	public int checkPhoneDupNotMe(User user);
 	public ArrayList<User> selectUserListThree();
-	public int getListCount();
-	public ArrayList<User> selectAllUserList(PageInfo pi);
+	public int getListCount(HashMap<String, String> pageType);
+	public ArrayList<User> selectAllUserList(PageInfo pi, HashMap<String, String> userType);
 	public User getUsersByID(String userId);
 }

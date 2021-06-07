@@ -4,7 +4,7 @@
         .top-board-menu-area {
           	width: 1150px;
             height: 50px;
-            margin: 50px auto 40px auto;
+            margin: 60px auto 40px auto;
             padding-left: 50px;
         }
         #top-board-menu {
@@ -16,10 +16,10 @@
             #top-board-menu > li {
                 list-style: none;
                 width: 200px;
-                height: 42px;
+                height: 60px;
                 text-align: center;
                 float: left;
-                line-height: 2.7;
+                line-height: 4;
 /*                 margin: 0 15px; */
             }
             #top-board-menu > li:nth-child(1) {
@@ -33,6 +33,7 @@
                 color: #333333;
                 font-size: 15px;
                 border-radius : 5px 5px 0 0;
+                border-bottom: 2px solid #0160ff;
             }
             #top-board-menu > li > a:hover {
                 color: #0160ff;

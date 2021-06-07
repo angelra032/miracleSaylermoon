@@ -255,15 +255,19 @@ public class AdminPageController {
 	
 	// 회원관리 더보기
 	@RequestMapping(value="adminUserList.dz")
-	public ModelAndView userListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
+	public ModelAndView userListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page, @RequestParam("type") String type) {
 		int currentPage = (page != null) ? page : 1;
-		int listCount = uService.getListCount();
+		HashMap<String, String> userType = new HashMap<String, String>();
+		HashMap<String, String> pageType = new HashMap<String, String>();
+		userType.put("userType", type);
+		pageType.put("pageType", type);
+		int listCount = uService.getListCount(pageType);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<User> userList = uService.selectAllUserList(pi);
+		ArrayList<User> userList = uService.selectAllUserList(pi, userType);
 		
 //		ArrayList<User> userList = uService.selectAllUserList();
 		if(!userList.isEmpty()) {
-			mv.addObject("userList", userList).addObject("pi", pi);
+			mv.addObject("userList", userList).addObject("pi", pi).addObject("type", type);
 		} else {
 			mv.addObject("msg", "불러올 데이터가 없습니다");
 		}

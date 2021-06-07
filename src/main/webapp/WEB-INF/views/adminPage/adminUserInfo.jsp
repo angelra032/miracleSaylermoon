@@ -68,7 +68,7 @@
 								<div class="form-body">
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ user.userEmail }">
 								</div>
-								<button class="submit-btn" onclick="location.href='adminUserList.dz'">목록보기</button>
+								<button class="submit-btn" onclick="location.href='adminUserList.dz?type=1'">목록보기</button>
 								<input type="hidden" name="userNo" class="userNo" value="${ user.userNo }">
 								<input type="hidden" name="userType" value="${ user.userType }">
 						</div>
@@ -116,7 +116,7 @@
 								<div class="form-body">
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ user.userEmail }">
 								</div>
-								<button class="submit-btn" onclick="location.href='adminUserList.dz'">목록보기</button>
+								<button class="submit-btn" onclick="location.href='adminUserList.dz?type=1'">목록보기</button>
 								<input type="hidden" name="userNo" class="userNo" value="${ user.userNo }">
 								<input type="hidden" name="userType" value="${ user.userType }">
 								<input type="hidden" name="userPoint" value="${ user.userPoint }">
@@ -174,7 +174,7 @@
 								<div class="form-body">
 									<input name="userEmail" class="form-elem emailelem" type="text" maxlength="50" placeholder="아이디@도메인으로 입력" value="${ user.userEmail }">
 								</div>
-								<button class="submit-btn" onclick="location.href='adminUserList.dz'">목록보기</button>
+								<button class="submit-btn" onclick="location.href='adminUserList.dz?type=1'">목록보기</button>
 						</div>
 				</c:if>
 				</div>
