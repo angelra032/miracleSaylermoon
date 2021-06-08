@@ -16,7 +16,7 @@
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
    		</div>	
-		<div id="main-title">가게등록</div>
+		<div id="main-title">가게수정</div>
 		<div class="frame">
 			<h4>가게 상세페이지 내용을 입력하세요</h4>
 			<div class="tabcontent">
@@ -60,6 +60,8 @@
                                     <input type="text" name="addr2" id="addr2" class="form-elem" placeholder="상세주소" value="">
                                 </div>
 							</div>
+							
+							
 							
 							<div class="form-head form-head2">
 								가게 간단위치&nbsp;
@@ -227,7 +229,7 @@
 										<c:if test="${ shop.endTime ne status.count }">
 											<option value="${ status.count }">${ status.count }시</option>
 										</c:if>
-										<option value="${ status.count }">${ status.count }시</option>
+										<%-- <option value="${ status.count }">${ status.count }시</option> --%>
 									</c:forEach> 
 								</select>
 							</div>
@@ -269,6 +271,8 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body add-menu-div">
+							<c:set var="max" value="4" />
+							<c:if test=""></c:if>
 								<c:forEach items="${mainMenu }" var="menu">
 									<div class="first-main-menu">
 										<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" value="${menu.mainMenuName }" />
@@ -287,8 +291,13 @@
 							</div>
 							<div class="form-body">
 								<!-- max 4개. 있는 만큼 나오고 없는 만큼 채우기 -->
+								<!-- if var의 길이가 4면 4개 출력 / 3개면 3개 출력하고 1개 추가 / 2개면 2개 출력하고 ... -->
+								<c:set var="max" value="4" />
+								<c:if test="${max==1}"></c:if>
 								<c:forEach items="${photo }" var="photo">
-									<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="${photo.menuFileName }" ><%-- ${photo.menuFileName } --%>
+									<label class="form-elem uploadFile" for="file">파일 선택</label>
+									<input readonly="readonly" type="text" value="${photo.menuFileName }" />
+									<input style="display: none;" name="mainMenuPhoto" class="form-elem uploadFile" type="file" id="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="${photo.menuFileName }" ><%-- ${photo.menuFileName } --%>
 								</c:forEach>
 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" >
 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" >
@@ -310,7 +319,51 @@
 </body>
 <script>
 
+
 	$(function() {
+
+		alert("하하");
+		console.log("하하");
+		// long 주소 자르기
+		var zip = $("#zip"); // 우편번호	숫자야? string이야?
+		var addr1 = $("#addr1"); // 기본주소
+		var addr2 = $("#addr2"); // 상세주소
+
+		var longAddr = '${shop.shopLongAddr}';  
+		console.log(longAddr);
+		var addr = longAddr.split('/');
+		console.log(addr[0]+' '+addr[1]+' '+addr[2]+' ');
+		zip.val(addr[0]); 
+		addr1.val(addr[1]);
+		addr2.val(addr[2]);
+		console.log(zip.val());
+		
+		
+		// 영업일 자르기
+		var businessDay = '${shop.businessDay}';
+		console.log(businessDay);
+		var day = businessDay.split(',');
+		// 1234567 월화수목금토일
+		console.log(day.length);
+		for(var i=0; i<day.length; i++){
+			switch(day[i]){
+			case 1: $("input:checkbox[id='business-1']").prop("checked", true);
+					break;
+			case 2: $("input:checkbox[id='business-2']").prop("checked", true);
+					break;
+			case 3: $("input:checkbox[id='business-3']").prop("checked", true);
+					break;
+			case 4: $("input:checkbox[id='business-4']").prop("checked", true);
+					break;
+			case 5: $("input:checkbox[id='business-5']").prop("checked", true);
+					break;
+			case 6: $("input:checkbox[id='business-6']").prop("checked", true);
+					break;
+			case 7: $("input:checkbox[id='business-7']").prop("checked", true);
+					break;
+			}
+		}
+		
 		
 		///휴대폰번호@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		//자동 - 생성
