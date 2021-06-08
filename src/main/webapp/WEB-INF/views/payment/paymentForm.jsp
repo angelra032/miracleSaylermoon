@@ -129,7 +129,7 @@
 	<div id="paymentModal" class="paymentModal modal">
 		<label class="modal-link-area" >
 			<input type="radio" name="paymentType" value="kakao">
-			<span onclick="kakaoPayment()">카카오페이</span>
+			<span>카카오페이</span>
 <!-- 		onclick="kakaoPayment()" -->
 		</label>
 		
@@ -140,15 +140,15 @@
 		</label>
 		<div class="checkoutInformation">
 			<label class="modal-checkbox-area">
-				<input type="checkbox" class="checkbox-input">
+				<input type="checkbox" class="checkbox-input" value="o">
 				상품 및 구매 조건을 확인하였으며, 결제 대행 서비스에 동의합니다(필수)
 			</label>
 			<p class="information-1">
 				결제대행 서비스 이용약관
-				<a href="https://www.inicis.com/terms">보기</a>
+				<a href="https://www.inicis.com/terms" target="_blank">보기</a>
 			</p>
 			
-			<button>결제하기</button>
+			<button class="pay-btn">결제하기</button>
 		</div>
 		
 	</div>
@@ -161,7 +161,7 @@
 
 	$(function() {
 		
-		// 돈쭐내기 버튼
+		// 돈쭐내기 버튼 클릭해 모달 출력
 		$("#payment-btn").on("click", function(e){
 			e.preventDefault();	// form submit 이벤트 막음
 			$('div#paymentModal').modal({ // 모달창 출력
@@ -171,7 +171,6 @@
 		
 		
 		/* 모달창 */
-
 		//$("#userPoint").val(12);
 		console.log($("#usePoint").val());
 		
@@ -187,7 +186,30 @@
 			useablePoint.val(5000);
 		}
 		
+		$(".pay-btn").on("click", function() {
+			var checkbox = $(".checkbox-input");
+			
+			if(checkbox.val() == 'o') {
+// 				return true;
+				alert('테스트1')
+			} else if(checkbox.val() != 'o') {
+				alert('테스트2')
+			}
+			
+		});
 	});
+	
+	
+	
+	
+	/* 메인메뉴가 없을 때 선택불가 */
+	<c:if test="${ empty mList }">
+		$("#payment-btn").on("click", function(e){
+			return false;
+		});
+		alert('돈쭐내기 선택할 메뉴가 없습니다');
+		history.back();
+	</c:if>
 
 	
 	

@@ -339,7 +339,10 @@ public class MzReviewController {
 		Matcher matcher = pattern.matcher(target);
 		String rtn = "false";
 		
-		mzPhotoList.addAll(beforemzPhotoList); // 세션에서 받은 사진, 이전에 있던 사진 합침
+		if(mzPhotoList != null && beforemzPhotoList != null) {
+			mzPhotoList.addAll(beforemzPhotoList); // 세션에서 받은 사진, 이전에 있던 사진 합침
+		}
+		
 		ArrayList<String> realList = new ArrayList<String>();
 		int result = mService.updateMzReview(mzReview);
 		if(result > 0) {
@@ -347,23 +350,25 @@ public class MzReviewController {
 				String realName = matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1); 
 				realList.add(realName); // 게시글내용 코드에서 잘라온 img태그 이름들
 			}
-			for(int i = 0; i < mzPhotoList.size(); i++) {
-				String mzRename = mzPhotoList.get(i).getMzReviewRenameFileName();
-				if(!realList.contains(mzRename)) {
-					fileDelete(mzRename, mzPhotoList.get(i).getMzReviewFilePath());
-					beforePhotoResult = mService.deleteBeforePhoto(mzReviewNo);
-					if (beforePhotoResult > 0) {
-						System.out.println("사진 삭제 성공");
-					} else {
-						System.out.println("사진 삭제 실패");
+			if(mzPhotoList != null) {
+				for(int i = 0; i < mzPhotoList.size(); i++) {
+					String mzRename = mzPhotoList.get(i).getMzReviewRenameFileName();
+					if(!realList.contains(mzRename)) {
+						fileDelete(mzRename, mzPhotoList.get(i).getMzReviewFilePath());
+						beforePhotoResult = mService.deleteBeforePhoto(mzReviewNo);
+						if (beforePhotoResult > 0) {
+							System.out.println("사진 삭제 성공");
+						} else {
+							System.out.println("사진 삭제 실패");
+						}
+						continue;
 					}
-					continue;
-				}
-				
-				mzPhotoList.get(i).setMzReviewNo(mzReviewNo);
-				int photoResult = mService.insertPhoto(mzPhotoList.get(i));
-				if(photoResult > 0) {
-					rtn = "success";
+					
+					mzPhotoList.get(i).setMzReviewNo(mzReviewNo);
+					int photoResult = mService.insertPhoto(mzPhotoList.get(i));
+					if(photoResult > 0) {
+						rtn = "success";
+					}
 				}
 			}
 			rtn = "success";
