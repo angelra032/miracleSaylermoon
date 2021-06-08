@@ -2,6 +2,7 @@ package com.donzzul.spring.shop.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
@@ -330,22 +331,89 @@ public class ShopController {
 	}
 	
 	// 영업일 가져오기
-//	public ArrayList<String> dayOffs(Shop shop) {
-//		
-//		ArrayList<String> breakDay = null;
-//		String[] oneWeek = {"1","2", "3", "4", "5", "6"};
-//		
-//		for(int i = 1; i < 8; i++) {
-//			for(String j : oneWeek) {
-//				if("i" == j) {
-//					i++;
+	public ArrayList<Integer> dayOffs(Shop shop) {
+		
+		ArrayList<Integer> breakDay = null;
+		String[] workingDays = shop.getBusinessDay().split(",");
+		
+		System.out.println("workingDays : " + workingDays.toString()); // 확인용
+		
+		ArrayList<String> oneWeek = new ArrayList<String>();
+		oneWeek.add("1");
+		oneWeek.add("2");
+		oneWeek.add("3");
+		oneWeek.add("4");
+		oneWeek.add("5");
+		oneWeek.add("6");
+		oneWeek.add("7");
+		System.out.println("oneWeek : " + oneWeek); // 확인용
+		
+		ArrayList<String> shopOneWeek = new ArrayList<String>(Arrays.asList(workingDays));
+		
+		System.out.println(shopOneWeek.toString()); // 확인용
+		
+		if(!shopOneWeek.contains("1")) {
+			System.out.println("shopOneWeek 에는 1이 없다.");
+		}
+		if(!shopOneWeek.contains("2")) {
+			System.out.println("shopOneWeek 에는 2가 없다.");
+		}
+		if(!shopOneWeek.contains("3")) {
+			System.out.println("shopOneWeek 에는 3이 없다.");
+		}
+		if(!shopOneWeek.contains("4")) {
+			System.out.println("shopOneWeek 에는 4가 없다.");
+		}
+		if(!shopOneWeek.contains("5")) {
+			System.out.println("shopOneWeek 에는 5가 없다.");
+		}
+		if(!shopOneWeek.contains("6")) {
+			System.out.println("shopOneWeek 에는 6이 없다.");
+		}
+		if(!shopOneWeek.contains("7")) {
+			System.out.println("shopOneWeek 에는 7이 없다.");
+		}
+		
+		
+//		for(int i = 0; i < shopOneWeek.size(); i++) {
+//			if(!shopOneWeek.contains("7")) {
+//				System.out.println("shopOneWeek 에는"+ 7이 없다.");
+//			}else if(!shopOneWeek.contains("6")) {
+//				System.out.println("shopOneWeek 에는 6이 없다.");
+//			}
+//		}
+		
+		
+		
+//		for(int i = 0; i < oneWeek.length; i++) {
+//			for(int j = 0; j < workingDays.length; i++) {
+//				if(oneWeek[i].equals(workingDays[j])) {
+//					continue;
 //				}else {
-//					breakDay.add("i");
+//					breakDay.add(oneWeek[i]);
 //				}
 //			}
-//			
-//			System.out.println("breakDay : " + breakDay.toString());
-//			String[] workingDays = shop.getBusinessDay().split(",");
+//		}
+		
+
+		
+//		breakDay = new ArrayList<Integer>();
+//		for(String j : oneWeek) {
+//			int oneDay = Integer.parseInt(j);
+//			for(int i = 1; i < 8; i++) {
+//				if( oneDay == i ) {
+//													System.out.println("i : " + i);
+//													System.out.println("j : " + j);
+//													System.out.println("oneDay : " + oneDay);
+//					break;
+//				}else {
+//					breakDay.add(oneDay);
+//					continue;
+//				}
+//			}
+//		}
+//		System.out.println(breakDay.toString());
+			
 			
 			
 			
@@ -373,9 +441,9 @@ public class ShopController {
 //				}
 ////			}
 //		}
-//		
-//		return null;
-//	}
+		
+		return breakDay;
+	}
 	
 	//D 가게 상세 페이지 출력
 	@ResponseBody
@@ -398,7 +466,7 @@ public class ShopController {
 		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo); // 가게 메인메뉴 가져오기
 		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo); // 메뉴 사진 가져오기 
 		
-//		dayOffs(shop);
+		dayOffs(shop);
 		
 		mv.addObject("shop", shop);
 		mv.addObject("mainMenu", mainMenu);

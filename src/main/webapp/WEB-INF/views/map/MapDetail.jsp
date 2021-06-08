@@ -33,12 +33,12 @@
 						<c:forEach items="${ mList }" var="shop">
 							<div class="content-shop">
 								<div class="content-shop left">
-									<%-- <c:if test="${ !empty shop.originalFileName }">
-										<img src=${ shop.originalFileName }>
-									</c:if> --%>
-									<%-- <c:if test="${ empty shop.fileName }"> --%>
+									<c:if test="${ !empty shop.shopFileName }">
+										<img src="/resources/partnerUploadFiles/${ shop.shopFileName }" alt="shopMain">
+									</c:if>
+									<c:if test="${ empty shop.fileName }">
 										<img src="/resources/images/map/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
-									<%-- </c:if> --%>
+									</c:if>
 								</div>
 								<div class="content-shop right">
 									<div class="content-shop right top">
