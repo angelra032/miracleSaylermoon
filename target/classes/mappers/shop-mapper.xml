@@ -32,20 +32,17 @@
  		<result property="userId" column="USER_ID"/>
 		<result property="partnerVerify" column="PARTNER_VERIFY"/>
 		<result property="partnerWithdraw" column="PARTNER_WITHDRAW"/>
+		<result property="shopLongAddr" column="SHOP_LONG_ADDR"/>
 	</resultMap>
 	
-	<insert id="insertPartnerShop">
-		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, 
-			#{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, 
-			#{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, 
-			#{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, 
-			#{businessDay}, NULL, #{shopPhone}, DEFAULT)
+	<insert id="insertPartnerShop" useGeneratedKeys="true" keyProperty="shopNo" keyColumn="SHOP_NO">
+		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, #{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, #{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, #{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, NULL, #{shopPhone}, DEFAULT, #{shopLongAddr }, #{businessDay})
 	</insert>
 	
 	<update id="updatePartnerShop">
 		UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_PRODUCT=#{shopProduct}, 
 			SHOP_FILENAME=#{shopFileName}, SHOP_FILEPATH=#{shopFilePath}, SHOP_FILESIZE=#{shopFileSize}, SHOP_UPLOADTIME=#{shopUploadTime}, 
-			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, SHOP_PARKING_YN=#{shopParking}, START_TIME=#{startTime}, END_TIME= #{endTime} 
+			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime} 
 	</update>
 	
 		<!-- 메인 메뉴 테이블 -->
@@ -70,66 +67,34 @@
 	<!-- 지도 지역별 리스트 -->
 	<select id="selectAllList" parameterType="HashMap" resultMap="shopResultMap">
 		SELECT SHOP_NO, SHOP_NAME, SHOP_ADDR, SHOP_SHORT_ADDR, SHOP_TARGET, SHOP_PRODUCT, SHOP_TYPE, SHOP_FILENAME, SHOP_PHONE, SHOP_PARKING_YN, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP WHERE SHOW_SHOP_YN = 'Y'
-			<if test="location.equals('전체')">
-				ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('서울')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('부산')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('광주')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('대구')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('대전')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('세종')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('울산')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('인천')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('제주')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('강원')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('경기')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('경남')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '경상남도' || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('경북')">
+			<choose>
+				<when test="location.equals('서울') || location.equals('부산') || location.equals('광주') || location.equals('대구') || location.equals('대전') || location.equals('세종') || location.equals('울산') || location.equals('인천') || location.equals('제주') || location.equals('강원') || location.equals('경기')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%' ORDER BY SHOP_NO DESC
+				</when>
+				<when test="location.equals('경북')">
 				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '경상북도' || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('전남')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '전라남도' || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('전북')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '전라북도' || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('충남')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '충청남도' || '%' ORDER BY SHOP_NO DESC
-			</if>	
-			<if test="location.equals('충북')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '충청북도' || '%' ORDER BY SHOP_NO DESC
-			</if>	
+				</when>	
+				<when test="location.equals('전남')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '전라남도' || '%' ORDER BY SHOP_NO DESC
+				</when>	
+				<when test="location.equals('전북')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '전라북도' || '%' ORDER BY SHOP_NO DESC
+				</when>	
+				<when test="location.equals('충남')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '충청남도' || '%' ORDER BY SHOP_NO DESC
+				</when>	
+				<when test="location.equals('충북')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '충청북도' || '%' ORDER BY SHOP_NO DESC
+				</when>	
+				<otherwise>
+					ORDER BY SHOP_NO DESC
+				</otherwise>
+			</choose>
 	</select>
 	
 	<!-- 지도 키워드 검색 출력 -->
@@ -154,7 +119,7 @@
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('파스타')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('중식')">
 			SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
@@ -165,7 +130,7 @@
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('버거')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('제주')">
 			SELECT SHOP_NO, SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP
@@ -175,13 +140,13 @@
 			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '아메리카노' || '%'
 		</if>	
 		<if test="themeWord.equals('피자')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || '파스타' || '%') OR (MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '파스타' || '%'))
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE ((SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || '파스타' || '%') OR (MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '파스타' || '%'))
 		</if>	
 		<if test="themeWord.equals('떡볶이')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || '분식' || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 		<if test="themeWord.equals('초밥')">
-			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
+			SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%')
 		</if>	
 	</select>
 	
@@ -205,65 +170,31 @@
 	<!-- 지도 지역별 리스트 갯수 카운트 -->
 	<select id="selectListCount" parameterType="HashMap" resultType="_int">
 		SELECT COUNT(*) FROM SHOP WHERE SHOW_SHOP_YN = 'Y'
-			<if test="location.equals('전체')">
-			</if>	
-			<if test="location.equals('서울')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('부산')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('광주')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('대구')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('대전')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('세종')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('울산')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('인천')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('제주')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('강원')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('경기')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-			</if>	
-			<if test="location.equals('경남')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '경상남도' || '%'
-			</if>	
-			<if test="location.equals('경북')">
+			<choose>
+				<when test="location.equals('서울') || location.equals('부산') || location.equals('광주') || location.equals('대구') || location.equals('대전') || location.equals('세종') || location.equals('울산') || location.equals('인천') || location.equals('제주') || location.equals('강원') || location.equals('경기')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+				</when>
+				<when test="location.equals('경북')">
 				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
 				OR SHOP_ADDR LIKE '%' || '경상북도' || '%'
-			</if>	
-			<if test="location.equals('전남')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '전라남도' || '%'
-			</if>	
-			<if test="location.equals('전북')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '전라북도' || '%'
-			</if>	
-			<if test="location.equals('충남')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '충청남도' || '%'
-			</if>	
-			<if test="location.equals('충북')">
-				AND SHOP_ADDR LIKE '%' || #{ location } || '%'
-				OR SHOP_ADDR LIKE '%' || '충청북도' || '%'
-			</if>	
+				</when>	
+				<when test="location.equals('전남')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '전라남도' || '%'
+				</when>	
+				<when test="location.equals('전북')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '전라북도' || '%' 
+				</when>	
+				<when test="location.equals('충남')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '충청남도' || '%'
+				</when>	
+				<when test="location.equals('충북')">
+					AND SHOP_ADDR LIKE '%' || #{ location } || '%'
+					OR SHOP_ADDR LIKE '%' || '충청북도' || '%'
+				</when>	
+			</choose>
 	</select>
 	
 	<!-- 지도 키워드 검색 출력 갯수 카운트 -->
@@ -278,7 +209,7 @@
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('파스타')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('중식')">
 			SELECT COUNT(*) FROM SHOP
@@ -289,7 +220,7 @@
 			WHERE SHOW_SHOP_YN = 'Y' AND SHOP_ADDR LIKE '%' || #{ themeWord } || '%' ORDER BY SHOP_NO DESC
 		</if>	
 		<if test="themeWord.equals('버거')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('제주')">
 			SELECT COUNT(*) FROM SHOP
@@ -299,13 +230,13 @@
 			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '아메리카노' || '%')
 		</if>	
 		<if test="themeWord.equals('피자')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || '파스타' || '%') OR (MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || '파스타' || '%'))
 		</if>	
 		<if test="themeWord.equals('떡볶이')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || '분식' || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 		<if test="themeWord.equals('초밥')">
-			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_TYPE LIKE '%' || #{ themeWord } || '%' OR SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
+			SELECT COUNT(*) FROM (SELECT DISTINCT(SHOP_NO), SHOP_NAME, SHOP_SHORT_ADDR, SHOP_TYPE, SHOP_FILENAME, SHOP_CONTENT, START_TIME, END_TIME, BUSINESS_DAY FROM SHOP FULL OUTER JOIN MAIN_MENU USING (SHOP_NO) WHERE (SHOP_NAME LIKE '%' || #{ themeWord } || '%' OR MAIN_MENU_NAME LIKE '%' || #{ themeWord } || '%'))
 		</if>	
 	</select>
 	
@@ -326,6 +257,22 @@
     <select id="selectMenuPhoto" resultMap="menuPhotoResultMap">
        SELECT * FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
     </select>
+    
+    <!-- 가게 메뉴사진 저장 -->
+	<insert id="insertMenuPhoto">
+		INSERT INTO MENU_PHOTO VALUES(
+            SEQ_MENU_PHOTO.NEXTVAL, #{menuFileName }, #{menuFilePath }, #{menuFileSize },
+            #{menuUploadTime }, #{shopNo }
+        )
+	</insert>
+	
+	<!-- 가게 메인 메뉴 등록 -->
+	<insert id="insertMainMenu">
+		INSERT INTO MAIN_MENU VALUES(
+            SEQ_MAIN_MENU.NEXTVAL, #{mainMenuName }, #{mainMenuPrice }, #{shopNo }
+        )
+	</insert>
+	
 	
 	<!-- 관리자페이지 shop조회 -->
       <select id="selectAllShopDESC" resultMap="shopResultMap">
@@ -346,5 +293,8 @@
 	<update id="partnerUpdateShow">
 		UPDATE SHOP SET SHOW_SHOP_YN = 'Y' WHERE SHOP_NO = #{shopNo }
 	</update>
+	
+	
+	
 	
 </mapper>

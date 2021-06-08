@@ -155,7 +155,7 @@ function mapJs(map, positions) {
 			            '                </div>' + 
 			            '            </div>' + 
 			            '            <div class="btnShop">' + 
-						'				 <button type="button" class="btn btn-primary btn-sm" onclick="shopDetail('+shop.shopNo+')">예약하기</button></div>' + 
+						'				 <button type="button" class="btn btn-primary btn-sm" onclick="shopDetail('+shop.shopNo+')">자세히 보기</button></div>' + 
 			            '            </div>' + 
 			            '        </div>' + 
 			            '    </div>' +    

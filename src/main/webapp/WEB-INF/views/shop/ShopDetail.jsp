@@ -23,7 +23,7 @@
 		
 		 <div class="header-background-area">
 		 	<!-- 가게 메인 이미지 가져오기 -->
-		 	<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
+		 	<img src="/resources/partnerUploadFiles/${ shop.shopFileName }" alt="shopMain">
 	   	</div>
 	   	<div id="shop-header">
 			<div id="shop-main-title">
