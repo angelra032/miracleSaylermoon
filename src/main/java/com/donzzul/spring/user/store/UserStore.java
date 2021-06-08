@@ -38,4 +38,5 @@ public interface UserStore {
 	public int getListCount(HashMap<String, String> pageType);
 	public ArrayList<User> selectAllUserList(PageInfo pi, HashMap<String, String> userType);
 	public User getUsersByID(String userId);
+	public User getUsersByNo(String userNo);
 }

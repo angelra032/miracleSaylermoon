@@ -361,8 +361,10 @@ public class UserController {
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("userNo", userNo);
 			map.put("userPw", userPw);
-			int duplicateCheck = service.checkPwDup(map);
-			if(duplicateCheck == 0){
+			//int duplicateCheck = service.checkPwDup(map);
+			User loginUser = service.getUsersByNo(userNo);
+			String pw = loginUser.getUserPw();
+			if(passwordEncoder.matches(userPw, pw)){
 				return 0+"";
 			}else {
 				return 1+"";

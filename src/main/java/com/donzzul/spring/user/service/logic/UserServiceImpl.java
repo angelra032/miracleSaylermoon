@@ -196,6 +196,11 @@ public class UserServiceImpl implements UserService {
 		return store.getUsersByID(userId);
 	}
 
+	@Override
+	public User getUsersByNo(String userNo) {
+		return store.getUsersByNo(userNo);
+	}
+
 	
 
 
