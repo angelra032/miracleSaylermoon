@@ -56,7 +56,17 @@
 			
 				<div class="detailAll line1">
 					<div class="detail-left">휴무일</div>
-					<div class="detail-right">${ shop.businessDay }</div>
+					<c:if test="${!empty breakDays }">
+						<div class="detail-right">
+							매주&nbsp;${ breakDays }
+							<%-- <c:forTokens var="break" items="${ breakDays }" delims=",">
+								<span><c:out value="${ break }">휴무</c:out></span>
+							</c:forTokens> --%>
+						</div>
+					</c:if>
+					<c:if test="${empty breakDays }">
+						<div class="detail-right">연중무휴</div>
+					</c:if>
 				</div>
 				
 				<div class="detailAll line2">
@@ -424,7 +434,7 @@
 							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
 								
 							if(data.rList[i].drmReviewPublicYN == "MZ"){
-								contentReviewLeft.append("<img src='/resources/fileupload/' alt='shopMain'>");
+								contentReviewLeft.append("<img src='/resources/boardImg/MzReview/ alt='shopMain'>");
 	                            contentReviewRight.append("<span class='review-type'>맛집후기</span>")
 	                          					  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }else{
