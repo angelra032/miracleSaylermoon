@@ -128,7 +128,7 @@ input[type=radio]{
 		}
 	
 	.lay2{
-		--border: 1px solid black; 
+		--border: 1px solid #333; 
 		height: 50%;
 	}
 		#lay2-1 {
@@ -216,7 +216,7 @@ input[type=radio]{
 				#pSubmit {
 					margin: 0 auto;
 					display: block;
-					color: black;
+					color: #333;
 					border:0;
 					font-size: 18px;
 					font-weight: 600;
@@ -291,17 +291,20 @@ input[type=radio]{
 	    text-align: center;
 	    float: left;
 	    margin: 8px;
-	    border: 1px solid black;
+	    border: 1px solid #333;
 	}
 	.modal-link-area input[type="radio"]:checked + span {
 		border:1px solid #fdb504;
 		background:#fdb504;
 		color:#fff;
 	}
-	
+
+.modal-checkbox-area {
+	font-size: 14px;
+}
 	.modal-checkbox-area input[type="checkbox"] {
-		width: 18px;
-		height : 18px;
+		width: 13px;
+		height : 13px;
 	}
 
 	/* 결제대행이용약관 */
@@ -309,12 +312,23 @@ input[type=radio]{
 		margin-top : 60px;
 	}
 	.information-1 {
-		font-size : 16px;
+		font-size : 14px;
 		color : #a0a0a0;
+		float : rgiht;
 	}
 	.information-1 a {
 		color: #a0a0a0;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid #333;
 	}
 
+.pay-btn {
+    width: 440px;
+    height: 60px;
+	border: none;
+	font-size: 16px;
+    margin: 10px auto;
+	background: #fdb504;
+	color : #fff;
+	cursor:pointer;
+}
 
