@@ -28,7 +28,14 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>구분</th>
+							<th>
+								<Select class="user-select">
+									<option value="1">전체</option>
+									<option value="2">꿈나무</option>
+									<option value="3">일반</option>
+									<option value="4">사업자</option>
+								</select>
+							</th>
 							<th>이름</th>
 							<th>아이디</th>
 							<th>핸드폰 번호</th>
@@ -81,7 +88,7 @@
 							<tbody>
 								<tr>
 								<!-- 이전 -->
-									<c:url value="adminUserList.dz" var="before">
+									<c:url value="adminUserList.dz?type=${type }" var="before">
 										<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
 									</c:url>
 									<c:if test="${ pi.currentPage <= 1 }">
@@ -92,7 +99,7 @@
 									<!-- 이전끝 -->
 									<!-- 페이징 -->
 									<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-			                    		<c:url var="pagination" value="adminUserList.dz">
+			                    		<c:url var="pagination" value="adminUserList.dz?type=${type }">
 			                    			<c:param name="page" value="${ p }"></c:param>
 			                    		</c:url>
 			                    		<c:if test="${ p eq pi.currentPage }">
@@ -103,7 +110,7 @@
 										</c:if>	                    	
 			                    	</c:forEach>
 									<!-- 페이징 끝 -->
-									<c:url var="after" value="adminUserList.dz">
+									<c:url var="after" value="adminUserList.dz?type=${type }">
 			                    		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
 			                    	</c:url>
 			                    	<c:if test="${ pi.currentPage >= pi.maxPage }">
@@ -149,10 +156,6 @@
         }
     }
 	
-
-	
-
-	
 	function deleteShopUser() {
 		alert('사업자 회원은 사업자 관리페이지에서 탈퇴 가능합니다.');
 	}
@@ -161,5 +164,24 @@
 		var page = document.location.href.split("?")[1];
 		$("#user-list-table").load("adminUserList.dz"+page + " #user-list-table");
 	}
+	
+	$(".user-select").on("change", function() {
+		var selectVal =  $(this).val();
+// 		alert(selectVal);
+		if(selectVal == "1") {
+			location.href="adminUserList.dz?type=1";
+			$(this).css("background", "pink");
+			$(this).attr("selected", "selected");
+		} else if(selectVal == "2") {
+			location.href="adminUserList.dz?type=2"				
+			$(this).css("background", "pink"); // 테스트중
+			$(this).attr("selected", "selected");
+		}else if(selectVal == "3") {
+			location.href="adminUserList.dz?type=3"				
+			$(this).attr("selected");
+		}else if(selectVal == "4") {
+			location.href="adminUserList.dz?type=4"				
+		}
+	});
 </script>
 </html>

@@ -84,16 +84,41 @@
 	</select>
 	
 	<!-- 어드민조회 / 1.패스워드제외 최신순 회원 조회 / 2. 3개만 조회 / 3. 페이지카운트 -->
-	<select id="selectAllListPage" parameterType="User" resultMap="userResultMap">
-		SELECT USER_NO, USER_ID, USER_NAME, USER_NICK, USER_PHONE, USER_EMAIL, PARTNER_VERIFY, PARTNER_WITHDRAW, DREAM_CARDNO, USER_POINT, USER_TYPE, PARTNER_NAME FROM "USER" ORDER BY USER_NO DESC
+	
+	<select id="selectAllListPage" parameterType="HashMap" resultMap="userResultMap">
+			SELECT USER_NO, USER_ID, USER_NAME, USER_NICK, USER_PHONE, USER_EMAIL, PARTNER_VERIFY, PARTNER_WITHDRAW, DREAM_CARDNO, USER_POINT, USER_TYPE, PARTNER_NAME FROM "USER" 
+		<if test='userType.equals("1")'>
+		</if>
+		<if test='userType.equals("2")'>
+			WHERE USER_TYPE = 1 ORDER BY USER_NO DESC
+		</if>
+		<if test='userType.equals("3")'>
+			WHERE USER_TYPE = 2 ORDER BY USER_NO DESC
+		</if>
+		<if test='userType.equals("4")'>
+			WHERE USER_TYPE = 3 ORDER BY USER_NO DESC
+		</if>
 	</select>
 	
 	<select id="selectThreeUser" parameterType="User" resultMap="userResultMap">
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY USER_NO DESC) AS NUM, USER_NO, USER_ID, USER_NAME, USER_NICK, USER_PHONE, USER_EMAIL, USER_POINT, USER_TYPE FROM "USER") WHERE NUM BETWEEN 1 AND 3
 	</select>
-	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*) FROM "USER"
+	
+	<select id="selectListCount" resultType="_int" parameterType="HashMap">
+			SELECT COUNT(*) FROM "USER"
+		<if test='pageType.equals("1")'>
+		</if>
+		<if test='pageType.equals("2")'>
+			WHERE USER_TYPE = 1
+		</if>
+		<if test='pageType.equals("3")'>
+			WHERE USER_TYPE = 2
+		</if> 
+		<if test='pageType.equals("4")'>
+			WHERE USER_TYPE = 3
+		</if> 
 	</select>
+	
 	<!-- 어드민 조회 -->
 	
 	<insert id="insertDreamUser" parameterType="User">

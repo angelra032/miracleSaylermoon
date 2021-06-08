@@ -117,7 +117,7 @@
 				<div class="my-title">
 					<span>회원관리</span>
 					<div class="more-btn-frame">
-						<a class="more-btn b-btn" href="adminUserList.dz">더보기</a>
+						<a class="more-btn b-btn" href="adminUserList.dz?type=1">더보기</a>
 					</div>
 				</div>
 				<div class="center-table-area" id="user-list-table">
@@ -150,7 +150,12 @@
 									<c:if test="${ user.userType eq '3' }">
 										<td>사업자</td>
 									</c:if>
-									<td><div class="btn btn-secondary reserv-btn" onclick="deleteUser('${user.userNo}')">탈퇴</div></td>
+									<c:if test="${ user.userType eq '1' || user.userType eq '2' }">
+										<td><div class="btn btn-secondary reserv-btn" onclick="deleteUser('${user.userNo}')">탈퇴</div></td>
+									</c:if>
+									<c:if test="${ user.userType eq '3' }">
+										<td><div class="btn done-btn">탈퇴</div></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -261,6 +266,19 @@
 					}
 				}]
 			},
+		},
+		scaleShowLabelBackdrop : true,
+		shopAllTooltips : true,
+		tooltips : {
+			displayColors : true,
+			callbacks : {
+				title : function(tooltipItem, data) {
+					return;
+				},
+				label : function(tooltipItem, data) {
+// 					return data['labels'] [tooltipItem['index']] + ": " + data['datasets'][0]['data'] [tooltipItem['index']];
+				}
+			}
 		}
 	});
 	

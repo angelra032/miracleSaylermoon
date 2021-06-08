@@ -178,16 +178,16 @@ public class UserStoreLogic implements UserStore {
 	
 	// 페이징 작업(어드민)
 	@Override
-	public int getListCount() {
-		return sqlSession.selectOne("userMapper.selectListCount");
+	public int getListCount(HashMap<String, String> pageType) {
+		return sqlSession.selectOne("userMapper.selectListCount", pageType);
 	}
 	
 	// 페이징 작업(어드민)
 	@Override
-	public ArrayList<User> selectAllUserList(PageInfo pi) {
+	public ArrayList<User> selectAllUserList(PageInfo pi, HashMap<String, String> userType) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("userMapper.selectAllListPage", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("userMapper.selectAllListPage", userType, rowBounds);
 	}
 
 	@Override

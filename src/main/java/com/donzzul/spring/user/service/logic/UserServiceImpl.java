@@ -182,13 +182,13 @@ public class UserServiceImpl implements UserService {
 	
 	// 페이징작업
 	@Override
-	public int getListCount() {
-		return store.getListCount();
+	public int getListCount(HashMap<String, String> pageType) {
+		return store.getListCount(pageType);
 	}
 
 	@Override
-	public ArrayList<User> selectAllUserList(PageInfo pi) {
-		return store.selectAllUserList(pi);
+	public ArrayList<User> selectAllUserList(PageInfo pi, HashMap<String, String> userType) {
+		return store.selectAllUserList(pi, userType);
 	}
 
 	@Override
