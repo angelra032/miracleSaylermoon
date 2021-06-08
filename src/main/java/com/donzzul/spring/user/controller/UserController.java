@@ -349,27 +349,27 @@ public class UserController {
 	}
 	
 	//회원탈퇴전 비밀번호 입력뷰
-		@RequestMapping(value = "userWritePwView.dz", method = RequestMethod.GET)
-		public String userWritePwView() {
-			return "user/userWritePw";
-		}
+	@RequestMapping(value = "userWritePwView.dz", method = RequestMethod.GET)
+	public String userWritePwView() {
+		return "user/userWritePw";
+	}
 		
 	// 비밀번호 유효성 검사
-		@ResponseBody 
-		@RequestMapping(value = "dupPw.dz", method = RequestMethod.GET)
-		public String pwDuplicateCheck(@RequestParam("userNo") String userNo, @RequestParam("userPw") String userPw) {
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("userNo", userNo);
-			map.put("userPw", userPw);
-			//int duplicateCheck = service.checkPwDup(map);
-			User loginUser = service.getUsersByNo(userNo);
-			String pw = loginUser.getUserPw();
-			if(passwordEncoder.matches(userPw, pw)){
-				return 0+"";
-			}else {
-				return 1+"";
-			}
+	@ResponseBody 
+	@RequestMapping(value = "dupPw.dz", method = RequestMethod.GET)
+	public String pwDuplicateCheck(@RequestParam("userNo") String userNo, @RequestParam("userPw") String userPw) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userNo", userNo);
+		map.put("userPw", userPw);
+		//int duplicateCheck = service.checkPwDup(map);
+		User loginUser = service.getUsersByNo(userNo);
+		String pw = loginUser.getUserPw();
+		if(passwordEncoder.matches(userPw, pw)){
+			return 1+"";
+		}else {
+			return 0+"";
 		}
+	}
 		
 	//회원탈퇴
 	@RequestMapping(value = "userDelete.dz", method = RequestMethod.GET)
@@ -386,18 +386,18 @@ public class UserController {
 	}
 	
 	//회원탈퇴요청(사업자)
-		@RequestMapping(value = "userDeleteRequest.dz", method = RequestMethod.GET)
-		public String userDeleteRequest(@RequestParam("userNo") int userNo, Model model) {
-			// 회원탈퇴를 하고 나서 세션파괴를 하지 않으면 
-			// 로그인한 상태가 유지되므로 세션파괴를 해줘야함.
-			int result = service.deleteRequestUser(userNo);
-			if (result>0) {
-				return "partnerMyPage/partnerMyPage";
-			}else {
-				model.addAttribute("msg", "탈퇴요청 실패");
-				return "common/errorPage";
-			}
+	@RequestMapping(value = "userDeleteRequest.dz", method = RequestMethod.GET)
+	public String userDeleteRequest(@RequestParam("userNo") int userNo, Model model) {
+		// 회원탈퇴를 하고 나서 세션파괴를 하지 않으면 
+		// 로그인한 상태가 유지되므로 세션파괴를 해줘야함.
+		int result = service.deleteRequestUser(userNo);
+		if (result>0) {
+			return "partnerMyPage/partnerMyPage";
+		}else {
+			model.addAttribute("msg", "탈퇴요청 실패");
+			return "common/errorPage";
 		}
+	}
 	
 	//아이디 찾기 폼
 	@RequestMapping(value = "findIdView.dz", method = RequestMethod.GET)
@@ -522,12 +522,12 @@ public class UserController {
 		return "user/userFindPw";
 	}
 
-	// 아이디 패스워드 인증받기 함수
+	// 아이디 패스워드 인증받기 함수 - 구글 
 	class MyAuthentication extends Authenticator{
 		PasswordAuthentication pa;
 		public MyAuthentication() {
 			String id = "pminae11"; // 구글 ID(발신인 이메일-도메인 제외)
-			String pw = "donjjul1234"; // 구글 비밀번호(발신인 이메일 비번)
+			String pw = "donjjul12345"; // 구글 비밀번호(발신인 이메일 비번)
 			// ID와 비밀번호 입력
 			pa = new PasswordAuthentication(id, pw);
 		}
@@ -555,7 +555,9 @@ public class UserController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("userEmail", userEmail);
-		map.put("userPw", userPw);
+		
+		String encPw = passwordEncoder.encode(userPw);
+		map.put("userPw", encPw);
 		int result =  service.resetPw(map);
 		if(result>0) {
 			return "user/userLogin";
