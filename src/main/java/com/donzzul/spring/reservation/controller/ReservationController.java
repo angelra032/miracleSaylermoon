@@ -66,7 +66,6 @@ public class ReservationController {
 									 Model model,
 									 HttpServletResponse response
 									) throws Exception {
-		System.out.println("여기는 들어왔니!?");
 		int paymentPoint = String.valueOf(reservation.getPaymentPoint()) != "" ? reservation.getPaymentPoint() : 0;
 		int rResult = service.insertReservation(reservation);
 		int pResult = 0;
@@ -87,14 +86,10 @@ public class ReservationController {
 			out.println("<script>alert('예약하는데 성공하였습니다.'); location.href='shopDetail.dz?shopNo="+shopNo+"';</script>");
 			out.flush();
 			out.close();
-//			mv.addObject("msg", "예약하는데 성공하였습니다.");
-//			mv.setViewName("redirect:shopDetail.dz?shopNo="+shopNo+"&userNo="+userNo);
 		}else {
 			out.println("<script>alert('예약하는데 실패하였습니다.')");
 			out.flush();
 			out.close();
-//			model.addAttribute("msg","예약하는데 실패하였습니다.");
-//			mv.setViewName("");
 		}
 	}
 	
@@ -107,10 +102,8 @@ public class ReservationController {
 	
 	
 	  @ResponseBody
-	  @RequestMapping(value="printReservation.dz", method=RequestMethod.GET)
+	  @RequestMapping(value="printReservation.dz", method=RequestMethod.POST)
 	  public ArrayList<HashMap<String, String>> printReservation(@RequestParam("shopNo") int shopNo) {
-	  System.out.println(shopNo); 
-	  //HashMap<String, String>
 	  ArrayList<Reservation> reservation = service.selectOneBySno(shopNo); // 얘를 json 먼저 만들어주고
 	  
 	  ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
@@ -124,6 +117,7 @@ public class ReservationController {
 		  
 		  list.add(map); 
 	  }
+	  System.out.println(list+"list");
 	  return list; 
 	  }
 	 

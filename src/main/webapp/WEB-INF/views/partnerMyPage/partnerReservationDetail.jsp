@@ -41,7 +41,7 @@
 							<input type="hidden" name="reservationNo" value="${reservation.reservationNo }">
 							<input type="hidden" name="shopNo" value="${reservation.shopNo }">
 							<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
-							<td>${reservation.reserveCount }</td>
+							<td>${reservation.reserveCount }명</td>
 							<td>${reservation.reserveDate }</td>
 							
 							<td>
@@ -55,7 +55,7 @@
 											</select>
 									</c:when>
 									<c:otherwise>
-										${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : '' }
+										${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : reservation.rState eq 'H' ? '후기작성완료' :  '' }
 									</c:otherwise>
 								</c:choose>	
 								
@@ -70,6 +70,9 @@
 									</c:if>
 									<c:if test="${reservation.rState eq 'C'}">
 										<td>완료된 예약</td>
+									</c:if>
+									<c:if test="${reservation.rState eq 'H'}">
+										<td>후기작성완료</td>
 									</c:if>
 							</td> 
 						</tr>

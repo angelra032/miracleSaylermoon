@@ -153,18 +153,12 @@ public class DreamReviewController {
 	public String dReviewWriteView(@RequestParam("shopNo") int shopNo,
 									@RequestParam("reservationNo") int reservationNo,
 									Model model) {
-		// rState update에 필요한 reservationNo 가져오기
-		model.addAttribute("shopNo", shopNo);
-		model.addAttribute("reservationNo", reservationNo);
-		Reservation reservation = new Reservation();
-		reservation.setReservationNo(reservationNo);
-		reservation.setrState("H");
-		int result = rService.updateRstate(reservation);
-		if(result > 0) {
-			return "board/drmReview/dReviewInsertForm";
-		}else {
-			return "fail";
-		}
+		System.out.println("shopNo"+shopNo);
+		System.out.println("reservationNo"+reservationNo);
+		
+		model.addAttribute("shopNo",shopNo);
+		model.addAttribute("reservationNo",reservationNo);
+		return "board/drmReview/dReviewInsertForm";
 	}
 	
 	
@@ -193,16 +187,16 @@ public class DreamReviewController {
 		int result = 0;
 		result = drService.insertDreamReview(dreamReview);
 		// rState update
-		int rStateResult = rService.updateRstate(reservation);
-		if(result > 0 || rStateResult > 0) {
-//			mv.setViewName("redirect:dReviewMain.dz");
-			return "success";
+		if(result > 0) {
+			int rStateResult = rService.updateRstate(reservation);
+			if(rStateResult > 0) {
+				return "success";
+			} else {
+				return "fail";
+			}
 		} else {
 			return "fail";
-//			mv.addObject("msg", "감사후기 게시글 등록 실패").setViewName("common/errorPage");
 		}
-		
-//		return mv;
 	}
 	
 	// 삭제 delete

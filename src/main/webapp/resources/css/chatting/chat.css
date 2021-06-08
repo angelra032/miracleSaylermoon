@@ -20,7 +20,7 @@
 #startDiv{
 	width: 400px;
   	height: 170px;
-  	margin-top: 10px;
+  	padding-top:10px;
 }
 
 .pTag{
@@ -53,21 +53,22 @@
 }
 
 #sendBtn{
-	padding: 7px 6px;
+	padding: 7px 20px;
     font-size: 16px;
     border-color: #fdb504;
     color: #ffffff;
     background-color: #fdb504;
     border-radius: 6px;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 9px;
 }
 
 #chatting-text{
 	height: 33px;
 	width: 370px;
 	margin-top: 7px;
-	margin-left: 20px;
+	margin-left: 10px;
+	float: left;
 }
 
 .msgBox{
@@ -104,6 +105,11 @@
 	margin-left: 20px;
 }
 
+.header-icon img{
+	width: 70px;
+    height: 30px;
+}
+
 .header-text h4{
 	height: 16px;
 	width: 160px;
@@ -120,8 +126,6 @@
 
 .container h4 {
 	text-align: left;
-	padding: 5px 5px 5px 15px;
-	margin-bottom: 20px;
 	font-family: NotoSansKR;
 }
 
@@ -130,7 +134,8 @@
 	background-color: #f7f7f7;
 	height: 485px;
 	border-radius: 0 0 7px 7px;
-	overflow: auto;
+	word-break: break-all;
+	overflow-y: auto;
 }
 
 
@@ -152,10 +157,12 @@
 .sendDiv{
     width: auto;
     height: auto;
-    padding: 10px;
+    padding: 5px;
     margin-right: 10px;
     text-align: right;
     margin-top: 10px;
+    display: flex;
+    flex-flow: row-reverse;
 }
 
 .sendDiv span{
@@ -179,6 +186,7 @@
     margin-top: 10px;
   	align-items:center;
   	display:flex; 
+  	flex-flow: inherit;
 }
 
 .reciveDiv span{
@@ -294,6 +302,7 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
+    cursor: pointer;
 }
 
 .refreshIcon img{
@@ -315,3 +324,11 @@
 	position: relative;
     left: 60px;
 }
+
+#emptyMsg{
+	font-size: 20px;
+    text-align: center;
+    padding: 20px;
+}
+
+#backHistory{}
