@@ -41,7 +41,7 @@
 	                <button onclick="location.href='mReviewUpdateView.dz?mReviewNo=${ mReview.mReviewNo }'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='mReviewDelete.dz?mReviewNo=${ mReview.mReviewNo }'" style="cursor: pointer;">삭제하기</button>
+	                <button class="delete-btn" style="cursor: pointer;">삭제하기</button>
 	            </div>
 	            <div class="user-back-btn-area">
 	                <button onclick="location.href='dReviewMain.dz'" style="cursor: pointer;">목록으로</button>
@@ -57,4 +57,32 @@
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$(".delete-btn").on("click", function() {
+			var result = confirm('회원님의 글을 삭제합니다');
+			var mReviewNo = "${ mReview.mReviewNo }";
+			if(result) {
+				$.ajax({
+					url : "mReviewDelete.dz",
+					data : {"mReviewNo" : mReviewNo},
+					type : "GET",
+					success : function(data) {
+						if(data == "success") {
+							alert('글을 삭제했습니다');
+							location.href="mReviewMain.dz";
+						} else if(data == "fail") {
+							alert('글 삭제를 실패했습니다');
+						}
+					}
+				})
+				
+			} else {
+				location.href="mReviewDetail.dz?mzReviewNo="+mReviewNo;
+			}
+		});
+		
+	});
+</script>
 </html>

@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 function selectMenu(data) {
 	if(data == 1) {
-		location.href="adminUserList.dz";
+		location.href="adminUserList.dz?type=1";
 	} else if(data == 2) {
 		location.href="adminShopList.dz";
 	} else if(data == 3) {

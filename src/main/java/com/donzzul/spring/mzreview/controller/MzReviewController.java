@@ -184,6 +184,13 @@ public class MzReviewController {
 					String mzPhotoRename = mzPhotoList.get(i).getMzReviewRenameFileName();
 					if(!realList.contains(mzPhotoRename)) {
 						fileDelete(mzPhotoRename, mzPhotoList.get(i).getMzReviewFilePath());
+						continue;
+					}
+					int mzReviewNo = mzReview.getmReviewNo();
+					mzPhotoList.get(i).setMzReviewNo(mzReviewNo);
+					int photoResult = mService.insertPhoto(mzPhotoList.get(i));
+					if(photoResult > 0) {
+						rtn= "success";
 					}
 				}
 			}
@@ -240,7 +247,7 @@ public class MzReviewController {
 		JsonObject jsonObject = new JsonObject();
 		// 내부경로로 저장
 		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
-		String fileRoot = contextRoot+"\\boardImg\\MzReview\\";
+		String fileRoot = contextRoot+"/boardImg/MzReview/";
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
