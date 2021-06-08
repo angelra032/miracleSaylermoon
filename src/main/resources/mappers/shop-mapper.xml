@@ -40,9 +40,6 @@
 	</insert>
 	
 	<update id="updatePartnerShop">
-		<!-- UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_PRODUCT=#{shopProduct}, 
-			SHOP_FILENAME=#{shopFileName}, SHOP_FILEPATH=#{shopFilePath}, SHOP_FILESIZE=#{shopFileSize}, SHOP_UPLOADTIME=#{shopUploadTime}, 
-			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime}  -->
 		UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_LONG_ADDR=#{shopLongAddr}, 
             SHOP_TARGET=#{shopTarget}, SHOP_PRODUCT=#{shopProduct}, SHOP_PHONE=#{shopPhone}, SHOP_TYPE=#{shopType},
             BUSINESS_DAY=#{businessDay}, SHOP_CONTENT=#{shopContent},

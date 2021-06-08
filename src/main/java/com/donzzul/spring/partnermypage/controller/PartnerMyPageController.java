@@ -379,8 +379,20 @@ public class PartnerMyPageController {
 		String userPhone = user.getUserPhone();
 		
 		// long 주소 자르기
+		String longAddr = shop.getShopLongAddr();
+		System.out.println(longAddr);
+		String addr[] = longAddr.split("/");
+		for(int i=0; i<addr.length; i++) {
+			System.out.println(addr[i]);
+		}
 		
 		// 영업일 자르기
+		String businessDay = shop.getBusinessDay();
+		System.out.println(businessDay);
+		String day[] = businessDay.split(",");
+		for(int i=0; i<day.length; i++) {
+			System.out.println(day[i]);
+		}
 		
 		// 메뉴 사진 조회
 		ArrayList<MenuPhoto> photo = sService.selectMenuPhoto(shop.getShopNo());
@@ -567,9 +579,11 @@ public class PartnerMyPageController {
 //		ArrayList<MenuPhoto> fileList = multiFile
 		
 		// 파일 저장 경로 설정
-//		String root = request.getSession().getServletContext().getRealPath("resources");
-		String root = "\\resources";
-		String savePath = root + "\\partnerUploadFiles";
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		//String root = "\\resources";
+		//String root = request.getContextPath(); // return 프로젝트 Path
+		//System.out.println("root"+root);
+		String savePath = root + "\\partnerUploadFiles\\menuPhoto";
 		// 저장 폴더 선택
 		File folder = new File(savePath);
 		
@@ -627,8 +641,8 @@ public class PartnerMyPageController {
 	// 파일저장 (메인 사진)
 	public Shop saveFile(MultipartFile file, HttpServletRequest request) {
 		// 파일 저장 경로 설정
-		String root = "\\resources";
-		String savePath = root + "\\partnerUploadFiles";
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\partnerUploadFiles\\shopPhoto";
 		// 저장 폴더 선택
 		File folder = new File(savePath);
 		
