@@ -98,7 +98,7 @@
 		<div id="chatting">
 			<a id="modal" href="#container" rel="modal:open"> 
 			<img alt="chattingIcon" src="/resources/images/chatting/chat.png">
-			<p>문의하기</p>
+			<p class="pTag">문의하기</p>
 			</a>
 		</div>
 	</c:if>
@@ -219,7 +219,7 @@
 						<img alt="header-icon" src="/resources/images/chatting/logo.png">
 					</div>
 					<div class="header-text">
-						<h4>실시간 상담</h4>
+						<h4  id="listH4">실시간 상담</h4>
 						<input type="hidden" id="sessionId" value="">
 						<input type="hidden" id="userId" value="${sessionScope.loginUser.userId }">
 					</div>
