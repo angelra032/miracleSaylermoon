@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 
+import javax.inject.Inject;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,7 +45,8 @@ public class UserController {
 	@Autowired
 	private final static String TAG = "KakaoController : ";
 	
-	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	// 회원가입폼
 	@RequestMapping(value = "enrollView.dz", method = RequestMethod.GET) 
@@ -54,6 +57,8 @@ public class UserController {
 	// 꿈나무회원등록
 	@RequestMapping(value = "dreamRegister.dz", method = RequestMethod.POST) 
 	public String dreamUserRegister(@ModelAttribute User user, Model model) {
+		String encPw = passwordEncoder.encode(user.getUserPw());
+		user.setUserPw(encPw);
 		int result = service.insertDreamUser(user);
 		if (result>0) {
 			return "/home";
@@ -66,6 +71,8 @@ public class UserController {
 	// 일반회원등록
 	@RequestMapping(value = "mzRegister.dz", method = RequestMethod.POST) 
 	public String mzUserRegister(@ModelAttribute User user, Model model) {
+		String encPw = passwordEncoder.encode(user.getUserPw());
+		user.setUserPw(encPw);
 		int result = service.insertMzUser(user);
 		if (result>0) {
 			return "/home";
@@ -78,6 +85,8 @@ public class UserController {
 	// 사업자회원등록
 	@RequestMapping(value = "partnerRegister.dz", method = RequestMethod.POST) 
 	public String partnerUserRegister(@ModelAttribute User user, Model model) {
+		String encPw = passwordEncoder.encode(user.getUserPw());
+		user.setUserPw(encPw);
 		int result = service.insertPartnerUser(user);
 		if (result>0) {
 			return "/home";
@@ -154,30 +163,38 @@ public class UserController {
 	@ResponseBody 
 	@RequestMapping(value = "dupLogin.dz", method = RequestMethod.GET)
 	public String loginDuplicateCheck(@RequestParam("userId") String userId, @RequestParam("userPw") String userPw) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("userId", userId);
-		map.put("userPw", userPw);
-		int duplicateCheck = service.checkLoginDup(map);
-		if(duplicateCheck == 0){
-			return 1+"";
-		}else {
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("userId", userId);
+//		map.put("userPw", userPw);
+		User loginUser = service.getUsersByID(userId);
+		String pw = loginUser.getUserPw();
+//		System.out.println(pw);
+//		System.out.println(userPw);
+		if (passwordEncoder.matches(userPw, pw)) { 
 			return 2+"";
+		}else {
+			return 1+"";
 		}
 	} //end of loginDuplicateCheck 
 	
 	//로그인 처리하는 부분@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@RequestMapping(value = "login.dz", method = RequestMethod.POST)
+	//login이 아닌 이상 사용되지 않는다... login으로 사용하면 시큐리티가 안먹힘
+	@RequestMapping(value = "/login.dz", method = {RequestMethod.POST, RequestMethod.GET})
 	public String userLogin(HttpServletRequest request, @ModelAttribute User user, Model model, HttpSession session) {
 		String returnURL = "";
 		if (session.getAttribute("loginUser") != null) { // 기존에 login이란 세션값이 존재한다면
 			session.removeAttribute("loginUser"); // 기존값을 제거해준다.
 		}
 		
-		User uOne = new User(user.getUserId(), user.getUserPw());
+		//User uOne = new User(user.getUserId(), user.getUserPw());
 		// 로그인이 성공하면 User객체를 반환함
-		User loginUser = service.loginUser(uOne);
-		
-		if (loginUser != null) { // 로그인 성공
+		User loginUser = service.getUsersByID(user.getUserId());
+		String pw = loginUser.getUserPw();
+		String rawPw = user.getUserPw();
+		System.out.println(pw);
+		System.out.println(rawPw);
+		if (passwordEncoder.matches(rawPw, pw)) { // 로그인 성공
+			System.out.println("로그인성공");
 			session = request.getSession();
 			session.setAttribute("loginUser", loginUser); // 세션에 loginUser란 이름으로 User객체를 저장해논다.
 			returnURL = "redirect:/"; // 로그인 성공시 메인페이지로 바로 이동하도록 함
@@ -299,6 +316,8 @@ public class UserController {
 								Model model,
 								HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		String encPw = passwordEncoder.encode(user.getUserPw());
+		user.setUserPw(encPw);
 		int result = service.updateMzUser(user);
 		if (result > 0) {
 			session.setAttribute("loginUser", user);
@@ -318,6 +337,8 @@ public class UserController {
 								Model model,
 								HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		String encPw = passwordEncoder.encode(user.getUserPw());
+		user.setUserPw(encPw);
 		int result = service.updatePartnerUser(user);
 		if (result > 0) {
 			session.setAttribute("loginUser", user);

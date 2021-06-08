@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.javassist.expr.NewArray;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,12 @@ import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.store.UserStore;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
+	
+	SqlSession sqlsession;
+	
+	public void setSqlsession(SqlSession sqlsession) {
+		this.sqlsession = sqlsession;
+	}
 
 	@Autowired
 	UserService uService;
@@ -31,6 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("회원없다" + user.getUserId());     // 데이터 없을때 예외처리                                                                                 
 		}
+		
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		if(user.getUserType().equals("1")) {
 			roles.add(new SimpleGrantedAuthority("ROLE_DREAM"));	// 로그인 성공시 ROLE_USER 롤 부여
