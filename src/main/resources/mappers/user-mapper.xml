@@ -26,6 +26,10 @@
 		SELECT * FROM "USER" WHERE USER_ID = #{userId}
 	</select>
 
+	<select id="getUsersByNo" resultMap="userResultMap">
+		SELECT * FROM "USER" WHERE USER_NO = #{userNo}
+	</select>
+
 	<select id="selectOneUserByNo" parameterType="_int" resultMap="userResultMap">
 		SELECT * FROM "USER" WHERE USER_NO = #{userNo}
 	</select>
