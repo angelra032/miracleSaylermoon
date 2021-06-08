@@ -41,6 +41,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		HttpSession session = request.getSession(); 
+		// authenticationProvider를 거친 후에 user 객체가 com.donzzul.spring.user.domain 객체로 넘어옴.(이전에는 Spring Security user 객체였음)
 		User authUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // ..g_G
 		com.donzzul.spring.user.domain.User loginUser = service.getUsersByID(authUser.getUsername());
 		session.setAttribute("loginUser", loginUser);

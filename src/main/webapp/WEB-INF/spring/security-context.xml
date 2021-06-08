@@ -42,17 +42,6 @@
 		<!-- 회원만 -->
 		<intercept-url pattern="/userWritePwView.dz" access="isAuthenticated()" /> <!-- 회원탈퇴전 비밀번호 입력페이지 -->
 		<intercept-url pattern="/reservationView.dz" access="hasAnyRole('ROLE_DREAM', 'ROLE_MZ')" /> <!-- 예약페이지-> 꿈나무, 일반 -->
-		<!-- 모두 비허용 -->
-		<!-- 
-		<intercept-url pattern="/shopDetail.dz" access="denyAll" /> 
-		<intercept-url pattern="/cancelReservation.dz" access="denyAll" /> 
-		<intercept-url pattern="/dReviewDetail.dz" access="denyAll" /> 
-		<intercept-url pattern="/qaUpdateForm.dz" access="denyAll" /> 
-		<intercept-url pattern="/qaDelete.dz" access="denyAll" /> 
-		<intercept-url pattern="/mReviewWriteView.dz" access="denyAll" /> 
-		<intercept-url pattern="/cancelMZReservation.dz" access="denyAll" /> 
-		<intercept-url pattern="/drmMyPageDelete2.dz" access="denyAll" /> 
-		 -->
 		<!-- 나머지는 모두 허용 -->
 		<intercept-url pattern="/**" access="permitAll" /><!-- /**나머지는 ROLE_USER권한을 가진 사람만 허용 -->
 		<!-- hasRole('ROLE_ADMIN')  hasRole('ROLE_USER')-->
@@ -95,22 +84,28 @@
 	<!-- 인증처리를 위한 최상위 태그 -->
 	<authentication-manager> 
 		<!-- <authentication-provider ref="userAuthProvider"/> -->
-
-	    
 	    <!-- 여기서 직접 주기 -->
 	    <!-- <authentication-provider> 
 		    <user-service> 
 		    	<user name="admin" password="admin" authorities="ROLE_ADMIN" /> 
 		    </user-service> 
 	    </authentication-provider>  -->
+	    
 		<!-- 사용자 이름, 비밀번호를 제공해줄 서비스 등록 -->
-	    <authentication-provider user-service-ref="UserDetailsServiceImpl"/>
+ 	    <!-- <authentication-provider user-service-ref="UserDetailsServiceImpl">  -->
+<!-- 	    		<password-encoder ref="passwordEncoder"/> -->
+	    <!-- </authentication-provider> -->
+	    <!-- user-service-ref 는 디폴트 Provider에게 커스터마이징한 UserDetailsService를 주입해주기 위한 것이므로 삭제해도 됩니다. 
+	    Provider를 우리가 직접 만들테니 해당 클래스 안에서 UserDetailsService Bean을 직접 주입받으면 되니까요. -->
+	    <authentication-provider ref="userLoginAuthenticationProvider"/>
 
 	</authentication-manager>	
 
 	<!-- userService 빈등록 -->
-	<beans:bean id="UserDetailsServiceImpl" class="com.donzzul.spring.user.service.UserDetailsServiceImpl"/>
-	<beans:bean id="userAuthProvider" class="com.donzzul.spring.user.service.CustomAuthenticationProvider"/>
+	<beans:bean id="UserDetailsServiceImpl" class="com.donzzul.spring.user.service.UserDetailsServiceImpl">
+		<!-- <property name="sqlsession" ref="sqlsession"/> -->
+	</beans:bean>
+	<beans:bean id="userLoginAuthenticationProvider" class="com.donzzul.spring.user.service.UserLoginAuthenticationProvider"/>
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 </beans:beans>
