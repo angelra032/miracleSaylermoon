@@ -22,7 +22,7 @@
 			<div class="tabcontent">
 				<div class="content-body">
 					<div id="dreamEnrollView" class="tab-content current">
-						<form action="shopUpdate.dz" method="post"  enctype="multipart/form-data"> 
+						<form id="frm"  action="shopUpdate.dz" method="post"  enctype="multipart/form-data"> 
 							<div class="form-head form-head2">
 								가게이름&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
@@ -39,7 +39,7 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="shopPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="shopPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="${shop.shopFileName }">
 							</div>
 							
 							<div class="form-head form-head2">
@@ -51,13 +51,13 @@
 								<div class="form-noti cardnoti card_suc">본인인증성공</div>
 							</div>
 							<div class="form-body">
-								<input type="text" id="zip" name="zip" class="form-elem" placeholder="우편번호">
+								<input type="text" id="zip" name="zip" class="form-elem" placeholder="우편번호" value="">
                                 <button id="addr-search-btn" type="button"  onclick="openZipSearch()">입력</button>
                                 <div id="aadr1-input" class="form-body">
-                                    <input type="text" name="addr1" id="addr1" class="form-elem" placeholder="기본주소" readonly>
+                                    <input type="text" name="addr1" id="addr1" class="form-elem" placeholder="기본주소" value="" readonly>
                                 </div>
                                 <div id="addr2-input" class="form-body">
-                                    <input type="text" name="addr2" id="addr2" class="form-elem" placeholder="상세주소">
+                                    <input type="text" name="addr2" id="addr2" class="form-elem" placeholder="상세주소" value="">
                                 </div>
 							</div>
 							
@@ -258,7 +258,7 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<textarea name="shopContent" id="" class="form-textarea shopContent" cols="30" rows="5" placeholder="소개 입력"></textarea>
+								<textarea name="shopContent" id="" class="form-textarea shopContent" cols="30" rows="5" placeholder="소개 입력">${ shop.shopContent }</textarea>
 							</div>
 							
 							<div class="form-head form-head2">
@@ -269,10 +269,12 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body add-menu-div">
-								<div class="first-main-menu">
-									<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" />
-									<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격 입력" />
-								</div>
+								<c:forEach items="${mainMenu }" var="menu">
+									<div class="first-main-menu">
+										<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" value="${menu.mainMenuName }" />
+										<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격 입력" value="${menu.mainMenuPrice }" />
+									</div>
+								</c:forEach>
 							</div>
 								<button type="button" onclick="addMenu();" class="add-menu-btn" >메뉴추가</button>
 							
@@ -284,18 +286,19 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<!-- max 4개. 있는 만큼 나오고 없는 만큼 채우기 -->
+								<c:forEach items="${photo }" var="photo">
+									<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="${photo.menuFileName }" ><%-- ${photo.menuFileName } --%>
+								</c:forEach>
+								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" >
+								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" >
 							</div>
 							
 							<h1>유효성검사 필요, 메뉴사진(다중업로드) 추가, MAIN_MENU 테이블 입력필요</h1>
 							
 							<input type="hidden" name="userNo" value="${userNo}" />
+							<input type="hidden" name="shopNo" value="${shop.shopNo}" />
 							<button class="submit-btn" type="button" onclick="updateSubmit()" >등록하기</button>
-							<!-- <input type="submit" class="submit-btn" value="등록하기" /> -->
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-													<!-- 이건 뭐야 -->
 						</form>
 					</div>
 				</div>

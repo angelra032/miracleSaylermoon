@@ -164,6 +164,18 @@ public class ShopStoreLogic implements ShopStore {
 	public int insertMainMenu(MainMenu mainMenu) {
 		return sqlSession.insert("shopMapper.insertMainMenu", mainMenu);
 	}
+
+	// 파트너 - 메뉴사진 삭제
+	@Override
+	public int deleteMenuPhoto(int shopNo) {
+		return sqlSession.delete("shopMapper.deleteMenuPhoto", shopNo);
+	}
+
+	// 파트너 - 메인메뉴 삭제
+	@Override
+	public int deleteMainMenu(int shopNo) {
+		return sqlSession.delete("shopMapper.deleteShopMenu", shopNo);
+	}
 	
 
 }

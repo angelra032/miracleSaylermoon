@@ -162,6 +162,18 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.insertMainMenu(mainMenu);
 	}
 
+	// 파트너 - 메뉴 사진 삭제
+	@Override
+	public int deleteMenuPhoto(int shopNo) {
+		return sStore.deleteMenuPhoto(shopNo);
+	}
+
+	// 파트너 - 메인 메뉴 삭제
+	@Override
+	public int deleteMainMenu(int shopNo) {
+		return sStore.deleteMainMenu(shopNo);
+	}
+
 
 
 

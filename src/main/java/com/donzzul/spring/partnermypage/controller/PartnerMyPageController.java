@@ -369,14 +369,28 @@ public class PartnerMyPageController {
 	// 가게정보 수정 화면(view)
 	@RequestMapping(value="shopUpdateView.dz", method=RequestMethod.GET)
 	public String shopUpdateView(HttpServletRequest request, Model model) {
+		// 유저 조회
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
 		int userNo = user.getUserNo();
+		// 샵 조회
 		Shop shop = sService.selectShopOneUserNo(userNo);
 		String partnerName = user.getPartnerName();
 		String userPhone = user.getUserPhone();
+		
+		// long 주소 자르기
+		
+		// 영업일 자르기
+		
+		// 메뉴 사진 조회
+		ArrayList<MenuPhoto> photo = sService.selectMenuPhoto(shop.getShopNo());
+		// 메뉴 조회
+		ArrayList<MainMenu> menu = sService.selectMainMenu(shop.getShopNo());
+		
 		model.addAttribute("partnerName", partnerName).addAttribute("userPhone", userPhone).addAttribute("userNo", userNo);
 		model.addAttribute("shop", shop);
+		model.addAttribute("photo", photo);
+		model.addAttribute("mainMenu", menu);
 		return "partnerMyPage/partnerShopInfo";
 	}
 	
@@ -425,7 +439,14 @@ public class PartnerMyPageController {
 		// shop UPDATE
 		int result = sService.updatePartnerShop(shop);
 		
-		/////// 메뉴 사진 insert
+		/////// 메뉴 사진 delete-insert
+		// delete
+		ArrayList<MenuPhoto> deletePhotoList = sService.selectMenuPhoto(shop.getShopNo());
+		System.out.println("삭제할 사진리스트 조회"+deletePhotoList.toString());
+		if(deletePhotoList != null) { // 삭제할 사진이 있으면 사진 전부 삭제
+			int deletePhoto = sService.deleteMenuPhoto(shop.getShopNo());
+		}
+		// insert	- 다시 insert
 		MenuPhoto menuPhoto = new MenuPhoto();
 		for(int i=0; i<mainMenuPhoto.length; i++) {
 			if(!mainMenuPhoto[i].getOriginalFilename().equals("")) {
@@ -446,14 +467,26 @@ public class PartnerMyPageController {
 			}
 		}
 		
-		/////// 메인메뉴 insert
+		for(int i=0; i<mainMenuName.length; i++) { // 메뉴이름과 가격 수 똑같으므로 
+			System.out.println("값"+mainMenuName[i]);
+			System.out.println("값"+mainMenuName[i]);
+		}
+		
+		/////// 메인메뉴 delete-insert
+		// delete
+		ArrayList<MainMenu> menuList = sService.selectMainMenu(shop.getShopNo());
+		System.out.println("삭제할 메인메뉴 리스트: "+menuList.toString());
+		if(menuList != null) { // 메뉴가 있으면 전부 삭제
+			int delelteMenu = sService.deleteMainMenu(shop.getShopNo());
+		}
+		// insert	-	다시 인서트
 		for(int i=0; i<mainMenuName.length; i++) { // 메뉴이름과 가격 수 똑같으므로 
 			MainMenu menu = new MainMenu();
 			menu.setMainMenuName(mainMenuName[i]);
 			menu.setMainMenuPrice(mainMenuPrice[i]);
 			menu.setShopNo(shop.getShopNo());
-			
-			// mainMenu(delete - insert)
+			System.out.println("값"+mainMenuName[i]);
+			// mainMenu(delete - insert) 오똫게 . . . . . .ㅠ_ㅠ
 			int insertMainMenu = sService.insertMainMenu(menu);
 //			if(insertMainMenu > 0) {
 //				return  "redirect:partnerMyPage.dz";
@@ -528,13 +561,14 @@ public class PartnerMyPageController {
 		}
 	}
 	
-	// 다중 파일저장
+	// 다중 파일저장 (메뉴 사진)
 	public MenuPhoto saveMultiFile(MultipartFile multiFile, HttpServletRequest request) {
 		
 //		ArrayList<MenuPhoto> fileList = multiFile
 		
 		// 파일 저장 경로 설정
-		String root = request.getSession().getServletContext().getRealPath("resources");
+//		String root = request.getSession().getServletContext().getRealPath("resources");
+		String root = "\\resources";
 		String savePath = root + "\\partnerUploadFiles";
 		// 저장 폴더 선택
 		File folder = new File(savePath);
@@ -590,10 +624,10 @@ public class PartnerMyPageController {
 	}
 	
 	
-	// 파일저장
+	// 파일저장 (메인 사진)
 	public Shop saveFile(MultipartFile file, HttpServletRequest request) {
 		// 파일 저장 경로 설정
-		String root = request.getSession().getServletContext().getRealPath("resources");
+		String root = "\\resources";
 		String savePath = root + "\\partnerUploadFiles";
 		// 저장 폴더 선택
 		File folder = new File(savePath);

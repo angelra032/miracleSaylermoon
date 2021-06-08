@@ -40,9 +40,14 @@
 	</insert>
 	
 	<update id="updatePartnerShop">
-		UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_PRODUCT=#{shopProduct}, 
+		<!-- UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_PRODUCT=#{shopProduct}, 
 			SHOP_FILENAME=#{shopFileName}, SHOP_FILEPATH=#{shopFilePath}, SHOP_FILESIZE=#{shopFileSize}, SHOP_UPLOADTIME=#{shopUploadTime}, 
-			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime} 
+			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime}  -->
+		UPDATE SHOP SET SHOP_SHORT_ADDR=#{shopShortAddr}, SHOP_ADDR=#{shopAddr}, SHOP_LONG_ADDR=#{shopLongAddr}, 
+            SHOP_TARGET=#{shopTarget}, SHOP_PRODUCT=#{shopProduct}, SHOP_PHONE=#{shopPhone}, SHOP_TYPE=#{shopType},
+            BUSINESS_DAY=#{businessDay}, SHOP_CONTENT=#{shopContent},
+			SHOP_FILENAME=#{shopFileName}, SHOP_FILEPATH=#{shopFilePath}, SHOP_FILESIZE=#{shopFileSize}, SHOP_UPLOADTIME=#{shopUploadTime}, 
+			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime} WHERE SHOP_NO = #{shopNo}
 	</update>
 	
 		<!-- 메인 메뉴 테이블 -->
@@ -253,9 +258,19 @@
        SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo }
     </select>
     
+    <!-- 가게 메인 메뉴 삭제 -->
+    <select id="deleteShopMenu" resultMap="mainMenuResultMap">
+       DELETE FROM MAIN_MENU WHERE SHOP_NO = #{shopNo }
+    </select>
+    
     <!-- 가게 메뉴 사진 출력 -->
     <select id="selectMenuPhoto" resultMap="menuPhotoResultMap">
        SELECT * FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
+    </select>
+    
+    <!-- 가게 메뉴 사진 삭제 -->
+    <select id="deleteMenuPhoto" resultMap="menuPhotoResultMap">
+       DELETE FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
     </select>
     
     <!-- 가게 메뉴사진 저장 -->
