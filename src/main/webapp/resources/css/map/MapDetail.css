@@ -140,14 +140,15 @@ main {
 						.content-shop > #shop-title {
 							font-size: 18px;
 							line-height: 1.3em;
-							float:left;
-							margin-right: 10px;
+							margin-right: 5px;
+							display: inline-block;
 						}
 						
 						#shop-type {
 							color: #0160ff;
 							line-height: 1.9em;
 							font-size: 14px;
+							display: inline-block;
 						}
 						
 						#shop-addr {
@@ -294,7 +295,7 @@ main {
 		    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
 		    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 		    .info .link {color: #5085BB;}	
-		    .btnShop {width: 270px;height:30px;padding-right: 10px;}	
+		    .btnShop {width: 270px;height:30px;padding-right: 10px;float: right;}	
 		    .btn-sm {float: right;}	
 					
 			

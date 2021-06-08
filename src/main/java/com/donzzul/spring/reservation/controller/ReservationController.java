@@ -1,9 +1,12 @@
 package com.donzzul.spring.reservation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.service.ReservationService;
@@ -56,11 +60,12 @@ public class ReservationController {
 	// 예약할때 받아와야할 
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.dz", method=RequestMethod.POST)
-	public String reservationInsert(@ModelAttribute Reservation reservation,
+	public void reservationInsert(ModelAndView mv, @ModelAttribute Reservation reservation,
 									@RequestParam("userPoint") int userPoint,
 									@RequestParam("userNo") int userNo,
-									 Model model
-									) {
+									 Model model,
+									 HttpServletResponse response
+									) throws Exception {
 		System.out.println("여기는 들어왔니!?");
 		int paymentPoint = String.valueOf(reservation.getPaymentPoint()) != "" ? reservation.getPaymentPoint() : 0;
 		int rResult = service.insertReservation(reservation);
@@ -72,11 +77,24 @@ public class ReservationController {
 			nReservation.setPaymentPoint(paymentPoint);
 			pResult = service.updateUserPoint(nReservation);
 		}
+		
+		int shopNo = reservation.getShopNo();
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
 		if( rResult > 0) {
-			return "redirect:dreamMyPage.dz";
+			out.println("<script>alert('예약하는데 성공하였습니다.'); location.href='shopDetail.dz?shopNo="+shopNo+"';</script>");
+			out.flush();
+			out.close();
+//			mv.addObject("msg", "예약하는데 성공하였습니다.");
+//			mv.setViewName("redirect:shopDetail.dz?shopNo="+shopNo+"&userNo="+userNo);
 		}else {
-			model.addAttribute("msg","예약하는데 실패하였습니다.");
-			return "dreamMyPage/dreamMyPage";
+			out.println("<script>alert('예약하는데 실패하였습니다.')");
+			out.flush();
+			out.close();
+//			model.addAttribute("msg","예약하는데 실패하였습니다.");
+//			mv.setViewName("");
 		}
 	}
 	

@@ -93,6 +93,7 @@ a {
 			height: 55px;
 			border-style: none;
 			background-color: #fdb504;
+			cursor: pointer;
 		}
 		
 	/* 서브타이틀 두번째(텍스트 변동) */
@@ -197,20 +198,38 @@ a {
 			}
 			
 		/* 이미지 마우스 오버시 확대 */	
-		.scale {
+		.scale img {
 		  transform: scale(1);
 		  -webkit-transform: scale(1);
 		  -moz-transform: scale(1);
 		  -ms-transform: scale(1);
 		  -o-transform: scale(1);
-		  transition: all 0.3s ease-in-out;
+		  transition: all 0.2s ease-in-out;
 		}
-		.scale:hover {
+		
+		.scale:hover img {
 		  transform: scale(1.2);
-		  -webkit-transform: scale(1.2);
-		  -moz-transform: scale(1.2);
-		  -ms-transform: scale(1.2);
-		  -o-transform: scale(1.2);
+		  -webkit-transform: scale(1.1);
+		  -moz-transform: scale(1.1);
+		  -ms-transform: scale(1.1);
+		  -o-transform: scale(1.1);
 		}
-	
+		
+/* 		.themeTitle { 
+		  color: #000;
+		  display:inline-block; 
+		  margin:0;
+		  text-transform:uppercase; }
+		  
+		.scale:hover .themeTitle:after {
+		  display:block;
+		  content: '';
+		  border-bottom: solid 3px #ea2129;  
+		  transform: scaleX(0);  
+		  transition: transform 250ms ease-in-out;
+		}
+		.scale:hover .themeTitle:hover:after { transform: scaleX(1); }
+		.scale:hover .themeTitle.fromRight:after{ transform-origin:100% 50%; }
+		.scale:hover .themeTitle.fromLeft:after{  transform-origin:  0% 50%; } */
+	 
 	

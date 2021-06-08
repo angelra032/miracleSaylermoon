@@ -94,9 +94,36 @@
 											<span id="shop-type">${ search.shopType }</span><br><br>
 											<span>${ search.shopShortAddr }</span><br>
 											<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;</span>
-											<c:if test="">
-											<span>매주 일요일&nbsp;휴무</span><br>
-											</c:if>
+											<span>매주</span>
+											<c:forTokens items="${ search.businessDay }" delims="," var="workingDay" varStatus="status">
+												<c:choose>
+													<c:when test="${ workingDay ne '1' }">
+														<span>월</span>
+													</c:when>
+													<c:when test="${ workingDay ne '2' }">
+														<span>화</span>
+													</c:when>
+													<c:when test="${ workingDay ne '3' }">
+														<span>수</span>
+													</c:when>
+													<c:when test="${ workingDay ne '4' }">
+														<span>목</span>
+													</c:when>
+													<c:when test="${ workingDay ne '5' }">
+														<span>금</span>
+													</c:when>
+													<c:when test="${ workingDay ne '6' }">
+														<span>토</span>
+													</c:when>
+													<c:when test="${ workingDay ne '7' }">
+														<span>일</span>
+													</c:when>
+												</c:choose>
+													<%-- <c:if test="${ search.businessDay == 7 }">
+														<span>연중무휴</span>
+													</c:if> --%>
+											</c:forTokens>
+											<span>휴무</span><br>
 											<div class="shopDetailShort">
 												<c:choose>
 													<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
@@ -121,7 +148,7 @@
 									<span>일치하는 검색 결과를 찾을 수 없습니다.</span>
 								</div>
 							</c:if>
-	 					</c:when>
+	 						</c:when>
 	 					<c:when test="${ themeNo eq 1 }">
 		 					<c:forEach var="reviewShop" items="${ rankList }" varStatus="status">
 								<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ reviewShop.shopNo }'">
