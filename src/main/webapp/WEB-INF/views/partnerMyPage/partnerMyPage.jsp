@@ -108,7 +108,7 @@
 												</select>
 											</c:when>
 											<c:otherwise>
-											${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : '' }
+											${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' :   reservation.rState eq 'H' ? '후기작성완료' :  ''  }
 										</c:otherwise>
 										</c:choose>
 									</td>
@@ -125,6 +125,9 @@
 									</c:if>
 									<c:if test="${reservation.rState eq 'C'}">
 										<td>완료된 예약</td>
+									</c:if>
+									<c:if test="${reservation.rState eq 'H'}">
+										<td>후기작성완료</td>
 									</c:if>
 	
 								</tr>

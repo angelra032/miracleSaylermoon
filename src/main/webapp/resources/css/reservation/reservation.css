@@ -4,7 +4,7 @@
 	height: 500px;
 	width: 900px;
 	float: left;
-	margin-top:30px;
+	margin-top:10px;
 	position:static;
 }
 
@@ -26,6 +26,7 @@
 .titleH1{
 	font: #333;
 	top:17px;
+	line-height: 55px;
 }
 
 #selectAreaFirst{

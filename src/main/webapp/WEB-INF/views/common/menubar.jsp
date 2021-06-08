@@ -95,12 +95,12 @@
 	<!-- chatting button-->
 	<c:if
 		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
-		<div id="chatting">
-			<a id="modal" href="#container" rel="modal:open"> 
+		<a id="modal" href="#container" rel="modal:open"> 
+			<div id="chatting">
 			<img alt="chattingIcon" src="/resources/images/chatting/chat.png">
 			<p class="pTag">문의하기</p>
-			</a>
-		</div>
+			</div>
+		</a>
 	</c:if>
 	<!-- modal section -->
 	<c:choose>
@@ -127,7 +127,7 @@
 					type: "post",
 					success: function (data) {
 						if(data != null){
-							var tag = "<div class=''></div>";
+							var tag = "<div></div>";
 							if(data.length > 0){
 								data.forEach(function(d, idx){
 									var userId = d.userId.trim();
@@ -138,7 +138,7 @@
 											"</div>";	
 								});
 							}else{
-								tag += "<tr><td colspan='3'>상담할 내용이 없습니다.</td></tr>";	
+								tag += "<tr><td colspan='3'><p id='emptyMsg'>상담할 내용이 없습니다.</p></td></tr>";	
 							}
 							$("#roomList").empty().append(tag);
 						}
@@ -191,31 +191,30 @@
 					<div class="center-table-area" id="shop-list-table">
 						<div id="roomList" class="roomList"></div>
 					</div>
-					<div class="refreshIcon">
-						<img alt="refreshIcon" id="refreshBtn" src="/resources/images/chatting/refreshing@2x.png" onclick="getChatList();">
+					<div class="refreshIcon"  onclick="getChatList();">
+						<img alt="refreshIcon" id="refreshBtn" src="/resources/images/chatting/refreshing@2x.png">
 					</div>
 				</div>
 				<div class="userChat" style="display: none">
 					<div id="chating" class="chating">
+						<div><button id="backHistory">뒤로가기</button></div>
 					</div>
 					<div id="yourMsg2">
 						<input type="hidden" name="userName" value="관리자" id="userName">
 						<input type="hidden" id="userId" value="">
-						<table class="inputTable">
-							<tr>
-								<th><button id="backHistory">뒤로가기</button></th>
-								<th><input id="chatting-text" class="chattingText sendingText" placeholder="보내실 메시지를 입력하세요"></th>
-								<th><button onclick="send()" id="sendBtn">보내기</button></th>
-							</tr>
-						</table>
+						<div class="inputTable">
+							<div>
+								<div><input id="chatting-text" class="chattingText sendingText" placeholder="보내실 메시지를 입력하세요"></div>
+								<div><button onclick="send()" id="sendBtn">보내기</button></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</c:when>
 		<c:otherwise>
 			<div id="container" class="container modal">
-				<div id="header">
-					<div class="header-icon">
+				<div id="header"><div class="header-icon">
 						<img alt="header-icon" src="/resources/images/chatting/logo.png">
 					</div>
 					<div class="header-text">
@@ -332,7 +331,7 @@
 							$("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
 						} else {
 							$("#chating").append(
-									"<div class='reciveDiv'><span>" + d.userName + " :" + d.msg + "</span></div>");
+									"<div class='reciveDiv'><span style='margin-left: 10px;'>" + d.userName + " :" + d.msg + "</span></div>");
 						}
 					//사용자 일경우
 					}else{
@@ -369,15 +368,16 @@
 	var sendmsg = "";
 
 	
- 	 $(document).on("click", "#sendBtn", function() {
-		var userNo = $('input[class=userNo]').val();
-		var messageContent =  $("#chatting-text").val();
-		var messageTime = new Date();
-		if(messageContent == ""){
+ 	/*  $(document).on("click", "#sendBtn", function() {
+		if(messageContent !== ""){
+			var userNo = $('input[class=userNo]').val();
+			var messageContent =  $("#chatting-text").val();
+			var messageTime = new Date();
+			$('#chatting-text').val("");
+		}else if(messageContent === ""){
 			alert("내용을 입력해주세요");
 			return false;
-		}
-		$('#chatting-text').val("");
+		} */
 		/* $.ajax({
 			url:"insertChatContents.dz",
 			type:"GET",
