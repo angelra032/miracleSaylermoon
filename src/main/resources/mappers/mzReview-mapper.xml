@@ -58,7 +58,7 @@
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY MZREVIEW_UPLOAD_DATE DESC) AS NUM, MZREVIEW_TITLE, MZREVIEW_NO, MZREVIEW_CONTENT, SHOP_NAME, MZREVIEW_UPLOAD_DATE FROM MZ_REVIEW M JOIN SHOP S USING(SHOP_NO) WHERE M.USER_NO=#{userNo} ORDER BY MZREVIEW_UPLOAD_DATE DESC) WHERE NUM BETWEEN 1 AND 3
 	</select>
 	
-	<insert id="insertMzReview" parameterType="MzReview">
+	<insert id="insertMzReview" parameterType="MzReview"  useGeneratedKeys="true" keyProperty="mReviewNo" keyColumn="MZREVIEW_NO">
 		INSERT INTO MZ_REVIEW VALUES(SEQ_MZ_REVIEW.NEXTVAL, #{mReviewTitle}, #{mReviewContent}, #{mReviewWriter}, DEFAULT, DEFAULT, #{userType}, #{userNo}, #{shopNo}, DEFAULT)
 	</insert>
 	
@@ -79,8 +79,8 @@
 		SELECT * FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
 	</select>
 	
-	<insert id="insertMZPhoto">
-		INSERT INTO MZ_REVIEW_PHOTO VALUES(SEQ_MZREVIEW_PHOTO.NEXTVAL, #{mzReviewOriginalFileName}, #{mzReviewRenameFileName}, #{mzReviewFilePath}, #{mzReviewFileSize}, #{mzReviewFileTime}, #{mzReviewNo});
+	<insert id="insertMZPhoto" >
+		INSERT INTO MZ_REVIEW_PHOTO VALUES(SEQ_MZREVIEW_PHOTO.NEXTVAL, #{mzReviewOriginalFileName}, #{mzReviewRenameFileName}, #{mzReviewFilePath}, #{mzReviewFileSize}, #{mzReviewFileTime}, #{mzReviewNo})
 	</insert>
 	
 	<delete id="deleteBeforeMZPhoto">

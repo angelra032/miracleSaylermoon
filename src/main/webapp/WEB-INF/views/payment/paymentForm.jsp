@@ -148,7 +148,7 @@
 				<a href="https://www.inicis.com/terms" target="_blank">보기</a>
 			</p>
 			
-			<button class="pay-btn">결제하기</button>
+			<button class="pay-btn" onclick="paymentClick()">결제하기</button>
 		</div>
 		
 	</div>
@@ -172,31 +172,38 @@
 		
 		/* 모달창 */
 		//$("#userPoint").val(12);
-		console.log($("#usePoint").val());
+// 		console.log($("#usePoint").val());
 		
-		var userPoint = $("#userPoint").val();
-		var useablePoint = $("#useablePoint");
+// 		var userPoint = $("#userPoint").val();
+// 		var useablePoint = $("#useablePoint");
 			
-		// 가용 포인트
-		if(userPoint < 500){
-			useablePoint.val(0);
-		}else if(userPoint >= 500 && userPoint <= 5000){
-			useablePoint.val(userPoint);
-		}else if(userPoint > 5000){
-			useablePoint.val(5000);
-		}
+// 		// 가용 포인트
+// 		if(userPoint < 500){
+// 			useablePoint.val(0);
+// 		}else if(userPoint >= 500 && userPoint <= 5000){
+// 			useablePoint.val(userPoint);
+// 		}else if(userPoint > 5000){
+// 			useablePoint.val(5000);
+// 		}
+		
 		
 		$(".pay-btn").on("click", function() {
 			var checkbox = $(".checkbox-input");
 			
-			if(checkbox.val() == 'o') {
+			if(checkbox.is(":checked") == true) {
 // 				return true;
-				alert('테스트1')
-			} else if(checkbox.val() != 'o') {
-				alert('테스트2')
+				alert('테스트1');
+			} else {
+				alert('결제대행 서비스에 동의해야합니다');
+				return false;
 			}
-			
 		});
+		
+// 		function paymentClick() {
+			
+// 		}
+		
+		
 	});
 	
 	

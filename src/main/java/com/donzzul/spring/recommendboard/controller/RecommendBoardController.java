@@ -215,7 +215,7 @@ public class RecommendBoardController {
 		JsonObject jsonObject = new JsonObject();
 		// 내부경로로 저장
 		String contextRoot = request.getSession().getServletContext().getRealPath("resources");
-		String fileRoot = contextRoot+"\\boardImg\\Recommend\\";
+		String fileRoot = contextRoot+"/boardImg/Recommend/";
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자

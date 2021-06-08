@@ -42,7 +42,7 @@
 	                <button onclick="location.href='dReviewUpdateForm.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='dReviewDelete.dz?drmReviewNo=${drmReview.drmReviewNo}'" style="cursor: pointer;">삭제하기</button>
+	                <button class="delete-btn" style="cursor: pointer;">삭제하기</button>
 	            </div>
 	            <div class="user-back-btn-area">
 	                <button onclick="location.href='dReviewMain.dz'" style="cursor: pointer;">목록으로</button>
@@ -58,4 +58,33 @@
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		
+		$(".delete-btn").on("click", function() {
+			var result = confirm('회원님의 글을 삭제합니다');
+			var drmReviewNo = "${ drmReview.drmReviewNo }";
+			if(result) {
+				$.ajax({
+					url : "dReviewDelete.dz",
+					data : {"drmReviewNo" : drmReviewNo},
+					type : "GET",
+					success : function(data) {
+						if(data == "success") {
+							alert('글을 삭제했습니다');
+							location.href="dReviewMain.dz";
+						} else if(data == "fail") {
+							alert('글 삭제를 실패했습니다');
+						}
+					}
+				})
+				
+			} else {
+				location.href="dReviewMain.dz?drmReviewNo="+drmReviewNo;
+			}
+		});
+		
+	});
+</script>
 </html>
