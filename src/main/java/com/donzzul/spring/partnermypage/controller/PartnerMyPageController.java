@@ -7,12 +7,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -275,32 +271,39 @@ public class PartnerMyPageController {
 	
 	// 가게정보 등록
 	@RequestMapping(value="shopRegister.dz", method=RequestMethod.POST )
-	public String shopRegister(@ModelAttribute Shop shop, @ModelAttribute MainMenu mainMenu,
+	public String shopRegister(@ModelAttribute Shop shop, 
+								@RequestParam String [] mainMenuName, 
+								@RequestParam int [] mainMenuPrice,
 								@RequestParam("zip") String zip, HttpServletRequest request,
 								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
 								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
 								@RequestParam(value="shopPhoto", required = false) MultipartFile shopPhoto,
 								@RequestParam(value="mainMenuPhoto", required=false) MultipartFile[] mainMenuPhoto, Model model, @RequestParam("userNo") int userNo) {
 
-		///////////// 샵 정보 저장, 메뉴 저장, 메뉴 사진 저장
-		
-		System.out.println("샵 정보 받아오나?"+shop.toString());		// 샵 저장해야 넘버 생성
-		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());		// 메뉴 저장해야 넘버 생성
+		///////////// INSERT - 샵 정보 저장, 메뉴 저장, 메뉴 사진 저장
 		
 
-		// 샵 정보 저장 먼저 insert
+		/////// 샵 정보 저장 먼저 insert
+		// 영업일
 		String businessday = "";
-		for (String bs : businessnum) {
-			businessday += bs;
+		for(int i=0; i<businessnum.length; i++) { 
+			if(i == businessnum.length-1) {
+				businessday += businessnum[i];
+			}else {
+				businessday += businessnum[i] + ",";
+			}
 		}
+		System.out.println(businessnum);
+		// 가게 SET
 		String shopType = switchShopType(shopTypeNum);
 		shop.setShopType(shopType);
 		shop.setShopLat(null);
 		shop.setShopLng(null);
 		shop.setShopAddr(addr1+addr2);
 		shop.setShopLongAddr(zip + "/" + addr1 + "/" + addr2);
-		shop.setBusinessDay(Integer.parseInt(businessday));
+		shop.setBusinessDay(businessday);
 		shop.setShowShopYN("N");
+		// 가게 파일 저장(서버, 디비)
 		Shop fileShop = saveFile(shopPhoto, request);
 		if(fileShop != null) {
 			shop.setShopFileName(fileShop.getShopFileName());
@@ -308,46 +311,60 @@ public class PartnerMyPageController {
 			shop.setShopFileSize(fileShop.getShopFileSize());
 			shop.setShopUploadTime(fileShop.getShopUploadTime());
 		}
-		// 가게 파일 저장(서버, 디비)
 		/////// 샵 정보, 메뉴, 메뉴 사진 인서트 or 업데이트 
 		int result = sService.insertPartnerShop(shop);
 		
 		System.out.println("샵 넘버 가져오기"+shop.getShopNo());
 		
+		/////// 메뉴 사진 insert
 		MenuPhoto menuPhoto = new MenuPhoto();
-		
 		// 서버에 파일 저장하는 작업
 		for(int i=0; i<mainMenuPhoto.length; i++) {
-			if(!mainMenuPhoto[i].getOriginalFilename().equals("")) {
+			if(!mainMenuPhoto[i].getOriginalFilename().equals("")) { // 비어있지 않으면(!)
 				MenuPhoto photoFile = saveMultiFile(mainMenuPhoto[i], request);
-				System.out.println("이게 되나?"+photoFile.toString());
+				System.out.println("set 전"+photoFile.toString());
 				if(photoFile != null) {
 					menuPhoto.setMenuFileName(photoFile.getMenuFileName());
 					menuPhoto.setMenuFilePath(photoFile.getMenuFilePath());
 					menuPhoto.setMenuFileSize(photoFile.getMenuFileSize());
 					menuPhoto.setMenuUploadTime(photoFile.getMenuUploadTime());
 					menuPhoto.setShopNo(shop.getShopNo());
-					System.out.println("set 한 후"+menuPhoto.toString());
+					System.out.println("set 후"+menuPhoto.toString());
 					int insertMenuPhoto = sService.insertMenuPhoto(menuPhoto);
-					if(insertMenuPhoto < 0) {
+					if(insertMenuPhoto < 0) { // insert 가 실패하면 for문 빠져나오기
 						break;
 					}
 				}
 			}
 		}
 		
-		// 메인메뉴 등록
-		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());
-		mainMenu.setShopNo(shop.getShopNo());
-		int insertMainMenu = sService.insertMainMenu(mainMenu);
-		
-		if(insertMainMenu > 0) {
-			return  "redirect:partnerMyPage.dz";
-		} else {
-			model.addAttribute("msg", "Shop등록실패");
-			return "common/errorPage";
+		/////// 메인메뉴 등록 insert
+//		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());
+//		for(int i=0; i<mainMenu.length; i++) {
+//			mainMenu[i].setShopNo(shop.getShopNo());
+//			int insertMainMenu = sService.insertMainMenu(mainMenu[i]);
+//			System.out.println("메뉴"+mainMenu[i].toString());
+//			if(insertMainMenu > 0) {
+//				return  "redirect:partnerMyPage.dz";
+//			} else {
+//				model.addAttribute("msg", "Shop등록실패");
+//				return "common/errorPage";
+//			}
+//		}
+		// 메뉴 이름과 가격을 배열로 받아서 객체에 set해주고 insert 해주는 모든 과정을 for문으로 돌림
+				// (그 수만큼 메뉴 값 들어감)
+		for (int i = 0; i < mainMenuName.length; i++) {
+			MainMenu main = new MainMenu();
+			main.setMainMenuName(mainMenuName[i]);
+			main.setMainMenuPrice(mainMenuPrice[i]);
+			main.setShopNo(shop.getShopNo());
+			// 메뉴정보 저장 insert문
+			int insertMainmenu = sService.insertMainMenu(main);
 		}
+		
+		return "redirect:partnerMyPage.dz";
 	}
+	
 	
 	// 가게정보 수정 화면(view)
 	@RequestMapping(value="shopUpdateView.dz", method=RequestMethod.GET)
@@ -363,109 +380,90 @@ public class PartnerMyPageController {
 		return "partnerMyPage/partnerShopInfo";
 	}
 	
+	
 	// 가게정보 수정
 	@RequestMapping(value="shopUpdate.dz", method=RequestMethod.POST )
-	public String shopUpdate(@ModelAttribute Shop shop, @ModelAttribute MainMenu mainMenu,
+	public String shopUpdate(@ModelAttribute Shop shop,
 								@RequestParam("zip") String zip, HttpServletRequest request,
 								@RequestParam("addr1") String addr1, @RequestParam("addr2") String addr2,
 								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
-								@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile, Model model, @RequestParam("userNo") int userNo,
-								MultipartHttpServletRequest multiUploadFile) {
+								@RequestParam(value="shopPhoto", required=false) MultipartFile shopPhoto,
+								@RequestParam(value="mainMenuPhoto", required=false) MultipartFile[] mainMenuPhoto, Model model, @RequestParam("userNo") int userNo,
+								@RequestParam("mainMenuName") String[] mainMenuName, @RequestParam("mainMenuPrice") int[] mainMenuPrice ) {
 		
-
-		///// 다중파일 test~~~~~~~~~
-		// 저장경로 설정
-		/*String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\partnerUploadFiles";
-		String fileName = ""; // 업로드 되는 파일명 - 밑에서는 새로 변경
-		
-		// 저장 폴더 선택
-		File folder = new File(savePath);
-		
-		// 폴더 없으면 자동생성
-		if(!folder.exists()) {
-			folder.mkdir();
-		}
-		
-		// 파일명 변경하기
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-
-		
-		// 파일 저장.. 아마도
-		Iterator<String> files = multiUploadFile.getFileNames();
-		while(files.hasNext()) {
-			String uploadFiles = files.next();
-			
-			MultipartFile mFile = multiUploadFile.getFile(uploadFiles);
-			fileName = mFile.getOriginalFilename();
-			System.out.println("실제 파일 이름: " + fileName);
-		
-			try {
-				mFile.transferTo(new File(savePath+fileName));
-			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		*/
+		////////// jsp 데이터 받아서 인서트(업데이트)
+			//		- shop(update), menuPhoto(delete-insert), mainMenu(delete - insert)
 		
 		
-		
-		System.out.println("샵 정보 받아오나?"+shop.toString());
-		System.out.println("메뉴 정보 받아오나?"+mainMenu.toString());
-		
-		
-		MenuPhoto menuPhoto = new MenuPhoto();
-		
-		// 서버에 파일 저장하는 작업
-		for(int i=0; i<uploadFile.length; i++) {
-			
-			if(!uploadFile[i].getOriginalFilename().equals("")) {
-				//Shop shopFile = saveMultiFile(uploadFile, request);
-				MenuPhoto photoFile = saveMultiFile(uploadFile[i], request);
-				System.out.println("이게 되나?"+photoFile.toString());
-				if(photoFile != null) {
-					/*shop.setShopFileName(shopFile.getShopFileName());
-					shop.setShopFilePath(shopFile.getShopFilePath());
-					shop.setShopFileSize(shopFile.getShopFileSize());
-					shop.setShopUploadTime(shopFile.getShopUploadTime());*/
-					menuPhoto.setMenuFileName(photoFile.getMenuFileName());
-					menuPhoto.setMenuFilePath(photoFile.getMenuFilePath());
-					menuPhoto.setMenuFileSize(photoFile.getMenuFileSize());
-					menuPhoto.setMenuUploadTime(photoFile.getMenuUploadTime());
-					menuPhoto.setShopNo(shop.getShopNo());
-					System.out.println("set 한 후"+photoFile.toString());
-				}
-			}
-			
-		}
-		
+		/////// shop update
+		// 영업일 저장
 		String businessday = "";
-		for (String bs : businessnum) {
-			businessday += bs;
+		for(int i=0; i<businessnum.length; i++) {
+			if(i == businessnum.length-1) {
+				businessday += businessnum[i];
+			}else {
+				businessday += businessnum[i] + ",";
+			}
 		}
 		String shopType = switchShopType(shopTypeNum);
 		shop.setShopType(shopType);
 		shop.setShopLat(null);
 		shop.setShopLng(null);
 		shop.setShopAddr(addr1+addr2);
-		shop.setBusinessDay(Integer.parseInt(businessday));
+		shop.setShopLongAddr(zip + "/" + addr1 + "/" + addr2);
+		shop.setBusinessDay(businessday);
 		shop.setShowShopYN("N");
 		
 		// 가게 파일 저장(서버, 디비)
-		/////// 샵 정보, 메뉴, 메뉴 사진 인서트 or 업데이트 
+		Shop fileShop = saveFile(shopPhoto, request);
+		if(fileShop != null) {
+			shop.setShopFileName(fileShop.getShopFileName());
+			shop.setShopFilePath(fileShop.getShopFilePath());
+			shop.setShopFileSize(fileShop.getShopFileSize());
+			shop.setShopUploadTime(fileShop.getShopUploadTime());
+		}
+		// shop UPDATE
 		int result = sService.updatePartnerShop(shop);
-		int insertMenuPhoto = sService.insertMenuPhoto(menuPhoto);
-		int insertMainMenu = sService.insertMainMenu(mainMenu);
-		if(result > 0) {
-			return  "redirect:partnerMyPage.dz";
-		} else {
-			model.addAttribute("msg", "Shop등록실패");
-			return "common/errorPage";
+		
+		/////// 메뉴 사진 insert
+		MenuPhoto menuPhoto = new MenuPhoto();
+		for(int i=0; i<mainMenuPhoto.length; i++) {
+			if(!mainMenuPhoto[i].getOriginalFilename().equals("")) {
+				MenuPhoto photoFile = saveMultiFile(mainMenuPhoto[i], request);
+				if(photoFile != null) {
+					menuPhoto.setMenuFileName(photoFile.getMenuFileName());
+					menuPhoto.setMenuFilePath(photoFile.getMenuFilePath());
+					menuPhoto.setMenuFileSize(photoFile.getMenuFileSize());
+					menuPhoto.setMenuUploadTime(photoFile.getMenuUploadTime());
+					menuPhoto.setShopNo(shop.getShopNo());
+					
+					// menuPhoto(delete-insert)
+					int insertMenuPhoto = sService.insertMenuPhoto(menuPhoto);
+					if(insertMenuPhoto < 0) {
+						break;
+					}
+				}
+			}
 		}
 		
+		/////// 메인메뉴 insert
+		for(int i=0; i<mainMenuName.length; i++) { // 메뉴이름과 가격 수 똑같으므로 
+			MainMenu menu = new MainMenu();
+			menu.setMainMenuName(mainMenuName[i]);
+			menu.setMainMenuPrice(mainMenuPrice[i]);
+			menu.setShopNo(shop.getShopNo());
+			
+			// mainMenu(delete - insert)
+			int insertMainMenu = sService.insertMainMenu(menu);
+//			if(insertMainMenu > 0) {
+//				return  "redirect:partnerMyPage.dz";
+//			} else {
+//				model.addAttribute("msg", "Shop 수정 실패");
+//				return "common/errorPage";
+//			}
+		}
+
+		return  "redirect:partnerMyPage.dz";
 	}
 	
 	

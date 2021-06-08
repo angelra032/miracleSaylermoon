@@ -6,9 +6,12 @@ public class MainMenu {
 	private int mainMenuNo;
 	private String mainMenuName;
 	private int mainMenuPrice;
+	
 
-	public MainMenu() {}
-
+	public MainMenu() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public MainMenu(int shopNo, int mainMenuNo, String mainMenuName, int mainMenuPrice) {
 		super();
 		this.shopNo = shopNo;
@@ -16,6 +19,7 @@ public class MainMenu {
 		this.mainMenuName = mainMenuName;
 		this.mainMenuPrice = mainMenuPrice;
 	}
+
 
 	public int getShopNo() {
 		return shopNo;
