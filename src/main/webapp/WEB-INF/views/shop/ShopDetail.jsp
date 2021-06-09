@@ -65,7 +65,7 @@
 									,
 								</c:if>
 							</c:forEach>
-							요일 휴무
+							휴무
 						</div>
 					</c:if>
 					<c:if test="${empty breakDays }">
@@ -99,7 +99,6 @@
 									<div class="detail-right menu-img menu-img-thumb-div"> <!-- 이미지파일 여러개 생성 ( 미리보기 가능 ) ( 최대 몇개 ? ) -->
 										<img src="${photo.menuFilePath }/${photo.menuFileName }" id="menu-img-thumb" class="menu-img-thumb" alt="menuImg">
 									</div> 
-									
 									<div id="img-modal" title="X를 클릭하면 창이 닫힙니다." onclick="imgModalClose();" class="detail-right menu-img menu-img-detail-div modal">
 									   <span>X</span>
 									   <img src="${photo.menuFilePath }/${photo.menuFileName }" id="img-modal-content" class="menu-img-detail" alt="menuImg"  width="300">
@@ -616,7 +615,7 @@
 						var contentReviewRight = $("<div class='rContent right'>");
 						
 						/* 맛집 후기 사진 없을 때 */
-						if(data.mzList[i].mFileName == null) {
+						if(data.mzList[i].mFileName == 'EMPTY') {
 							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
 						}else {
 							contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.mzList[i].mFileName+"' alt='shopMain'>");

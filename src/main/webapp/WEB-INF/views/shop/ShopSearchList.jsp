@@ -27,7 +27,7 @@
 			</div>
 						
 			<div class="searchBar">
-				<form action>
+				<form action="searchShop.dz">
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
 					<button id="btn-search" type="submit"><img src="/resources/images/search.png"></button>
 					<!-- <button id="btn-search"><img src="/resources/images/search.png"></button> -->
@@ -148,8 +148,6 @@
 				if(searchKeyword == "") {
 					alert("검색하실 식당명, 음식 종류를 입력해주세요.");
 					return false;
-				}else {
-					location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
 				}
 			});
 				
