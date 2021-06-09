@@ -14,6 +14,7 @@
       <result property="shopName" column="SHOP_NAME"></result>
       <result property="userNick" column="USER_NICK"></result>
       <result property="description" column="RESERVE_DESCRIPTION"></result>
+	  <result property="orderDate" column="ORDER_DATE"></result>
    </resultMap>
 
 	<insert id="insertRservation">

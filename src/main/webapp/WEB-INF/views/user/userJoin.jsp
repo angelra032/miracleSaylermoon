@@ -765,16 +765,16 @@
 			});
 			// 안적었을때 - 사업자번호를입력해주세요
 			$(".pverielem").on("blur", function() {
-				/* $('.pverinoti').css('display', 'none'); */
 				if (userPVeri.val() =="") {
 					$('.pveri_noti_0').css('color', '#ff5442');
 					$('.pveri_noti_0').css('display', 'block');
 					$('.pverielem').css('border', '1px solid #ff5442');
 				}else{
-					/* $('.pverinoti').css('display', 'none');
-					$('.pverielem').css('border', '0'); */
+					
 				}
 			});
+			
+			
 			
 			// 이메일 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 			userEmail = $(".current .emailelem");

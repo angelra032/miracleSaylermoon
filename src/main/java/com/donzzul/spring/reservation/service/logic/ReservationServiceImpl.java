@@ -22,8 +22,8 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public int insertReservation(Reservation reservation) {
-		
-		return rStore.insertReservation(reservation);
+		rStore.insertReservation(reservation);
+		return rStore.updateUserPoint(reservation);
 	}
 	
 	@Override
@@ -67,10 +67,8 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public int cancleReservation(Reservation reservation) {
-		System.out.println("여기 넘어왔니...?");
-		int result = rStore.cancleReservation(reservation);
-		System.out.println("서비스 임플 "+ result);
-		return result;
+		rStore.cancleReservation(reservation);
+		return rStore.updateRstate(reservation);
 	}
 	
 	@Override
