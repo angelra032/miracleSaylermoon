@@ -296,11 +296,17 @@
 								<c:if test="${max==1}"></c:if>
 								<c:forEach items="${photo }" var="photo">
 									<label class="form-elem uploadFile" for="file">파일 선택</label>
-									<input readonly="readonly" type="text" value="${photo.menuFileName }" />
-									<input style="display: none;" name="mainMenuPhoto" class="form-elem uploadFile" type="file" id="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="${photo.menuFileName }" ><%-- ${photo.menuFileName } --%>
+<%-- 									<input readonly="readonly" type="text" value="${photo.menuFileName }" /> --%>
+									<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" id="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="why?" ><%-- ${photo.menuFileName } --%>
 								</c:forEach>
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" >
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" >
+								
+								<div class="file_box">
+								    <input type="file" name="mainMenuPhoto"  class="form-elem uploadFile" id="" value="" title="">
+								    <p class="file_name">파일명이 없습니다.</p>
+								</div>
+								
+<!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
+<!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 							</div>
 							
 							<h1>유효성검사 필요, 메뉴사진(다중업로드) 추가, MAIN_MENU 테이블 입력필요</h1>
@@ -322,7 +328,10 @@
 
 	$(function() {
 
-		alert("하하");
+		$('input[name="leejooyeon"]').change(function(e){
+			$(this).parent().find(".file_name").text(e.target.files[0].name);
+		});
+
 		console.log("하하");
 		// long 주소 자르기
 		var zip = $("#zip"); // 우편번호	숫자야? string이야?
@@ -347,19 +356,19 @@
 		console.log(day.length);
 		for(var i=0; i<day.length; i++){
 			switch(day[i]){
-			case 1: $("input:checkbox[id='business-1']").prop("checked", true);
+			case '1': $("input:checkbox[id='business-1']").prop("checked", true);
 					break;
-			case 2: $("input:checkbox[id='business-2']").prop("checked", true);
+			case '2': $("input:checkbox[id='business-2']").prop("checked", true);
 					break;
-			case 3: $("input:checkbox[id='business-3']").prop("checked", true);
+			case '3': $("input:checkbox[id='business-3']").prop("checked", true);
 					break;
-			case 4: $("input:checkbox[id='business-4']").prop("checked", true);
+			case '4': $("input:checkbox[id='business-4']").prop("checked", true);
 					break;
-			case 5: $("input:checkbox[id='business-5']").prop("checked", true);
+			case '5': $("input:checkbox[id='business-5']").prop("checked", true);
 					break;
-			case 6: $("input:checkbox[id='business-6']").prop("checked", true);
+			case '6': $("input:checkbox[id='business-6']").prop("checked", true);
 					break;
-			case 7: $("input:checkbox[id='business-7']").prop("checked", true);
+			case '7': $("input:checkbox[id='business-7']").prop("checked", true);
 					break;
 			}
 		}
