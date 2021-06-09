@@ -1,5 +1,6 @@
 package com.donzzul.spring.partnermypage.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -529,10 +530,17 @@ public class PartnerMyPageController {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		
 		for(int i = 0; i< rList.size(); i++) {
+			System.out.println(rList.toString());
 			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("title", rList.get(i).getUserNick());
+			map.put("title", rList.get(i).getDescription());
 			map.put("start", rList.get(i).getReserveDate());
-			map.put("end", rList.get(i).getReserveDate());
+			
+			map.put("userNick", rList.get(i).getUserNick());
+			map.put("reserveDate", rList.get(i).getReserveDate());
+			map.put("reserveTime", String.valueOf(rList.get(i).getReserveTime()));
+			map.put("reserveCount", String.valueOf(rList.get(i).getReserveCount()));
+			map.put("description", rList.get(i).getDescription());
+			map.put("orderDate", rList.get(i).getOrderDate());
 			list.add(map);
 		}
 		return list;

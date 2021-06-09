@@ -14,6 +14,8 @@
 	rel="stylesheet">
 <!-- chatting css -->
 <link rel="stylesheet" href="/resources/css/chatting/chat.css">
+<!-- chatting js -->
+<script src="/resources/css/chatting/chat.js"></script>
 <!-- JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -159,7 +161,7 @@
 						if(data != null){
 							if(data.status == 'success'){
 								$("#userId").val(data.userId);
-								wsOpen(data.userId);
+								wsOpen(data.userId,"base");
 								$(".chatList").hide(); //채팅방 리스트숨기기
 								$(".userChat").show();
 							}else{
@@ -266,16 +268,11 @@
 <script type="text/javascript">
 	var click = true;
 	$("#requestBtn").on("click", function() {
-		if(click){
-			var userName = $("#userName").val();
-			$("#yourName").hide();
-			$("#yourMsg").show();
-			chatName();
-			var userType = '${loginUser.userType }';
-			click = !click
-		}else{
-			alert("상담원과 연결중입니다.")
-		}
+		var userName = $("#userName").val();
+		$("#yourName").hide();
+		$("#yourMsg").show();
+		chatName();
+		var userType = '${loginUser.userType }';
 	});
 	
 	function clickSubmit(){
@@ -295,7 +292,7 @@
 			data: {"userId":"${loginUser.userId }"},
 			type: "post",
 			success: function (data) {
-				wsOpen("${loginUser.userId }");
+				wsOpen("${loginUser.userId }","user");
 			},
 			error : function(err){
 				console.log('error');
@@ -305,9 +302,59 @@
 	
 	var ws;
 
-	function wsOpen(userId) {
-		ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
-		wsEvt();
+	function wsOpen(userId,type) {
+		//localStorage.getItem('ws')
+		//localStorage.setItem('ws', ws);
+		if(type == 'user'){
+			//사용자
+			if(global.ws == null){
+				ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
+				global.ws = ws;
+			}else{
+				ws = global.ws;
+			}
+		}else{
+			//관리자
+			var userList = global.user;
+			console.log(userList);
+			var chk = false;
+			for (var i = 0; i < userList.length; i++) {
+				if(userList[i] == userId){
+					chk = true;
+				}
+			}
+			if(global.user.length == 0){
+				global.user[0] = userId;
+			}else{
+				global.user[global.user.length + 1] = userId;
+			}
+			console.log('userList');
+			console.log(userList);
+			console.log('wsList');
+			console.log(global.user.wsList);
+			if(chk){
+				//소켓 이미 생성했을경우
+				console.log('if')
+				if(eval("global.wsList." + userId)){
+					ws = eval('global.wsList.'+userId);
+				}
+				console.log('if2');
+			}else{
+				console.log('else');
+				//소켓 최초 생성
+				ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
+				console.log('ws');
+				console.log(typeof(ws));
+				var d01 = "23123";
+				console.log('123213');
+				console.log(JSON.stringify(ws));
+				//eval("global.wsList." + userId + "="+JSON.stringify(ws));
+				global.wsList.user1 = ws;
+			}
+			console.log('ws2');
+			console.log(global.wsList);
+		}
+		//wsEvt();
 	}
 
 	function wsEvt() {
@@ -359,13 +406,13 @@
 			userId : $("#userId").val()
 		}
 		sendmsg = ws.send(JSON.stringify(option));
+	var sendmsg = "";
 	}
 	$(document).on("keypress", function(e) {
 		if (e.keyCode == 13) { //enter press
 			e.preventDefault();
 		}
 	});
-	var sendmsg = "";
 
 	
  	/*  $(document).on("click", "#sendBtn", function() {
@@ -384,8 +431,8 @@
 			data:{ "userNo" : userNo, "messageContent" : messageContent, "messageTime" : messageTime },
 			success : function(){
 			}
-		}); */
-	});  
+		});
+	});  */
 </script>
 
 

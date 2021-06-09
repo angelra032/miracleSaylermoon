@@ -18,11 +18,14 @@ public class Reservation {
 //  후기완료H(H) 한번 후기를 작성하면 rState 상태를 업데이트해서 다시 작성 못하게 한다
 	private String shopName;
 	private String userNick;
+	private String description;
+	private String orderDate;
 	
 	public Reservation() {}
 
 	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
-			String pointYn, int paymentPoint, int userNo, String rState, String shopName, String userNick) {
+			String pointYn, int paymentPoint, int userNo, String rState, String shopName, String userNick,
+			String description, String orderDate) {
 		super();
 		this.reservationNo = reservationNo;
 		this.shopNo = shopNo;
@@ -35,6 +38,8 @@ public class Reservation {
 		this.rState = rState;
 		this.shopName = shopName;
 		this.userNick = userNick;
+		this.description = description;
+		this.orderDate = orderDate;
 	}
 
 	public int getReservationNo() {
@@ -125,13 +130,29 @@ public class Reservation {
 		this.userNick = userNick;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationNo=" + reservationNo + ", shopNo=" + shopNo + ", reserveDate=" + reserveDate
 				+ ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn=" + pointYn
 				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + ", rState=" + rState + ", shopName="
-				+ shopName + ", userNick=" + userNick + "]";
+				+ shopName + ", userNick=" + userNick + ", description=" + description + ", orderDate=" + orderDate
+				+ "]";
 	}
 
-	
 }

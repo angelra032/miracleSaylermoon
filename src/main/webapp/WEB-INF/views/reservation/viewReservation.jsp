@@ -21,7 +21,9 @@
          selectable : true,
          businessHours : true,
          locale : "ko",
-         dayMaxEvents : false,
+         dayMaxEvents : 1,
+         contentHeight : "auto",
+         height: "500",
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
          },

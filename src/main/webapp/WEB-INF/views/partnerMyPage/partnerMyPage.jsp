@@ -230,7 +230,13 @@
 				dayMaxEvents : 2,
 				eventDidMount: function(info) {
 					tippy(info.el, {
-						   content: info.event.title,
+						
+						 content: 
+							 "예약고객닉네임 : " + info.event.extendedProps.userNick +"\n"+ 
+							 " 방문예정날짜 : " + info.event.extendedProps.reserveDate + "\n"+ 
+							 " 예약시간 : " + info.event.extendedProps.reserveTime + "\n"+ 
+							 " 예약인원 : " + info.event.extendedProps.reserveCount + "명 \n" +
+							 + info.event.extendedProps.orderDate + "에 예약하셨습니다."
 		            	});
 				    },
 				eventSources : [ {
@@ -242,7 +248,6 @@
 							data : { "shopNo" : "${shop.shopNo }", "rState" : "O"},
 							success : function(data) {
 								successCallback(data);
-								console.log(data);
 							}
 						});
 					}

@@ -13,10 +13,11 @@
       <result property="rState" column="R_STATE"></result>
       <result property="shopName" column="SHOP_NAME"></result>
       <result property="userNick" column="USER_NICK"></result>
+      <result property="description" column="RESERVE_DESCRIPTION"></result>
    </resultMap>
 
 	<insert id="insertRservation">
-		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo}, DEFAULT)
+		INSERT INTO RESERVATION VALUES(SEQ_RESERVATION.NEXTVAL, #{shopNo}, #{reserveDate}, #{reserveTime}, #{reserveCount}, #{pointYn}, #{paymentPoint}, #{userNo}, DEFAULT, SYSDATE)
 	</insert>
 	
 	<select id="getReserveNo" resultType="_int">
@@ -95,11 +96,7 @@
 	<select id="selectShopListCount" resultType="_int">
 		SELECT COUNT(*) FROM RESERVATION WHERE SHOP_NO = #{shopNo}
 	</select>
-	
-	
-	
-	
-	
+
 	<select id="selectAllByMZ" resultMap="reservationResultMap">
 		SELECT SHOP_NAME, SHOP_NO, RESERVE_DATE, RESERVE_TIME, RESERVE_COUNT, RESERVATION_NO, RESERVATION.USER_NO, R_STATE FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE RESERVATION.USER_NO = #{userNo} ORDER BY RESERVE_DATE DESC
 	</select>
@@ -107,9 +104,6 @@
 	<select id="listByMZToThree" resultMap="reservationResultMap">
 		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RESERVE_DATE DESC) AS NUM, SHOP_NAME, R_STATE, SHOP_NO, RESERVE_DATE, RESERVE_TIME, RESERVE_COUNT, RESERVATION_NO, RESERVATION.USER_NO FROM RESERVATION JOIN SHOP USING (SHOP_NO) WHERE  RESERVATION.USER_NO = #{userNo}) WHERE NUM BETWEEN 1 AND 3
 	</select>
-	
-
-	
 	
 	<resultMap type="User" id="userResultMap">
 		<id property="userNo" column="USER_NO"/>
@@ -137,7 +131,7 @@
 	
 	<!-- 사업자 마이페이지 캘린더에 예약 상태별 불러오기 -->
 	<select id="reservationState" resultMap="reservationResultMap">
-		SELECT RESERVE_DATE, (USER_NICK || '님 ' || RESERVE_TIME || '시 ' || RESERVE_COUNT || '명') AS USER_NICK  FROM RESERVATION JOIN "USER" USING (USER_NO) WHERE SHOP_NO = #{shopNo} AND R_STATE = #{rState}
+		SELECT USER_NICK, RESERVE_DATE, RESERVE_TIME, RESERVE_COUNT, ORDER_DATE, (USER_NICK || '님 ' || RESERVE_TIME || '시 ' || RESERVE_COUNT || '명') AS RESERVE_DESCRIPTION  FROM RESERVATION JOIN "USER" USING (USER_NO) WHERE SHOP_NO = #{shopNo} AND R_STATE = #{rState}
 	</select>
 	
 
