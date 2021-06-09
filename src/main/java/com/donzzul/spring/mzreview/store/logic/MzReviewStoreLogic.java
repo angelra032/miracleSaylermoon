@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.store.MzReviewStore;
@@ -120,6 +121,11 @@ public class MzReviewStoreLogic implements MzReviewStore {
 	@Override
 	public int getListCountToMyPage(int userNo) {
 		return sqlSession.selectOne("mzReviewMapper.selectListCountToMyPage", userNo);
+	}
+
+	@Override
+	public MzReviewPhoto selectRecentPhoto(int mzReviewNo) {
+		return sqlSession.selectOne("mzReviewMapper.selectRecentPhotoOne", mzReviewNo);
 	}
 
 }

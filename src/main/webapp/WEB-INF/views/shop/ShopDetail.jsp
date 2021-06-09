@@ -58,10 +58,14 @@
 					<div class="detail-left">휴무일</div>
 					<c:if test="${!empty breakDays }">
 						<div class="detail-right">
-							매주&nbsp;${ breakDays }
-							<%-- <c:forTokens var="break" items="${ breakDays }" delims=",">
-								<span><c:out value="${ break }">휴무</c:out></span>
-							</c:forTokens> --%>
+							매주
+							<c:forEach items="${breakDays }" var="days" varStatus="status">
+								${days}
+								<c:if test="${status.last eq false }">
+									,
+								</c:if>
+							</c:forEach>
+							요일 휴무
 						</div>
 					</c:if>
 					<c:if test="${empty breakDays }">
@@ -434,7 +438,7 @@
 							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
 								
 							if(data.rList[i].drmReviewPublicYN == "MZ"){
-								contentReviewLeft.append("<img src='/resources/boardImg/MzReview/ alt='shopMain'>");
+								/* contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.mzList[i].mFileName+"' alt='shopMain'>"); */
 	                            contentReviewRight.append("<span class='review-type'>맛집후기</span>")
 	                          					  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }else{
@@ -612,9 +616,11 @@
 						var contentReviewRight = $("<div class='rContent right'>");
 						
 						/* 맛집 후기 사진 없을 때 */
-						/* contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>"); */
-						
-						contentReviewLeft.append("<img src='/resources/images/shopMainImg/realPasta.jpeg' alt='shopMain'>");
+						if(data.mzList[i].mFileName == null) {
+							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
+						}else {
+							contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.mzList[i].mFileName+"' alt='shopMain'>");
+						}
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
 										  .append("<span class='review-type'>맛집후기</span>")
 										  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.mzList[i].mReviewNo + "' class='review-detail'>더보기</a><br>")

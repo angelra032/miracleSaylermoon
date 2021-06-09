@@ -33,5 +33,5 @@ public interface MzReviewService {
 	public int insertPhoto(MzReviewPhoto mzReviewPhoto);
 	public ArrayList<MzReviewPhoto> selectPhoto(int mzReviewNo);
 	public int deleteBeforePhoto(int mzReviewNo);
-	public ArrayList<MzReviewPhoto> selectPhotoList(ArrayList<DreamReview> rList); // 후기 사진 담아오기
+	public ArrayList<MzReviewPhoto> selectRecentPhoto(ArrayList<MzReview> reviewList); // 후기 사진 담아오기
 }

@@ -87,6 +87,11 @@
 		DELETE FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
 	</delete>
 	
+	<!-- 후기 사진 중 가장 최근 사진만 가져오기 -->
+	<select id="selectRecentPhotoOne" resultMap="mzPhotoResultMap">
+		SELECT MZREVIEW_RENAME_FILENAME, MZREVIEW_FILEPATH FROM (SELECT * FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo} ORDER BY MZREVIEW_FILETIME DESC) WHERE ROWNUM = 1
+	</select>
+	
 	
 	<!-- 더보기 - 가게 MZ(맛집) 후기 5개씩 --> 
 	<select id="selectMoreMzReview"  resultMap="mzReviewResultMap">
