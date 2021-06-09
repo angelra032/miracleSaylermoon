@@ -110,14 +110,30 @@
 <script>
 	$('.board-menu-btn').eq(4).css('background','#0160ff').css('color','white');
 	
-	function deleteResult(data) {
+	function deleteResult(noticeNo) {
         var result = confirm('글을 삭제합니다.');
         if(result) {
-            location.href='noticeDelete.dz?noticeNo=' + data;
-			location.href='adminNoticeList.dz';
+        	$.ajax({
+        		url : "noticeDelete.dz",
+    			data : { "noticeNo" : noticeNo },
+    			success : function(data){ 
+    				if(data == "success"){
+    					reloadQnaList();					
+    				}else { // 남은 데이터 없을때
+    					alert("삭제 실패했습니다");
+    				}
+    			}, //end of success
+    			error : function() {
+    				console.log("전송실패");
+    			}
+        	});
         } else {
 			location.href='adminNoticeList.dz';
         }
     }
+	
+	function reloadQnaList() {
+		$(".reserv-list").load("adminNoticeList.dz .reserv-list");
+	}
 </script>
 </html>
