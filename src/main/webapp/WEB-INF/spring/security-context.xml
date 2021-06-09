@@ -29,7 +29,7 @@
 		<intercept-url pattern="/allReviewListByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무감사후기목록 -->
 		<intercept-url pattern="/allQnaListByDream.dz" access="hasRole('ROLE_DREAM')" /> <!-- 꿈나무문의글목록 -->
 		<!-- 일반회원만 -->
-		<intercept-url pattern="/mzMyPage.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원마이페이지 -->
+		<!-- <intercept-url pattern="/mzMyPage.dz" access="hasRole('ROLE_MZ')" /> --> <!-- 일반회원마이페이지 -->
 		<intercept-url pattern="/mzReservationList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원예약목록 -->
 		<intercept-url pattern="/mzPickList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반회원가고싶다 목록 -->
 		<intercept-url pattern="/printDonAllList.dz" access="hasRole('ROLE_MZ')" /> <!-- 일반돈쭐리스트 목록 -->
