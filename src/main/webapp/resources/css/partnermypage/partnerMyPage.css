@@ -321,3 +321,7 @@ option {
   font-family: Roboto, sans-serif;
   font-size: 1rem;
 }
+
+.tooltip-inner {
+    white-space: pre-wrap;
+}
