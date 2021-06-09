@@ -243,6 +243,33 @@ public class UserController {
 		}
 	}
 	
+	// 카카오로그인 중복확인(있냐~ 없냐~) - 없으면 넣기
+	@ResponseBody 
+	@RequestMapping(value = "countKakaoUser.dz", method = RequestMethod.GET)
+	public String countKakaoUser(HttpServletRequest request,
+								@RequestParam("kakaoId") String kakaoId,
+								@RequestParam("kakaoNickname") String kakaoNickname,  Model model) {
+		if(kakaoId != null && kakaoNickname != null) {
+			int result= service.countKakaoUser(kakaoId);
+			if (result == 0) {
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("kakaoId", kakaoId);
+				map.put("kakaoNickname", kakaoNickname);
+				int insertResult= service.insertKakaoUser(map);
+				if (insertResult>0) {
+					return "success";
+				}else {
+					return "fail";
+				}
+			}else {
+				return "success";
+			}
+		}else {
+			return "fail";
+		}
+	}
+	
+	
 	// 구글 로그인
     @RequestMapping(value = "googlelogin.dz", method = RequestMethod.GET)
     public String googleLogin(HttpServletRequest request, 
