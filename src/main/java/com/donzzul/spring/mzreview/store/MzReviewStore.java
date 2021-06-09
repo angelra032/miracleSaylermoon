@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.shop.domain.Shop;
@@ -30,4 +31,5 @@ public interface MzReviewStore {
 	public int insertPhoto(MzReviewPhoto mzReviewPhoto);
 	public ArrayList<MzReviewPhoto> selectPhoto(int mzReviewNo);
 	public int deleteBeforePhoto(int mzReviewNo);
+	public MzReviewPhoto selectRecentPhoto(int mzReviewNo);
 }

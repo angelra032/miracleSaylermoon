@@ -27,8 +27,11 @@
 			</div>
 						
 			<div class="searchBar">
-				<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
-				<button id="btn-search"><img src="/resources/images/search.png"></button>
+				<form action>
+					<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
+					<button id="btn-search" type="submit"><img src="/resources/images/search.png"></button>
+					<!-- <button id="btn-search"><img src="/resources/images/search.png"></button> -->
+				</form>
 			</div>
 			
 			<!-- 테마 메인!!!!!!!!! -->
@@ -129,8 +132,18 @@
 
 
 	<script>
-		$(function() {
+		/* $(function() {
 			$("#btn-search").on("click", function() {
+				var searchKeyword = $("#searchBox").val();
+				if(searchKeyword == "") {
+					alert("검색하실 식당명, 음식 종류를 입력해주세요.");
+					return false;
+				}else {
+					location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
+				}
+			}); */
+		$(function() {
+			$("#btn-search").on("submit", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
 					alert("검색하실 식당명, 음식 종류를 입력해주세요.");

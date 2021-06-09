@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.service.MzReviewService;
@@ -121,6 +122,20 @@ public class MzReviewServiceImpl implements MzReviewService {
 	@Override
 	public int getListCountToMyPage(int userNo) {
 		return mStore.getListCountToMyPage(userNo);
+	}
+
+	@Override
+	public ArrayList<MzReviewPhoto> selectRecentPhoto(ArrayList<MzReview> reviewList) {
+		ArrayList<MzReviewPhoto> mzPhotoList = new ArrayList<MzReviewPhoto>();
+		for(int i = 0; i < reviewList.size(); i++) {
+			MzReviewPhoto mReviewPhoto = new MzReviewPhoto();
+			int mzReviewNo = reviewList.get(i).getmReviewNo();
+			System.out.println("mzReviewNo : " + mzReviewNo);
+			mReviewPhoto = mStore.selectRecentPhoto(mzReviewNo);
+			
+			mzPhotoList.add(mReviewPhoto);
+		}
+		return mzPhotoList;
 	}
 
 

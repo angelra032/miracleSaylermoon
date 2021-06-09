@@ -23,6 +23,7 @@ import com.donzzul.spring.common.Pagination;
 import com.donzzul.spring.dreamreview.domain.DreamReview;
 import com.donzzul.spring.dreamreview.service.DreamReviewService;
 import com.donzzul.spring.mzreview.domain.MzReview;
+import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.pick.domain.Pick;
 import com.donzzul.spring.pick.service.PickService;
@@ -215,10 +216,8 @@ public class ShopController {
 				rankList.get(i).setDrmReviewContent(changeCon);
 			}
 			
-			
-			
 			// 휴무일 체크해서 가져오기
-//			dayOffs(rankList);
+			dayOffList(rankList);
 			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
@@ -235,6 +234,9 @@ public class ShopController {
 				String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
 				newSList.get(i).setDrmReviewContent(changeCon);
 			}
+			
+			// 휴무일 체크해서 가져오기
+			dayOffList(newSList);
 			
 			mv.addObject("newSList", newSList);
 			mv.addObject("themeNo", themeNo);
@@ -280,6 +282,9 @@ public class ShopController {
 					themeList.get(i).setDrmReviewContent(changeCon);
 				}
 				
+				// 휴무일 체크해서 가져오기
+				dayOffList(themeList);
+				
 				mv.addObject("pi", pi);
 				mv.addObject("themeNo", themeNo);
 				mv.addObject("themeList", themeList);
@@ -311,6 +316,10 @@ public class ShopController {
 			searchList.get(i).setDrmReviewContent(changeCon);
 		}
 		
+		// 휴무일 체크해서 가져오기
+//		for
+		dayOffList(searchList);
+		
 		mv.addObject("pi", pi);
 		mv.addObject("sList", searchList);
 		mv.addObject("searchKeyword", searchKeyword);
@@ -330,10 +339,117 @@ public class ShopController {
 		
 	}
 	
-	// 영업일 가져오기
-	public ArrayList<Integer> dayOffs(Shop shop) {
+	// 가게 리스트 영업일 가져오기
+		public ArrayList<String> dayOffList(ArrayList<Shop> shopList) {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			ArrayList<String> breakDays = new ArrayList<String>();
+			ArrayList<String> oneWeek = new ArrayList<String>();
+			oneWeek.add("1");
+			oneWeek.add("2");
+			oneWeek.add("3");
+			oneWeek.add("4");
+			oneWeek.add("5");
+			oneWeek.add("6");
+			oneWeek.add("7");
+			System.out.println("oneWeek : " + oneWeek); // 확인용
+			
+			
+			String[] workingDays = {};
+			
+			for(int i = 0; i < shopList.size(); i++) {
+				workingDays = shopList.get(i).getBusinessDay().split(",");
+				System.out.println("workingDays : " + workingDays.toString()); // 확인용
+				
+				ArrayList<String> shopOneWeek = new ArrayList<String>(Arrays.asList(workingDays));
+				System.out.println(shopOneWeek.toString()); // 확인용
+				
+				if(!shopOneWeek.contains("1")) {
+					System.out.println("shopOneWeek 에는 1이 없다.");
+					sb.append("월");
+//					breakDays.add("월");
+				}
+				if(!shopOneWeek.contains("2")) {
+					System.out.println("shopOneWeek 에는 2가 없다.");
+					sb.append("화");
+//					breakDays.add("화");
+				}
+				if(!shopOneWeek.contains("3")) {
+					System.out.println("shopOneWeek 에는 3이 없다.");
+					sb.append("수");
+//					breakDays.add("수");
+				}
+				if(!shopOneWeek.contains("4")) {
+					System.out.println("shopOneWeek 에는 4가 없다.");
+					sb.append("목");
+//					breakDays.add("목");
+				}
+				if(!shopOneWeek.contains("5")) {
+					System.out.println("shopOneWeek 에는 5가 없다.");
+					sb.append("금");
+//					breakDays.add("금");
+				}
+				if(!shopOneWeek.contains("6")) {
+					System.out.println("shopOneWeek 에는 6이 없다.");
+					sb.append("토");
+//					breakDays.add("토");
+				}
+				if(!shopOneWeek.contains("7")) {
+					System.out.println("shopOneWeek 에는 7이 없다.");
+					sb.append("일");
+//					breakDays.add("일");
+				}
+				
+				System.out.println(sb);
+				
+				System.out.println(breakDays);
+			}
+			
+			
+			
+			
+
+			return breakDays;
+		}
+	
+	
+	//D 가게 상세 페이지 출력
+	@ResponseBody
+	@RequestMapping(value="shopDetail.dz")
+	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, HttpSession session, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
+		// 파라미터 - 가게 번호 (쿼리스트링), 세션 userNo
+		User user = (User) session.getAttribute("loginUser");
+		Pick pick = new Pick();
+		if(user != null) {
+			// 출력 페이지에서 찜 상태 변경
+			HashMap<String, Integer> pickParam = new HashMap<String, Integer>();
+			pickParam.put("userNo", user.getUserNo());
+			pickParam.put("shopNo", shopNo);
+			pick = pService.checkPick(pickParam);
+		}
 		
-		ArrayList<Integer> breakDay = null;
+		Shop shop = sService.selectShopOne(shopNo); // 가게 상세정보 가져오기
+		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo); // 가게 메인메뉴 가져오기
+		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo); // 메뉴 사진 가져오기 
+		
+		ArrayList<String> breakDays = dayOffs(shop);
+		
+		mv.addObject("shop", shop);
+		mv.addObject("mainMenu", mainMenu);
+		mv.addObject("mPhoto", mPhoto);
+		mv.addObject("pick", pick);
+		mv.addObject("breakDays", breakDays);
+		mv.setViewName("shop/ShopDetail");
+		
+		return mv;
+		
+	}
+	
+	// 가게 상세 영업일 가져오기
+	public ArrayList<String> dayOffs(Shop shop) {
+		
+		ArrayList<String> breakDays = new ArrayList<String>();
 		String[] workingDays = shop.getBusinessDay().split(",");
 		
 		System.out.println("workingDays : " + workingDays.toString()); // 확인용
@@ -354,132 +470,39 @@ public class ShopController {
 		
 		if(!shopOneWeek.contains("1")) {
 			System.out.println("shopOneWeek 에는 1이 없다.");
+			breakDays.add("월");
 		}
 		if(!shopOneWeek.contains("2")) {
 			System.out.println("shopOneWeek 에는 2가 없다.");
+			breakDays.add("화");
 		}
 		if(!shopOneWeek.contains("3")) {
 			System.out.println("shopOneWeek 에는 3이 없다.");
+			breakDays.add("수");
 		}
 		if(!shopOneWeek.contains("4")) {
 			System.out.println("shopOneWeek 에는 4가 없다.");
+			breakDays.add("목");
 		}
 		if(!shopOneWeek.contains("5")) {
 			System.out.println("shopOneWeek 에는 5가 없다.");
+			breakDays.add("금");
 		}
 		if(!shopOneWeek.contains("6")) {
 			System.out.println("shopOneWeek 에는 6이 없다.");
+			breakDays.add("토");
 		}
 		if(!shopOneWeek.contains("7")) {
 			System.out.println("shopOneWeek 에는 7이 없다.");
+			breakDays.add("일");
 		}
 		
-		
-//		for(int i = 0; i < shopOneWeek.size(); i++) {
-//			if(!shopOneWeek.contains("7")) {
-//				System.out.println("shopOneWeek 에는"+ 7이 없다.");
-//			}else if(!shopOneWeek.contains("6")) {
-//				System.out.println("shopOneWeek 에는 6이 없다.");
-//			}
-//		}
-		
-		
-		
-//		for(int i = 0; i < oneWeek.length; i++) {
-//			for(int j = 0; j < workingDays.length; i++) {
-//				if(oneWeek[i].equals(workingDays[j])) {
-//					continue;
-//				}else {
-//					breakDay.add(oneWeek[i]);
-//				}
-//			}
-//		}
-		
+		System.out.println(breakDays);
+
+		return breakDays;
+	}
 
 		
-//		breakDay = new ArrayList<Integer>();
-//		for(String j : oneWeek) {
-//			int oneDay = Integer.parseInt(j);
-//			for(int i = 1; i < 8; i++) {
-//				if( oneDay == i ) {
-//													System.out.println("i : " + i);
-//													System.out.println("j : " + j);
-//													System.out.println("oneDay : " + oneDay);
-//					break;
-//				}else {
-//					breakDay.add(oneDay);
-//					continue;
-//				}
-//			}
-//		}
-//		System.out.println(breakDay.toString());
-			
-			
-			
-			
-//			for(int j = 0; j < workingDays.length; j++) {
-//				System.out.println("workingDays [" + i + "] : " + workingDays.toString()); // 확인용
-//				if(workingDays[j].equals("1")) {
-//					System.out.println("월");
-//				}else if(workingDays[j].equals("2")) {
-//					System.out.println("화");
-//					
-//				}else if(workingDays[j].equals("3")) {
-//					System.out.println("수");
-//					
-//				}else if(workingDays[j].equals("4")) {
-//					System.out.println("목");
-//					
-//				}else if(workingDays[j].equals("5")) {
-//					System.out.println("금");
-//					
-//				}else if(workingDays[j].equals("6")) {
-//					System.out.println("토");
-//					
-//				}else if(workingDays[j].equals("7")) {
-//					System.out.println("일");
-//				}
-////			}
-//		}
-		
-		return breakDay;
-	}
-	
-	//D 가게 상세 페이지 출력
-	@ResponseBody
-	@RequestMapping(value="shopDetail.dz")
-	public ModelAndView shopDetail(ModelAndView mv, @RequestParam("shopNo") int shopNo, HttpSession session, HttpServletResponse response,  @RequestParam HashMap<String, String> param) throws Exception, Exception {
-		// 파라미터 - 가게 번호 (쿼리스트링), 세션 userNo
-		User user = (User) session.getAttribute("loginUser");
-		Pick pick = new Pick();
-		if(user != null) {
-			// 출력 페이지에서 찜 상태 변경
-			HashMap<String, Integer> pickParam = new HashMap<String, Integer>();
-			pickParam.put("userNo", user.getUserNo());
-			pickParam.put("shopNo", shopNo);
-			pick = pService.checkPick(pickParam);
-		}
-		
-		
-		
-		Shop shop = sService.selectShopOne(shopNo); // 가게 상세정보 가져오기
-		ArrayList<MainMenu> mainMenu = sService.selectMainMenu(shopNo); // 가게 메인메뉴 가져오기
-		ArrayList<MenuPhoto> mPhoto = sService.selectMenuPhoto(shopNo); // 메뉴 사진 가져오기 
-		
-		dayOffs(shop);
-		
-		mv.addObject("shop", shop);
-		mv.addObject("mainMenu", mainMenu);
-		mv.addObject("mPhoto", mPhoto);
-		mv.addObject("pick", pick);
-		mv.setViewName("shop/ShopDetail");
-		
-		return mv;
-		
-	}
-	
-	
-	
 	// 가게 전체 후기 더보기
 	@ResponseBody
 	@RequestMapping(value="moreAllReview.dz", method=RequestMethod.GET)
@@ -501,6 +524,9 @@ public class ShopController {
 		// startNum ~ endNum 범위에 해당하는 전체 review 조회
 		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
 		System.out.println("더보기 후기 - "+rList.toString());
+		
+		// 맛집 후기 사진 가져오기
+//		ArrayList<MzReviewPhoto> rPhoto = mService.selectPhotoList(rList);
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 		resultMap.put("rList", rList);
@@ -536,6 +562,13 @@ public class ShopController {
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(searchParam);
 		System.out.println("더보기 감사 후기 - "+drList.toString());
 		
+		// 맛집 후기 태그 제거하여 shopList 에 담기
+		for(int i = 0; i < drList.size(); i++) {
+			String reviewContent = drList.get(i).getDrmReviewContent();
+			String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			drList.get(i).setDrmReviewContent(changeCon);
+		}
+		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 		resultMap.put("drList", drList);
 		resultMap.put("dataCnt", dataCnt);
@@ -568,6 +601,32 @@ public class ShopController {
 			// startNum ~ endNum 범위에 해당하는 감사 review 조회
 			ArrayList<MzReview> mzList = mService.selectAllMzReview(searchParam);
 			System.out.println("더보기 감사 후기 - "+mzList.toString());
+			
+			
+			// 맛집 후기 태그 제거하여 shopList 에 담기
+			for(int i = 0; i < mzList.size(); i++) {
+				String reviewContent = mzList.get(i).getmReviewContent();
+				String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+				mzList.get(i).setmReviewContent(changeCon);
+				System.out.println(changeCon);
+			}
+			
+			// 후기 사진 가져오기
+			ArrayList<MzReviewPhoto> mzPhotoList = mService.selectRecentPhoto(mzList);
+			System.out.println(mzPhotoList);
+			
+			// 최신 후기 사진 mzList 에 담기
+			if(!mzPhotoList.isEmpty()) {
+				for(int i = 0; i < mzPhotoList.size(); i++) {
+					String fileName = mzPhotoList.get(i).getMzReviewRenameFileName();
+					mzList.get(i).setmFileName(fileName);
+				}
+				for(int i = 0; i < mzPhotoList.size(); i++) {
+					String filePath = mzPhotoList.get(i).getMzReviewFilePath();
+					mzList.get(i).setmReviewFilePath(filePath);
+				}
+			}
+			System.out.println(mzList.get(0).getmReviewFilePath());
 			
 			HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 			resultMap.put("mzList", mzList);
