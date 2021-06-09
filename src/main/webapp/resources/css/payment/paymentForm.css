@@ -310,6 +310,7 @@ input[type=radio]{
 	/* 결제대행이용약관 */
 	.checkoutInformation {
 		margin-top : 60px;
+		display: inherit;
 	}
 	.information-1 {
 		font-size : 14px;
@@ -323,7 +324,7 @@ input[type=radio]{
 
 .pay-btn {
     width: 440px;
-    height: 60px;
+    height: 50px;
 	border: none;
 	font-size: 16px;
     margin: 10px auto;
