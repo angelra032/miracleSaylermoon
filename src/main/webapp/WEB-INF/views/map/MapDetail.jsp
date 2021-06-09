@@ -33,12 +33,7 @@
 						<c:forEach items="${ mList }" var="shop">
 							<div class="content-shop">
 								<div class="content-shop left">
-									<c:if test="${ !empty shop.shopFileName }">
-										<img src="/resources/partnerUploadFiles/${ shop.shopFileName }" alt="shopMain">
-									</c:if>
-									<c:if test="${ empty shop.fileName }">
-										<img src="/resources/images/map/logoG-mark.png" alt="대표이미지" class="img-thumbnail none"/>
-									</c:if>
+									<img src="/resources/partnerUploadFiles/shopPhoto/${ shop.shopFileName }" alt="shopMain" class="img-thumbnail none">
 								</div>
 								<div class="content-shop right">
 									<div class="content-shop right top">
@@ -218,7 +213,7 @@
 								var shopInfo = $("<div id='shop-info'>");
 								var shopCon = $("<div id='shop-con'>");
 								
-								contentShopLeft.append("<img src='/resources/images/map/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+								contentShopLeft.append("<img src='/resources/partnerUploadFiles/shopPhoto/"+data.mList[i].shopFileName+"' alt='대표이미지' class='img-thumbnail none'/>");
 								contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
 												   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
 						   		shopInfo.append("<div id='shop-addr'><span>"+data.mList[i].shopAddr+"</span><div>");
@@ -328,7 +323,7 @@
 							var shopInfo = $("<div id='shop-info'>");
 							var shopCon = $("<div id='shop-con'>");
 							
-							contentShopLeft.append("<img src='/resources/images/map/logoG-mark.png' alt='대표이미지' class='img-thumbnail none'/>");
+							contentShopLeft.append("<img src='/resources/partnerUploadFiles/shopPhoto/"+data.mList[i].shopFileName+"' alt='대표이미지' class='img-thumbnail none'/>");
 							contentShopRightTop.append("<span id='shop-title'><b>"+data.mList[i].shopName+"</b>&nbsp;&nbsp;</span>")
 											   .append("<span id='shop-type'>"+data.mList[i].shopType+"</span><br>")
 					   		shopInfo.append("<div id='shop-addr'><span>"+data.mList[i].shopAddr+"</span><div>");

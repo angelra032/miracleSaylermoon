@@ -86,44 +86,21 @@
 		 						<c:forEach var="search" items="${ sList }" varStatus="status">
 									<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ search.shopNo }'">
 										<div class="shopShortInfo left">
-											<img src="/resources/images/shopMainImg/realPasta.jpeg" alt="shopMain">
-											<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
+											<img src="/resources/partnerUploadFiles/shopPhoto/${search.shopFileName}" alt="shopMain">
 										</div>
 										<div class="shopShortInfo right">
 											<span id="shop-title"><b>${ search.shopName }</b></span>&nbsp;&nbsp;
 											<span id="shop-type">${ search.shopType }</span><br><br>
 											<span>${ search.shopShortAddr }</span><br>
 											<span>${ search.startTime }:00 - ${ search.endTime }:00&nbsp;&nbsp;</span>
-											<span>매주</span>
-											<c:forTokens items="${ search.businessDay }" delims="," var="workingDay" varStatus="status">
-												<c:choose>
-													<c:when test="${ workingDay ne '1' }">
-														<span>월</span>
-													</c:when>
-													<c:when test="${ workingDay ne '2' }">
-														<span>화</span>
-													</c:when>
-													<c:when test="${ workingDay ne '3' }">
-														<span>수</span>
-													</c:when>
-													<c:when test="${ workingDay ne '4' }">
-														<span>목</span>
-													</c:when>
-													<c:when test="${ workingDay ne '5' }">
-														<span>금</span>
-													</c:when>
-													<c:when test="${ workingDay ne '6' }">
-														<span>토</span>
-													</c:when>
-													<c:when test="${ workingDay ne '7' }">
-														<span>일</span>
-													</c:when>
-												</c:choose>
-													<%-- <c:if test="${ search.businessDay == 7 }">
-														<span>연중무휴</span>
-													</c:if> --%>
-											</c:forTokens>
-											<span>휴무</span><br>
+											<c:if test="${empty search.businessDay}">
+												연중무휴
+											</c:if>
+											<c:if test="${!empty search.businessDay}">
+												<span>매주</span>
+													${search.businessDay}
+												<span>휴무</span><br>
+											</c:if>
 											<div class="shopDetailShort">
 												<c:choose>
 													<c:when test="${ search.drmReviewContent ne 'EMPTY' }">
@@ -156,13 +133,21 @@
 										${ status.count }
 									</div>
 									<div class="shopShortInfo left">
-										<!-- <img src="/resources/images/shopMainImg/${reviewShop.shopFileName}" alt="shopMain"> -->
+										<img src="/resources/partnerUploadFiles/shopPhoto/${reviewShop.shopFileName}" alt="shopMain">
 									</div>
 									<div class="shopShortInfo rightRank">
 										<span id="shop-title"><b>${ reviewShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ reviewShop.shopType }</span><br><br>
 										<span>${ reviewShop.shopShortAddr }</span><br>
-										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+										<span>${ reviewShop.startTime }:00 - ${ reviewShop.endTime }:00&nbsp;&nbsp;</span>
+										<c:if test="${empty reviewShop.businessDay}">
+												연중무휴
+											</c:if>
+											<c:if test="${!empty reviewShop.businessDay}">
+												<span>매주</span>
+													${reviewShop.businessDay}
+												<span>휴무</span><br>
+											</c:if>
 										<div class="shopDetailShort">
 											<c:choose>
 												<c:when test="${ reviewShop.drmReviewContent ne 'EMPTY' }">
@@ -189,13 +174,21 @@
 										${ status.count }
 									</div>
 									<div class="shopShortInfo left">
-										<!-- <img src="/resources/images/shopMainImg/${newShop.shopFileName}" alt="shopMain"> -->
+										<img src="/resources/partnerUploadFiles/shopPhoto/${newShop.shopFileName}" alt="shopMain">
 									</div>
 									<div class="shopShortInfo rightRank">
 										<span id="shop-title"><b>${ newShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ newShop.shopType }</span><br><br>
 										<span>${ newShop.shopShortAddr }</span><br>
-										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+										<span>${ newShop.startTime }:00 - ${ newShop.endTime }:00&nbsp;&nbsp;</span>
+										<c:if test="${empty newShop.businessDay}">
+												연중무휴
+											</c:if>
+											<c:if test="${!empty newShop.businessDay}">
+												<span>매주</span>
+													${newShop.businessDay}
+												<span>휴무</span><br>
+											</c:if>
 										<div class="shopDetailShort">
 											<c:choose>
 												<c:when test="${ newShop.drmReviewContent ne 'EMPTY' }">
@@ -219,13 +212,21 @@
 	 						<c:forEach var="themeShop" items="${ themeList }">
 								<div class="shopShortInfo" onclick="location.href='shopDetail.dz?shopNo=${ themeShop.shopNo }'">
 									<div class="shopShortInfo left">
-										<!-- <img src="/resources/images/shopMainImg/${themeShop.shopFileName}" alt="shopMain"> -->
+										<img src="/resources/partnerUploadFiles/shopPhoto/${themeShop.shopFileName}" alt="shopMain">
 									</div>
 									<div class="shopShortInfo right">
 										<span id="shop-title"><b>${ themeShop.shopName }</b></span>&nbsp;&nbsp;
 										<span id="shop-type">${ themeShop.shopType }</span><br><br>
 										<span>${ themeShop.shopShortAddr }</span><br>
-										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;매주 일요일&nbsp;휴무</span><br>
+										<span>${ themeShop.startTime }:00 - ${ themeShop.endTime }:00&nbsp;&nbsp;</span>
+										<c:if test="${empty themeShop.businessDay}">
+												연중무휴
+											</c:if>
+											<c:if test="${!empty themeShop.businessDay}">
+												<span>매주</span>
+													${themeShop.businessDay}
+												<span>휴무</span><br>
+											</c:if>
 										<div class="shopDetailShort">
 											<c:choose>
 												<c:when test="${ themeShop.drmReviewContent ne 'EMPTY' }">

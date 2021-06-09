@@ -217,7 +217,7 @@ public class ShopController {
 			}
 			
 			// 휴무일 체크해서 가져오기
-			dayOffList(rankList);
+			rankList = dayOffList(rankList);
 			
 			mv.addObject("rankList", rankList);
 			mv.addObject("themeNo", themeNo);
@@ -236,7 +236,7 @@ public class ShopController {
 			}
 			
 			// 휴무일 체크해서 가져오기
-			dayOffList(newSList);
+			newSList = dayOffList(newSList);
 			
 			mv.addObject("newSList", newSList);
 			mv.addObject("themeNo", themeNo);
@@ -283,7 +283,7 @@ public class ShopController {
 				}
 				
 				// 휴무일 체크해서 가져오기
-				dayOffList(themeList);
+				themeList = dayOffList(themeList);
 				
 				mv.addObject("pi", pi);
 				mv.addObject("themeNo", themeNo);
@@ -317,8 +317,7 @@ public class ShopController {
 		}
 		
 		// 휴무일 체크해서 가져오기
-//		for
-		dayOffList(searchList);
+		searchList = dayOffList(searchList);
 		
 		mv.addObject("pi", pi);
 		mv.addObject("sList", searchList);
@@ -340,9 +339,7 @@ public class ShopController {
 	}
 	
 	// 가게 리스트 영업일 가져오기
-		public ArrayList<String> dayOffList(ArrayList<Shop> shopList) {
-			
-			StringBuilder sb = new StringBuilder();
+		public ArrayList<Shop> dayOffList(ArrayList<Shop> shopList) {
 			
 			ArrayList<String> breakDays = new ArrayList<String>();
 			ArrayList<String> oneWeek = new ArrayList<String>();
@@ -353,64 +350,56 @@ public class ShopController {
 			oneWeek.add("5");
 			oneWeek.add("6");
 			oneWeek.add("7");
-			System.out.println("oneWeek : " + oneWeek); // 확인용
-			
 			
 			String[] workingDays = {};
 			
 			for(int i = 0; i < shopList.size(); i++) {
 				workingDays = shopList.get(i).getBusinessDay().split(",");
-				System.out.println("workingDays : " + workingDays.toString()); // 확인용
+//				System.out.println("영업일 : " + workingDays.toString()); // 영업일 콤마 기준 자르기 확인용
 				
 				ArrayList<String> shopOneWeek = new ArrayList<String>(Arrays.asList(workingDays));
-				System.out.println(shopOneWeek.toString()); // 확인용
+//				System.out.println(shopOneWeek.toString()); // 확인용
+				
+				String result = ""; // 휴무일 최종
+				String days= " "; // 휴무일 담을 변수. 문자열이 하나라도 있어야 담김
 				
 				if(!shopOneWeek.contains("1")) {
 					System.out.println("shopOneWeek 에는 1이 없다.");
-					sb.append("월");
-//					breakDays.add("월");
+					result += days.concat("월,");
 				}
 				if(!shopOneWeek.contains("2")) {
 					System.out.println("shopOneWeek 에는 2가 없다.");
-					sb.append("화");
-//					breakDays.add("화");
+					result += days.concat("화,");
 				}
 				if(!shopOneWeek.contains("3")) {
 					System.out.println("shopOneWeek 에는 3이 없다.");
-					sb.append("수");
-//					breakDays.add("수");
+					result += days.concat("수,");
 				}
 				if(!shopOneWeek.contains("4")) {
 					System.out.println("shopOneWeek 에는 4가 없다.");
-					sb.append("목");
-//					breakDays.add("목");
+					result += days.concat("목,");
 				}
 				if(!shopOneWeek.contains("5")) {
 					System.out.println("shopOneWeek 에는 5가 없다.");
-					sb.append("금");
-//					breakDays.add("금");
+					result += days.concat("금,");
 				}
 				if(!shopOneWeek.contains("6")) {
 					System.out.println("shopOneWeek 에는 6이 없다.");
-					sb.append("토");
-//					breakDays.add("토");
+					result += days.concat("토,");
 				}
 				if(!shopOneWeek.contains("7")) {
 					System.out.println("shopOneWeek 에는 7이 없다.");
-					sb.append("일");
-//					breakDays.add("일");
+					result += days.concat("일,");
 				}
 				
-				System.out.println(sb);
+				result = result.replaceFirst(".$",""); // 마지막 콤마 자르기
+//				System.out.println("휴무일 : " + result); // 확인용
 				
-				System.out.println(breakDays);
+				shopList.get(i).setBusinessDay(result);
+				
 			}
-			
-			
-			
-			
 
-			return breakDays;
+			return shopList;
 		}
 	
 	
@@ -525,8 +514,23 @@ public class ShopController {
 		ArrayList<DreamReview> rList = drService.selectDMReviewAll(searchParam);
 		System.out.println("더보기 후기 - "+rList.toString());
 		
-		// 맛집 후기 사진 가져오기
-//		ArrayList<MzReviewPhoto> rPhoto = mService.selectPhotoList(rList);
+		for(int i = 0; i < rList.size(); i++) {
+			String reviewContent = rList.get(i).getDrmReviewContent();
+			String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			rList.get(i).setDrmReviewContent(changeCon);
+		}
+		
+//		// 후기 사진 가져오기
+//		ArrayList<DreamReview> allPhotoList = mService.selectRecentPhoto(rList);
+//		System.out.println("mzPhotoList : " + allPhotoList.toString());
+//		
+//		// 최신 후기 사진 mzList 에 담기
+//		if(!allPhotoList.isEmpty()) {
+//			for(int i = 0; i < allPhotoList.size(); i++) {
+//				String fileName = allPhotoList.get(i).getMzReviewRenameFileName();
+//				rList.get(i).setmFileName(fileName);
+//			}
+//		}
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 		resultMap.put("rList", rList);
@@ -561,13 +565,6 @@ public class ShopController {
 		// startNum ~ endNum 범위에 해당하는 감사 review 조회
 		ArrayList<DreamReview> drList = drService.selectAllDreamReview(searchParam);
 		System.out.println("더보기 감사 후기 - "+drList.toString());
-		
-		// 맛집 후기 태그 제거하여 shopList 에 담기
-		for(int i = 0; i < drList.size(); i++) {
-			String reviewContent = drList.get(i).getDrmReviewContent();
-			String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-			drList.get(i).setDrmReviewContent(changeCon);
-		}
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 		resultMap.put("drList", drList);
@@ -608,12 +605,11 @@ public class ShopController {
 				String reviewContent = mzList.get(i).getmReviewContent();
 				String changeCon = reviewContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
 				mzList.get(i).setmReviewContent(changeCon);
-				System.out.println(changeCon);
 			}
 			
 			// 후기 사진 가져오기
 			ArrayList<MzReviewPhoto> mzPhotoList = mService.selectRecentPhoto(mzList);
-			System.out.println(mzPhotoList);
+			System.out.println("mzPhotoList : " + mzPhotoList.toString());
 			
 			// 최신 후기 사진 mzList 에 담기
 			if(!mzPhotoList.isEmpty()) {
@@ -621,12 +617,7 @@ public class ShopController {
 					String fileName = mzPhotoList.get(i).getMzReviewRenameFileName();
 					mzList.get(i).setmFileName(fileName);
 				}
-				for(int i = 0; i < mzPhotoList.size(); i++) {
-					String filePath = mzPhotoList.get(i).getMzReviewFilePath();
-					mzList.get(i).setmReviewFilePath(filePath);
-				}
 			}
-			System.out.println(mzList.get(0).getmReviewFilePath());
 			
 			HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 			resultMap.put("mzList", mzList);

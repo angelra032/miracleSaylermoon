@@ -112,7 +112,7 @@ main {
 				
 					.content-shop > .left > img {
 						width: 110px;
-						height: auto;
+						height: 110px;
 						object-fit: cover;
 					}
 				
