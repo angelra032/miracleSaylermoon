@@ -129,15 +129,23 @@
 	<div id="paymentModal" class="paymentModal modal">
 		<label class="modal-link-area" >
 			<input type="radio" name="paymentType" value="kakao">
-			<span>카카오페이</span>
-<!-- 		onclick="kakaoPayment()" -->
+			<span onclick="paymentTypeClick('1')">카카오페이</span>
 		</label>
 		
 		<label class="modal-link-area" >
 			<input type="radio" name="paymentType" value="inicis">
-			<span>신용/체크카드</span>
-<!-- 		 onclick="KGinicisPayment()" -->
+			<span onclick="paymentTypeClick('2')">신용/체크카드</span>
 		</label>
+		
+		<label class="modal-link-area" >
+			<input type="radio" name="paymentType" value="inicis">
+			<span onclick="paymentTypeClick('3')">휴대폰결제</span>
+		</label>
+<!-- 		<label class="modal-link-area" > -->
+<!-- 			<input type="radio" name="paymentType" value="inicis"> -->
+<!-- 			<span onclick="paymentTypeClick('4')">미정(페이코, 토스등 고민)</span> -->
+<!-- 		</label> -->
+		
 		<div class="checkoutInformation">
 			<label class="modal-checkbox-area">
 				<input type="checkbox" class="checkbox-input" value="o">
@@ -148,7 +156,7 @@
 				<a href="https://www.inicis.com/terms" target="_blank">보기</a>
 			</p>
 			
-			<button class="pay-btn" onclick="paymentClick()">결제하기</button>
+			<button class="pay-btn">결제하기</button>
 		</div>
 		
 	</div>
@@ -158,8 +166,15 @@
 	</main>
 
 <script type="text/javascript">
-
+	
+	
+	// 지역변수
+	var paymentType;
+	
+	
 	$(function() {
+		
+		
 		
 		// 돈쭐내기 버튼 클릭해 모달 출력
 		$("#payment-btn").on("click", function(e){
@@ -192,21 +207,38 @@
 			
 			if(checkbox.is(":checked") == true) {
 // 				return true;
-				alert('테스트1');
+				if(paymentType == '1') {
+					kakaoPayment();
+				} else if(paymentType == '2') {
+					KGinicisPayment();
+				} else if(paymentType == '3') {
+					danalPayment();
+				}  else {
+					alert('결제할 방법을 선택해주세요');
+				}
 			} else {
-				alert('결제대행 서비스에 동의해야합니다');
+				alert('결제대행 서비스 약관에 동의해야합니다');
 				return false;
 			}
 		});
 		
-// 		function paymentClick() {
-			
-// 		}
+		
 		
 		
 	});
 	
-	
+	// 결제방법 선택 선택
+	function paymentTypeClick(dataNum) {
+		if(dataNum == '1') {
+			paymentType = '1';
+		} else if(dataNum == '2') {
+			paymentType = '2';
+		} else if(dataNum == '3') {
+			paymentType = '3';
+		} else if(dataNum == '4') {
+			paymentType = '4';
+		}
+	}
 	
 	
 	/* 메인메뉴가 없을 때 선택불가 */
@@ -217,6 +249,96 @@
 		alert('돈쭐내기 선택할 메뉴가 없습니다');
 		history.back();
 	</c:if>
+	
+	function danalPayment() {
+		var donPrice = $("input[name='menu-fin-price']").val();
+	    var finPrice = $("input[name='donPrice']").val();
+	    var menuName = $("input[name='menuName']").val();
+	    var amount = $("input[name='amount']").val();
+	    var usePoint = $("input[name='use-point']").val();
+	    var shopNo = '${shop.shopNo }';
+	    var shopName = '${shop.shopName }';
+		 var IMP = window.IMP; // 생략가능
+	        IMP.init('imp87350976'); 
+	        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+	        IMP.request_pay({
+	            pg: 'danal', // version 1.1.0부터 지원.
+	            /* 
+	                'kakao':카카오페이, 
+	                html5_inicis':이니시스(웹표준결제)
+	                    'nice':나이스페이
+	                    'jtnet':제이티넷
+	                    'uplus':LG유플러스
+	                    'danal':다날
+	                    'payco':페이코
+	                    'syrup':시럽페이
+	                    'paypal':페이팔
+	                */
+	            pay_method: 'card',
+	            /* 
+	                'samsung':삼성페이, 
+	                'card':신용카드, 
+	                'trans':실시간계좌이체,
+	                'vbank':가상계좌,
+	                'phone':휴대폰소액결제 
+	            */
+	            merchant_uid: 'merchant_' + new Date().getTime(),
+	            /* 
+	                merchant_uid에 경우 
+	                https://docs.iamport.kr/implementation/payment
+	                위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+	                참고하세요. 
+	                나중에 포스팅 해볼게요.
+	             */
+	            name: '돈쭐내기 결제 : ${shop.shopName }',
+	            //결제창에서 보여질 이름 
+	            amount: 100, 
+	            //가격 // finPrice
+	            buyer_email: '${loginUser.userEmail }',
+	            buyer_name: '${loginUser.userName }',
+	            buyer_tel: '${loginUser.userPhone }',
+	            buyer_addr: '주소컬럼 없음',
+	            buyer_postcode: '123-456',
+	            m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+	            /*  
+	                모바일 결제시,
+	                결제가 끝나고 랜딩되는 URL을 지정 
+	                (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐) 
+	                */
+	        }, function (rsp) {
+	            console.log(rsp);
+	            if (rsp.success) {
+// 	                var msg = '결제가 완료되었습니다.';
+// 	                msg += '고유ID : ' + rsp.imp_uid;
+// 	                msg += '상점 거래ID : ' + rsp.merchant_uid;
+// 	                msg += '결제 금액 : ' + rsp.paid_amount;
+// 	                msg += '카드 승인번호 : ' + rsp.apply_num;
+					$.ajax({
+						url : "insertDonList.dz",
+						type : 'POST',
+						data : {
+							"donPrice" : donPrice,
+				            "menuName" : menuName,
+				            "amount" : amount,
+				            "shopNo" : shopNo,
+				            "shopName" : shopName,
+				            "usePoint" : usePoint
+						},
+						success : function(data) {
+							console.log(data);
+				        	location.href='rouletteView.dz?donNo='+data.donNo+'&donPrice='+data.donPrice+'&shopName='+data.shopName;
+						},
+					});
+	            } else {
+// 	                msg = '결제에 실패하였습니다.';
+		            msg += '에러내용 : ' + rsp.error_msg;
+		            //실패시 이동할 페이지
+		            alert(msg);
+		            location.href="paymentFormView.dz"; 
+	            }
+	        });
+	}
 
 	
 	
@@ -565,7 +687,7 @@
 			// 가용포인트가 0일 때 - 0 가능, 다른 수 불가능
 			if($("#useablePoint").val() == 0){
 				if(usePoint == 0){
-					alert("왜. 리턴 트루인데..");
+// 					alert("왜. 리턴 트루인데..");
 					return true;
 				}else{
 					alert("사용 가능한 포인트가 없습니다.");
