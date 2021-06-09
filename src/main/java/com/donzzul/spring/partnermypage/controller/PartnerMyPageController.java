@@ -103,19 +103,20 @@ public class PartnerMyPageController {
 										@RequestParam("rState") String rState,
 										@RequestParam("shopNo") int shopNo,
 										Model model) {
-		Reservation reservation = rService.selectOne(reservationNo);
-		String rStateResulut = reservation.getrState();
 //		예약기본상태 O(default)
 //		예약승인 Y(comfirm)
 //		예약취소 X(cancle)
 //		예약완료 C(complete)
-		if(rStateResulut != null) {
-			reservation.setrState(rState);
-			int result = rService.updateRstate(reservation);
-			if(result > 0 && rState.equals("C")) {
-				//rService.updateShopPoint(reservation);
-				//방문 완료했을때 포인트가 업데이트 되게 바꾸기
-				}
+		Reservation reservation = new Reservation();
+		reservation.setrState(rState);
+		reservation.setReservationNo(reservationNo);
+		reservation.setShopNo(shopNo);
+		int result = rService.updateRstate(reservation);
+		if(result > 0) {
+		
+		}else {			
+			model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
+			return "redirect:partnerMyPage.dz";
 			}
 		model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
 		return "redirect:partnerMyPage.dz";
@@ -125,12 +126,20 @@ public class PartnerMyPageController {
 	@RequestMapping(value="completeReservation.dz", method=RequestMethod.GET)
 	public String completeReservation(@RequestParam("reservationNo") int reservationNo,
 									@RequestParam("rState") String rState,
+									@RequestParam(value="mainPage", required =false)String mainPage,
 									Model model) {
+		//required =false 들어오는 변수가 꼭 필요하지않아도 된다는 뜻이다!
+		System.out.println("mainPage"+mainPage);
 		if(rState.equals("Y")) {
 			Reservation reservation = new Reservation();
 			reservation.setrState("C");
 			reservation.setReservationNo(reservationNo);
 			int result = rService.updateRstate(reservation); // rState 변경
+			if(result > 0 && mainPage.equals("Y")) {
+				return "partnerMyPage/partnerMyPage";
+			}else if(result > 0 && mainPage.equals("N")) {
+				return "redirect:partnerReserveList.dz";
+			}
 		}else {
 			model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
 			return "redirect:partnerMyPage.dz";
@@ -197,9 +206,6 @@ public class PartnerMyPageController {
 		} else {
 			qList = qService.qnaListBydream(userNo, pi);
 		}
-//		if(!qList.isEmpty()) {
-//		}else {
-//		}
 		try {
 			mv.addObject("shop",myShop);	
 			mv.addObject("qList",qList);
@@ -530,7 +536,6 @@ public class PartnerMyPageController {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		
 		for(int i = 0; i< rList.size(); i++) {
-			System.out.println(rList.toString());
 			HashMap<String,String> map = new HashMap<String,String>();
 			map.put("title", rList.get(i).getDescription());
 			map.put("start", rList.get(i).getReserveDate());
@@ -539,7 +544,6 @@ public class PartnerMyPageController {
 			map.put("reserveDate", rList.get(i).getReserveDate());
 			map.put("reserveTime", String.valueOf(rList.get(i).getReserveTime()));
 			map.put("reserveCount", String.valueOf(rList.get(i).getReserveCount()));
-			map.put("description", rList.get(i).getDescription());
 			map.put("orderDate", rList.get(i).getOrderDate());
 			list.add(map);
 		}

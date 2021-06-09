@@ -57,7 +57,7 @@ public class ReservationController {
 	
 	
 	
-	// 예약할때 받아와야할 
+	// 예약할때 받아와야할  (트랜잭션 완료)
 	// 날짜, 시간, 인원수, 가게고유번호, 회원고유번호, 회원타입번호
 	@RequestMapping(value="reservationInsert.dz", method=RequestMethod.POST)
 	public void reservationInsert(ModelAndView mv, @ModelAttribute Reservation reservation,
@@ -67,18 +67,14 @@ public class ReservationController {
 									 HttpServletResponse response
 									) throws Exception {
 		int paymentPoint = String.valueOf(reservation.getPaymentPoint()) != "" ? reservation.getPaymentPoint() : 0;
-		int rResult = service.insertReservation(reservation);
-		int pResult = 0;
-		if(paymentPoint > 0) {
-			Reservation nReservation = new Reservation();
-			nReservation.setReservationNo(service.getReservNo(userNo));
-			nReservation.setUserNo(userNo);
-			nReservation.setPaymentPoint(paymentPoint);
-			pResult = service.updateUserPoint(nReservation);
-		}
+		reservation.setUserNo(userNo);
+		reservation.setPaymentPoint(paymentPoint);
+		System.out.println("reservation" + reservation.toString());
+		
+		int rResult = service.insertReservation(reservation);	
+		
 		
 		int shopNo = reservation.getShopNo();
-		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		

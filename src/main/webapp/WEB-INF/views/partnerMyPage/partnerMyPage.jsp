@@ -121,7 +121,7 @@
 									</c:if>
 									<c:if test="${reservation.rState eq 'Y'}">
 										<td><a class="reserv-btn"
-											href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }">방문완료</a></td>
+											href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }&mainPage=Y">방문완료</a></td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'C'}">
 										<td>완료된 예약</td>
@@ -230,13 +230,14 @@
 				dayMaxEvents : 2,
 				eventDidMount: function(info) {
 					tippy(info.el, {
-						
 						 content: 
-							 "예약고객닉네임 : " + info.event.extendedProps.userNick +"\n"+ 
-							 " 방문예정날짜 : " + info.event.extendedProps.reserveDate + "\n"+ 
-							 " 예약시간 : " + info.event.extendedProps.reserveTime + "\n"+ 
-							 " 예약인원 : " + info.event.extendedProps.reserveCount + "명 \n" +
-							 + info.event.extendedProps.orderDate + "에 예약하셨습니다."
+							 "방문예정고객닉네임 : " + info.event.extendedProps.userNick +"<br>"+ 
+							 " 방문예정날짜 : " + info.event.extendedProps.reserveDate + "<br>"+ 
+							 " 방문예정시간 : " + info.event.extendedProps.reserveTime + "<br>"+ 
+							 " 방문예정인원 : " + info.event.extendedProps.reserveCount + "명 <br>" +
+							 "예약일자 : " + info.event.extendedProps.orderDate,
+							allowHTML : true
+
 		            	});
 				    },
 				eventSources : [ {
@@ -281,7 +282,14 @@
 				dayMaxEvents : 2,
 				eventDidMount: function(info) {
 					tippy(info.el, {
-						   content: info.event.title,
+						 content: 
+							 "방문예정고객닉네임 : " + info.event.extendedProps.userNick +"<br>"+ 
+							 " 방문예정날짜 : " + info.event.extendedProps.reserveDate + "<br>"+ 
+							 " 방문예정시간 : " + info.event.extendedProps.reserveTime + "<br>"+ 
+							 " 방문예정인원 : " + info.event.extendedProps.reserveCount + "명 <br>" +
+							 "예약일자 : " + info.event.extendedProps.orderDate,
+							allowHTML : true
+
 		            	});
 				    },
 				eventSources : [ {

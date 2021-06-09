@@ -33,8 +33,8 @@ public class ReservationStoreLogic implements ReservationStore {
 	}
 	
 	@Override
-	public int updateUserPoint(Reservation nReservation) {
-		return sqlSession.update("userMapper.updateUserPoint",nReservation);
+	public int updateUserPoint(Reservation reservation) {
+		return sqlSession.update("userMapper.updateUserPoint",reservation);
 	}
 	
 	@Override
@@ -45,7 +45,6 @@ public class ReservationStoreLogic implements ReservationStore {
 	@Override
 	public Reservation selectOne(int reservationNo) {
 		Reservation reservation = sqlSession.selectOne("reservationMapper.selectOneByRno",reservationNo);
-		System.out.println("selectOne스토어"+reservation);
 		return reservation;
 	}
 	

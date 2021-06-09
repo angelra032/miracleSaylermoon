@@ -66,7 +66,7 @@
 										<td>취소된예약</td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'Y'}">
-										<td><a class="reserv-btn" href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }" >방문완료</a></td>
+										<td><a class="reserv-btn" href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }&mainPage=N" >방문완료</a></td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'C'}">
 										<td>완료된 예약</td>

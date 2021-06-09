@@ -310,7 +310,6 @@
    </main>
    <!-- 본문 끝 -->
 
-
    <!-- 푸터 시작 -->
    <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
    <!-- 푸터 끝 -->
