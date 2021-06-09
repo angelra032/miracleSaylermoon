@@ -225,19 +225,40 @@ h4 {
 
 
 /* 메뉴 입력 */
+.first-main-menu {
+	height: 50px;
+	margin-bottom: 2px;
+}
+
 .menu-name {
 	float: left;
-	width: 200px;
+	width: 185px;
 }
 
 .menu-price {
-	float: right;
-	width: 120px;
+	width: 93px;
+	margin-left: 10px;
 }
 
-.img-upload {
-	clear: both;
+#delMenuBtn {
+	display: inline-block;
+	border: 0;
+	background-color: #fd6204;
+	color: #fff;
+	float: right;
+	border-radius: 3px;
+	
+    width: 30px;
+    margin-left: 10px;
+    height: 46px;
+    writing-mode: tb;
+    text-align: center;
+    line-height: 30px;
 }
+
+/* .img-upload {
+	clear: both;
+} */
 
 .add-menu-btn {
 	margin-top: 10px;
@@ -253,7 +274,39 @@ h4 {
     line-height: 1.5;
 }
 
-.first-main-menu {
-	height: 50px;
-	margin-bottom: 2px;
+/* 메뉴 사진 업로드 */
+
+.uploadFile {
+	display: inline-block;
+	color:#333;
+	border: 1px solid black;
+	border-radius: 3px;
+	margin-top: 10px;
+	/*height: 30px;
+	 width: 300px;
+	padding-right: 44px;
+	text-indent: 1.25rem;
+	font-size: .875rem;
+	
+	width: 80px; */
+    padding: 1px 8px 1px 8px;
+    /* text-indent: 1.25rem; */
+    font-size: 15px;
+}
+
+#delPhotoBtn {
+	border-radius: 50%;
+	display: inline-block;
+	border: 0;
+	background-color: #fd6204;
+	color: #fff;
+	float: right;
+	margin-top: 9px;
+	margin-right: 5px;
+    width: 23px;
+    --margin-left: 10px;
+    height: 23px;
+   -- writing-mode: tb;
+    text-align: center;
+    line-height: 23px;
 }

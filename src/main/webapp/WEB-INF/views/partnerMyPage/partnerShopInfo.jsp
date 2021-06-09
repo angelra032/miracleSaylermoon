@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/resources/css/partnermypage/partnerShopJoin.css"> 
 <!-- <link href="/static/bootstrap.min.css" rel="stylesheet"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>돈쭐 회원가입</title>
+<title>돈쭐 가게수정</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
@@ -276,7 +276,8 @@
 								<c:forEach items="${mainMenu }" var="menu">
 									<div class="first-main-menu">
 										<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" value="${menu.mainMenuName }" />
-										<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격 입력" value="${menu.mainMenuPrice }" />
+										<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격" value="${menu.mainMenuPrice }" />
+										<a href="#this" id="delMenuBtn" onclick="delMenu(this);">삭제</a>
 									</div>
 								</c:forEach>
 							</div>
@@ -289,25 +290,20 @@
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
-							<div class="form-body">
-								<!-- max 4개. 있는 만큼 나오고 없는 만큼 채우기 -->
-								<!-- if var의 길이가 4면 4개 출력 / 3개면 3개 출력하고 1개 추가 / 2개면 2개 출력하고 ... -->
-								<c:set var="max" value="4" />
-								<c:if test="${max==1}"></c:if>
+							<div class="form-body" class="add-photo-div">
 								<c:forEach items="${photo }" var="photo">
-									<label class="form-elem uploadFile" for="file">파일 선택</label>
-<%-- 									<input readonly="readonly" type="text" value="${photo.menuFileName }" /> --%>
-									<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" id="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="why?" ><%-- ${photo.menuFileName } --%>
+									<div class="first-menu-photo">
+										<input name="mainMenuPhoto" style="display:none;" class="form-elem uploadFile" type="file" id="file" value="" >
+										<label for="file" class="uploadFile">파일선택</label>
+										<span class="file_name">${photo.menuFileName }</span><!-- 선택된 파일 없음 -->
+										<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
+									</div>
 								</c:forEach>
-								
-								<div class="file_box">
-								    <input type="file" name="mainMenuPhoto"  class="form-elem uploadFile" id="" value="" title="">
-								    <p class="file_name">파일명이 없습니다.</p>
-								</div>
 								
 <!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 <!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 							</div>
+								<button type="button" onclick="addPhoto();" class="add-menu-btn" >메뉴추가</button>
 							
 							<h1>유효성검사 필요, 메뉴사진(다중업로드) 추가, MAIN_MENU 테이블 입력필요</h1>
 							
@@ -328,9 +324,12 @@
 
 	$(function() {
 
-		$('input[name="leejooyeon"]').change(function(e){
+		
+		// 파일명 바꾸기
+		$('input[type=file]').change(function(e){
 			$(this).parent().find(".file_name").text(e.target.files[0].name);
 		});
+		
 
 		console.log("하하");
 		// long 주소 자르기
@@ -427,23 +426,52 @@
 	}
 	
 
+	///////// 메뉴 추가 append 그리기
 	var count = -1;
-	// 메뉴 추가 append 그리기
 	function addMenu(){
 		count++;
-		
+		//if(count==4)
 		var menuDiv = $(".add-menu-div");
 		var firstDiv = $(".first-main-menu");
 		var addMenu = $("<div class='first-main-menu'>");
 		
 		addMenu.append("<input type='text' name='mainMenuName' class='form-elem menu-name' placeholder='메뉴 이름 입력' />")
-				.append("<input type='text' name='mainMenuPrice' class='form-elem menu-price' placeholder='메뉴 가격 입력' />");
+				.append("<input type='text' name='mainMenuPrice' class='form-elem menu-price' placeholder='메뉴 가격' />")
+				.append("<a href='#this' id='delMenuBtn' onclick='delMenu(this);'>삭제</a>");
 		menuDiv.append(addMenu);
 		console.log(count);
 		console.log($(".menu-name").val());
 		console.log($(".menu-price").val());
 	}
+	///////// 메뉴/사진 삭제 
+	function delMenu(e){
+		//first-main-menu
+		//$()
+		$(e).parent().remove();
+	}
 	
+
+	///////// 사진 추가 append 그리기
+	//var count = -1;
+	function addPhoto(){
+		//count++;
+		var menuDiv = $(".add-photo-div");
+		//var firstDiv = $(".first-main-menu");
+		var addMenu = $("<div class='first-menu-photo'>");
+		
+		addMenu.append("<input name='mainMenuPhoto' class='form-elem uploadFile' type='file' id='file' value='' >")
+				.append("<a href='#this' id='delPhotoBtn' onclick='delMenu(this);'>삭제</a>");
+		menuDiv.append(addMenu);
+		console.log("이거는 삭제");
+		console.log($(".menu-name").val());
+		console.log($(".menu-price").val());
+	}
+	///////// 메뉴 삭제 
+	function delMenu(e){
+		//first-main-menu
+		//$()
+		$(e).parent().remove();
+	}
 	
 	
 	////////// 등록 버튼 //////////
