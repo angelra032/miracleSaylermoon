@@ -278,14 +278,23 @@ input[type=radio]{
 
 /* 카카오, 이니시스 모달창 */
 #paymentModal {
-	height : 400px;
+	height : 250px;
 }
+	.link-area-div {
+	    width: 450px;
+	    height: 80px;
+	    display: flex;
+	    flex-flow: row;
+	    justify-content: center;
+	    margin : 10px 0;
+	}
+	
 	.modal-link-area input[type="radio"]{
 		display:none;
 	}
 	.modal-link-area input[type="radio"] + span {
 		cursor: pointer;
-	    width: 200px;
+	    width: 125px;
 	    height: 50px;
 	    line-height: 3;
 	    text-align: center;
@@ -309,7 +318,7 @@ input[type=radio]{
 
 	/* 결제대행이용약관 */
 	.checkoutInformation {
-		margin-top : 60px;
+		margin-top : 10px;
 		display: inherit;
 	}
 	.information-1 {

@@ -100,7 +100,7 @@
 							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
 							   success : function(data){
 								   if(data == "success") {
-									   alert('성공');
+// 									   alert('성공');
 									   location.href="notiQnaMain.dz";
 									} else if(data=="fail") {
 										alert('게시글 올리기 실패');

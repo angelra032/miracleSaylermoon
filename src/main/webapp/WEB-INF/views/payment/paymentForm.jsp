@@ -127,25 +127,27 @@
 		<!-- 모달창 -->
 	<!-- <a id="modal" href="#paymentModal" rel="modal:open"></a> -->
 	<div id="paymentModal" class="paymentModal modal">
-		<label class="modal-link-area" >
-			<input type="radio" name="paymentType" value="kakao">
-			<span onclick="paymentTypeClick('1')">카카오페이</span>
-		</label>
-		
-		<label class="modal-link-area" >
-			<input type="radio" name="paymentType" value="inicis">
-			<span onclick="paymentTypeClick('2')">신용/체크카드</span>
-		</label>
-		
-		<label class="modal-link-area" >
-			<input type="radio" name="paymentType" value="inicis">
-			<span onclick="paymentTypeClick('3')">휴대폰결제</span>
-		</label>
-<!-- 		<label class="modal-link-area" > -->
-<!-- 			<input type="radio" name="paymentType" value="inicis"> -->
-<!-- 			<span onclick="paymentTypeClick('4')">미정(페이코, 토스등 고민)</span> -->
-<!-- 		</label> -->
-		
+		<div class="link-area-div">
+			<label class="modal-link-area" >
+				<input type="radio" name="paymentType" value="kakao">
+				<span onclick="paymentTypeClick('1')">카카오페이</span>
+			</label>
+			
+			<label class="modal-link-area" >
+				<input type="radio" name="paymentType" value="inicis">
+				<span onclick="paymentTypeClick('2')">신용/체크카드</span>
+			</label>
+			
+			<label class="modal-link-area" >
+				<input type="radio" name="paymentType" value="inicis">
+				<span onclick="paymentTypeClick('3')">휴대폰결제</span>
+			</label>
+	<!-- 		<label class="modal-link-area" > -->
+	<!-- 			<input type="radio" name="paymentType" value="inicis"> -->
+	<!-- 			<span onclick="paymentTypeClick('4')">미정(페이코, 토스등 고민)</span> -->
+	<!-- 		</label> -->
+			
+		</div>
 		<div class="checkoutInformation">
 			<label class="modal-checkbox-area">
 				<input type="checkbox" class="checkbox-input" value="o">
@@ -176,30 +178,34 @@
 		
 		
 		
+		/* 모달창 */
 		// 돈쭐내기 버튼 클릭해 모달 출력
 		$("#payment-btn").on("click", function(e){
 			e.preventDefault();	// form submit 이벤트 막음
+			
+			if() {
+				
+			}
 			$('div#paymentModal').modal({ // 모달창 출력
 		    	fadeDuration: 250
 		    })
 		});
 		
 		
-		/* 모달창 */
 		//$("#userPoint").val(12);
-// 		console.log($("#usePoint").val());
+		console.log($("#usePoint").val());
 		
-// 		var userPoint = $("#userPoint").val();
-// 		var useablePoint = $("#useablePoint");
+		var userPoint = $("#userPoint").val();
+		var useablePoint = $("#useablePoint");
 			
-// 		// 가용 포인트
-// 		if(userPoint < 500){
-// 			useablePoint.val(0);
-// 		}else if(userPoint >= 500 && userPoint <= 5000){
-// 			useablePoint.val(userPoint);
-// 		}else if(userPoint > 5000){
-// 			useablePoint.val(5000);
-// 		}
+		// 가용 포인트
+		if(userPoint < 500){
+			useablePoint.val(0);
+		}else if(userPoint >= 500 && userPoint <= 5000){
+			useablePoint.val(userPoint);
+		}else if(userPoint > 5000){
+			useablePoint.val(5000);
+		}
 		
 		
 		$(".pay-btn").on("click", function() {
@@ -356,33 +362,8 @@
 	        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 	        IMP.request_pay({
 	            pg: 'html5_inicis', // version 1.1.0부터 지원.
-	            /* 
-	                'kakao':카카오페이, 
-	                html5_inicis':이니시스(웹표준결제)
-	                    'nice':나이스페이
-	                    'jtnet':제이티넷
-	                    'uplus':LG유플러스
-	                    'danal':다날
-	                    'payco':페이코
-	                    'syrup':시럽페이
-	                    'paypal':페이팔
-	                */
 	            pay_method: 'card',
-	            /* 
-	                'samsung':삼성페이, 
-	                'card':신용카드, 
-	                'trans':실시간계좌이체,
-	                'vbank':가상계좌,
-	                'phone':휴대폰소액결제 
-	            */
 	            merchant_uid: 'merchant_' + new Date().getTime(),
-	            /* 
-	                merchant_uid에 경우 
-	                https://docs.iamport.kr/implementation/payment
-	                위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-	                참고하세요. 
-	                나중에 포스팅 해볼게요.
-	             */
 	            name: '돈쭐내기 결제 : ${shop.shopName }',
 	            //결제창에서 보여질 이름 
 	            amount: 100, 
@@ -687,7 +668,7 @@
 			// 가용포인트가 0일 때 - 0 가능, 다른 수 불가능
 			if($("#useablePoint").val() == 0){
 				if(usePoint == 0){
-// 					alert("왜. 리턴 트루인데..");
+					alert("왜. 리턴 트루인데..");
 					return true;
 				}else{
 					alert("사용 가능한 포인트가 없습니다.");

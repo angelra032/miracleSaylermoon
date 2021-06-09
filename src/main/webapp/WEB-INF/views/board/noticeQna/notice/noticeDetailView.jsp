@@ -39,7 +39,7 @@
 	                <button onclick="location.href='noticeUpdateForm.dz?noticeNo=${ notice.noticeNo }'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='noticeDelete.dz?noticeNo=${ notice.noticeNo }'" style="cursor: pointer;">삭제하기</button>
+	                <button onclick="deleteResult(${notice.noticeNo})" style="cursor: pointer;">삭제하기</button>
 	            </div>
 	            <div class="user-back-btn-area">
 	                <button onclick="location.href='recommendMain.dz'" style="cursor: pointer;">목록으로</button>
@@ -54,7 +54,34 @@
         </div>
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-      
- 
 </body>
+<script type="text/javascript">
+
+	function deleteResult(noticeNo) {
+	    var result = confirm('게시글을 삭제합니다');
+	    if(result) {
+	    	$.ajax({
+	    		url : "noticeDelete.dz",
+				data : { "noticeNo" : noticeNo },
+				success : function(data){ 
+					if(data == "success"){
+											
+					}else { // 남은 데이터 없을때
+						alert("삭제 실패했습니다");
+					}
+					location.href='notiQnaMain.dz';
+				}, //end of success
+				error : function() {
+					console.log("전송실패");
+				}
+	    	});
+	    } else {
+			location.href='notiQnaMain.dz';
+	    }
+	}
+	
+// 	function reloadQnaList() {
+// 		$(".reserv-list").load("notiQnaMain.dz");
+// 	}
+</script>
 </html>
