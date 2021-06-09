@@ -33,6 +33,8 @@
 	<select id="selectOneUserByNo" parameterType="_int" resultMap="userResultMap">
 		SELECT * FROM "USER" WHERE USER_NO = #{userNo}
 	</select>
+	
+	
 
 	<select id="findId" parameterType="HashMap" resultType="string">
 		SELECT USER_ID FROM "USER"
@@ -138,6 +140,15 @@
 	<insert id="insertPartnerUser" parameterType="User">
 		INSERT INTO "USER"
 		VALUES(SEQ_USER.NEXTVAL, #{userId}, #{userPw}, #{userName}, null, #{userPhone}, #{userEmail}, #{partnerVerify}, DEFAULT, null, null, '3', #{partnerName})
+	</insert>
+	
+	<!-- 카카오계정 있냐~ 없냐~ -->
+	<select id="countKakaoUser" parameterType="_int" resultMap="userResultMap">
+		SELECT COUNT(*) FROM "USER" WHERE USER_TYPE = 5 AND USER_ID = #{kakaoId}
+	</select>
+	<insert id="insertKakaoUser" parameterType="HashMap">
+		INSERT INTO "USER"
+		VALUES(SEQ_USER.NEXTVAL, #{kakaoId}, #{kakaoId}, #{kakaoNickname}, null, null, null, null, null, null, 0, '5', null)
 	</insert>
 
 	<update id="resetPw">

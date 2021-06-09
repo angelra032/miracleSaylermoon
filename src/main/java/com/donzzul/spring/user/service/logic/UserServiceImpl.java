@@ -201,6 +201,16 @@ public class UserServiceImpl implements UserService {
 		return store.getUsersByNo(userNo);
 	}
 
+	@Override
+	public int countKakaoUser(String kakaoId) {
+		return store.countKakaoUser(kakaoId);
+	}
+
+	@Override
+	public int insertKakaoUser(HashMap<String, String> map) {
+		return store.insertKakaoUser(map);
+	}
+
 	
 
 
