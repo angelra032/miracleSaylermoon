@@ -199,10 +199,12 @@
 	         	$("#paymentSpan").text(paymentPoint);
          	}else{
          		alert("사용가능포인트는 500원 이상 5000원 이하입니다.");
+         		$("#pointText").val("");
        		 	return false;
          	}
          }else{
         	 alert("보유 금액 이상 사용은 불가능 합니다.");
+        	 $("#pointText").val("");
              return false;
          }
       });
@@ -261,7 +263,7 @@
                   <div id="pointUseDiv" style="display:none">
                      <h1 class="titleH1">사용할 포인트 금액</h1>
                      <div id="pointBox">
-                     <input type="text" id="pointText" name="point"  value="${user.userPoint }">
+                     <input type="text" id="pointText" name="point" placeholder="보유포인트 : ${loginUser.userPoint }원" value="${user.userPoint }" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                      <input type="button" value="포인트사용" id="pButton" class="button">
                   	 </div>
                   </div>
@@ -309,6 +311,7 @@
       </form>
    </main>
    <!-- 본문 끝 -->
+
 
    <!-- 푸터 시작 -->
    <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
