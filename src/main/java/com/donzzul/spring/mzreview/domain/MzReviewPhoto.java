@@ -11,11 +11,12 @@ public class MzReviewPhoto {
 	private long mzReviewFileSize;
 	private Timestamp mzReviewFileTime;
 	private int mzReviewNo;
+	private String userType;
 	
 	public MzReviewPhoto() {}
 
 	public MzReviewPhoto(int mzReviewFileNo, String mzReviewOriginalFileName, String mzReviewRenameFileName,
-			String mzReviewFilePath, long mzReviewFileSize, Timestamp mzReviewFileTime, int mzReviewNo) {
+			String mzReviewFilePath, long mzReviewFileSize, Timestamp mzReviewFileTime, int mzReviewNo, String userType) {
 		super();
 		this.mzReviewFileNo = mzReviewFileNo;
 		this.mzReviewOriginalFileName = mzReviewOriginalFileName;
@@ -24,6 +25,7 @@ public class MzReviewPhoto {
 		this.mzReviewFileSize = mzReviewFileSize;
 		this.mzReviewFileTime = mzReviewFileTime;
 		this.mzReviewNo = mzReviewNo;
+		this.userType = userType;
 	}
 
 	public int getMzReviewFileNo() {
@@ -81,13 +83,21 @@ public class MzReviewPhoto {
 	public void setMzReviewNo(int mzReviewNo) {
 		this.mzReviewNo = mzReviewNo;
 	}
+	
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 
 	@Override
 	public String toString() {
 		return "MzReviewPhoto [mzReviewFileNo=" + mzReviewFileNo + ", mzReviewOriginalFileName="
 				+ mzReviewOriginalFileName + ", mzReviewRenameFileName=" + mzReviewRenameFileName
 				+ ", mzReviewFilePath=" + mzReviewFilePath + ", mzReviewFileSize=" + mzReviewFileSize
-				+ ", mzReviewFileTime=" + mzReviewFileTime + ", mzReviewNo=" + mzReviewNo + "]";
+				+ ", mzReviewFileTime=" + mzReviewFileTime + ", mzReviewNo=" + mzReviewNo + ", userType=" + userType + "]";
 	}
 	
 }

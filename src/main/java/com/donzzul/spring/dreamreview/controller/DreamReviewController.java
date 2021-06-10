@@ -240,18 +240,6 @@ public class DreamReviewController {
 		}
 	}
 	
-	//D 가게 상세 감사 + 맛집후기 가져오기
-	@RequestMapping(value="mdReviewShop.dz", method=RequestMethod.GET)
-	public void selectDmReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) throws Exception {
-		ArrayList<DreamReview> rList = drService.selectDMReviewAll(shopNo);
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		
-		Gson gson = new Gson();
-		gson.toJson(rList, response.getWriter());
-	}
-	
 	//D 가게 상세 감사후기 가져오기
 	@RequestMapping(value="drmReviewShop.dz", method=RequestMethod.GET)
 	public void selectDrReview(@RequestParam("shopNo") int shopNo, HttpServletResponse response) throws Exception {

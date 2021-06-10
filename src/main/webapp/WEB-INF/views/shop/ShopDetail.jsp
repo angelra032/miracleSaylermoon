@@ -23,7 +23,7 @@
 		
 		 <div class="header-background-area">
 		 	<!-- 가게 메인 이미지 가져오기 -->
-		 	<img src="/resources/partnerUploadFiles/${ shop.shopFileName }" alt="shopMain">
+		 	<img src="/resources/partnerUploadFiles/shopPhoto/${ shop.shopFileName }" alt="shopMain">
 	   	</div>
 	   	<div id="shop-header">
 			<div id="shop-main-title">
@@ -34,7 +34,8 @@
 				<!-- 찜버튼 --> 
 				<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 --> 
 				<!-- 꿈나무, MZ --> 		
- 				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 || loginUser.userType == 5 }">
+				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 || loginUser.userType == 5 }">
+
  					<c:if test="${ empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
 						<a href="#" id="pick-button-off"></a>
 	 				</c:if>
@@ -437,7 +438,13 @@
 							contentReviewRight.append("<span class='review-title'>" + data.rList[i].drmReviewTitle + "</span>&nbsp;&nbsp;");
 								
 							if(data.rList[i].drmReviewPublicYN == "MZ"){
-								/* contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.mzList[i].mFileName+"' alt='shopMain'>"); */
+								/* 사진 */
+								if(data.rList[i].mzReviewRenameFileName == "EMPTY") {
+									contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
+								}else {
+									contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.rList[i].mzReviewRenameFileName+"' alt='shopMain'>");
+								}
+									
 	                            contentReviewRight.append("<span class='review-type'>맛집후기</span>")
 	                          					  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }else{

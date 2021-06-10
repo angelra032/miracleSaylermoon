@@ -18,7 +18,6 @@ public interface DreamReviewStore {
 	public int selectListCount();
 	public DreamReview selectOneDreamReview();
 	ArrayList<DreamReview> selectAllDreamReview(int shopNo);
-	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public DreamReview selectDMReviewOne(int shopNo); // 가게 후기 한개 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
 	public int updateHit(int drmReviewNo);

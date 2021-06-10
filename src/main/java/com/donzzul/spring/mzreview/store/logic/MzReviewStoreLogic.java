@@ -128,4 +128,9 @@ public class MzReviewStoreLogic implements MzReviewStore {
 		return sqlSession.selectOne("mzReviewMapper.selectRecentPhotoOne", mzReviewNo);
 	}
 
+	@Override
+	public String selectAllPhoto(HashMap<String, Object> photoParam) {
+		return sqlSession.selectOne("mzReviewMapper.selectMzPhotoOne", photoParam);
+	}
+
 }

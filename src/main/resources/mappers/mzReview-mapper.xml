@@ -24,6 +24,7 @@
 		<result property="mzReviewFileSize" column="MZREVIEW_FILESIZE"/>
 		<result property="mzReviewFileTime" column="MZREVIEW_FILETIME"/>
 		<result property="mzReviewNo" column="MZREVIEW_NO"/>
+		<result property="userType" column="USER_TYPE"/>
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
@@ -87,9 +88,14 @@
 		DELETE FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{mzReviewNo}
 	</delete>
 	
-	<!-- 후기 사진 중 가장 최근 사진만 가져오기 -->
+	<!-- 맛집 후기 사진 중 가장 최근 사진만 가져오기 -->
 	<select id="selectRecentPhotoOne" resultMap="mzPhotoResultMap">
 		SELECT NVL(MAX(MZREVIEW_RENAME_FILENAME), 'EMPTY') as MZREVIEW_RENAME_FILENAME FROM (SELECT * FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{ shopNo } ORDER BY MZREVIEW_FILETIME DESC) WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 전체 후기 - 맛집 사진 중 가장 최근 사진만 가져오기 -->
+	<select id="selectMzPhotoOne" resultType="String">
+		SELECT NVL(MAX(MZREVIEW_RENAME_FILENAME), 'EMPTY') as MZREVIEW_RENAME_FILENAME FROM (SELECT * FROM MZ_REVIEW_PHOTO WHERE MZREVIEW_NO = #{ mzReviewNo } AND USER_TYPE = #{ userType } ORDER BY MZREVIEW_FILETIME DESC) WHERE ROWNUM = 1
 	</select>
 	
 	
