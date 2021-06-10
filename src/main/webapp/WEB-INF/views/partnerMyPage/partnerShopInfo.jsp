@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -290,16 +291,23 @@
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
-							<div class="form-body" class="add-photo-div">
-								<c:forEach items="${photo }" var="photo">
+							<div class="form-body add-photo-div">
+								<c:forEach items="${photo }" var="photo" varStatus="i" begin="0" end="${fn:length(photo) }">
 									<div class="first-menu-photo">
-										<input name="mainMenuPhoto" style="display:none;" class="form-elem uploadFile" type="file" id="file" value="" >
-										<label for="file" class="uploadFile">파일선택</label>
-										<span class="file_name">${photo.menuFileName }</span><!-- 선택된 파일 없음 -->
+										<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
+										<label for="file${i.index }" class="uploadFile">파일선택</label>
+										<span class="file-name">${photo.menuFileName }</span><!-- 선택된 파일 없음 -->
 										<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
 									</div>
 								</c:forEach>
-								
+								<c:forEach begin="${fn:length(photo) }" end="3" varStatus="i">
+									<div class="first-menu-photo">
+										<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }">
+										<label for="file${i.index }" class="uploadFile">파일선택</label>
+										<span class="file-name"></span><!-- 선택된 파일 없음 -->
+										<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
+									</div>
+								</c:forEach>
 <!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 <!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 							</div>
@@ -324,27 +332,17 @@
 
 	$(function() {
 
-		
-		// 파일명 바꾸기
-		$('input[type=file]').change(function(e){
-			$(this).parent().find(".file_name").text(e.target.files[0].name);
-		});
-		
-
-		console.log("하하");
 		// long 주소 자르기
 		var zip = $("#zip"); // 우편번호	숫자야? string이야?
 		var addr1 = $("#addr1"); // 기본주소
 		var addr2 = $("#addr2"); // 상세주소
 
 		var longAddr = '${shop.shopLongAddr}';  
-		console.log(longAddr);
 		var addr = longAddr.split('/');
 		console.log(addr[0]+' '+addr[1]+' '+addr[2]+' ');
 		zip.val(addr[0]); 
 		addr1.val(addr[1]);
 		addr2.val(addr[2]);
-		console.log(zip.val());
 		
 		
 		// 영업일 자르기
@@ -412,7 +410,14 @@
 	
 	});
 	
-		
+	// 파일명 바꾸기
+	$(document).on('change', 'input[type=file]', function(e){
+		//$(this).parent().find(".file_name").text(e.target.files[0].name);
+		var fileName = $(e.target)[0].files[0].name;
+		$(e.target).siblings('.file-name').html(fileName);
+		console.log($(".file-name").val());
+		console.log(fileName);
+	});	
 		
 	// 주소검색 api
 	function openZipSearch() {
@@ -455,23 +460,25 @@
 	//var count = -1;
 	function addPhoto(){
 		//count++;
-		var menuDiv = $(".add-photo-div");
+		var photoDiv = $(".add-photo-div");
 		//var firstDiv = $(".first-main-menu");
-		var addMenu = $("<div class='first-menu-photo'>");
+		var addPhoto = $("<div class='first-menu-photo'>");
 		
-		addMenu.append("<input name='mainMenuPhoto' class='form-elem uploadFile' type='file' id='file' value='' >")
-				.append("<a href='#this' id='delPhotoBtn' onclick='delMenu(this);'>삭제</a>");
-		menuDiv.append(addMenu);
+		addPhoto.append("<input name='mainMenuPhoto' style='display:none;' class='form-elem uploadFile' type='file' id='file4' value='' >")
+				.append("<label for='file4' class='uploadFile'>파일선택</label>")
+				.append("<span class='file-name'></span>")
+				.append("<a href='#this' id='delPhotoBtn' onclick='delMenu(this);'>X</a>");
+		photoDiv.append(addPhoto);
 		console.log("이거는 삭제");
 		console.log($(".menu-name").val());
 		console.log($(".menu-price").val());
 	}
 	///////// 메뉴 삭제 
-	function delMenu(e){
+	/* function delMenu(e){
 		//first-main-menu
 		//$()
 		$(e).parent().remove();
-	}
+	} */
 	
 	
 	////////// 등록 버튼 //////////
@@ -602,7 +609,7 @@
 		}
 		
 		// 메뉴 사진 업로드
-		var mainMenuPhoto = $("input[name='mainMenuPhoto']");
+		var mainMenuPhoto = $("input[name='file-name']");
 		console.log("업로드",mainMenuPhoto.val());
 		if(mainMenuPhoto.val()==""){		// 파일 - val 아니면 html 혹은 text
 			alert("메뉴 이미지를 업로드하세요.");
