@@ -254,9 +254,12 @@
 								<div class="form-noti pverinoti pveri_noti_2">이미 등록된 번호입니다.</div>
 								<div class="form-noti pverinoti pveri_suc">본인인증성공</div>
 							</div>
+							
 							<div class="form-body">
 								<input name="partnerVerify" id="pverielem" class="form-elem pverielem" type="text" maxlength="12" placeholder="숫자만 입력">
 							</div>
+							
+							<button class="pverielem-btn" type="button">버튼</button>
 							
 							<div class="form-head form-head2">
 								이메일&nbsp;
@@ -774,6 +777,19 @@
 				}
 			});
 			
+			
+			$(".pverielem-btn").on("click", function(){
+				var test = $("#pverielem").val();
+				var str = test.replace(/-/gi, "");
+				var strArr = new Array(str);
+				var multiply = new Array(1,3,7,1,3,7,1,3,5);
+				var checkSum = 0;
+				
+				for(var i = 0; i < multiply.lenghi; ++i){
+					checkSum += multiply[i] * strArr[i];
+				}
+				console.log(strArr);
+			});
 			
 			
 			// 이메일 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
