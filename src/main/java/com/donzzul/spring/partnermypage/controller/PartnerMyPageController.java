@@ -422,7 +422,9 @@ public class PartnerMyPageController {
 								@RequestParam("shopTypeNum") int shopTypeNum, @RequestParam(value = "businessNum", required = false) String[] businessnum,
 								@RequestParam(value="shopPhoto", required=false) MultipartFile shopPhoto,
 								@RequestParam(value="mainMenuPhoto", required=false) MultipartFile[] mainMenuPhoto, Model model, @RequestParam("userNo") int userNo,
-								@RequestParam("mainMenuName") String[] mainMenuName, @RequestParam("mainMenuPrice") int[] mainMenuPrice ) {
+								@RequestParam("mainMenuName") String[] mainMenuName, @RequestParam("mainMenuPrice") int[] mainMenuPrice 
+								
+								) {
 		
 		////////// jsp 데이터 받아서 인서트(업데이트)
 			//		- shop(update), menuPhoto(delete-insert), mainMenu(delete - insert)

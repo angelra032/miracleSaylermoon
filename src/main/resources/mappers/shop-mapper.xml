@@ -47,7 +47,7 @@
 			SHOP_PARKING_YN=#{shopParking}, SHOP_MAX_RESERVATION=#{shopMaxReserv}, START_TIME=#{startTime}, END_TIME= #{endTime} WHERE SHOP_NO = #{shopNo}
 	</update>
 	
-		<!-- 메인 메뉴 테이블 -->
+	<!-- 메인 메뉴 테이블 -->
 	<resultMap type="MainMenu" id="mainMenuResultMap">
 		<id property="mainMenuNo" column="MAIN_MENU_NO"/>
 		<result property="mainMenuName" column="MAIN_MENU_NAME"/>
@@ -252,7 +252,7 @@
 	<!--  -->
 	<!-- 가게 메인 메뉴 출력 -->
     <select id="selectShopMenu" resultMap="mainMenuResultMap">
-       SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo }
+       SELECT * FROM MAIN_MENU WHERE SHOP_NO = #{shopNo } ORDER BY MAIN_MENU_PRICE ASC
     </select>
     
     <!-- 가게 메인 메뉴 삭제 -->
