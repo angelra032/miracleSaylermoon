@@ -35,6 +35,7 @@
 				<!-- 컨트롤러에서 세션 체크해서 userNo 같이 가져가기 --> 
 				<!-- 꿈나무, MZ --> 		
 				<c:if test="${ loginUser.userType == 1 || loginUser.userType == 2 || loginUser.userType == 5 }">
+
  					<c:if test="${ empty pick.pickNo }"> <!-- 컨트롤러에서 세션 체크해서 찜 가져오기 -->
 						<a href="#" id="pick-button-off"></a>
 	 				</c:if>
@@ -162,7 +163,7 @@
 						
 						<!-- 회원별 버튼 생성 -->
 						<!-- 비회원 : 로그인 연결 -->
-							<c:if test="${ empty loginUser && empty sessionScope.kakaoId && empty sessionScope.googleId }">
+							<c:if test="${ empty loginUser  && empty sessionScope.googleId }">
 								<ul>
 									<li><a href="${ reservation }">예약하기</a></li>
 									<li><a href="${ donation }">돈쭐내기</a></li>
@@ -171,7 +172,7 @@
 							</c:if>
 						
 							<!-- 회원 -->
-							<c:if test="${ !empty loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
+							<c:if test="${ !empty loginUser  || !empty sessionScope.googleId }">
 								<!-- 꿈나무회원 -->
 								<c:if test="${ loginUser.userType == 1 }">
 									<ul class="two-buttons-all">
