@@ -183,9 +183,9 @@
 		$("#payment-btn").on("click", function(e){
 			e.preventDefault();	// form submit 이벤트 막음
 			
-			if() {
+// 			if() {
 				
-			}
+// 			}
 			$('div#paymentModal').modal({ // 모달창 출력
 		    	fadeDuration: 250
 		    })

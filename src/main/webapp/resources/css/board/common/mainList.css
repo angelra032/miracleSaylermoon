@@ -75,11 +75,11 @@
         }
         .board-list-table .board-thead {
         	border-bottom: 1px solid #0160ff;
-		    font-size: 18px;
         }
         .board-list-table .board-thead-tr {
         	border-bottom: 1px solid #0160ff;
 		    line-height: 60px;
+		    font-size: 18px;
         }
         .board-list-table > tbody > tr:hover {
             background-color: rgba(1,96,255,0.2);
@@ -88,7 +88,11 @@
                     height: 60px;
                     border-bottom: 1px solid #E1E1E1; /* #cacaca / #e3e4e5  */
             }
-        
+/* 공지사항 tr */        
+.notice-tr {
+	background : #F0F2F0;
+/* 	background : rgba(1,96,255,0.2); */
+}
         .board-page-table {
             /* width: 250px; */
             margin: 80px auto;

@@ -177,7 +177,7 @@
 	</select>
 
 	<insert id="insertReplyAdmin">
-		INSERT INTO QNA_BOARD VALUES(SEQ_QNA.NEXTVAL, '[답변]'||#{qnaTitle}, #{qnaContent}, '관리자', SYSDATE, SYSDATE, 'N', '4', '2', #{originNo}, '1', '1', #{qnaId})
+		INSERT INTO QNA_BOARD VALUES(SEQ_QNA.NEXTVAL, '[답변]'||#{qnaTitle}, #{qnaContent}, '관리자', SYSDATE, SYSDATE, 'N', '4', '2', #{originNo}, '1', '1', #{qnaId}, DEFAULT)
 	</insert>
 	
 	<update id="updateOriginQna">

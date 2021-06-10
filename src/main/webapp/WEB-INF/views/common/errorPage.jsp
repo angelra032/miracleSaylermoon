@@ -17,10 +17,15 @@
    		<div class="frame">
 	   		<div class="tabcontent">
 				<h4>${ msg }</h4>
-				<a  class="submit-btn"  href="/">돌아가기</a>
+				<a  class="submit-btn"  href="#" onclick="back()">돌아가기</a>
 			</div>
 		</div>
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script>
+	function back() {
+		history.back();
+	}
+</script>
 </html>

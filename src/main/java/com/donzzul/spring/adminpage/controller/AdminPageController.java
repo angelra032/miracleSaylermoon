@@ -362,6 +362,10 @@ public class AdminPageController {
 		int listCount = qService.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Qna> qnaList = qService.adminQnaList(pi);
+		for (int i = 0; i < qnaList.size(); i++) {
+			String date = qnaList.get(i).getQanCreateDate().split(" ")[0];
+			qnaList.get(i).setQanCreateDate(date); 
+		}
 		
 		if(!qnaList.isEmpty()) {
 			mv.addObject("qnaList", qnaList).addObject("pi", pi);

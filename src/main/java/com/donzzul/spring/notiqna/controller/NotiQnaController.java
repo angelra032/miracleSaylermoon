@@ -1,6 +1,7 @@
 package com.donzzul.spring.notiqna.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,6 +48,10 @@ public class NotiQnaController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Qna> qList = qnaService.selectAllQna(pi);
 		ArrayList<Notice> nList = nService.selectAllNotice();
+		for (int i = 0; i < qList.size(); i++) {
+			String date = qList.get(i).getQanCreateDate().split(" ")[0];
+			qList.get(i).setQanCreateDate(date); 
+		}
 		System.out.println(qList.toString());
 		if(!qList.isEmpty()) {
 			mv.addObject("qList", qList).addObject("pi", pi).addObject("nList", nList);
@@ -59,13 +64,14 @@ public class NotiQnaController {
 	
 	
 	// 디테일 selectOne
+	@ResponseBody
 	@RequestMapping(value="qaDetail.dz", method=RequestMethod.GET)
 	public ModelAndView qaDetailView(ModelAndView mv, @RequestParam("qnaNo") int qaNo, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Qna qna = qnaService.selectOneQna(qaNo); // qna 조회
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser"); // 세션에서 유저를 불러옴
 //		Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
-		
+//		System.out.println("테스트*******" + qna.getQnaId() +" ******** "+ user.getUserId());
 		if(qna != null) {
 			if(qna.getBoardPublicYN().equals("Y")) { // qna 퍼블릭(없는경우임)
 				updatQnaeHit(response, request, qaNo);
@@ -73,30 +79,31 @@ public class NotiQnaController {
 				//mv.addObject("msg", "자신이 쓴 글만 확인할 수 있습니다.").setViewName("common/errorPage");
 			} else {
 				if(user == null) { // 로그인 안함
-					//mv.addObject("msg", "로그인필요").setViewName("common/errorPage");
-					mv.setViewName("redirect:/loginView.dz");
-				} else if(qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4")) { // 글쓴이와 유저(세션)값이 같음
-					//qna.getGroupLayer() == 1 && qna.getUserNo() != user.getUserNo() && qna.getUserType().equals("4")
+					mv.addObject("msg", "회원확인을 위해 로그인이 필요합니다");
+					mv.setViewName("common/errorPage");
+				} else if(user.getUserId().equals(qna.getQnaId()) || qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4")) { // 글쓴이와 유저(세션)값이 같음
 						Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
 						if(reply != null)
 							updatQnaeHit(response, request, qaNo);
 							mv.addObject("reply", reply);
 							mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
-				} else if(user.getUserId() == qna.getQnaId() ) {
-					Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
-					if(reply != null)
-						updatQnaeHit(response, request, qaNo);
-						mv.addObject("reply", reply);
-						mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
-				}else {
-					//mv.addObject("msg", "다른사람글 확인불가").setViewName("common/errorPage");
-					mv.setViewName("redirect:/notiQnaMain.dz");
+				} else {
+					mv.addObject("msg", "비공개된 글입니다");
+					mv.setViewName("common/errorPage");
 				}
 			}
 			
 		}
 		return mv; 
 	}
+	
+//	else if(user.getUserId() == qna.getQnaId() ) {
+//		Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
+//		if(reply != null)
+//			updatQnaeHit(response, request, qaNo);
+//			mv.addObject("reply", reply);
+//			mv.addObject("qna", qna).setViewName("board/noticeQna/qna/qnaDetailView");
+//	}
 	
 	public void updatQnaeHit(HttpServletResponse response,
 							HttpServletRequest request,

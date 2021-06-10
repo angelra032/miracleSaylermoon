@@ -24,8 +24,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="my-list reserv-list">
-			<div class="frame">
+		<div class="my-list">
+			<div class="frame reserv-list">
 				<table class="list-table">
 					<thead>
 						<tr>
@@ -111,7 +111,7 @@
 	$('.board-menu-btn').eq(4).css('background','#0160ff').css('color','white');
 	
 	function deleteResult(noticeNo) {
-        var result = confirm('글을 삭제합니다.');
+        var result = confirm('게시글을 삭제합니다.');
         if(result) {
         	$.ajax({
         		url : "noticeDelete.dz",
@@ -120,7 +120,7 @@
     				if(data == "success"){
     					reloadQnaList();					
     				}else { // 남은 데이터 없을때
-    					alert("삭제 실패했습니다");
+    					alert("게시글 삭제를 실패했습니다");
     				}
     			}, //end of success
     			error : function() {
@@ -128,12 +128,13 @@
     			}
         	});
         } else {
-			location.href='adminNoticeList.dz';
+			reloadQnaList();					
         }
     }
 	
 	function reloadQnaList() {
-		$(".reserv-list").load("adminNoticeList.dz .reserv-list");
+		var page = document.location.href.split("?")[1];
+		$(".reserv-list").load("adminNoticeList.dz"+page+" .reserv-list");
 	}
 </script>
 </html>

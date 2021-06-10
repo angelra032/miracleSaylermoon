@@ -70,10 +70,10 @@
 					type : "GET",
 					success : function(data) {
 						if(data == "success") {
-							alert('글을 삭제했습니다');
+							alert('게시글을 삭제했습니다');
 							location.href="mReviewMain.dz";
 						} else if(data == "fail") {
-							alert('글 삭제를 실패했습니다');
+							alert('게시글 삭제를 실패했습니다');
 						}
 					}
 				})
