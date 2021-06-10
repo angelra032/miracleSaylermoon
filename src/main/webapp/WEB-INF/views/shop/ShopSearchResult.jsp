@@ -261,7 +261,7 @@
 								<img src="/resources/images/navi-left.png" class="noShowArrow" alt="이전"/>
 							</c:if>
 							<c:if test="${ pi.currentPage > 1 }">
-								<a href="${ before }"><img src="/resources/images/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
+								<a href="${ before }"><img src="/resources/images/shop/navi-left.png" alt="이전"/>&nbsp;&nbsp;</a>
 							</c:if>
 							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 								<c:url var="pagination" value="searchShop.dz">
@@ -283,7 +283,7 @@
 								<img src="/resources/images/navi-right.png" class="noShowArrow" alt="다음"/>
 							</c:if>
 							<c:if test="${ pi.currentPage < pi.maxPage }">
-								<a href="${ after }"><img src="/resources/images/navi-right.png" alt="다음"/></a>
+								<a href="${ after }"><img src="/resources/images/shop/navi-right.png" alt="다음"/></a>
 							</c:if>
 						</c:when>
 						<c:when test="${ themeNo eq 1 || themeNo eq 3 }"></c:when>
@@ -336,6 +336,13 @@
 			}else {
 				location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
 			}
+		});
+		
+		$('#searchBox').keypress(function(event){
+		     if ( event.which == 13 ) {
+		         $('#btn-search').click();
+		         return false;
+		     }
 		});
 	});
 	</script>

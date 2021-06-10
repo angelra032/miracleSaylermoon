@@ -18,10 +18,8 @@
    		<div class="main-banner-subtitle">Meaningful consumption, valuable life.</div>
 		<div id="main-title">누구나 마음편히<br><span>밥먹는 세상</span>을 위해</div>
 		<div class="search-box">
-			<form action="searchShop.dz">
-				<input type="text" name="searchKeyword" placeholder="검색하고자 하는 식당명을 입력해주세요">
-				<button type="submit"><img alt="검색" src="/resources/images/search.png"></button>
-			</form>
+			<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명을 입력해주세요">
+			<button id="btn-search"><img alt="검색" src="/resources/images/search.png"></button>
 		</div>
 		<div class="circle-btn-area">
 			<a href="/mapSearchList.dz"><div class="img-area"></div><p>지도조회</p></a>
@@ -110,5 +108,23 @@
 	console.log(nn1);
 	document.getElementById('donation-money').innerHTML = nn1;
 	
+	$(function() {
+		$("#btn-search").on("click", function() {
+			var searchKeyword = $("#searchBox").val();
+			if(searchKeyword == "") {
+				alert("검색하실 식당명, 음식 종류를 입력해주세요.");
+				return false;
+			}else {
+				location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
+			}
+		});
+		
+		$('#searchBox').keypress(function(event){
+		     if ( event.which == 13 ) {
+		         $('#btn-search').click();
+		         return false;
+		     }
+		});
+	});
 </script>
 </html>
