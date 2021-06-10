@@ -138,6 +138,28 @@ public class MzReviewServiceImpl implements MzReviewService {
 		return mzPhotoList;
 	}
 
+	@Override
+	public ArrayList<DreamReview> selectMzPhoto(ArrayList<DreamReview> rList) {
+		HashMap<String, Object> photoParam = new HashMap<String, Object>(); // ReviewNo, userType 파라미터 생성
+		for(int i = 0; i < rList.size(); i++) {
+			System.out.println(rList.get(i).getdrmReviewNo()); // 확인용
+			System.out.println(rList.get(i).getUserType()); // 확인용
+			
+			photoParam.put("mzReviewNo", rList.get(i).getdrmReviewNo());
+			photoParam.put("userType", rList.get(i).getUserType());
+			
+			String mPhotoName = mStore.selectAllPhoto(photoParam);
+			
+			System.out.println(mPhotoName); // 확인용
+			
+			rList.get(i).setMzReviewRenameFileName(mPhotoName);
+			
+			System.out.println(rList.get(i).getMzReviewRenameFileName());
+		}
+		
+		return rList;
+	}
+
 
 	
 }

@@ -83,12 +83,6 @@ public class DreamReviewServiceImpl implements DreamReviewService {
 		return drStore.selectAllDreamReview(shopNo);
 	}
 
-	@Override //D 가게 전체 후기 가져오기
-	public ArrayList<DreamReview> selectDMReviewAll(int shopNo) {
-		return drStore.selectDMReviewAll(shopNo);
-	}
-	
-
 	@Override //D 가게 전체 후기 중 한 개 가져오기
 	public ArrayList<DreamReview> selectDMReviewOne(ArrayList<Shop> themeList) {
 		ArrayList<DreamReview> reviewOneList = new ArrayList<DreamReview>();

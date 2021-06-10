@@ -520,17 +520,8 @@ public class ShopController {
 			rList.get(i).setDrmReviewContent(changeCon);
 		}
 		
-//		// 후기 사진 가져오기
-//		ArrayList<DreamReview> allPhotoList = mService.selectRecentPhoto(rList);
-//		System.out.println("mzPhotoList : " + allPhotoList.toString());
-//		
-//		// 최신 후기 사진 mzList 에 담기
-//		if(!allPhotoList.isEmpty()) {
-//			for(int i = 0; i < allPhotoList.size(); i++) {
-//				String fileName = allPhotoList.get(i).getMzReviewRenameFileName();
-//				rList.get(i).setmFileName(fileName);
-//			}
-//		}
+		// 후기 사진 가져오기
+		rList = mService.selectMzPhoto(rList);
 		
 		HashMap<String, Object> resultMap = new HashMap<String, Object>(); // 컨트롤에 보낼 hash
 		resultMap.put("rList", rList);

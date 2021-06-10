@@ -15,6 +15,7 @@ public class DreamReview {
 	private int shopNo;
 	private String shopName;
 	private int drmRviewHit;
+	private String mzReviewRenameFileName;
 	
 	public DreamReview() {}
 
@@ -26,7 +27,7 @@ public class DreamReview {
 
 	public DreamReview(int drmReviewNo, String drmReviewTitle, String drmReviewContent, String drmReviewWriter,
 			Date drmReviewCreateDate, Date drmReviewUploadDate, String drmReviewPublicYN, String userType, int userNo,
-			int shopNo, String shopName, int drmRviewHit) {
+			int shopNo, String shopName, int drmRviewHit, String mzReviewRenameFileName) {
 		super();
 		this.drmReviewNo = drmReviewNo;
 		this.drmReviewTitle = drmReviewTitle;
@@ -40,6 +41,7 @@ public class DreamReview {
 		this.shopNo = shopNo;
 		this.shopName = shopName;
 		this.drmRviewHit = drmRviewHit;
+		this.mzReviewRenameFileName = mzReviewRenameFileName;
 	}
 
 	public int getdrmReviewNo() {
@@ -138,13 +140,21 @@ public class DreamReview {
 		this.drmRviewHit = drmRviewHit;
 	}
 
+	public String getMzReviewRenameFileName() {
+		return mzReviewRenameFileName;
+	}
+
+	public void setMzReviewRenameFileName(String mzReviewRenameFileName) {
+		this.mzReviewRenameFileName = mzReviewRenameFileName;
+	}
+
 	@Override
 	public String toString() {
 		return "DreamReview [drmReviewNo=" + drmReviewNo + ", drmReviewTitle=" + drmReviewTitle + ", drmReviewContent="
 				+ drmReviewContent + ", drmReviewWriter=" + drmReviewWriter + ", drmReviewCreateDate="
 				+ drmReviewCreateDate + ", drmReviewUploadDate=" + drmReviewUploadDate + ", drmReviewPublicYN="
 				+ drmReviewPublicYN + ", userType=" + userType + ", userNo=" + userNo + ", shopNo=" + shopNo
-				+ ", shopName=" + shopName + ", drmRviewHit=" + drmRviewHit + "]";
+				+ ", shopName=" + shopName + ", drmRviewHit=" + drmRviewHit + ", mzReviewRenameFileName=" + mzReviewRenameFileName + "]";
 	}
 
 

@@ -19,7 +19,6 @@ public interface DreamReviewService {
 	public int getListCount();
 	public DreamReview selectOneDreamReview(); //메인페이지에서 한개만 불러오기(오버라이딩)
 	public ArrayList<DreamReview> selectAllDreamReview(int shopNo);
-	public ArrayList<DreamReview> selectDMReviewAll(int shopNo); // 가게 전체 후기 가져오기
 	public ArrayList<DreamReview> selectDMReviewOne(ArrayList<Shop> themeList); // 가게 후기 한개 가져오기
 	public ArrayList<Integer> selectReviewRanking(); // 가게 테마 리뷰 순위
 	public int updateHit(int drmReviewNo);

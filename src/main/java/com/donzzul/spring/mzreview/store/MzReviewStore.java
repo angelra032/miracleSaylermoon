@@ -32,4 +32,5 @@ public interface MzReviewStore {
 	public ArrayList<MzReviewPhoto> selectPhoto(int mzReviewNo);
 	public int deleteBeforePhoto(int mzReviewNo);
 	public MzReviewPhoto selectRecentPhoto(int mzReviewNo);
+	public String selectAllPhoto(HashMap<String, Object> photoParam);
 }
