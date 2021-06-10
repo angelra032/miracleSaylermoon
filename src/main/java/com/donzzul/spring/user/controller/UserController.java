@@ -228,37 +228,40 @@ public class UserController {
 	}
 	
 	// 카카오 로그인
-	@RequestMapping(value = "kakaologin.dz", method = RequestMethod.GET)
-	public String kakaoLogin(HttpServletRequest request, 
-							@RequestParam("kakaoId") String kakaoId, 
-							@RequestParam("kakaoNickname") String kakaoNickname, Model model) {
-		if(kakaoId != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("kakaoId", kakaoId);
-			session.setAttribute("kakaoNickname", kakaoNickname);
-			return "/home";
-		}else {
-			model.addAttribute("msg", "로그인 실패");
-			return "common/errorPage";
-		}
-	}
+//	@RequestMapping(value = "kakaologin.dz", method = RequestMethod.GET)
+//	public String kakaoLogin(HttpServletRequest request, 
+//							@RequestParam("kakaoId") String kakaoId, 
+//							@RequestParam("kakaoNickname") String kakaoNickname, Model model) {
+//		if(kakaoId != null) {
+//			HttpSession session = request.getSession();
+//			session.setAttribute("kakaoId", kakaoId);
+//			session.setAttribute("kakaoNickname", kakaoNickname);
+//			return "/home";
+//		}else {
+//			model.addAttribute("msg", "로그인 실패");
+//			return "common/errorPage";
+//		}
+//	}
 	
-	// 카카오로그인 중복확인(있냐~ 없냐~) - 없으면 넣기
+	// 카카오로그인, 구글로그인 중복확인(있냐~ 없냐~) - 없으면 넣기
 	@ResponseBody 
-	@RequestMapping(value = "countKakaoUser.dz", method = RequestMethod.GET)
+	@RequestMapping(value = "countSocialUser.dz", method = RequestMethod.GET)
 	public String countKakaoUser(HttpServletRequest request,
-								@RequestParam("kakaoId") String kakaoId,
-								@RequestParam("kakaoNickname") String kakaoNickname,  Model model) {
-		if(kakaoId != null && kakaoNickname != null) {
-			int result= service.countKakaoUser(kakaoId);
+								@RequestParam("socialId") String socialId,
+								@RequestParam("socialNickname") String socialNickname,  Model model) {
+		if(socialId != null && socialNickname != null) {
+			int result= service.countSocialUser(socialId);
+			String socialPw = passwordEncoder.encode(socialId);
 			if (result == 0) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("kakaoId", kakaoId);
-				map.put("kakaoNickname", kakaoNickname);
-				int insertResult= service.insertKakaoUser(map);
+				map.put("socialId", socialId);
+				map.put("socialNickname", socialNickname);
+				map.put("socialPw", socialPw);
+				int insertResult= service.insertSocialUser(map);
 				if (insertResult>0) {
 					return "success";
 				}else {
+					System.out.println("insertResult:"+insertResult);
 					return "fail";
 				}
 			}else {

@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
+		<c:if test="${ !empty sessionScope.loginUser && (sessionScope.loginUser.userType == '2' || sessionScope.loginUser.userType == '5')}">
 			<div id="main-title">${ loginUser.userName }님 안녕하세요!</div>
 		</c:if>
 		<c:if test="${ empty sessionScope.loginUser && !empty sessionScope.kakaoId}">
@@ -88,7 +88,7 @@
 						</c:if>
 						<c:if test="${ empty rList }">
 							<tr>
-								<td colspan="5">${ Rmsg }</td>
+								<td colspan="6">${ Rmsg }</td>
 							</tr>
 						</c:if>
 					</tbody>
@@ -301,6 +301,11 @@
 									</td>
 								</tr>
 							</c:forEach>
+						</c:if>
+						<c:if test="${ empty qList }">
+							<tr>
+								<td colspan="5">${ Qmsg }</td>
+							</tr>
 						</c:if>
 					</tbody>
 				</table>
