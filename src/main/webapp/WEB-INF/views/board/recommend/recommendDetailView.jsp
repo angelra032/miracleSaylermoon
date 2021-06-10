@@ -42,8 +42,8 @@
 	                <button onclick="location.href='recommendUpdateForm.dz?recommendNo=${recommendBoard.recommendNo}'" style="cursor: pointer;">수정하기</button>
 	            </div>
 	            <div class="modify-btn-area">
-	                <button onclick="location.href='recommendDelete.dz?recommendNo=${recommendBoard.recommendNo}'" style="cursor: pointer;">삭제하기</button>
-	            </div>
+	                <button onclick="deleteResult(${recommendBoard.recommendNo})"  style="cursor: pointer;">삭제하기</button>
+	            </div> 
 				<div class="user-back-btn-area">
 	                <button onclick="location.href='recommendMain.dz'" style="cursor: pointer;">목록으로</button>
 	            </div>
@@ -58,5 +58,30 @@
        </main>
       <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
-	<link rel="stylesheet" href="resources/css/summernote/summernote-lite.css">
+<script type="text/javascript">
+// onclick="location.href='recommendDelete.dz?recommendNo=${recommendBoard.recommendNo}'"
+
+	function deleteResult(recommendNo) {
+	    var result = confirm('게시글을 삭제합니다');
+	    if(result) {
+	    	$.ajax({
+	    		url : "recommendDelete.dz",
+				data : { "recommendNo" : recommendNo },
+				success : function(data){ 
+					if(data == "success"){
+						alert("게시글을 삭제했습니다");
+					}else { // 남은 데이터 없을때
+						alert("게시글 삭제를 실패했습니다");
+					}
+					location.href='recommendMain.dz';
+				}, //end of success
+				error : function() {
+					console.log("전송실패");
+				}
+	    	});
+	    } else {
+			location.href='recommendMain.dz';
+	    }
+	}
+</script>
 </html>

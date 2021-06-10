@@ -77,7 +77,7 @@
 					if(data == "success"){
 						alert("게시글을 삭제했습니다");
 					}else { // 남은 데이터 없을때
-						alert("삭제 실패했습니다");
+						alert("게시글 삭제를 실패했습니다");
 					}
 					location.href='notiQnaMain.dz';
 				}, //end of success

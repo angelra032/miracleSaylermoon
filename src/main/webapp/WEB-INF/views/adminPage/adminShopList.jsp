@@ -171,6 +171,7 @@
 				success : function(data) {
 					console.log('테스트' + data);
 					if(data["result"] == "success") {
+						var pointResult = confirm('환급될 금액은 ');
 						var point = data["point"];
 						alert(point + '원 포인트 환급 신청이 완료되었습니다');
 						shopListReload();

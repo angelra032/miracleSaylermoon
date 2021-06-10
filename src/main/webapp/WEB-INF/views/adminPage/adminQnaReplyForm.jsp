@@ -19,7 +19,7 @@
 	   	</div>
 		<div id="main-title">QnA Reply</div>
 		
-		<div class="form-group">
+		<div class="form-group-area">
 			<!-- <input type="hidden"> -->
 			<div class="title-area">
 				<label for="qnaTitle">제목</label>
@@ -96,7 +96,7 @@
 							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent, "originalQnaNo" : originalQnaNo, "originalUserNo" : originalUserNo, "qnaId" : qnaId},
 							   success : function(data){
 								   if(data == "success") {
-									   alert('성공');
+									   alert('게시글을 올렸습니다');
 									   location.href="notiQnaMain.dz";
 									} else if(data=="fail") {
 										alert('게시글 올리기 실패');

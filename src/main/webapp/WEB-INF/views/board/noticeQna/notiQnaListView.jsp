@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +33,7 @@
 	                    </tr>
 	                   <c:forEach items="${ nList }" var="notice" varStatus="status">
 	                    	<c:set var="num" value="${ status.index }"/>
-		                    <tr onclick="location.href='noticeDetail.dz?noticeNo=${notice.noticeNo}'" style="cursor: pointer;"> <!-- 공지사항위치 -->
+		                    <tr class="notice-tr" onclick="location.href='noticeDetail.dz?noticeNo=${notice.noticeNo}'" style="cursor: pointer;"> <!-- 공지사항위치 -->
 		                        <td>${ num }</td>
 		                        <td>관리자</td>
 		                        <td>${ notice.noticeTitle }</td>
@@ -127,5 +130,7 @@
 			</c:if>
         </div>
 	</main>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </html>
