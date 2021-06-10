@@ -201,13 +201,13 @@ public class UserStoreLogic implements UserStore {
 	}
 
 	@Override
-	public int countKakaoUser(String kakaoId) {
-		return sqlSession.selectOne("userMapper.countKakaoUser", kakaoId);
+	public int countSocialUser(String socialId) {
+		return sqlSession.selectOne("userMapper.countSocialUser", socialId);
 	}
 
 	@Override
-	public int insertKakaoUser(HashMap<String, String> map) {
-		return sqlSession.insert("userMapper.insertKakaoUser", map);
+	public int insertSocialUser(HashMap<String, String> map) {
+		return sqlSession.insert("userMapper.insertSocialUser", map);
 	}
 
 	

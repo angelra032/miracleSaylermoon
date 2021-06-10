@@ -67,7 +67,7 @@
 						<a href="dreamMyPage.dz">마이페이지</a>
 					</c:if>
 					<c:if
-						test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
+						test="${ !empty sessionScope.loginUser && (sessionScope.loginUser.userType == '2' || sessionScope.loginUser.userType == '5')}">
 						<a href="mzMyPage.dz">마이페이지</a>
 					</c:if>
 					<c:if

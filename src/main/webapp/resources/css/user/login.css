@@ -144,6 +144,7 @@ input:focus, input:not(:placeholder-shown){
 	cursor: pointer;
 	height: 40px;
 	margin-top: 20px;
+	margin-left: 80px;
 	z-index: -1;
 	opacity: 0%;
 }

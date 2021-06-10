@@ -39,6 +39,6 @@ public interface UserStore {
 	public ArrayList<User> selectAllUserList(PageInfo pi, HashMap<String, String> userType);
 	public User getUsersByID(String userId);
 	public User getUsersByNo(String userNo);
-	public int countKakaoUser(String kakaoId);
-	public int insertKakaoUser(HashMap<String, String> map);
+	public int countSocialUser(String socialId);
+	public int insertSocialUser(HashMap<String, String> map);
 }

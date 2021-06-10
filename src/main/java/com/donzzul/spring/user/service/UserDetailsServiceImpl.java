@@ -42,7 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		if(user.getUserType().equals("1")) {
 			roles.add(new SimpleGrantedAuthority("ROLE_DREAM"));	// 로그인 성공시 ROLE_USER 롤 부여
-		}else if (user.getUserType().equals("2")) {
+		}else if (user.getUserType().equals("2") || user.getUserType().equals("5")) {
 			roles.add(new SimpleGrantedAuthority("ROLE_MZ"));	// 로그인 성공시 ROLE_USER 롤 부여
 		}else if (user.getUserType().equals("3")) {
 			roles.add(new SimpleGrantedAuthority("ROLE_PARTNER"));	// 로그인 성공시 ROLE_USER 롤 부여
