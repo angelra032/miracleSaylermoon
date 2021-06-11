@@ -311,7 +311,7 @@
 <!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 <!-- 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자" value="" > -->
 							</div>
-								<button type="button" onclick="addPhoto();" class="add-menu-btn" >메뉴추가</button>
+								<!-- <button type="button" onclick="addPhoto();" class="add-menu-btn" >메뉴추가</button> -->
 							
 							<h1>유효성검사 필요, 메뉴사진(다중업로드) 추가, MAIN_MENU 테이블 입력필요</h1>
 							
