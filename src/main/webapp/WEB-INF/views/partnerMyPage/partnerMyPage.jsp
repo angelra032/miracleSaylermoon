@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>사업자 마이페이지</title>
-<link rel="stylesheet"
-	href="/resources/css/partnermypage/partnerMyPage.css">
+<link rel="stylesheet" href="/resources/css/partnermypage/partnerMyPage.css">
 
 <!-- fullcalender -->
 <link href='/resources/css/partnermypage/main.css' rel='stylesheet' />
@@ -184,12 +183,6 @@
 				</table>
 			</div>
 		</div>
-		
-		<!-- modal section -->
-		<!-- <div id="ex1" class="ex1 modal">
-		  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
-		  <a href="#" rel="modal:close">닫기</a>
-		</div> -->
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
@@ -223,7 +216,7 @@
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				editable : true,
+				editable : false,
 				selectable : true,
 				businessHours : true,
 				locale : "ko",

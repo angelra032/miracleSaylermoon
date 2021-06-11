@@ -19,8 +19,8 @@
 <!-- JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async
-	defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" asyn
+	cdefer></script>
 <script src="https://apis.google.com/js/api:client.js"></script>
 <!-- modal -->
 <script
@@ -97,7 +97,7 @@
 	<!-- chatting button-->
 	<c:if
 		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
-		<a id="modal" href="#container" rel="modal:open"> 
+		<a id="modal" href="#container"> 
 			<div id="chatting">
 			<img alt="chattingIcon" src="/resources/images/chatting/chat.png">
 			<p class="pTag">문의하기</p>
@@ -267,6 +267,16 @@
 </body>
 <script type="text/javascript">
 	var click = true;
+	 $(function() {
+		    $('a[href="#container"]').click(function(event) {
+		      event.preventDefault();
+		      $("#container").modal({
+		        escapeClose: false,
+		        clickClose: false,
+		        showClose: false
+		      });
+		    });
+		  });
 	$("#requestBtn").on("click", function() {
 		var userName = $("#userName").val();
 		$("#yourName").hide();
@@ -303,59 +313,45 @@
 	var ws;
 
 	function wsOpen(userId,type) {
-		//localStorage.getItem('ws')
-		//localStorage.setItem('ws', ws);
-		if(type == 'user'){
-			//사용자
-			if(global.ws == null){
-				ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
-				global.ws = ws;
-			}else{
-				ws = global.ws;
-			}
-		}else{
-			//관리자
-			var userList = global.user;
-			console.log(userList);
-			var chk = false;
-			for (var i = 0; i < userList.length; i++) {
-				if(userList[i] == userId){
-					chk = true;
-				}
-			}
-			if(global.user.length == 0){
-				global.user[0] = userId;
-			}else{
-				global.user[global.user.length + 1] = userId;
-			}
-			console.log('userList');
-			console.log(userList);
-			console.log('wsList');
-			console.log(global.user.wsList);
-			if(chk){
-				//소켓 이미 생성했을경우
-				console.log('if')
-				if(eval("global.wsList." + userId)){
-					ws = eval('global.wsList.'+userId);
-				}
-				console.log('if2');
-			}else{
-				console.log('else');
-				//소켓 최초 생성
-				ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
-				console.log('ws');
-				console.log(typeof(ws));
-				var d01 = "23123";
-				console.log('123213');
-				console.log(JSON.stringify(ws));
-				//eval("global.wsList." + userId + "="+JSON.stringify(ws));
-				global.wsList.user1 = ws;
-			}
-			console.log('ws2');
-			console.log(global.wsList);
-		}
-		//wsEvt();
-	}
+	      if(type == 'user'){
+	         //사용자
+	        if(global.ws == null){
+	              console.log('if');
+	               ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
+	              global.ws = ws;
+	         }else{
+	              ws = global.ws;
+	         }
+	      }else{
+	         //관리자
+	         var userList = global.user;
+	         var chk = false;
+	         var wsLength = 0;
+	         for (var i = 0; i < userList.length; i++) {
+	         if(userList[i].key == userId){
+	            chk = true; //true 이미 소켓 생성
+	            wsLength = userList[i].val;
+	         }
+	         }
+	       var length = global.user.length;
+	         if(chk){
+	            //이미 소켓생성했을경우
+	            ws = global.wsList[wsLength];
+	         }else{
+	            //소켓 최초생성
+	            ws = new WebSocket("ws://" + location.host + "/chatting/"+userId);
+	            if(length == 0){
+	               global.user[0] = {"key":userId,"val":global.user.length};
+	            }else{
+	               global.user[length] = {"key":userId,"val":length};
+	            }
+	            global.wsList[length] = ws;
+	         }
+	      }
+	      //$("#chating").find(".sendDiv").remove();
+	      //$("#chating").find(".reciveDiv").remove();
+	      wsEvt();
+	   }
 
 	function wsEvt() {
 		ws.onopen = function(data) {
