@@ -202,13 +202,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int countKakaoUser(String kakaoId) {
-		return store.countKakaoUser(kakaoId);
+	public int countSocialUser(String socialId) {
+		return store.countSocialUser(socialId);
 	}
 
 	@Override
-	public int insertKakaoUser(HashMap<String, String> map) {
-		return store.insertKakaoUser(map);
+	public int insertSocialUser(HashMap<String, String> map) {
+		return store.insertSocialUser(map);
 	}
 
 	

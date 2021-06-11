@@ -143,12 +143,12 @@
 	</insert>
 	
 	<!-- 카카오계정 있냐~ 없냐~ -->
-	<select id="countKakaoUser" parameterType="_int" resultMap="userResultMap">
-		SELECT COUNT(*) FROM "USER" WHERE USER_TYPE = 5 AND USER_ID = #{kakaoId}
+	<select id="countSocialUser" resultType="_int">
+		SELECT COUNT(*) FROM "USER" WHERE USER_TYPE = '5' AND USER_ID = #{socialId}
 	</select>
-	<insert id="insertKakaoUser" parameterType="HashMap">
+	<insert id="insertSocialUser" parameterType="HashMap">
 		INSERT INTO "USER"
-		VALUES(SEQ_USER.NEXTVAL, #{kakaoId}, #{kakaoId}, #{kakaoNickname}, null, null, null, null, null, null, 0, '5', null)
+		VALUES(SEQ_USER.NEXTVAL, #{socialId}, #{socialPw}, #{socialNickname}, null, null, null, null, null, null, 0, '5', null)
 	</insert>
 
 	<update id="resetPw">
