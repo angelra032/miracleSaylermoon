@@ -27,7 +27,7 @@ a {
 
 /* 백그라운드 이미지 */
 header {
-   height: 100px;
+   height: 100px; 
 }
     .header-background-area > img {
         position: absolute;

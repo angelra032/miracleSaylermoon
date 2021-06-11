@@ -9,6 +9,9 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopSearchList.css">
 <!-- JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <title>가게 찾기 리스트</title>
 </head>
 <body>
@@ -27,11 +30,8 @@
 			</div>
 						
 			<div class="searchBar">
-				<form action="searchShop.dz">
-					<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
-					<button id="btn-search" type="submit"><img src="/resources/images/search.png"></button>
-					<!-- <button id="btn-search"><img src="/resources/images/search.png"></button> -->
-				</form>
+				<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
+				<button id="btn-search"><img src="/resources/images/search.png"></button>
 			</div>
 			
 			<!-- 테마 메인!!!!!!!!! -->
@@ -40,7 +40,7 @@
 			</div>
 			
 			<div class="searchTheme">
-				<div class="theme one">
+				<div class="theme one"> 
 					<div class="scale">
 						<a href="searchTheme.dz?themeNo=1"><span class="themeTitle">이 주의 리뷰왕</span>
 						<input type=hidden name="theme1" value="1">
@@ -132,7 +132,8 @@
 
 
 	<script>
-		/* $(function() {
+		$(function() {
+				
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();
 				if(searchKeyword == "") {
@@ -141,14 +142,13 @@
 				}else {
 					location.href = 'searchShop.dz?searchKeyword=' + searchKeyword;
 				}
-			}); */
-		$(function() {
-			$("#btn-search").on("submit", function() {
-				var searchKeyword = $("#searchBox").val();
-				if(searchKeyword == "") {
-					alert("검색하실 식당명, 음식 종류를 입력해주세요.");
-					return false;
-				}
+			});
+			
+			$("#searchBox").keypress(function(event){
+			     if ( event.which == 13 ) { // 키코드
+			         $('#btn-search').click();
+			         return false;
+			     }
 			});
 				
 			/* $(".theme1").on("click", function(e) {

@@ -23,12 +23,17 @@
 		<input type="hidden" id="center-value" value="${center }">
 		<input type="hidden" id="mapMarkers" value="${mapMarkers }">
 		<div class=frame>
-			<div class=map-left>
+			<div class=map-left> 
 				<div class="searchBar">
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
 					<button id="btn-search"><img src="/resources/images/map/undo.png"></button>
 				</div>
 				<div class="content-list">
+					<c:if test="${empty mList}">
+						<div class="notEnroll">
+							<span class="shopReady">등록된 가게가 없습니다.</span>
+						</div>
+					</c:if>
 					<c:if test="${!empty mList}">
 						<c:forEach items="${ mList }" var="shop">
 							<div class="content-shop">
@@ -175,7 +180,13 @@
         
     } 	
 			
-	
+    $('#searchBox').keypress(function(event){
+	     if ( event.which == 13 ) { // 키코드
+	         $('#btn-search').click();
+	         return false;
+	     }
+	});
+    
 	$("#btn-search").on("click", function() {
 		/* var result = true; */
 		
@@ -277,8 +288,8 @@
 						$(".content-list").empty();
 						$(".content-list-navi").empty();
 						
-						var notEnroll = $("<div id='notEnroll'>");
-						notEnroll.append("<span id='shopReady'>일치하는 검색 결과를 찾을 수 없습니다.</span>");
+						var notEnroll = $("<div class='notEnroll'>");
+						notEnroll.append("<span class='shopReady'>일치하는 검색 결과를 찾을 수 없습니다.</span>");
 						contentList.append(notEnroll);
 						/* result = false; */
 					}  
@@ -384,8 +395,8 @@
 					$(".content-list").empty();
 					$(".content-list-navi").empty();
 					
-					var notEnroll = $("<div id='notEnroll'>");
-					notEnroll.append("<span id='shopReady'>일치하는 검색 결과를 찾을 수 없습니다.</span>");
+					var notEnroll = $("<div class='notEnroll'>");
+					notEnroll.append("<span class='shopReady'>일치하는 검색 결과를 찾을 수 없습니다.</span>");
 					contentList.append(notEnroll);
 				}  
 			},

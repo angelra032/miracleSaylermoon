@@ -64,7 +64,7 @@ public class ShopController {
 		String qLocation = "";
 		
 		switch(location) {
-			case "All" : 
+			case "All" :  
 				qLocation = "전체";
 				break;
 			case "Seoul" : 

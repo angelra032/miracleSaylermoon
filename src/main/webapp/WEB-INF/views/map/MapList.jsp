@@ -21,7 +21,7 @@
 		<div id="main-title">지도조회</div>
 		<div class="frame">
 			<div class="sub-title">
-				<p>찾을 지역을 선택하세요</p>
+				<p>찾을 지역을 선택하세요</p> 
 			</div>
 			<div class="map-menuAll">
 				<ul>

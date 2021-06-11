@@ -21,7 +21,7 @@ body {
 main {
 	width: 100%;
 	height: 100%;
-}
+} 
 
 .frame {
 	width: 1903px;
@@ -81,11 +81,13 @@ main {
 				margin-bottom: 50px;
 			}
 			
-			#notEnroll {
-				margin-top: 300px;
+			.notEnroll {
+				width: 100%;
+				height: 50px;
+				padding-top: 50%;
 			}
 			
-				#shopReady {
+				.shopReady {
 					color: #888;
 				}
 			
