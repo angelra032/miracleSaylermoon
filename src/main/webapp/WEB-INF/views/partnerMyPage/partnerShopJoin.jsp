@@ -212,7 +212,8 @@
 							<div class="form-body add-menu-div">
 								<div class="first-main-menu">
 									<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" />
-									<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격 입력" />
+									<input type="text" name="mainMenuPrice" class="form-elem menu-price" placeholder="메뉴 가격" />
+									<a href="#this" id="delMenuBtn" onclick="delMenu(this);">삭제</a>
 								</div>
 							</div>
 								<button type="button" onclick="addMenu();" class="add-menu-btn" >메뉴추가</button>
@@ -225,10 +226,30 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
+								<div class="first-menu-photo">
+									<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
+									<label for="file${i.index }" class="uploadFile">파일선택</label>
+									<span class="file-name">선택된 파일 없음</span><!-- 선택된 파일 없음 -->
+									<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
+								</div>
+								<div class="first-menu-photo">
+									<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
+									<label for="file${i.index }" class="uploadFile">파일선택</label>
+									<span class="file-name">선택된 파일 없음</span><!-- 선택된 파일 없음 -->
+									<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
+								</div>
+								<div class="first-menu-photo">
+									<c:forEach varStatus="i" begin="0" end="3">
+										<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
+										<label for="file${i.index }" class="uploadFile">파일선택</label>
+										<span class="file-name">선택된 파일 없음</span><!-- 선택된 파일 없음 -->
+										<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
+									</c:forEach>
+								</div>
+								<!-- <input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
 								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자"> -->
 							</div>
 							
 							<h1>유효성검사 수정필요</h1>
@@ -292,6 +313,17 @@
 	});
 	
 	
+
+	// 파일명 바꾸기
+	$(document).on('change', 'input[type=file]', function(e){
+		//$(this).parent().find(".file_name").text(e.target.files[0].name);
+		var fileName = $(e.target)[0].files[0].name;
+		$(e.target).siblings('.file-name').html(fileName);
+		console.log($(".file-name").val());
+		console.log(fileName);
+	});	
+		
+	
 	
 	// 주소검색 api
 	function openZipSearch() {
@@ -318,18 +350,24 @@
 		
 // 		firstDiv.html();
 		addMenu.append("<input type='text' name='mainMenuName' class='form-elem menu-name' placeholder='메뉴 이름 입력' />")
-				.append("<input type='text' name='mainMenuPrice' class='form-elem menu-price' placeholder='메뉴 가격 입력' />");
+				.append("<input type='text' name='mainMenuPrice' class='form-elem menu-price' placeholder='메뉴 가격' />")
+				.append("<a href='#this' id='delMenuBtn' onclick='delMenu(this);'>삭제</a>");
 		menuDiv.append(addMenu);
 		console.log(count);
 		console.log($(".menu-name").val());
 		console.log($(".menu-price").val());
 	}
+	///////// 메뉴/사진 삭제 
+	function delMenu(e){
+		//first-main-menu
+		//$()
+		$(e).parent().remove();
+	}
+	
 	
 	
 	function waitJoin() {
-		
 		var rtn = true;
-		
 
 		// 메인 이미지 업로드
 		var shopPhoto = $("input[name='shopPhoto']");
