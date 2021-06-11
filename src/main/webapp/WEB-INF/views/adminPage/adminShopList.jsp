@@ -22,8 +22,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="my-list reserv-list">
-			<div class="frame">
+		<div class="my-list">
+			<div class="frame reserv-list">
 				<table class="list-table" id="list-table">
 					<thead>
 						<tr>
@@ -139,7 +139,7 @@
 		var result = confirm('선택한 가게를 목록에 노출시킵니다')
 		if(result) {
 			$.ajax({
-				url : 'adminShopChangePoint.dz',
+				url : 'adminShopShow.dz',
 				data : {"shopNo" : shopNo},
 				type : "GET",
 				success : function(data) {
@@ -160,32 +160,39 @@
 	
 	// 환급해줄 때 // 나중에 사업자 개인정보페이지로 이동수정
 	function changePoint(shopNo) {
-		console.log(shopNo);
-		var result = confirm('사업자 포인트를 환급합니다');
-		if(result) {
-			$.ajax({
-				url : "adminShopChangePoint.dz" ,
-				data : {"shopNo" : shopNo} ,
-				type : "GET",
-				method : "POST",
-				success : function(data) {
-					console.log('테스트' + data);
-					if(data["result"] == "success") {
-						var pointResult = confirm('환급될 금액은 ');
-						var point = data["point"];
-						alert(point + '원 포인트 환급 신청이 완료되었습니다');
-						shopListReload();
-					}	else if(data["result"] == "fail") {
-						alert('포인트 환급 신청이 실패했습니다');
-					}				
-				},
-				error : function() {
-					alert('포인트 환급 에러')
+		$.ajax({
+			url : "adminShopPointSelect.dz" ,
+			data : {"shopNo" : shopNo} ,
+			type : "GET",
+			success : function(data) {
+				
+				var result = confirm('이름 : ' + data["shopName"] + '\n주소 : ' + data["shopAddr"] + '\n휴대번호 : ' + data["shopPhone"] + '\n환급금액 : ' + data["point"] + '원');
+				if(result) {
+					$.ajax({
+						url : "adminShopChangePoint.dz" ,
+						data : {"shopNo" : shopNo} ,
+						type : "GET",
+						method : "POST",
+						success : function(data) {
+							console.log('테스트' + data);
+							if(data["result"] == "success") {
+								alert('포인트 환급 신청이 완료되었습니다');
+								shopListReload();
+							}	else if(data["result"] == "fail") {
+								alert('포인트 환급 신청이 실패했습니다');
+							}				
+						},
+						error : function() {
+							alert('포인트 환급 에러');
+						}
+					});
+				} else {
+					
 				}
-			});
-		} else {
-			
-		}
+				
+			}
+		});
+		
 		shopListReload();
 	}
 	
@@ -193,7 +200,7 @@
 	// 리스트 리로드
 	function shopListReload() {
 		var page = document.location.href.split("?")[1];
-		$("#list-table").load("adminShopList.dz?"+page+" #list-table");
+		$(".reserv-list").load("adminShopList.dz?"+page+" .reserv-list");
 	}
 </script>
 </html>

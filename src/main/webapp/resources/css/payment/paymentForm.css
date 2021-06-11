@@ -278,15 +278,15 @@ input[type=radio]{
 
 /* 카카오, 이니시스 모달창 */
 #paymentModal {
-	height : 250px;
+	height : 300px;
 }
 	.link-area-div {
 	    width: 450px;
-	    height: 80px;
+/* 	    height: 80px; */
 	    display: flex;
 	    flex-flow: row;
 	    justify-content: center;
-	    margin : 10px 0;
+	    margin : 40px 0 0 0;
 	}
 	
 	.modal-link-area input[type="radio"]{
