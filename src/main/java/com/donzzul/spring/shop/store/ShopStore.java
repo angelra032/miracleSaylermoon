@@ -43,7 +43,7 @@ public interface ShopStore {
     public Shop selectShopOneUserNo(int userNo); 
 	public int insertMenuPhoto(MenuPhoto menuPhoto); // 메뉴사진 저장(다중업로드)
 	public int insertMainMenu(MainMenu mainMenu); // 메인 메뉴 등록
-	public int deleteMenuPhoto(int shopNo); // 가게 메뉴사진 삭제 
+	public int deleteMenuPhoto(String deletePhotoName); // 가게 메뉴사진 삭제 (ajax로)
 	public int deleteMainMenu(int shopNo); // 가게 메인메뉴 삭제
 	
 }
