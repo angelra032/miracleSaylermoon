@@ -40,7 +40,7 @@
 			</div>
 			
 			<div class="searchTheme">
-				<div class="theme one">
+				<div class="theme one"> 
 					<div class="scale">
 						<a href="searchTheme.dz?themeNo=1"><span class="themeTitle">이 주의 리뷰왕</span>
 						<input type=hidden name="theme1" value="1">

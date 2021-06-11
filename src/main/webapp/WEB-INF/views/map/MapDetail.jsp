@@ -23,7 +23,7 @@
 		<input type="hidden" id="center-value" value="${center }">
 		<input type="hidden" id="mapMarkers" value="${mapMarkers }">
 		<div class=frame>
-			<div class=map-left>
+			<div class=map-left> 
 				<div class="searchBar">
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
 					<button id="btn-search"><img src="/resources/images/map/undo.png"></button>

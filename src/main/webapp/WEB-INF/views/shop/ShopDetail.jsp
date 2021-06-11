@@ -25,7 +25,7 @@
 		 	<!-- 가게 메인 이미지 가져오기 -->
 		 	<img src="/resources/partnerUploadFiles/shopPhoto/${ shop.shopFileName }" alt="shopMain">
 	   	</div>
-	   	<div id="shop-header">
+	   	<div id="shop-header"> 
 			<div id="shop-main-title">
 				<span>${ shop.shopName }</span>
 				<span id="shop-main-title-type">${ shop.shopType }</span><br>

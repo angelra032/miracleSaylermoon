@@ -33,7 +33,7 @@
 						<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명, 음식 종류를 입력해주세요">
 					</c:if>
 					<button id="btn-search"><img src="/resources/images/search.png"></button>
-				</div>
+				</div> 
 				
 				<!-- 검색결과 가게 리스트 -->
 	 			<div class="sub-title second">

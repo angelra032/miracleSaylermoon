@@ -21,7 +21,7 @@
 			<input type="text" id="searchBox" name="searchKeyword" placeholder="검색하고자 하는 식당명을 입력해주세요">
 			<button id="btn-search"><img alt="검색" src="/resources/images/search.png"></button>
 		</div>
-		<div class="circle-btn-area">
+		<div class="circle-btn-area"> 
 			<a href="/mapSearchList.dz"><div class="img-area"></div><p>지도조회</p></a>
 			<a href="/searchShopView.dz"><div class="img-area"></div><p>테마추천</p></a>
 			<a href="/dReviewMain.dz"><div class="img-area"></div><p>감사후기</p></a>

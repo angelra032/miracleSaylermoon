@@ -28,7 +28,7 @@ a {
 	
     .header-background-area > img {
         position: absolute;
-        z-index: -5;
+        z-index: -5; 
         display: block;
         top: 0;
         width: 1903px;
