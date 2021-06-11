@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,12 +15,15 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.donzzul.spring.user.domain.User;
+
 
 @Component
 public class SocketHandler extends TextWebSocketHandler {
 	
 	HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
+	List<HashMap<String, Object>> list = new ArrayList<>();
 	
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
@@ -59,17 +63,25 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//소켓 연결
-		System.out.println("==========session");
-		System.out.println(session.toString());
-		
-		super.afterConnectionEstablished(session);
-		sessionMap.put(session.getId(), session);
-		System.out.println("====================sessionMap"+sessionMap.toString());
-		boolean flag = false;
-		System.out.println();
+		String userName = session.getPrincipal().getName();
 		String url = session.getUri().toString();
 		System.out.println(url);
 		String userId = url.split("/chatting/")[1];
+		
+		/*
+		 * for (int i = 0; i < list.size(); i++) {
+		 * if(list.get(i).get("userId").equals(userId)) {
+		 * if(list.get(i).get("userName").equals(userName)) { session =
+		 * sessionMap.get(list.get(i).get("sessionId")); } } }
+		 */
+		 
+		
+		super.afterConnectionEstablished(session);
+		if(sessionMap.get(session.getId()) == null) {
+			//세션맵에 널일경우만 추가
+			sessionMap.put(session.getId(), session);
+		}
+		boolean flag = false;
 		int idx = rls.size(); //방의 사이즈를 조사한다.
 		if(rls.size() > 0) {
 			for(int i=0; i<rls.size(); i++) {
@@ -81,22 +93,32 @@ public class SocketHandler extends TextWebSocketHandler {
 				}
 			}
 		}
-				
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("userId", userId);
+		map2.put(session.getId(), session);
+		map2.put("sessionId", session.getId());
+		map2.put("userName", userName);
+		list.add(map2);
 		if(flag) { //존재하는 방이라면 세션만 추가한다.
 			HashMap<String, Object> map = rls.get(idx);
 			map.put(session.getId(), session);
+			map.put("userName", userName);
 		}else { //최초 생성하는 방이라면 방번호와 세션을 추가한다.
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("userId", userId);
 			map.put(session.getId(), session);
+			map.put("userName", userName);
 			rls.add(map);
 		}
-				
+		
+		
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("list["+i+"]"+list.get(i).toString());
+		}		
 		//세션등록이 끝나면 발급받은 세션ID값의 메시지를 발송한다.
 		JSONObject obj = new JSONObject();
 		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
-		System.out.println("===============obj"+obj.toJSONString());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 	

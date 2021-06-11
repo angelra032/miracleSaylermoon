@@ -253,13 +253,14 @@
 								<div class="form-noti pverinoti pveri_noti_1">형식이 올바르지 않습니다.</div> 
 								<div class="form-noti pverinoti pveri_noti_2">이미 등록된 번호입니다.</div>
 								<div class="form-noti pverinoti pveri_suc">본인인증성공</div>
+								<div class="form-noti pverinoti pveri_success">유효한 사업자등록번호입니다.</div>
+								<div class="form-noti pverinoti pveri_noti_3">유효하지 않는 사업자등록번호입니다.</div>
 							</div>
 							
 							<div class="form-body">
 								<input name="partnerVerify" id="pverielem" class="form-elem pverielem" type="text" maxlength="12" placeholder="숫자만 입력">
 							</div>
 							
-							<button class="pverielem-btn" type="button">버튼</button>
 							
 							<div class="form-head form-head2">
 								이메일&nbsp;
@@ -773,23 +774,29 @@
 					$('.pveri_noti_0').css('display', 'block');
 					$('.pverielem').css('border', '1px solid #ff5442');
 				}else{
+					var test = $("#pverielem").val();
+					var str = test.replace(/-/gi, "");
+					var strArr = str.split("");
+					var multiply = new Array(1,3,7,1,3,7,1,3,5);
+					var checkSum = 0;
 					
+					for(var i = 0; i < 9; i++){
+						checkSum += multiply[i] * Number(strArr[i]);
+					}
+					
+					if(10 - ((checkSum + Math.floor(multiply[8]*Number(strArr[8])/10)) %10) === Number(strArr[9])){
+						$('.pveri_success').css('color', '#0160ff');
+						$('.pveri_success').css('display', 'block');
+						$('.pverielem').css('border', '0');
+					}
+					else{
+						$('.pveri_noti_3').css('color', '#ff5442');
+						$('.pveri_noti_3').css('display', 'block');
+						$('.pverielem').css('border', '1px solid #ff5442');
+					}
 				}
 			});
 			
-			
-			$(".pverielem-btn").on("click", function(){
-				var test = $("#pverielem").val();
-				var str = test.replace(/-/gi, "");
-				var strArr = new Array(str);
-				var multiply = new Array(1,3,7,1,3,7,1,3,5);
-				var checkSum = 0;
-				
-				for(var i = 0; i < multiply.lenghi; ++i){
-					checkSum += multiply[i] * strArr[i];
-				}
-				console.log(strArr);
-			});
 			
 			
 			// 이메일 유효성검사@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
