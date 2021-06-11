@@ -1,0 +1,99 @@
+@charset "UTF-8";
+*:focus { outline:none; }
+body {
+	font-family: 'Noto Sans KR';
+}
+/* 백그라운드 이미지 */
+.header-background-area {
+    width: 1903px;
+    margin: 0 auto;
+}
+.header-background-area > img {
+    position: absolute;
+    z-index: -5;
+    display: block;
+    top: 0;
+    width: 1903px;
+    align: center;
+    object-fit:cover; 
+}
+
+.main-title {
+    width: 100%;
+    height: 278px;
+    font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+	top: 260px;
+    z-index: -2;
+}
+.main-title p {
+	display: block;
+	font-size: 20px;
+	font-family: 'Noto Sans KR';
+	line-height: 1.5;
+	margin-top: 40px;
+	letter-spacing: -.025em;
+	font-weight: 400;
+	height: auto;
+}
+
+.title-bar {
+	width: 1px;
+	height: 250px;
+	margin: 200px auto 120px;;
+	background-color: #fff;
+}
+.black-title {
+	font-size: 60px;
+    font-family: 'Jal_Onuel';
+    color: #333;
+    text-align: center;
+}
+.black-title p {
+	display: block;
+	font-size: 20px;
+	font-family: 'Noto Sans KR';
+	line-height: 1.5;
+	margin-top: 40px;
+	letter-spacing: -.025em;
+	font-weight: 400;
+	height: auto;
+}
+
+.frame {
+	width:1440px;
+	height:auto;
+	margin:0 auto;
+}
+.left-title {
+	text-align:left;
+	margin-top: 1200px;
+}
+.left-title img {
+	margin-top: 30px;
+	margin-left: -20px;
+}
+.right-title {
+	text-align:right;
+	margin-top: 120px;
+}
+.right-title img {
+	margin-top: -150px;
+	margin-right: 450px;
+}
+.last-title {
+	margin-top: 450px;
+	width: 100%;
+	height: auto;
+	margin-bottom: 280px;
+}
+.small-img {
+    margin-bottom: 200px;
+    z-index: -2;
+    position: absolute;
+    top: 3660px;
+    left: 480px;
+}

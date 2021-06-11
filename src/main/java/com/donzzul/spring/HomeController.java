@@ -71,4 +71,8 @@ public class HomeController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "storyView.dz", method = RequestMethod.GET) 
+	public String storyView() {
+		return "story/story";
+	} // end of storyView
 }

@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/css/main.css"> 
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <title>돈쭐</title>
 </head>
 <body>
@@ -30,7 +32,7 @@
 		<div class="review-area">
 			<div class="main-sub-title"><span>100% 솔직후기</span></div>
 			<div class="main-content-title">이미 수많은 분들이 돈쭐과 함께<br>가치있는 소비를 경험하고 계십니다.</div>
-			<div class="review-contents-area">
+			<div class="review-contents-area"  data-aos="fade-up" data-aos-duration="1000">
 				<c:if test="${ !empty mList }">
 					<c:forEach items="${ mList }" var="mReview" varStatus="status">
 						<div class="review-content">
@@ -48,7 +50,7 @@
 		<div class="thanks-area">
 			<div class="main-sub-title more-paddingtop"><span>감사후기 전달</span></div>
 			<div class="main-content-title">그동안 전하지 못했던 감사한 마음을<br>돈쭐이 전달해 드립니다.</div>
-			<div class="content-area">
+			<div class="content-area"  data-aos="fade-up" data-aos-duration="1000">
 				<div class="thanks-content">
 					<c:if test="${ !empty drmReview }">
 						<div class="thanks-title">${ drmReview.drmReviewTitle }</div>
@@ -80,7 +82,7 @@
 					<div class="donation-title-text">현재까지 누적 돈쭐금액</div>
 					<div class="donation-title-side"></div>
 				</div>
-				<div class="donation-content-area">
+				<div class="donation-content-area" data-aos="fade-up" data-aos-duration="1000">
 					<c:if test="${ !empty don }">
 						<div class="donation-money"  id="donation-money">${ don.donPrice }<span>원</span></div>
 					</c:if>
@@ -126,5 +128,7 @@
 		     }
 		});
 	});
+	 AOS.init();
+
 </script>
 </html>
