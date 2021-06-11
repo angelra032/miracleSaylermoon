@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.user.domain.CustomUserDetails;
 import com.donzzul.spring.user.domain.User;
 import com.donzzul.spring.user.store.UserStore;
@@ -210,21 +211,11 @@ public class UserStoreLogic implements UserStore {
 		return sqlSession.insert("userMapper.insertSocialUser", map);
 	}
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	
-
-	
-	
-
+	// 맛집 후기 작성 후 포인트 추가 
+	@Override
+	public int updatePoint(MzReview mzReview) {
+		return sqlSession.update("userMapper.addReviewPoint", mzReview);
+		
+	}
 
 }

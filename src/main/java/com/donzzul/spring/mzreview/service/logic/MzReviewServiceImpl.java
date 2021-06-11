@@ -15,6 +15,7 @@ import com.donzzul.spring.mzreview.store.MzReviewStore;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.reservation.store.ReservationStore;
 import com.donzzul.spring.shop.domain.Shop;
+import com.donzzul.spring.user.store.UserStore;
 
 @Service
 public class MzReviewServiceImpl implements MzReviewService {
@@ -22,6 +23,8 @@ public class MzReviewServiceImpl implements MzReviewService {
 	private MzReviewStore mStore;
 	@Autowired
 	private ReservationStore rStore;
+	@Autowired
+	private UserStore uStore;
 	
 	@Override
 	public ArrayList<MzReview> selectAllReview() {
@@ -46,8 +49,9 @@ public class MzReviewServiceImpl implements MzReviewService {
 	@Override
 	public int insertMzReview(MzReview mzReview, Reservation reservation) {
 		//트랜잭션
+		mStore.insertMzReview(mzReview);
 		rStore.updateRstate(reservation);
-		return mStore.insertMzReview(mzReview);
+		return uStore.updatePoint(mzReview);
 	}
 
 	@Override

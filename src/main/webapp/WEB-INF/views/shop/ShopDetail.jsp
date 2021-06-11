@@ -440,15 +440,15 @@
 							if(data.rList[i].drmReviewPublicYN == "MZ"){
 								/* 사진 */
 								if(data.rList[i].mzReviewRenameFileName == "EMPTY") {
-									contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
+									contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='noneReviewPhoto'>");
 								}else {
-									contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.rList[i].mzReviewRenameFileName+"' alt='shopMain'>");
+									contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.rList[i].mzReviewRenameFileName+"' alt='reviewPhoto'>");
 								}
 									
 	                            contentReviewRight.append("<span class='review-type'>맛집후기</span>")
 	                          					  .append("<a href='mReviewDetail.dz?mzReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }else{
-	                        	contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");	
+	                        	contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='noneReviewPhoto'>");	
 	                            contentReviewRight.append("<span class='review-type'>감사후기</span>")
 	                          					  .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.rList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>");
 	                        }
@@ -537,7 +537,7 @@
 							var contentReviewLeft = $("<div class='rContent left'>");
 							var contentReviewRight = $("<div class='rContent right'>");
 							
-							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
+							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='noneReviewPhoto'>");
 							contentReviewRight.append("<span class='review-title'>" + data.drList[i].drmReviewTitle + "</span>&nbsp;&nbsp;")
 											  .append("<span class='review-type'>감사후기</span>")
 											  .append("<a href='dReviewDetail.dz?drmReviewNo=" + data.drList[i].drmReviewNo + "' class='review-detail'>더보기</a><br>")
@@ -623,9 +623,9 @@
 						
 						/* 맛집 후기 사진 없을 때 */
 						if(data.mzList[i].mFileName == 'EMPTY') {
-							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='shopMain'>");
+							contentReviewLeft.append("<img src='/resources/images/shop/reviewEmptyPic.png' alt='noneReviewPhoto'>");
 						}else {
-							contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.mzList[i].mFileName+"' alt='shopMain'>");
+							contentReviewLeft.append("<img src='/resources/boardImg/MzReview/"+data.mzList[i].mFileName+"' alt='reviewPhoto'>");
 						}
 						contentReviewRight.append("<span class='review-title'>" + data.mzList[i].mReviewTitle + "</span>&nbsp;&nbsp;")
 										  .append("<span class='review-type'>맛집후기</span>")
