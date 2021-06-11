@@ -79,7 +79,7 @@ public class NotiQnaController {
 				//mv.addObject("msg", "자신이 쓴 글만 확인할 수 있습니다.").setViewName("common/errorPage");
 			} else {
 				if(user == null) { // 로그인 안함
-					mv.addObject("msg", "회원확인을 위해 로그인이 필요합니다");
+					mv.addObject("msg", "비공개 글 확인을 위한 로그인이 필요합니다");
 					mv.setViewName("common/errorPage");
 				} else if(user.getUserId().equals(qna.getQnaId()) || qna.getUserNo() == user.getUserNo() || user.getUserType().equals("4")) { // 글쓴이와 유저(세션)값이 같음
 						Qna reply = qnaService.selectOneReply(qaNo); // 답글가져와 보내줌
