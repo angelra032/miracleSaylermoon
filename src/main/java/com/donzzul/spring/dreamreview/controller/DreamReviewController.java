@@ -85,16 +85,17 @@ public class DreamReviewController {
 				mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 			} else {
 				if(user == null) { // 게시글 비공개 - 로그인 안함
-					mv.setViewName("redirect:/loginView.dz");
-				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4") || drmReview.getShopName() == user.getPartnerName()) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
+					mv.addObject("msg", "비공개 글 확인을 위한 로그인이 필요합니다");
+					mv.setViewName("common/errorPage");
+				} else if(drmReview.getUserNo() == user.getUserNo() || user.getUserType().equals("4") || user.getPartnerName().equals(drmReview.getShopName())) { // 게시글 비공개 - 세션결과가 글쓴이와 같은사람
 					updateDrmHit(response, request, drmReviewNo);
 					mv.addObject("drmReview", drmReview).setViewName("board/drmReview/dReviewDetailView");
 				} else {
-					mv.addObject("msg", "비공개된 남의 글 확인 불가").setViewName("common/errorPage");
+					mv.addObject("msg", "사장님과 본인만 읽을 수 있는 비공개된 글입니다").setViewName("common/errorPage");
 				}
 			}
 		} else {
-			mv.addObject("msg", "게시글 상세 조회 실패").setViewName("common/errorPage");
+			mv.addObject("msg", "게시글 조회에 실패했습니다").setViewName("common/errorPage");
 		}
 		return mv;
 	}
