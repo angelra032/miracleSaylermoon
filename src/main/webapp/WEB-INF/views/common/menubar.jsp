@@ -40,7 +40,7 @@
 			</div>
 			<div class="header-menu-area">
 				<ul>
-					<li><a href="#">돈쭐소개</a></li>
+					<li><a href="/storyView.dz">돈쭐소개</a></li>
 					<li><a href="/mapSearchList.dz">지도조회</a></li>
 					<li><a href="/searchShopView.dz">가게검색</a></li>
 					<li><a href="mReviewMain.dz">커뮤니티</a></li>
@@ -188,6 +188,9 @@
 						<h4>실시간 상담 리스트</h4>
 						<input type="hidden" id="sessionId" value="">
 					</div>
+					<div class="header-close">
+						<a href="#" rel="modal:close"><font style="vertical-align: inherit;">X</font></a>
+					</div>
 				</div>
 				<div class="chatList">
 					<div class="center-table-area" id="shop-list-table">
@@ -223,6 +226,9 @@
 						<h4  id="listH4">실시간 상담</h4>
 						<input type="hidden" id="sessionId" value="">
 						<input type="hidden" id="userId" value="${sessionScope.loginUser.userId }">
+					</div>
+					<div class="header-close">
+						<a href="#" rel="modal:close"><font style="vertical-align: inherit;">X</font></a>
 					</div>
 				</div>
 				<div id="chating" class="chating">
@@ -275,6 +281,16 @@
 		        clickClose: false,
 		        showClose: false
 		      });
+		      var userType = '${loginUser.userType }';
+		      if(userType != '4'){
+		    	  //관리자가 아닐경우
+		    	  var chat = getChatting("${sessionScope.loginUser.userId }");
+		      	  htmlChatting(chat); //채팅방 그려주기
+		      	  if(chat != null){
+		      		$("#yourName").hide();
+		    		$("#yourMsg").show();
+		      	  }
+		      }
 		    });
 		  });
 	$("#requestBtn").on("click", function() {
@@ -282,7 +298,6 @@
 		$("#yourName").hide();
 		$("#yourMsg").show();
 		chatName();
-		var userType = '${loginUser.userType }';
 	});
 	
 	function clickSubmit(){
@@ -348,8 +363,11 @@
 	            global.wsList[length] = ws;
 	         }
 	      }
-	      //$("#chating").find(".sendDiv").remove();
-	      //$("#chating").find(".reciveDiv").remove();
+	      $("#chating").find(".adminBox").remove();
+	      $("#chating").find(".sendDiv").remove();
+	      $("#chating").find(".reciveDiv").remove();
+	      var chat = getChatting(userId);
+	      htmlChatting(chat); //채팅방 그려주기
 	      wsEvt();
 	   }
 
@@ -359,39 +377,124 @@
 		}
 
 		ws.onmessage = function(data) {
-			var msg = data.data;
-			if (msg != null && msg.trim() != '') {
-				var d = JSON.parse(msg);
-				if (d.type == "getId") {
-					var si = d.sessionId != null ? d.sessionId : "";
-					if (si != "") {
-						$("#sessionId").val(si);
-					}
-				} else if (d.type == "message") {
+	        ws = data.currentTarget;
+	         var msg = data.data;
+	         if (msg != null && msg.trim() != '') {
+	            var d = JSON.parse(msg);
+	            if (d.type == "getId") {
+	               var si = d.sessionId != null ? d.sessionId : "";
+	               if (si != "") {
+	                  $("#sessionId").val(si);
+	               }
+	            } else if (d.type == "message") {
+	               if(d.userName == 'system'){
+	                  //시스템일경우 ( 입장 및 연결 표시)
+	                  var html = "<div id='imgDiv' class='adminBox'>"
+	                  html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
+	                  html += "<div class='msgBox adminBox' style='height : 12%; line-height: 50px; text-align: center;'><span>"+d.msg+"</span>"
+	                  var str = d.msg;
+	                  if(str.indexOf("연결중")){
+	                	  html += "<img src='/resources/images/chatting/boxloading.gif' style='width: 25px; height: 25px;'></div>"
+	                  }
+	                  html += "</div>";
+	                  $("#chating").append(html);
+	               }else{
+	                  //그외처리
+	                  //관리자 일경우
+	                   if("${loginUser.userType}" == "4"){
+	                      if (d.sessionId == $("#sessionId").val()) {
+	                         $("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
+	                      } else {
+	                         $("#chating").append(
+	                               "<div class='reciveDiv'><span style='margin-left: 10px;'>" + d.userName + " :" + d.msg + "</span></div>");
+	                      }
+	                   //사용자 일경우
+	                   }else{
+	                      if (d.sessionId == $("#sessionId").val()) {
+	                         $("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
+	                      } else {
+	                         $("#chating").append(
+	                               "<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + d.userName + " :"
+	                               + d.msg + "</span></div>");
+	                      }
+	                   }
+	               }
+	               var userid = ws.url.split("/chatting/")[1]; //방 번호
+	               setChatting(userid,d.userName,d.msg); //채팅 내용 저장
+	            } else {
+	               console.log("unknown type!")
+	            }
+	         }
+	      }
+	}
+	
+	function setChatting(userid,userName,msg){
+		/*  해당 방에 채팅 저장하는 함수
+			userid : 방번호
+			userName : 유저이름
+			msg : 메세지
+		*/
+		var chat = getChatting(userid);
+		if(chat == null){
+			chat = [];
+		}
+		chat[chat.length] = {
+					"userName" : userName
+					,"msg" : msg
+		};
+		sessionStorage.setItem(userid,JSON.stringify(chat));
+	}
+	
+	function getChatting(userid){
+		/*
+			해당 방에 채팅 가져오기
+		*/
+		var output = sessionStorage.getItem(userid);
+		var chat = JSON.parse(output);
+		return chat;
+	}
+	
+	function htmlChatting(chat){
+		/*
+			지난 채팅 그려주기
+		*/
+		if(chat != null){
+			var html = "";
+			for (var i = 0; i < chat.length; i++) {
+				if(chat[i].userName == "system"){
+					html = "<div id='imgDiv' class='adminBox'>"
+		            html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
+		            html += "<div class='msgBox adminBox' style='height : 12%; line-height: 50px; text-align: center;'><span>"+chat[i].msg+"</span>"
+		            var str = chat[i].msg;
+	                  if(str.indexOf("연결중")){
+	                	  html += "<img src='/resources/images/chatting/boxloading.gif' style='width: 25px; height: 25px;'></div>"
+	                  }
+	                  html += "</div>";
+		            $("#chating").append(html);
+				}else{
 					//관리자 일경우
-					if("${loginUser.userType}" == "4"){
-						if (d.sessionId == $("#sessionId").val()) {
-							$("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
-						} else {
-							$("#chating").append(
-									"<div class='reciveDiv'><span style='margin-left: 10px;'>" + d.userName + " :" + d.msg + "</span></div>");
-						}
-					//사용자 일경우
-					}else{
-						if (d.sessionId == $("#sessionId").val()) {
-							$("#chating").append("<div class='sendDiv'><span>"+d.msg+"</span></div>");
-						} else {
-							$("#chating").append(
-									"<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + d.userName + " :"
-									+ d.msg + "</span></div>");
-						}	
-					}
-				} else {
-					console.log("unknown type!")
+	                if("${loginUser.userType}" == "4"){
+	                   if (chat[i].userName == "관리자") {
+	                      $("#chating").append("<div class='sendDiv'><span>"+chat[i].msg+"</span></div>");
+	                   } else {
+	                      $("#chating").append(
+	                            "<div class='reciveDiv'><span style='margin-left: 10px;'>" + chat[i].userName + " :" + chat[i].msg + "</span></div>");
+	                   }
+	                //사용자 일경우
+	                }else{
+	                   if (chat[i].userName != "관리자") {
+	                      $("#chating").append("<div class='sendDiv'><span>"+chat[i].msg+"</span></div>");
+	                   } else {
+	                      $("#chating").append(
+	                            "<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + chat[i].userName + " :"
+	                            + chat[i].msg + "</span></div>");
+	                   }
+	                }
 				}
 			}
 		}
 	}
+	
 	var sendmsg = "";
 	function send() {
 		var option = {
@@ -453,8 +556,13 @@
 			gapi.auth2.init();
 		});
 	}
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
+				console.log("${loginUser.userId }");
+				if("${loginUser.userId }" == "" || "${loginUser.userId }" == null){
+					//로그인 정보가 없을경우
+					//채팅기록 초기화
+					sessionStorage.clear();
+				}
 				$(window).scroll(function() {
 					var scroll = $(window).scrollTop();
 					if (scroll > 1) {

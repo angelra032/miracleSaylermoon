@@ -14,6 +14,7 @@
       <result property="shopName" column="SHOP_NAME"></result>
       <result property="userNick" column="USER_NICK"></result>
       <result property="description" column="RESERVE_DESCRIPTION"></result>
+	  <result property="orderDate" column="ORDER_DATE"></result>
    </resultMap>
 
 	<insert id="insertRservation">
@@ -50,7 +51,7 @@
 	</update>
 
 	<update id="cancleReservation">
-		UPDATE "USER" SET USER_POINT = USER_POINT+(SELECT PAYMENT_POINT FROM RESERVATION WHERE USER_NO = #{userNo} AND RESERVATION_NO=#{reservationNo}) WHERE USER_NO = #{userNo} 
+		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0)+(SELECT PAYMENT_POINT FROM RESERVATION WHERE USER_NO = #{userNo} AND RESERVATION_NO=#{reservationNo}) WHERE USER_NO = #{userNo} 
 	</update>
 
 	<resultMap type="Shop" id="shopResultMap">
@@ -122,7 +123,7 @@
 	</resultMap>
 	
 	<select id="selectAllByShop" resultMap="reservationResultMap"> 
-		SELECT USER_NICK, RESERVE_COUNT, RESERVE_DATE, R_STATE, RESERVATION_NO FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo} ORDER BY RESERVE_DATE DESC
+		SELECT USER_NICK, RESERVE_COUNT, SHOP_NO, RESERVE_DATE, R_STATE, RESERVATION_NO FROM RESERVATION JOIN "USER" USING(USER_NO) WHERE SHOP_NO = #{shopNo} ORDER BY RESERVE_DATE DESC
 	</select>
 	
 	<select id="listByShopToThree" resultMap="reservationResultMap" >

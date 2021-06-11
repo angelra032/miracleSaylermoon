@@ -24,6 +24,7 @@
          dayMaxEvents : 1,
          contentHeight : "auto",
          height: "500",
+         unselectAuto : false,
          dateClick : function(arg) {
             dataClick(arg.date); // 얘는 펑션이야!!!
          },
@@ -191,9 +192,9 @@
 	  
       $("#pButton").on("click",function(){
          var paymentPoint = parseInt($("#pointText").val());
-         var userPoint = parseInt("${loginUser.userPoint}");
-         if(paymentPoint < userPoint){
-        	 if(paymentPoint >= 500 && paymentPoint <= 50000 && paymentPoint > 0){
+         var userPoint = parseInt("${userPoint}");
+         if(paymentPoint <= userPoint){
+        	 if(paymentPoint >= 500 && paymentPoint <= 5000 && paymentPoint > 0){
         		$("#paymentPoint").html(paymentPoint);
 	         	$("input[name='paymentPoint']").val(paymentPoint);
 	         	$("#paymentSpan").text(paymentPoint);
@@ -263,7 +264,7 @@
                   <div id="pointUseDiv" style="display:none">
                      <h1 class="titleH1">사용할 포인트 금액</h1>
                      <div id="pointBox">
-                     <input type="text" id="pointText" name="point" placeholder="보유포인트 : ${loginUser.userPoint }원" value="${user.userPoint }" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                     <input type="text" id="pointText" name="point" placeholder="보유포인트 : ${userPoint }원" value="${user.userPoint }" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                      <input type="button" value="포인트사용" id="pButton" class="button">
                   	 </div>
                   </div>
@@ -300,7 +301,7 @@
 		            <input type="hidden" name="startTime" value="${shop.startTime }"><br> 
 		            <input type="hidden" name="endTime" value="${shop.endTime }"><br>
 		            <input type="hidden" name="businessDay" value="${shop.businessDay }"><br> 
-		            <input type="hidden"  name="userPoint" value="${loginUser.userPoint }">
+		            <input type="hidden"  name="userPoint" value="${userPoint }">
 	             	<div class="reservationArea">
 	                	<input type="submit" value="예약하기" id="rButton" class="button" onclick="return finalCheck();">
 	             	</div>

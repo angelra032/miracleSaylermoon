@@ -1,5 +1,5 @@
 var global = {
 	ws : null,
 	user : [],
-	wsList : {}
+	wsList : []
 };

@@ -110,6 +110,20 @@
     height: 30px;
 }
 
+.header-close {
+	height: 16px;
+	width: 160px;
+	font-family: NotoSansKR; 
+	font-size: 18px;
+	font-stretch : normal; 
+	font-style : normal;
+	color: white;
+	float: right;
+	margin-right: -170px;
+	margin-top: 13px;
+	text-align: right;
+}
+
 .header-text h4{
 	height: 16px;
 	width: 160px;
@@ -120,8 +134,8 @@
 	color: white;
 	float: right;
 	margin-right: 20px;
-	margin-top: 13px;
 	text-align: right;
+	border-radius:50px;
 }
 
 .container h4 {
