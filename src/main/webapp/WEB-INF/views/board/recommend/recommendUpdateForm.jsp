@@ -103,7 +103,6 @@
 					   	var recommendContent = $("#summernote").summernote('code', recommendContent);
 						var recommendTitle = $("#recommendTitle").val();
 						var recommendNo = '${recommendBoard.recommendNo}';
-						alert(recommendNo);
 						if(recommendTitle != "" && recommendContent != "<p><br></p>") {
 						    $.ajax({
 							   url : "recommendModify.dz",
@@ -111,6 +110,7 @@
 							   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent, "recommendNo" : recommendNo},
 							   success : function(data){
 								   if(data == "success") {
+									   alert('게시글이 수정되었습니다');
 									   location.href="recommendDetail.dz?recommendNo="+recommendNo;
 									} else {
 										alert('게시글 수정 실패');

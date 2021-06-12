@@ -150,7 +150,11 @@ public class MzReviewController {
 										HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
-		mzReview.setmReviewWriter(user.getUserNick());
+		if(user.getUserType().equals("3") || user.getUserType().equals("5")) {
+			mzReview.setmReviewWriter(user.getUserName());
+		} else {
+			mzReview.setmReviewWriter(user.getUserNick());
+		}
 		mzReview.setUserType(user.getUserType());
 		mzReview.setUserNo(user.getUserNo());
 		ArrayList<MzReviewPhoto> mzPhotoList = null;

@@ -103,6 +103,7 @@
 						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "shopNo" : shopNo, "reservationNo" : reservationNo},
 						   success : function(data){
 							   if(data == "success") {
+								   alert('게시글을 올렸습니다');
 								   location.href="dReviewMain.dz";
 								} else {
 									alert('게시글 올리기 실패');

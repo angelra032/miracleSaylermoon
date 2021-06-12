@@ -40,7 +40,13 @@
 							<td>${status.count }</td>
 							<input type="hidden" name="reservationNo" value="${reservation.reservationNo }">
 							<input type="hidden" name="shopNo" value="${reservation.shopNo }">
-							<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+							<c:if test="${ reservation.userType eq '1' || reservation.userType eq '2' }">
+								<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+							</c:if>
+							<c:if test="${ reservation.userType eq '5' }">
+								<td><a class="table-link-title" href="#"><p>${reservation.userName }</p></a></td>
+							</c:if>
+<%-- 							<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td> --%>
 							<td>${reservation.reserveCount }명</td>
 							<td>${reservation.reserveDate }</td>
 							
@@ -66,7 +72,7 @@
 										<td>취소된예약</td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'Y'}">
-										<td><a class="reserv-btn" href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }&mainPage=N" >방문완료</a></td>
+										<td><a class="reserv-btn" href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }&mainPage=N&shopNo=${reservation.shopNo}" >방문완료</a></td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'C'}">
 										<td>완료된 예약</td>

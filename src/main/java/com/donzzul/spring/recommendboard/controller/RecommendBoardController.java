@@ -148,8 +148,12 @@ public class RecommendBoardController {
 		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
+		if(user.getUserType().equals("3") || user.getUserType().equals("5")) {
+			recommendBoard.setRecommendWriter(user.getUserName());
+		} else {
+			recommendBoard.setRecommendWriter(user.getUserNick());
+		}
 		recommendBoard.setUserType(user.getUserType());
-		recommendBoard.setRecommendWriter(user.getUserNick());
 		recommendBoard.setUserNo(user.getUserNo()); // recommendBoard 데이터 저장
 		ArrayList<RecommendPhoto> rPhotoList = null;
 		
@@ -168,18 +172,20 @@ public class RecommendBoardController {
 				String realName = matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1);
 				realList.add(realName);
 			}
-			for(int i = 0; i < rPhotoList.size(); i++) {
-				String recommendRename = rPhotoList.get(i).getRecommendRenameFileName();
-				//System.out.println("비교 값 : " + realList.contains(recommendRename));
-				if(!realList.contains(recommendRename)) {
-					fileDelete(recommendRename, rPhotoList.get(i).getRecommendFilePath());
-					continue;
-				}
-				int recommendNo = recommendBoard.getRecommendNo();
-				rPhotoList.get(i).setRecommendNo(recommendNo);
-				int photoResult = reService.insertPhoto(rPhotoList.get(i));
-				if(photoResult > 0) {
-					rtn = "success";
+			if(rPhotoList != null) {
+				for(int i = 0; i < rPhotoList.size(); i++) {
+					String recommendRename = rPhotoList.get(i).getRecommendRenameFileName();
+					//System.out.println("비교 값 : " + realList.contains(recommendRename));
+					if(!realList.contains(recommendRename)) {
+						fileDelete(recommendRename, rPhotoList.get(i).getRecommendFilePath());
+						continue;
+					}
+					int recommendNo = recommendBoard.getRecommendNo();
+					rPhotoList.get(i).setRecommendNo(recommendNo);
+					int photoResult = reService.insertPhoto(rPhotoList.get(i));
+					if(photoResult > 0) {
+						rtn = "success";
+					}
 				}
 			}
 			rtn = "success";
@@ -339,7 +345,9 @@ public class RecommendBoardController {
 		String rtn = "false";
 		
 		// 세션에서 받은 것과 이전에 있던 사진ArrayList 합치기
-		rPhotoList.addAll(beforePhotoList);
+		if(rPhotoList != null && beforePhotoList != null) {
+			rPhotoList.addAll(beforePhotoList);
+		}
 		ArrayList<String> realList = new ArrayList<String>();
 		int result = reService.updateRecommend(recommendBoard);
 		if(result > 0) {
@@ -347,25 +355,28 @@ public class RecommendBoardController {
 				String realName = matcher.group(1).substring(matcher.group(1).lastIndexOf("=") + 1); 
 				realList.add(realName); // 게시글내용 코드에서 잘라온 img태그 이름들
 			}
-			for(int i = 0; i < rPhotoList.size(); i++) {
-				String recommendRename = rPhotoList.get(i).getRecommendRenameFileName();
-				if(!realList.contains(recommendRename)) {
-					fileDelete(recommendRename, rPhotoList.get(i).getRecommendFilePath());
-					beforePhotoResult = reService.deleteBeforePhoto(recommendNo);
-					if (beforePhotoResult > 0) {
-						System.out.println("사진 삭제 성공");
-					} else {
-						System.out.println("사진 삭제 실패");
+			if(rPhotoList != null) {
+				for(int i = 0; i < rPhotoList.size(); i++) {
+					String recommendRename = rPhotoList.get(i).getRecommendRenameFileName();
+					if(!realList.contains(recommendRename)) {
+						fileDelete(recommendRename, rPhotoList.get(i).getRecommendFilePath());
+						beforePhotoResult = reService.deleteBeforePhoto(recommendNo);
+						if (beforePhotoResult > 0) {
+							System.out.println("사진 삭제 성공");
+						} else {
+							System.out.println("사진 삭제 실패");
+						}
+						continue;
 					}
-					continue;
-				}
-				
-				rPhotoList.get(i).setRecommendNo(recommendNo);
-				int photoResult = reService.insertPhoto(rPhotoList.get(i));
-				if(photoResult > 0) {
-					rtn = "success";
+					
+					rPhotoList.get(i).setRecommendNo(recommendNo);
+					int photoResult = reService.insertPhoto(rPhotoList.get(i));
+					if(photoResult > 0) {
+						rtn = "success";
+					}
 				}
 			}
+			
 			rtn = "success";
 		} else {
 			rtn = "fail";

@@ -10,16 +10,17 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <!-- 페이스북 공유 메타태그 -->
+<meta property="og:type" content="website">
 <meta property="og:url"                content="http://localhost:8521/snsPhotoView.dz/" />
 <meta property="og:type"               content="article" />
 <meta property="og:title"              content="누구나 마음편히 밥먹는 세상을 위해, 돈쭐내기에 참여하세요!" />
 <!-- <meta property="og:description"        content="누구나 마음편히 밥먹는 세상을 위해, 돈쭐내기에 참여하세요!" /> -->
-<meta property="og:image"              content="/resources/images/snsPhoto.png" />
+<meta property="og:image"              content="https://i.imgur.com/TJLX19f.png" />
 <!-- 트위터 공유 메타태그 -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:url" content="http://localhost:8521/" />
 <meta name="twitter:description" content="누구나 마음편히 밥먹는 세상을 위해, 돈쭐내기에 참여하세요!" />
-<meta name="twitter:image" content="/resources/images/snsPhoto.png" />
+<meta name="twitter:image" content="https://i.imgur.com/TJLX19f.png" />
 
 <title>돈쭐내기</title>
 </head>

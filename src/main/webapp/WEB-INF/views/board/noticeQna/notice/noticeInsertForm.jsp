@@ -103,6 +103,7 @@
 							   data : {"noticeTitle" : noticeTitle, "noticeContent" : noticeContent},
 							   success : function(data){
 								   if(data == "success") {
+									   alert('게시글을 올렸습니다');
 									   location.href="notiQnaMain.dz";
 									} else {
 										alert('게시글 올리기 실패');

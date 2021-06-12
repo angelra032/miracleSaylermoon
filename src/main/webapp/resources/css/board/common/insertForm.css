@@ -62,7 +62,7 @@ main {
 		font-size : 18px;
 	}
 	.title-area > input {
-		font-size: 20px;
+		font-size: 18px;
 		position: relative;
 	    top: -31px;
 	    left: 70px;
@@ -77,6 +77,11 @@ main {
 		margin-left: 35px;
 		font-size : 16px;
 		display:inline-block;
+		    margin-left: 35px;
+	    /* font-size: 16px; */
+	    /* display: inline-block; */
+	/*     border: none; */
+	/*     font-size: 16px; */
 	}
 	
 .editor-area {
