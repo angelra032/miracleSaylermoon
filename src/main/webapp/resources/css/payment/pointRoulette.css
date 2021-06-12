@@ -93,8 +93,9 @@ h4 {
 		font-size: 28px;
 		text-align:center;
 		color: #fff;
-		line-height: 60px;
-		font-weight: 600;
+		line-height: 63px;
+		font-weight: 400;
+		font-family: 'Jal_Onuel';
 	}
 	.lay-content {
 		width: 300px;
@@ -145,6 +146,7 @@ h4 {
 	position: relative;
 	top: -497px;
 	right: -298px;
+	cursor: pointer;
 }
 
 
@@ -202,6 +204,9 @@ h4 {
 	font-size: 24px;
 	font-weight: bolder;
 	cursor:pointer;
+	transition:all 0.4s;
 }
-
+#point-save-btn:hover {
+	box-shadow:300px 0 0 0 rgba(0,0,0,0.2) inset;
+}
 

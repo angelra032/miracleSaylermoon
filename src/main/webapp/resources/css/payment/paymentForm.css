@@ -17,6 +17,9 @@
      }
 
 /* 공통 태그 */ 
+body :focus {
+	outline: none;
+}
 h1{
 	font-size:38px;
 	padding: 50px;
@@ -73,8 +76,9 @@ input[type=radio]{
 			font-size: 28px;
 			text-align:center;
 			color: #fff;
-			line-height: 60px;
-			font-weight: 600;
+			line-height: 65px;
+			font-weight: 400;
+			font-family: 'Jal_Onuel';
 		}
 		.lay1-content {
          overflow: scroll;
@@ -82,7 +86,7 @@ input[type=radio]{
           height: 506px;
       }
       
-      ::-webkit-scrollbar {
+      .lay1-content::-webkit-scrollbar {
         display: none;
       }
 		
@@ -115,6 +119,7 @@ input[type=radio]{
 			width: 409px;
 			border-bottom: solid 1px #fdb504;
 			background-color: #ffffff;
+			cursor: pointer;
 		}
 		.menu-choice input[type=radio]:checked + span{
 			display: inline-block;
@@ -155,6 +160,7 @@ input[type=radio]{
 					height: 61px;
 					border: solid 1px #fdb504;
 					background-color: #ffffff;
+					cursor: pointer;
 				}
 				.amount-btn input[type=radio]:checked + span{
 					display: inline-block;
@@ -220,8 +226,8 @@ input[type=radio]{
 					border:0;
 					font-size: 18px;
 					font-weight: 600;
-					width: 200px;
-					height: 40px;
+					width: 280px;
+					height: 45px;
 					border-radius: 3px;
 					border: solid 1px #fdb504;
 					background-color: #ffffff;
@@ -274,6 +280,10 @@ input[type=radio]{
 			height: 60px;
 			margin: 103px 39px 0 41px;
 			background-color: #fdb504;
+			transition:all 0.4s;
+		}
+		#payment-btn:hover {
+			box-shadow:330px 0 0 0 rgba(0,0,0,0.2) inset;
 		}
 
 /* 카카오, 이니시스 모달창 */
