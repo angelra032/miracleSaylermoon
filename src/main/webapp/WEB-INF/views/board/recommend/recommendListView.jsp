@@ -91,7 +91,7 @@
     			<h1>${ msg }</h1>
     		</c:if>
     		
-			<c:if test="${ loginUser.userType eq '2' }">
+			<c:if test="${ loginUser.userType eq '2' || loginUser.userType eq '5' }">
 	            <div id="write-btn-area">
 	                <button>글쓰기</button>
 	            </div>

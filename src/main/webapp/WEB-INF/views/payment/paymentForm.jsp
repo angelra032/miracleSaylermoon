@@ -193,13 +193,16 @@
 				return false;
 			} else if(finPrice < 0) {
 				alert('잘못된 금액을 입력하셨습니다');
-			} else if(donPrice < usePoint) {
-				alert('메뉴 액수보다 큰 포인트는 사용 불가능합니다');
 			} else {
 				$('div#paymentModal').modal({ // 모달창 출력
 			    	fadeDuration: 250
 			    })
 			}
+		    
+// 			else if(donPrice < usePoint) {
+// 				alert('메뉴 액수보다 큰 포인트는 사용 불가능합니다');
+// 			} 
+		    
 // 			 else if((donPrice-usePoint) != finPrice) {
 // 					alert('잘못된 접근입니다');
 // 					finPrice = donPrice-userPoint;
@@ -274,7 +277,6 @@
 	</c:if>
 	
 	function danalPayment() {
-		var donPrice = $("input[name='menu-fin-price']").val();
 	    var finPrice = $("input[name='donPrice']").val();
 	    var menuName = $("input[name='menuName']").val();
 	    var amount = $("input[name='amount']").val();
@@ -316,7 +318,7 @@
 	             */
 	            name: '돈쭐내기 결제 : ${shop.shopName }',
 	            //결제창에서 보여질 이름 
-	            amount: 100, 
+	            amount: finPrice, 
 	            //가격 // finPrice
 	            buyer_email: '${loginUser.userEmail }',
 	            buyer_name: '${loginUser.userName }',
@@ -366,11 +368,7 @@
 	
 	
 	function KGinicisPayment() {
-		var donPrice = $("input[name='menu-fin-price']").val();
 	    var finPrice = $("input[name='donPrice']").val();
-	    var menuName = $("input[name='menuName']").val();
-	    var amount = $("input[name='amount']").val();
-	    var usePoint = $("input[name='use-point']").val();
 	    var shopNo = '${shop.shopNo }';
 	    var shopName = '${shop.shopName }';
 		 var IMP = window.IMP; // 생략가능
@@ -383,7 +381,7 @@
 	            merchant_uid: 'merchant_' + new Date().getTime(),
 	            name: '돈쭐내기 결제 : ${shop.shopName }',
 	            //결제창에서 보여질 이름 
-	            amount: 100, 
+	            amount: finPrice, 
 	            //가격 // finPrice
 	            buyer_email: '${loginUser.userEmail }',
 	            buyer_name: '${loginUser.userName }',
@@ -676,34 +674,61 @@
 			
 			var usePoint = $("#usePoint").val();
 			var userPoint = $("#userPoint").val();
+			var menuName = $("input[name='menuName']").val(); // 메뉴명
+			var amount = $("input[name='amount']").val(); // 수량
+			var donPrice = $("input[name='menu-fin-price']").val(); // 메뉴총액
+		    var usePoint = $("input[name='use-point']").val(); // 포인트사용
+		    var finPrice = $("input[name='donPrice']").val(); // 결제금액
+		    var inputUseP = $("#usePoint"); // 사용포인트 입력
+			var useP = $("input[name='use-point']") // 포인트사용
+			var donP = $("input[name='donPrice']"); // 결제금액
+		    var finP = $("input[name='donPrice']");
+		    
 			console.log(userPoint);console.log(usePoint);
 			usePoint = Number(usePoint);
 			userPoint = Number(userPoint);
 			console.log(userPoint);console.log(usePoint);
 			
+			// 결제정보 - 결제 금액이 0원보다 작아지면
+			if((donPrice - usePoint) < 0) {
+				alert('포인트 금액은 메뉴총액만큼만 사용 가능합니다');
+				inputUseP.val('0');
+				useP.val('0');
+				return false;
+			}
+			
+			// 사용포인트를 입력했다가 취소를 위해 다시 0을입력하면
+			if(usePoint == '0' && donPrice != finPrice) {
+				finP.val(donPrice);
+			}
+			
 			// 가용포인트가 0일 때 - 0 가능, 다른 수 불가능
 			if($("#useablePoint").val() == 0){
 				if(usePoint == 0){
-					alert("왜. 리턴 트루인데..");
 					return true;
+				}else if(usePoint > 0 && usePoint < 500){
+					alert("500원부터 사용 가능합니다");
+					return false;
 				}else{
 					alert("사용 가능한 포인트가 없습니다.");
 					return false;
 				}
 			}else if($("#useablePoint").val() != 0) {
 				if(usePoint > 5000){
-					alert("포인트는 5000원까지 사용 가능합니다!");
+					alert("포인트는 5000원까지 사용 가능합니다");
 					return false;
 				}else if(usePoint > 0 && usePoint < 500){
-					alert("500원부터 사용 가능합니다!");
+					alert("500원부터 사용 가능합니다");
 					return false;
 				}else if(usePoint == 0){
 					return true;
 				}else if(usePoint < 0){
-					alert("500원부터 사용 가능합니다!");
+					alert("500원부터 사용 가능합니다");
 					return false;
 				}
 			}
+			
+			
 			
 			/* 
 			if(usePoint > 5000){
