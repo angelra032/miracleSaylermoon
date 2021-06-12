@@ -85,14 +85,14 @@
 						<div>
 							<div id="lay2-point-div">
 								<c:if test="${ empty userPoint }">
-									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="0" readonly/>  원 <br>
-									&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
-									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
+									&nbsp;보유 포인트 : <input type="text" id="userPoint" value="0" readonly/>  원 <br>
+									&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
+									&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
 								</c:if>
 								<c:if test="${ !empty userPoint }">
-									&nbsp;&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${userPoint }" readonly/>  원 <br> <%-- ${userPoint } --%>
-									&nbsp;&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
-									&nbsp;&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
+									&nbsp;보유 포인트 : <input type="text" id="userPoint" value="${userPoint }" readonly/>  원 <br> <%-- ${userPoint } --%>
+									&nbsp;가용 포인트 : <input type="text" id="useablePoint" value="" readonly/> 원 <br>
+									&nbsp;사용 포인트 : <input type="text" id="usePoint" onkeyup="pointUse()" value="0" placeholder="사용할 포인트 입력"/> 원 <br>
 								</c:if>
 								<!-- <input type="text" id="pCount" placeholder="사용할 포인트 입력"/>원 --> 
 							</div>

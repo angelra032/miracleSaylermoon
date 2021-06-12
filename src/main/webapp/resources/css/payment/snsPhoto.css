@@ -86,10 +86,9 @@ input{
 .result {
 	float: left;
 	width: 480px;
-	height: 566px;
+	height: 684px;
 	border: solid 1px #fdb504;
 	background-color: #ffffff;
-	margin-top : 70px;
 	--margin: 0 auto;
 	--margin-right: 70px;
 	--margin-right: 20px;
@@ -110,8 +109,9 @@ input{
 		font-size: 28px;
 		text-align:center;
 		color: #fff;
-		line-height: 60px;
-		font-weight: 600;
+		line-height: 63px;
+		font-weight: 400;
+		font-family: 'Jal_Onuel';
 	}
 	.lay-content {
 		width: 350px;
@@ -143,9 +143,15 @@ input{
 	font-size: 24px;
 	font-weight: bolder;
 	cursor:pointer;
+	transition:all 0.4s;
 }
-
-
+#sns-link-btn:hover {
+	box-shadow:350px 0 0 0 rgba(0,0,0,0.2) inset;
+}
+#sns-link-btn.back-btn {
+	background-color: #0160ff;
+	margin-top: 30px;
+}
 
 /* SNS 공유 */
 .sns-share {

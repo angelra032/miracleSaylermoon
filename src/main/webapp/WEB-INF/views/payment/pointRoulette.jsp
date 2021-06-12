@@ -16,7 +16,7 @@
 		</div>
 		<div id="main-title">포인트 룰렛&nbsp;&nbsp;<span id="main-title-shop">${shopName }</span></div>
 		<div class="frame">
-			<h4>돈쭐낸 가격의 최대 10% 상당의 포인트를 지급받으세요!</h4>
+			<h4>결제금액의 최대 10% 상당의 포인트를 받으세요!</h4>
 				
 			<c:if test="${rouletteYN == 'Y' }">
 				<form action="saveRoulettePoint.dz" method="post">

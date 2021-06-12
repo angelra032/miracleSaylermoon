@@ -81,7 +81,8 @@
 						<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>   
 						<a id="btnKakao" class="link-icon naver" href="javascript:shareNaver();">네이버</a>   
 					</div>
-					
+					<a href="/"><button id="sns-link-btn" class="back-btn">돌아가기</button>
+					</a>
 				</div>
 			</div>
 			

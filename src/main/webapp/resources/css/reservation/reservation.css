@@ -1,11 +1,13 @@
 @charset "UTF-8";
-
+body :focus {
+   outline:none;
+}
 #calendar {
-	height: 500px;
-	width: 900px;
-	float: left;
-	margin-top:10px;
-	position:static;
+   height: 500px;
+   width: 900px;
+   float: left;
+   margin-top:10px;
+   position:static;
 }
 
 #calendarSection{
@@ -24,188 +26,247 @@
 }
 
 .titleH1{
-	font: #333;
-	top:17px;
-	line-height: 55px;
+   color: #fff;
+   top:17px;
+   line-height: 65px;
+   font-weight: 400;
+   font-family: 'Jal_Onuel';
 }
 
 #selectAreaFirst{
-	float: left;
-	height:650px;
-	width:350px;
-	border: solid 1px #fdb504;
-    background-color: #ffffff;
-    margin-left: 20px;
+   float: left;
+   height:650px;
+   width:350px;
+   border: solid 1px #fdb504;
+   background-color: #ffffff;
+   margin-left: 20px;
 }
 
 #rTimeText{
-	height: 60px;
-	width: 100%;
-	background-color: #fdb504;
-	
+   height: 60px;
+   width: 100%;
+   background-color: #fdb504;
+   
 }
 
 #selectTSection{
-	height: 100px;
-	width: 100%;
+   height: 100px;
+   width: 100%;
 }
 
 #selectTime{
 	border-radius: 3px;
-  	border: solid 2px #fdb504;
-  	font-size: 20px;
-  	font: #333;
+	border: solid 1px #fdb504;
+	font-size: 18px;
+	font: #333;
+	width: 235px;
+	height: 45px;
+	padding-left: 10px;
 }
 
 #selectCount{
-	border-radius: 3px;
-  	border: solid 2px #fdb504;
-  	font-size: 20px;
-  	font: #333;
+     border-radius: 3px;
+     border: solid 1px #fdb504;
+     font-size: 18px;
+     font: #333;
+     width: 235px;
+     height: 45px;
+     padding-left: 10px;
 }
 
 #pointText{
 	border-radius: 3px;
-  	border: solid 2px #fdb504;
-  	font-size: 20px;
-  	font: #333;
-  	text-align: right;
+	border: solid 1px #fdb504;
+	font-size: 18px;
+	font: #333;
+	margin-left:60px;
+	display: block;
+	width: 216px;
+	padding-left: 10px;
+   	height: 40px;
+   	line-height: 40px;
 }
 
 #selectAreaSecond{
-	float: left;
-	height:567px;
-	width:410px;
+   float: left;
+   height:567px;
+   width: 410px;
 }
 
 #rCountText{
-	height: 60px;
-	width: 100%;
-	background-color: #fdb504;
+   height: 60px;
+   width: 100%;
+   background-color: #fdb504;
 }
 
 #selectCSection{
-	height: 100px;
-	width: 100%;
+   height: 100px;
+   width: 100%;
 }
 
 #rPointText{
-	height: 60px;
-	width: 100%;
-	background-color: #fdb504;
+   height: 60px;
+   width: 100%;
+   background-color: #fdb504;
 }
 
 .pRadion{
-	margin-top:20px;
+   margin-top:10px;
 }
-
+.pRadion input[type=radio]{
+    display: none;
+}
+.pRadion input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 66px;
+    width: 110px;
+    border: 1px solid #fdb504;
+    border-radius: 3px;
+    line-height: 30px;
+    text-align: center;
+    font-weight:400;
+    font-size:18px;
+    padding-top:5px;
+}
+.pRadion input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.pRadion input[type=radio]:checked+label{
+    background-color: #fdb504;
+    color: #fff;
+}
 #pointUseDiv{
-	margin-top: 20px;
+   margin-top: 20px;
 }
 
 #pointBox{
-	margin-top: 20px;
+   margin-top: 10px;
 }
 
 #pButton{
-	margin-top: 10px;	
+   margin-top: 10px;  
+   width: 226px;
+   height: 40px;
+   border: 0;
+   border-radius: 3px;
+   font-weight: 600;
+   cursor: pointer;
 }
 
 #selectAreaThird{
-	float: left;
-	height:175px;
-	width:1280px;
-	margin-top:20px;
-	border: solid 1px #fdb504;
+   float: left;
+   height:175px;
+   width:1272px;
+   margin-top:20px;
+   border: solid 1px #fdb504;
     background-color: #ffffff;
 }
 
 
 .allInformation{
-	margin-top: 15%;
-	font-size: 25px;
-	font-weight: bold;
+   margin-top: 15%;
+   font-size: 25px;
+   font-weight: bold;
 }
 
 .select{
-	font-size: 20px;
-	margin-top: 32px;
+   font-size: 20px;
+   margin-top: 28px;
 }
 
 .pointUse{
-	font-size: 14px;
+   font-size: 14px;
 }
 
 .resultBox{
-	height: 100%;
-	width: 40%;
-	float: left;
-	margin-left: 30px;
-	display: inline-block;
+   height: 100%;
+   width: 460px;;
+   float: left;
+   margin-left: 30px;
+   display: inline-block;
 }
-
+.show-point {
+   text-align: left;
+   margin-left: 60px;
+   margin-top: 20px;
+   font-size: 18px;
+}
 .reservationArea{
-	height: 100%;
-	width: 150px;
-	float: left;
-	display: inline-block;
-	margin-top: -10px;
+   height: 100%;
+   width: 150px;
+   float: left;
+   display: inline-block;
+   margin-top: -10px;
 }
 
 h2{
-	text-align: left;
+   text-align: left;
 }
 
-#pointText{
-	height: 26px;
-}
+
 
 .button{
-	background-color: #fdb504;
-	border-radius: 5px;
-	font-size: 20px;
-	color: #e3e4e5;
-	padding:5px 5px 5px 5px;
+   background-color: #fdb504;
+   border-radius: 3px;
+   font-size: 20px;
+   color: #fff;
+   padding:5px 5px 5px 5px;
+   
 }
 
 .label{
-	width: 10px;
+   width: 10px;
 }
+#rButton {
+	margin-left: 120px;
+	border: 0;
+	width: 120px;
+	height: 120px;
+	margin-top:-92px;
+	float: left;
+	cursor: pointer;
+	font-weight: 600;
+	transition:all 0.5s;
+}
+#rButton:hover {
+	box-shadow:200px 0 0 0 rgba(0,0,0,0.2) inset;
 
-
+}
 
 /* 내가 만진 css 끝 */
 
 
 body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	font-size: 14px;
+   margin: 40px 10px;
+   padding: 0;
+   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+   font-size: 14px;
 }
 
 .frame {
-	width: 1289px;
-	margin: 0 auto;
-	/* position:relative; */
-	height:980px;
-	margin-top:140px;
+   width: 1289px;
+   margin: 0 auto;
+   /* position:relative; */
+   height:980px;
+   margin-top:140px;
 }
 
 /* 백그라운드 이미지 */
 .header-background-area {
-	width: 1903px;
-	margin: 0 auto;
+   width: 1903px;
+   margin: 0 auto;
 }
 
 .header-background-area>img {
-	position: absolute;
-	z-index: -5;
-	display: block;
-	top: 0;
-	width: 1903px;
-	align: center;
-	object-fit: cover;
+   position: absolute;
+   z-index: -5;
+   display: block;
+   top: 0;
+   width: 1903px;
+   align: center;
+   object-fit: cover;
 }
 
 /* 헤더 끝, 메인 타이틀설정! */
@@ -217,17 +278,17 @@ body {
     color: #ffffff;
     text-align: center;
     position: absolute;
-	top: 150px;
-	right: 480px;
+   top: 150px;
+   right: 480px;
     line-height: 4.7;
     z-index: -2;
 } 
 
 #main-title-font{
-	font-size: 20px;
+   font-size: 20px;
 }
 
 
 #paymentPoint{
-	display:none;
+   display:none;
 }
