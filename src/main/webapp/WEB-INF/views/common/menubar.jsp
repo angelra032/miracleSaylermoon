@@ -210,7 +210,7 @@
 				</div>
 				<div class="userChat" style="display: none">
 					<div id="chating" class="chating">
-						<div><button id="backHistory">뒤로가기</button></div>
+						<div id="exitArea"><button id="backHistory">뒤로가기</button></div>
 					</div>
 					<div id="yourMsg2">
 						<input type="hidden" name="userName" value="관리자" id="userName">

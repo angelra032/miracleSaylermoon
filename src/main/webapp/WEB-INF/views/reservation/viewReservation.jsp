@@ -163,14 +163,22 @@
       var finalDate = $("#rDateSpan").html();
       var finalTime = $("#rTimeSpan").html();
       var finalCount = $("#rCountSpan").html();
-      console.log(finalDate);
-      console.log(finalTime);
-      console.log(finalCount);
-      if(finalDate === "" || finalTime === "" || finalCount === ""){
-         alert('예약 옵션이 선택되지 않았습니다.\n\n 예약 옵션을 선택해주세요.');
+      var finalPoint = $("#pointYnSpan").html();
+   	  if(finalDate===""){
+         alert('방문예정날짜가 선택되지 않았습니다. 다시 선택해주세요.');
          return false;
-      }else(finalDate !== "" || finalTime !== "" || finalCount !== "")
-         return true;
+      }else if(finalTime===""){
+    	  alert('방문예정시간이 선택되지 않았습니다. 다시 선택해주세요.');
+    	  return false;
+      }else if(finalCount===""){
+    	  alert('방문예정인원이 선택되지 않았습니다. 다시 선택해주세요.');
+    	  return false;
+      }else if(finalPoint===""){
+    	  alert('포인트 사용여부가 선택되지 않았습니다. 다시 선택해주세요.');
+    	  return false;
+      }else if(finalDate !== "" || finalTime !== "" || finalCount !== "" || finalPoint !== ""){
+    	  return true;
+      }
    }
       
 
