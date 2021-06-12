@@ -167,8 +167,8 @@ public class ShopStoreLogic implements ShopStore {
 
 	// 파트너 - 메뉴사진 삭제
 	@Override
-	public int deleteMenuPhoto(int shopNo) {
-		return sqlSession.delete("shopMapper.deleteMenuPhoto", shopNo);
+	public int deleteMenuPhoto(String deletePhotoName) {
+		return sqlSession.delete("shopMapper.deleteMenuPhoto", deletePhotoName);
 	}
 
 	// 파트너 - 메인메뉴 삭제

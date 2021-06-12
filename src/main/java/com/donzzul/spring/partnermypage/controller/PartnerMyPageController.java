@@ -458,11 +458,11 @@ public class PartnerMyPageController {
 		
 		/////// 메뉴 사진 delete-insert
 		// delete
-		ArrayList<MenuPhoto> deletePhotoList = sService.selectMenuPhoto(shop.getShopNo());
-		System.out.println("삭제할 사진리스트 조회"+deletePhotoList.toString());
-		if(deletePhotoList != null) { // 삭제할 사진이 있으면 사진 전부 삭제
-			int deletePhoto = sService.deleteMenuPhoto(shop.getShopNo());
-		}
+//		ArrayList<MenuPhoto> deletePhotoList = sService.selectMenuPhoto(shop.getShopNo());
+//		System.out.println("삭제할 사진리스트 조회"+deletePhotoList.toString());
+//		if(deletePhotoList != null) { // 삭제할 사진이 있으면 사진 전부 삭제
+//			int deletePhoto = sService.deleteMenuPhoto(shop.getShopNo());
+//		}
 		// insert	- 다시 insert
 		MenuPhoto menuPhoto = new MenuPhoto();
 		for(int i=0; i<mainMenuPhoto.length; i++) {
@@ -514,6 +514,27 @@ public class PartnerMyPageController {
 		}
 
 		return  "redirect:partnerMyPage.dz";
+	}
+
+	// 가게 수정 - 메뉴 사진 삭제하기 
+	@ResponseBody
+	@RequestMapping(value="deleteMenuPhoto.dz", method=RequestMethod.POST)
+	public String deleteMenuPhoto(@RequestParam("deletePhotoList") ArrayList<String> deletePhotoList) {
+		
+		System.out.println("삭제할 파일 이름: "+deletePhotoList.toString());
+		
+		for(int i=0; i<deletePhotoList.size(); i++) {
+			String deletePhotoName = deletePhotoList.get(i);
+			System.out.println("하나씩 꺼낸 사진 이름"+deletePhotoName);
+			int deletePhoto = sService.deleteMenuPhoto(deletePhotoName);
+			
+			  if(deletePhoto > 0) { // 삭제 완료 후 돌아가기
+				  
+			  }
+			 
+		}
+		return "success";
+
 	}
 	
 	
@@ -606,10 +627,10 @@ public class PartnerMyPageController {
 		
 		
 		// 파일명 변경하기
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String originalFileName = multiFile.getOriginalFilename();
-//		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
-		String renameFileName = UUID.randomUUID() + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+//		String renameFileName = UUID.randomUUID() + "." + originalFileName.substring(originalFileName.lastIndexOf(".")+1);
 		
 		// 파일저장
 		String filePath = folder + "\\" + renameFileName;

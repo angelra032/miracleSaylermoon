@@ -36,7 +36,7 @@
 	</resultMap>
 	
 	<insert id="insertPartnerShop" useGeneratedKeys="true" keyProperty="shopNo" keyColumn="SHOP_NO">
-		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, #{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, #{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, #{shopContent}, #{shopLat}, #{shopLng}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, NULL, #{shopPhone}, DEFAULT, #{shopLongAddr }, #{businessDay})
+		INSERT INTO SHOP VALUES(SEQ_SHOP.NEXTVAL, #{shopName}, #{shopShortAddr}, #{shopAddr}, #{shopTarget}, #{shopProduct}, #{shopType}, #{shopFileName}, #{shopFilePath}, #{shopFileSize}, #{shopUploadTime}, #{shopParking}, #{shopMaxReserv}, #{shopContent}, DEFAULT, DEFAULT, #{userNo}, #{startTime}, #{endTime}, #{shopPhone}, DEFAULT, #{shopLongAddr }, #{businessDay})
 	</insert>
 	
 	<update id="updatePartnerShop">
@@ -267,7 +267,7 @@
     
     <!-- 가게 메뉴 사진 삭제 -->
     <select id="deleteMenuPhoto" resultMap="menuPhotoResultMap">
-       DELETE FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
+       DELETE FROM MENU_PHOTO WHERE MENU_FILENAME = #{menuFileName }
     </select>
     
     <!-- 가게 메뉴사진 저장 -->

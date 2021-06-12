@@ -534,9 +534,19 @@
 		var zip = $("#zip"); // 우편번호	숫자야? string이야?
 		var addr1 = $("#addr1"); // 기본주소
 		var addr2 = $("#addr2"); // 상세주소
-		if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
+		if( zip.val()=="" ){
 			alert("가게 위치를 입력하세요.");
 			zip.focus();
+			return false;
+		}
+		if( addr1.val()=="" ){
+			alert("기본 주소를 입력하세요.");
+			addr1.focus();
+			return false;
+		}
+		if( addr2.val()=="" ){
+			alert("가게 상세주소를 입력하세요.");
+			addr2.focus();
 			return false;
 		}
 		
@@ -636,13 +646,34 @@
 		*/
 		
 		// 메뉴 입력
-		var mainMenuName = $("input[name='mainMenuName']");
-		var mainMenuPrice = $("input[name='mainMenuPrice']");
-		if( mainMenuName.val()=="" || mainMenuPrice.val()=="" ){		// 파일 - val 아니면 html 혹은 text
-			alert("메뉴와 가격을 입력하세요.");
-			mainMenuName.focus();
+// 		var mainMenuName = $("input[name='mainMenuName']");
+// 		var mainMenuPrice = $("input[name='mainMenuPrice']");
+// 		if( mainMenuName.val()=="" || mainMenuPrice.val()=="" ){		// 파일 - val 아니면 html 혹은 text
+// 			alert("메뉴와 가격을 입력하세요.");
+// 			mainMenuName.focus();
+// 			return false;
+// 		}
+		// 메뉴 첫번째 무조건 채우도록
+		if($('.add-menu-div').children().length == 0){
+			alert("메뉴를 추가하세요");
 			return false;
 		}
+		// 메뉴 입력, 공백란 지우기
+		var mainMenuName = $("input[name='mainMenuName']");
+		var mainMenuNameCount = $("input[name='mainMenuName']").length;
+		console.log("메뉴 공백란 지우기 - 길이" + mainMenuNameCount);
+		for(var i=0; i<mainMenuNameCount; i++){
+			if(mainMenuName[0].value==""){
+				alert("메뉴와 가격을 입력하세요.");
+				mainMenuName[0].focus();
+				return false;
+			}else if(mainMenuName[i].value==""){
+				alert("메뉴 입력란을 채우거나 삭제해주세요.");
+				mainMenuName[i].focus();
+				return false;
+			}
+		}
+		
 		
 		
 		// 비어있는 메뉴 입력란 지우기
