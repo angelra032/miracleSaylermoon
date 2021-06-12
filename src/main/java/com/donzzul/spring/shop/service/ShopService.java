@@ -45,4 +45,5 @@ public interface ShopService {
 	public int insertMainMenu(MainMenu mainMenu); // 메인 메뉴 등록
 	public int deleteMenuPhoto(String deletePhotoName); // 가게 메뉴사진 삭제(ajax로) 
 	public int deleteMainMenu(int shopNo); // 가게 메인메뉴 삭제
+	public ArrayList<MenuPhoto> selectMenuPhotoPath(String deletePhotoName); // 가게 메뉴사진 서버삭제 - 파일패스 가져오기 위해서(select)
 }

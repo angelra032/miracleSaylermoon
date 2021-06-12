@@ -176,6 +176,12 @@ public class ShopStoreLogic implements ShopStore {
 	public int deleteMainMenu(int shopNo) {
 		return sqlSession.delete("shopMapper.deleteShopMenu", shopNo);
 	}
+
+	// 파트너 - 메뉴 사진 서버에서 삭제하기 위해 사진이름으로 select(path)
+	@Override
+	public ArrayList<MenuPhoto> selectMenuPhotoPath(String deletePhotoName) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectMenuPhotoPath", deletePhotoName);
+	}
 	
 
 }
