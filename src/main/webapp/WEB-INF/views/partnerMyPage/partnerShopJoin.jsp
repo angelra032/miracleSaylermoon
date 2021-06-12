@@ -226,30 +226,14 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<div class="first-menu-photo">
-									<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
-									<label for="file${i.index }" class="uploadFile">파일선택</label>
-									<span class="file-name">선택된 파일 없음</span><!-- 선택된 파일 없음 -->
-									<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
-								</div>
-								<div class="first-menu-photo">
-									<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
-									<label for="file${i.index }" class="uploadFile">파일선택</label>
-									<span class="file-name">선택된 파일 없음</span><!-- 선택된 파일 없음 -->
-									<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
-								</div>
-								<div class="first-menu-photo">
-									<c:forEach varStatus="i" begin="0" end="3">
+								<c:forEach varStatus="i" begin="0" end="3">
+									<div class="first-menu-photo">
 										<input name="mainMenuPhoto" style="display:none;" class="form-elem" type="file" id="file${i.index }" value="${photo.menuFileName }" >
 										<label for="file${i.index }" class="uploadFile">파일선택</label>
 										<span class="file-name">선택된 파일 없음</span><!-- 선택된 파일 없음 -->
 										<a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a>
-									</c:forEach>
-								</div>
-								<!-- <input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
-								<input name="mainMenuPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자"> -->
+									</div>
+								</c:forEach>
 							</div>
 							
 							<h1>유효성검사 수정필요</h1>
@@ -424,7 +408,7 @@
 			console.log(shopTypeNum.val());
 		if(shopTypeNum.val()==null){
 			alert("가게 분류를 선택하세요.");
-			shopShortAddr.focus();
+			shopTypeNum.focus();
 			return false;
 		}
 		
