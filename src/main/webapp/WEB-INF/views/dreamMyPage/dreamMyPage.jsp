@@ -112,7 +112,7 @@
 							<c:forEach items="${pList }" var="pick" varStatus="status">
 								<tr>
 									<td>${status.count }</td>
-									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }&userNo=${pick.userNo }"><p>${pick.shopName }${pick.pickNo }</p></a></td>
+									<td><a class="table-link-title" href="shopDetail.dz?shopNo=${pick.shopNo }&userNo=${pick.userNo }"><p>${pick.shopName }</p></a></td>
 									<td>${ pick.shopShortAddr}</td>
 									<td><input type = hidden value="${pick.pickNo }"><a class="pDeleteBtn delete-btn" href="#">
 									삭제</a></td>

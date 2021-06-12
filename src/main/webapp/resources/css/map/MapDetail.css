@@ -277,7 +277,7 @@ main {
 		}
 		
 			.wrap * {padding: 0;margin: 0;}
-			.wrap {position:absolute; top: -231px; left: -153px;z-index: 999;width: 290px;height: 193px;}
+			.wrap {position:absolute; top: -231px; left: -158px;z-index: 999;width: 290px;height: 193px;}
 		    .wrap .info {width: 290px;height: 181px;margin-bottom: 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 		    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 		    .info .title {padding: 5px 10px;height: 36px;background-color: #0160ff;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;color: #fff;}
