@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.donzzul.spring.common.PageInfo;
+import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.user.domain.CustomUserDetails;
 import com.donzzul.spring.user.domain.User;
 
@@ -41,4 +42,5 @@ public interface UserStore {
 	public User getUsersByNo(String userNo);
 	public int countSocialUser(String socialId);
 	public int insertSocialUser(HashMap<String, String> map);
+	public int updatePoint(MzReview mzReview);
 }

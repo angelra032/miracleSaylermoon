@@ -81,7 +81,7 @@
 	</select>
 	
 	<insert id="insertMZPhoto" >
-		INSERT INTO MZ_REVIEW_PHOTO VALUES(SEQ_MZREVIEW_PHOTO.NEXTVAL, #{mzReviewOriginalFileName}, #{mzReviewRenameFileName}, #{mzReviewFilePath}, #{mzReviewFileSize}, #{mzReviewFileTime}, #{mzReviewNo})
+		INSERT INTO MZ_REVIEW_PHOTO VALUES(SEQ_MZREVIEW_PHOTO.NEXTVAL, #{mzReviewOriginalFileName}, #{mzReviewRenameFileName}, #{mzReviewFilePath}, #{mzReviewFileSize}, #{mzReviewFileTime}, #{mzReviewNo}, DEFAULT)
 	</insert>
 	
 	<delete id="deleteBeforeMZPhoto">

@@ -189,4 +189,8 @@
 		UPDATE "USER" SET USER_POINT = NVL(USER_POINT,0) - (SELECT NVL(PAYMENT_POINT,0) FROM RESERVATION WHERE RESERVATION_NO= #{reservationNo})
         WHERE USER_NO = #{userNo}
 	</update>
+	
+	<update id="addReviewPoint">
+		UPDATE "USER" SET USER_POINT = USER_POINT + 500 WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

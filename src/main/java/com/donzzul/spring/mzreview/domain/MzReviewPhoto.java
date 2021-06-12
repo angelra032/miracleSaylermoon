@@ -10,7 +10,7 @@ public class MzReviewPhoto {
 	private String mzReviewFilePath;
 	private long mzReviewFileSize;
 	private Timestamp mzReviewFileTime;
-	private int mzReviewNo;
+	private int mzReviewNo; 
 	private String userType;
 	
 	public MzReviewPhoto() {}
