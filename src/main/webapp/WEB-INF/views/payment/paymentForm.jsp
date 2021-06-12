@@ -182,13 +182,30 @@
 		// 돈쭐내기 버튼 클릭해 모달 출력
 		$("#payment-btn").on("click", function(e){
 			e.preventDefault();	// form submit 이벤트 막음
-			
-// 			if() {
-				
-// 			}
-			$('div#paymentModal').modal({ // 모달창 출력
-		    	fadeDuration: 250
-		    })
+			var menuName = $("input[name='menuName']").val(); // 메뉴명
+			var amount = $("input[name='amount']").val(); // 수량
+			var donPrice = $("input[name='menu-fin-price']").val(); // 메뉴총액
+		    var usePoint = $("input[name='use-point']").val(); // 포인트사용
+		    var finPrice = $("input[name='donPrice']").val(); // 결제금액
+		    
+			if(donPrice <= 0 || menuName.length <= 0 || amount.length <= 0) {
+				alert('메뉴와 수량을 선택해주세요');
+				return false;
+			} else if(finPrice < 0) {
+				alert('잘못된 금액을 입력하셨습니다');
+			} else if(donPrice < usePoint) {
+				alert('메뉴 액수보다 큰 포인트는 사용 불가능합니다');
+			} else {
+				$('div#paymentModal').modal({ // 모달창 출력
+			    	fadeDuration: 250
+			    })
+			}
+// 			 else if((donPrice-usePoint) != finPrice) {
+// 					alert('잘못된 접근입니다');
+// 					finPrice = donPrice-userPoint;
+// 					$("input[name='finPrice']").val(finPrice);
+// //	 				location.reload();
+// 				}
 		});
 		
 		
@@ -445,10 +462,9 @@
 				alert("5000보다 크거나 0보다 작음(-)사용 가능한 포인트가 없습니다.");
 				return false;
 			} else if(usePoint >= 1){ 
-				alert("500보다 작거나 0보다 큼사용 가능한 포인트가 없습니다.");
+				alert("500보다 작거나 0보다 큼 사용 가능한 포인트가 없습니다.");
 				return false;
 			} else if(usePoint == 0) {
-				
 			} 
 			/* 
 			if(usePoint > 5000){

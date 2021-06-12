@@ -162,10 +162,10 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.insertMainMenu(mainMenu);
 	}
 
-	// 파트너 - 메뉴 사진 삭제
+	// 파트너 - 메뉴 사진 삭제 (ajax로)
 	@Override
-	public int deleteMenuPhoto(int shopNo) {
-		return sStore.deleteMenuPhoto(shopNo);
+	public int deleteMenuPhoto(String deletePhotoName) {
+		return sStore.deleteMenuPhoto(deletePhotoName);
 	}
 
 	// 파트너 - 메인 메뉴 삭제
@@ -174,6 +174,7 @@ public class ShopServiceImpl implements ShopService {
 		return sStore.deleteMainMenu(shopNo);
 	}
 
+	
 
 
 

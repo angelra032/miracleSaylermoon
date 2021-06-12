@@ -73,31 +73,25 @@ public class DreamMyPageController {
 									HttpSession session) {
 		User user = (User) session.getAttribute("loginUser");
 		int userNo = user.getUserNo();
-		Reservation reservation = rService.selectOne(reservationNo);
-		String rStateResult = reservation.getrState();
-		if (rStateResult.equals("O")) {
-			reservation.setrState("X");
-			int result = rService.updateRstate(reservation);
-
-			reservation.setUserNo(userNo);
-			reservation.setReservationNo(reservationNo);
-			int cancleResult = rService.cancleReservation(reservation);
+		
+		Reservation reservation = new Reservation();
+		reservation.setrState("X");
+		reservation.setUserNo(userNo);
+		reservation.setReservationNo(reservationNo);
 			
-			if (result > 0 && cancleResult > 0) {
-				if(mainPage.equals("N")) {
-					return "redirect:dreamMyPage.dz";
-				}else {
-					return "redirect:allRListDetailByDream.dz";
-				}
-			} else {
-				model.addAttribute("msg", "예약취소에 실패했습니다.");
+		int cancleResult = rService.cancleReservation(reservation);
+			
+		if (cancleResult > 0) {
+			if(mainPage.equals("N")) {
 				return "redirect:dreamMyPage.dz";
+			}else {
+				return "redirect:allRListDetailByDream.dz";
 			}
 		} else {
 			model.addAttribute("msg", "예약취소에 실패했습니다.");
-			return "common/errorPage";
+			return "redirect:dreamMyPage.dz";
 		}
-	}
+	} 
 
 	// 꿈나무회원 마이페이지 예약 전체 불러오기
 	@RequestMapping(value = "allRListDetailByDream.dz", method = RequestMethod.GET)

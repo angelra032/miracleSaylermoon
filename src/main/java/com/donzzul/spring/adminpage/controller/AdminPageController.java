@@ -434,16 +434,36 @@ public class AdminPageController {
 			return "fail";
 		}
 	}
+	
+	// 사업자리스트 사업자환급금액조회
+	@ResponseBody
+	@RequestMapping(value="adminShopPointSelect.dz",  method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, String> adminShopPointSelect(@RequestParam("shopNo") int shopNo, Model model) {
+		Map<String, String> map = new HashMap<String, String>();
+		Shop shop = sService.selectShopOne(shopNo);
+		int userNo = sService.selectShopOne(shopNo).getUserNo();
+		int point = uService.selectOneUserByNo(userNo).getUserPoint();
+		if(shop != null) {
+			map.put("shopName", shop.getShopName());
+			map.put("shopAddr", shop.getShopShortAddr());
+			map.put("shopPhone", shop.getShopPhone());
+			map.put("point", Integer.toString(point));
+			map.put("result", "success");
+			return map;
+		} else {
+			map.put("result", "fail");
+			return map;
+		}
+	}
+	
 	// 사업자리스트 환급버튼
 	@ResponseBody
 	@RequestMapping(value="adminShopChangePoint.dz",  method = {RequestMethod.GET, RequestMethod.POST})
 	public Map<String, String> adminShopChangePoint(@RequestParam("shopNo") int shopNo, Model model) {
 		Map<String, String> map = new HashMap<String, String>();
 		int userNo = sService.selectShopOne(shopNo).getUserNo();
-		int point = uService.selectOneUserByNo(userNo).getUserPoint();
 		int result = pService.updateAdminPointViewNo(shopNo, userNo);
 		if(result > 0) {
-			map.put("point", Integer.toString(point));
 			map.put("result", "success");
 			return map;
 		} else {
