@@ -51,12 +51,15 @@ public class ChatController {
 	@RequestMapping("/createRoom")
 	public List<HashMap<String, String>> createRoom(@RequestParam HashMap<Object, Object> params){
 		String userId = (String) params.get("userId");
+		String chatTime = (String) params.get("chatTime");
+		System.out.println(chatTime+"시간 들어왔니?!");
 		if(userId != null && !userId.trim().equals("")) {
 			List<HashMap<String, String>> new_list = roomList.stream().filter(o->o.get("userId").equals(userId)).collect(Collectors.toList());
 			//해당 아이디의 방이 없을경우만 방데이터 쌓기
 			if(new_list.size() == 0) {
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("userId", userId);
+				map.put("chatTime", chatTime);
 				roomList.add(map);
 			}
 		}
