@@ -39,10 +39,16 @@
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
 							</div>
 							<div class="form-body">
-								<input name="shopPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자">
+								<div class="first-menu-shop">
+									<input name="shopPhoto" class="form-elem" style="display:none;" type="file" id="file" value="${shop.shopFileName }" >
+									<label for="file" class="uploadFile">파일선택</label>
+									<span id="shopImg" class="file-name">${shop.shopFileName }</span><!-- 선택된 파일 없음 -->
+									<!-- <a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a> -->
+								</div>
+								<!-- <input name="shopPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자"> -->
 							</div>
 							
-							<div class="form-head form-head2">
+							<div class="form-head form-head2 shop-addr-title">
 								가게 위치&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti cardnoti card_noti_0">카드번호를 입력해주세요.</div>
@@ -193,7 +199,7 @@
 							
 							<div class="form-head form-head2">
 								가게소개&nbsp;
-								<span class="required">*</span>&nbsp;&nbsp;
+								<span class="required"></span>&nbsp;&nbsp;
 								<div class="form-noti emailnoti email_noti_0">이메일을 입력해 주세요.</div>
 								<div class="form-noti emailnoti email_noti_1">이메일 형식이 올바르지 않습니다.</div>
 								<div class="form-noti emailnoti email_noti_2">이미 사용중인 이메일입니다.</div>
@@ -235,8 +241,6 @@
 									</div>
 								</c:forEach>
 							</div>
-							
-							<h1>유효성검사 수정필요</h1>
 							
 							<input type="hidden" name="userNo" value="${userNo}" />
 							<button type="button" id="btn" class="submit-btn" onclick="waitJoin()">등록하기</button>
@@ -300,13 +304,32 @@
 
 	// 파일명 바꾸기
 	$(document).on('change', 'input[type=file]', function(e){
+		/* if($("input[name='shopPhoto']").val()==""){
+			var shopPhotoSpan = $(e.target).siblings("span").text(); // e.target은 이벤트가 발생한 타겟 (?)
+			shopPhotoSpan = "";
+		}
+		 */
 		//$(this).parent().find(".file_name").text(e.target.files[0].name);
 		var fileName = $(e.target)[0].files[0].name;
+		if(fileName == ""){
+			$(e.target).siblings('.file-name').html("");
+		}
 		$(e.target).siblings('.file-name').html(fileName);
+		
 		console.log($(".file-name").val());
 		console.log(fileName);
 	});	
-		
+	
+	
+	// 메인 이미지 유효성(바꾸려고 들어갔다가 안 바꾸고 나왔을 때 span 값 다시 초기화)
+	/* $("input[name='shopPhoto']").on("change", function(e) {
+		if($("input[name='shopPhoto']").val()==""){
+			var shopPhotoSpan = $(e.target).siblings("span").text(); // e.target은 이벤트가 발생한 타겟 (?)
+			shopPhotoSpan = "";
+		}
+	}); */
+	
+	
 	
 	
 	// 주소검색 api
@@ -365,11 +388,27 @@
 		var zip = $("#zip"); // 우편번호	숫자야? string이야?
 		var addr1 = $("#addr1"); // 기본주소
 		var addr2 = $("#addr2"); // 상세주소
-		if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
+		if( zip.val()=="" ){
 			alert("가게 위치를 입력하세요.");
 			zip.focus();
 			return false;
 		}
+		if( addr1.val()=="" ){
+			alert("기본 주소를 입력하세요.");
+			addr1.focus();
+			return false;
+		}
+		if( addr2.val()=="" ){
+			alert("가게 상세주소를 입력하세요.");
+			addr2.focus();
+			return false;
+		}
+		/* if( zip.val()=="" || addr1.val()=="" || addr2.val()=="" ){
+			alert("가게 위치를 입력하세요.");
+			zip.focus();
+			return false;
+		} */
+		
 		
 		// 가게 간단 위치
 		var shopShortAddr = $("input[name='shopShortAddr']");
@@ -467,13 +506,39 @@
 		*/
 		
 		// 메뉴 입력
-		var mainMenuName = $("input[name='mainMenuName']");
-		var mainMenuPrice = $("input[name='mainMenuPrice']");
-		if( mainMenuName.val()=="" || mainMenuPrice.val()=="" ){		// 파일 - val 아니면 html 혹은 text
-			alert("메뉴와 가격을 입력하세요.");
-			mainMenuName.focus();
+// 		var mainMenuName = $("input[name='mainMenuName']");
+// 		var mainMenuPrice = $("input[name='mainMenuPrice']");
+// 		if( mainMenuName.val()=="" || mainMenuPrice.val()=="" ){		// 파일 - val 아니면 html 혹은 text
+// 			alert("메뉴와 가격을 입력하세요.");
+// 			mainMenuName.focus();
+// 			return false;
+// 		}
+		// 메뉴 첫번째 무조건 채우도록
+		if($('.add-menu-div').children().length == 0){
+			alert("메뉴를 추가하세요");
 			return false;
 		}
+		// 메뉴 입력, 공백란 지우기
+		var mainMenuName = $("input[name='mainMenuName']");
+		var mainMenuNameCount = $("input[name='mainMenuName']").length;
+		console.log("메뉴 공백란 지우기 - 길이" + mainMenuNameCount);
+		for(var i=0; i<mainMenuNameCount; i++){
+			if(i==0){
+				if(mainMenuName[0].value==""){
+					alert("메뉴와 가격을 입력하세요.");
+					mainMenuName[0].focus();
+					return false;
+				}
+			}else if(i > 0){
+				if(mainMenuName[i].value==""){
+					alert("메뉴 입력란을 채우거나 삭제해주세요.");
+					mainMenuName[i].focus();
+					return false;
+				}
+			}
+			
+		}
+		
 		
 		// 메뉴 사진 업로드
 		var mainMenuPhoto = $("input[name='mainMenuPhoto']");

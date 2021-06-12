@@ -24,10 +24,16 @@
 
 	<jsp:include page="/WEB-INF/views/common/mypagemenubar.jsp"></jsp:include>
 	<main>
-		<div id="main-title">${ loginUser.userName }님안녕하세요!</div>
+		<div id="main-title">${ loginUser.userName }님 안녕하세요!</div>
 		<div class="frame">
 			<div class="my-info">
-				<span>보유포인트 : <b>${shop.shopPoint }</b>원</span> 
+				<c:if test="${ empty shop }">
+					<span>보유포인트 : <b>0</b>원</span> 
+				</c:if>
+				<c:if test="${ !empty shop }">
+					<span>보유포인트 : <b>${shop.shopPoint }</b>원</span> 
+				</c:if>
+				<%-- <span>보유포인트 : <b>${shop.shopPoint }</b>원</span>  --%>
 				<c:if test="${ !empty shop || shop.shopPointYn eq 'N' || shop.shopPointYn eq 'n' }">
 					<a class="refund-btn" href="refundsPartnerPoint.dz">환급신청</a>
 				</c:if>
