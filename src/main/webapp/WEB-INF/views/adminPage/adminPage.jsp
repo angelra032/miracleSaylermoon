@@ -140,11 +140,16 @@
 									<td>${ status.count }</td>
 									<td>${ user.userName }</td>
 									<td><a class="table-link-title" href="adminUserInfo.dz?userNo=${user.userNo}"><span>${ user.userId }</span></a></td>
-									<td>${ user.userPhone }</td>
+									<c:if test="${ user.userType eq '1' || user.userType eq '2' || user.userType eq '3' }">
+										<td>${ user.userPhone }</td>
+									</c:if>
+									<c:if test="${ user.userType eq '5' }">
+										<td>-</td>
+									</c:if>
 									<c:if test="${ user.userType eq '1' }">
 										<td>꿈나무</td>
 									</c:if>
-									<c:if test="${ user.userType eq '2' }">
+									<c:if test="${ user.userType eq '2' || user.userType eq '5' }">
 										<td>일반</td>
 									</c:if>
 									<c:if test="${ user.userType eq '3' }">
@@ -153,7 +158,7 @@
 									<c:if test="${ user.userType eq '1' || user.userType eq '2' }">
 										<td><div class="btn btn-secondary reserv-btn" onclick="deleteUser('${user.userNo}')">탈퇴</div></td>
 									</c:if>
-									<c:if test="${ user.userType eq '3' }">
+									<c:if test="${ user.userType eq '3' || user.userType eq '5' }">
 										<td><div class="btn done-btn">탈퇴</div></td>
 									</c:if>
 								</tr>

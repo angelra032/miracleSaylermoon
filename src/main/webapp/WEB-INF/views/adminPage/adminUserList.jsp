@@ -52,7 +52,7 @@
 							<c:if test="${ user.userType eq '1' }">
 								<td>꿈나무</td>							
 							</c:if>
-							<c:if test="${ user.userType eq '2' }">
+							<c:if test="${ user.userType eq '2' || user.userType eq '5' }">
 								<td>일반</td>							
 							</c:if>
 							<c:if test="${ user.userType eq '3' }">
@@ -63,9 +63,21 @@
 							</c:if>
 							<td>${user.userName }</td>
 							<td style="cursor: pointer;" onclick="location.href='adminUserInfo.dz?userNo=${user.userNo}'">${user.userId }</td>
-							<td>${user.userPhone }</td>
-							<td>${user.userEmail }</td>
-							<c:if test="${ user.userType eq '3'  }">
+							<!-- 휴대전화 -->
+							<c:if test="${ user.userType eq '1' || user.userType eq '2' || user.userType eq '3' }">
+								<td>${user.userPhone }</td>
+							</c:if>
+							<c:if test="${ user.userType eq '5' }">
+								<td>-</td>
+							</c:if>
+							<!-- 이메일 -->
+							<c:if test="${ user.userType eq '1' || user.userType eq '2' || user.userType eq '3' }">
+								<td>${user.userEmail }</td>
+							</c:if>
+							<c:if test="${ user.userType eq '5' }">
+								<td>-</td>
+							</c:if>
+							<c:if test="${ user.userType eq '3' || user.userType eq '5' }">
 								<td><div class="done-btn" onclick="deleteShopUser()">탈퇴</div></td>
 							
 							</c:if>
@@ -170,18 +182,38 @@
 // 		alert(selectVal);
 		if(selectVal == "1") {
 			location.href="adminUserList.dz?type=1";
-			$(this).css("background", "pink");
-			$(this).attr("selected", "selected");
+			
 		} else if(selectVal == "2") {
-			location.href="adminUserList.dz?type=2"				
-			$(this).css("background", "pink"); // 테스트중
-			$(this).attr("selected", "selected");
+			location.href="adminUserList.dz?type=2"
+			changeSelect(this);
+			$(this).parent().css("background", "pink"); // 테스트중
+			$(this).parent().eq(1).attr("selected", "selected");
 		}else if(selectVal == "3") {
 			location.href="adminUserList.dz?type=3"				
 			$(this).attr("selected");
 		}else if(selectVal == "4") {
 			location.href="adminUserList.dz?type=4"				
 		}
+	});
+	
+	$(document).ready(function() {
+		var allLink = window.location.href;
+		var link = document.location.href.split('?');
+		var test = link[1].indexOf('type');
+		var splitLink = link[1].substring(test, allLink.length);
+		var userSelect = $(".user-select"); // select
+// 		console.log('으아악' + userSelect);
+		
+		if(link[1] == 'type=1' || splitLink == 'type=1' ) {
+			userSelect.val('1').attr("selected", "selected");
+		} else if(link[1] == 'type=2' || splitLink == 'type=2' ) {
+			userSelect.val('2').attr("selected", "selected");
+		}  else if(link[1] == 'type=3' || splitLink == 'type=3' ) {
+			userSelect.val('3').attr("selected", "selected");
+		} else if(link[1] == 'type=4' || splitLink == 'type=4' ) {
+			userSelect.val('4').attr("selected", "selected");
+		}
+		
 	});
 </script>
 </html>

@@ -97,7 +97,7 @@
 			               ['view', ['codeview']]
 			             ]
 			         });
-			   $('#summernote').summernote('code', '${ drmReview.drmReviewTitle }');
+			   $('#summernote').summernote('code', '${ drmReview.drmReviewContent }');
 			   
 			   
 			   // 저장버튼

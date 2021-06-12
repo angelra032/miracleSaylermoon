@@ -98,6 +98,8 @@
 							}
 				         });
 				   
+				   jQuery(this).summernote('fontSize', 16);
+				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
 					   	var recommendContent = $("#summernote").summernote('code', recommendContent);

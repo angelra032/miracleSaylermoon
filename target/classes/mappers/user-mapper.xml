@@ -99,7 +99,7 @@
 			WHERE USER_TYPE = 1 ORDER BY USER_NO DESC
 		</if>
 		<if test='userType.equals("3")'>
-			WHERE USER_TYPE = 2 ORDER BY USER_NO DESC
+			WHERE USER_TYPE = 2 OR USER_TYPE = 5 ORDER BY USER_NO DESC
 		</if>
 		<if test='userType.equals("4")'>
 			WHERE USER_TYPE = 3 ORDER BY USER_NO DESC
@@ -118,7 +118,7 @@
 			WHERE USER_TYPE = 1
 		</if>
 		<if test='pageType.equals("3")'>
-			WHERE USER_TYPE = 2
+			WHERE USER_TYPE = 2 OR USER_TYPE = 5
 		</if> 
 		<if test='pageType.equals("4")'>
 			WHERE USER_TYPE = 3
