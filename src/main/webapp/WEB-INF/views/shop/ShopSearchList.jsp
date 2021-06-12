@@ -9,9 +9,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/shop/ShopSearchList.css">
 <!-- JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/resources/js/data.js"></script>
 <title>가게 찾기 리스트</title>
 </head>
 <body>
@@ -133,6 +134,16 @@
 
 	<script>
 		$(function() {
+			
+			$("#searchBox").autocomplete({  //오토 컴플릿트 시작
+				source: List,	// source는 data.js파일 내부의 List 배열
+				focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
+					return false;
+				},
+				minLength: 1,// 최소 글자수
+				delay: 100,	//autocomplete 딜레이 시간(ms)
+				//disabled: true, //자동완성 기능 끄기
+			});
 				
 			$("#btn-search").on("click", function() {
 				var searchKeyword = $("#searchBox").val();

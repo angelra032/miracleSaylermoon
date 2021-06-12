@@ -169,7 +169,7 @@
     // 가게 상세 페이지 이동
     // 세션 있을 경우
     function shopDetailsession(shopNo, userNo) {
-        location.href='shopDetail.dz?shopNo='+shopNo+'&userNo='+userNo;
+        location.href='shopDetail.dz?shopNo='+shopNo;
         
     }
     
@@ -239,8 +239,7 @@
 								}
 								shopInfo.append(shopCon);
 								contentShopRightTop.append(shopInfo);
-								contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-													  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>자세히 보기</button>");
+								contentShopRightBottom.append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail("+data.mList[i].shopNo+")'>자세히 보기</button>");
 								contentShop.append(contentShopLeft);
 								contentShopRight.append(contentShopRightTop);
 								contentShopRight.append(contentShopRightBottom);
@@ -349,8 +348,7 @@
 							}
 							shopInfo.append(shopCon);
 							contentShopRightTop.append(shopInfo);
-							contentShopRightBottom.append("<input type='hidden' name='shopNo' value="+data.mList[i].shopNo+">")
-												  .append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail()'>자세히 보기</button>");
+							contentShopRightBottom.append("<button type='button' class='btn btn-primary btn-sm' onclick='shopDetail("+data.mList[i].shopNo+")'>자세히 보기</button>");
 							contentShop.append(contentShopLeft);
 							contentShopRight.append(contentShopRightTop);
 							contentShopRight.append(contentShopRightBottom);

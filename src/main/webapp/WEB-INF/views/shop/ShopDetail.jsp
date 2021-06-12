@@ -76,7 +76,7 @@
 				
 				<div class="detailAll line2">
 					<div class="detail-left">영업시간</div>
-					<div class="detail-right">${ shop.startTime }:00 ~ ${ shop.endTime }:00</div>
+					<div class="detail-right">${ shop.startTime }:00 - ${ shop.endTime }:00</div>
 				</div>
 				
 				<div class="detailAll line3">
