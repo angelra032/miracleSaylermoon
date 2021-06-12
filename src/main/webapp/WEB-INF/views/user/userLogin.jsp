@@ -40,9 +40,13 @@
 						<input type="submit" id="left-login-bt" value="로그인"> 
 						<!-- csrf 보안을 위한 코드 -->
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-						<input id = "remember_me" name ="_spring_security_remember_me" type = "checkbox"/>Remember me<br>
-						<a href="findIdView.dz">아이디 찾기</a>
-						<a href="findPwView.dz">비밀번호 찾기</a>
+						<div class="login-bottom-area">
+							<div class="auto-login">
+								<input id = "remember_me" name ="_spring_security_remember_me" type = "checkbox"/>&nbsp;자동로그인<br>
+							</div>
+							<a class="find-area" href="findPwView.dz">비밀번호 찾기</a>
+							<a class="find-area" href="findIdView.dz">아이디 찾기</a>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -59,10 +63,11 @@
 							<ul>
 								<li id="GgCustomLogin">
 									<a href="javascript:void(0)">
-										<span>Login with Google</span>
+										<div class="fake-glogin"><img alt="구글로그인" src="/resources/images/g-logo.png"><p>구글 로그인</p></div>
 									</a>
 								</li>
 							</ul>
+							<p>꿈나무 및 사업자 회원은 회원로그인을 이용하여 주시기 바랍니다.</p>
 					</div>
 				</div>
 			</div> 

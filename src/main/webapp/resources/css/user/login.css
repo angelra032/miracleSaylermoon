@@ -37,7 +37,7 @@
 }
 .height-fixed {
 	width: 100%;
-	height: 500px;
+	height: 520px;
 	margin-top: 100px;
 	margin-bottom: 100px;
 }
@@ -49,7 +49,7 @@
 
 .color-frame {
 	width: 600px;
-	height: 500px;
+	height: 100%;
 	margin: auto;
 	border:1px solid #fdb504;
 	display:inline-block;
@@ -95,6 +95,11 @@ h4 {
 	padding:20px 0px 5px 0px; 
 	font-size:14pt; width:100%; 
 }
+.input-box p {
+	text-align: center;
+	margin-top: 30px;
+	color: #888;
+}
 input::placeholder{ 
 	color:transparent; 
 }
@@ -117,6 +122,22 @@ input:focus, input:not(:placeholder-shown){
 	border-bottom: solid 1px #8aa1a1; 
 	outline:none; 
 }
+.login-bottom-area {
+	margin-top: 20px;
+}
+/* 자동로그인 */
+.auto-login {
+	width: 100px;
+	float: left;
+}
+.find-area {
+	float: right;
+	color: #888;
+	margin-left: 10px;
+}
+.find-area:hover {
+	color: #0160ff;
+}
 .kakao-btn img {
 	width:300px;
 	height: 45px;
@@ -136,8 +157,11 @@ input:focus, input:not(:placeholder-shown){
 }
 
 /* 구글로그인 */
-.google-login {
+#GgCustomLogin {
+	margin-top: 80px;
 	
+}
+.google-login {
 	display: inline-block;
 	border-radius: 3px;
 	border: 1px solid #e3e4e5;
@@ -159,22 +183,23 @@ input:focus, input:not(:placeholder-shown){
 	line-height: 45px;
 }
 .fake-glogin img {
-	width: 31px;
-	height: 31px;
-	margin: 7px 0 0 7px;
+	width: 26px;
+	margin: 10px 0 0 8px;
 	
 }
 .fake-glogin p {
 	display: block;
 	width: 100%;
 	height: 20px;
-	line-height: 45px;
+	line-height: 48px;
 	text-align: center;
 	margin-top: -54px;
 	margin-left: 5px;
 	font-family: 'Noto Sans KR', sans-serif;
-	letter-spacing: -1.2px;
-	font-weight: 550;
+	--letter-spacing: -1.2px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #333;
 }
 
 

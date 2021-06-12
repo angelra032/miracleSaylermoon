@@ -23,11 +23,11 @@
             <div class="title-nick-date-area">
                 <div class="title-bottom-area">
                     <div class="title-bottom-nick-area">
-                        <span class="userNick">${ mReview.mReviewWriter }</span>
+                        <span class="userNick"><img src="/resources/images/board/user.png">&nbsp;${ mReview.mReviewWriter }</span>
                     </div>
                     <div class="title-bottom-date-area">
-                        <span class="createDate">${ mReview.mReviewCreateDate }</span>
-                        <span class="boardHit">조회수 ${ mReview.mzReviewHit }</span>
+                        <span class="createDate"><img src="/resources/images/board/clock.png">&nbsp;${ mReview.mReviewCreateDate }</span>
+                        <span class="boardHit"><img src="/resources/images/board/visibility.png">&nbsp;${ mReview.mzReviewHit }</span>
                     </div>
                 </div>
             </div>

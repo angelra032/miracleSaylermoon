@@ -24,11 +24,11 @@
             <div class="title-nick-date-area">
                 <div class="title-bottom-area">
                     <div class="title-bottom-nick-area">
-                        <span class="userNick">${ drmReview.drmReviewWriter }</span>
+                        <span class="userNick"><img src="/resources/images/board/user.png">&nbsp;${ drmReview.drmReviewWriter }</span>
                     </div>
                     <div class="title-bottom-date-area">
-                        <span class="createDate">${ drmReview.drmReviewCreateDate }</span>
-                        <span class="boardHit">조회수 ${ drmReview.drmRviewHit }</span>
+                        <span class="createDate"><img src="/resources/images/board/clock.png">&nbsp;${ drmReview.drmReviewCreateDate }</span>
+                        <span class="boardHit"><img src="/resources/images/board/visibility.png">&nbsp;${ drmReview.drmRviewHit }</span>
                     </div>
                 </div>
             </div>

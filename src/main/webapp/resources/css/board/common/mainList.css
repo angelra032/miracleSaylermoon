@@ -57,11 +57,19 @@
                 font-size: 16px;
             }
             #top-board-menu > li > a:hover {
-                background-color: #fdb504;
+                background-color: rgba(253, 181, 4, .8);
+                animation: fadein 0.5s;
                 color: #ffffff;
             }
 
-        
+	        @keyframes fadein {
+			    from {
+			        opacity: 0;
+			    }
+			    to {
+			        opacity: 1;
+			    }
+			}
         /* 게시판 헤드 */
         table {
             margin: 0 auto;
