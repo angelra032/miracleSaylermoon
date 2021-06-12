@@ -64,13 +64,18 @@
 		/>
 
 		<logout 
-		invalidate-session="true" 
-		logout-url="/logout.dz"  
-		delete-cookies="true"
-		logout-success-url="/" 
+			invalidate-session="true" 
+			logout-url="/logout.dz"  
+			delete-cookies="true"
+			logout-success-url="/" 
 		/>  
 		
-		<!-- <remember-me key="wmoskey" token-validity-seconds="2419200" authentication-success-handler-ref="loginSuccessHandler"/> --> <!-- 4 주 -->
+		<!-- <remember-me 
+			data-source-ref="dataSource" 
+			remember-me-parameter="remember-me" 
+	        token-validity-seconds="604800"
+			authentication-success-handler-ref="loginSuccessHandler"
+			/> --> <!-- 4 주 key="wmoskey" -->
 
 		<!-- enable csrf protection 해킹막기 -->
 		<csrf disabled="true"/>  

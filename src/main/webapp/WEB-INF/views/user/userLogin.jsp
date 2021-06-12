@@ -41,9 +41,9 @@
 						<!-- csrf 보안을 위한 코드 -->
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<div class="login-bottom-area">
-							<div class="auto-login">
-								<input id = "remember_me" name ="_spring_security_remember_me" type = "checkbox"/>&nbsp;자동로그인<br>
-							</div>
+							<!-- <div class="auto-login">
+								<input id = "remember_me" name ="remember-me" type = "checkbox"/>&nbsp;로그인유지<br>
+							</div> -->
 							<a class="find-area" href="findPwView.dz">비밀번호 찾기</a>
 							<a class="find-area" href="findIdView.dz">아이디 찾기</a>
 						</div>
