@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,15 +112,10 @@ public class PartnerMyPageController {
 		reservation.setrState(rState);
 		reservation.setReservationNo(reservationNo);
 		reservation.setShopNo(shopNo);
-		int result = rService.updateRstate(reservation);
-		if(result > 0) {
 		
-		}else {			
-			model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
-			return "redirect:partnerMyPage.dz";
-			}
-		model.addAttribute("msg", "예약 상태 변경에 실패했습니다.");
+		int result = rService.updateRstate(reservation);
 		return "redirect:partnerMyPage.dz";
+		
 		}
 	
 	// 방문완료
@@ -127,6 +123,7 @@ public class PartnerMyPageController {
 	public String completeReservation(@RequestParam("reservationNo") int reservationNo,
 									@RequestParam("rState") String rState,
 									@RequestParam(value="mainPage", required =false)String mainPage,
+									@RequestParam("shopNo") int shopNo,
 									Model model) {
 		//required =false 들어오는 변수가 꼭 필요하지않아도 된다는 뜻이다!
 		System.out.println("mainPage"+mainPage);
@@ -134,9 +131,12 @@ public class PartnerMyPageController {
 			Reservation reservation = new Reservation();
 			reservation.setrState("C");
 			reservation.setReservationNo(reservationNo);
+			reservation.setShopNo(shopNo);
+			System.out.println("shopNo"+shopNo);
 			int result = rService.updateRstate(reservation); // rState 변경
 			if(result > 0 && mainPage.equals("Y")) {
-				return "partnerMyPage/partnerMyPage";
+				rService.updateShopPoint(reservation);
+				return "redirect:partnerMyPage.dz";
 			}else if(result > 0 && mainPage.equals("N")) {
 				return "redirect:partnerReserveList.dz";
 			}
@@ -167,10 +167,6 @@ public class PartnerMyPageController {
 			pi = Pagination.getPageInfo(currentPage, listCount);
 			rList = rService.reservaionListByShop(myShop.getShopNo(), pi);
 		}
-		
-//		if(!rList.isEmpty()) {
-//		}else {
-//		}
 		
 		// 예약 전체 리스트 가져오기
 		try {
@@ -528,8 +524,6 @@ public class PartnerMyPageController {
 	@RequestMapping(value="reservationStatue.dz", method= {RequestMethod.GET, RequestMethod.POST})
 	public ArrayList<HashMap<String, String>> reservationStatue(@RequestParam("shopNo") int shopNo,
 																@RequestParam("rState") String rState){
-		System.out.println(shopNo);
-		System.out.println(rState);
 		Reservation reservation = new Reservation();
 		reservation.setrState(rState);
 		reservation.setShopNo(shopNo);
@@ -538,16 +532,20 @@ public class PartnerMyPageController {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		
 		for(int i = 0; i< rList.size(); i++) {
-			HashMap<String,String> map = new HashMap<String,String>();
-			map.put("title", rList.get(i).getDescription());
-			map.put("start", rList.get(i).getReserveDate());
+			String orderDate = rList.get(i).getOrderDate();
+			String dateResult = "20"+orderDate.replace('/', '-');
+			rList.get(i).setOrderDate(dateResult);
 			
-			map.put("userNick", rList.get(i).getUserNick());
-			map.put("reserveDate", rList.get(i).getReserveDate());
-			map.put("reserveTime", String.valueOf(rList.get(i).getReserveTime()));
-			map.put("reserveCount", String.valueOf(rList.get(i).getReserveCount()));
-			map.put("orderDate", rList.get(i).getOrderDate());
-			list.add(map);
+			 HashMap<String,String> map = new HashMap<String,String>(); map.put("title",
+			 rList.get(i).getDescription()); map.put("start",
+			 rList.get(i).getReserveDate());
+
+			 map.put("userNick", rList.get(i).getUserNick()); 
+			 map.put("reserveDate",rList.get(i).getReserveDate());
+			 map.put("reserveTime",String.valueOf(rList.get(i).getReserveTime())); 
+			 map.put("reserveCount", String.valueOf(rList.get(i).getReserveCount())); 
+			 map.put("orderDate", rList.get(i).getOrderDate());
+			 list.add(map);
 		}
 		return list;
 	}

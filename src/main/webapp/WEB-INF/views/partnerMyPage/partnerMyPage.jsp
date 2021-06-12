@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>사업자 마이페이지</title>
-<link rel="stylesheet" href="/resources/css/partnermypage/partnerMyPage.css">
+<link rel="stylesheet"
+	href="/resources/css/partnermypage/partnerMyPage.css">
 
 <!-- fullcalender -->
 <link href='/resources/css/partnermypage/main.css' rel='stylesheet' />
@@ -107,7 +108,7 @@
 												</select>
 											</c:when>
 											<c:otherwise>
-											${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' :   reservation.rState eq 'H' ? '후기작성완료' :  ''  }
+												${reservation.rState eq 'Y' ? '예약승인' : reservation.rState eq 'X' ? '예약거부' : reservation.rState eq 'C' ? '완료된 예약' : reservation.rState eq 'H' ? '후기작성완료' :  '' }
 										</c:otherwise>
 										</c:choose>
 									</td>
@@ -120,7 +121,7 @@
 									</c:if>
 									<c:if test="${reservation.rState eq 'Y'}">
 										<td><a class="reserv-btn"
-											href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }&mainPage=Y">방문완료</a></td>
+											href="completeReservation.dz?reservationNo=${reservation.reservationNo }&rState=${reservation.rState }&mainPage=Y&shopNo=${reservation.shopNo}">방문완료</a></td>
 									</c:if>
 									<c:if test="${reservation.rState eq 'C'}">
 										<td>완료된 예약</td>
@@ -183,36 +184,33 @@
 				</table>
 			</div>
 		</div>
+		
+		<!-- modal section -->
+		<!-- <div id="ex1" class="ex1 modal">
+		  <p>안녕하세요. 모달창안의 내용부분입니다.</p>
+		  <a href="#" rel="modal:close">닫기</a>
+		</div> -->
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 
 	<script>
-		$(".select-rstate").on(
-				"change",
-				function() {
-					var rState = $(this).val();
-					var reservationNo = parseInt($(this).closest("tr").find(
-							"input[name='reservationNo']").val());
-					var shopNo = parseInt($(this).closest("tr").find(
-							"input[name='shopNo']").val());
-					console.log(rState)
-					$.ajax({
-						url : "updateReservation.dz",
-						type : "GET",
-						data : {
-							"rState" : rState,
-							"reservationNo" : reservationNo,
-							"shopNo" : shopNo
-						},
-						success : function() {
-							location.reload();
-						},
-						error : function() {
-							alert('예약 상태 변경이 실패하였습니다.');
-
-						}
-					});
-				});
+	$(".select-rstate").on("change", function(){
+        var rState = $(this).val();
+        var reservationNo = parseInt($(this).closest("tr").find("input[name='reservationNo']").val());
+        var shopNo = parseInt($(this).closest("tr").find("input[name='shopNo']").val());
+        console.log(rState)
+        $.ajax({
+            url : "updateReservation.dz",
+            type : "POST",
+            data : {"rState" : rState, "reservationNo" :reservationNo, "shopNo" :shopNo},
+            success : function() {
+            	location.reload();
+            },
+            error : function() {
+            	alert('예약 상태 변경이 실패하였습니다...');
+            }
+        });
+    });
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -221,6 +219,7 @@
 				businessHours : true,
 				locale : "ko",
 				dayMaxEvents : 2,
+				unselectAuto : false,
 				eventDidMount: function(info) {
 					tippy(info.el, {
 						 content: 
@@ -273,6 +272,7 @@
 				businessHours : true,
 				locale : "ko",
 				dayMaxEvents : 2,
+				unselectAuto : false,
 				eventDidMount: function(info) {
 					tippy(info.el, {
 						 content: 
@@ -353,8 +353,6 @@
 		});
 		
 	</script>
-
-
 
 </body>
 </html>

@@ -106,6 +106,7 @@
 		  console.log('Name: ' + profile.getName());
 		  console.log('Image URL: ' + profile.getImageUrl());
 		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		  return false;
 		  location.href="googlelogin.dz?googleId="+profile.getEmail()+"&googleName="+profile.getName();
 		}
 	window.Kakao.init('25454baf7b7c333b7ced28bdce84084a'); //발급받은 키 중 javascript키를 사용해준다.

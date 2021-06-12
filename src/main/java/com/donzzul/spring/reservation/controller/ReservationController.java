@@ -39,6 +39,7 @@ public class ReservationController {
 								@ModelAttribute Shop shop) {
 		HttpSession session = request.getSession();
 		User userOne = (User)session.getAttribute("loginUser");
+		int userPoint = userOne.getUserPoint();
 		
 		int startTime = Integer.parseInt(shop.getStartTime());
 		int endTime = Integer.parseInt(shop.getEndTime());
@@ -47,6 +48,7 @@ public class ReservationController {
 			model.addAttribute("startTime",startTime);
 			model.addAttribute("endTime",endTime);
 			model.addAttribute("shop", shop);
+			model.addAttribute("userPoint",userPoint);
 			return "reservation/viewReservation";
 		}else {
 			model.addAttribute("msg","화면을 불러오는데 실패하였습니다.");
