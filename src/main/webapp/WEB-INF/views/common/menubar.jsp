@@ -128,15 +128,23 @@
 					data: {},
 					type: "post",
 					success: function (data) {
+						console.log("data")
+						console.log(data);
 						if(data != null){
 							var tag = "<div></div>";
 							if(data.length > 0){
 								data.forEach(function(d, idx){
+									console.log("console.log(d)");
+									console.log(d);
+									console.log("console.log(idx)");
+									console.log(idx);
+									
 									var userId = d.userId.trim();
+									var chatTime = d.chatTime.trim();
 									tag += "<div class='roomList' onclick='moveChating(\""+userId+"\")'>"+
-												"<div class='num'>"+userId+"</div>"+
-												"<div class='room'>"+ "2021-06-07 14:34" +"</div>"+
-												"<div class='go'>"+ "상담원과 대화한 내용이 출력.."+"</div>" +
+												"<div class='index'>"+ (idx+1) +"</div>" +
+												"<div class='num'>" + userId+"<span> 님의 문의</span>"+"</div>"+
+												"<div class='room'>"+ chatTime +"</div>"+
 											"</div>";	
 								});
 							}else{
@@ -180,6 +188,9 @@
 			}
 			</script>
 			<div id="container" class="container modal">
+				<div class="header-close">
+					<a href="#" rel="modal:close"><div class="xMark"></div></a>
+				</div>
 				<div id="header">
 					<div class="header-icon">
 						<img alt="header-icon" src="/resources/images/chatting/logo.png">
@@ -187,9 +198,6 @@
 					<div class="header-text">
 						<h4>실시간 상담 리스트</h4>
 						<input type="hidden" id="sessionId" value="">
-					</div>
-					<div class="header-close">
-						<a href="#" rel="modal:close"><font style="vertical-align: inherit;">X</font></a>
 					</div>
 				</div>
 				<div class="chatList">
@@ -219,7 +227,11 @@
 		</c:when>
 		<c:otherwise>
 			<div id="container" class="container modal">
-				<div id="header"><div class="header-icon">
+				<div class="header-close">
+					<a href="#" rel="modal:close"><div class="xMark"></div></a>
+				</div>
+				<div id="header">
+					<div class="header-icon">
 						<img alt="header-icon" src="/resources/images/chatting/logo.png">
 					</div>
 					<div class="header-text">
@@ -227,22 +239,11 @@
 						<input type="hidden" id="sessionId" value="">
 						<input type="hidden" id="userId" value="${sessionScope.loginUser.userId }">
 					</div>
-					<div class="header-close">
-						<a href="#" rel="modal:close"><font style="vertical-align: inherit;">X</font></a>
-					</div>
 				</div>
 				<div id="chating" class="chating">
 					<div id='startDiv'>
-						<div id='imgDiv'>
-							<img src='/resources/images/chatting/operator-1.png'>
-						</div>
-						<div class="msgBox">
-							<input type="hidden" class="userNo"
-								value="${sessionScope.loginUser.userNo }"> 
-								<span>안녕하십니까?
-									<br> 돈쭐 고객센터 담당자입니다.
-									<br> 무엇을 도와드릴까요?
-								</span>
+						<div>
+							<input type="hidden" class="userNo" value="${sessionScope.loginUser.userNo }"> 
 							<button id="requestBtn">실시간 상담하기</button>
 						</div>
 					</div>
@@ -312,9 +313,11 @@
 	
 	//유저 몰래 방생성하기
 	function createRoom(){
+		var today = new Date(); 
+		var chatTime = today.toLocaleTimeString();
 		$.ajax({
 			url: "/createRoom",
-			data: {"userId":"${loginUser.userId }"},
+			data: {"userId":"${loginUser.userId }","chatTime":chatTime},
 			type: "post",
 			success: function (data) {
 				wsOpen("${loginUser.userId }","user");
@@ -391,10 +394,10 @@
 	                  //시스템일경우 ( 입장 및 연결 표시)
 	                  var html = "<div id='imgDiv' class='adminBox'>"
 	                  html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
-	                  html += "<div class='msgBox adminBox' style='height : 12%; line-height: 50px; text-align: center;'><span>"+d.msg+"</span>"
+	                  html += "<div class='msgBox adminBox'><span>"+d.msg+"</span>"
 	                  var str = d.msg;
 	                  if(str.indexOf("연결중")){
-	                	  html += "<img src='/resources/images/chatting/boxloading.gif' style='width: 25px; height: 25px;'></div>"
+	                	  html += "<img src='/resources/images/chatting/boxloading.gif' class='waitImg'></div>"
 	                  }
 	                  html += "</div>";
 	                  $("#chating").append(html);
@@ -464,10 +467,10 @@
 				if(chat[i].userName == "system"){
 					html = "<div id='imgDiv' class='adminBox'>"
 		            html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
-		            html += "<div class='msgBox adminBox' style='height : 12%; line-height: 50px; text-align: center;'><span>"+chat[i].msg+"</span>"
+		            html += "<div class='msgBox adminBox'><span>"+chat[i].msg+"</span>"
 		            var str = chat[i].msg;
 	                  if(str.indexOf("연결중")){
-	                	  html += "<img src='/resources/images/chatting/boxloading.gif' style='width: 25px; height: 25px;'></div>"
+	                	  html += "<img src='/resources/images/chatting/boxloading.gif' class='waitImg'></div>"
 	                  }
 	                  html += "</div>";
 		            $("#chating").append(html);
@@ -495,7 +498,7 @@
 		}
 	}
 	
-	var sendmsg = "";
+	
 	function send() {
 		var option = {
 			type : "message",
@@ -505,7 +508,7 @@
 			userId : $("#userId").val()
 		}
 		sendmsg = ws.send(JSON.stringify(option));
-	var sendmsg = "";
+		$("#chatting-text").val("")
 	}
 	$(document).on("keypress", function(e) {
 		if (e.keyCode == 13) { //enter press
