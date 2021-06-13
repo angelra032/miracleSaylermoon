@@ -82,8 +82,8 @@
 	$(function() {
 		$('#left-login-bt').click(function() {
 			var rtn = true;
-			var userId = $("#userid");
-			var userPw = $("#userpw");
+			var userId = $("#user-id");
+			var userPw = $("#user-pw");
 			
 			$.ajax({
 				url : "dupLogin.dz",
@@ -106,6 +106,7 @@
 				},
 				error : function() {
 					console.log("전송실패");
+					rtn = false;
 				}
 			});
 			return rtn;
