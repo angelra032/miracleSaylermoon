@@ -307,7 +307,7 @@
 		/* if($("input[name='shopPhoto']").val()==""){
 			var shopPhotoSpan = $(e.target).siblings("span").text(); // e.target은 이벤트가 발생한 타겟 (?)
 			shopPhotoSpan = "";
-		}
+		} // 수정 요
 		 */
 		//$(this).parent().find(".file_name").text(e.target.files[0].name);
 		var fileName = $(e.target)[0].files[0].name;
