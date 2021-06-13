@@ -51,7 +51,7 @@
 		                        <c:if test="${ qna.userType eq '1' }">
 			                        <td>꿈나무</td>
 		                        </c:if>
-             					<c:if test="${ qna.userType eq '2' }">
+             					<c:if test="${ qna.userType eq '2' || qna.userType eq '5'  }">
 			                        <td>일반</td>
 		                        </c:if>
 		                        <c:if test="${ qna.userType eq '3' }">
