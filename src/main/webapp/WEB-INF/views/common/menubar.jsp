@@ -29,6 +29,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<!-- toastr css 라이브러리 -->
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<!-- toastr js 라이브러리 -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <title>헤더</title>
 </head>
 <body>
@@ -95,8 +99,7 @@
 	
 	
 	<!-- chatting button-->
-	<c:if
-		test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
+	<c:if test="${ !empty sessionScope.loginUser || !empty sessionScope.kakaoId || !empty sessionScope.googleId }">
 		<a id="modal" href="#container"> 
 			<div id="chatting">
 			<img alt="chattingIcon" src="/resources/images/chatting/chat.png">
@@ -134,11 +137,6 @@
 							var tag = "<div></div>";
 							if(data.length > 0){
 								data.forEach(function(d, idx){
-									console.log("console.log(d)");
-									console.log(d);
-									console.log("console.log(idx)");
-									console.log(idx);
-									
 									var userId = d.userId.trim();
 									var chatTime = d.chatTime.trim();
 									tag += "<div class='roomList' onclick='moveChating(\""+userId+"\")'>"+
@@ -189,7 +187,7 @@
 			</script>
 			<div id="container" class="container modal">
 				<div class="header-close">
-					<a href="#" rel="modal:close"><div class="xMark"></div></a>
+					<a href="#" class="closeBtn" rel="modal:close"><div class="xMark"></div></a>
 				</div>
 				<div id="header">
 					<div class="header-icon">
@@ -228,7 +226,7 @@
 		<c:otherwise>
 			<div id="container" class="container modal">
 				<div class="header-close">
-					<a href="#" rel="modal:close"><div class="xMark"></div></a>
+					<a href="#" class="closeBtn" rel="modal:close"><div class="xMark"></div></a>
 				</div>
 				<div id="header">
 					<div class="header-icon">
@@ -274,6 +272,40 @@
 </body>
 <script type="text/javascript">
 	var click = true;
+	var modalYn = false;//채팅창이 열려있는지 체크
+	$( document ).ready(function() {
+		var chat = getChatting("${sessionScope.loginUser.userId }");
+		var userType = '${loginUser.userType }';
+		if(userType != '4'){
+			//관리자가 아닐경우
+			if(chat != null){
+				$("#requestBtn").trigger("click"); //채팅방 존재할경우 상담하기 버튼 강제클릭 (소켓 재생성)
+			}
+		}else{
+			//관리자일경우
+			$.ajax({
+					url: "/getChatList",
+					data: {},
+					type: "post",
+					success: function (data) {
+						if(data != null){
+							if(data.length > 0){
+								data.forEach(function(d, idx){
+									var adChat = getChatting(d.userId.trim());
+									if(adChat){
+										$("#userId").val(d.userId.trim());
+										wsOpen(d.userId.trim(),"base");
+									}
+								});
+							}
+						}
+					},
+					error : function(err){
+						console.log('error');
+					}
+			});
+		}
+	});
 	 $(function() {
 		    $('a[href="#container"]').click(function(event) {
 		      event.preventDefault();
@@ -286,12 +318,16 @@
 		      if(userType != '4'){
 		    	  //관리자가 아닐경우
 		    	  var chat = getChatting("${sessionScope.loginUser.userId }");
-		      	  htmlChatting(chat); //채팅방 그려주기
 		      	  if(chat != null){
 		      		$("#yourName").hide();
 		    		$("#yourMsg").show();
+		    		$("#requestBtn").trigger("click"); //채팅방 존재할경우 상담하기 버튼 강제클릭
 		      	  }
 		      }
+		      modalYn = true;
+		    });
+		    $('.closeBtn').click(function(event) {
+		    	modalYn = false;
 		    });
 		  });
 	$("#requestBtn").on("click", function() {
@@ -366,9 +402,6 @@
 	            global.wsList[length] = ws;
 	         }
 	      }
-	      $("#chating").find(".adminBox").remove();
-	      $("#chating").find(".sendDiv").remove();
-	      $("#chating").find(".reciveDiv").remove();
 	      var chat = getChatting(userId);
 	      htmlChatting(chat); //채팅방 그려주기
 	      wsEvt();
@@ -392,11 +425,19 @@
 	            } else if (d.type == "message") {
 	               if(d.userName == 'system'){
 	                  //시스템일경우 ( 입장 및 연결 표시)
-	                  var html = "<div id='imgDiv' class='adminBox'>"
-	                  html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
-	                  html += "<div class='msgBox adminBox'><span>"+d.msg+"</span>"
+	                  var html = ""
 	                  var str = d.msg;
-	                  if(str.indexOf("연결중")){
+	                  if(str.indexOf("연결중") > 0){
+	                  html += "<div id='imgDiv' class='adminBox'>"
+	                  html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
+	                  }else{
+							if("${loginUser.userType}" == "4"){
+								html += "<div id='imgDiv' class='adminBox'>"
+						        html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
+							}
+					  }
+	                  html += "<div class='msgBox adminBox'><span>"+d.msg+"</span>"
+	                  if(str.indexOf("연결중") > 0){
 	                	  html += "<img src='/resources/images/chatting/boxloading.gif' class='waitImg'></div>"
 	                  }
 	                  html += "</div>";
@@ -410,6 +451,10 @@
 	                      } else {
 	                         $("#chating").append(
 	                               "<div class='reciveDiv'><span style='margin-left: 10px;'>" + d.userName + " :" + d.msg + "</span></div>");
+	                         if(!modalYn){
+		      	            	   //채팅방이 닫혀있을경우 알림
+		                           toastr.info(d.userName, d.msg, {timeOut: 5000});
+		      	             }
 	                      }
 	                   //사용자 일경우
 	                   }else{
@@ -419,6 +464,10 @@
 	                         $("#chating").append(
 	                               "<div class='reciveDiv'><div class='imgDiv'><img src='/resources/images/chatting/operator-1@2x.png'></div><span>" + d.userName + " :"
 	                               + d.msg + "</span></div>");
+	                         if(!modalYn){
+	      	            	   //채팅방이 닫혀있을경우 알림
+	                           toastr.info(d.userName, d.msg, {timeOut: 5000});
+	      	               	 }
 	                      }
 	                   }
 	               }
@@ -462,14 +511,27 @@
 			지난 채팅 그려주기
 		*/
 		if(chat != null){
-			var html = "";
+			//채팅방 이전기록 삭제
+			$("#chating").find(".adminBox").remove();
+		    $("#chating").find(".sendDiv").remove();
+		    $("#chating").find(".reciveDiv").remove();
+			//=============
+		    var html = "";
 			for (var i = 0; i < chat.length; i++) {
 				if(chat[i].userName == "system"){
-					html = "<div id='imgDiv' class='adminBox'>"
+					var html = "";
+					var str = chat[i].msg;
+					if(str.indexOf("연결중") > 0){
+					html += "<div id='imgDiv' class='adminBox'>"
 		            html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
+					}else{
+						if("${loginUser.userType}" == "4"){
+							html += "<div id='imgDiv' class='adminBox'>"
+					        html += "<img src='/resources/images/chatting/operator-1.png' style='margin-top: 0px;'></div>"
+						}
+					}
 		            html += "<div class='msgBox adminBox'><span>"+chat[i].msg+"</span>"
-		            var str = chat[i].msg;
-	                  if(str.indexOf("연결중")){
+	                  if(str.indexOf("연결중") > 0){
 	                	  html += "<img src='/resources/images/chatting/boxloading.gif' class='waitImg'></div>"
 	                  }
 	                  html += "</div>";
