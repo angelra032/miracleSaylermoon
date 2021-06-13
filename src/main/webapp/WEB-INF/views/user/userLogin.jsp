@@ -44,8 +44,8 @@
 							<!-- <div class="auto-login">
 								<input id = "remember_me" name ="remember-me" type = "checkbox"/>&nbsp;로그인유지<br>
 							</div> -->
-							<a class="find-area" href="findPwView.dz">비밀번호 찾기</a>
 							<a class="find-area" href="findIdView.dz">아이디 찾기</a>
+							<a class="find-area" href="findPwView.dz">비밀번호 찾기</a>
 						</div>
 					</form>
 				</div>

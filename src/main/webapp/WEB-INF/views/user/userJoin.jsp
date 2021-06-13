@@ -72,7 +72,7 @@
 								카드번호&nbsp;
 								<span class="required">*</span>&nbsp;&nbsp;
 								<div class="form-noti cardnoti card_noti_0">카드번호를 입력해주세요.</div>
-								<div class="form-noti cardnoti card_noti_1">유효하지 않는 카드번호입니다.</div>
+								<div class="form-noti cardnoti card_noti_1">유효하지 않은 카드번호입니다.</div>
 								<div class="form-noti cardnoti card_noti_2">이미 등록된 카드번호입니다.</div>
 								<div class="form-noti cardnoti card_suc">본인인증성공</div>
 							</div>
@@ -254,7 +254,7 @@
 								<div class="form-noti pverinoti pveri_noti_2">이미 등록된 번호입니다.</div>
 								<div class="form-noti pverinoti pveri_suc">본인인증성공</div>
 								<div class="form-noti pverinoti pveri_success">유효한 사업자등록번호입니다.</div>
-								<div class="form-noti pverinoti pveri_noti_3">유효하지 않는 사업자등록번호입니다.</div>
+								<div class="form-noti pverinoti pveri_noti_3">유효하지 않은 사업자등록번호입니다.</div>
 							</div>
 							
 							<div class="form-body">
