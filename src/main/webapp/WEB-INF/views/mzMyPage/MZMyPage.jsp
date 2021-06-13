@@ -24,7 +24,7 @@
 		<div class="frame">
 			<div class="my-info">
 				<span>보유포인트 : <b>${ userPoint }</b>원</span>
-				<span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span>
+				<%-- <span>보유포인트 : <b>${ loginUser.userPoint }</b>원</span> --%>
 				<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userType == '2'}">
 				<div class="info-btn-frame">
 					<a class="info-btn" href="myINfo.dz?userNo=${ loginUser.userNo }">나의 정보</a>
