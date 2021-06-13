@@ -145,12 +145,14 @@ public class SocketHandler extends TextWebSocketHandler {
              System.out.println("======userId2"+list.get(i).get("userId"));
              System.out.println("======userName1"+userName);
              System.out.println("======userName2"+list.get(i).get("userName"));
-            if(list.get(i).get("userId") == userId && list.get(i).get("userName") == userName){
-               chk = true;
+	            if(list.get(i).get("userId").equals(userId) && list.get(i).get("userName").equals(userName)) {
+	               chk = true;
+	            }
             }
-            }
+            System.out.println("==============if"+chk);
             if(chk) {
-               return;
+            	System.out.println("==============if"+chk);
+                return;
             }
          }
       }
