@@ -433,6 +433,15 @@ public class PartnerMyPageController {
 		shop.setBusinessDay(businessday);
 		shop.setShowShopYN("N");
 
+		// 기존 파일 삭제 후 shop 업데이트 - 만약 그대로 있다면? (새로 있을 때만)
+		System.out.println("shop 파일이 새로 있을 때"+shopPhoto.toString());
+		if(shopPhoto != null && !shopPhoto.isEmpty()) {
+			// 가게 기존 파일 삭제
+			if(shop.getShopFileName() != "") {
+				fileDelete(shop.getShopFileName(), shop.getShopFilePath());
+			}
+		}
+		
 		// 가게 파일 저장(서버, 디비)
 		Shop fileShop = saveFile(shopPhoto, request);
 		if (fileShop != null) {
