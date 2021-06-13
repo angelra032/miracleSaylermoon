@@ -26,7 +26,7 @@
 			<div class=map-left> 
 				<div class="searchBar">
 					<input type="text" id="searchBox" name="searchKeyword" placeholder="지역명, 가게명 검색">
-					<button id="btn-search"><img src="/resources/images/map/undo.png"></button>
+					<button id="btn-search"><img src="/resources/images/search.png"></button>
 				</div>
 				<div class="content-list">
 					<c:if test="${empty mList}">

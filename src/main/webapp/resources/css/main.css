@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+body :focus {
+	outline: none;
+}
 /* 백그라운드 이미지 */
 .header-background-area {
     width: 1903px;

@@ -21,14 +21,13 @@
         <div class="frame">
             <div class="title-nick-date-area">
                     <div class="title-bottom-nick-area">
-                        <span class="userNick">관리자</span>
+                        <span class="userNick"><img src="/resources/images/board/user.png">&nbsp;관리자</span>
                     </div>
                     <div class="title-bottom-date-area">
-                        <span class="createDate">${ notice.noticeCreateDate }</span>
-                        <span class="boardHit">조회수 ${ notice.noticeHit }</span>
+                        <span class="createDate"><img src="/resources/images/board/clock.png">&nbsp;${ notice.noticeCreateDate }</span>
+                        <span class="boardHit"><img src="/resources/images/board/visibility.png">&nbsp;${ notice.noticeHit }</span>
                     </div>
                 </div>
-            </div>
             <div class="content-area">
                ${ notice.noticeContent }
             </div>
