@@ -39,6 +39,7 @@ import com.donzzul.spring.mzreview.domain.MzReview;
 import com.donzzul.spring.mzreview.domain.MzReviewPhoto;
 import com.donzzul.spring.mzreview.service.MzReviewService;
 import com.donzzul.spring.pick.domain.Pick;
+import com.donzzul.spring.recommendboard.domain.RecommendPhoto;
 import com.donzzul.spring.reservation.domain.Reservation;
 import com.donzzul.spring.shop.domain.Shop;
 import com.donzzul.spring.shop.service.ShopService;
@@ -204,6 +205,7 @@ public class MzReviewController {
 			rtn = "fail";
 			//mv.addObject("msg", "맛집후기 글쓰기 실패").setViewName("common/errorPage");
 		}
+		savePhotoList = new ArrayList<MzReviewPhoto>();
 		return rtn;
 	}
 	
@@ -242,7 +244,7 @@ public class MzReviewController {
 	}
 	
 	// 파일불러오기
-	ArrayList<MzReviewPhoto> mzPhotoList = new ArrayList<MzReviewPhoto>();
+	ArrayList<MzReviewPhoto> savePhotoList = new ArrayList<MzReviewPhoto>();
 	@RequestMapping(value="/uploadMReviewImg", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
@@ -257,7 +259,7 @@ public class MzReviewController {
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 		String savedFileName = "M" + UUID.randomUUID() + extension;	//저장될 파일 명
 		MzReviewPhoto mzReviewPhoto = new MzReviewPhoto();
-		session.removeAttribute("mzReviewPhoto");
+		session.removeAttribute("mzPhotoList");
 		
 		File targetFile = new File(fileRoot + savedFileName);	
 		try {
@@ -272,8 +274,8 @@ public class MzReviewController {
 			mzReviewPhoto.setMzReviewFilePath(fileRoot);
 			mzReviewPhoto.setMzReviewFileTime(timestamp); // 사진 타임스탬프
 			
-			mzPhotoList.add(mzReviewPhoto);
-	        session.setAttribute("mzPhotoList", mzPhotoList);
+			savePhotoList.add(mzReviewPhoto);
+	        session.setAttribute("mzPhotoList", savePhotoList);
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
@@ -329,7 +331,7 @@ public class MzReviewController {
 		
 		HttpSession session = request.getSession();
 		int mzReviewNo = mzReview.getmReviewNo();
-		ArrayList<MzReviewPhoto> mzPhotoList = null;
+		ArrayList<MzReviewPhoto> mzPhotoList = new ArrayList<MzReviewPhoto>();
 		ArrayList<MzReviewPhoto> beforemzPhotoList = mService.selectPhoto(mzReviewNo);
 		int beforePhotoResult = 0;
 		
@@ -362,11 +364,11 @@ public class MzReviewController {
 				realList.add(realName); // 게시글내용 코드에서 잘라온 img태그 이름들
 			}
 			if(mzPhotoList != null) {
+				beforePhotoResult = mService.deleteBeforePhoto(mzReviewNo);
 				for(int i = 0; i < mzPhotoList.size(); i++) {
 					String mzRename = mzPhotoList.get(i).getMzReviewRenameFileName();
 					if(!realList.contains(mzRename)) {
 						fileDelete(mzRename, mzPhotoList.get(i).getMzReviewFilePath());
-						beforePhotoResult = mService.deleteBeforePhoto(mzReviewNo);
 						if (beforePhotoResult > 0) {
 							System.out.println("사진 삭제 성공");
 						} else {
@@ -386,6 +388,7 @@ public class MzReviewController {
 		} else {
 			rtn = "fail";
 		}
+		savePhotoList = new ArrayList<MzReviewPhoto>();
 		return rtn;
 	}
 	

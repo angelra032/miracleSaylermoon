@@ -127,5 +127,10 @@ public class QnaServiceImpl implements QnaService{
 		return (ArrayList<Qna>) result;
 	}
 
+	@Override
+	public int getAdminListCount() {
+		return qnaStore.getAdminListCount();
+	}
+
 
 }

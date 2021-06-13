@@ -50,7 +50,7 @@
 					<button class="btn btn-lg" id="saveBtn">등록하기</button>
 				</div>
 				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" id="saveBtn">목록보기</button>
+					<button class="btn btn-lg gotolist-btn" id="">목록보기</button>
 				</div>
 			</div>
 		</div>
@@ -135,6 +135,15 @@
 				   
 				 }); 
 		}); 
+		 
+		// 목록으로 버튼 클릭시 '작성된 내용은 저장되지 않습니다. 계속하시겠습니까?'출력
+			$('.gotolist-btn').on('click', function() {
+				var result = confirm('작성된 내용은 저장되지 않습니다. 계속하시겠습니까?');
+				if(result) {
+					history.back();
+				}else {
+				};
+			});
 		 
 	 /**
 		* 이미지 파일 업로드

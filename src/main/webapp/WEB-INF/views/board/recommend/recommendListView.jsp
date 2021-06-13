@@ -88,7 +88,26 @@
     		</c:if>
     		
     		<c:if test="${ empty rList.size() }">
-    			<h1>${ msg }</h1>
+	    		<table class="board-list-table">
+		                <thead class="board-thead">
+		                    <tr class="board-thead-tr">
+		                        <td width=110>No</td>
+		                        <td width=450>제목</td>
+		                        <td width=160>작성자</td>
+		                        <td width=160>날짜</td>
+		                        <td width=100>조회수</td>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                	<tr>
+		                		<td colspan="5">${msg}</td>
+		                	</tr>
+		                </tbody>
+		            </table>
+		             <!-- 페이징 -->
+	            <table class="board-page-table">
+	                
+	            </table>
     		</c:if>
     		
 			<c:if test="${ loginUser.userType eq '2' || loginUser.userType eq '5' }">

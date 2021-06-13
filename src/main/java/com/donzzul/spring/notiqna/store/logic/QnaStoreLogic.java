@@ -131,4 +131,9 @@ public class QnaStoreLogic implements QnaStore {
 		return sqlSession.selectOne("notiQnaMapper.selectOneReply", qnaNo);
 	}
 
+	@Override
+	public int getAdminListCount() {
+		return sqlSession.selectOne("notiQnaMapper.selectAdminQnaListCount");
+	}
+
 }

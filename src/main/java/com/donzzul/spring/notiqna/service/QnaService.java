@@ -36,4 +36,5 @@ public interface QnaService {
 	public int insertReply(Qna replyqna);
 	public int updateQnaReply(int qnaNo);
 	public Qna selectOneReply(int qnaNo);
+	public int getAdminListCount();
 }
