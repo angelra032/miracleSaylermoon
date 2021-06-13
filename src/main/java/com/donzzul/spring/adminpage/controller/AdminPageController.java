@@ -359,7 +359,7 @@ public class AdminPageController {
 	@RequestMapping(value="adminQnaList.dz")
 	public ModelAndView qnaListPrint(ModelAndView mv, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
-		int listCount = qService.getListCount();
+		int listCount = qService.getAdminListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Qna> qnaList = qService.adminQnaList(pi);
 		for (int i = 0; i < qnaList.size(); i++) {

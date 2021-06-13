@@ -115,7 +115,27 @@
 			</c:if>   
 			
 			<c:if test="${ empty qList.size() }">
-				<h1>${ msg }</h1>
+				<table class="board-list-table">
+	                <thead class="board-thead">
+	                    <tr class="board-thead-tr">
+	                        <td width=110>No</td>
+	                        <td width=110>구분</td>
+	                        <td width=450>제목</td>
+	                        <td width=160>작성자</td>
+	                        <td width=160>날짜</td>
+                         	<td width=100>조회수</td>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                	<tr>
+	                		<td colspan="6">${msg}</td>
+	                	</tr>
+	                </tbody>
+	            </table>
+	             <!-- 페이징 -->
+	            <table class="board-page-table">
+	                
+	            </table>
 			</c:if> 
 			
 			<c:if test="${ loginUser.userType eq '2' or loginUser.userType eq '1' or loginUser.userType eq '3' or loginUser.userType eq '5'}">

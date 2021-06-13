@@ -48,7 +48,7 @@
 			</div>
 			<div class="btn-area">
 					<div class="text-center col-sm-3">
-						<button class="btn btn-lg" id="saveBtn">등록하기</button>
+						<button class="btn btn-lg" id="saveBtn">수정하기</button>
 					</div>
 				<c:if test="${ !empty loginUser }">
 				</c:if>
@@ -106,6 +106,7 @@
 				         });
 				   
 				   $('#summernote').summernote('code', '${ mzReview.mReviewContent }');
+				   
 				   
 				   $('#saveBtn').on('click', function() {
 					   	var mReviewContent = $("#summernote").summernote('code', mReviewContent);

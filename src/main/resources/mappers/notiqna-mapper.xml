@@ -172,6 +172,10 @@
 		SELECT * FROM QNA_BOARD WHERE GROUP_ORDER LIKE '0' ORDER BY ORIGIN_NO DESC
 	</select>
 	
+	<select id="selectAdminQnaListCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA_BOARD WHERE GROUP_ORDER LIKE '0'
+	</select>
+	
 	<select id="selectOneReply" resultMap="qnaResultMap">
 		SELECT * FROM QNA_BOARD WHERE GROUP_ORDER = '1' AND ORIGIN_NO =#{qnaNo}
 	</select>

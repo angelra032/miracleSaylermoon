@@ -44,7 +44,7 @@
 	                <button class="delete-btn" style="cursor: pointer;">삭제하기</button>
 	            </div>
 	            <div class="user-back-btn-area">
-	                <button onclick="location.href='dReviewMain.dz'" style="cursor: pointer;">목록으로</button>
+	                <button onclick="location.href='mReviewMain.dz'" style="cursor: pointer;">목록으로</button>
 	            </div>
 			</c:if>
 			<c:if test="${ mReview.userNo ne loginUser.userNo }">

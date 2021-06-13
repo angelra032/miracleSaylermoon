@@ -145,7 +145,6 @@ public class RecommendBoardController {
 	@ResponseBody
 	@RequestMapping(value="recommendInsertForm.dz", method= RequestMethod.POST)
 	public String recommendRegister(@ModelAttribute RecommendBoard recommendBoard, HttpServletRequest request) {
-		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
 		if(user.getUserType().equals("3") || user.getUserType().equals("5")) {
@@ -166,6 +165,7 @@ public class RecommendBoardController {
 		Matcher matcher = pattern.matcher(target);
 		String rtn = "false";
 		ArrayList<String> realList = new ArrayList<String>();
+		
 		int result = reService.insertRecommend(recommendBoard);
 		if(result > 0) {
 			while(matcher.find()) {
@@ -192,6 +192,9 @@ public class RecommendBoardController {
 		}else {
 			rtn = "fail";
 		}
+		session.removeAttribute("rPhotoList");
+		session.removeAttribute("StandardSession");
+		savePhotoList = new ArrayList<RecommendPhoto>();
 		return rtn;
 	}
 	
@@ -211,6 +214,7 @@ public class RecommendBoardController {
 	
 	
 	//
+	ArrayList<RecommendPhoto> savePhotoList = new ArrayList<RecommendPhoto>();
 	@RequestMapping(value="/uploadRecommendImg", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
@@ -227,7 +231,6 @@ public class RecommendBoardController {
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 		String savedFileName = "R" + UUID.randomUUID() + extension;	//저장될 파일 명
 		RecommendPhoto recommendPhoto = new RecommendPhoto();
-		session.removeAttribute("rPhotoList");
 		
 		File targetFile = new File(fileRoot + savedFileName);	
 		try {
@@ -242,8 +245,10 @@ public class RecommendBoardController {
 			recommendPhoto.setRecommendFilePath(fileRoot);
 			recommendPhoto.setRecommendFileTime(timestamp); // 사진 타임스탬프
 			
-			rPhotoList.add(recommendPhoto);
-	        session.setAttribute("rPhotoList", rPhotoList); // 사진을 ArrayList에 담아서 세션으로 보내준다
+			savePhotoList.add(recommendPhoto);
+			session.removeAttribute("rPhotoList");
+			session.removeAttribute("StandardSession");
+	        session.setAttribute("rPhotoList", savePhotoList); // 사진을 ArrayList에 담아서 세션으로 보내준다
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");
@@ -254,7 +259,6 @@ public class RecommendBoardController {
 	}
 	
 	
-	ArrayList<RecommendPhoto> rPhotoList = new ArrayList<RecommendPhoto>();
 	@RequestMapping(value="/Rupload/imageView.dz")
 	public void summerNoteImageView(@RequestParam("imgName") String imgName, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		OutputStream out = response.getOutputStream();
@@ -323,7 +327,7 @@ public class RecommendBoardController {
 		
 		HttpSession session = request.getSession();
 		int recommendNo = recommendBoard.getRecommendNo();
-		ArrayList<RecommendPhoto> rPhotoList = null; // 올린 사진 데이터 담아준 ArrayList
+		ArrayList<RecommendPhoto> rPhotoList = new ArrayList<RecommendPhoto>(); // 올린 사진 데이터 담아준 ArrayList
 		ArrayList<RecommendPhoto> beforePhotoList = reService.selectPhoto(recommendNo); // 이전데이터값
 		int beforePhotoResult = 0;
 		
@@ -345,9 +349,10 @@ public class RecommendBoardController {
 		String rtn = "false";
 		
 		// 세션에서 받은 것과 이전에 있던 사진ArrayList 합치기
-		if(rPhotoList != null && beforePhotoList != null) {
+		if(beforePhotoList != null && rPhotoList != null) {
 			rPhotoList.addAll(beforePhotoList);
 		}
+		
 		ArrayList<String> realList = new ArrayList<String>();
 		int result = reService.updateRecommend(recommendBoard);
 		if(result > 0) {
@@ -356,11 +361,12 @@ public class RecommendBoardController {
 				realList.add(realName); // 게시글내용 코드에서 잘라온 img태그 이름들
 			}
 			if(rPhotoList != null) {
+				beforePhotoResult = reService.deleteBeforePhoto(recommendNo);
 				for(int i = 0; i < rPhotoList.size(); i++) {
 					String recommendRename = rPhotoList.get(i).getRecommendRenameFileName();
 					if(!realList.contains(recommendRename)) {
 						fileDelete(recommendRename, rPhotoList.get(i).getRecommendFilePath());
-						beforePhotoResult = reService.deleteBeforePhoto(recommendNo);
+//						beforePhotoResult = reService.deleteBeforePhotoName(recommendRename);
 						if (beforePhotoResult > 0) {
 							System.out.println("사진 삭제 성공");
 						} else {
@@ -381,6 +387,8 @@ public class RecommendBoardController {
 		} else {
 			rtn = "fail";
 		}
+		session.removeAttribute("rPhotoList");
+		savePhotoList = new ArrayList<RecommendPhoto>();
 		return rtn;
 	}
 	

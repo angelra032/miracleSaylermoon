@@ -44,7 +44,7 @@
 				<%-- <c:if test="${ empty sessionScope.loginUser }">
 				</c:if> --%>
 				<div class="text-center col-sm-3">
-					<button class="btn btn-lg" onclick="location.href='/notiQnaMain.dz'">목록보기</button>
+					<button class="btn btn-lg gotolist-btn">목록보기</button>
 				</div>
 			</div>
 		</div>
@@ -115,25 +115,17 @@
 				   
 				   
 				 }); 
+			
+			// 목록으로 버튼 클릭시 '작성된 내용은 저장되지 않습니다. 계속하시겠습니까?'출력
+			$('.gotolist-btn').on('click', function() {
+				var result = confirm('작성된 내용은 저장되지 않습니다. 계속하시겠습니까?');
+				if(result) {
+					history.back();
+				}else {
+				};
+			});
+			
 		}); 
 		 
-		 /* 
-		 	callbacks: {
-					        	onImageUpload: function(files, editor, welEditable) {
-					        		for(var i = files.length -1; i>=0; i--) {
-					        			uploadSummernoteImageFile(files[i],this);
-					        		}
-					        	}
-					        },
-					        onPaste: function (e) {
-								var clipboardData = e.originalEvent.clipboardData;
-								if (clipboardData && clipboardData.items && clipboardData.items.length) {
-									var item = clipboardData.items[0];
-									if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
-										e.preventDefault();
-									}
-								}
-							},
-		 */
 	</script>
 </html>
