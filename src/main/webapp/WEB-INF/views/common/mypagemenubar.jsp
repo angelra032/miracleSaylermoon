@@ -10,9 +10,15 @@
    <!--  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap" rel="stylesheet"> -->
     <!-- JS --> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- F12 / 오른쪽마우스 금지 -->
+	<script type="text/javascript"> 
+	$(document).ready(function(){ $(document).bind('keydown',function(e){ if ( e.keyCode == 123 /* F12 */) { e.preventDefault(); e.returnValue = false; } }); }); document.onmousedown=disableclick; status="무단 복사를 막기 위해 마우스 드래그가 금지되어 있습니다"; function disableclick(event){ if (event.button==2) { alert(status); return false; } } 
+	</script>
     <title>헤더 </title>
 </head>
 <body>
+<!-- F12 / 오른쪽마우스 금지 -->
+<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
     <header>
         <div class="fixed-header-navi">
             <div class="header-logo-area" onclick="location.href='/'">
