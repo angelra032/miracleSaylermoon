@@ -265,6 +265,11 @@
        SELECT * FROM MENU_PHOTO WHERE SHOP_NO = #{shopNo }
     </select>
     
+    <!-- 사진 이름으로 가게 메뉴 사진 경로 출력(서버에서 삭제하기 위해) -->
+    <select id="selectMenuPhotoPath" resultMap="menuPhotoResultMap">
+    	SELECT * FROM MENU_PHOTO WHERE MENU_FILENAME = #{menuFileName }
+    </select>
+    
     <!-- 가게 메뉴 사진 삭제 -->
     <select id="deleteMenuPhoto" resultMap="menuPhotoResultMap">
        DELETE FROM MENU_PHOTO WHERE MENU_FILENAME = #{menuFileName }
