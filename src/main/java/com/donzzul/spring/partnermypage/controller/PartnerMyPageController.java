@@ -414,6 +414,19 @@ public class PartnerMyPageController {
 		////////// jsp 데이터 받아서 인서트(업데이트)
 		// - shop(update), menuPhoto(delete-insert), mainMenu(delete - insert)
 
+
+		// 기존 파일 삭제 후 shop 업데이트 - 만약 그대로 있다면? (새로 있을 때만)
+//		System.out.println("shop 기존 파일"+shop.toString());
+//		System.out.println("shop 파일이 새로 있을 때"+shopPhoto.toString());
+//		if(shopPhoto != null && !shopPhoto.isEmpty()) {
+//			// 가게 기존 파일 삭제
+//			if(shop.getShopFileName() != "") {
+//				fileDelete(shop.getShopFileName(), shop.getShopFilePath());
+//			}
+//		}
+		
+		
+		
 		/////// shop update
 		// 영업일 저장
 		String businessday = "";
@@ -432,16 +445,17 @@ public class PartnerMyPageController {
 		shop.setShopLongAddr(zip + "/" + addr1 + "/" + addr2);
 		shop.setBusinessDay(businessday);
 		shop.setShowShopYN("N");
-
-		// 기존 파일 삭제 후 shop 업데이트 - 만약 그대로 있다면? (새로 있을 때만)
-		System.out.println("shop 파일이 새로 있을 때"+shopPhoto.toString());
-		if(shopPhoto != null && !shopPhoto.isEmpty()) {
-			// 가게 기존 파일 삭제
-			if(shop.getShopFileName() != "") {
-				fileDelete(shop.getShopFileName(), shop.getShopFilePath());
-			}
-		}
-		
+//
+//		// 기존 파일 삭제 후 shop 업데이트 - 만약 그대로 있다면? (새로 있을 때만)
+//		System.out.println("shop 기존 파일"+shop.toString());
+//		System.out.println("shop 파일이 새로 있을 때"+shopPhoto.toString());
+//		if(shopPhoto != null && !shopPhoto.isEmpty()) {
+//			// 가게 기존 파일 삭제
+//			if(shop.getShopFileName() != "") {
+//				fileDelete(shop.getShopFileName(), shop.getShopFilePath());
+//			}
+//		}
+//		
 		// 가게 파일 저장(서버, 디비)
 		Shop fileShop = saveFile(shopPhoto, request);
 		if (fileShop != null) {
@@ -526,17 +540,24 @@ public class PartnerMyPageController {
 			System.out.println("하나씩 꺼낸 사진 이름" + deletePhotoName);
 			
 			// 서버에서 삭제하기 위해(파일패스)
-			ArrayList<MenuPhoto> selectPhotoList = sService.selectMenuPhotoPath(deletePhotoName);
-			System.out.println("디비에서 불러온 서버용 삭제할 사진리스트 조회"+selectPhotoList.toString());
+//			ArrayList<MenuPhoto> selectPhotoList = sService.selectMenuPhotoPath(deletePhotoName);
+//			System.out.println("디비에서 불러온 서버용 삭제할 사진리스트 조회"+selectPhotoList.toString());
+			
+//			if (deletePhoto > 0) { // 삭제 완료 후 (돌아가기)
+				// 파일 이름이랑 경로랑 뽑아서 서버에서 파일 삭제
+//				String filePath = selectPhotoList.get(i).getMenuFilePath();
+//				String fileName = deletePhotoName;
+//				fileDelete(fileName, filePath);
+//			}
 			
 			// 디비에서 이름으로 삭제
 			int deletePhoto = sService.deleteMenuPhoto(deletePhotoName);
-			if (deletePhoto > 0) { // 삭제 완료 후 (돌아가기)
-				// 파일 이름이랑 경로랑 뽑아서 서버에서 파일 삭제
-				String filePath = selectPhotoList.get(i).getMenuFilePath();
-				String fileName = deletePhotoName;
-				fileDelete(fileName, filePath);
-			}
+//			if (deletePhoto > 0) { // 삭제 완료 후 (돌아가기)
+//				// 파일 이름이랑 경로랑 뽑아서 서버에서 파일 삭제
+//				String filePath = selectPhotoList.get(i).getMenuFilePath();
+//				String fileName = deletePhotoName;
+//				fileDelete(fileName, filePath);
+//			}
 		}
 		return "success";
 	}

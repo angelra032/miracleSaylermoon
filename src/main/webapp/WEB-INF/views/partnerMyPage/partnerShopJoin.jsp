@@ -42,7 +42,7 @@
 								<div class="first-menu-shop">
 									<input name="shopPhoto" class="form-elem" style="display:none;" type="file" id="file" value="${shop.shopFileName }" >
 									<label for="file" class="uploadFile">파일선택</label>
-									<span id="shopImg" class="file-name">${shop.shopFileName }</span><!-- 선택된 파일 없음 -->
+									<span id="shopImg" class="file-name">선택된 파일 없음</span><!-- ${shop.shopFileName } -->
 									<!-- <a href="#this" id="delPhotoBtn" onclick="delMenu(this);">X</a> -->
 								</div>
 								<!-- <input name="shopPhoto" class="form-elem uploadFile" type="file" maxlength="20" placeholder="영문, 숫자 또는 혼합 6~20자"> -->
@@ -304,16 +304,15 @@
 
 	// 파일명 바꾸기
 	$(document).on('change', 'input[type=file]', function(e){
+		if($('#file').val()==""){
+			$(e.target).siblings('.file-name').html("선택된 파일 없음");
+		}
 		/* if($("input[name='shopPhoto']").val()==""){
 			var shopPhotoSpan = $(e.target).siblings("span").text(); // e.target은 이벤트가 발생한 타겟 (?)
 			shopPhotoSpan = "";
-		} // 수정 요
-		 */
+		}  */
 		//$(this).parent().find(".file_name").text(e.target.files[0].name);
 		var fileName = $(e.target)[0].files[0].name;
-		if(fileName == ""){
-			$(e.target).siblings('.file-name').html("");
-		}
 		$(e.target).siblings('.file-name').html(fileName);
 		
 		console.log($(".file-name").val());
