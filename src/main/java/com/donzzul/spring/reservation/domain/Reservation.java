@@ -18,6 +18,8 @@ public class Reservation {
 //  후기완료H(H) 한번 후기를 작성하면 rState 상태를 업데이트해서 다시 작성 못하게 한다
 	private String shopName;
 	private String userNick;
+	private String userName;
+	private String userType;
 	private String description;
 	private String orderDate;
 	
@@ -25,7 +27,7 @@ public class Reservation {
 
 	public Reservation(int reservationNo, int shopNo, String reserveDate, int reserveTime, int reserveCount,
 			String pointYn, int paymentPoint, int userNo, String rState, String shopName, String userNick,
-			String description, String orderDate) {
+			String userName, String userType, String description, String orderDate) {
 		super();
 		this.reservationNo = reservationNo;
 		this.shopNo = shopNo;
@@ -38,6 +40,8 @@ public class Reservation {
 		this.rState = rState;
 		this.shopName = shopName;
 		this.userNick = userNick;
+		this.userName = userName;
+		this.userType = userType;
 		this.description = description;
 		this.orderDate = orderDate;
 	}
@@ -130,6 +134,22 @@ public class Reservation {
 		this.userNick = userNick;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -151,8 +171,10 @@ public class Reservation {
 		return "Reservation [reservationNo=" + reservationNo + ", shopNo=" + shopNo + ", reserveDate=" + reserveDate
 				+ ", reserveTime=" + reserveTime + ", reserveCount=" + reserveCount + ", pointYn=" + pointYn
 				+ ", paymentPoint=" + paymentPoint + ", userNo=" + userNo + ", rState=" + rState + ", shopName="
-				+ shopName + ", userNick=" + userNick + ", description=" + description + ", orderDate=" + orderDate
-				+ "]";
+				+ shopName + ", userNick=" + userNick + ", userName=" + userName + ", userType=" + userType
+				+ ", description=" + description + ", orderDate=" + orderDate + "]";
 	}
+
+	
 
 }

@@ -352,3 +352,7 @@ input[type=radio]{
 	cursor:pointer;
 }
 
+/* 다날결제창 위치수정 */
+.payment-danal {
+	margin-top:300px;
+}

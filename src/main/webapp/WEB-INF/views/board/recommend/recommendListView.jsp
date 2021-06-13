@@ -101,4 +101,9 @@
 	</main>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+	$('#write-btn-area').on("click", function() {
+		location.href='recommendWriteView.dz'
+	});
+</script>
 </html>

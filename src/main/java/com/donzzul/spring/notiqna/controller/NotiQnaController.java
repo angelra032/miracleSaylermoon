@@ -168,7 +168,7 @@ public class NotiQnaController {
 	public String qaRegister(@ModelAttribute Qna qna, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("loginUser");
-		if(user.getUserType().equals("3")) {
+		if(user.getUserType().equals("3") || user.getUserType().equals("5")) {
 			qna.setQnaWriter(user.getUserName());
 		} else {
 			qna.setQnaWriter(user.getUserNick());

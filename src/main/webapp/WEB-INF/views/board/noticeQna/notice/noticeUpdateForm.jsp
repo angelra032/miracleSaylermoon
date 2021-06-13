@@ -34,7 +34,7 @@
 			</div>
 			<div class="btn-area">
 					<div class="text-center col-sm-3">
-						<button class="btn btn-lg" id="saveBtn">등록하기</button>
+						<button class="btn btn-lg" id="saveBtn">수정하기</button>
 					</div>
 				<c:if test="${ !empty loginUser }">
 				</c:if>
@@ -96,6 +96,7 @@
 							   data : {"noticeTitle" : noticeTitle, "noticeContent" : noticeContent, "noticeNo" : noticeNo},
 							   success : function(data){
 								   if(data == "success") {
+									   alert('게시글이 수정되었습니다');
 									   location.href="noticeDetail.dz?noticeNo="+noticeNo;
 									} else {
 										alert('게시글 올리기 실패');

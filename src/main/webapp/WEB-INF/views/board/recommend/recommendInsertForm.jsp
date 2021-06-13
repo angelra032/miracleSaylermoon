@@ -29,7 +29,12 @@
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ loginUser.userNick }</div>
+				<c:if test="${loginUser.userType eq '1' or loginUser.userType eq '2' }">
+					<div class="user-nick-area">${ loginUser.userNick }</div>
+				</c:if>
+				<c:if test="${ loginUser.userType eq '3' or loginUser.userType eq '5' }">
+					<div class="user-nick-area">${ loginUser.userName }</div>
+				</c:if>
 			</div>
 			<!-- <p>닉네임위치</p> -->
 			<!-- <textarea name="recommendContent" placeholder="내용"></textarea> -->
@@ -98,7 +103,6 @@
 							}
 				         });
 				   
-				   jQuery(this).summernote('fontSize', 16);
 				   
 				   // 저장버튼
 				   $('#saveBtn').on('click', function() {
@@ -111,6 +115,7 @@
 							   data : {"recommendTitle" : recommendTitle, "recommendContent" : recommendContent},
 							   success : function(data){
 								   if(data == "success") {
+									   alert('게시글을 올렸습니다');
 									   location.href="recommendMain.dz";
 									} else {
 										alert('게시글 올리기 실패');

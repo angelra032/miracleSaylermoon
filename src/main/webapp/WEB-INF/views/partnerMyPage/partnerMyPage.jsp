@@ -98,7 +98,12 @@
 									<td>${status.count }</td>
 									<input type="hidden" name="reservationNo" value="${reservation.reservationNo }">
 									<input type="hidden" name="shopNo" value="${reservation.shopNo }">
-									<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+									<c:if test="${ reservation.userType eq '1' || reservation.userType eq '2' }">
+										<td><a class="table-link-title" href="#"><p>${reservation.userNick }</p></a></td>
+									</c:if>
+									<c:if test="${ reservation.userType eq '5' }">
+										<td><a class="table-link-title" href="#"><p>${reservation.userName }</p></a></td>
+									</c:if>
 									<td>${reservation.reserveCount }명</td>
 									<td>${reservation.reserveDate }</td>
 									<td>

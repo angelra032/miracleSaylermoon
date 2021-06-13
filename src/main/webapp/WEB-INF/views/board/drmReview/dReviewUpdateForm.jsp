@@ -27,7 +27,7 @@
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ loginUser.userNick }</div>
+				<div class="user-nick-area">${ drmReview.drmReviewWriter }</div>
 			</div>
 			<br>
 			<div class="editor-area">
@@ -113,6 +113,7 @@
 						   data : {"drmReviewTitle" : drmReviewTitle, "drmReviewContent" : drmReviewContent, "drmReviewPublicYN" : drmReviewPublicYN, "drmReviewNo" : drmReviewNo},
 						   success : function(data){
 							   if(data == "success") {
+								   alert('게시글이 수정되었습니다');
 								   location.href="dReviewDetail.dz?drmReviewNo="+drmReviewNo;
 								} else if(data == 'fail') {
 									alert('게시글 수정 실패');

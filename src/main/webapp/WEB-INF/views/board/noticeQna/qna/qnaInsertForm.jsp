@@ -31,8 +31,9 @@
 				<label>이름</label>
 				<c:if test="${loginUser.userType eq '1' or loginUser.userType eq '2' }">
 					<div class="user-nick-area">${ loginUser.userNick }</div>
+<%-- 					<input type="text" class="user-nick-area" name="qnaWriter" value="${ loginUser.userNick }" readonly> --%>
 				</c:if>
-				<c:if test="${ loginUser.userType eq '3' }">
+				<c:if test="${ loginUser.userType eq '3' or loginUser.userType eq '5' }">
 					<div class="user-nick-area">${ loginUser.userName }</div>
 				</c:if>
 			</div>
@@ -100,7 +101,7 @@
 							   data : {"qnaTitle" : qnaTitle, "qnaContent" : qnaContent},
 							   success : function(data){
 								   if(data == "success") {
-// 									   alert('성공');
+									   alert('게시글을 올렸습니다');
 									   location.href="notiQnaMain.dz";
 									} else if(data=="fail") {
 										alert('게시글 올리기 실패');

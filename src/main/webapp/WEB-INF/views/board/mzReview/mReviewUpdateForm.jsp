@@ -37,7 +37,7 @@
 			</div>
 			<div class="nick-area">
 				<label>이름</label>
-				<div class="user-nick-area">${ loginUser.userNick }</div>
+				<div class="user-nick-area">${ mzReview.mReviewWriter }</div>
 			</div>
 			<br>
 			<div class="editor-area">
@@ -119,7 +119,7 @@
 							   data : {"mReviewTitle" : mReviewTitle, "mReviewContent" : mReviewContent, "mReviewNo" : mReviewNo},
 							   success : function(data){
 								   if(data == "success") {
-									   alert('게시글을 올렸습니다');
+									   alert('게시글이 수정되었습니다');
 									   location.href="mReviewMain.dz";
 								   } else if (data == 'fail') {
 									   alert('게시글 올리기 실패');
