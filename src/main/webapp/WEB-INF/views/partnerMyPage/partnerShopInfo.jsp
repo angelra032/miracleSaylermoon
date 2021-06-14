@@ -12,7 +12,7 @@
 <title>돈쭐 가게수정</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
+<%-- 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include> --%>
 	<main>
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
@@ -283,7 +283,7 @@
 								<c:forEach items="${mainMenu }" var="menu">
 									<div class="first-main-menu">
 										<input type="text" name="mainMenuName" class="form-elem menu-name" placeholder="메뉴 이름 입력" value="${menu.mainMenuName }" />
-										<input type="text" name="mainMenuPrice" class="form-elem menu-price" onkeyup="regexOnlyNum();" placeholder="메뉴 가격" value="${menu.mainMenuPrice }" />
+										<input type="text" name="mainMenuPrice" class="form-elem menu-price" onkeyup="regexOnlyNum(this);" placeholder="메뉴 가격" value="${menu.mainMenuPrice }" />
 										<a href="#this" id="delMenuBtn" onclick="delMenu(this);">삭제</a>
 									</div>
 								</c:forEach>
@@ -485,18 +485,19 @@
 	
 	
 	///////// 사진 추가 append 그리기
+	var countIndex = Number('${fn:length(photo) }')+1;
 	function addPhoto(){
 		var photoDiv = $(".add-photo-div");
 		var photoCount = $(".first-menu-photo").length;
-		
 		if(photoCount < 4) {
 			var addPhoto = $("<div class='first-menu-photo'>");
 			
-			addPhoto.append("<input name='mainMenuPhoto' style='display:none;' class='form-elem' type='file' id='file"+photoCount+"' value='' >")
-					.append("<label for='file"+photoCount+"' class='uploadFile'>파일선택</label>")
+			addPhoto.append("<input name='mainMenuPhoto' style='display:none;' class='form-elem' type='file' id='file"+countIndex+"' value='' >")
+					.append("<label for='file"+countIndex+"' class='uploadFile'>파일선택</label>")
 					.append("<span id='menuImg' class='file-name'></span>")
-					.append("<a href='#this' id='delPhotoBtn' class='delPhotoBtn"+photoCount+"' onclick='delMenu(this);'>X</a>");
+					.append("<a href='#this' id='delPhotoBtn' class='delPhotoBtn"+countIndex+"' onclick='delMenu(this);'>X</a>");
 			photoDiv.append(addPhoto);
+			countIndex++;
 		}else{
 			console.log("nono");
 			alert("이미지는 4개까지 업로드 가능합니다.");
@@ -506,11 +507,11 @@
 	
 	
 	// 메뉴 가격 숫자만 입력 - 정규표현식 유효성 검사
-	function regexOnlyNum(){
+	function regexOnlyNum(obj){
 		var regExpNum = /^[0-9]*$/;
 		var menuPrice = $("input[name='mainMenuPrice']");
 		console.log("키업 가격"+menuPrice);
-		if(!regExpNum.test(menuPrice.val())){
+		if(!regExpNum.test($(obj).val())){
 			alert("숫자만 입력 가능합니다.");
 			menuPrice().focus();
 		}

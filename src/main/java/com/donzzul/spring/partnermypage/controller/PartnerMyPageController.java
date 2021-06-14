@@ -457,15 +457,17 @@ public class PartnerMyPageController {
 //		}
 //		
 		// 가게 파일 저장(서버, 디비)
-		Shop fileShop = saveFile(shopPhoto, request);
-		if (fileShop != null) {
-			shop.setShopFileName(fileShop.getShopFileName());
-			shop.setShopFilePath(fileShop.getShopFilePath());
-			shop.setShopFileSize(fileShop.getShopFileSize());
-			shop.setShopUploadTime(fileShop.getShopUploadTime());
+		if(shopPhoto.getOriginalFilename() != "") {
+			Shop fileShop = saveFile(shopPhoto, request);
+			if (fileShop != null) {
+				shop.setShopFileName(fileShop.getShopFileName());
+				shop.setShopFilePath(fileShop.getShopFilePath());
+				shop.setShopFileSize(fileShop.getShopFileSize());
+				shop.setShopUploadTime(fileShop.getShopUploadTime());
+			}
 		}
-		// shop UPDATE
 		int result = sService.updatePartnerShop(shop);
+		// shop UPDATE
 
 		/////// 메뉴 사진 delete-insert
 		// delete
