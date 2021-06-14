@@ -281,6 +281,7 @@
 	    var menuName = $("input[name='menuName']").val();
 	    var amount = $("input[name='amount']").val();
 	    var usePoint = $("input[name='use-point']").val();
+	    var donPrice = $("input[name='menu-fin-price']").val();
 	    var shopNo = '${shop.shopNo }';
 	    var shopName = '${shop.shopName }';
 		 var IMP = window.IMP; // 생략가능
@@ -371,6 +372,7 @@
 	    var finPrice = $("input[name='donPrice']").val();
 	    var shopNo = '${shop.shopNo }';
 	    var shopName = '${shop.shopName }';
+	    var donPrice = $("input[name='menu-fin-price']").val();
 		 var IMP = window.IMP; // 생략가능
 	        IMP.init('imp87350976'); 
 	        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
