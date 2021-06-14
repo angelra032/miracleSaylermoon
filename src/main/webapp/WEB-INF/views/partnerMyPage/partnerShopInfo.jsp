@@ -12,7 +12,7 @@
 <title>돈쭐 가게수정</title>
 </head>
 <body>
-<%-- 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include> --%>
+ 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"></jsp:include>
 	<main>
 		<div class="header-background-area">
         	<img src="/resources/images/mapListMain.png" alt="뒷배경이미지">
