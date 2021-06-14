@@ -43,7 +43,7 @@
 							<td>${reservation.reserveCount }명</td>
 							
 							<c:if test="${reservation.rState eq 'O' }">
-							<td><a id="cancle-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }&mainPage=Y">예약취소</a></td>
+							<td><a id="cancle-btn" href="cancelReservation.dz?reservationNo=${ reservation.reservationNo }&mainPage=N">예약취소</a></td>
 							<td><a id="review-btn">후기작성</a></td>
 							</c:if>
 							
