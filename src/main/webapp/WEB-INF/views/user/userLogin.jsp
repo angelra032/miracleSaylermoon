@@ -85,18 +85,20 @@
 			var userId = $("#user-id");
 			var userPw = $("#user-pw");
 			
+			if(userId.val() == "") {
+				alert("아이디를 입력해주세요");
+				return false;
+			}else if(userPw.val() == ""){
+				alert("비밀번호를 입력해주세요");
+				return false;
+			}
+			
 			$.ajax({
 				url : "dupLogin.dz",
 				data : { "userId" : userId.val(), "userPw" : userPw.val() },
 				async: false,
 				success : function(result) {
-					if(userId.val() == "") {
-						alert("아이디를 입력해주세요");
-						rtn = false;
-					}else if(userPw.val() == ""){
-						alert("비밀번호를 입력해주세요");
-						rtn = false;
-					}else if(result == 1){
+					if(result == 1){
 						alert("아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 						userId.focus();
 						rtn = false;
