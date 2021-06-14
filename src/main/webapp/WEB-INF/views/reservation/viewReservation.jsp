@@ -260,7 +260,7 @@
                
                <div class="pointUse" id="pointDiv">
                   <div id="rPointText"><h1 class="titleH1">포인트 사용여부</h1></div>
-                     <div class="show-point">보유포인트 : ${loginUser.userPoint }원</div>
+                     <div class="show-point">보유포인트 : ${userPoint }원</div>
                     <div class="pRadion">
                      <input type="radio" name="point" id="pointY" value="Y" onclick="pointchecked();">
                      <label for="pointY" class="label">포인트<br>사용</label>
@@ -269,7 +269,7 @@
                   </div>
                   <div id="pointUseDiv" style="display:none">
                      <div id="pointBox">
-                     <input type="text" id="pointText" name="point" placeholder="포인트 금액 입력" value="${user.userPoint }" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                     <input type="text" id="pointText" name="point" placeholder="포인트 금액 입력" value="${userPoint }" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                      <input type="button" value="포인트사용하기" id="pButton" class="button">
                       </div>
                   </div>

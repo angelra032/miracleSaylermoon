@@ -82,7 +82,7 @@ public class DreamMyPageController {
 		int cancleResult = rService.cancleReservation(reservation);
 			
 		if (cancleResult > 0) {
-			if(mainPage.equals("N")) {
+			if(mainPage.equals("Y")) {
 				return "redirect:dreamMyPage.dz";
 			}else {
 				return "redirect:allRListDetailByDream.dz";
