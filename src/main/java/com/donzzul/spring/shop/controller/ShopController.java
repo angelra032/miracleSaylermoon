@@ -146,7 +146,15 @@ public class ShopController {
 		mv.addObject("mList", mapList);
 		mv.addObject("mapMarkers", mapMarkers);
 		mv.addObject("location", location);
-		mv.addObject("center", qLocation);
+		if(!mapList.isEmpty()) {
+//			if(page == null) {
+//				mv.addObject("center", qLocation);
+//			}else {
+				mv.addObject("center", mapList.get(0).getShopAddr());
+//			}
+		}else {
+			mv.addObject("center", qLocation);
+		}
 		mv.setViewName("map/MapDetail");
 		
 		return mv;
