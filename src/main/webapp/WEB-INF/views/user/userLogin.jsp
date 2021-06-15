@@ -40,6 +40,7 @@
 						<input type="submit" id="left-login-bt" value="로그인"> 
 						<!-- csrf 보안을 위한 코드 -->
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<input id = "remember_me" name ="_spring_security_remember_me" type = "checkbox"/>Remember me<br>
 						<a href="findIdView.dz">아이디 찾기</a>
 						<a href="findPwView.dz">비밀번호 찾기</a>
 					</form>

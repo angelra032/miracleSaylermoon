@@ -73,13 +73,21 @@
 
 		<logout 
 		invalidate-session="true" 
-		logout-url="/logout.dz"   
+		logout-url="/logout.dz"  
+		delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE"
 		logout-success-url="/" 
 		/>  
+		
+		<remember-me key="wmoskey" token-validity-seconds="2419200" authentication-success-handler-ref="loginSuccessHandler"/> <!-- 4 주 -->
 
 		<!-- enable csrf protection 해킹막기 -->
 		<csrf disabled="true"/>  
 		
+		<session-management>
+			<concurrency-control max-sessions="1" expired-url="/oversession_denied_page"/>
+		</session-management>
+
+
 	</http>
 	
 	<!-- 인증처리를 위한 최상위 태그 -->
