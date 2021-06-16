@@ -266,6 +266,14 @@ DataBase | Oracle
 
 
 
+### 채팅
+![채팅](https://user-images.githubusercontent.com/82349358/122249947-391db880-cf04-11eb-8ed7-71c67a317f25.png)
+
+
+![채팅](https://user-images.githubusercontent.com/82349358/122249980-3fac3000-cf04-11eb-9c09-319c6efef930.gif)
+
+
+
 ### 가게(검색 결과)
 ![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
 
@@ -401,6 +409,10 @@ DataBase | Oracle
 ### 마이페이지(회원정보수정)
 ![회원정보수정](https://user-images.githubusercontent.com/82349358/122242770-8d259e80-cefe-11eb-997e-251db8675a7e.png)
 
+
+
+### 마이페이지(회원탈퇴)
+![회원탈퇴](https://user-images.githubusercontent.com/82349358/122250058-505ca600-cf04-11eb-8121-ca9c974fba61.png)
 
 
 ### 사업자 마이페이지
