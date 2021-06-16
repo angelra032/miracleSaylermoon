@@ -236,6 +236,28 @@ DataBase | Oracle
 ![회원가입4](https://user-images.githubusercontent.com/82349358/122237239-230afa80-cefa-11eb-8c8d-d2878145928f.gif)
 
 
+### 로그인
+![로그인](https://user-images.githubusercontent.com/82349358/122237604-6a918680-cefa-11eb-93db-91146a4c4c62.png)
+
+
+![로그인](https://user-images.githubusercontent.com/82349358/122237650-73825800-cefa-11eb-8ba4-783aea2b4439.gif)
+
+
+![로그인2](https://user-images.githubusercontent.com/82349358/122237670-78470c00-cefa-11eb-929d-621b3237f2e1.gif)
+
+
+### 아이디찾기
+![아이디찾기](https://user-images.githubusercontent.com/82349358/122237710-81d07400-cefa-11eb-9969-5eacd4b00cc1.png)
+
+
+
+### 비밀번호찾기
+![바밀번호찾기](https://user-images.githubusercontent.com/82349358/122237745-88f78200-cefa-11eb-8b4a-95fef96709e9.png)
+
+
+![아이디 비밀번호 찾기](https://user-images.githubusercontent.com/82349358/122237769-8e54cc80-cefa-11eb-9a31-db5e865e18da.gif)
+
+
 
 ### 가게 검색 결과
 ![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
@@ -310,8 +332,55 @@ DataBase | Oracle
 ![후기리스트조회](https://user-images.githubusercontent.com/82349358/122232973-a32f6100-cef6-11eb-9b00-68ac950a1b9d.png)
 
 
+### 드림회원 마이페이지
+![드림 마이페이지](https://user-images.githubusercontent.com/82349358/122242415-45067c00-cefe-11eb-91a9-f0640ecb7f97.png)
 
 
+![dream_가고싶다](https://user-images.githubusercontent.com/82349358/122242510-58b1e280-cefe-11eb-8d50-8d613604c88c.gif)
+
+
+![dream_감사후기](https://user-images.githubusercontent.com/82349358/122242529-5c456980-cefe-11eb-82a8-1486cd8b7d10.gif)
+
+
+![dream_문의글](https://user-images.githubusercontent.com/82349358/122242545-5ea7c380-cefe-11eb-996e-10c4b2ed6c8c.gif)
+
+
+
+### MZ회원 마이페이지
+![MZ 마이페이지](https://user-images.githubusercontent.com/82349358/122242298-2b653480-cefe-11eb-94f1-02cae4a9a3cd.png)
+
+
+![MZ_가고싶다_1](https://user-images.githubusercontent.com/82349358/122238096-d247d180-cefa-11eb-8134-edd3b9166073.gif)
+
+
+![MZ_돈쭐목록](https://user-images.githubusercontent.com/82349358/122238114-d70c8580-cefa-11eb-850e-031031ddc759.gif)
+
+
+![MZ_돈쭐목록_small](https://user-images.githubusercontent.com/82349358/122238127-da077600-cefa-11eb-8995-5300f473d743.gif)
+
+
+![MZ_문의글](https://user-images.githubusercontent.com/82349358/122238142-dd026680-cefa-11eb-9283-df887bc05b82.gif)
+
+
+![MZ_추천 수정](https://user-images.githubusercontent.com/82349358/122238161-df64c080-cefa-11eb-90a0-07e1aa21ad05.gif)
+
+
+![MZ_후기 수정](https://user-images.githubusercontent.com/82349358/122238167-e12e8400-cefa-11eb-9874-079bf34168bb.gif)
+
+
+### 마이페이지(회원정보수정)
+![회원정보수정](https://user-images.githubusercontent.com/82349358/122242770-8d259e80-cefe-11eb-997e-251db8675a7e.png)
+
+
+### 사업자 마이페이지
+
+
+### 사업자 마이페이지(가게수정)
+![가게수정](https://user-images.githubusercontent.com/82349358/122242850-9adb2400-cefe-11eb-9b22-6d5df8319f87.png)
+
+
+## 관리자 마이페이지
+![관리자 마이페이지](https://user-images.githubusercontent.com/82349358/122242621-6ff0d000-cefe-11eb-8ef7-149739c1ef33.png)
 
 
 
