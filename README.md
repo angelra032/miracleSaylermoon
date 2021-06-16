@@ -220,15 +220,16 @@ DataBase | Oracle
 
 
 ## 주요 기능
-가게 검색 결과
+### 가게 검색 결과
 ![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
 
 
 ![가게검색](https://user-images.githubusercontent.com/82349358/122233213-d70a8680-cef6-11eb-9ca5-c97c8b2363f7.gif)
 
 
-지도조회
+### 지도조회
 ![지도조회](https://user-images.githubusercontent.com/82349358/122232927-97dc3580-cef6-11eb-942c-63cf41cb4393.png)
+
 
 ![지도](https://user-images.githubusercontent.com/82349358/122233615-2bae0180-cef7-11eb-8d94-74b66930a954.gif)
 
@@ -237,15 +238,30 @@ DataBase | Oracle
 
 
 
-글 작성(조회)
+### 글 작성(조회)
 ![글 작성-조회](https://user-images.githubusercontent.com/82349358/122232633-58154e00-cef6-11eb-99ec-01e1d9dba1a0.png)
 
 
-돈쭐내기(결제)
+![커뮤니티](https://user-images.githubusercontent.com/82349358/122234763-1a192980-cef8-11eb-8d71-33de73e2f706.gif)
+
+
+
+
+### 돈쭐내기(결제)
 ![돈쭐내기-결제](https://user-images.githubusercontent.com/82349358/122232680-62cfe300-cef6-11eb-905a-2fb0ebf518f2.png)
 
 
-후기리스트조회
+![돈쭐](https://user-images.githubusercontent.com/82349358/122234807-22716480-cef8-11eb-8fcf-dae9150b4a9a.jpg)
+
+
+![MZ_다날(전화번호노출)](https://user-images.githubusercontent.com/82349358/122234872-2ef5bd00-cef8-11eb-9add-ad1c5f2b2412.gif)
+
+
+![돈쭐_카카오페이](https://user-images.githubusercontent.com/82349358/122234910-374df800-cef8-11eb-8ba8-9487189a5d0a.gif)
+
+
+
+### 후기리스트조회
 ![후기리스트조회](https://user-images.githubusercontent.com/82349358/122232973-a32f6100-cef6-11eb-9b00-68ac950a1b9d.png)
 
 
