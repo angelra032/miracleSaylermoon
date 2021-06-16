@@ -236,6 +236,7 @@ DataBase | Oracle
 ![회원가입4](https://user-images.githubusercontent.com/82349358/122237239-230afa80-cefa-11eb-8c8d-d2878145928f.gif)
 
 
+
 ### 로그인
 ![로그인](https://user-images.githubusercontent.com/82349358/122237604-6a918680-cefa-11eb-93db-91146a4c4c62.png)
 
@@ -244,6 +245,7 @@ DataBase | Oracle
 
 
 ![로그인2](https://user-images.githubusercontent.com/82349358/122237670-78470c00-cefa-11eb-929d-621b3237f2e1.gif)
+
 
 
 ### 아이디찾기
@@ -259,11 +261,22 @@ DataBase | Oracle
 
 
 
-### 가게 검색 결과
+### 메인
+![메인](https://user-images.githubusercontent.com/82349358/122247569-69645780-cf02-11eb-8dda-ef3068740332.png)
+
+
+
+### 가게(검색 결과)
 ![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
 
 
 ![가게검색](https://user-images.githubusercontent.com/82349358/122233213-d70a8680-cef6-11eb-9ca5-c97c8b2363f7.gif)
+
+
+
+### 가게(상세)
+![가게 상세](https://user-images.githubusercontent.com/82349358/122247403-4639a800-cf02-11eb-9541-7627a3e7ea9e.png)
+
 
 
 ### 지도조회
@@ -281,6 +294,7 @@ DataBase | Oracle
 ![지도3](https://user-images.githubusercontent.com/82349358/122233672-38caf080-cef7-11eb-8816-fed28407b3df.gif)
 
 
+
 ### 돈쭐내기(결제)
 ![돈쭐내기-결제](https://user-images.githubusercontent.com/82349358/122232680-62cfe300-cef6-11eb-905a-2fb0ebf518f2.png)
 
@@ -294,11 +308,13 @@ DataBase | Oracle
 ![돈쭐_카카오페이](https://user-images.githubusercontent.com/82349358/122234910-374df800-cef8-11eb-8ba8-9487189a5d0a.gif)
 
 
+
 ### 돈쭐내기(룰렛)
 ![룰렛](https://user-images.githubusercontent.com/82349358/122236713-b4c63800-cef9-11eb-8822-47f047bf7c82.png)
 
 
 ![포인트 룰렛](https://user-images.githubusercontent.com/82349358/122236736-babc1900-cef9-11eb-8379-863953e721ee.gif)
+
 
 
 ### 돈쭐내기(인증샷)
@@ -344,6 +360,7 @@ DataBase | Oracle
 ![후기리스트조회](https://user-images.githubusercontent.com/82349358/122232973-a32f6100-cef6-11eb-9b00-68ac950a1b9d.png)
 
 
+
 ### 드림회원 마이페이지
 ![드림 마이페이지](https://user-images.githubusercontent.com/82349358/122242415-45067c00-cefe-11eb-91a9-f0640ecb7f97.png)
 
@@ -380,14 +397,20 @@ DataBase | Oracle
 ![MZ_후기 수정](https://user-images.githubusercontent.com/82349358/122238167-e12e8400-cefa-11eb-9874-079bf34168bb.gif)
 
 
+
 ### 마이페이지(회원정보수정)
 ![회원정보수정](https://user-images.githubusercontent.com/82349358/122242770-8d259e80-cefe-11eb-997e-251db8675a7e.png)
 
 
+
 ### 사업자 마이페이지
+![사업자 마이페이지](https://user-images.githubusercontent.com/82349358/122247725-8731bc80-cf02-11eb-9ee9-b1456ff55760.png)
 
 
 ![예약6](https://user-images.githubusercontent.com/82349358/122243593-35d3fe00-ceff-11eb-8c4a-11d108b614db.gif)
+
+
+![사업자_문의글](https://user-images.githubusercontent.com/82349358/122247798-96186f00-cf02-11eb-887f-da06187231d6.gif)
 
 
 
@@ -395,9 +418,13 @@ DataBase | Oracle
 ![가게수정](https://user-images.githubusercontent.com/82349358/122242850-9adb2400-cefe-11eb-9b22-6d5df8319f87.png)
 
 
-## 관리자 마이페이지
+
+### 관리자 마이페이지
 ![관리자 마이페이지](https://user-images.githubusercontent.com/82349358/122242621-6ff0d000-cefe-11eb-8ef7-149739c1ef33.png)
 
+
+
+![우리의 노고](https://user-images.githubusercontent.com/82349358/122247840-9e70aa00-cf02-11eb-96d1-1f32229e2ee4.gif)
 
 
 ## Document
