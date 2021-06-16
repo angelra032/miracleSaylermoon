@@ -220,7 +220,35 @@ DataBase | Oracle
 
 
 ## 주요 기능
-1. 메인
+가게 검색 결과
+![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
+
+
+![가게검색](https://user-images.githubusercontent.com/82349358/122233213-d70a8680-cef6-11eb-9ca5-c97c8b2363f7.gif)
+
+
+지도조회
+![지도조회](https://user-images.githubusercontent.com/82349358/122232927-97dc3580-cef6-11eb-942c-63cf41cb4393.png)
+
+![지도](https://user-images.githubusercontent.com/82349358/122233615-2bae0180-cef7-11eb-8d94-74b66930a954.gif)
+
+
+![지도3](https://user-images.githubusercontent.com/82349358/122233672-38caf080-cef7-11eb-8816-fed28407b3df.gif)
+
+
+
+글 작성(조회)
+![글 작성-조회](https://user-images.githubusercontent.com/82349358/122232633-58154e00-cef6-11eb-99ec-01e1d9dba1a0.png)
+
+
+돈쭐내기(결제)
+![돈쭐내기-결제](https://user-images.githubusercontent.com/82349358/122232680-62cfe300-cef6-11eb-905a-2fb0ebf518f2.png)
+
+
+후기리스트조회
+![후기리스트조회](https://user-images.githubusercontent.com/82349358/122232973-a32f6100-cef6-11eb-9b00-68ac950a1b9d.png)
+
+
 
 
 
