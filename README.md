@@ -319,6 +319,18 @@ DataBase | Oracle
 ![예약](https://user-images.githubusercontent.com/82349358/122236944-e6d79a00-cef9-11eb-9e64-13b2c2c66e80.gif)
 
 
+![예약2](https://user-images.githubusercontent.com/82349358/122243286-f6a5ad00-cefe-11eb-8a72-30eb5b0f970d.gif)
+
+
+![예약3](https://user-images.githubusercontent.com/82349358/122243311-f9a09d80-cefe-11eb-98a5-f0657c9f63d7.gif)
+
+
+![예약4](https://user-images.githubusercontent.com/82349358/122243392-0c1ad700-ceff-11eb-8d4d-de8c52a7e13e.gif)
+
+
+![예약5](https://user-images.githubusercontent.com/82349358/122243407-10df8b00-ceff-11eb-884c-3eed85ab401c.gif)
+
+
 
 ### 글 작성(조회)
 ![글 작성-조회](https://user-images.githubusercontent.com/82349358/122232633-58154e00-cef6-11eb-99ec-01e1d9dba1a0.png)
@@ -373,6 +385,10 @@ DataBase | Oracle
 
 
 ### 사업자 마이페이지
+
+
+![예약6](https://user-images.githubusercontent.com/82349358/122243593-35d3fe00-ceff-11eb-8c4a-11d108b614db.gif)
+
 
 
 ### 사업자 마이페이지(가게수정)
