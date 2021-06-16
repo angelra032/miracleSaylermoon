@@ -221,7 +221,7 @@ DataBase | Oracle
 
 ## 주요 기능
 1. 회원가입
-![돈쭐 -19](https://user-images.githubusercontent.com/70650493/122206243-18416d00-cedc-11eb-82a8-31e558159aa3.jpg)
+
 
 
 
