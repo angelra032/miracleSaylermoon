@@ -11,33 +11,36 @@
 2. [설계의 주안점](#설계의-주안점)
 3. [사용기술 및 개발환경](#사용기술-및-개발환경)
 4. [프로젝트 기능 구현](#프로젝트-기능-구현)
-5. [주요기능](#주요기능)
+5. [주요기능](#주요-기능)
 6. [Document](#Document)
 ------------
 ## 개요
+보호자의 식사 제공이 어려워 결식 우려가 있는 아동, 청소년들에게 꿈나무카드 소지 시 결제 없이 무상으로 식사를 제공하는 착한 가게를 소개하고 간편한 접근, 기부할 수 사이트를 구현하고자 하였습니다.
 
 
 ## 설계의 주안점
-1.가게별 위치를 나타내는 지도 마커와 가게 상세정보 구현
-2.메인페이지, 가게검색에서 가게이름 검색으로 편리한 접근성 제공
-3.리뷰를 한눈에 모아볼 수 있는 게시판 형태의 커뮤니티(리뷰, 추천글, 공지, 문의)
-4.웹소켓을 활용한 관리자에게 문의할 수 있는 실시간 1대 다 채팅 기능 구현
-5.회원의 정보를 보호하기 위한 스프링 시큐리티 구현
-6.포인트 기능, 기부 시에 포인트 사용 가능
-7.아임포트 API를 사용한 결제기능과, 결제 후 플러스 포인트 룰렛 구현
-8.풀캘린더를 활용하여 예약할 수 있는 예약기능 구현
-9.가게 찜 기능
+1. 가게별 위치를 나타내는 지도 마커와 가게 상세정보 구현
+2. 메인페이지, 가게검색에서 가게이름 검색으로 편리한 접근성 제공
+3. 리뷰를 한눈에 모아볼 수 있는 게시판 형태의 커뮤니티(리뷰, 추천글, 공지, 문의)
+4. 웹소켓을 활용한 관리자에게 문의할 수 있는 실시간 1대 다 채팅 기능 구현
+5. 회원의 정보를 보호하기 위한 스프링 시큐리티 구현
+6. 포인트 기능, 기부 시에 포인트 사용 가능
+7. 아임포트 API를 사용한 결제기능과, 결제 후 플러스 포인트 룰렛 구현
+8. 풀캘린더를 활용하여 예약할 수 있는 예약기능 구현
+9. 가게 찜 기능
 
 ## 사용기술 및 개발환경
 Category | Detail
 ---- | ----
-Laguage | HTML5, JS, CSS3, JQuery, JSP, Java
-Library & API |
-IDE | 
-Server |
-Document | 
-CI | 
-DataBase |
+FrontEnd | HTML5, JS, CSS3, JQuery
+BackEnd | JAVA(JDK 1.8), Servlet, Mybatis, Spring(4.3.13)
+OS | Windows10, MacOS
+Library & API | Spring Security, kakao, naver, google, FullCalendar API, chart.js, GSON, summernote, Iamport
+IDE | Eclipse, Visual Studio Code
+Server | Tomcat(v8.5)
+Document | Google Drive, draw.io, ERDCloud, zeplin, notion
+CI | Github
+DataBase | Oracle
 
 
 ## 프로젝트 기능 구현
