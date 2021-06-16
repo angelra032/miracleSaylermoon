@@ -220,6 +220,23 @@ DataBase | Oracle
 
 
 ## 주요 기능
+### 회원가입
+![회원가입](https://user-images.githubusercontent.com/82349358/122237121-08388600-cefa-11eb-8221-f69671629cda.png)
+
+
+![회원가입](https://user-images.githubusercontent.com/82349358/122237180-17b7cf00-cefa-11eb-8577-0196314d51e5.gif)
+
+
+![회원가입2](https://user-images.githubusercontent.com/82349358/122237206-1c7c8300-cefa-11eb-97b5-15d4b475eed1.gif)
+
+
+![회원가입3](https://user-images.githubusercontent.com/82349358/122237223-20100a00-cefa-11eb-8754-51086a5ba3a0.gif)
+
+
+![회원가입4](https://user-images.githubusercontent.com/82349358/122237239-230afa80-cefa-11eb-8c8d-d2878145928f.gif)
+
+
+
 ### 가게 검색 결과
 ![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
 
@@ -234,17 +251,12 @@ DataBase | Oracle
 ![지도](https://user-images.githubusercontent.com/82349358/122233615-2bae0180-cef7-11eb-8d94-74b66930a954.gif)
 
 
+
+![지도2-1](https://user-images.githubusercontent.com/82349358/122236537-919b8880-cef9-11eb-9e5e-5cd5cc8779de.gif)
+
+
+
 ![지도3](https://user-images.githubusercontent.com/82349358/122233672-38caf080-cef7-11eb-8816-fed28407b3df.gif)
-
-
-
-### 글 작성(조회)
-![글 작성-조회](https://user-images.githubusercontent.com/82349358/122232633-58154e00-cef6-11eb-99ec-01e1d9dba1a0.png)
-
-
-![커뮤니티](https://user-images.githubusercontent.com/82349358/122234763-1a192980-cef8-11eb-8d71-33de73e2f706.gif)
-
-
 
 
 ### 돈쭐내기(결제)
@@ -258,6 +270,39 @@ DataBase | Oracle
 
 
 ![돈쭐_카카오페이](https://user-images.githubusercontent.com/82349358/122234910-374df800-cef8-11eb-8ba8-9487189a5d0a.gif)
+
+
+### 돈쭐내기(룰렛)
+![룰렛](https://user-images.githubusercontent.com/82349358/122236713-b4c63800-cef9-11eb-8822-47f047bf7c82.png)
+
+
+![포인트 룰렛](https://user-images.githubusercontent.com/82349358/122236736-babc1900-cef9-11eb-8379-863953e721ee.gif)
+
+
+### 돈쭐내기(인증샷)
+![인증샷](https://user-images.githubusercontent.com/82349358/122236789-c8719e80-cef9-11eb-9abf-43bf34bf1b5f.png)
+
+
+![인증샷_카카오인증_과정(전화번호노출)](https://user-images.githubusercontent.com/82349358/122236835-d1627000-cef9-11eb-8937-e5620a55cbae.gif)
+
+
+![인증샷_카카오인증](https://user-images.githubusercontent.com/82349358/122236855-d4f5f700-cef9-11eb-81c7-bc6010a4b61f.gif)
+
+
+
+### 예약하기
+![예약하기](https://user-images.githubusercontent.com/82349358/122236898-dde6c880-cef9-11eb-984f-46d704f4de1e.png)
+
+
+![예약](https://user-images.githubusercontent.com/82349358/122236944-e6d79a00-cef9-11eb-9e64-13b2c2c66e80.gif)
+
+
+
+### 글 작성(조회)
+![글 작성-조회](https://user-images.githubusercontent.com/82349358/122232633-58154e00-cef6-11eb-99ec-01e1d9dba1a0.png)
+
+
+![커뮤니티](https://user-images.githubusercontent.com/82349358/122234763-1a192980-cef8-11eb-8d71-33de73e2f706.gif)
 
 
 
