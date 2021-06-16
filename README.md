@@ -275,6 +275,9 @@ DataBase | Oracle
 
 
 ### 가게(검색 결과)
+![가게검색-테마](https://user-images.githubusercontent.com/70650493/122252352-3a4fe500-cf06-11eb-968f-3732952ccd19.png)
+
+
 ![가게검색결과](https://user-images.githubusercontent.com/82349358/122232467-37e58f00-cef6-11eb-8def-3ec349b3bcfa.png)
 
 
