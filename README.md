@@ -220,7 +220,7 @@ DataBase | Oracle
 
 
 ## 주요 기능
-### 회원가입
+### 1.회원가입
 ![회원가입](https://user-images.githubusercontent.com/82349358/122237121-08388600-cefa-11eb-8221-f69671629cda.png)
 
 
@@ -237,7 +237,7 @@ DataBase | Oracle
 
 
 
-### 로그인
+### 2.로그인
 ![로그인](https://user-images.githubusercontent.com/82349358/122237604-6a918680-cefa-11eb-93db-91146a4c4c62.png)
 
 
@@ -248,12 +248,12 @@ DataBase | Oracle
 
 
 
-### 아이디찾기
+### 3.아이디찾기
 ![아이디찾기](https://user-images.githubusercontent.com/82349358/122237710-81d07400-cefa-11eb-9969-5eacd4b00cc1.png)
 
 
 
-### 비밀번호찾기
+### 4.비밀번호찾기
 ![바밀번호찾기](https://user-images.githubusercontent.com/82349358/122237745-88f78200-cefa-11eb-8b4a-95fef96709e9.png)
 
 
@@ -261,12 +261,12 @@ DataBase | Oracle
 
 
 
-### 메인
+### 5.메인
 ![메인](https://user-images.githubusercontent.com/82349358/122247569-69645780-cf02-11eb-8dda-ef3068740332.png)
 
 
 
-### 채팅
+### 6.채팅
 ![채팅](https://user-images.githubusercontent.com/82349358/122249947-391db880-cf04-11eb-8ed7-71c67a317f25.png)
 
 
@@ -274,7 +274,7 @@ DataBase | Oracle
 
 
 
-### 가게(검색 결과)
+### 7.가게(검색 결과)
 ![가게검색-테마](https://user-images.githubusercontent.com/70650493/122252352-3a4fe500-cf06-11eb-968f-3732952ccd19.png)
 
 
@@ -285,12 +285,12 @@ DataBase | Oracle
 
 
 
-### 가게(상세)
+### 8.가게(상세)
 ![가게 상세](https://user-images.githubusercontent.com/82349358/122247403-4639a800-cf02-11eb-9541-7627a3e7ea9e.png)
 
 
 
-### 지도조회
+### 9.지도조회
 ![지도조회](https://user-images.githubusercontent.com/82349358/122232927-97dc3580-cef6-11eb-942c-63cf41cb4393.png)
 
 
@@ -306,7 +306,7 @@ DataBase | Oracle
 
 
 
-### 돈쭐내기(결제)
+### 10.돈쭐내기(결제)
 ![돈쭐내기-결제](https://user-images.githubusercontent.com/82349358/122232680-62cfe300-cef6-11eb-905a-2fb0ebf518f2.png)
 
 
@@ -320,7 +320,7 @@ DataBase | Oracle
 
 
 
-### 돈쭐내기(룰렛)
+### 11.돈쭐내기(룰렛)
 ![룰렛](https://user-images.githubusercontent.com/82349358/122236713-b4c63800-cef9-11eb-8822-47f047bf7c82.png)
 
 
@@ -328,7 +328,7 @@ DataBase | Oracle
 
 
 
-### 돈쭐내기(인증샷)
+### 12.돈쭐내기(인증샷)
 ![인증샷](https://user-images.githubusercontent.com/82349358/122236789-c8719e80-cef9-11eb-9abf-43bf34bf1b5f.png)
 
 
@@ -339,7 +339,7 @@ DataBase | Oracle
 
 
 
-### 예약하기
+### 13.예약하기
 ![예약하기](https://user-images.githubusercontent.com/82349358/122236898-dde6c880-cef9-11eb-984f-46d704f4de1e.png)
 
 
@@ -359,7 +359,7 @@ DataBase | Oracle
 
 
 
-### 글 작성(조회)
+### 14.글 작성(조회)
 ![글 작성-조회](https://user-images.githubusercontent.com/82349358/122232633-58154e00-cef6-11eb-99ec-01e1d9dba1a0.png)
 
 
@@ -367,12 +367,12 @@ DataBase | Oracle
 
 
 
-### 후기리스트조회
+### 15.후기리스트조회
 ![후기리스트조회](https://user-images.githubusercontent.com/82349358/122232973-a32f6100-cef6-11eb-9b00-68ac950a1b9d.png)
 
 
 
-### 드림회원 마이페이지
+### 16.드림회원 마이페이지
 ![드림 마이페이지](https://user-images.githubusercontent.com/82349358/122242415-45067c00-cefe-11eb-91a9-f0640ecb7f97.png)
 
 
@@ -386,7 +386,7 @@ DataBase | Oracle
 
 
 
-### MZ회원 마이페이지
+### 17.MZ회원 마이페이지
 ![MZ 마이페이지](https://user-images.githubusercontent.com/82349358/122242298-2b653480-cefe-11eb-94f1-02cae4a9a3cd.png)
 
 
@@ -409,16 +409,16 @@ DataBase | Oracle
 
 
 
-### 마이페이지(회원정보수정)
+### 18.마이페이지(회원정보수정)
 ![회원정보수정](https://user-images.githubusercontent.com/82349358/122242770-8d259e80-cefe-11eb-997e-251db8675a7e.png)
 
 
 
-### 마이페이지(회원탈퇴)
+### 19.마이페이지(회원탈퇴)
 ![회원탈퇴](https://user-images.githubusercontent.com/82349358/122250058-505ca600-cf04-11eb-8121-ca9c974fba61.png)
 
 
-### 사업자 마이페이지
+### 20.사업자 마이페이지
 ![사업자 마이페이지](https://user-images.githubusercontent.com/82349358/122247725-8731bc80-cf02-11eb-9ee9-b1456ff55760.png)
 
 
@@ -429,12 +429,12 @@ DataBase | Oracle
 
 
 
-### 사업자 마이페이지(가게수정)
+### 21.사업자 마이페이지(가게수정)
 ![가게수정](https://user-images.githubusercontent.com/82349358/122242850-9adb2400-cefe-11eb-9b22-6d5df8319f87.png)
 
 
 
-### 관리자 마이페이지
+### 22.관리자 마이페이지
 ![관리자 마이페이지](https://user-images.githubusercontent.com/82349358/122242621-6ff0d000-cefe-11eb-8ef7-149739c1ef33.png)
 
 
