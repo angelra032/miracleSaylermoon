@@ -290,6 +290,10 @@ DataBase | Oracle
 
 
 
+![지도2-1](https://user-images.githubusercontent.com/82349358/122236537-919b8880-cef9-11eb-9e5e-5cd5cc8779de.gif)
+
+
+
 ### 9.지도조회
 ![지도조회](https://user-images.githubusercontent.com/82349358/122232927-97dc3580-cef6-11eb-942c-63cf41cb4393.png)
 
@@ -297,8 +301,6 @@ DataBase | Oracle
 ![지도](https://user-images.githubusercontent.com/82349358/122233615-2bae0180-cef7-11eb-8d94-74b66930a954.gif)
 
 
-
-![지도2-1](https://user-images.githubusercontent.com/82349358/122236537-919b8880-cef9-11eb-9e5e-5cd5cc8779de.gif)
 
 
 
