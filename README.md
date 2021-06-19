@@ -31,7 +31,17 @@
 
 ## 사용기술 및 개발환경
 ![표_최종](https://user-images.githubusercontent.com/82439827/122261011-e695c980-cf0e-11eb-877d-d9bef8437505.png)
-
+Category | Detail
+---- | ----
+FrontEnd | HTML5, JS, CSS3, JQuery
+BackEnd | JAVA(JDK 1.8), Servlet, Mybatis, Spring(4.3.13)
+OS | Windows10, MacOS
+Library & API | Spring Security, kakao, naver, google, FullCalendar API, chart.js, GSON, summernote, Iamport, webSocket, sessionStorage, toast
+IDE | Eclipse, Visual Studio Code
+Server | Tomcat(v8.5)
+Document | Google Drive, draw.io, ERDCloud, zeplin, notion
+CI | Github
+DataBase | Oracle
 
 ## 프로젝트 기능 구현
 + 김민진 
@@ -433,3 +443,7 @@
 
 
 ## Document
+### 1. ERD
+<img width="920" alt="논리+물리" src="https://user-images.githubusercontent.com/82439827/122633866-bec48280-d115-11eb-9476-ab4a60ff2c8c.png">
+
+
